@@ -1,0 +1,143 @@
+---
+title: "SPRINT RETROSPECTIVE SPRINT X"         # CHANGE IF NEEDED
+subtitle: "GALLERY GUIDE"
+author: [Antonio Macías Ferrera]        # CHANGE IF NEEDED
+date: "04/02/2025"                      # CHANGE IF NEEDED
+subject: "ISPP"
+lang: "es"
+toc: true
+titlepage: true
+titlepage-text-color: "1C1C1C"
+titlepage-rule-color: "1C1C1C"
+titlepage-rule-height: 0
+colorlinks: true
+linkcolor: blue
+titlepage-background: "../.backgrounds/background2V.pdf" # CHANGE IF NEEDED
+header-left: "SPRINT RETROSPECTIVE SPRINT X"    # CHANGE IF NEEDED
+header-right: "04/02/2025"               # CHANGE IF NEEDED
+footer-left: "GALLERY GUIDE"
+documentclass: scrartcl
+classoption: "table"
+mainfont: "Noto Sans"
+sansfont: "Noto Sans"
+monofont: "Noto Sans Mono"
+---
+
+<!-- COMMENT THIS WHEN EXPORTING TO PDF -->
+<p align="center" style="font-size: 30px; font-weight: bold;">
+  GALLERY GUIDE  -  SPRINT RETROSPECTIVE SPRINT X
+</p>
+
+<br>
+
+**ÍNDICE**
+1. [OBJETIVOS DE LA RETROSPECTIVA](#1-objetivos-de-la-retrospectiva)
+2. [METODOLOGÍA UTILIZADA](#2-metodología-utilizada)
+3. [DISCUSIÓN Y FEEDBACK](#2-discusión-y-feedback)
+   - [GOOD: ¿QUÉ SALIÓ BIEN?](#good-qué-salió-bien)
+   - [BAD: ¿QUÉ NO SALIÓ BIEN?](#bad-qué-no-salió-bien)
+   - [START: ¿QUÉ DEBEMOS EMPEZAR A HACER?](#start-qué-debemos-empezar-a-hacer)
+   - [STOP: ¿QUÉ DEBEMOS DEJAR DE HACER?](#stop-qué-debemos-dejar-de-hacer)
+4. [CONCLUSIONES](#3-conclusiones)
+<!-- COMMENT WHEN EXPORTING TO PDF -->
+
+---
+
+ **Participantes**
+
+| Nombre completo | Rol | Contacto |
+|----------------|-----|----------|
+| Antonio Macías Ferrera | -- | antmacfer1@alum.us.es |
+| Benjamín Ignacio Maureira Flores | -- | benmauflo@alum.us.es |
+| Francisco Capote García | -- | fracapgar1@alum.us.es |
+| Daniel Alors Romero | -- | danalorom1@alum.us.es |
+| Daniel Fernández Caballero | -- | danfercab@alum.us.es |
+| Daniel Ruiz López | -- | danruilop1@alum.us.es |
+| Daniel Tortorici Bartús | -- | dantorbar1@alum.us.es |
+| Daniel Vela Camacho | -- | danvelcam@alum.us.es |
+| Delfín Santana Rubio | -- | delsanrub@alum.us.es |
+| Guadalupe Ridruejo Pineda | -- | guaridpin@alum.us.es |
+| Julen Redondo Pacheco | -- | julredpac@alum.us.es |
+| Pablo Fernández Pérez | -- | pablofp.33@gmail.com |
+| Ramón Gavira Sánchez | -- | ramgavsan@alum.us.es |
+| Rafael Pulido Cifuentes | -- | rafpulcif@alum.us.es |
+
+<br>
+
+<br>
+
+
+# **1. OBJETIVOS DE LA RETROSPECTIVA**
+En la Sprint Retrospective tratamos de evaluar de forma grupal el desempeño durante el Sprint, reconocer las áreas en las que hemos tenido éxito, así como identificar y abordar los problemas encontrados, y evaluar los márgenes de mejora para el próximo Sprint.
+
+<br>
+
+<br>
+
+
+# **2. METODOLOGÍA UTILIZADA**
+El equipo utilizó un enfoque basado en cinco secciones clave:
+
+✅ **Good:** Se identificaron las acciones y prácticas que funcionaron bien durante el sprint, destacando los logros y fortalezas del equipo.
+
+🔴 **Bad:** Se señalaron aquellos aspectos que no se manejaron de manera óptima, incluyendo desafíos enfrentados y posibles áreas de mejora.  
+
+🟡 **Start:** Se discutieron iniciativas o prácticas que el equipo debería comenzar a implementar para mejorar la dinámica de trabajo.
+
+🟠 **Stop:** Se identificaron procesos o hábitos que han resultado poco efectivos y que deberían ser eliminados o modificados.
+
+🔵 **Actions:** A partir de los hallazgos de las secciones anteriores, se definieron acciones concretas para aplicar en los próximos Sprints, asegurando así un proceso de mejora continua.
+
+
+Este tipo de retrospectiva permite que el equipo reflexione de manera estructurada sobre su rendimiento y fomenta una cultura de aprendizaje y adaptación, proceso crucial en la correcta aplicación de una metodología ágil.
+
+<br>
+
+<br>
+
+# **2. DISCUSIÓN Y FEEDBACK**
+
+## **GOOD: ¿Qué salió bien?**
+- ✅ [Aspecto positivo 1]
+- ✅ [Aspecto positivo 2]
+- ✅ [Aspecto positivo 3]
+
+## **BAD: ¿Qué NO salió bien?**
+- 🔴 [Aspecto negativo 1]
+- 🔴 [Aspecto negativo 2]
+- 🔴 [Aspecto negativo 3]
+
+## **START: ¿Qué debemos empezar a hacer?**
+- 🟡 [Nueva iniciativa 1]
+- 🟡 [Nueva iniciativa 2]
+- 🟡 [Nueva iniciativa 3]
+
+## **STOP: ¿Qué debemos dejar de hacer?**
+- 🟠 [Acción a mitigar 1]
+- 🟠 [Acción a mitigar 2]
+- 🟠 [Acción a mitigar 3]
+
+<br>
+
+<br>
+
+
+# **3. CONCLUSIONES**
+Detalle de las acciones acordadas para el próximo Sprint. Se deberá incluir el contenido de **ACTIONS**, mencionando los aspectos que se deben empezar y dejar de hacer:
+
+| Acción | Responsable | Fecha límite |
+|--------|------------|--------------|
+| 🔵 [Acción concreta 1] | [Nombre] | [Fecha] |
+| 🔵 [Acción concreta 2] | [Nombre] | [Fecha] |
+
+<br>
+
+<br>
+
+
+---
+
+**Aprobado por:**  
+**Scrum Master:** Antonio Macías Ferrera  
+**Rol:** [Nombre y Apellidos]
+
