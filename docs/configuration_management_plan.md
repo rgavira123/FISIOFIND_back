@@ -40,7 +40,12 @@ monofont: "Noto Sans Mono"
   - [4.3. CONTROL DEL TIEMPO](#43-control-del-tiempo)
   - [4.4. VERSIONADO DE CÓDIGO FUENTE EN GIT Y GITHUB](#44-versionado-de-código-fuente-en-git-y-github)
   - [4.5. SOLICITUDES DE CAMBIO (REGISTRO DE CAMBIOS)](#45-solicitudes-de-cambio-registro-de-cambios)
-- [5. CONCLUSIÓN](#5-conclusión)
+- [5. ESTRATEGIA DE RAMAS](#5-estrategia-de-ramas)
+- [6. ESTÁNDARES DE CODIFICACIÓN](#6-estándares-de-codificación)
+  - [BACKEND](#python-backend)
+  - [FRONTEND](#javascript-frontend)
+- [7. GESTIÓN DEL CAMBIO](#7-gestión-del-cambio)
+- [8. CONCLUSIÓN](#8-conclusión)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
@@ -55,7 +60,7 @@ monofont: "Noto Sans Mono"
 
 - **Fecha de Creación:** 04/02/2025  
 
-- **Versión:** 1.0
+- **Versión:** v2.0
 
 <br>
 
@@ -65,10 +70,10 @@ monofont: "Noto Sans Mono"
 
 **Histórico de Modificaciones**
 
-| Fecha      | Realizada por                    | Descripción de los cambios |
-|------------|----------------------------------|----------------------------|
-| 04/02/2025 | Antonio Macías Ferrera           | Elaboración de la plantilla del documento. |
-| 04/02/2025 | Benjamín Ignacio Maureira Flores | ----                       |
+| Fecha      | Versión | Realizada por                    | Descripción de los cambios |
+|------------|---------|----------------------------------|----------------------------|
+| 04/02/2025 | v1.0    | Antonio Macías Ferrera           | Elaboración de la plantilla del documento. |
+| 05/02/2025 | v2.0    | Benjamín Ignacio Maureira Flores | Completado según la metodología a seguir en el proyecto. |
 
 
 <br>
@@ -83,8 +88,7 @@ monofont: "Noto Sans Mono"
 
 # **1. NORMAS Y PROCEDIMIENTOS APLICABLES**
 
-Este plan contiene la información sobre cómo el equipo de trabajo realizará el seguimiento y control del cambio durante el desarrollo del proyecto, además de cómo se llevará a cabo el control de versiones durante las fases de desarrollo y cierre. Se excluye de este plan la especificación de
-cómo se realizará la configuración y el versionado de los cambios en detalle. Ver: ***Plan de Gestión del Cambio***.
+Este plan contiene la información sobre cómo el equipo de trabajo realizará el seguimiento y control del cambio durante el desarrollo del proyecto, además de cómo se llevará a cabo el control de versiones a lo largo del mismo.
 
 <br>
 
@@ -97,8 +101,8 @@ Los elementos configurables del proyecto incluyen aquellos artefactos y entregab
 Cada uno de estos elementos tendrá un identificador único, y se someterá a control de versiones.
 
 1. **Documentación**: todos los documentos que surjan a lo largo de todas las fases del proyecto deberán estar sujetos a un sistema de control de versiones específico y unificado.
-2. **Requisitos e HU**: define los requisitos del sistema. De este documento saldrán también los registros de HU y de Casos de Uso del Sistema, que también serán configurables estarán debidamente trazados.
-3. **Código Fuente**: código del producto software, sujeto a control de versiones.
+2. **Requisitos e HU**: define los requisitos del sistema. De este documento saldrán también los registros de HU y de casos de uso del sistema, que también serán configurables y estarán debidamente trazados.
+3. **Código fuente**: código del producto software, sujeto a control de versiones.
 4. **Tareas**: las fechas y condiciones para la entrega de los principales entregables de cada Sprint también serán elementos configurables.
 
 <br>
@@ -139,13 +143,12 @@ Cada historia de usuario y caso de uso tiene un identificador único asignado tr
 
 Cambios importantes en la descripción o criterios de aceptación de una HU se anotan y actualizaremos la versión. Se seguirá un versionado similar al visto en el punto anterior. La versión de cada elemento se añadirá en un campo específico que encontraremos en su tabla.
 
-- **Mayor**: Cambios significativos en el contenido debido a una solicitud de cambio.
+- **Mayor**: Cambios significativos en el contenido debido a un cambio en los requisitos.
 - **Menor**: Actualización de información, correcciones ortográficas, formato o pequeños ajustes de expresión.
 
 Ejemplo de versionado: `v1.2` (vMayor.Menor).
 
-A la hora de crear nuevas tareas en *Taiga.io* en base a las HU, se deberá usar un nombre descriptivo y breve, similar al título de la HU asociada. Como esta tarea estará asociada a una Issue de GitHub irá acompañada de un código de la Issue(#XX). ***Esto ayudará a llevar una trazabilidad
-entre Issue - Tarea - HU - Clockify***.
+A la hora de crear nuevas tareas en *Taiga.io* en base a las HU, se deberá usar un nombre descriptivo y breve, similar al título de la HU asociada. Como esta tarea estará asociada a una Issue de GitHub irá acompañada de un código de la Issue(#XX). ***Esto ayudará a llevar una trazabilidad entre Issue - Tarea - HU - Clockify***.
 
 La nomenclatura a seguir para los distintos requisitos, CU e HU se con un esquema de numeración para cada tipo de registro: 
 
@@ -153,16 +156,16 @@ La nomenclatura a seguir para los distintos requisitos, CU e HU se con un esquem
 | **Categoría**                                            | **Código**    |
 |----------------------------------------------------------|---------------|
 | Objetivos de alto nivel                                  | OBJ-XXX       |
-| Requisitos del proyecto                                  | PRR-XXX       |
-| Requisitos de información                                | IRQ-XXX       |
-| Requisitos de reglas de negocio                          | RRQ-XXX       |
-| Requisitos de conducta                                   | CRQ-XXX       |
-| Requisitos de fiabilidad                                 | FRQ-XXX       |
-| Requisitos de portabilidad                               | PRQ-XXX       |
-| Requisitos de seguridad                                  | SRQ-XXX       |
-| Requisitos de organización (incluye entrega, uso de estándares y tecnología) | ORQ-XXX |
-| Requisitos de factores ambientales (incluye requisitos legislativos y de privacidad) | FARQ-XXX |
-| Cambios                                                  | CHG-XXX       |
+| Requisitos del proyecto                                  | PRO-XXX       |
+| Requisitos de información                                | RI-XXX       |
+| Requisitos de reglas de negocio                          | RN-XXX       |
+| Requisitos de conducta                                   | CON-XXX       |
+| Requisitos de fiabilidad                                 | FIB-XXX       |
+| Requisitos de portabilidad                               | POR-XXX       |
+| Requisitos de seguridad                                  | SEG-XXX       |
+| Requisitos de organización (incluye entrega, uso de estándares y tecnología) | ORG-XXX |
+| Requisitos de factores ambientales (incluye requisitos legislativos y de privacidad) | FA-XXX |
+| Cambios                                                  | CAM-XXX       |
 | Historias de usuario                                     | HU-XXX        |
 | Casos de Uso                                             | CU-XXX        |
 
@@ -190,13 +193,20 @@ Ejemplo de versionado: `Realización de ventana de inicio de sesión #53`.
 
 
 ***Versionado semántico***
-Se emplea versionado semántico en el caso de realizar ’releases’ de código:
-- **Mayor**: Cambio que rompe compatibilidad (nueva arquitectura).
-- **Menor**: Nuevas funcionalidades añadidas sin afectar lo anterior
+
+***X.y.z***
+
+- **X - Versión mayor**: Cambios mayores, rompe la compatibiladad de la API, la versión inicial será 0.y.z, la versión 1.0.0 definirá la primera API pública.
+
+- **y - Versión menor**: Cambios menores, no rompen la compatibilidad de la API, incluyen nuevas funcionalidades y mejoras, puede incluir parches.
+
+- **z - Parche**: Eliminación de bugs, no rompen la compatibilidad de la API, sólo cambios internos para arreglar comportamientos incorrectos.
+
+- **Reglas de versionado**: Cuando la versión mayor sea incrementada se resetean las demás, cuando se incremente la versión menor, se resetea el parche. Seguramente se hagan de manera automática usando un workflow.
 
 
 ***Commits (Conventional Commits)***
-La política de nombrado de commits se ajustará a las directrices de ’conventional commits’, siendo estos **siempre en inglés**:
+La política de nombrado de commits se ajustará a las directrices de *Conventional Commits*, siendo estos **siempre en inglés**:
 
 ```
 <tipo>: <descripción breve>
@@ -211,7 +221,7 @@ La política de nombrado de commits se ajustará a las directrices de ’convent
     - test: Adición o modificación de pruebas.
 ```
 
-La descripción debe ser concisa y clara, expresando en una sola línea el propósito del commit. Se recomienda utilizar el modo imperativo (por ejemplo, .agrega”, çorrige”) y evitar el uso de mayúsculas al inicio, salvo para nombres propios.
+La descripción debe ser concisa y clara, expresando en una sola línea el propósito del commit. Se recomienda utilizar el modo imperativo (por ejemplo, "add...”, "fix...”) y evitar el uso de mayúsculas al inicio, salvo para nombres propios.
 
 El cuerpo se utiliza para detallar el contexto del cambio, explicar el por qué detrás del commit, y describir cualquier implicación importante.
 
@@ -219,11 +229,13 @@ El pie del mensaje puede incluir:
 - Referencias a tickets o tareas: Refs #123.
 - Cambios significativos (breaking changes): BREAKING CHANGE: seguido de una descripción del cambio.
 
+Se recomienda encarecidamente usar **Close #XX** cuando se cierre una Issue con dicho commit, para hacer los commits y las Issues lo más trazable posible. Esto se puede añadir a la descripción del commit o al cuerpo.
+
 <br>
 
 ***Ejemplo de mensaje de commit***
 ```
-feat(auth): add support for token-based authentication
+feat: add support for token-based authentication Close #01
 
 This change introduces a new authentication system based on JWT tokens. The user module has been updated, and a new dependency has been added. 
 
@@ -232,7 +244,7 @@ BREAKING CHANGE: The login API now requires a JWT token instead of a cookie-base
 
 
 ## **4.5. Solicitudes de cambio (Registro de cambios)**
-Los registros se mantienen como archivos en formato *Markdown*. Cada cambio, HU o caso de uso tiene un identificador único (ejemplo: REQ-001, CU-003). Cambios aprobados se reflejan en el historial de cambios del documento correspondiente actualizando su versión acorde a lo mencionado anteriormente.
+Los registros se mantienen como archivos en formato *Markdown*. Cada cambio, HU o caso de uso tiene un identificador único (ejemplo: HU-001, CU-003). Cambios aprobados se reflejan en el historial de cambios del documento correspondiente actualizando su versión acorde a lo mencionado anteriormente.
 
 Para las solicitudes de cambio formales, se deberá seguir la plantilla ubicada en el ***Plan De Gestión Del Cambio***.
 
@@ -240,9 +252,239 @@ Para las solicitudes de cambio formales, se deberá seguir la plantilla ubicada 
 
 <br>
 
+# **5. ESTRATEGIA DE RAMAS**
 
-# **5. Conclusión**
-Este documento define las políticas de gestión de configuración del proyecto **GALLERY GUIDE**. Es crucal que estas buenas prácticas sean aplicadas por todos los miembros del equipo a lo largo de todo el proyecto para procurar un orden, trazabilidad y, en resumen, una buena calidad en el desarrollo y resultado del producto.
+La estrategia de ramas se basa en **Git Flow** con algunas modificaciones para garantizar un desarrollo ágil y seguro.
+
+### Desarrollo de ramas que añadan funcionalidad:
+  1. Crear una rama `feat/` desde `develop`.
+  2. Desarrollar la funcionalidad en la rama creada.
+  3. Hacer Pull Request solicitando a un revisor del equipo antes de fusionar con `develop`.
+
+### Desarrollo de ramas que prueben una funcionalidad:
+  1. Crear una rama `test/` desde `develop` una vez se haya fusionado la funcionalidad a probar.
+  2. Desarrollar y ejecutar los tests en la rama creada.
+  3. Hacer Pull Request solicitando a un revisor del equipo antes de fusionar con `develop`.
+
+### Preparación de releases
+  - Se usará un workflow para hacer commit diario desde la rama `develop` a `main`, de manera que siempre tengamos un producto funcional actualizado en producción.
+
+### Arreglar bugs en producción
+  1. Crear una rama de hotfix desde `main`.
+  2. Corregir el error.
+  3. Fusionar la rama de hotfix con `main` y `develop`.
+
+
+### ***Revisión de las Pull Requests***
+Una vez acabada una tarea, se creará una Pull Request y se tendrá que notificar al resto de miembros del equipo, para que, con la mayor brevedad posible, un miembro la revise y dé feedback (aprobandola o solicitando cambios).
+
+Se recomienda encarecidamente **no aprobar una Pull Request si no se han pasado los checks a la hora de ejecutar los workflows correspondientes**, para no arrastrar errores.
+
+<br>
+
+<br>
+
+# **6. ESTÁNDARES DE CODIFICACIÓN**
+
+Para garantizar la consistencia, legibilidad y mantenibilidad del código, seguiremos estándares de codificación reconocidos en la industria para Python (backend) y JavaScript (frontend). A continuación, se detallan las prácticas recomendadas y ejemplos ilustrativos.
+
+## **Python (Backend)**
+
+#### **1. Nombrado**
+- **Positivo**:
+```python
+# Variables en camelCase y funciones en snake_case
+userName = "John"
+def calculate_total_price(items):
+    pass
+
+# Constantes en UPPER_CASE
+MAX_CONNECTIONS = 100
+```
+
+- **Negativo**:
+```python
+  # Variables en UPPER_CASE (no recomendado)
+USER_NAME = "John"
+
+# Constantes en snake_case (no recomendado)
+max_connections = 100
+```
+
+#### **2. Indentación y espaciado**
+- **Positivo**:
+```python
+# Usar 4 espacios para la indentación
+def greet(name):
+    if name:
+        print(f"Hello, {name}!")
+    else:
+        print("Hello, World!")
+```
+
+- **Negativo**:
+```python
+# Usar tabulaciones o 2 espacios (no recomendado)
+def greet(name):
+  if name:
+    print(f"Hello, {name}!")
+  else:
+    print("Hello, World!")
+```
+
+#### **3. Docstrings y comentarios**
+- **Positivo**:
+```python
+# Docstrings para documentar funciones
+def add(a, b):
+    """
+    Suma dos números y devuelve el resultado.
+    
+    :param a: Primer número
+    :param b: Segundo número
+    :return: Suma de a y b
+    """
+    return a + b
+
+# Comentarios para explicar algo específico
+counter = 0  # inicializa el contador
+```
+
+- **Negativo**:
+```python
+# Sin docstrings o comentarios (no recomendado)
+def add(a, b):
+    return a + b
+
+# Usando comentarios como docstrings y viceversa
+def add(a, b):
+    # Suma dos números y devuelve el resultado.
+    
+    # :param a: Primer número
+    # :param b: Segundo número
+    # :return: Suma de a y b
+    return a + b
+
+counter = 0  '''inicializa el contador'''
+```
+
+#### **4. Manejo de excepciones**
+- **Positivo**:
+```python
+# Capturar excepciones específicas
+try:
+    result = 10 / 0
+except ZeroDivisionError as e:
+    print(f"Error: {e}")
+```
+
+- **Negativo**:
+```python
+# Capturar excepciones genéricas (no recomendado)
+try:
+    result = 10 / 0
+except:
+    print("Ocurrió un error")
+```
+
+## **JavaScript (Frontend)**
+
+#### **1. Nombrado**
+- **Positivo**:
+```javascript
+// Variables y funciones en camelCase
+let userName = "John";
+function calculateTotalPrice(items) {
+    // ...
+}
+
+// Constantes en UPPER_CASE
+const MAX_CONNECTIONS = 100;
+```
+
+- **Negativo**:
+```javascript
+// Variables en snake_case (no recomendado en JavaScript)
+let user_name = "John";
+
+// Constantes en camelCase (no recomendado)
+const maxConnections = 100;
+```
+
+#### **2. Uso de `let` y `const`**
+- **Positivo**:
+```javascript
+// Usar `const` para valores que no cambian
+const PI = 3.1416;
+
+// Usar `let` para valores que pueden cambiar
+let counter = 0;
+counter += 1;
+```
+
+- **Negativo**:
+```javascript
+// Usar `var` (no recomendado)
+var counter = 0;
+
+// Usar `let` para constantes (no recomendado)
+let PI = 3.1416;
+```
+
+#### **3. Formato y espaciado**
+- **Positivo**:
+```javascript
+// Usar llaves y espacios consistentemente
+function greet(name) {
+    if (name) {
+        console.log(`Hello, ${name}!`);
+    } else {
+        console.log("Hello, World!");
+    }
+}
+```
+
+- **Negativo**:
+```javascript
+// Formato inconsistente (no recomendado)
+function greet(name){
+if(name){
+console.log(`Hello, ${name}!`);
+}else{
+console.log("Hello, World!");
+}}
+```
+
+#### **4. Manejo de promesas**
+- **Positivo**:
+```javascript
+// Usar async/await para manejar promesas
+async function fetchData() {
+    try {
+        const response = await fetch('https://api.example.com/data');
+        const data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+}
+```
+
+- **Negativo**:
+```javascript
+// Usar callbacks o .then() en exceso (no recomendado)
+fetch('https://api.example.com/data')
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error("Error fetching data:", error));
+```
+
+Todos estos ejemplos son una muestra de los más importantes que tendremos en cuenta (que quiere decir que no tenemos en cuenta el estandar al 100%), es responsabilidad de cada miembro del grupo adherirse a los estándares de código para garantizar un trabajo correcto.
+
+# **7. GESTIÓN DEL CAMBIO**
+
+# **8. CONCLUSIÓN**
+Este documento define las políticas de gestión de configuración del proyecto **GALLERY GUIDE**. Es crucial que estas buenas prácticas sean aplicadas por todos los miembros del equipo a lo largo de todo el proyecto para procurar un orden, trazabilidad y, en resumen, una buena calidad en el desarrollo y resultado del producto.
 
 <br>
 
