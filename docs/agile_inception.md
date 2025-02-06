@@ -82,7 +82,7 @@ monofont: "Noto Sans Mono"
 | 05/02/2025 | v1.1    | Delfín Santana Rubio          | Desarrollo de apartados. |
 | 06/02/2025 | v1.2    | Daniel Alors Romero           | Transpaso de documentación y corrección del formato. |
 | 06/02/2025 | v1.3    | Delfín Santana Rubio        | Modificación de Tecnologías y Herramientas Clave y Monetización. |
-| 06/02/2025 | v1.3.1  | Miguel Encina Martínez      | Corrección errores ortográficos  |
+| 06/02/2025 | v1.4  | Miguel Encina Martínez      | Corrección errores ortográficos  |
 
 
 <br>
