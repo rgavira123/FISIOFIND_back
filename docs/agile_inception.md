@@ -1,7 +1,7 @@
 ---
 title: "AGUILE INCEPTION"                       # CHANGE IF NEEDED
 subtitle: "GALLERY GUIDE"
-author: [Ramón Gavira Sánchez, Daniel Vela Camacho] # CHANGE IF NEEDED
+author: [Ramón Gavira Sánchez, Daniel Vela Camacho, Delfín Santana Rubio] # CHANGE IF NEEDED
 date: "05/02/2025"                                                 # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
@@ -32,26 +32,26 @@ monofont: "Noto Sans Mono"
 <br>
 
 **Índice**
-1. [Resumen](#resumen)
-2. [Problema Principal y Relevancia](#problema-principal-y-relevancia)
-3. [Contexto y Circunstancias](#contexto-y-circunstancias)
-4. [Necesidad del Proyecto](#necesidad-del-proyecto)
-5. [Arquitectura SPL](#arquitectura-spl)
-   - [Core](#core)
-   - [Módulos Extra (Addons)](#módulos-extra-addons)
-   - [Fuera del Scope](#fuera-del-scope)
-6. [Usuarios Objetivo](#usuarios-objetivo)
-7. [Monetización](#monetización)
-8. [Coste Estimado](#coste-estimado)
-9. [Implementación y Justificación de SPL](#implementación-y-justificación-de-spl)
-10. [Tecnologías y Herramientas Clave](#tecnologías-y-herramientas-clave)
-11. [Impacto Esperado](#impacto-esperado)
-12. [Competidores Potenciales](#competidores-potenciales)
-    - [GVAM / Situm](#gvam--situm)
-    - [Smartify](#smartify)
-    - [Explore - AMNH Official App](#explore---amnh-official-app)
-    - [Otros Competidores](#otros-competidores)
-13. [Diferenciación del Proyecto](#diferenciación-del-proyecto)
+- [1. RESUMEN](#1-resumen)
+- [2. PROBLEMA PRINCIPAL Y RELEVANCIA](#2-problema-principal-y-relevancia)
+- [3. CONTEXTO Y CIRCUNSTANCIAS](#3-contexto-y-circunstancias)
+- [4. NECESIDADES DEL PROYECTO](#4-necesidad-del-proyecto)
+- [5. ARQUITECTURA SPL](#5-arquitectura-spl)
+   - [5.1. CORE](#51-core)
+   - [5.2. MÓDULOS EXTRA (ADDONS)](#52-módulos-extra-addons)
+   - [5.3. FUERA DEL SCOPE](#53-fuera-del-scope)
+- [6. USUARIOS OBJETIVO](#6-usuarios-objetivo)
+- [7. MONETIZACIÓN](#7-monetización)
+- [8. COSTE ESTIMADO](#8-coste-estimado)
+- [9. IMPLEMENTACIÓN Y JUSTIFICACIÓN DE SPL](#9-implementación-y-justificación-de-spl)
+- [10. TECNOLOGÍAS Y HERRAMIENTAS CLAVE](#10-tecnologías-y-herramientas-clave)
+- [11. IMPACTO ESPERADO](#11-impacto-esperado)
+- [12. COMPETIDORES POTENCIALES](#12-competidores-potenciales)
+    - [12.1. GVAM / SITUM](#121-gvam--situm)
+    - [12.2. SMARTIFY](#122-smartify)
+    - [12.3. EXPLORE - AMNH OFFICIAL APP](#123-explore---amnh-official-app)
+    - [12.4. OTROS COMPETIDORES](#124-otros-competidores)
+- [13. DIFERENCIACIÓN DEL PROYECTO](#13-diferenciación-del-proyecto)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
@@ -62,11 +62,11 @@ monofont: "Noto Sans Mono"
 
 - **Nombre del Proyecto:** GALLERY GUIDE
 
-- **Autores:** Ramón Gavira Sánchez, Daniel Vela Camacho
+- **Autores:** Ramón Gavira Sánchez, Daniel Vela Camacho, Delfín Santana Rubio
 
-- **Fecha de Creación:** 05/02/2025  
+- **Fecha de Creación:** 04/02/2025  
 
-- **Versión:** v1.0
+- **Versión:** v1.2
 
 <br>
 
@@ -78,7 +78,9 @@ monofont: "Noto Sans Mono"
 
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
-| 04/02/2025 | v1.0    | Ramón Gavira Sánchez, Daniel Vela Camacho           | Elaboración de la primera versión del documento. |
+| 04/02/2025 | v1.0    | Ramón Gavira Sánchez, Daniel Vela Camacho, Delfín Santana Rubio           | Elaboración de la primera versión del documento. |
+| 05/02/2025 | v1.1    | Delfín Santana Rubio          | Desarrollo de apartados. |
+| 06/02/2025 | v1.2    | Daniel Alors Romero           | Transpaso de documentación y corrección del formato. |
 
 
 <br>
@@ -91,112 +93,115 @@ monofont: "Noto Sans Mono"
 <br>
 
 
-# Resumen aplicación en 50 palabras
+# **1. RESUMEN**
 
 Gallery Guide es una aplicación personalizada para museos que permite planificar rutas óptimas según el tiempo o las preferencias del visitante. A diferencia de visitas guiadas en tiempo real o audioguías, ofrecemos un mapa digitalizado como grafo y recomendaciones inteligentes, optimizando cada recorrido. Es una solución escalable y adaptable a las necesidades de cada museo.
 
-# Problema Principal y Relevancia
+# **2. PROBLEMA PRINCIPAL Y RELEVANCIA**
 El proyecto aborda la carencia de una herramienta digital generalizada que permita a los visitantes de museos planificar rutas óptimas basadas en criterios persoanlizados. La propuesta busca mejorar la experiencia del visitante y optimizar el tiempo dedicado en museos de gran tamaño o compleja estructura.
 
-## Contexto y Circunstancias:
+# **3. CONTEXTO Y CIRCUNSTANCIAS**
 Esta solución está basada en el siguiente contexto:
 
-- La mayoría de las personas llevan consigo dispositivos inteligentes
+- La mayoría de las personas llevan consigo dispositivos inteligentes.
 - Las visitas a los museos pueden dificultarse dependiendo de las dimensiones y del aforo que este tenga.
-- Los mapas se convierten en una herramienta facilmente exportable a estructuras matemáticas como grafos, que mediante herramientas matemáticas, calcular rutas óptimas se convierte en algo sencillo.
+- Los mapas se convierten en una herramienta fácilmente exportable a estructuras matemáticas como grafos, que mediante herramientas matemáticas, calcular rutas óptimas se convierte en algo sencillo.
 
-La solución se basa en la estrategia Software Product Line (SPL) lo que permite ofrecer un conjunto de funcionalidades básicas (core) y módulos adicionales personalizables según los requisitos de cada museo
+La solución se basa en la estrategia Software Product Line (SPL) lo que permite ofrecer un conjunto de funcionalidades básicas (core) y módulos adicionales personalizables según los requisitos de cada museo.
 
-## ¿Cómo se llegó a la necesidad de llevar a cabo el proyecto?
+# **4. NECESIDADES DEL PROYECTO**
+## **¿Cómo se llegó a la necesidad de llevar a cabo el proyecto?**
 Un compañero vivió esta problemática en primera persona durante su visita al Museo del Louvre, donde se sintió perdido al no disponer de una herramienta que le permitiera planificar una ruta óptima según su tiempo y preferencias.
-# SPL
-## Core 
+# **5. ARQUITECTURA SPL**
+## **5.1. CORE** 
 
 - Digitalización del mapa del museo:
-    - Representacion de las salas como nodos en un grafo interactivo, unidos con aristas con un peso (tiempo invertido por sala) y con obras en cada nodo (con sus conjuntos de metadatos que requiera el cliente)
+    - Representacion de las salas como nodos en un grafo interactivo, unidos con aristas con un peso (tiempo invertido por sala) y con obras en cada nodo (con sus conjuntos de metadatos que requiera el cliente).
 - Sistema de creación de rutas:
-    - Generación de rutas optimizadas en función de nodos, preferencias de los usuarios o tiempo disponible
+    - Generación de rutas optimizadas en función de nodos, preferencias de los usuarios o tiempo disponible.
 - Descripción de los nodos:
-    - Cada sala tiene un listado de las obras presentes en dicha sala, y una descripción de dicha obra (No ofreceríamos la ficha técnica a priori)
+    - Cada sala tiene un listado de las obras presentes en dicha sala, y una descripción de dicha obra (No ofreceríamos la ficha técnica a priori).
 - Gestión de los usuarios (No es una red social):
-    - Marcar tus gustos (favoritos, que me gusta, que no me gusta)
-    - Los usuarios se registran y pueden guardar sus rutas 
-    - Los usuarios pueden llevar el porcentaje de salas visitadas del museo (Incitamos a conseguir el 100%!)
-    - En base a las rutas hechas, las salas visitadas, ofrecemos una personalización aún mayor (las rutas de arriba pueden hacerse como usuario anónimo)
-    - Crea tu propia ruta y genera un enlace para compartirse (como cuando compartes un mazo en el clash royale, no se sube a ningún foro)
+    - Marcar tus gustos (favoritos, que me gusta, que no me gusta).
+    - Los usuarios se registran y pueden guardar sus rutas. 
+    - Los usuarios pueden llevar el porcentaje de salas visitadas del museo (Incitamos a conseguir el 100%!).
+    - En base a las rutas hechas, las salas visitadas, ofrecemos una personalización aún mayor (las rutas de arriba pueden hacerse como usuario anónimo).
+    - Crea tu propia ruta y genera un enlace para compartirse (como cuando compartes un mazo en el clash royale, no se sube a ningún foro).
 - Administradores:
-    - Rutas predeterminadas
-    - Fácil gestión de sus salas (modificar los nodos y las obras que tiene dentro)
+    - Rutas predeterminadas.
+    - Fácil gestión de sus salas (modificar los nodos y las obras que tiene dentro).
 
-## Módulos extra (Addons)
+## **5.2. MÓDULOS EXTRA (ADDONS)**
 
 - Módulo Social:
-    - Publicacion de las rutas en un portal público
-    - Valoracion y puntuación de rutas por otros usuarios.
+    - Publicación de las rutas en un portal público.
+    - Valoración y puntuación de rutas por otros usuarios.
     - Discusión (foro) por sala y obra.
-    - Identificación de rutas más populares o menos recorridas
+    - Identificación de rutas más populares o menos recorridas.
 - Módulos de anuncios oficiales:
-    - Espacio para que el museo publique anuncios
+    - Espacio para que el museo publique anuncios.
     - Log y anuncios de cambios en el museo (Esta obra pasa a X sala, nueva exposición X...).
 
 - Módulos de integraciones propias:
-    - Hemos llamado a este módulo así porque nos referimos a integrar cosas que ellos ya tienen, como por ejemplo, venta de entradas, colección de obras o una integración de una tienda
+    - Hemos llamado a este módulo así porque nos referimos a integrar cosas que ellos ya tienen, como por ejemplo, venta de entradas, colección de obras o una integración de una tienda.
 
-- Este módulo se nos acaba de ocurrir (Módulo Trivia):
-    - Para hacerlo más dinámico proponer un trivial de preguntas, foto y preugnta de cuál es esta obra, yo qué se...
+- Módulo Trivia:
+    - Para hacerlo más dinámico proponer un trivial de preguntas, foto y preugnta de cuál es esta obra...
 
-## Fuera del scope
+## **5.3. FUERA DEL SCOPE**
 
-- No es una audioguía o visita guiada
-- No es una visita virtual inmersiva ni con reconstrucción 3D
+- No es una audioguía o visita guiada.
+- No es una visita virtual inmersiva ni con reconstrucción 3D.
 - No es una aplicación que te ubique en tiempo real, más bien es para planificar.
-- No gestiona el aforo o la afluencia del museo
+- No gestiona el aforo o la afluencia del museo.
 
-# Meet your Neighbours(La comunidad)
+# **6. USUARIOS OBJETIVO**
+# **Meet your Neighbours (La comunidad)**
 
 - Visitantes del museo:
-    - Planifican rutas personalizadas basadas en su tiempo y preferencias
-    - Guardan rutas 
-    - Almacenan % de museo visitado
-    - Reciben recomendaciones
+    - Planifican rutas personalizadas basadas en su tiempo y preferencias.
+    - Guardan rutas.
+    - Almacenan % de museo visitado.
+    - Reciben recomendaciones.
 - Museos (administradores)
-    - Gestionan el contenido del mapa digital, salas, obras y rutas predeterminadas
-    - Eligen sobre los módulos opcionales
-    - Quedamos abiertos a solicitudes que necesiten. (Como tenemos el core, somos escalables, si el addon no lo consideramos inicialmente)
+    - Gestionan el contenido del mapa digital, salas, obras y rutas predeterminadas.
+    - Eligen sobre los módulos opcionales.
+    - Quedamos abiertos a solicitudes que necesiten. (Como tenemos el core, somos escalables, si el addon no lo consideramos inicialmente).
 - Desarrolladores
     - Mantener el core actualizado y eficiente, así como los addons predeterminados.
-    - Implementar nuevas funcionalidades específicas para los requisitos de los museos
+    - Implementar nuevas funcionalidades específicas para los requisitos de los museos.
 
-## Monetización
+# **7. MONETIZACIÓN**
 No se que poner, pero se vende a los clientes directamente, no sacamos rentabilidad por el uso de la aplicación como tal, si no que sería una inversión en la que vamos a diseñar el piloto e intentariamos venderselo a los clientes básicamente... No planteamos planes de precios a priori... Si nos lo tumban, la idea el SPL, pues optaremos por el uso de datos libres y hacemos una aplicacion con estética propia que básicamente haría lo mismo. Es decir, cogeriamos los datos, y hariamos la aplicacion... Es un poco lio todavía, pero tenemos que suponer que tenemos una inversión inicial, además la justificación clara es que no nos están pagando, entonces "for fun" queremos diseñar esto modo piloto y ¿cómo ganaríamos dinero?, vendiendo la solución, fácil.
 
-## Coste 
-Haced una estimación de las horas que vamos a hacer (10h semanales x semanas x 17 personas x X€/hora)
+# **8. COSTE ESTIMADO** 
+Haced una estimación de las horas que vamos a hacer (10h semanales x semanas x 17 personas x X€/hora).
 
 
-## Qué vamos a hacer nosotros ( Por qué un SPL )
+# **9. IMPLEMENTACIÓN Y JUSTIFICACIÓN DE SPL**
+## **Qué vamos a hacer nosotros (Por qué un SPL)**
 
 Integraremos una versión con el CORE con datos de prueba, optamos por el SPL porque queremos ofrecer un servicio personalizado a cada cliente. 
 
-Como primer cliente ficticio usaremos los datos del Louvre, que son públicos para demostrar todas las capacidades de Gallery Guide como solución software
+Como primer cliente ficticio usaremos los datos del Louvre, que son públicos para demostrar todas las capacidades de Gallery Guide como solución software.
 
-## Tecnologías y Herramientas Clave
+## **Tecnologías y Herramientas Clave**
 
-- Dispositivos móviles
-- SPL
-- React Native
-Añadid las palabras que se os ocurran
+- Dispositivos móviles.
+- SPL.
+- React Native.
+Añadid las palabras que se os ocurran.
 
-## Impacto Esperado
+# **11. IMPACTO ESPERADO**
 
 - Mejora de la satisfacción del visitante al permitirle optimizar su recorrido.
 - Reducción del tiempo perdido buscando obras o salas específicas.
 - Posibilidad de que los museos monitoreen patrones de comportamiento y ajusten la oferta de rutas o exposiciones en base a los datos recolectados.
 - Mayor flexibilidad para los museos, que podrán personalizar la aplicación con módulos según sus necesidades sin afectar al core del sistema.
 
-# **Competidores Potenciales**
+# **12. COMPETIDORES POTENCIALES**
 
-## **GVAM / Situm**
+## **12.1. GVAM / SITUM**
 ### **Puntos fuertes:**
 1. Situm ofrece la geolocalización dentro del establecimiento mediante una tecnología innovadora (*Indoor Maps*), para poder localizar determinados elementos dentro del recinto.
 2. GVAM ofrece soluciones software a los museos donde poder incluir audioguías, recomendadores de contenido, ayudas de ubicación y recreaciones virtuales:
@@ -209,7 +214,7 @@ Añadid las palabras que se os ocurran
 
 ---
 
-## **Smartify**
+## **12.2. SMARTIFY**
 ### **Puntos fuertes:**
 1. Aplicación donde se pueden adquirir entradas para una gran cantidad de museos o puntos culturales.
 2. Ofrece audioguías de muchos museos, tanto gratuitas como de pago.
@@ -224,7 +229,7 @@ Añadid las palabras que se os ocurran
 
 ---
 
-## **Explore - AMNH Official App**
+## **12.3. EXPLORE - AMNH OFFICIAL APP**
 ### **Puntos fuertes:**
 1. Es la aplicación oficial del museo.
 2. Tiene un mapa digitalizado interactivo del plano del museo, incluyendo puntos de interés y obras.
@@ -242,12 +247,26 @@ Añadid las palabras que se os ocurran
 
 ---
 
-## **Otros Competidores:**
+## **12.4. OTROS COMPETIDORES**
 Existen numerosas aplicaciones que ofrecen guías de visita estáticas de museos específicos, algunas con mapas breves o rutas predefinidas establecidas por el creador. En general, estas rutas no se generan dinámicamente según los intereses y el tiempo del usuario. También hay aplicaciones que recopilan obras de arte de varios museos, y algunas incluyen audioguías limitadas.
 
+- [Muchas de las aplicaciones dirigidas a museos](https://evemuseografia.com/2023/12/30/mejor-software-para-museos-en-2023/): Se basan simplemente en gestión de inventario/ventas/visitantes:
+    - [Coeli](https://www.coeli.cat/es/): Gestión de colecciones.
+    - [Booking kit](https://bookingkit.com/es/industry/museos/): Venta de entradas.
+    - [Intuiface](https://es.intuiface.com/museums-digital-signage): Para pantallas táctiles estáticas.
+- [Rotas Art](https://www.rotas.com):
+    - Tiene cierta personalización de la ruta. 
+    - Obtiene todos los datos de las obras.
+    - La funcionalidad del mapa no parece la más desarrollada.
+- [Museo altamira](https://play.google.com/store/apps/details?id=com.gvam.altamira&hl=es): Es solo de altamira.
+- [tuinbit](https://tuinbit.com/app-de-audioguias-para-museos/): 
+    - Todo incluido pero solo audioguías.
+    - Tiene funcionalidad de anuncios.
+- [Museos virtuales](https://ecobnb.es/blog/2021/07/museos-virtuales-mundo-online-visitar-gratis/) y [Google Arts](https://www.juntadeandalucia.es/organismos/culturaydeporte/areas/cultura/museos-arte/vistas-virtuales.html): Permite visitas virtuales pero parece no dejar crear rutas.
 ---
 
-# **Elementos a Tener en Cuenta:**
+# **13. DIFERENCIACIÓN DEL PROYECTO**
+## **Elementos a Tener en Cuenta:**
 - No parece existir un monopolio o una competencia con un gigantesco nivel técnico o de influencia en el sector.
 - **Gallery Guide** se encuadra en el sector **Service and Innovation** (similar a Netflix).
 
