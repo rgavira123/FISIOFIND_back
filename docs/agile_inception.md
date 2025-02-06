@@ -82,6 +82,7 @@ monofont: "Noto Sans Mono"
 | 05/02/2025 | v1.1    | Delfín Santana Rubio          | Desarrollo de apartados. |
 | 06/02/2025 | v1.2    | Daniel Alors Romero           | Transpaso de documentación y corrección del formato. |
 | 06/02/2025 | v1.3    | Delfín Santana Rubio        | Modificación de Tecnologías y Herramientas Clave y Monetización. |
+| 06/02/2025 | v1.3.1  | Miguel Encina Martínez      | Corrección errores ortográficos  |
 
 
 <br>
@@ -99,14 +100,14 @@ monofont: "Noto Sans Mono"
 Gallery Guide es una aplicación personalizada para museos que permite planificar rutas óptimas según el tiempo o las preferencias del visitante. A diferencia de visitas guiadas en tiempo real o audioguías, ofrecemos un mapa digitalizado como grafo y recomendaciones inteligentes, optimizando cada recorrido. Es una solución escalable y adaptable a las necesidades de cada museo.
 
 # **2. PROBLEMA PRINCIPAL Y RELEVANCIA**
-El proyecto aborda la carencia de una herramienta digital generalizada que permita a los visitantes de museos planificar rutas óptimas basadas en criterios persoanlizados. La propuesta busca mejorar la experiencia del visitante y optimizar el tiempo dedicado en museos de gran tamaño o compleja estructura.
+El proyecto aborda la carencia de una herramienta digital generalizada que permita a los visitantes de museos planificar rutas óptimas basadas en criterios personalizados. La propuesta busca mejorar la experiencia del visitante y optimizar el tiempo dedicado en museos de gran tamaño o compleja estructura.
 
 # **3. CONTEXTO Y CIRCUNSTANCIAS**
 Esta solución está basada en el siguiente contexto:
 
 - La mayoría de las personas llevan consigo dispositivos inteligentes.
 - Las visitas a los museos pueden dificultarse dependiendo de las dimensiones y del aforo que este tenga.
-- Los mapas se convierten en una herramienta fácilmente exportable a estructuras matemáticas como grafos, que mediante herramientas matemáticas, calcular rutas óptimas se convierte en algo sencillo.
+- Los mapas se convierten en una herramienta fácilmente exportable a estructuras matemáticas como grafos en los que, mediante herramientas matemáticas, calcular rutas óptimas se convierte en algo sencillo.
 
 La solución se basa en la estrategia Software Product Line (SPL) lo que permite ofrecer un conjunto de funcionalidades básicas (core) y módulos adicionales personalizables según los requisitos de cada museo.
 
@@ -117,7 +118,7 @@ Un compañero vivió esta problemática en primera persona durante su visita al 
 ## **5.1. CORE** 
 
 - Digitalización del mapa del museo:
-    - Representacion de las salas como nodos en un grafo interactivo, unidos con aristas con un peso (tiempo invertido por sala) y con obras en cada nodo (con sus conjuntos de metadatos que requiera el cliente).
+    - Representación de las salas como nodos en un grafo interactivo, unidos con aristas con un peso (tiempo invertido por sala) y con obras en cada nodo (con sus conjuntos de metadatos que requiera el cliente).
 - Sistema de creación de rutas:
     - Generación de rutas optimizadas en función de nodos, preferencias de los usuarios o tiempo disponible.
 - Descripción de los nodos:
@@ -125,8 +126,8 @@ Un compañero vivió esta problemática en primera persona durante su visita al 
 - Gestión de los usuarios (No es una red social):
     - Marcar tus gustos (favoritos, que me gusta, que no me gusta).
     - Los usuarios se registran y pueden guardar sus rutas. 
-    - Los usuarios pueden llevar el porcentaje de salas visitadas del museo (Incitamos a conseguir el 100%!).
-    - En base a las rutas hechas, las salas visitadas, ofrecemos una personalización aún mayor (las rutas de arriba pueden hacerse como usuario anónimo).
+    - Los usuarios pueden llevar el porcentaje de salas visitadas del museo (¡Incitamos a conseguir el 100%!).
+    - En base a las rutas hechas, las salas visitadas, etc. ofrecemos una personalización aún mayor (las rutas de arriba pueden hacerse como usuario anónimo).
     - Crea tu propia ruta y genera un enlace para compartirse (como cuando compartes un mazo en el clash royale, no se sube a ningún foro).
 - Administradores:
     - Rutas predeterminadas.
