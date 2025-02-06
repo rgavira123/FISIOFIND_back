@@ -1,8 +1,8 @@
 ---
-title: "AGUILE INCEPTION"                       # CHANGE IF NEEDED
+title: "AGUILE INCEPTION"                       
 subtitle: "GALLERY GUIDE"
-author: [Ramón Gavira Sánchez, Daniel Vela Camacho, Delfín Santana Rubio] # CHANGE IF NEEDED
-date: "05/02/2025"                                                 # CHANGE IF NEEDED
+author: [Ramón Gavira Sánchez, Daniel Vela Camacho, Delfín Santana Rubio] 
+date: "05/02/2025"                                                 
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -12,9 +12,9 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: ".backgrounds/background2V.pdf"                            # CHANGE IF NEEDED
-header-left: "AGUILE INCEPTION"                  # CHANGE IF NEEDED
-header-right: "05/02/2025"                                          # CHANGE IF NEEDED
+titlepage-background: ".backgrounds/background2V.pdf"                            
+header-left: "AGUILE INCEPTION"                 
+header-right: "05/02/2025"                                         
 footer-left: "GALLERY GUIDE"
 documentclass: scrartcl
 classoption: "table"
@@ -66,7 +66,7 @@ monofont: "Noto Sans Mono"
 
 - **Fecha de Creación:** 04/02/2025  
 
-- **Versión:** v1.2
+- **Versión:** v1.3
 
 <br>
 
@@ -81,6 +81,7 @@ monofont: "Noto Sans Mono"
 | 04/02/2025 | v1.0    | Ramón Gavira Sánchez, Daniel Vela Camacho, Delfín Santana Rubio           | Elaboración de la primera versión del documento. |
 | 05/02/2025 | v1.1    | Delfín Santana Rubio          | Desarrollo de apartados. |
 | 06/02/2025 | v1.2    | Daniel Alors Romero           | Transpaso de documentación y corrección del formato. |
+| 06/02/2025 | v1.3    | Delfín Santana Rubio        | Modificación de Tecnologías y Herramientas Clave y Monetización. |
 
 
 <br>
@@ -172,7 +173,25 @@ Un compañero vivió esta problemática en primera persona durante su visita al 
     - Implementar nuevas funcionalidades específicas para los requisitos de los museos.
 
 # **7. MONETIZACIÓN**
-No se que poner, pero se vende a los clientes directamente, no sacamos rentabilidad por el uso de la aplicación como tal, si no que sería una inversión en la que vamos a diseñar el piloto e intentariamos venderselo a los clientes básicamente... No planteamos planes de precios a priori... Si nos lo tumban, la idea el SPL, pues optaremos por el uso de datos libres y hacemos una aplicacion con estética propia que básicamente haría lo mismo. Es decir, cogeriamos los datos, y hariamos la aplicacion... Es un poco lio todavía, pero tenemos que suponer que tenemos una inversión inicial, además la justificación clara es que no nos están pagando, entonces "for fun" queremos diseñar esto modo piloto y ¿cómo ganaríamos dinero?, vendiendo la solución, fácil.
+Hemos decidido ofrecer un Software as a Service a partir de planes mensuales. Estos planes dependerán del tamaño del museo. A partir de una investigación hemos podido recopilar los siguientes datos sobre algunos museos:
+- Bellas artes: 14 salas, 7775m2
+- Louvre: cerca de 300, 210 000m2
+- Museo Nacional Centro de Arte Reina Sofía: 84 048m2
+Las fuentes de estos datos son planos oficiales de los museos o directamente la wikipedia.
+
+A partir de estos datos, en un primer momento hemos decidido ofrecer los siguientes planes para las entidades privadas:
+- Menos de 14 salas(14 salas **NO** incluido): 200 euros mensuales + componentes no incluidos elegidos.
+  - Incluye el core más 2 componentes extra.
+  - Cada componente extra elegido suma 50 euros al precio mensual.
+- Entre 14 y 30 salas: 300 euros mensuales + componentes no incluidos elegidos.
+  - Incluye el core más 1 componente extra.
+  - Cada componente extra elegido suma 100 euros al precio mensual.
+- Entre 30 y 50 salas: 500 euros mensuales + componentes no incluidos elegidos.
+  - Incluye solo el core.
+  - Cada componente extra elegido suma 200 euros al precio mensual.
+- Más de 50 salas: deben de contactar con nosotros para ofrecer una solución o precio personalizado.
+
+Sin embargo, si hiciera falta participar en concurso público para dar nuestros servicios, el plan y de este modo el contrato se deberá de hacer a medida. Asimismo, el precio y las condiciones serían a medida.
 
 # **8. COSTE ESTIMADO** 
 Haced una estimación de las horas que vamos a hacer (10h semanales x semanas x 17 personas x X€/hora).
@@ -190,7 +209,8 @@ Como primer cliente ficticio usaremos los datos del Louvre, que son públicos pa
 - Dispositivos móviles.
 - SPL.
 - React Native.
-Añadid las palabras que se os ocurran.
+- Django.
+- PostgreSQL.
 
 # **11. IMPACTO ESPERADO**
 
