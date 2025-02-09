@@ -18,7 +18,7 @@ header-right: "dd/mm/yyyy"               # CHANGE IF NEEDED
 footer-left: "GALLERY GUIDE"
 documentclass: scrartcl
 classoption: "table"  
----
+...
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 <p align="center" style="font-size: 30px; font-weight: bold;">
@@ -43,61 +43,91 @@ classoption: "table"
 
 # **1. RESUMEN DEL FEEDBACK POR GRUPO**
 ## **Primer grupo (Nombre del grupo):** 
-### Feedback recibido (resumen de los comentarios de los profesores)
+**Feedback recibido (resumen de los comentarios de los profesores)**
+
 - Feedback
-### Puntos positivos destacados.
+
+**Puntos positivos destacados.**
+
 - Punto positivo 1
-### Áreas de mejora sugeridas.
+
+**Áreas de mejora sugeridas.**
+
 - Mejora 1
 
 <br>
 
 ## **Segundo grupo (Nombre del grupo):** 
-### Feedback recibido (resumen de los comentarios de los profesores)
+**Feedback recibido (resumen de los comentarios de los profesores)**
+
 - Feedback
-### Puntos positivos destacados.
+
+**Puntos positivos destacados.**
+
 - Punto positivo 1
-### Áreas de mejora sugeridas.
+
+**Áreas de mejora sugeridas.**
+
 - Mejora 1
 
 <br>
 
 ## **Tercer grupo (Nombre del grupo):** 
-### Feedback recibido (resumen de los comentarios de los profesores)
+**Feedback recibido (resumen de los comentarios de los profesores)**
+
 - Feedback
-### Puntos positivos destacados.
+
+**Puntos positivos destacados.**
+
 - Punto positivo 1
-### Áreas de mejora sugeridas.
+
+**Áreas de mejora sugeridas.**
+
 - Mejora 1
 
 <br>
 
 ## **Cuarto grupo (Nombre del grupo):** 
-### Feedback recibido (resumen de los comentarios de los profesores)
+**Feedback recibido (resumen de los comentarios de los profesores)**
+
 - Feedback
-### Puntos positivos destacados.
+
+**Puntos positivos destacados.**
+
 - Punto positivo 1
-### Áreas de mejora sugeridas.
+
+**Áreas de mejora sugeridas.**
+
 - Mejora 1
 
 <br>
 
 ## **Quinto grupo (Nombre del grupo):** 
-### Feedback recibido (resumen de los comentarios de los profesores)
+**Feedback recibido (resumen de los comentarios de los profesores)**
+
 - Feedback
-### Puntos positivos destacados.
+
+**Puntos positivos destacados.**
+
 - Punto positivo 1
-### Áreas de mejora sugeridas.
+
+**Áreas de mejora sugeridas.**
+
 - Mejora 1
 
 <br>
 
 ## **Sexto grupo (Nombre del grupo):** 
-### Feedback recibido (resumen de los comentarios de los profesores)
+**Feedback recibido (resumen de los comentarios de los profesores)**
+
 - Feedback
-### Puntos positivos destacados.
+
+**Puntos positivos destacados.**
+
 - Punto positivo 1
-### Áreas de mejora sugeridas.
+
+**Áreas de mejora sugeridas.**
+
 - Mejora 1
 
 <br>
@@ -106,19 +136,27 @@ classoption: "table"
 # **2. ANÁLISIS DEL FEEDBACK**
 
 ## 2.1. TENDENCIAS GENERALES
-### Factores comunes en los comentarios de los profesores.
+**Factores comunes en los comentarios de los profesores.**
+
 - Factor común 1
-### Puntos de fortaleza general en los equipos.
+
+**Puntos de fortaleza general en los equipos.**
+
 - Fortaleza general 1
-### Áreas de mejora recurrentes.
+
+**Áreas de mejora recurrentes.**
+
 - Área de mejora recurrente 1
 
 <br>
 
 ## 2.2. COMPARACIÓN DEL FEEDBACK DE NUESTRO GRUPO VS LOS OTROS
-### ¿Qué estamos haciendo bien en comparación con otros?
+**¿Qué estamos haciendo bien en comparación con otros?**
+
 - Aspecto 1
-### ¿Qué aspectos debemos mejorar respecto a los demás?
+
+**¿Qué aspectos debemos mejorar respecto a los demás?**
+
 - Aspecto 1
 
 <br>
@@ -128,7 +166,9 @@ classoption: "table"
 
 # **3. CONCLUSIONES Y OBSERVACIONES**
 - Conclusión 1
+
 - Conclusión 2
+
 - Conclusión 3
 
 [Notas o comentarios adicionales]
