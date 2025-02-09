@@ -31,7 +31,7 @@ monofont: "Noto Sans Mono"
 
 <br>
 
-*Índice*
+**Índice**
 - [1. INTRODUCCIÓN](#1-introducción)
 - [2. COMPROMISOS Y CONDICIONES](#2-compromisos-y-condiciones)
   - [2.1. DEDICACIÓN DE TIEMPO](#21-dedicación-de-tiempo)
@@ -44,20 +44,22 @@ monofont: "Noto Sans Mono"
   - [2.8. CONDICIONES DEL ACUERDO](#28-condiciones-del-acuerdo)
   - [2.9. CASOS NO CONTEMPLADOS](#29-casos-no-contemplados)
 - [3. FIRMA DEL ACUERDO](#3-firma-del-acuerdo)
+<!-- COMMENT THIS WHEN EXPORTING TO PDF -->
+
 
 <br>
 
 ---
 
-*Ficha del documento*
+**Ficha del documento**
 
-- *Nombre del Proyecto:* GALLERY GUIDE
+- **Nombre del Proyecto:** GALLERY GUIDE
 
-- *Autores:* Alberto Carmona Sicre, Daniel Ruiz López, Miguel Encina Martínez, Delfín Santana Rubio
+- **Autores:** Alberto Carmona Sicre, Daniel Ruiz López, Miguel Encina Martínez, Delfín Santana Rubio, Antonio Macías Ferrera
 
-- *Fecha de Creación:* 03/02/2025  
+- **Fecha de Creación:** 03/02/2025  
 
-- *Versión:* v1.4
+- **Versión:** v1.5
 
 <br>
 
@@ -65,7 +67,7 @@ monofont: "Noto Sans Mono"
 
 ---
 
-## Historial de modificaciones
+**Historial de modificaciones**
 
 | Fecha      | Versión | Realizada por | Descripción de los cambios |
 |------------|---------|--------------|----------------------------|
@@ -74,16 +76,24 @@ monofont: "Noto Sans Mono"
 | 04/02/2025 | v1.2    |  Delfín Santana Rubio  | Modificación del apartado Compromiso y realización de las tareas y añadido el apartado Casos no contemplados. |
 | 05/02/2025 | v1.3    |  Alberto Carmona Sicre, Daniel Ruiz López | Modificación del apartado Cumplimiento del acuerdo. |
 | 07/02/2025 | v1.4    |  Alberto Carmona Sicre, Daniel Ruiz López | Modificación de los apartados: Horario de disponibilidad, Compromiso y realización de las tareas. Añadidas portada e Índice. |
+| 09/02/2025 | v1.5    |  Antonio Macías Ferrera | Pequeñas correcciones de formato. |
 
 
 
-## 1. Introducción
+\newpage 
+
+
+# 1. INTRODUCCIÓN
 
 Al unirme a la asignatura de Ingeniería de Software y Práctica Profesional (ISPP) para el curso 2024-25, me comprometo a cumplir con los siguientes requisitos y condiciones como miembro activo del grupo de trabajo denominado Guide Gallery, compuesto por 17 personas.
 
-## 2. Compromisos y Condiciones
 
-### 2.1 Dedicación de tiempo
+<br>
+
+
+# 2. COMPROMISOS Y CONDICIONES
+
+## 2.1 DEDICACIÓN DE TIEMPO
 
 - Me comprometo a dedicar un esfuerzo de mínimo 10 horas semanales a las actividades y tareas asignadas, entre las que se incluyen las 4 horas de clase<sup>1</sup>.
 - Me comprometo a finalizar mis tareas asignadas a tiempo para evitar retrasos en las actividades de otros compañeros.
@@ -91,7 +101,8 @@ Al unirme a la asignatura de Ingeniería de Software y Práctica Profesional (IS
 
 [1] En caso de que las personas adelanten tareas de semanas posteriores y sean aprobadas por el equipo de QA, el tiempo extra dedicado en esa semana podrá ser descontado de futuras semanas.
 
-### 2.2 Horario de disponibilidad
+
+## 2.2 HORARIO DE DISPONIBILIDAD
 
 - Reconozco y acepto el horario de disponibilidad establecido para nuestras actividades.
 - Se establece el siguiente horario de contacto:
@@ -104,11 +115,13 @@ Al unirme a la asignatura de Ingeniería de Software y Práctica Profesional (IS
 [1] Se contempla la no disponibilidad de aquellos integrantes que
 tengan prácticas de empresa.
 
-### 2.3 Compensación de tiempo
+
+## 2.3 COMPENSACIÓN DE TIEMPO
 
 - Se establece un sistema de compensación para aquellos miembros que no cumplan con las 10 horas semanales asignadas (sólo en caso de que no hayan realizado algunas de sus tareas asignadas), con el fin de mantener un equilibrio en la carga de trabajo. Las personas que no cumplan con el tiempo asignado deberán compensar el tiempo en la semana siguiente trabajando la cantidad de horas que faltan.
 
-### 2.4 Compromiso y realización de las tareas
+
+## 2.4 COMPROMISO Y REALIZACIÓN DE LAS TAREAS
 
 - En caso de conflicto, este será abordado primeramente a nivel de grupo y luego a nivel de proyecto, para así mantener un ambiente de trabajo eficiente.
 - Las tareas serán asignadas semanalmente con fechas límite establecidas.
@@ -116,21 +129,25 @@ tengan prácticas de empresa.
 - Asimismo, si los asignados a una tarea dejan de estar disponibles para hacerla o prevén que van a dejar de estarlo, deberán comunicarlo lo antes posible.
 - Las personas encargadas de dividir y asignar las tareas se comprometen a un reparto equitativo de manera que todos los integrantes del equipo puedan llegar a las 6 horas de trabajo estipuladas. En caso de que una persona no llegue a las 6 horas, será responsabilidad de las personas encargadas de dividir y asignar las tareas.
 
-### 2.5 Prácticas de equipo
+
+## 2.5 PRÁCTICAS DE EQUIPO
 - El equipo establece una serie de buenas prácticas definidas en el documento Plan de Gestión de la Configuración, 
 las cuales serán obligatorias seguir. El no cumplimiento de estas prácticas será revisado por el equipo de QA y se tomarán las medidas necesarias.
 
-### 2.6 Criterios de éxito
+
+## 2.6 CRITERIOS DE ÉXITO
 
 - El equipo de QA realizará revisiones semanales de las tareas, calificando del 0 al 10 y proporcionando una puntuación media de equipo.
 - Personalmente, se deberán presentar informes de desempeño semanales con el objetivo de facilitar el seguimiento al equipo de QA.
 
-### 2.7 Cumplimiento del acuerdo
+
+## 2.7 CUMPLIMIENTO DEL ACUERDO
 
 El cumplimiento del presente acuerdo de compromiso será evaluado 
 semanalmente, de acuerdo con los siguientes criterios y casos:
 
-#### Primer caso:
+**Primer caso:**
+
 Si la persona cumple con las horas y tareas mínimas que se le exigen en cada semana, el criterio de Compensación de tiempo no aplica, por lo que la rúbrica seguirá la siguiente estructura:
 
 | Aspecto                              | Valor | Criterio                                                                                                                                       |
@@ -140,7 +157,9 @@ Si la persona cumple con las horas y tareas mínimas que se le exigen en cada se
 | Compromiso y realización de las tareas                | 30%   | Se han completado las tareas asignadas dentro de los plazos establecidos, o en su defecto se ha justificado la imposibilidad del cumplimiento. |
 | Prácticas de equipo                | 30%   | Se han seguido las prácticas de equipo establecidas en el documento Plan de Gestión de la Configuración.                                         |
 
-#### Segundo caso:
+
+**Segundo caso:**
+
 Si la persona no cumple con las horas y tareas mínimas que se le exigen en cada semana, el criterio de Compensación de tiempo sí aplica, por lo que la rúbrica seguirá la siguiente estructura:
 
 | Aspecto                              | Valor | Criterio                                                                                                                                       |
@@ -159,16 +178,25 @@ Se establecen los siguientes niveles de cumplimiento del acuerdo de compromiso, 
 - Regular (R): 50% - 69%.
 - Deficiente (D): 0% - 49%.
 
-### 2.8 Condiciones del acuerdo
+
+## 2.8 CONDICIONES DEL ACUERDO
 
 - El acuerdo de compromiso puede ser utilizado como referencia para exigir el cumplimiento de las responsabilidades.
 - Los integrantes del grupo se comprometen a cumplirlo independientemente de la forma de firma utilizada.
 
-## 2.9 Casos no contemplados
+
+
+## 2.9 CASOS NO CONTEMPLADOS
+
+
 
 - Si el equipo de QA detecta que se está dando una situación no contemplada en este acuerdo, pero que debería haberse contemplado, se hará saber a nivel de proyecto y se intentará resolver mediante reuniones y votaciones. Si no se consigue resolver, se hará saber a los profesores.
 
-## 3. Firma del acuerdo
+
+<br>
+
+---
+
 
 Firmado,
 
