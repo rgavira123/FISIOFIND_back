@@ -22,7 +22,7 @@ classoption: "table"
 
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<!-- <p align="center" style="font-size: 30px; font-weight: bold;">
+<p align="center" style="font-size: 30px; font-weight: bold;">
   FISIOFIND  -  REQUIREMENTS DOCUMENT
 </p>
 
@@ -35,7 +35,7 @@ classoption: "table"
 - [3. REQUISITOS](#3-requisitos)
     - [3.1. REQUISITOS FUNCIONALES](#31-requisitos-funcionales)  
     - [3.2. REQUISITOS NO FUNCIONALES](#32-requisitos-no-funcionales)  
-    - [3.3. REQUISITOS DE INFORMACIÓN](#33-requisitos-de-información)  -->
+    - [3.3. REQUISITOS DE INFORMACIÓN](#33-requisitos-de-información) 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 
 <br>
