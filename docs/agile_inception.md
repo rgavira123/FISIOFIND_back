@@ -80,6 +80,7 @@ monofont: "Noto Sans Mono"
 | 12/02/2025 | v1.0    | Miguel Encina Martínez           | Primera versión de los apartados: Resumen, Problema Principal y Relevancia, Contexto y Circunstancias, Necesidades del Proyecto |
 | 12/02/2025 | v1.1    | Daniel Tortorici Bartús          | Primera versión de los apartados: 6. Usuarios Objetivo y 10. Impacto Esperado|
 | 12/02/2025 | v1.2    | Francisco Capote García          | Eliminado Gallery Guide de resumen y de necesidades del proyecto, Actualizada la arquitectura app, Actualizada la implementacion y justificacion de la app,  corregido pequeños errores |
+| 12/02/2025 | v1.3    | Daniel Tortorici Bartús          | Primera versión del apartado 12. Diferenciación del Proyecto|
 
 
 <br>
@@ -347,21 +348,30 @@ Existen numerosas aplicaciones que ofrecen guías de visita estáticas de museos
 # **12. DIFERENCIACIÓN DEL PROYECTO**
 
 **Elementos a Tener en Cuenta:**
-- No parece existir un monopolio o una competencia con un gigantesco nivel técnico o de influencia en el sector.
 
-- **Gallery Guide** se encuadra en el sector **Service and Innovation** (similar a *Netflix*).
+- No parece existir una competencia directa que explote el aspecto telemático de las consultas on-line.
+
+  la responsabiliada a Miguel Encina!!!
+
+- **FISIOFIND** se encuadra entre los sectores **Matchmaking and Innovation** y **Service and Innovation**
 
 **Razones por las cuales no pertenecemos a los otros modelos:**
-- No somos una aplicación basada en el *matchmaking* como Airbnb o Uber, ya que no conectamos personas para satisfacer servicios específicos.
+- No somos una aplicación basada únicamente en el *matchmaking*, ya que no solo conectamos personas para que, fuera de la aplicación, se lleve a cabo un servicio como _Airbnb_ o _Uber_.
 
-- No es un proyecto de servicio que utilice la monetización basada en los datos de los usuarios, como *LinkedIn*.
-
-
-**Razones por las cuales nos parecemos a Netflix:**
-- ✔ Es un servicio digital innovador que mejora la experiencia del usuario dentro del museo.  
-
-- ✔ Su valor está en la optimización de rutas personalizadas y la digitalización del museo.  
-
-- ✔ No monetizamos a los usuarios finales como LinkedIn, sino que vendemos directamente la solución a los museos como un servicio adaptable.
+- No es un proyecto de servicio que utilice la monetización basada en los datos de los usuarios, como _LinkedIn_.
 
 
+**Razones por las cuales nos parecemos a Uber (Matchmaking and Innovation):**
+
+- ✔ Es un servicio digital innovador que conecta personas que necesitan ayuda profesional con expertos del sector de la fisioterapia.
+
+- ✔ Para los fisioterapeutas, su valor está en el incremento de reconocimiento y en la posibilidad de posicionarse en el mercado.
+  
+- ✔ Para los pacientes, su valor está en la facilidad de encontrar al especialista adecuado según sus necesidades.
+
+
+**Razones por las cuales nos parecemos a Netflix (Service and Innovation):**
+
+- ✔ Es un servicio digital innovador que le permite a los fisioterapeutas y pacientes tener varias vías de comunicación efectiva y múltiples herramientas para lograr los mejores resultados en las consultas.
+
+- ✔ Su valor está, principalmente, en las funcionalidades y servicios que se ofrecen para el desarrollo y gestión las consultas.
