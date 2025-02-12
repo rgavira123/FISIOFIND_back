@@ -36,14 +36,14 @@ monofont: "Noto Sans Mono"
 - [2. PROBLEMA PRINCIPAL Y RELEVANCIA](#2-problema-principal-y-relevancia)
 - [3. CONTEXTO Y CIRCUNSTANCIAS](#3-contexto-y-circunstancias)
 - [4. NECESIDADES DEL PROYECTO](#4-necesidades-del-proyecto)
-- [5. ARQUITECTURA SPL](#5-arquitectura-spl)
+- [5. ARQUITECTURA DE LA APP](#5-arquitectura-app)
   - [5.1. CORE](#51-core)
   - [5.2. MÓDULOS EXTRA (ADDONS)](#52-módulos-extra-addons)
   - [5.3. FUERA DEL SCOPE](#53-fuera-del-scope)
 - [6. USUARIOS OBJETIVO](#6-usuarios-objetivo)
 - [7. MONETIZACIÓN](#7-monetización)
 - [8. COSTE ESTIMADO](#8-coste-estimado)
-- [9. IMPLEMENTACIÓN Y JUSTIFICACIÓN DE SPL](#9-implementación-y-justificación-de-spl)
+- [9. IMPLEMENTACIÓN Y JUSTIFICACIÓN DE APP](#9-implementación-y-justificación-de-app)
 - [10. IMPACTO ESPERADO](#10-impacto-esperado)
 - [11. COMPETIDORES POTENCIALES](#11-competidores-potenciales)
   - [11.1. GVAM / SITUM](#111-gvam--situm)
@@ -61,11 +61,11 @@ monofont: "Noto Sans Mono"
 
 - **Nombre del Proyecto:** FISIOFIND
 
-- **Autores:** Miguel Encina Martínez, Daniel Tortorici Bartús
+- **Autores:** Miguel Encina Martínez, Daniel Tortorici Bartús, Francisco Capote García
 
 - **Fecha de Creación:** 12/02/2025  
 
-- **Versión:** v1.0
+- **Versión:** v1.2
 
 <br>
 
@@ -79,6 +79,7 @@ monofont: "Noto Sans Mono"
 |------------|---------|----------------------------------|----------------------------|
 | 12/02/2025 | v1.0    | Miguel Encina Martínez           | Primera versión de los apartados: Resumen, Problema Principal y Relevancia, Contexto y Circunstancias, Necesidades del Proyecto |
 | 12/02/2025 | v1.1    | Daniel Tortorici Bartús          | Primera versión de los apartados: 6. Usuarios Objetivo y 10. Impacto Esperado|
+| 12/02/2025 | v1.2    | Francisco Capote García          | Eliminado Gallery Guide de resumen y de necesidades del proyecto, Actualizada la arquitectura app, Actualizada la implementacion y justificacion de la app,  corregido pequeños errores |
 
 
 <br>
@@ -93,12 +94,10 @@ monofont: "Noto Sans Mono"
 
 # **1. RESUMEN**
 
-**Gallery Guide es una aplicación personalizada para museos que permite planificar rutas óptimas según el tiempo o las preferencias del visitante**. A diferencia de visitas guiadas en tiempo real o audioguías, ofrecemos un mapa digitalizado como grafo y recomendaciones inteligentes, optimizando cada recorrido. Es una solución escalable y adaptable a las necesidades de cada museo.
-
 **FisioFind es una aplicación especialidada para fisioterapeutas que ofrece todo tipo de servicios esenciales para el día a día de estos especialistas de una forma cómoda, eficiente y familiar**. A diferencia de la competencia, nos centramos en la opción de realizar consultas on-line con los pacientes proporcionando facilidades tanto para especialistas como para los pacientes.
 
 # **2. PROBLEMA PRINCIPAL Y RELEVANCIA**
-Este proyecto aborda la evidencia de que la fisioterapia on-line es igual de efctiva que la consulta presencial. La mayoría de las especialidades en el ámbito sanitario, disponen ya de consultas on-line y herramientas orientadas a ello. A menudo, se asocia al fisioterapeuta exclusivamente con la realización de tratamientos físicos para aliviar el dolor o la fatiga muscular, cuando en realidad, esto es solo una herramienta más. 
+Este proyecto aborda la evidencia de que la fisioterapia on-line es igual de efectiva que la consulta presencial. La mayoría de las especialidades en el ámbito sanitario, disponen ya de consultas on-line y herramientas orientadas a ello. A menudo, se asocia al fisioterapeuta exclusivamente con la realización de tratamientos físicos para aliviar el dolor o la fatiga muscular, cuando en realidad, esto es solo una herramienta más. 
 
 Por eso, surge la necesidad de ofrecer al fisioterapeuta un software que contenga todas las herramientas propias de estos especialistas, que se puedan realizar de forma on-line, sin tener que acudir a una clínica física, para así ahorrar tiempo, esfuerzo y dinero para ambas partes. Además ofrece la posibilidad para darse a conocer a nuevos fisioterapeutas que quieran aprovechar de nuestras ventajas.
 
@@ -115,59 +114,53 @@ Esta solución está basada en el siguiente contexto:
 
 # **4. NECESIDADES DEL PROYECTO**
 **¿Cómo se llegó a la necesidad de llevar a cabo el proyecto?**
-Un miembro del grupo vivió esta problemática en primera persona durante su visita al *Museo del Louvre* en París, donde se sintió abrumado por las dimensiones y la cantidad de obras que tenía el museo, donde un simple mapa en papel no era suficiente para plainificar una ruta adaptada a su tiempo y preferencias.
 
 Varios miembros del grupo disponen de personas cercanas que practican la profesión de la fisioterapia y surgió esta idea ante la necesidad común de todos ellos de disponer de un software especializado que pueda facilitar las tareas del día a día y que les ahorre tiempo, esfuerzo y dinero ofreciendo esta alternativa a la gran cantidad de consultas presenciales a las que se enfrentan semana tras semana.
 
 
-# **5. ARQUITECTURA SPL**
+# **5. ARQUITECTURA DE LA APP**
 
 ## **5.1. CORE** 
 
-- Digitalización del mapa del museo:
-    - Representación de las salas como nodos en un grafo interactivo, unidos con aristas con un peso (tiempo invertido por sala) y con obras en cada nodo (con sus conjuntos de metadatos que requiera el cliente).
+**PARA FISIOTERAPEUTAS**
+- Digitalización del cuerpo humano y mapas de dolor:
+    - Mientras el cliente y fisioterapeuta se encuentra en videollamada, el cliente tendra la opcion de mostrar mediante un mapa virtual del cuerpo humano las areas donde sufre dolor o molestia, mejorando la comunicacion y facilitando asi al fisioterapeuta entender al cliente.
 
-- Sistema de creación de rutas:
-    - Generación de rutas optimizadas en función de nodos, preferencias de los usuarios o tiempo disponible.
+- Sistema de agendas y gestion de citas:
+    - Los fisioterapeutas podrán administrar sus citas de forma flexible, optimizando su disponibilidad y ajustando su horario según sus necesidades.
 
-- Descripción de los nodos:
-    - Cada sala tiene un listado de las obras presentes en dicha sala, y una descripción de dicha obra (No ofreceríamos la ficha técnica a priori).
+- Ejercicios prescritos con seguimiento de dolor y progreso:
+    - Los fisioterapeutas podrán prescribir ejercicios personalizados para los pacientes, quienes podrán realizar un seguimiento de su progreso y nivel de dolor. El sistema permitirá registrar el avance de los ejercicios, evaluar la intensidad del dolor y ajustar el plan de tratamiento según sea necesario.
+    
+- Facturación automatizada y gestión de pagos:
+    - El sistema generará facturas automáticamente tras cada consulta, facilitando la gestión financiera de los fisioterapeutas. Permitiendo pagos dentro de la aplicacion de forma segura mediante Stripe y un historial de transacciones.
 
-- Gestión de los usuarios (No es una red social):
-    - Marcar tus gustos (favoritos, que me gusta, que no me gusta).
-    - Los usuarios se registran y pueden guardar sus rutas. 
-    - Los usuarios pueden llevar el porcentaje de salas visitadas del museo (¡Incitamos a conseguir el 100%!).
-    - En base a las rutas hechas, las salas visitadas, etc. ofrecemos una personalización aún mayor (las rutas de arriba pueden hacerse como usuario anónimo).
-    - Crea tu propia ruta y genera un enlace para compartirse (como cuando compartes un mazo en el clash royale, no se sube a ningún foro).
+- Perfil profesional verificado:
+    - Los fisioterapeutas deberán completar un proceso de verificación para garantizar su autenticidad y credibilidad. Esto incluirá la validación de certificaciones, experiencia y especialidades, asegurando confianza y calidad en el servicio.
 
-- Administradores:
-    - Rutas predeterminadas.
-    - Fácil gestión de sus salas (modificar los nodos y las obras que tiene dentro).
+**PARA PACIENTES**
+
+- Búsqueda y reserva de fisioterapeutas por especialidad:
+    - Los pacientes podrán buscar fisioterapeutas según su especialidad, ubicación y valoraciones. El sistema permitirá filtrar opciones y reservar citas de manera rápida y sencilla.
+
+- Historial de consultas y plan de tratamiento personalizado:
+    - Los pacientes tendrán acceso a su historial completo de consultas y tratamientos previos. Esto incluirá ejercicios recomendados, progreso y seguimiento de su evolución, asegurando un enfoque continuo y personalizado en su recuperación.
+
+- Videoconsultas seguras con cuestionario previo:
+    - Las videoconsultas se realizarán de manera segura con tecnología encriptada. Antes de la consulta, los pacientes deberán completar un cuestionario previo para proporcionar información relevante sobre su condición, permitiendo al fisioterapeuta una evaluación más precisa y eficiente durante la sesión.
+
+- Valoraciones y seguimiento de pacientes:
+    - Los pacientes podrán calificar y dejar reseñas sobre sus sesiones, ayudando a mejorar la reputación de los fisioterapeutas. Además, el sistema permitirá un seguimiento detallado del progreso del paciente, incluyendo historial de consultas, evolución del tratamiento y reportes de mejora.
+
 
 ## **5.2. MÓDULOS EXTRA (ADDONS)**
 
-- Módulo Social:
-    - Publicación de las rutas en un portal público.
-    - Valoración y puntuación de rutas por otros usuarios.
-    - Discusión (foro) por sala y obra.
-    - Identificación de rutas más populares o menos recorridas.
-
-- Módulos de anuncios oficiales:
-    - Espacio para que el museo publique anuncios.
-    - Log y anuncios de cambios en el museo (Esta obra pasa a X sala, nueva exposición X...).
-
-- Módulos de integraciones propias:
-    - Hemos llamado a este módulo así porque nos referimos a integrar cosas que ellos ya tienen, como por ejemplo, venta de entradas, colección de obras o una integración de una tienda.
-
-- Módulo Trivia:
-    - Para hacerlo más dinámico proponer un trivial de preguntas, foto y preugnta de cuál es esta obra...
+- Implementacion de clinicas para la gestion del personal
 
 ## **5.3. FUERA DEL SCOPE**
 
-- ❌ No es una audioguía o visita guiada.
-- ❌ No es una visita virtual inmersiva ni con reconstrucción 3D.
-- ❌ No es una aplicación que te ubique en tiempo real, más bien es para planificar.
-- ❌ No gestiona el aforo o la afluencia del museo.
+- ❌ No contiene infraestructura mas haya de la aplicacion y tampoco contiene integración con Dispositivos IoT o Sensores Externos.
+
 
 # **6. USUARIOS OBJETIVO**
 # **Meet your Neighbours (La comunidad)**
@@ -188,7 +181,7 @@ Varios miembros del grupo disponen de personas cercanas que practican la profesi
     - Visualizan las valoraciones y comentarios asociados a sus perfiles.
 
 - Desarrolladores
-    - Mantener el core actualizado y eficiente, así como los addons predeterminados.
+    - Mantener la aplicacion actualizada y eficiente.
     - Implementar las herramientas necesarias para la correcta ejecución de las consultas.
 
 # **7. MONETIZACIÓN**
@@ -221,19 +214,19 @@ Sin embargo, si hiciera falta participar en concurso público para dar nuestros 
 Haced una estimación de las horas que vamos a hacer (10h semanales x semanas x 17 personas x X€/hora).
 
 
-# **9. IMPLEMENTACIÓN Y JUSTIFICACIÓN DE SPL**
+# **9. IMPLEMENTACIÓN Y JUSTIFICACIÓN DE LA APP**
 
-**Qué vamos a hacer nosotros (Por qué un SPL)**
+**Qué vamos a hacer nosotros (Por qué una APP)**
 
-Integraremos una versión con el CORE con datos de prueba, optamos por el SPL porque queremos ofrecer un servicio personalizado a cada cliente. 
+Mediante una aplicacion on-line los fisioterapeutas son capaces de asistir a sus clientes sin necesidad de realizar la consulta presenciales, por lo que una aplicacion capaz de realizar este funcion puede ser clave.
 
-Como primer cliente ficticio usaremos los datos del Louvre, que son públicos para demostrar todas las capacidades de Gallery Guide como solución software.
+Hemos recibido la motivacion de varios fisioterapeutas cercanos a nosotros, ya que estarian totalmente de acuerdo de utilizar la aplicacion
 
 **Tecnologías y Herramientas Clave**
 
 - Dispositivos móviles
 
-- SPL
+- Web
 
 - React Native
 
