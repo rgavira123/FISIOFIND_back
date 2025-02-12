@@ -78,6 +78,7 @@ monofont: "Noto Sans Mono"
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
 | 12/02/2025 | v1.0    | Miguel Encina Martínez           | Primera versión de los apartados: Resumen, Problema Principal y Relevancia, Contexto y Circunstancias, Necesidades del Proyecto |
+| 12/02/2025 | v1.1    | Daniel Tortorici Bartús          | Primera versión del apartados 6 |
 
 
 <br>
@@ -171,20 +172,24 @@ Varios miembros del grupo disponen de personas cercanas que practican la profesi
 # **6. USUARIOS OBJETIVO**
 # **Meet your Neighbours (La comunidad)**
 
-- Visitantes del museo:
-    - Planifican rutas personalizadas basadas en su tiempo y preferencias.
-    - Guardan rutas.
-    - Almacenan % de museo visitado.
-    - Reciben recomendaciones.
+- Pacientes
+    - Obtienen la ayuda necesaria para su bienestar y salud por parte de un experto.
+    - Comunican a través de herramientas completas sus necesidades específicas.
+    - Reciben un seguimiento del tratamiento.
+    - Acceden al registro de ejercicios y movimientos pautados.
+    - Buscan y filtran a los profesionales por especialidad, ubicación y disponibilidad.
 
-- Museos (administradores)
-    - Gestionan el contenido del mapa digital, salas, obras y rutas predeterminadas.
-    - Eligen sobre los módulos opcionales.
-    - Quedamos abiertos a solicitudes que necesiten. (Como tenemos el core, somos escalables, si el addon no lo consideramos inicialmente).
+- Fisioterapeutas
+    - Gestionan sus perfiles y certificados.
+    - Hacen uso de la agenda integrada con gestión de citas.
+    - Proporcionan consultas on-line personalizadas a los pacientes.
+    - Se comunican con sus clientes a través de mensajes y archivos enviados por el chat.
+    - Gestionan los pagos con los clientes.
+    - Visualizan las valoraciones y comentarios asociados a sus perfiles.
 
 - Desarrolladores
     - Mantener el core actualizado y eficiente, así como los addons predeterminados.
-    - Implementar nuevas funcionalidades específicas para los requisitos de los museos.
+    - Implementar las herramientas necesarias para la correcta ejecución de las consultas.
 
 # **7. MONETIZACIÓN**
 Hemos decidido ofrecer un Software as a Service a partir de planes mensuales. Estos planes dependerán del tamaño del museo. A partir de una investigación hemos podido recopilar los siguientes datos sobre algunos museos:
