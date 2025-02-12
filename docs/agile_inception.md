@@ -78,7 +78,7 @@ monofont: "Noto Sans Mono"
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
 | 12/02/2025 | v1.0    | Miguel Encina Martínez           | Primera versión de los apartados: Resumen, Problema Principal y Relevancia, Contexto y Circunstancias, Necesidades del Proyecto |
-| 12/02/2025 | v1.1    | Daniel Tortorici Bartús          | Primera versión del apartados 6 |
+| 12/02/2025 | v1.1    | Daniel Tortorici Bartús          | Primera versión de los apartados: 6. Usuarios Objetivo y 10. Impacto Esperado|
 
 
 <br>
@@ -244,13 +244,18 @@ Como primer cliente ficticio usaremos los datos del Louvre, que son públicos pa
 
 # **10. IMPACTO ESPERADO**
 
-- Mejora de la satisfacción del visitante al permitirle optimizar su recorrido.
+- Gran mejora de la situación actual de los tratamientos fisioterapéuticos on-line.
 
-- Reducción del tiempo perdido buscando obras o salas específicas.
+- Aumento de la comodidad de las consultas tanto para fisioterapeutas como para los pacientes.
 
-- Posibilidad de que los museos monitoreen patrones de comportamiento y ajusten la oferta de rutas o exposiciones en base a los datos recolectados.
+- Reducción de problemas y tiempos excesivos de transporte para de los pacientes.
 
-- Mayor flexibilidad para los museos, que podrán personalizar la aplicación con módulos según sus necesidades sin afectar al core del sistema.
+- Facilidad de trabajo para los fisioterapeutas con recursos limitados o corta experiencia.
+
+- Automatización de la gestión de citas, calendario y pagos.
+
+- Centralización de los datos y contacto entre clientes y expertos.
+
 
 
 # **11. COMPETIDORES POTENCIALES**
