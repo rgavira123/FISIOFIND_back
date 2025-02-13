@@ -62,6 +62,7 @@ classoption: "table"
 |------------|---------|----------------------------------|----------------------------|
 | 12/02/2025 | v1.0    | Alberto Carmona Sicre, Daniel Ruiz López, Rafael Pulido Cifuentes, Daniel Fernandez Caballero, Daniel Alors Romero          | Añadidos los apartados: Introducción, Estructura de los Requisitos y Requisitos. |
 | 12/02/2025 | v1.1    | Alberto Carmona Sicre, Daniel Fernandez Caballero       | Modificado el apartado de requisitos funcionales |
+| 12/02/2025 | v1.2    | Daniel Alors Romero       | Modificado los apartado de requisitos funcionales y no funcionales  |
 
 <br>
 
@@ -150,8 +151,8 @@ Por otro lado, para cada requisito, se define lo siguiente:
 
 | **RF-005** | **Gestión de pagos y facturación automatizada** |
 | --- | --- |
-| **Versión** | V1.0 |
-| **Descripción** | La aplicación debe permitir la gestión de pagos y la generación automatizada de facturas para facilitar el proceso administrativo. |
+| **Versión** | V1.1 |
+| **Descripción** | La aplicación debe permitir la gestión de pagos a través de métodos comunes (tarjetas de crédito, transferencias bancarias, plataformas como PayPal u otros métodos de pago relevantes.), así como la generación automatizada de facturas para cada transacción realizada, facilitando los datos del proveedor, cliente, el importe de la factura y comentarios adicionales. |
 | **Prioridad** | Crítica |
 
 | **RF-006** | **Sistema de valoraciones y comentarios de pacientes**  |
@@ -196,130 +197,130 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | **Descripción** | La plataforma debe ofrecer la opción de visualizar la agenda de citas, mostrando de forma diferenciada las consultas online (con enlaces de acceso) y las consultas presenciales (con información de ubicación). |
 | **Prioridad** | Importante |
 
-| **RF-013** | **Aceptación de términos y condiciones sobre responsabilidad** |  
-| --- | --- |
-| **Versión** | V1.0 |
-| **Descripción** | Durante el registro, el paciente debe aceptar en los "Términos y Condiciones" que los daños y perjuicios derivados de la realización autónoma de los ejercicios pautados no son responsabilidad del fisioterapeuta. |
-| **Prioridad** | Importante |
-
-| **RF-014** | **Inicio de sesión y autenticación social** |
+| **RF-013** | **Inicio de sesión y autenticación social** |
 | --- | --- |
 | **Versión** | V1.1 |
-| **Descripción** | La plataforma debe permitir a los usuarios (pacientes y fisioterapeutas) iniciar sesión mediante correo y contraseña, así como autenticación mediante proveedores sociales (Google, Facebook, etc.). |
+| **Descripción** | La plataforma debe permitir que los pacientes inicien sesión mediante proveedores sociales (Google, Facebook, etc.) o mediante correo y contraseña. En el caso de los fisioterapeutas, sus cuentas deberán ser creadas de manera manual por ellos usando la propia aplicación, y se les proporcionarán las credenciales para su acceso, sin la necesidad de autenticación mediante proveedores externos. |
 | **Prioridad** | Crítica |
 
-| **RF-015** | **Cierre de sesión** |  
+| **RF-014** | **Cierre de sesión** |  
 | --- | --- |
 | **Versión** | V1.0 |
 | **Descripción** | La plataforma debe permitir a los usuarios (pacientes y fisioterapeutas) cerrar sesión. |
 | **Prioridad** | Crítica |
 
-| **RF-016** | **Gestión de usuarios: listado, edición y eliminación** |  
+| **RF-015** | **Gestión de usuarios: listado, edición y eliminación** |  
 | --- | --- |
 | **Versión** | V1.0 |
 | **Descripción** | Los administradores deben poder listar, editar y eliminar usuarios en la plataforma de acuerdo con los permisos asignados. |
 | **Prioridad** | Importante |
 
-| **RF-017** | **Recuperación de contraseña** |  
+| **RF-016** | **Recuperación de contraseña** |  
 | --- | --- |
 | **Versión** | V1.0 |
 | **Descripción** | La aplicación debe ofrecer una opción de recuperación de contraseña mediante correo electrónico para usuarios que la hayan olvidado. |
 | **Prioridad** | Importante |
 
-| **RF-018** | **Roles y permisos de usuario** |  
+| **RF-017** | **Roles y permisos de usuario** |  
 | --- | --- |
 | **Versión** | V1.0 |
 | **Descripción** | El sistema debe diferenciar entre roles de usuario (paciente, fisioterapeuta y administrador) y gestionar los permisos de cada uno para restringir o habilitar funciones según corresponda. |
 | **Prioridad** | Crítica |
 
-| **RF-019** | **Verificación de la cuenta** |  
+| **RF-018** | **Verificación de la cuenta** |  
 | --- | --- |
 | **Versión** | V1.0 |
 | **Descripción** | Los usuarios deben poder verificar su cuenta mediante un enlace de confirmación enviado por correo electrónico y eliminar su cuenta de forma definitiva, eliminando todos sus datos conforme a la normativa de protección de datos. |
 | **Prioridad** | Importante |
 
-| **RF-020** | **Eliminación de cuenta** |  
+| **RF-019** | **Eliminación de cuenta** |  
 | --- | --- |
 | **Versión** | V1.0 |
 | **Descripción** | Los usuarios deben poder eliminar su cuenta mediante un enlace de confirmación enviado por correo electrónico, borrando todos sus datos conforme a la normativa de protección de datos. |
 | **Prioridad** | Importante |
 
-| **RF-021** | **Escalas de dolor avanzadas** |
+| **RF-020** | **Escalas de dolor avanzadas** |
 | --- | --- |
 | **Versión** | V1.0 |
 | **Descripción** | La plataforma debe ofrecer diversas escalas de dolor (como EVA, escala de Borg, escala de McGill, etc.) para una evaluación más detallada del estado del paciente. |
 | **Prioridad** | Importante |
 
-| **RF-022** | **Compartición de diagnósticos e imágenes** |  
+| **RF-021** | **Compartición de diagnósticos e imágenes** |  
 | --- | --- |
 | **Versión** | V1.0 |
 | **Descripción** | Los fisioterapeutas deben poder compartir diagnósticos, imágenes y resultados de pruebas con los pacientes dentro de la plataforma, permitiendo una mejor comprensión de su condición. |
 | **Prioridad** | Importante |
 
-| **RF-023** |  **Gestión de videollamadas** | 
+| **RF-022** |  **Gestión de videollamadas** | 
 | --- | --- |
 | **Versión** | V1.0 |
 | **Descripción** | La plataforma debe permitir a los fisioterapeutas iniciar y grabar las videollamadas con los pacientes en el horario previamente agendado para la consulta, garantizando una comunicación fluida y segura. |
 | **Prioridad** | Crítica |
 
-| **RF-024** | **Explicaciones visuales interactivas de recomendaciones** |
-| --- | --- |
-| **Versión** | V1.0 |
-| **Descripción** | La plataforma debe incluir herramientas visuales interactivas que permitan a los fisioterapeutas explicar sus recomendaciones a los pacientes de forma clara y efectiva. |
-| **Prioridad** | Importante |
-
-| **RF-025** | **Sistema de mensajería para confirmación de citas** |
+| **RF-023** | **Sistema de mensajería para confirmación de citas** |
 | --- | --- |
 | **Versión** | V1.0 |
 | **Descripción** | La plataforma debe contar con un sistema de notificación (por mensaje o correo electrónico) que confirme las citas agendadas y envíe recordatorios automáticos, incluyendo notificaciones días previos a la cita. |
 | **Prioridad** | Importante |
 
-| **RF-026** | **Perfil profesional completo** | 
+| **RF-024** | **Perfil profesional completo** | 
 | --- | --- |
 | **Versión** | V1.0 |
 | **Descripción** | La plataforma debe mostrar un perfil detallado del fisioterapeuta, que incluya: ubicación, reconocimientos, datos de contacto (nombre, teléfono, correo electrónico), multimedia, valoraciones, servicios y especialidades, horario, modalidad de consulta (online, presencial o ambas), métodos de pago y tarifas. |
 | **Prioridad** | Importante |
 
-| **RF-027** | **Apartado para profesionales de clínica** |  
+| **RF-025** | **Apartado para profesionales de clínica** |  
 | --- | --- |
 | **Versión** | V1.0 |
 | **Descripción** | En el caso de que la plataforma sea utilizada por una clínica, se debe disponer de un apartado específico para gestionar y visualizar a los profesionales que trabajan en la misma. |
 | **Prioridad** | Baja |
 
-| **RF-028** | **Características de reserva de citas** | 
+| **RF-026** | **Características de reserva de citas** | 
 | --- | --- |
 | **Versión** | V1.1 |
 | **Descripción** | Al reservar una cita, el sistema debe permitir al paciente elegir las fechas e intervalo de horario disponibles y mostrar el precio para ese servicio. |
 | **Prioridad** | Importante |
 
-| **RF-029** | **Sistema de favoritos para profesionales** | 
+| **RF-027** | **Sistema de favoritos para profesionales** | 
 | --- | --- |
 | **Versión** | V1.0 |
 | **Descripción** | La plataforma debe permitir a los pacientes marcar a los profesionales como favoritos (dar "me gusta"), para acceder rápidamente a sus perfiles y facilitar futuras reservas. |
 | **Prioridad** | Baja |
 
-| **RF-030** | **Sistema de mensajería entre usuarios** |  
+| **RF-028** | **Sistema de mensajería entre usuarios** |  
 | --- | --- |
 | **Versión** | V1.0 |
 | **Descripción** | La plataforma debe permitir a los usuarios (pacientes y profesionales) intercambiar mensajes directos para coordinar detalles o resolver dudas previas a la solicitud de citas. |
 | **Prioridad** | Crítica |
 
-| **RF-031** | **Listado de pacientes para profesionales** |
+| **RF-029** | **Listado de pacientes para profesionales** |
 | --- | --- |
 | **Versión** | V1.0 |
 | **Descripción** | Los profesionales deben poder visualizar un listado de sus pacientes, con acceso rápido a datos de contacto, historial de citas y estado del tratamiento. |
 | **Prioridad** | Importante |
 
-| **RF-032** | **Agenda clínica con asignación individual de citas** |
+| **RF-030** | **Agenda clínica con asignación individual de citas** |
 | --- | --- |
 | **Versión** | V1.0 |
 | **Descripción** | La plataforma debe permitir a la clínica programar citas de forma que, al seleccionar una franja horaria, se pueda elegir el profesional específico para cada cita. Esto implica que, en una misma franja horaria, se podrán agendar tantas citas como profesionales estén disponibles, asignando cada una de ellas a un profesional diferente. La agenda deberá reflejar claramente la distribución de citas por profesional para facilitar su gestión y evitar conflictos en la asignación. |
 | **Prioridad** | Baja |
 
-| **RF-033** | **Integración de modelo 3D del cuerpo en videollamadas** |
+| **RF-031** | **Integración de modelo 3D del cuerpo en videollamadas** |
 | --- | --- |
 | **Versión** | V1.0 |
 | **Descripción** | La plataforma debe permitir la visualización e interacción con un modelo 3D del cuerpo humano (atlas) durante las videollamadas. Esta funcionalidad facilitará la comunicación entre el fisioterapeuta y el paciente, permitiendo señalar, rotar y resaltar áreas específicas del cuerpo. |
+| **Prioridad** | Deseable |
+
+| **RF-032** | **Planes para fisioterapeutas** |
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | Los fisioterapeutas podrán elegir entre dos tipos de planes según el precio que paguen: el "Plan de Fisio Básico" y el "Plan de Fisio Premium". Ambos planes ofrecen las mismas opciones para las consultas, pero el "Plan de Fisio Premium" ofrecerá ventajas adicionales en términos de visibilidad dentro de la plataforma. Esto incluye prioridad en las búsquedas, la posibilidad de crear anuncios para promocionar sus servicios, junto a otros beneficios. |
+| **Prioridad** | Importante |
+
+| **RF-033** | **Búsqueda de profesionales en mapa interactivo** |
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | La plataforma debe permitir a los pacientes buscar los profesionales cercanos en la ciudad a través de un mapa interactivo, mejorando la interactividad en la búsqueda de fisioterapeutas. |
 | **Prioridad** | Deseable |
 
 ---
@@ -351,6 +352,13 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | **Versión** | V1.0 |
 | **Descripción** | La plataforma debe cumplir con las regulaciones de protección de datos como el GDPR en Europa o la LOPD en España. |
 | **Prioridad** | Crítica |
+
+| **RF-05** | **Aceptación de términos y condiciones sobre responsabilidad** |  
+| --- | --- |
+| **Versión** | V1.1 |
+| **Descripción** | Durante el registro, el paciente debe aceptar los "Términos y Condiciones" de la plataforma, los cuales especificarán las responsabilidades del paciente, incluyendo la exoneración de responsabilidad del fisioterapeuta en caso de realizar los ejercicios de forma autónoma sin seguimiento directo. Este paso será obligatorio para la creación de la cuenta. |
+| **Prioridad** | Importante |
+
 
 ---
 
