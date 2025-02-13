@@ -81,6 +81,7 @@ monofont: "Noto Sans Mono"
 | 12/02/2025 | v1.1    | Daniel Tortorici Bartús          | Primera versión de los apartados: 6. Usuarios Objetivo y 10. Impacto Esperado|
 | 12/02/2025 | v1.2    | Francisco Capote García          | Eliminado Gallery Guide de resumen y de necesidades del proyecto, Actualizada la arquitectura app, Actualizada la implementacion y justificacion de la app,  corregido pequeños errores |
 | 12/02/2025 | v1.3    | Daniel Tortorici Bartús          | Primera versión del apartado 12. Diferenciación del Proyecto|
+| 13/02/2025 | v1.4    | Miguel Encina Martínez           | Corrección de errores y primera versión de los apartados: Monetización, Coste Estimado, Implementación y Justificación de la App |
 
 
 <br>
@@ -125,7 +126,7 @@ Varios miembros del grupo disponen de personas cercanas que practican la profesi
 
 **PARA FISIOTERAPEUTAS**
 - Digitalización del cuerpo humano y mapas de dolor:
-    - Mientras el cliente y fisioterapeuta se encuentra en videollamada, el cliente tendra la opcion de mostrar mediante un mapa virtual del cuerpo humano las areas donde sufre dolor o molestia, mejorando la comunicacion y facilitando asi al fisioterapeuta entender al cliente.
+    - Mientras el cliente y fisioterapeuta se encuentra en videollamada, el cliente tendrá la opción de mostrar mediante un mapa virtual del cuerpo humano las áreas donde sufre dolor o molestia, mejorando la comunicacion y facilitando asi al fisioterapeuta entender al cliente.
 
 - Sistema de agendas y gestion de citas:
     - Los fisioterapeutas podrán administrar sus citas de forma flexible, optimizando su disponibilidad y ajustando su horario según sus necesidades.
@@ -134,7 +135,7 @@ Varios miembros del grupo disponen de personas cercanas que practican la profesi
     - Los fisioterapeutas podrán prescribir ejercicios personalizados para los pacientes, quienes podrán realizar un seguimiento de su progreso y nivel de dolor. El sistema permitirá registrar el avance de los ejercicios, evaluar la intensidad del dolor y ajustar el plan de tratamiento según sea necesario.
     
 - Facturación automatizada y gestión de pagos:
-    - El sistema generará facturas automáticamente tras cada consulta, facilitando la gestión financiera de los fisioterapeutas. Permitiendo pagos dentro de la aplicacion de forma segura mediante Stripe y un historial de transacciones.
+    - El sistema generará facturas automáticamente tras cada consulta, facilitando la gestión financiera de los fisioterapeutas. Permitiendo pagos dentro de la aplicación de forma segura mediante Stripe y un historial de transacciones.
 
 - Perfil profesional verificado:
     - Los fisioterapeutas deberán completar un proceso de verificación para garantizar su autenticidad y credibilidad. Esto incluirá la validación de certificaciones, experiencia y especialidades, asegurando confianza y calidad en el servicio.
@@ -186,42 +187,54 @@ Varios miembros del grupo disponen de personas cercanas que practican la profesi
     - Implementar las herramientas necesarias para la correcta ejecución de las consultas.
 
 # **7. MONETIZACIÓN**
-Hemos decidido ofrecer un Software as a Service a partir de planes mensuales. Estos planes dependerán del tamaño del museo. A partir de una investigación hemos podido recopilar los siguientes datos sobre algunos museos:
-- Bellas artes: 14 salas, 7,775 m<sup>2</sup>
-- Louvre: cerca de 300 salas, 210,000 m<sup>2</sup>
-- Museo Nacional Centro de Arte Reina Sofía: 84,048 m<sup>2</sup>
 
-Las fuentes de estos datos son planos oficiales de los museos o o consultadas directamente desde *Wikipedia*.
+Hemos plantedo ofrecer un modelo de negocio de tipo SaS (Software as a Service) accesible a través de unos planes de suscripción para aquellos fisioterapeutas que quieran disponer de estas herramientas. A continuación, se van a describir dichos planes, especificando las ventajas que ofrece cada uno:
 
-A partir de estos datos, en un primer momento hemos decidido ofrecer los siguientes planes para las entidades privadas:
+- **FISIO BLUE: 20€/mes**
+  - Videoconsultas con todas las herramientas.
+  - Seguimiento del paciente.
+  - Chat integrado
+  - Subir y compartir vídeos (hasta 7)
 
-- **Menos de 14 salas** (14 salas NO incluido): **200 euros** mensuales + componentes no incluidos elegidos.
-  - Incluye el core más 2 componentes extra.
-  - Cada componente extra elegido suma 50 euros al precio mensual.
-
-- **Entre 14 y 30 salas**: **300 euros** mensuales + componentes no incluidos elegidos.
-  - Incluye el core más 1 componente extra.
-  - Cada componente extra elegido suma 100 euros al precio mensual.
-
-- **Entre 30 y 50 salas**: **500 euros** mensuales + componentes no incluidos elegidos.
-  - Incluye solo el core.
-  - Cada componente extra elegido suma 200 euros al precio mensual.
-
-- **Más de 50 salas**: deben de contactar con nosotros para ofrecer una solución o precio personalizado.
-
-Sin embargo, si hiciera falta participar en concurso público para dar nuestros servicios, el plan y de este modo el contrato se deberá de hacer a medida. Asimismo, el precio y las condiciones serían a medida.
+- **FISIO GOLD: 24,99€/mes**
+  - Videoconsultas con todas las herramientas.
+  - Seguimiento del paciente.
+  - Chat integrado
+  - Mayor alcance
+  - Tick de verificación FISIO GOLD
+  - Subir y compartir vídeos (hasta 15)
 
 # **8. COSTE ESTIMADO** 
 Haced una estimación de las horas que vamos a hacer (10h semanales x semanas x 17 personas x X€/hora).
 
+Tras realizar un estudio exhaustivo de los posibles costes de realizar este proyecto y mantenerlo (hasta 5 años), se ha obtenido la siguiente estimación:
+
+- **Coste de desarrollo**: 86,487 €
+- **Coste almacenamiento**: 31.30 €/año
+- **Coste de transferencia**: 190.51 €/año
+- **Coste de mantenimiento**: 15,000.00 €/año
+- **Coste de soporte técnico**: 10,000.00 €/año
+- **Coste de hardware**: 5,000.00 €/año
+Total = 237,596.05 €
 
 # **9. IMPLEMENTACIÓN Y JUSTIFICACIÓN DE LA APP**
 
-**Qué vamos a hacer nosotros (Por qué una APP)**
+**Qué vamos a hacer nosotros (¿Por qué una APP?)**
 
-Mediante una aplicacion on-line los fisioterapeutas son capaces de asistir a sus clientes sin necesidad de realizar la consulta presenciales, por lo que una aplicacion capaz de realizar este funcion puede ser clave.
+Mediante una aplicación on-line los fisioterapeutas son capaces de atender a sus clientes sin necesidad de realizar una consulta presencial, por lo que una aplicación capaz de realizar esta funcion puede ser clave. Además, amplía el alcance de los fisioterapeutas al permitirles atender a pacientes de otras localidades más lejanas.
 
-Hemos recibido la motivacion de varios fisioterapeutas cercanos a nosotros, ya que estarian totalmente de acuerdo de utilizar la aplicacion
+Hemos recibido la motivación de varios fisioterapeutas cercanos a nosotros, que consideran totalmente necesaria la existencia de un software como el que planteamos y que estarían dispuestos a utilizar.
+
+**Análisis de viabilidad (5 años)**
+
+Teniendo en cuenta la estimación de los costes del apartado anterior, se han sacado la conclusión de que, de cara a rentabilizar este modelo de negocio con un margen de 5 años, se necesitarían al menos 162 fisios, de los cuales 48 dispondrían del plan **FISIO GOLD** y los 113 restantes dispondrían del plan **FISIO BLUE**, para cubrir los gastos, aproximadamente, de la inversión inicial. De esta forma:
+
+48 * 35 €/mes = 1680 €/mes
+--
+113 * 20 €/mes = 2260 €/mes
+--
+**Total** = 3940 €/mes * 12 meses * 5 años = 236,400.00 €
+--
 
 **Tecnologías y Herramientas Clave**
 
@@ -250,108 +263,17 @@ Hemos recibido la motivacion de varios fisioterapeutas cercanos a nosotros, ya q
 
 - Centralización de los datos y contacto entre clientes y expertos.
 
-
+- Rentabilizar la inversión inicial atrayendo a un gran número de fisioterapeutas que estén interesados en destacar frente a la competencia haciendo uso de nuestro software especializado
 
 # **11. COMPETIDORES POTENCIALES**
 
-## **11.1. GVAM / SITUM**
-
-### **Puntos fuertes:**
-
-1. Situm ofrece la geolocalización dentro del establecimiento mediante una tecnología innovadora (*Indoor Maps*), para poder localizar determinados elementos dentro del recinto.
-
-2. GVAM ofrece soluciones software a los museos donde poder incluir audioguías, recomendadores de contenido, ayudas de ubicación y recreaciones virtuales:
-    - Ofrece servicios adicionales como posibles actividades de entretenimiento antes y después de la visita (hoteles, restaurantes).
-    - También ofrece soluciones para poder gestionar y actualizar guías interactivas.
-    - Ofrece audioguías completas relativas a una ruta, ya sea determinada por ellos o por el propio museo.
-
-### **Monetización:**  
-- Parece ofrecer soluciones personalizadas a los diferentes museos interesados en servicios y mejoras específicas.
-
----
-
-## **11.2. SMARTIFY**
-
-### **Puntos fuertes:**
-
-1. Aplicación donde se pueden adquirir entradas para una gran cantidad de museos o puntos culturales.
-
-2. Ofrece audioguías de muchos museos, tanto gratuitas como de pago.
-
-3. Tiene una sección de recomendaciones de exposiciones temporales, guías de arte por época y obras destacadas cercanas al usuario.
-
-4. Ofrece una tienda de *merchandising* relacionado con el arte.
-
-5. Dispone de un sistema de búsqueda por el nombre de la obra o autor, y muestra en qué museo se encuentra, con redirección para comprar las entradas.
-
-6. Identifica obras de arte online.
-
-### **Monetización:**  
-- Venta de entradas, acordada mediante un modelo de *split* económico con los museos.  
-
-- Venta de productos de *merchandising*.
-
----
-
-## **11.3. EXPLORE - AMNH OFFICIAL APP**
-
-### **Puntos fuertes:**
-1. Es la aplicación oficial del museo.
-
-2. Tiene un mapa digitalizado interactivo del plano del museo, incluyendo puntos de interés y obras.
-
-3. Cuenta con un sistema de geolocalización dentro del museo: Sistema para localizar elementos como parkings, estaciones, cargadores, escaleras y ascensores, guiando al usuario mediante un sistema similar a un GPS.
-
-4. Incluye la opción de comprar entradas y gestionar las membresías del museo.
-
-5. Sistema de preferencias de obras para priorizar la información mostrada en el mapa interactivo.
-
-6. Sección de información general del museo: entradas, horarios, etc.
-
-7. Configuración para limitar recursos como notificaciones, uso de la ubicación, etc.
-
-8. Sistema de feedback anónimo sobre la experiencia del usuario.
-
-9. Para cada obra ofrece información y una sección interactiva con datos curiosos en forma de trivias.
-
-
-### **Monetización:**  
-- Al ser una aplicación propia del museo, la monetización proviene directamente de la venta de entradas y membresías a través de la aplicación.
-
----
-
-## **11.4. OTROS COMPETIDORES**
-
-Existen numerosas aplicaciones que ofrecen guías de visita estáticas de museos específicos, algunas con mapas breves o rutas predefinidas establecidas por el creador. En general, estas rutas no se generan dinámicamente según los intereses y el tiempo del usuario. También hay aplicaciones que recopilan obras de arte de varios museos, y algunas incluyen audioguías limitadas.
-
-- [Muchas de las aplicaciones dirigidas a museos](https://evemuseografia.com/2023/12/30/mejor-software-para-museos-en-2023/): Se basan simplemente en gestión de inventario/ventas/visitantes:
-    - [Coeli](https://www.coeli.cat/es/): Gestión de colecciones.
-    - [Booking kit](https://bookingkit.com/es/industry/museos/): Venta de entradas.
-    - [Intuiface](https://es.intuiface.com/museums-digital-signage): Para pantallas táctiles estáticas.
-
-- [Rotas Art](https://www.rotas.com):
-    - Tiene cierta personalización de la ruta. 
-    - Obtiene todos los datos de las obras.
-    - La funcionalidad del mapa no parece la más desarrollada.
-
-- [Museo altamira](https://play.google.com/store/apps/details?id=com.gvam.altamira&hl=es): Es solo de altamira.
-
-- [tuinbit](https://tuinbit.com/app-de-audioguias-para-museos/): 
-    - Todo incluido pero solo audioguías.
-    - Tiene funcionalidad de anuncios.
-
-- [Museos virtuales](https://ecobnb.es/blog/2021/07/museos-virtuales-mundo-online-visitar-gratis/) y [Google Arts](https://www.juntadeandalucia.es/organismos/culturaydeporte/areas/cultura/museos-arte/vistas-virtuales.html): Permite visitas virtuales pero parece no dejar crear rutas.
-
-
-
+[Insertar link del documento competitors analisis](agile_inception.pdf)
 
 # **12. DIFERENCIACIÓN DEL PROYECTO**
 
 **Elementos a Tener en Cuenta:**
 
 - No parece existir una competencia directa que explote el aspecto telemático de las consultas on-line.
-
-  la responsabiliada a Miguel Encina!!!
 
 - **FISIOFIND** se encuadra entre los sectores **Matchmaking and Innovation** y **Service and Innovation**
 
@@ -360,12 +282,14 @@ Existen numerosas aplicaciones que ofrecen guías de visita estáticas de museos
 
 - No es un proyecto de servicio que utilice la monetización basada en los datos de los usuarios, como _LinkedIn_.
 
+- Queremos innovar en herramientas de consultas on-line para fisioterapeutas, funcionalidad que todavía no está disponible en el mercado.
+
 
 **Razones por las cuales nos parecemos a Uber (Matchmaking and Innovation):**
 
 - ✔ Es un servicio digital innovador que conecta personas que necesitan ayuda profesional con expertos del sector de la fisioterapia.
 
-- ✔ Para los fisioterapeutas, su valor está en el incremento de reconocimiento y en la posibilidad de posicionarse en el mercado.
+- ✔ Para los fisioterapeutas, su valor está en el incremento de reconocimiento y en la posibilidad de posicionarse en el mercado y darse a conocer.
   
 - ✔ Para los pacientes, su valor está en la facilidad de encontrar al especialista adecuado según sus necesidades.
 
@@ -374,4 +298,4 @@ Existen numerosas aplicaciones que ofrecen guías de visita estáticas de museos
 
 - ✔ Es un servicio digital innovador que le permite a los fisioterapeutas y pacientes tener varias vías de comunicación efectiva y múltiples herramientas para lograr los mejores resultados en las consultas.
 
-- ✔ Su valor está, principalmente, en las funcionalidades y servicios que se ofrecen para el desarrollo y gestión las consultas.
+- ✔ Su valor está, principalmente, en las funcionalidades y servicios que se ofrecen para el desarrollo y gestión las consultas, especialmente on-line.
