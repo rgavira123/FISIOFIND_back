@@ -1,6 +1,6 @@
 ---
 title: "COMMITMENT AGREEMENT"
-subtitle: "GALLERY GUIDE"                       
+subtitle: "FISIO FIND"                       
 author: [Alberto Carmona Sicre, Daniel Ruiz López, Miguel Encina Martínez, Delfín Santana Rubio] 
 date: "07/02/2025"                                                 
 subject: "ISPP"
@@ -12,10 +12,10 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: ".backgrounds/background2V.pdf"                            
+titlepage-background: ".backgrounds/background1V.pdf"                            
 header-left: "COMMITMENT AGREEMENT"                 
 header-right: "07/02/2025"                                         
-footer-left: "GALLERY GUIDE"
+footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"
 mainfont: "Noto Sans"
@@ -25,9 +25,9 @@ monofont: "Noto Sans Mono"
 
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<p align="center" style="font-size: 30px; font-weight: bold;">
-  GALLERY GUIDE  -  COMMITMENT AGREEMENT
-</p>
+<h1 align="center" style="font-size: 30px; font-weight: bold;">
+  FISIO FIND  -  COMMITMENT AGREEMENT
+</h1>
 
 <br>
 
@@ -53,7 +53,7 @@ monofont: "Noto Sans Mono"
 
 **Ficha del documento**
 
-- **Nombre del Proyecto:** GALLERY GUIDE
+- **Nombre del Proyecto:** FISIO FIND
 
 - **Autores:** Alberto Carmona Sicre, Daniel Ruiz López, Miguel Encina Martínez, Delfín Santana Rubio, Antonio Macías Ferrera
 
@@ -80,7 +80,7 @@ monofont: "Noto Sans Mono"
 
 
 
-\newpage 
+<!-- \newpage  -->
 
 
 # 1. INTRODUCCIÓN

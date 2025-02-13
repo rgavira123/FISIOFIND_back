@@ -1,6 +1,6 @@
 ---
 title: "AGUILE INCEPTION"                       
-subtitle: "GALLERY GUIDE"
+subtitle: "FISIO FIND"
 author: [Ramón Gavira Sánchez, Daniel Vela Camacho, Delfín Santana Rubio] 
 date: "05/02/2025"                                                 
 subject: "ISPP"
@@ -15,7 +15,7 @@ linkcolor: blue
 titlepage-background: ".backgrounds/background2V.pdf"                            
 header-left: "AGUILE INCEPTION"                 
 header-right: "05/02/2025"                                         
-footer-left: "GALLERY GUIDE"
+footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"
 mainfont: "Noto Sans"
@@ -25,9 +25,9 @@ monofont: "Noto Sans Mono"
 
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<p align="center" style="font-size: 30px; font-weight: bold;">
-  GALLERY GUIDE  -  AGULE INCEPTION
-</p>
+<h1 align="center" style="font-size: 30px; font-weight: bold;">
+  FISIO FIND  -  AGULE INCEPTION
+</h1>
 
 <br>
 
@@ -59,7 +59,7 @@ monofont: "Noto Sans Mono"
 
 **Ficha del documento**
 
-- **Nombre del Proyecto:** GALLERY GUIDE
+- **Nombre del Proyecto:** FISIO FIND
 
 - **Autores:** Ramón Gavira Sánchez, Daniel Vela Camacho, Delfín Santana Rubio
 
@@ -96,7 +96,7 @@ monofont: "Noto Sans Mono"
 
 # **1. RESUMEN**
 
-**Gallery Guide es una aplicación personalizada para museos que permite planificar rutas óptimas según el tiempo o las preferencias del visitante**. A diferencia de visitas guiadas en tiempo real o audioguías, ofrecemos un mapa digitalizado como grafo y recomendaciones inteligentes, optimizando cada recorrido. Es una solución escalable y adaptable a las necesidades de cada museo.
+**FISIO FIND es una aplicación personalizada para museos que permite planificar rutas óptimas según el tiempo o las preferencias del visitante**. A diferencia de visitas guiadas en tiempo real o audioguías, ofrecemos un mapa digitalizado como grafo y recomendaciones inteligentes, optimizando cada recorrido. Es una solución escalable y adaptable a las necesidades de cada museo.
 
 # **2. PROBLEMA PRINCIPAL Y RELEVANCIA**
 El proyecto aborda la carencia de una herramienta digital generalizada que permita a los visitantes de museos planificar rutas óptimas basadas en criterios personalizados. La propuesta busca mejorar la experiencia del visitante y optimizar el tiempo dedicado en museos de gran tamaño o compleja estructura.
@@ -220,7 +220,7 @@ Haced una estimación de las horas que vamos a hacer (10h semanales x semanas x 
 
 Integraremos una versión con el CORE con datos de prueba, optamos por el SPL porque queremos ofrecer un servicio personalizado a cada cliente. 
 
-Como primer cliente ficticio usaremos los datos del Louvre, que son públicos para demostrar todas las capacidades de Gallery Guide como solución software.
+Como primer cliente ficticio usaremos los datos del Louvre, que son públicos para demostrar todas las capacidades de FISIO FIND como solución software.
 
 **Tecnologías y Herramientas Clave**
 
@@ -344,7 +344,7 @@ Existen numerosas aplicaciones que ofrecen guías de visita estáticas de museos
 **Elementos a Tener en Cuenta:**
 - No parece existir un monopolio o una competencia con un gigantesco nivel técnico o de influencia en el sector.
 
-- **Gallery Guide** se encuadra en el sector **Service and Innovation** (similar a *Netflix*).
+- **FISIO FIND** se encuadra en el sector **Service and Innovation** (similar a *Netflix*).
 
 **Razones por las cuales no pertenecemos a los otros modelos:**
 - No somos una aplicación basada en el *matchmaking* como Airbnb o Uber, ya que no conectamos personas para satisfacer servicios específicos.

@@ -1,6 +1,6 @@
 ---
 title: "PLAN DE GESTIÓN DE LA CONFIGURACIÓN"                       # CHANGE IF NEEDED
-subtitle: "GALLERY GUIDE"
+subtitle: "FISIO FIND"
 author: [Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores] # CHANGE IF NEEDED
 date: "04/02/2025"                                                 # CHANGE IF NEEDED
 subject: "ISPP"
@@ -12,10 +12,10 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: ".backgrounds/background2V.pdf"                            # CHANGE IF NEEDED
+titlepage-background: ".backgrounds/background1V.pdf"               # CHANGE IF NEEDED
 header-left: "PLAN DE GESTIÓN DE LA CONFIGURACIÓN"                  # CHANGE IF NEEDED
 header-right: "04/02/2025"                                          # CHANGE IF NEEDED
-footer-left: "GALLERY GUIDE"
+footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"
 mainfont: "Noto Sans"
@@ -24,9 +24,9 @@ monofont: "Noto Sans Mono"
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<p align="center" style="font-size: 30px; font-weight: bold;">
-  GALLERY GUIDE  -  PLAN DE GESTIÓN DE LA CONFIGURACIÓN
-</p>
+<h1 align="center" style="font-size: 30px; font-weight: bold;">
+  FISIO FIND  -  PLAN DE GESTIÓN DE LA CONFIGURACIÓN
+</h1>
 
 <br>
 
@@ -54,7 +54,7 @@ monofont: "Noto Sans Mono"
 
 **Ficha del documento**
 
-- **Nombre del Proyecto:** GALLERY GUIDE
+- **Nombre del Proyecto:** FISIO FIND
 
 - **Autores:** Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores
 
@@ -74,12 +74,15 @@ monofont: "Noto Sans Mono"
 |------------|---------|----------------------------------|----------------------------|
 | 04/02/2025 | v1.0    | Antonio Macías Ferrera           | Elaboración de la plantilla del documento. |
 | 05/02/2025 | v2.0    | Benjamín Ignacio Maureira Flores | Completado según la metodología a seguir en el proyecto. |
+| 13/02/2025 | v2.1    | Antonio Macías Ferrera | Adecuación al nuevo proyecto Fisio Find. |
+
 
 
 <br>
 
 <br>
 
+<!-- \newpage -->
 
 <br>
 
@@ -109,6 +112,8 @@ Cada uno de estos elementos tendrá un identificador único, y se someterá a co
 
 <br>
 
+<!-- \newpage -->
+
 
 # **3. HERRAMIENTAS A UTILIZAR**
 
@@ -123,6 +128,8 @@ Cada uno de estos elementos tendrá un identificador único, y se someterá a co
 <br>
 
 <br>
+
+<!-- \newpage -->
 
 
 # **4. CONTROL y POLÍTICA DE VERSIONADO**
@@ -252,6 +259,10 @@ Para las solicitudes de cambio formales, se deberá seguir la plantilla ubicada 
 
 <br>
 
+
+<!-- \newpage -->
+
+
 # **5. ESTRATEGIA DE RAMAS**
 
 La estrategia de ramas se basa en **Git Flow** con algunas modificaciones para garantizar un desarrollo ágil y seguro.
@@ -283,6 +294,9 @@ Se recomienda encarecidamente **no aprobar una Pull Request si no se han pasado 
 <br>
 
 <br>
+
+<!-- \newpage -->
+
 
 # **6. ESTÁNDARES DE CODIFICACIÓN**
 
@@ -484,7 +498,7 @@ Todos estos ejemplos son una muestra de los más importantes que tendremos en cu
 # **7. GESTIÓN DEL CAMBIO**
 
 # **8. CONCLUSIÓN**
-Este documento define las políticas de gestión de configuración del proyecto **GALLERY GUIDE**. Es crucial que estas buenas prácticas sean aplicadas por todos los miembros del equipo a lo largo de todo el proyecto para procurar un orden, trazabilidad y, en resumen, una buena calidad en el desarrollo y resultado del producto.
+Este documento define las políticas de gestión de configuración del proyecto **FISIO FIND**. Es crucial que estas buenas prácticas sean aplicadas por todos los miembros del equipo a lo largo de todo el proyecto para procurar un orden, trazabilidad y, en resumen, una buena calidad en el desarrollo y resultado del producto.
 
 <br>
 
