@@ -178,6 +178,10 @@ Se establecen los siguientes niveles de cumplimiento del acuerdo de compromiso, 
 - Regular (R): 50% - 69%.
 - Deficiente (D): 0% - 49%.
 
+Es posible que, en ocasiones, un integrante no alcance las 10 horas porque se le hayan asignado pocas tareas o estas no se hayan distribuido adecuadamente. Si esto sucede, se debe verificar con la persona afectada si efectivamente la causa es la mala asignación. De confirmarse, se considerará la semana como cumplida, siempre y cuando se informe al encargado de asignar tareas para evitar que la situación se repita.
+
+En caso de que esta circunstancia persista, será necesario realizar una nueva reunión con el encargado de asignar tareas y la persona afectada para encontrar una solución definitiva.
+
 
 ## 2.8 CONDICIONES DEL ACUERDO
 
