@@ -1,6 +1,6 @@
 ---
 title: "REUNIÓN DD-MM-AAA"               # CHANGE IF NEEDED
-subtitle: "GALLERY GUIDE"
+subtitle: "FISIO FIND"
 author: [Antonio Macías Ferrera]         # CHANGE IF NEEDED
 date: "04/02/2025"                       # CHANGE IF NEEDED
 subject: "ISPP"
@@ -12,18 +12,22 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: "../.backgrounds/background2V.pdf" # CHANGE IF NEEDED
+titlepage-background: "../.backgrounds/background3V.pdf" # CHANGE IF NEEDED
 header-left: "SPRINT MEETINGS"
 header-right: "04/02/2025"               # CHANGE IF NEEDED
-footer-left: "GALLERY GUIDE"
+footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"  
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<!-- <p align="center" style="font-size: 30px; font-weight: bold;">
-  GALLERY GUIDE  -  REUNIÓN DD-MM-AAA
+<p align="center">
+  <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
+
+<h1 align="center" style="font-size: 30px; font-weight: bold;">
+  FISIO FIND  -  REUNIÓN DD-MM-AAA
+</h1>
 
 <br>
 
@@ -31,7 +35,7 @@ classoption: "table"
 1. [OBJETIVO DE LA REUNIÓN](#1-objetivo-de-la-reunión)
 2. [ORDEN DEL DÍA](#2-orden-del-día)
 3. [ACUERDOS Y DECISIONES](#3-acuerdos-y-decisiones)
-4. [CONCLUSIONES Y OBSERVACIONES](#4-conclusiones-y-observaciones) -->
+4. [CONCLUSIONES Y OBSERVACIONES](#4-conclusiones-y-observaciones)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
@@ -63,6 +67,8 @@ classoption: "table"
 <br>
 
 <br>
+
+<!-- \newpage -->
 
 
 # **1. OBJETIVO DE LA REUNIÓN**

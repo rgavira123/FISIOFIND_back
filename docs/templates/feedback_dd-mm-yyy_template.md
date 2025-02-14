@@ -1,8 +1,8 @@
 ---
-title: "FEEDBACK DD-MM-AAAA"               # CHANGE IF NEEDED
-subtitle: "GALLERY GUIDE"
+title: "FEEDBACK DD-MM-AAAA"            # CHANGE IF NEEDED
+subtitle: "FISIO FIND"
 author: [Alberto Carmona Sicre]         # CHANGE IF NEEDED
-date: "dd/mm/aaaa"                       # CHANGE IF NEEDED
+date: "dd/mm/aaaa"                      # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -15,19 +15,23 @@ linkcolor: blue
 titlepage-background: "../.backgrounds/background2V.pdf" # CHANGE IF NEEDED
 header-left: "FEEDBACK"
 header-right: "dd/mm/yyyy"               # CHANGE IF NEEDED
-footer-left: "GALLERY GUIDE"
+footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"  
-...
+---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<p align="center" style="font-size: 30px; font-weight: bold;">
-  GALLERY GUIDE  -  FEEDBACK DD-MM-AAA
+<p align="center">
+  <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
+
+<h1 align="center" style="font-size: 30px; font-weight: bold;">
+  FISIO FIND  -  FEEDBACK DD-MM-AAA
+</h1>
 
 <br>
 
-**Índice**
+**ÍNDICE**
 1. [RESUMEN DEL FEEDBACK POR GRUPO](#1-resumen-del-feedback-por-grupo)
 2. [ANÁLISIS DEL FEEDBACK](#2-análisis-del-feedback)
     - 2.1. [TENDENCIAS GENERALES](#21-tendencias-generales)
@@ -36,7 +40,7 @@ classoption: "table"
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 
-
+<!-- \newpage -->
 
 <br>
 

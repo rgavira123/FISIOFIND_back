@@ -1,6 +1,6 @@
 ---
 title: "SPRINT REVIEW SPRINT X"         # CHANGE IF NEEDED
-subtitle: "GALLERY GUIDE"
+subtitle: "FISIO FIND"
 author: [Antonio Macías Ferrera]        # CHANGE IF NEEDED
 date: "04/02/2025"                      # CHANGE IF NEEDED
 subject: "ISPP"
@@ -12,10 +12,10 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: "../.backgrounds/background2V.pdf" # CHANGE IF NEEDED
+titlepage-background: "../.backgrounds/background4V.pdf" # CHANGE IF NEEDED
 header-left: "SPRINT REVIEW SPRINT X"    # CHANGE IF NEEDED
 header-right: "04/02/2025"               # CHANGE IF NEEDED
-footer-left: "GALLERY GUIDE"
+footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"
 mainfont: "Noto Sans"
@@ -24,9 +24,13 @@ monofont: "Noto Sans Mono"
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<p align="center" style="font-size: 30px; font-weight: bold;">
-  GALLERY GUIDE  -  SPRINT REVIEW SPRINT X
+<p align="center">
+  <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
+
+<h1 align="center" style="font-size: 30px; font-weight: bold;">
+  FISIO FIND  -  SPRINT REVIEW SPRINT X
+</h1>
 
 <br>
 
@@ -64,6 +68,8 @@ monofont: "Noto Sans Mono"
 | Rafael Pulido Cifuentes | -- | rafpulcif@alum.us.es |
 
 <br>
+
+<!-- \newpage -->
 
 <br>
 
