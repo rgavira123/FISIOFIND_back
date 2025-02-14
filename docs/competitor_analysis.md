@@ -104,6 +104,7 @@ FISIOFIND  - COMPETITOR ANALYSIS
     - 4.5.2 [Fisiotrack](#452-fisiotrack)
     
 5. [Alternativas no contempladas](#5-alternativas-no-contempladas)
+6. [Competidores Identificados por Feedback]
 
 ---
 
@@ -129,6 +130,8 @@ FISIOFIND  - COMPETITOR ANALYSIS
 | 13/02/2025 | v1.3 | Daniel Vela Camacho | Añadida las secciones: Introducción, Descubrimiento de los competidores. Mejorado: Formato |
 | 13/02/2025 | v1.4 | Daniel Vela Camacho | Analizado Doctoralia y Fisia |
 | 13/02/2025 | v1.5 | Francisco Mateos Villarejo, Daniel Tortorici Bartús, Daniel Vela Camacho | Análisis del resto de competidores y enumeración de aquellos menos relevantes |
+| 13/02/2025 | v1.6 | Francisco Mateos Villarejo, Daniel Tortorici Bartús, Daniel Vela Camacho | Análisis de los competidores propuestos Guadalupe Ridruejo, Delfín Santana y Pablo Fernández  |
+| 14/02/2025 | v1.7 | Daniel Vela Camacho | Análisis del competidor encontrado mediante feedback   |
 
 <br>
 
@@ -989,3 +992,69 @@ Tras este extenso y detallado análisis llevado a cabo de las competencias direc
 - [MN program](https://www.mnprogram.com/)
 - [iFisia](https://ifisia.com/)
 - [DriCloud](https://dricloud.com/?srsltid=AfmBOoo95cq0Ra9DFROnu7m99vR_pjp9Pxw0isHlnBS5_Lj2exEjcg5z)
+
+# 6. Competidores Identificados por Feedback
+
+En esta sección se presentan y analizan los competidores identificados a través del feedback recibido, ya sea por parte del equipo interno o de colaboradores externos. Estos competidores han sido sugeridos en función de su relevancia dentro del mercado y su posible impacto en nuestra estrategia. A partir de su inclusión, se llevará a cabo un análisis detallado de sus características, modelos de negocio, fortalezas y debilidades, con el objetivo de evaluar su posicionamiento y extraer insights valiosos para nuestra propia optimización y diferenciación.
+
+## 6.1 Doctolib
+Se trata de una plataforma que facilita la conexión entre profesionales de diferentes áreas de la salud mediante un sistema de matchmaking, permitiendo la gestión de citas entre ellos y con los pacientes. La plataforma opera bajo un modelo de suscripción que ofrece distintas funcionalidades dependiendo del plan seleccionado. Cabe destacar que este competidor tiene presencia exclusiva en Alemania, Francia e Italia, limitando su alcance geográfico a estos mercados.
+
+### **MONETIZACIÓN**
+
+- **Suite completa sin necesidad de reservar cita online** → 109 € TTC / mes por cuidador *(precio adaptado para grupos, con facturación anual o pago mensual)*
+- **Suite completa con reserva de cita online** → 189 € TTC / mes por cuidador *(precio adaptado para grupos, con facturación anual o pago mensual de 199 €)*
+
+**Nota:** TTC (*Toutes Taxes Comprises*) indica que los precios incluyen todos los impuestos aplicables.
+
+| Característica | Suite sin reserva de cita | Suite con reserva de cita |
+| --- | --- | --- |
+| Facturación y transmisión electrónica | ✅ | ✅ |
+| Pago online | ✅ | ✅ |
+| +0,8% sin IVA de los honorarios facturados | ✅ | ✅ |
+| Gestión de seguros mutuos y complementarios de salud | ✅ | ✅ |
+| Lector de CV/CPS móvil | ✅ | ✅ |
+| Expediente digital del paciente | ✅ | ✅ |
+| Creación de evaluaciones y planes de tratamiento | ✅ | ✅ |
+| Exportación e importación de datos de pacientes | ✅ | ✅ |
+| Diario | ✅ | ✅ |
+| Administrador de tareas | ✅ | ✅ |
+| Reserva de cita online | ❌ | ✅ |
+| Comunicación con los pacientes (recordatorios, instrucciones, intercambio de documentos) | ✅ | ✅ |
+| Lucha contra las citas perdidas | ✅ | ✅ |
+| Preparándose para las citas | ✅ | ✅ |
+| Visibilidad online | ❌ | ✅ |
+| Visibilidad para otros cuidadores | ❌ | ✅ |
+| Calificación óptima del paciente | ❌ | ✅ |
+| Red profesional | ✅ | ✅ |
+| Mensajería instantánea | ✅ | ✅ |
+| Gestión de casos de pacientes entre cuidadores | ✅ | ✅ |
+| Referencias de pacientes | ❌ | ✅ |
+| Campañas de prevención | ✅ | ✅ |
+| Mensajería para pacientes | ✅ | ✅ |
+
+## **FEATURES AGRUPADAS POR CATEGORÍA**
+
+| Categoría | Funcionalidad |
+| --- | --- |
+| **Gestión de citas** | Reserva de cita online para pacientes, Comunicación con los pacientes (recordatorios, intercambio de documentos), Inscripción en línea para gestionar información previa a la cita, Identificación y bloqueo de pacientes que no asisten a sus citas, Establecimiento de política de cancelación personalizada, Solicitud automática de justificación en cambios o cancelaciones tardías |
+| **Gestión y organización** | Diario configurable con accesos, ubicaciones y horarios, Administrador de tareas con asignaciones y seguimiento, Optimización del posicionamiento en Google, Creación de perfiles personalizados para profesionales, Preguntas de bloqueo para filtrar reservas de citas |
+| **Interacción con otros profesionales** | Red profesional para conectar con otros cuidadores, Referencias de pacientes entre profesionales, Gestión de casos de pacientes entre cuidadores, Mensajería instantánea entre profesionales |
+| **Atención a domicilio** | Solicitud y gestión de atención domiciliaria |
+| **Monitoreo de pacientes** | Mensajería con pacientes sin necesidad de compartir teléfono, Centralización y seguridad en la comunicación con los pacientes, Monitorización remota de pacientes con cobro integrado |
+| **Prevención y promoción de la salud** | Campañas de prevención personalizadas, Propuesta de citas automáticas basada en necesidades específicas |
+| **Expediente y documentación** | Expediente digital del paciente con acceso a información clave, Exportación e importación de datos clínicos, Asistente de consulta con resúmenes automáticos para médicos, Creación y renovación de planes de atención y prescripción, Gestión automática de documentos con reconocimiento de texto, Administración segura de correos médicos y laboratorios estructurados |
+| **Facturación y pagos** | Facturación y transmisión electrónica de pagos, Integración con cajas de salud y mutuas de seguros, Alerta de facturas impagadas y gestión de reembolsos, Lector de tarjetas de salud para pagos móviles, Enlace de pago en línea para pacientes con deudas |
+
+**PUNTOS FUERTES** 
+- Encontramos que la aplicación se encuentra conectada con el **DMP** (*Dossier Médical Partagé*) un documento que alberga toda el historial clínico electrónico 
+- Ofrece un enfoque colaborativo entre sus profesionales
+- Permite el contacto entre diferentes profesionales para mejorar la calidad de la atención a los pacientes 
+
+**PUNTOS DÉBILES**
+- Respecto el resto de competidores del mercado sus soluciones son algo más caras
+
+
+**Diferencias con FisioFind**
+
+A diferencia de FisioFind, que está completamente orientada a los fisioterapeutas y ofrece herramientas especializadas para optimizar los procesos de rehabilitación online, Doctolib se posiciona como una plataforma de matchmaking y gestión de citas para profesionales de distintas áreas de la salud. Mientras que nuestra propuesta busca brindar recursos personalizados para los fisioterapeutas, facilitando su trabajo y mejorando la experiencia del paciente en la rehabilitación digital, Doctolib se enfoca en la conexión entre profesionales y pacientes sin una especialización concreta en fisioterapia. Además, al tratarse de un servicio que opera exclusivamente en Francia, Alemania e Italia, su alcance geográfico es completamente distinto al de FisioFind, cuyo enfoque está en el mercado español. Por estas razones, no podemos considerarlo un competidor directo, ya que tanto su modelo de negocio como su público objetivo son diferentes.
