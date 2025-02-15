@@ -1,7 +1,7 @@
 ---
-title: "AGUILE INCEPTION"                       
+title: "AGILE INCEPTION"                       
 subtitle: "FISIOFIND"
-author: [Miguel Encina Martínez, Daniel Tortorici, Francisco Capote García] 
+author: [Miguel Encina Martínez, Daniel Tortorici Bartús, Francisco Capote García] 
 date: "12/02/2025"                                                 
 subject: "ISPP"
 lang: "es"
@@ -12,8 +12,8 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: ".backgrounds/background2V.pdf"                            
-header-left: "AGUILE INCEPTION"                 
+titlepage-background: ".backgrounds/background1V.pdf"                            
+header-left: "AGILE INCEPTION"                 
 header-right: "05/02/2025"                                         
 footer-left: "FISIOFIND"
 documentclass: scrartcl
@@ -23,34 +23,33 @@ sansfont: "Noto Sans"
 monofont: "Noto Sans Mono"
 ---
 
-
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<p align="center" style="font-size: 30px; font-weight: bold;">
-  FISIOFIND  -  AGULE INCEPTION
+<!-- <p align="center">
+  <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
+
+<h1 align="center" style="font-size: 30px; font-weight: bold;">
+  FISIOFIND  -  AGILE INCEPTION
+</h1>
 
 <br>
 
-**Índice**
+**ÍNDICE**
 - [1. RESUMEN](#1-resumen)
 - [2. PROBLEMA PRINCIPAL Y RELEVANCIA](#2-problema-principal-y-relevancia)
 - [3. CONTEXTO Y CIRCUNSTANCIAS](#3-contexto-y-circunstancias)
 - [4. NECESIDADES DEL PROYECTO](#4-necesidades-del-proyecto)
-- [5. ARQUITECTURA DE LA APP](#5-arquitectura-app)
+- [5. ARQUITECTURA DE LA APP](#5-arquitectura-de-la-app)
   - [5.1. CORE](#51-core)
   - [5.2. MÓDULOS EXTRA (ADDONS)](#52-módulos-extra-addons)
   - [5.3. FUERA DEL SCOPE](#53-fuera-del-scope)
 - [6. USUARIOS OBJETIVO](#6-usuarios-objetivo)
 - [7. MONETIZACIÓN](#7-monetización)
 - [8. COSTE ESTIMADO](#8-coste-estimado)
-- [9. IMPLEMENTACIÓN Y JUSTIFICACIÓN DE APP](#9-implementación-y-justificación-de-app)
+- [9. IMPLEMENTACIÓN Y JUSTIFICACIÓN DE LA APP](#9-implementación-y-justificación-de-la-app)
 - [10. IMPACTO ESPERADO](#10-impacto-esperado)
 - [11. COMPETIDORES POTENCIALES](#11-competidores-potenciales)
-  - [11.1. GVAM / SITUM](#111-gvam--situm)
-  - [11.2. SMARTIFY](#112-smartify)
-  - [11.3. EXPLORE - AMNH OFFICIAL APP](#113-explore---amnh-official-app)
-  - [11.4. OTROS COMPETIDORES](#114-otros-competidores)
-- [12. DIFERENCIACIÓN DEL PROYECTO](#12-diferenciación-del-proyecto)
+- [12. DIFERENCIACIÓN DEL PROYECTO](#12-diferenciación-del-proyecto) -->
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
@@ -65,7 +64,7 @@ monofont: "Noto Sans Mono"
 
 - **Fecha de Creación:** 12/02/2025  
 
-- **Versión:** v1.2
+- **Versión:** v1.4
 
 <br>
 
@@ -79,24 +78,21 @@ monofont: "Noto Sans Mono"
 |------------|---------|----------------------------------|----------------------------|
 | 12/02/2025 | v1.0    | Miguel Encina Martínez           | Primera versión de los apartados: Resumen, Problema Principal y Relevancia, Contexto y Circunstancias, Necesidades del Proyecto |
 | 12/02/2025 | v1.1    | Daniel Tortorici Bartús          | Primera versión de los apartados: 6. Usuarios Objetivo y 10. Impacto Esperado|
-| 12/02/2025 | v1.2    | Francisco Capote García          | Eliminado Gallery Guide de resumen y de necesidades del proyecto, Actualizada la arquitectura app, Actualizada la implementacion y justificacion de la app,  corregido pequeños errores |
+| 12/02/2025 | v1.2    | Francisco Capote García          | Eliminado Gallery Guide de resumen y de necesidades del proyecto, Actualizada la arquitectura app, Actualizada la implementación y justificación de la app, corregido pequeños errores |
 | 12/02/2025 | v1.3    | Daniel Tortorici Bartús          | Primera versión del apartado 12. Diferenciación del Proyecto|
 | 13/02/2025 | v1.4    | Miguel Encina Martínez           | Corrección de errores y primera versión de los apartados: Monetización, Coste Estimado, Implementación y Justificación de la App |
 
 
 <br>
 
-<br>
-
-
-<br>
+\newpage
 
 <br>
 
 
 # **1. RESUMEN**
 
-**FisioFind es una aplicación especialidada para fisioterapeutas que ofrece todo tipo de servicios esenciales para el día a día de estos especialistas de una forma cómoda, eficiente y familiar**. A diferencia de la competencia, nos centramos en la opción de realizar consultas on-line con los pacientes proporcionando facilidades tanto para especialistas como para los pacientes.
+**FisioFind es una aplicación especializada para fisioterapeutas que ofrece todo tipo de servicios esenciales para el día a día de estos especialistas de una forma cómoda, eficiente y familiar**. A diferencia de la competencia, nos centramos en la opción de realizar consultas on-line con los pacientes proporcionando facilidades tanto para especialistas como para los pacientes.
 
 # **2. PROBLEMA PRINCIPAL Y RELEVANCIA**
 Este proyecto aborda la evidencia de que la fisioterapia on-line es igual de efectiva que la consulta presencial. La mayoría de las especialidades en el ámbito sanitario, disponen ya de consultas on-line y herramientas orientadas a ello. A menudo, se asocia al fisioterapeuta exclusivamente con la realización de tratamientos físicos para aliviar el dolor o la fatiga muscular, cuando en realidad, esto es solo una herramienta más. 
@@ -106,12 +102,17 @@ Por eso, surge la necesidad de ofrecer al fisioterapeuta un software que conteng
 # **3. CONTEXTO Y CIRCUNSTANCIAS**
 Esta solución está basada en el siguiente contexto:
 
--	Evidencia de que la fisioterapia online es igual de efectiva que la consulta presencial.
--	El fisioterapeuta es un profesional sanitario que trata la pérdida de funcionalidad que realizan las estructuras del cuerpo derivadas de lesiones óseo-neuromusculares; es decir, se centran en averiguar la causa de una patología que altera la función. Para recuperar la función que se ve perdida en una patología hay que tratar la función a través del movimiento. 
--   Las medidas “tradicionales” de tratamiento que se conciben como propias de este sector (terapia manual masajes, electro punción, etc.) son en realidad herramientas analgésicas que no tratan la recuperación de la funcionalidad. 
--	Las herramientas de valoración que más evidencia científica tienen es la entrevista clínica y los cuestionarios. Los tests ortopédicos los puede realizar el paciente de forma autónoma. La palpación no es un método fiable de valoración.
--	Actualmente la medida más popular es promocionarse en redes sociales. Es necesario una plataforma para DARSE a conocer. 
--	Hay personas que no tienen un acceso fácil a clínicas de fisioterapia (zonas rurales, no tienen un horario que les permita atender a una cita presencial, etc.).
+- Evidencia de que la fisioterapia online es igual de efectiva que la consulta presencial.
+
+- El fisioterapeuta es un profesional sanitario que trata la pérdida de funcionalidad que realizan las estructuras del cuerpo derivadas de lesiones óseo-neuromusculares; es decir, se centran en averiguar la causa de una patología que altera la función. Para recuperar la función que se ve perdida en una patología hay que tratar la función a través del movimiento. 
+
+- Las medidas “tradicionales” de tratamiento que se conciben como propias de este sector (terapia manual masajes, electro punción, etc.) son en realidad herramientas analgésicas que no tratan la recuperación de la funcionalidad. 
+
+- Las herramientas de valoración que más evidencia científica tienen es la entrevista clínica y los cuestionarios. Los tests ortopédicos los puede realizar el paciente de forma autónoma. La palpación no es un método fiable de valoración.
+
+- Actualmente la medida más popular es promocionarse en redes sociales. Es necesario una plataforma para DARSE a conocer. 
+
+- Hay personas que no tienen un acceso fácil a clínicas de fisioterapia (zonas rurales, no tienen un horario que les permita atender a una cita presencial, etc.).
 
 
 # **4. NECESIDADES DEL PROYECTO**
@@ -125,10 +126,11 @@ Varios miembros del grupo disponen de personas cercanas que practican la profesi
 ## **5.1. CORE** 
 
 **PARA FISIOTERAPEUTAS**
-- Digitalización del cuerpo humano y mapas de dolor:
-    - Mientras el cliente y fisioterapeuta se encuentra en videollamada, el cliente tendrá la opción de mostrar mediante un mapa virtual del cuerpo humano las áreas donde sufre dolor o molestia, mejorando la comunicacion y facilitando asi al fisioterapeuta entender al cliente.
 
-- Sistema de agendas y gestion de citas:
+- Digitalización del cuerpo humano y mapas de dolor:
+    - Mientras el cliente y fisioterapeuta se encuentra en videollamada, el cliente tendrá la opción de mostrar mediante un mapa virtual del cuerpo humano las áreas donde sufre dolor o molestia, mejorando la comunicación y facilitando así al fisioterapeuta entender al cliente.
+
+- Sistema de agendas y gestión de citas:
     - Los fisioterapeutas podrán administrar sus citas de forma flexible, optimizando su disponibilidad y ajustando su horario según sus necesidades.
 
 - Ejercicios prescritos con seguimiento de dolor y progreso:
@@ -157,11 +159,11 @@ Varios miembros del grupo disponen de personas cercanas que practican la profesi
 
 ## **5.2. MÓDULOS EXTRA (ADDONS)**
 
-- Implementacion de clinicas para la gestion del personal
+- Implementación de clínicas para la gestión del personal
 
 ## **5.3. FUERA DEL SCOPE**
 
-- ❌ No contiene infraestructura mas haya de la aplicacion y tampoco contiene integración con Dispositivos IoT o Sensores Externos.
+- ❌ No contiene infraestructura más allá de la aplicación y tampoco contiene integración con Dispositivos IoT o Sensores Externos.
 
 
 # **6. USUARIOS OBJETIVO**
@@ -183,26 +185,28 @@ Varios miembros del grupo disponen de personas cercanas que practican la profesi
     - Visualizan las valoraciones y comentarios asociados a sus perfiles.
 
 - Desarrolladores
-    - Mantener la aplicacion actualizada y eficiente.
+    - Mantener la aplicación actualizada y eficiente.
     - Implementar las herramientas necesarias para la correcta ejecución de las consultas.
 
 # **7. MONETIZACIÓN**
 
-Hemos plantedo ofrecer un modelo de negocio de tipo SaS (Software as a Service) accesible a través de unos planes de suscripción para aquellos fisioterapeutas que quieran disponer de estas herramientas. A continuación, se van a describir dichos planes, especificando las ventajas que ofrece cada uno:
+Hemos planteado ofrecer un modelo de negocio de tipo SaS (Software as a Service) accesible a través de unos planes de suscripción para aquellos fisioterapeutas que quieran disponer de estas herramientas. A continuación, se van a describir dichos planes, especificando las ventajas que ofrece cada uno:
 
-- **FISIO BLUE: 20€/mes**
+- **FISIO BLUE: 17,99€/mes**
   - Videoconsultas con todas las herramientas.
   - Seguimiento del paciente.
   - Chat integrado
-  - Subir y compartir vídeos (hasta 7)
+  - Subir y compartir vídeos (hasta 15)
+  - Soporte técnico limitado
 
 - **FISIO GOLD: 24,99€/mes**
   - Videoconsultas con todas las herramientas.
   - Seguimiento del paciente.
   - Chat integrado
-  - Mayor alcance
-  - Tick de verificación FISIO GOLD
-  - Subir y compartir vídeos (hasta 15)
+  - **Mayor alcance**
+  - **Tick de verificación FISIO GOLD**
+  - Subir y compartir vídeos (**hasta 30**)
+  - Soporte técnico **personalizado**
 
 # **8. COSTE ESTIMADO** 
 Haced una estimación de las horas que vamos a hacer (10h semanales x semanas x 17 personas x X€/hora).
@@ -229,12 +233,12 @@ Hemos recibido la motivación de varios fisioterapeutas cercanos a nosotros, que
 
 Teniendo en cuenta la estimación de los costes del apartado anterior, se han sacado la conclusión de que, de cara a rentabilizar este modelo de negocio con un margen de 5 años, se necesitarían al menos 162 fisios, de los cuales 48 dispondrían del plan **FISIO GOLD** y los 113 restantes dispondrían del plan **FISIO BLUE**, para cubrir los gastos, aproximadamente, de la inversión inicial. De esta forma:
 
-48 * 35 €/mes = 1680 €/mes
---
-113 * 20 €/mes = 2260 €/mes
---
-**Total** = 3940 €/mes * 12 meses * 5 años = 236,400.00 €
---
+    48 * 35 €/mes = 1680 €/mes
+    -
+    113 * 20 €/mes = 2260 €/mes
+    -
+    **Total** = 3940 €/mes * 12 meses * 5 años = 236,400.00 €
+    -
 
 **Tecnologías y Herramientas Clave**
 

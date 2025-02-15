@@ -1,5 +1,5 @@
 ---
-title: "INFORME DE TIEMPO DE LA SEMANA 1 (31/01-06/02)"              # CHANGE IF NEEDED
+title: "INFORME DE TIEMPO DE LA SEMANA n (dd/mm-dd/mm)"              # CHANGE IF NEEDED
 subtitle: "FISIO FIND"
 author: [Rafael Pulido Cifuentes, Alberto Carmona Sicre]         # CHANGE IF NEEDED
 date: "10/02/2025"                       # CHANGE IF NEEDED
@@ -21,12 +21,12 @@ classoption: "table"
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<p align="center">
+<!-- <p align="center">
   <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
 <h1 align="center" style="font-size: 30px; font-weight: bold;">
-  FISIO FIND  -  INFORME DE TIEMPO 10-02-2025
+  FISIO FIND  -  INFORME DE TIEMPO dd-mm-aa
 </h1>
 
 <br>
@@ -40,12 +40,12 @@ classoption: "table"
 3. [DESGLOSE](#3-desglose)  
     3.1 [DESGLOSE POR DÍAS](#31-desglose-por-días)  
     3.2 [DESGLOSE POR PROYECTOS](#32-desglose-por-proyectos)  
-    3.3 [DESGLOSE POR INTEGRANTES](#33-desglose-por-integrantes)
+    3.3 [DESGLOSE POR INTEGRANTES](#33-desglose-por-integrantes) -->
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
 
-<!-- \newpage -->
+\newpage
 
 
 # 1. PROYECTOS
@@ -71,10 +71,6 @@ A continuación, se muestran los posibles tipos de tarea en las que pueden traba
 
 - **Organización:** todo lo relacionado con la organización inicial del proyecto.
 
-- **Ideas para proyecto:** proyecto para aquellas reuniones en las que se debaten diferentes ideas de proyectos.
-
-- **Acuerdo de compromiso:** relacionado con la elaboración del documento Acuerdo de Compromiso en la etapa inicial del proyecto.
-
 
 ## 1.2. Proyectos realizados en la semana
 En esta semana de trabajo se ha trabajado en los siguientes proyectos:  
@@ -93,13 +89,10 @@ En esta semana de trabajo se ha trabajado en los siguientes proyectos:
 
 7. Planificación
 
-8. Ideas para proyecto
+8. Documentación
 
-9. Documentación
+9. feat
 
-10. feat
-
-11. Acuerdo de compromiso
 
 
 <br>
@@ -107,17 +100,17 @@ En esta semana de trabajo se ha trabajado en los siguientes proyectos:
 ## 1.3. Proyectos destacados
 Entre los proyectos destacados de la semana, aquellos en los que se ha invertido más tiempo, encontramos los siguientes:  
 
-- **docs:** 22:50:29
+- **proyecto:** 22:50
 
-- **Presentaciones / Diseños:** 18:17:34
+- **proyecto:** 18:17
 
-- **Reuniones:** 17:11:11
+- ...
 
-Esto debido a la naturaleza de las **fases iniciales** de los proyectos software, donde las reuniones, la documentación y la exposición de la idea son fundamentales.  
+Esto debido a ...  
 
 
 # 2. HORAS TOTALES
-Para la primera semana de trabajo, el tiempo total dedicado al proyecto ha sido de **118 horas**, 42 minutos y 30 segundos.  
+Para esta semana de trabajo, el tiempo total dedicado al proyecto ha sido de **X horas** Y minutos.  
 
 <br>
 
@@ -130,19 +123,19 @@ Para una mejor visualización del tiempo dedicado, se realiza un desglose por d�
 ## 3.1 Desglose por días  
 Ordenado de manera cronológica:
 
-- **Viernes 31/01:** 25:10:00
+- **Viernes dd/mm:** hh:mm
 
-- **Sábado 01/02:** 00:00:00
+- **Sábado dd/mm:** hh:mm
 
-- **Domingo 02/02:** 00:00:00
+- **Domingo dd/mm:** hh:m
 
-- **Lunes 03/02:** 44:15:36
+- **Lunes dd/mm:** hh:mm
 
-- **Martes 04/02:** 21:22:47
+- **Martes dd/mm:** hh:mm
 
-- **Miércoles 05/02:** 11:12:06
+- **Miércoles dd/mm:** hh:mm
 
-- **Jueves 06/02:** 16:34:01
+- **Jueves dd/mm:** hh:mm
 
 
 <br>
@@ -150,27 +143,24 @@ Ordenado de manera cronológica:
 ## 3.2 Desglose por proyectos  
 Ordenado de mayor a menor tiempo dedicado en cada proyecto: 
 
-**1. docs:** 22:50:29
+**1. docs:** hh:mm
 
-**2. Presentaciones / Diseños:** 18:17:34
+**2. Presentaciones / Diseños:** hh:mm
 
-**3. Reuniones:** 17:11:11
+**3. Reuniones:** hh:mm
 
-**4. Clases / Vídeos:** 15:58:47
+**4. Clases / Vídeos:** hh:mm
 
-**5. Clases presenciales:** 15:30:00
+**5. Clases presenciales:** hh:mm
 
-**6. Organización:** 12:58:46
+**6. Organización:** hh:mm
 
-**7. Planificación:** 08:39:56
+**7. Planificación:** hh:mm
 
-**8. Ideas para proyecto:** 03:39:00
+**8. Documentación:** hh:mm
 
-**9. Documentación:** 02:09:25
+**9. feat:** hh:mm
 
-**10. feat:** 01:00:00
-
-**11. Acuerdo de compromiso:** 00:27:22
 
 <br>
 
@@ -178,39 +168,39 @@ Ordenado de mayor a menor tiempo dedicado en cada proyecto:
 
 Ordenado por orden alfabético:
 
-**1. Alberto Carmona Sicre** - 08:10:54
+**1. Alberto Carmona Sicre** - hh:mm
 
-**2. Antonio Macías Ferrera** -  09:02:45
+**2. Antonio Macías Ferrera** -  hh:mm
 
-**3. Benjamín Ignacio Maureira Flores** -  05:09:25
+**3. Benjamín Ignacio Maureira Flores** -  hh:mm
 
-**4. Daniel Alors Romero** - 00:45:21
+**4. Daniel Alors Romero** - hh:mm
 
-**5. Daniel Fernández Caballero** -  02:00:00
+**5. Daniel Fernández Caballero** - hh:mm
 
-**6. Daniel Ruiz López**  -  11:06:23
+**6. Daniel Ruiz López**  -  hh:mm
 
-**7. Daniel Tortorici Bartús** - 02:00:00
+**7. Daniel Tortorici Bartús** - hh:mm
 
-**8. Daniel Vela Camacho** - 09:02:00
+**8. Daniel Vela Camacho** - hh:mm
 
-**9. Delfín Santana Rubio** - 10:08:44
+**9. Delfín Santana Rubio** - hh:mm
 
-**10. Francisco Capote García** -  03:28:04
+**10. Francisco Capote García** -  hh:mm
 
-**11. Francisco Mateos Villarejo** -  06:20:00
+**11. Francisco Mateos Villarejo** -  hh:mm
 
-**12. Guadalupe Ridruejo Pineda** - 19:48:57
+**12. Guadalupe Ridruejo Pineda** - hh:mm
 
-**13. Julen Redondo Pacheco** -  02:13:00
+**13. Julen Redondo Pacheco** -  hh:mm
 
-**14. Miguel Encina Martínez** -  08:07:28
+**14. Miguel Encina Martínez** -  hh:mm
 
-**15. Pablo Fernández Pérez** -  07:35:00
+**15. Pablo Fernández Pérez** -  hh:mm
 
-**16. Ramón Gavira Sánchez**  -  08:00:00
+**16. Ramón Gavira Sánchez**  -  hh:mm
 
-**17. Rafael Pulido Cifuentes** -  05:44:29
+**17. Rafael Pulido Cifuentes** -  hh:mm
 
 
 <br>
