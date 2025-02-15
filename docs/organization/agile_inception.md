@@ -12,7 +12,7 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: ".backgrounds/background1V.pdf"                            
+titlepage-background: "../.backgrounds/background1V.pdf"                            
 header-left: "AGILE INCEPTION"                 
 header-right: "05/02/2025"                                         
 footer-left: "FISIOFIND"
@@ -24,7 +24,7 @@ monofont: "Noto Sans Mono"
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<!-- <p align="center">
+<p align="center">
   <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
@@ -49,7 +49,7 @@ monofont: "Noto Sans Mono"
 - [9. IMPLEMENTACIÓN Y JUSTIFICACIÓN DE LA APP](#9-implementación-y-justificación-de-la-app)
 - [10. IMPACTO ESPERADO](#10-impacto-esperado)
 - [11. COMPETIDORES POTENCIALES](#11-competidores-potenciales)
-- [12. DIFERENCIACIÓN DEL PROYECTO](#12-diferenciación-del-proyecto) -->
+- [12. DIFERENCIACIÓN DEL PROYECTO](#12-diferenciación-del-proyecto)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
@@ -85,7 +85,7 @@ monofont: "Noto Sans Mono"
 
 <br>
 
-\newpage
+<!-- \newpage -->
 
 <br>
 

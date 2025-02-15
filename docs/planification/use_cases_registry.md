@@ -1,6 +1,6 @@
 ---
-title: "USE CASES"
-subtitle: "FISIOFIND"                       
+title: "REGISTRO DE CASOS DE USO"
+subtitle: "FISIO FIND"                       
 author: [Alberto Carmona Sicre, Daniel Ruiz López, Rafael Pulido Cifuentes, Daniel Fernández Caballero, Daniel Alors Romero] 
 date: "13/02/2025"                                                 
 subject: "ISPP"
@@ -12,25 +12,28 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: ".backgrounds/background2V.pdf"                            
-header-left: "USE CASES"                 
+titlepage-background: "../.backgrounds/background1V.pdf"                            
+header-left: "REGISTRO DE CASOS DE USO"                 
 header-right: "13/02/2025"                                         
-footer-left: "FISIOFIND"
+footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"
 ---
 
-
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<p align="center" style="font-size: 30px; font-weight: bold;">
-  FISIOFIND  -  USE CASES
+<p align="center">
+  <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
+
+<h1 align="center" style="font-size: 30px; font-weight: bold;">
+  FISIO FIND  -  REGISTRO DE CASOS DE USO
+</h1>
 
 <br>
 
-**Índice**
+**ÍNDICE**
 - [1. ESTRUCTURA DE LOS CASOS DE USO](#1-estructura-de-los-casos-de-uso)   
-- [2. CASOS DE USO](#2-estructura-de-los-requisitos)    
+- [2. CASOS DE USO](#2-casos-de-uso)
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 
 <br>
@@ -41,7 +44,7 @@ classoption: "table"
 
 - **Nombre del Proyecto:** FisioFind
 
-- **Autores:** Alberto Carmona Sicre, Daniel Ruiz López, Rafael Pulido Cifuentes, Daniel Fernandez Caballero, Daniel Alors Romero
+- **Autores:** Alberto Carmona Sicre, Daniel Ruiz López, Rafael Pulido Cifuentes, Daniel Fernández Caballero, Daniel Alors Romero
 
 - **Fecha de Creación:** 13/02/2025  
 
@@ -55,11 +58,14 @@ classoption: "table"
 
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
-| 12/02/2025 | v1.0    | Daniel Ruiz López, Rafael Pulido Cifuentes, Daniel Fernández Caballlero      | Añadidos los Casos de uso. |
-| 13/02/2025 | v1.1    | Alberto Carmona Sicre, Daniel Fernandez Caballero       | Añadidos los apartados: Estructrua de los casos de Uso y Casos de Uso |
+| 12/02/2025 | v1.0    | Daniel Ruiz López, Rafael Pulido Cifuentes, Daniel Fernández Caballero      | Añadidos los Casos de uso. |
+| 13/02/2025 | v1.1    | Alberto Carmona Sicre, Daniel Fernández Caballero       | Añadidos los apartados: Estructura de los casos de Uso y Casos de Uso |
+
 <br>
 
----
+<!-- \newpage -->
+
+<br>
 
 # 1. ESTRUCTURA DE LOS CASOS DE USO
 
@@ -67,11 +73,11 @@ Para cada caso de uso, se define lo siguiente:
 
 - **Identificador (ID)**: un identificador con la estructura: CU-XXX, seguido de un breve título para el caso de uso.     
 
-- **Versión**: indica las distintas fases por las que pasa el requisito. Las versión empieza en la V1.0 y va aumentando en función de las modificaciones.  
+- **Versión**: indica las distintas fases por las que pasa el requisito. La versión empieza en la V1.0 y va aumentando en función de las modificaciones.  
 
 - **Descripción**: una breve descripción de lo que se busca implementar o tener en cuenta con el requisito. 
 
-- **Prioridad**: se definen cuatro distintas prioridades, de mayor a menor importancia: Crítica, Importante, Deseable o Baja. Se define según el requisito<sup>1</sup> del que provenga el caso de uso.  
+- **Prioridad**: se definen cuatro distintas prioridades, de mayor a menor importancia: Crítica, Importante, Deseable o Baja. Se define según el requisito [1] del que provenga el caso de uso.  
 
 - **Escenario**: serie de pasos por los que se debe pasar para iniciar y terminar el caso de uso.   
 
@@ -81,29 +87,33 @@ Para cada caso de uso, se define lo siguiente:
 
 <br>  
 
+<!-- \newpage -->
+
+<br>
+
 # 2. CASOS DE USO
 
 | **ID**                 | CU-001: Perfil profesional con certificaciones verificadas |
 | ---------------------- | --------------------------------------------------------- |
 | **Versión**            | V1.0                                                      |
 | **Prioridad**          | Importante                                                |
-| **Escenario**          | 1. Un profesional se registra en la plataforma desde la sección de fisios.<br>2. Deberá añadir el número de colegiado y sus datos.<br>3. El sistema valida los datos mediante un proceso de verificación.<br>4. Si las certificaciones son válidas, se marcan como "Verificadas".<br>5. Se muestra un mensaje de confirmación: "Certificaciones verificadas exitosamente"<br>6. Se finaliza el registro del profesional |
+| **Escenario**          | 1. Un profesional se registra en la plataforma desde la sección de fisios.<br>2. Deberá añadir el número de colegiado y sus datos.<br>3. El sistema valida los datos mediante un proceso de verificación.<br>4. Si las certificaciones son válidas, se marcan como "Verificadas".<br>5. Se muestra un mensaje de confirmación: "Certificaciones verificadas exitosamente".<br>6. Se finaliza el registro del profesional. |
 | **Resultado Esperado** | - Las certificaciones del profesional se almacenan correctamente en la base de datos.<br>- El profesional puede mostrar sus certificaciones verificadas en su perfil.<br>- Se cumple el requisito de validación de experiencia y conocimientos. |
 
 <div align="center"> <b>Tabla 1: Caso de uso positivo de RF-001</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-002: Perfil profesional con certificaciones no verificadas |
 | ---------------------- | --------------------------------------------------------- |
 | **Versión**            | V1.0                                                      |
 | **Prioridad**          | Importante                                                |
-| **Escenario**          | 1. Un profesional se registra en la plataforma desde la sección de fisios.<br>2. Deberá añadir el número de colegiado y sus datos.<br>3. El sistema no es capaz de validar las certificaciones.<br>4. Las certificaciones se marcan como "No Verificadas".<br>5. Se muestra un mensaje de error: "Certificaciones no verificadas"<br>6. No es posible finalizar el proceso de registro |
-| **Resultado Esperado** | - Las certificaciones del profesional no se almacenan en la base de datos.<br>- El profesional no puede registrarse en en la aplicación |
+| **Escenario**          | 1. Un profesional se registra en la plataforma desde la sección de fisios.<br>2. Deberá añadir el número de colegiado y sus datos.<br>3. El sistema no es capaz de validar las certificaciones.<br>4. Las certificaciones se marcan como "No Verificadas".<br>5. Se muestra un mensaje de error: "Certificaciones no verificadas".<br>6. No es posible finalizar el proceso de registro. |
+| **Resultado Esperado** | - Las certificaciones del profesional no se almacenan en la base de datos.<br>- El profesional no puede registrarse en la aplicación. |
 
 <div align="center"> <b>Tabla 2: Caso de uso negativo de RF-001</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-003: Gestión exitosa de citas en la agenda integrada |
 | ---------------------- | ------------------------------------------------------ |
@@ -113,6 +123,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - La cita se almacena correctamente en la base de datos.<br>- El profesional puede ver y gestionar su agenda con citas confirmadas.<br>- Se cumplen los requisitos de gestión eficiente de citas. |
 
 <div align="center"> <b>Tabla 3: Caso de uso positivo de RF-002</b></div>
+
 <br>
 
 | **ID**                 | CU-004: Fallo en la gestión de citas en la agenda integrada |
@@ -122,7 +133,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Escenario**          | 1. Un profesional accede a la plataforma e inicia sesión.<br>2. Se dirige a la sección de agenda integrada.<br>3. Intenta crear una cita en un horario ya ocupado.<br>4. El sistema detecta el conflicto y rechaza la solicitud de cita.<br>5. Se muestra un mensaje de error: "El horario seleccionado no está disponible".<br>6. El profesional debe elegir otro horario para registrar la cita. |
 | **Resultado Esperado** | - La cita en conflicto no se almacena en la base de datos.<br>- El profesional recibe una notificación sobre el error y debe reprogramar la cita.<br>- Se evita la sobrecarga de citas en horarios no disponibles. |
 
-<div align="center"> <b>Tabla 4: Caso de uso negativo de RF-002</b><div>
+<div align="center"> <b>Tabla 4: Caso de uso negativo de RF-002</b></div>
+
 <br>
 
 | **ID**                 | CU-005: Uso exitoso de videollamadas con herramientas avanzadas |
@@ -133,8 +145,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - La videollamada se desarrolla correctamente sin interrupciones.<br>- Todas las herramientas avanzadas funcionan según lo esperado.<br>- Se registra el historial de la consulta con los elementos utilizados en la videollamada. |
 
 <div align="center"> <b>Tabla 5: Caso de uso positivo de RF-003</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-006: Fallo en la funcionalidad de videollamadas |
 | ---------------------- | -------------------------------------------------- |
@@ -144,18 +156,19 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica al usuario sobre el fallo en la carga de herramientas.<br>- La videollamada sigue activa, pero sin acceso a todas las funcionalidades.<br>- El profesional debe buscar una alternativa para continuar la consulta. |
 
 <div align="center"> <b>Tabla 6: Caso de uso negativo de RF-003</b></div>
+
 <br>
 
 | **ID**                 | CU-007: Uso exitoso del mapa de dolor interactivo |
 | ---------------------- | ------------------------------------------------- |
 | **Versión**            | V1.0                                              |
 | **Prioridad**          | Importante                                        |
-| **Escenario**          | 1. Un paciente accede a la plataforma e inicia sesión.<br>2. Se dirige a la sección del mapa de dolor interactivo.<br>3. Utiliza la herramienta para señalar las zonas afectadas en el modelo del cuerpo.<br>4. El sistema registra la información y permite agregar comentarios adicionales.<br>5. El profesional de salud accede al registro del paciente y visualiza los datos del mapa de dolor.|
+| **Escenario**          | 1. Un paciente accede a la plataforma e inicia sesión.<br>2. Se dirige a la sección del mapa de dolor interactivo.<br>3. Utiliza la herramienta para señalar las zonas afectadas en el modelo del cuerpo.<br>4. El sistema registra la información y permite agregar comentarios adicionales.<br>5. El profesional de salud accede al registro del paciente y visualiza los datos del mapa de dolor. |
 | **Resultado Esperado** | - El paciente puede marcar las zonas de dolor sin problemas.<br>- El profesional de salud puede visualizar y analizar la información proporcionada. |
 
 <div align="center"> <b>Tabla 7: Caso de uso positivo de RF-004</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-008: Fallo en la funcionalidad del mapa de dolor interactivo |
 | ---------------------- | ---------------------------------------------------------------- |
@@ -165,6 +178,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - El paciente es notificado del error y no se muestra la información correctamente.<br>- Se solicita soporte técnico para corregir el fallo en la funcionalidad. |
 
 <div align="center"> <b>Tabla 8: Caso de uso negativo de RF-004</b></div>
+
 <br>
 
 | **ID**                 | CU-009: Gestión exitosa de pagos y facturación automatizada |
@@ -175,6 +189,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - El pago se procesa correctamente sin errores.<br>- Se genera una factura automatizada con los datos correspondientes.<br>- El usuario puede visualizar y descargar la factura desde la plataforma. |
 
 <div align="center"> <b>Tabla 9: Caso de uso positivo de RF-005</b></div>
+
 <br>
 
 | **ID**                 | CU-010: Fallo en la gestión de pagos y facturación automatizada |
@@ -185,6 +200,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - La transacción no se completa y el sistema notifica al usuario del error.<br>- No se genera ninguna factura errónea o incompleta.<br>- El usuario puede reintentar el pago o cambiar de método de pago. |
 
 <div align="center"> <b>Tabla 10: Caso de uso negativo de RF-005</b></div>
+
 <br>
 
 | **ID**                 | CU-011: Publicación exitosa de valoraciones y comentarios |
@@ -195,8 +211,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - La valoración y el comentario se almacenan correctamente en la base de datos.<br>- La información es visible en el perfil del profesional.<br>- El profesional puede responder a la valoración si es necesario. |
 
 <div align="center"> <b>Tabla 11: Caso de uso positivo de RF-006</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-012: Fallo en la publicación de valoraciones y comentarios |
 | ---------------------- | ------------------------------------------------------------- |
@@ -206,27 +222,29 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - La valoración no se almacena incorrectamente en la base de datos.<br>- El paciente es notificado del error y puede intentar nuevamente más tarde.<br>- Se evita la publicación de comentarios duplicados o incompletos. |
 
 <div align="center"> <b>Tabla 12: Caso de uso negativo de RF-006</b></div>
+
 <br>
 
-| **ID**                 | CU-013: Seguimiento exitoso del paciente
-| ---------------------- | -------------------------------------------------------- |
-| **Versión**            | V1.0                                                     |
-| **Prioridad**          | Importante                                               |
+| **ID**                 | CU-013: Seguimiento exitoso del paciente |
+| ---------------------- | ---------------------------------------- |
+| **Versión**            | V1.0                                     |
+| **Prioridad**          | Importante                               |
 | **Escenario**          | 1. Un paciente accede a la plataforma e inicia sesión.<br>2. Se dirige a la sección de seguimiento.<br>3. Selecciona la fecha y registra su nivel de dolor en la escala visual.<br>4. El sistema almacena la información y la asocia a su historial clínico.<br>5. El profesional accede a los datos y visualiza la evolución del paciente.<br>6. Se muestra un mensaje de confirmación: "Seguimiento registrado con éxito". |
 | **Resultado Esperado** | - El paciente puede registrar su nivel de dolor sin problemas.<br>- Los datos se almacenan correctamente en la base de datos.<br>- El profesional de salud tiene acceso al historial del paciente para evaluar su evolución. |
 
 <div align="center"> <b>Tabla 13: Caso de uso positivo de RF-007</b></div>
+
 <br>
 
-
 | **ID**                 | CU-014: Fallo en el seguimiento del paciente |
-| ---------------------- | ---------------------------------------------- |
-| **Versión**            | V1.0                                           |
-| **Prioridad**          | Importante                                     |
+| ---------------------- | -------------------------------------------- |
+| **Versión**            | V1.0                                         |
+| **Prioridad**          | Importante                                   |
 | **Escenario**          | 1. Un paciente accede a la plataforma e inicia sesión.<br>2. Se dirige a la sección de seguimiento.<br>3. Intenta registrar su nivel de dolor, pero la plataforma no guarda la información.<br>4. Se muestra un mensaje de error: "No se ha podido registrar el seguimiento. Inténtelo más tarde".<br>5. El paciente no puede visualizar su evolución en el historial.<br>6. El profesional de salud no recibe la información actualizada. |
 | **Resultado Esperado** | - El sistema no almacena datos erróneos o incompletos.<br>- Se notifica al usuario del error y puede intentarlo más tarde.<br>- Se revisa el sistema para corregir posibles fallos en la funcionalidad. |
 
 <div align="center"> <b>Tabla 14: Caso de uso negativo de RF-007</b></div>
+
 <br>
 
 **CORREGIR SI FUERA NECESARIO**
@@ -239,6 +257,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - El paciente puede buscar fisioterapeutas de manera eficiente.<br>- Los resultados se muestran correctamente en la lista y en el mapa interactivo.<br>- El sistema permite modificar filtros sin necesidad de recargar la página. |
 
 <div align="center"> <b>Tabla 15: Caso de uso positivo de RF-008</b></div>
+
 <br>
 
 | **ID**                 | CU-016: Fallo en la búsqueda y filtrado de fisioterapeutas |
@@ -249,10 +268,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica al usuario sobre la ausencia de resultados.<br>- Se evita mostrar datos incorrectos o desactualizados.<br>- Se permite restablecer los filtros para realizar una nueva búsqueda. |
 
 <div align="center"> <b>Tabla 16: Caso de uso negativo de RF-008</b></div>
+
 <br>
-
-
-
 
 | **ID**                 | CU-017: Visualización exitosa del historial de consultas y agendamiento de sesiones recurrentes |
 | ---------------------- | ------------------------------------------------------------------------------------------------ |
@@ -262,8 +279,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - El paciente puede revisar su historial de consultas sin problemas.<br>- El sistema permite configurar y almacenar sesiones recurrentes.<br>- Se envían notificaciones recordatorias al paciente sobre sus próximas sesiones. |
 
 <div align="center"> <b>Tabla 17: Caso de uso positivo de RF-009</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-018: Fallo en la visualización del historial de consultas o en la configuración de sesiones recurrentes |
 | ---------------------- | ---------------------------------------------------------------------------------------------------------------- |
@@ -273,6 +290,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se informa al usuario del error sin mostrar datos incompletos.<br>- Se evita la duplicación o pérdida de información de citas previas.<br>- Se permite reintentar la acción cuando el sistema esté disponible. |
 
 <div align="center"> <b>Tabla 18: Caso de uso negativo de RF-009</b></div>
+
 <br>
 
 | **ID**                 | CU-019: Completar exitosamente el cuestionario predefinido de valoración previa |
@@ -283,6 +301,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - El paciente completa y envía el cuestionario sin problemas.<br>- El fisioterapeuta recibe la información antes de la consulta.<br>- Se mejora la preparación del profesional antes de la sesión. |
 
 <div align="center"> <b>Tabla 19: Caso de uso positivo de RF-010</b></div>
+
 <br>
 
 | **ID**                 | CU-020: Fallo en el envío del cuestionario predefinido de valoración previa |
@@ -293,6 +312,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica al usuario del error sin perder datos ingresados.<br>- Se evita el almacenamiento de información incorrecta o incompleta.<br>- Se permite reintentar el envío cuando el sistema esté disponible. |
 
 <div align="center"> <b>Tabla 20: Caso de uso negativo de RF-010</b></div>
+
 <br>
 
 | **ID**                 | CU-021: Acceso exitoso a la plataforma para visualizar ejercicios y registrar progresos |
@@ -303,8 +323,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - El paciente puede visualizar los ejercicios sin problemas.<br>- La información del progreso se almacena correctamente.<br>- El fisioterapeuta puede consultar los datos para ajustar el tratamiento. |
 
 <div align="center"> <b>Tabla 21: Caso de uso positivo de RF-011</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-022: Fallo en el acceso a la plataforma o en el registro de progresos |
 | ---------------------- | ------------------------------------------------------------------------- |
@@ -314,6 +334,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica al usuario del error sin perder datos ingresados.<br>- Se evita almacenar información incorrecta o incompleta.<br>- Se permite reintentar el registro cuando el sistema esté disponible. |
 
 <div align="center"> <b>Tabla 22: Caso de uso negativo de RF-011</b></div>
+
 <br>
 
 | **ID**                 | CU-023: Visualización exitosa de la agenda de citas en la plataforma |
@@ -324,8 +345,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - El profesional puede visualizar su agenda sin problemas.<br>- Las citas online y presenciales están correctamente diferenciadas.<br>- Se facilita el acceso rápido a la videollamada o a la ubicación de la consulta. |
 
 <div align="center"> <b>Tabla 23: Caso de uso positivo de RF-012</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-024: Fallo en la visualización de la agenda de citas en la plataforma |
 | ---------------------- | ---------------------------------------------------------------------- |
@@ -335,8 +356,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica al usuario del error sin mostrar datos incorrectos.<br>- Se evita la pérdida de información sobre citas programadas.<br>- Se permite reintentar la carga de la agenda cuando el sistema esté disponible. |
 
 <div align="center"> <b>Tabla 24: Caso de uso negativo de RF-012</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-025: Inicio de sesión exitoso de pacientes con correo y contraseña o autenticación social |
 | ---------------------- | ----------------------------------------------------------------------------- |
@@ -346,8 +367,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - El paciente puede acceder correctamente mediante distintos métodos de autenticación.<br>- El sistema almacena la sesión de manera segura.<br>- Se garantiza una experiencia de inicio de sesión fluida y segura. |
 
 <div align="center"> <b>Tabla 25: Caso de uso positivo de RF-013</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-026: Fallo en el inicio de sesión de pacientes con correo y contraseña o autenticación social |
 | ---------------------- | ---------------------------------------------------------------------------------- |
@@ -357,8 +378,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se impide el acceso con credenciales incorrectas.<br>- Se notifica al paciente del error sin comprometer la seguridad.<br>- Se permite reintentar el inicio de sesión sin exponer información sensible. |
 
 <div align="center"> <b>Tabla 26: Caso de uso negativo de RF-013</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-027: Inicio de sesión exitoso para fisios mediante credenciales |
 | ---------------------- | ----------------------------------------------------------------------------- |
@@ -368,8 +389,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - El fisio puede acceder correctamente.<br>- El sistema almacena la sesión de manera segura.<br>- Se garantiza una experiencia de inicio de sesión fluida y segura. |
 
 <div align="center"> <b>Tabla 27: Caso de uso positivo de RF-013</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-028: Fallo en el inicio de sesión para fisios mediante credenciales |
 | ---------------------- | ---------------------------------------------------------------------------------- |
@@ -379,8 +400,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se impide el acceso con credenciales incorrectas.<br>- Se notifica al usuario del error sin comprometer la seguridad.<br>- Se permite reintentar el inicio de sesión sin exponer información sensible. |
 
 <div align="center"> <b>Tabla 28: Caso de uso negativo de RF-013</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-029: Cierre de sesión exitoso |
 | ---------------------- | -------------------------------- |
@@ -390,8 +411,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - La sesión del usuario se cierra correctamente.<br>- No se mantiene información de sesión activa en la plataforma.<br>- Se garantiza la seguridad evitando accesos no autorizados tras el cierre de sesión. |
 
 <div align="center"> <b>Tabla 29: Caso de uso positivo de RF-014</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-030: Fallo en el cierre de sesión |
 | ---------------------- | ----------------------------------- |
@@ -401,6 +422,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica al usuario del error sin comprometer la seguridad.<br>- Se evita que la sesión siga activa después del intento de cierre.<br>- Se permite reintentar el cierre de sesión hasta que se complete correctamente. |
 
 <div align="center"> <b>Tabla 30: Caso de uso negativo de RF-014</b></div>
+
 <br>
 
 | **ID**                 | CU-031: Gestión exitosa de usuarios (listado, edición y eliminación) |
@@ -411,8 +433,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - El administrador puede listar, editar y eliminar usuarios sin problemas.<br>- Los cambios se reflejan correctamente en la base de datos.<br>- Se garantiza que solo los administradores con permisos puedan realizar estas acciones. |
 
 <div align="center"> <b>Tabla 31: Caso de uso positivo de RF-015</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-032: Fallo en la gestión de usuarios (listado, edición o eliminación) |
 | ---------------------- | ----------------------------------------------------------------------- |
@@ -422,6 +444,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica al administrador del error sin afectar la integridad de los datos.<br>- Se evita la eliminación accidental o edición incorrecta de usuarios.<br>- Se permite reintentar la acción cuando el sistema esté disponible. |
 
 <div align="center"> <b>Tabla 32: Caso de uso negativo de RF-015</b></div>
+
 <br>
 
 | **ID**                 | CU-033: Recuperación exitosa de contraseña |
@@ -432,8 +455,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - El usuario recibe el enlace de recuperación sin problemas.<br>- Puede restablecer su contraseña y acceder nuevamente.<br>- La seguridad del proceso está garantizada con validaciones adecuadas. |
 
 <div align="center"> <b>Tabla 33: Caso de uso positivo de RF-016</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-034: Fallo en la recuperación de contraseña |
 | ---------------------- | --------------------------------------------- |
@@ -443,8 +466,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica al usuario del error sin comprometer la seguridad.<br>- Se evita el envío de correos a direcciones no registradas.<br>- Se permite reintentar la recuperación en otro momento. |
 
 <div align="center"> <b>Tabla 34: Caso de uso negativo de RF-016</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-035: Gestión exitosa de roles y permisos de usuario |
 | ---------------------- | ------------------------------------------------------ |
@@ -454,8 +477,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - El sistema diferencia correctamente los permisos de cada rol.<br>- Se evita que un usuario acceda a funciones no autorizadas.<br>- Los administradores pueden modificar roles y permisos sin errores. |
 
 <div align="center"> <b>Tabla 35: Caso de uso positivo de RF-017</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-036: Fallo en la gestión de roles y permisos de usuario |
 | ---------------------- | --------------------------------------------------------- |
@@ -465,6 +488,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica al usuario del error sin comprometer la seguridad.<br>- Se evita que los usuarios accedan a funciones no autorizadas.<br>- Se permite reintentar la actualización de roles cuando el sistema esté disponible. |
 
 <div align="center"> <b>Tabla 36: Caso de uso negativo de RF-017</b></div>
+
 <br>
 
 | **ID**                 | CU-037: Verificación exitosa de cuenta |
@@ -475,8 +499,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - La cuenta del usuario se activa correctamente.<br>- El usuario puede iniciar sesión y acceder a todas las funcionalidades de su rol.<br>- Se garantiza la autenticidad del usuario antes de permitirle el acceso completo. |
 
 <div align="center"> <b>Tabla 37: Caso de uso positivo de RF-018</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-038: Fallo en la verificación de cuenta |
 | ---------------------- | ----------------------------------------- |
@@ -486,6 +510,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica al usuario del error sin comprometer la seguridad.<br>- Se evita la activación de cuentas no verificadas.<br>- Se permite reenviar el correo de verificación para solucionar el problema. |
 
 <div align="center"> <b>Tabla 38: Caso de uso negativo de RF-018</b></div>
+
 <br>
 
 | **ID**                 | CU-039: Eliminación exitosa de cuenta |
@@ -496,8 +521,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - La cuenta y todos los datos asociados se eliminan conforme a la normativa de protección de datos.<br>- El usuario no puede volver a acceder con las mismas credenciales.<br>- Se garantiza la eliminación irreversible de la información personal. |
 
 <div align="center"> <b>Tabla 39: Caso de uso positivo de RF-019</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-040: Fallo en la eliminación de cuenta |
 | ---------------------- | ----------------------------------------- |
@@ -507,8 +532,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica al usuario del error sin comprometer la seguridad de sus datos.<br>- Se evita la eliminación parcial de información.<br>- Se permite reintentar la acción cuando el sistema esté disponible. |
 
 <div align="center"> <b>Tabla 40: Caso de uso negativo de RF-019</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-041: Uso exitoso de escalas de dolor avanzadas |
 | ---------------------- | ------------------------------------------------- |
@@ -518,8 +543,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - El paciente puede seleccionar y completar la evaluación del dolor sin problemas.<br>- Los datos se almacenan correctamente en la base de datos.<br>- El profesional de salud puede visualizar y analizar la información para mejorar el tratamiento. |
 
 <div align="center"> <b>Tabla 41: Caso de uso positivo de RF-020</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-042: Fallo en la funcionalidad de escalas de dolor avanzadas |
 | ---------------------- | ---------------------------------------------------------------- |
@@ -529,6 +554,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica al usuario del error sin perder los datos ingresados.<br>- Se evita el almacenamiento de información incorrecta o incompleta.<br>- Se permite reintentar la evaluación cuando el sistema esté disponible. |
 
 <div align="center"> <b>Tabla 42: Caso de uso negativo de RF-020</b></div>
+
 <br>
 
 | **ID**                 | CU-043: Compartición exitosa de diagnósticos e imágenes con pacientes |
@@ -539,6 +565,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - El fisioterapeuta puede compartir información de manera eficiente.<br>- El paciente recibe acceso inmediato a sus diagnósticos y pruebas.<br>- La plataforma garantiza la seguridad y privacidad de los datos compartidos. |
 
 <div align="center"> <b>Tabla 43: Caso de uso positivo de RF-021</b></div>
+
 <br>
 
 | **ID**                 | CU-044: Fallo en la compartición de diagnósticos e imágenes con pacientes |
@@ -549,6 +576,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica al usuario del error sin comprometer la seguridad de los datos.<br>- Se evita la duplicación o pérdida de información médica.<br>- Se permite reintentar la acción cuando el sistema esté disponible. |
 
 <div align="center"> <b>Tabla 44: Caso de uso negativo de RF-021</b></div>
+
 <br>
 
 | **ID**                 | CU-045: Gestión exitosa de videollamadas |
@@ -559,8 +587,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - El fisioterapeuta puede iniciar y gestionar videollamadas sin problemas.<br>- La grabación se almacena de manera segura según los permisos configurados.<br>- Se garantiza la comunicación fluida y segura entre el profesional y el paciente. |
 
 <div align="center"> <b>Tabla 45: Caso de uso positivo de RF-022</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-046: Fallo en la gestión de videollamadas |
 | ---------------------- | -------------------------------------------- |
@@ -570,8 +598,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica al usuario del error sin comprometer la seguridad de la información.<br>- Se evita la grabación de sesiones defectuosas o incompletas.<br>- Se permite reintentar la conexión cuando el sistema esté disponible. |
 
 <div align="center"> <b>Tabla 46: Caso de uso negativo de RF-022</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-049: Envío exitoso de confirmación y recordatorio de citas |
 | ---------------------- | ------------------------------------------------------------ |
@@ -581,8 +609,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - El sistema envía correctamente las notificaciones de confirmación y recordatorio.<br>- El paciente y el fisioterapeuta reciben información clara sobre la cita.<br>- Se reduce el riesgo de cancelaciones o ausencias debido a olvidos. |
 
 <div align="center"> <b>Tabla 49: Caso de uso positivo de RF-023</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-050: Fallo en la notificación de confirmación y recordatorio de citas |
 | ---------------------- | ---------------------------------------------------------------------- |
@@ -592,6 +620,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica al usuario del error sin comprometer la gestión de citas.<br>- Se evita la falta de comunicación entre paciente y fisioterapeuta.<br>- Se permite reintentar el envío de notificaciones cuando el sistema esté disponible. |
 
 <div align="center"> <b>Tabla 50: Caso de uso negativo de RF-023</b></div>
+
 <br>
 
 | **ID**                 | CU-051: Visualización exitosa del perfil profesional completo |
@@ -602,6 +631,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - El paciente puede ver toda la información relevante del fisioterapeuta sin problemas.<br>- Los datos se muestran correctamente y se actualizan en tiempo real.<br>- Se mejora la confianza del paciente al tener un perfil detallado antes de reservar una consulta. |
 
 <div align="center"> <b>Tabla 51: Caso de uso positivo de RF-024</b></div>
+
 <br>
 
 | **ID**                 | CU-052: Fallo en la visualización del perfil profesional completo |
@@ -612,6 +642,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica al usuario del error sin mostrar información incorrecta.<br>- Se evita que los pacientes accedan a datos desactualizados o incompletos.<br>- Se permite reintentar la carga del perfil cuando el sistema esté disponible. |
 
 <div align="center"> <b>Tabla 52: Caso de uso negativo de RF-024</b></div>
+
 <br>
 
 | **ID**                 | CU-053: Gestión exitosa del apartado para profesionales de clínica |
@@ -622,9 +653,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - La clínica puede visualizar y gestionar sus fisioterapeutas sin problemas.<br>- Se actualizan correctamente los datos de cada profesional.<br>- Se garantiza una administración eficiente dentro de la plataforma. |
 
 <div align="center"> <b>Tabla 53: Caso de uso positivo de RF-025</b></div>
+
 <br>
-
-
 
 | **ID**                 | CU-054: Fallo en la gestión del apartado para profesionales de clínica |
 | ---------------------- | -------------------------------------------------------------------- |
@@ -634,6 +664,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica al usuario del error sin afectar la integridad de los datos.<br>- Se evita la pérdida de información sobre los profesionales de la clínica.<br>- Se permite reintentar la acción cuando el sistema esté disponible. |
 
 <div align="center"> <b>Tabla 54: Caso de uso negativo de RF-025</b></div>
+
 <br>
 
 | **ID**                 | CU-055: Reserva exitosa de cita con selección de horario y precio |
@@ -644,6 +675,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - El paciente puede elegir el horario y ver el precio antes de confirmar.<br>- La cita queda registrada correctamente en la plataforma.<br>- Se garantiza una reserva clara y transparente para el usuario. |
 
 <div align="center"> <b>Tabla 55: Caso de uso positivo de RF-026</b></div>
+
 <br>
 
 | **ID**                 | CU-056: Fallo en la reserva de cita con selección de horario y precio |
@@ -654,8 +686,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica al usuario del error sin generar una reserva incompleta.<br>- Se evita mostrar información incorrecta sobre disponibilidad o precios.<br>- Se permite reintentar la reserva cuando el sistema esté disponible. |
 
 <div align="center"> <b>Tabla 56: Caso de uso negativo de RF-026</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-057: Marcado exitoso de un profesional como favorito |
 | ---------------------- | ------------------------------------------------------ |
@@ -665,6 +697,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - El paciente puede marcar fisioterapeutas como favoritos sin problemas.<br>- La lista de favoritos se almacena correctamente y permite un acceso rápido.<br>- Se facilita la reserva con fisioterapeutas previamente seleccionados. |
 
 <div align="center"> <b>Tabla 57: Caso de uso positivo de RF-027</b></div>
+
 <br>
 
 | **ID**                 | CU-058: Fallo en el marcado de un profesional como favorito |
@@ -675,6 +708,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica al usuario del error sin afectar su experiencia.<br>- Se evita almacenar datos incorrectos o inconsistentes en la lista de favoritos.<br>- Se permite reintentar la acción cuando el sistema esté disponible. |
 
 <div align="center"> <b>Tabla 58: Caso de uso negativo de RF-027</b></div>
+
 <br>
 
 | **ID**                 | CU-059: Envío exitoso de mensajes entre usuarios |
@@ -685,8 +719,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - El paciente y el fisioterapeuta pueden comunicarse sin problemas.<br>- Los mensajes se envían y reciben correctamente.<br>- La plataforma facilita la coordinación previa a la reserva de citas. |
 
 <div align="center"> <b>Tabla 59: Caso de uso positivo de RF-028</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-060: Fallo en el envío de mensajes entre usuarios |
 | ---------------------- | --------------------------------------------------- |
@@ -696,8 +730,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica al usuario del error sin comprometer la información.<br>- Se evita la pérdida de mensajes no enviados.<br>- Se permite reintentar el envío cuando el sistema esté disponible. |
 
 <div align="center"> <b>Tabla 60: Caso de uso negativo de RF-028</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-061: Visualización exitosa del listado de pacientes para profesionales |
 | ---------------------- | ---------------------------------------------------------------------- |
@@ -707,8 +741,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - El fisioterapeuta puede visualizar la lista de sus pacientes sin problemas.<br>- Los datos se cargan correctamente, mostrando historial de citas y estado del tratamiento.<br>- Se facilita el acceso rápido a la información del paciente para mejorar la consulta. |
 
 <div align="center"> <b>Tabla 61 : Caso de uso positivo de RF-029</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-062: Fallo en la visualización del listado de pacientes para profesionales |
 | ---------------------- | ------------------------------------------------------------------------ |
@@ -718,8 +752,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica al usuario del error sin mostrar datos incorrectos.<br>- Se evita la carga de información incompleta o errónea.<br>- Se permite reintentar la visualización cuando el sistema esté disponible. |
 
 <div align="center"> <b>Tabla 62: Caso de uso negativo de RF-029</b></div>
-<br>
 
+<br>
 
 | **ID**                 | CU-063: Programación exitosa de citas con asignación individual a profesionales |
 | ---------------------- | --------------------------------------------------------------------------- |
@@ -729,9 +763,8 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - La clínica puede programar múltiples citas en una misma franja horaria.<br>- Cada cita se asigna correctamente a un profesional disponible.<br>- La agenda refleja con claridad la distribución de citas por profesional. |
 
 <div align="center"> <b>Tabla 63: Caso de uso positivo de RF-030</b></div>
+
 <br>
-
-
 
 | **ID**                 | CU-64: Fallo en la programación de citas con asignación individual a profesionales |
 | ---------------------- | -------------------------------------------------------------------------------- |
@@ -741,6 +774,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica al usuario del error sin afectar la disponibilidad real de los profesionales.<br>- Se evita la asignación errónea de citas o la duplicación de horarios.<br>- Se permite reintentar la acción cuando el sistema esté disponible. |
 
 <div align="center"> <b>Tabla 64: Caso de uso negativo de RF-030</b></div>
+
 <br>
 
 | **ID**                 | CU-65: Integración exitosa del modelo 3D en videollamadas |
@@ -751,6 +785,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - El modelo 3D se carga sin inconvenientes.<br>- La interacción (señalar, rotar y resaltar) funciona correctamente.<br>- Se mejora la comunicación y comprensión entre fisioterapeuta y paciente. |
 
 <div align="center"> <b>Tabla 65: Caso de uso positivo de RF-031</b></div>
+
 <br>
 
 | **ID**                 | CU-66: Fallo en la integración del modelo 3D en videollamadas |
@@ -761,6 +796,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se notifica de forma clara el error al usuario.<br>- Se evita la interacción defectuosa con el modelo 3D.<br>- Se permite reintentar la carga o se ofrece una alternativa para gestionar la situación. |
 
 <div align="center"> <b>Tabla 66: Caso de uso negativo de RF-031</b></div>
+
 <br>
 
 | **ID**                 | CU-67: Fisioterapeuta elige y paga plan de manera exitosa |
@@ -771,6 +807,7 @@ Para cada caso de uso, se define lo siguiente:
 | **Resultado Esperado** | - Se permite el visualizar y pagar los distintos planes de la aplicación.<br>- Se actualiza el perfil del fisioterapeuta con el plan que haya comprado. |
 
 <div align="center"> <b>Tabla 67: Caso de uso negativo de RF-032</b></div>
+
 <br>
 
 | **ID**                 | CU-68: Fallo en la elección y pago del plan del fisioterapeuta |

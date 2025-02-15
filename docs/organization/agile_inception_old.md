@@ -12,7 +12,7 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: ".backgrounds/background2V.pdf"                            
+titlepage-background: "../.backgrounds/background1V.pdf"                            
 header-left: "AGUILE INCEPTION"                 
 header-right: "05/02/2025"                                         
 footer-left: "FISIO FIND"
@@ -25,6 +25,10 @@ monofont: "Noto Sans Mono"
 
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
+<p align="center">
+  <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
+</p>
+
 <h1 align="center" style="font-size: 30px; font-weight: bold;">
   FISIO FIND  -  AGULE INCEPTION
 </h1>
