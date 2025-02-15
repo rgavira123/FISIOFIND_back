@@ -12,7 +12,7 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: ".backgrounds/background1V.pdf"               # CHANGE IF NEEDED
+titlepage-background: "../.backgrounds/background1V.pdf"                            
 header-left: "PLAN DE GESTIÓN DE LA CONFIGURACIÓN"                  # CHANGE IF NEEDED
 header-right: "04/02/2025"                                          # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
@@ -24,13 +24,17 @@ monofont: "Noto Sans Mono"
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
+<p align="center">
+  <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
+</p>
+
 <h1 align="center" style="font-size: 30px; font-weight: bold;">
   FISIO FIND  -  PLAN DE GESTIÓN DE LA CONFIGURACIÓN
 </h1>
 
 <br>
 
-**Índice**
+**ÍNDICE**
 - [1. NORMAS Y PROCEDIMIENTOS APLICABLES](#1-normas-y-procedimientos-aplicables)
 - [2. ELEMENTOS CONFIGURABLES](#2-elementos-configurables)
 - [3. HERRAMIENTAS A UTILIZAR](#3-herramientas-a-utilizar)
@@ -42,9 +46,9 @@ monofont: "Noto Sans Mono"
   - [4.5. SOLICITUDES DE CAMBIO (REGISTRO DE CAMBIOS)](#45-solicitudes-de-cambio-registro-de-cambios)
 - [5. ESTRATEGIA DE RAMAS](#5-estrategia-de-ramas)
 - [6. ESTÁNDARES DE CODIFICACIÓN](#6-estándares-de-codificación)
-  - [BACKEND](#python-backend)
-  - [FRONTEND](#javascript-frontend)
-- [7. GESTIÓN DEL CAMBIO](#7-gestión-del-cambio)
+  - [6.1. BACKEND](#61-python-backend)
+  - [6.2. FRONTEND](#62-javascript-frontend)
+- [7. ORGANIZACIÓN DE LA DOCUMENTACIÓN](#7-organización-de-la-documentación)
 - [8. CONCLUSIÓN](#8-conclusión)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
@@ -60,7 +64,7 @@ monofont: "Noto Sans Mono"
 
 - **Fecha de Creación:** 04/02/2025  
 
-- **Versión:** v2.0
+- **Versión:** v2.2
 
 <br>
 
@@ -75,16 +79,13 @@ monofont: "Noto Sans Mono"
 | 04/02/2025 | v1.0    | Antonio Macías Ferrera           | Elaboración de la plantilla del documento. |
 | 05/02/2025 | v2.0    | Benjamín Ignacio Maureira Flores | Completado según la metodología a seguir en el proyecto. |
 | 13/02/2025 | v2.1    | Antonio Macías Ferrera | Adecuación al nuevo proyecto Fisio Find. |
+| 15/02/2025 | v2.2    | Antonio Macías Ferrera | Adecuación al feedback de la clase del 14/02/2025. Sustitución de Taiga.io por GitHub Project, estructuración de la documentación y adición de apartado *Gestión del Cambio* y *Gestión de los Riesgos*. |
 
 
-
-<br>
 
 <br>
 
 <!-- \newpage -->
-
-<br>
 
 <br>
 
@@ -100,12 +101,14 @@ Este plan contiene la información sobre cómo el equipo de trabajo realizará e
 
 # **2. ELEMENTOS CONFIGURABLES**
 
-Los elementos configurables del proyecto incluyen aquellos artefactos y entregables que pueden estar sujetos a modificaciones durante el desarrollo.
-Cada uno de estos elementos tendrá un identificador único, y se someterá a control de versiones.
+Los elementos configurables del proyecto incluyen aquellos artefactos y entregables que pueden estar sujetos a modificaciones durante el desarrollo. Cada uno de estos elementos tendrá un identificador único, y se someterá a control de versiones.
 
 1. **Documentación**: todos los documentos que surjan a lo largo de todas las fases del proyecto deberán estar sujetos a un sistema de control de versiones específico y unificado.
-2. **Requisitos e HU**: define los requisitos del sistema. De este documento saldrán también los registros de HU y de casos de uso del sistema, que también serán configurables y estarán debidamente trazados.
+
+2. **Requisitos, CU e HU**: define los requisitos del sistema. De este documento saldrán también los registros de HU y de casos de uso del sistema, que también serán configurables y estarán debidamente trazados.
+
 3. **Código fuente**: código del producto software, sujeto a control de versiones.
+
 4. **Tareas**: las fechas y condiciones para la entrega de los principales entregables de cada Sprint también serán elementos configurables.
 
 <br>
@@ -121,7 +124,7 @@ Cada uno de estos elementos tendrá un identificador único, y se someterá a co
 |------------|--------------------------|-------------|
 | Pandoc y Eisvogel   | Documentación, Registros  | Plataforma para la edición  de documentos en Markdown. |
 | Clockify   | Tareas                    | Seguimiento del tiempo de trabajo por actividad. |
-| Taiga.io   | Hitos, requisitos, HU     | Herramienta ágil para gestión de proyectos. |
+| GitHub Project   | Hitos, requisitos, HU     | Herramienta ágil para gestión de proyectos. |
 | Git        | Código fuente             | Control de versiones del código fuente. |
 | GitHub     | Código fuente, Hitos, HU  | Gestión del desarrollo colaborativo. |
 
@@ -137,8 +140,9 @@ Cada uno de estos elementos tendrá un identificador único, y se someterá a co
 ## **4.1. Versionado de Documentación y Registros**
 Se sigue un esquema de versionado semántico:  
 
-- **Mayor:** Cambios significativos en el contenido (reestructuración o nueva sección).  
-- **Menor:** Actualizaciones dentro de secciones existentes o correcciones menores.  
+- **Mayor:** Cambios significativos en el contenido (reestructuración o nueva sección).
+
+- **Menor:** Actualizaciones dentro de secciones existentes o correcciones menores.
 
 **Se deberá modificar la versión siempre que se realice alguna modificación en el documento**. La versión se indicará tanto en el título del documento como en la tabla de control de versiones que se encontrará tras el índice del documento.
 
@@ -151,11 +155,12 @@ Cada historia de usuario y caso de uso tiene un identificador único asignado tr
 Cambios importantes en la descripción o criterios de aceptación de una HU se anotan y actualizaremos la versión. Se seguirá un versionado similar al visto en el punto anterior. La versión de cada elemento se añadirá en un campo específico que encontraremos en su tabla.
 
 - **Mayor**: Cambios significativos en el contenido debido a un cambio en los requisitos.
+
 - **Menor**: Actualización de información, correcciones ortográficas, formato o pequeños ajustes de expresión.
 
 Ejemplo de versionado: `v1.2` (vMayor.Menor).
 
-A la hora de crear nuevas tareas en *Taiga.io* en base a las HU, se deberá usar un nombre descriptivo y breve, similar al título de la HU asociada. Como esta tarea estará asociada a una Issue de GitHub irá acompañada de un código de la Issue(#XX). ***Esto ayudará a llevar una trazabilidad entre Issue - Tarea - HU - Clockify***.
+A la hora de crear nuevas tareas en *GitHub Project* en base a las HU, se deberá usar un nombre descriptivo y breve, similar al título de la HU asociada. Como esta tarea estará asociada a una Issue de GitHub irá acompañada de un código de la Issue(#XX). ***Esto ayudará a llevar una trazabilidad entre Issue - Tarea - HU - Clockify***.
 
 La nomenclatura a seguir para los distintos requisitos, CU e HU se con un esquema de numeración para cada tipo de registro: 
 
@@ -164,8 +169,8 @@ La nomenclatura a seguir para los distintos requisitos, CU e HU se con un esquem
 |----------------------------------------------------------|---------------|
 | Objetivos de alto nivel                                  | OBJ-XXX       |
 | Requisitos del proyecto                                  | PRO-XXX       |
-| Requisitos de información                                | RI-XXX       |
-| Requisitos de reglas de negocio                          | RN-XXX       |
+| Requisitos de información                                | RI-XXX        |
+| Requisitos de reglas de negocio                          | RN-XXX        |
 | Requisitos de conducta                                   | CON-XXX       |
 | Requisitos de fiabilidad                                 | FIB-XXX       |
 | Requisitos de portabilidad                               | POR-XXX       |
@@ -179,7 +184,7 @@ La nomenclatura a seguir para los distintos requisitos, CU e HU se con un esquem
 
 
 ## **4.3.  Control del tiempo**
-*Clockify* no tiene control de versiones explícito, pero el seguimiento se realiza registrando las entradas de tiempo y las tareas completadas para cada miembro del equipo siguiendo la misma nomenclatura que las tareas de *Taiga.i*o.
+*Clockify* no tiene control de versiones explícito, pero el seguimiento se realiza registrando las entradas de tiempo y las tareas completadas para cada miembro del equipo siguiendo la misma nomenclatura que las tareas del *GitHub Project*.
 
 Las tareas se numeran en orden cronológico y deben incluir un identificador único en el formato `#XX`.
 
@@ -192,25 +197,28 @@ Ejemplo de versionado: `Realización de ventana de inicio de sesión #53`.
 ## **4.4. Versionado de Código Fuente en Git y GitHub**
 
 ***Estructura de Ramas***
-- **`main`** → Producción  
-- **`develop`** → Desarrollo  
-- **`feat/nueva_funcionalidad`** → Funcionalidades nuevas  
-- **`test/nueva_funcionalidad`** → Ramas de pruebas  
-- **`hotfix/corrección`** → Correcciones urgentes  
+- **`main`** → Producción
+
+- **`develop`** → Desarrollo
+
+- **`feat/nueva_funcionalidad`** → Funcionalidades nuevas
+
+- **`test/nueva_funcionalidad`** → Ramas de pruebas
+
+- **`hotfix/corrección`** → Correcciones urgentes
 
 
 ***Versionado semántico***
 
 ***X.y.z***
 
-- **X - Versión mayor**: Cambios mayores, rompe la compatibiladad de la API, la versión inicial será 0.y.z, la versión 1.0.0 definirá la primera API pública.
+- **X - Versión mayor**: Cambios mayores, rompe la compatibilidad de la API, la versión inicial será 0.y.z, la versión 1.0.0 definirá la primera API pública.
 
 - **y - Versión menor**: Cambios menores, no rompen la compatibilidad de la API, incluyen nuevas funcionalidades y mejoras, puede incluir parches.
 
 - **z - Parche**: Eliminación de bugs, no rompen la compatibilidad de la API, sólo cambios internos para arreglar comportamientos incorrectos.
 
 - **Reglas de versionado**: Cuando la versión mayor sea incrementada se resetean las demás, cuando se incremente la versión menor, se resetea el parche. Seguramente se hagan de manera automática usando un workflow.
-
 
 ***Commits (Conventional Commits)***
 La política de nombrado de commits se ajustará a las directrices de *Conventional Commits*, siendo estos **siempre en inglés**:
@@ -228,19 +236,20 @@ La política de nombrado de commits se ajustará a las directrices de *Conventio
     - test: Adición o modificación de pruebas.
 ```
 
-La descripción debe ser concisa y clara, expresando en una sola línea el propósito del commit. Se recomienda utilizar el modo imperativo (por ejemplo, "add...”, "fix...”) y evitar el uso de mayúsculas al inicio, salvo para nombres propios.
+La **descripción** debe ser concisa y clara, expresando en una sola línea el propósito del commit. Se recomienda utilizar el modo imperativo (por ejemplo, "add...”, "fix...”) y evitar el uso de mayúsculas al inicio, salvo para nombres propios.
 
-El cuerpo se utiliza para detallar el contexto del cambio, explicar el por qué detrás del commit, y describir cualquier implicación importante.
+El **cuerpo** se utiliza para detallar el contexto del cambio, explicar el por qué detrás del commit, y describir cualquier implicación importante.
 
-El pie del mensaje puede incluir:
+El **pie** del mensaje puede incluir:
 - Referencias a tickets o tareas: Refs #123.
 - Cambios significativos (breaking changes): BREAKING CHANGE: seguido de una descripción del cambio.
 
-Se recomienda encarecidamente usar **Close #XX** cuando se cierre una Issue con dicho commit, para hacer los commits y las Issues lo más trazable posible. Esto se puede añadir a la descripción del commit o al cuerpo.
+Se recomienda encarecidamente usar **. Closes #XX** al final de un commit cuando éste sirva para cerrar una *Issue*, para hacer los commits y las Issues lo más trazable posible.
 
 <br>
 
 ***Ejemplo de mensaje de commit***
+
 ```
 feat: add support for token-based authentication Close #01
 
@@ -267,27 +276,29 @@ Para las solicitudes de cambio formales, se deberá seguir la plantilla ubicada 
 
 La estrategia de ramas se basa en **Git Flow** con algunas modificaciones para garantizar un desarrollo ágil y seguro.
 
-### Desarrollo de ramas que añadan funcionalidad:
+**Desarrollo de ramas que añadan funcionalidad:**  
   1. Crear una rama `feat/` desde `develop`.
   2. Desarrollar la funcionalidad en la rama creada.
   3. Hacer Pull Request solicitando a un revisor del equipo antes de fusionar con `develop`.
 
-### Desarrollo de ramas que prueben una funcionalidad:
+**Desarrollo de ramas que prueben una funcionalidad:**
   1. Crear una rama `test/` desde `develop` una vez se haya fusionado la funcionalidad a probar.
   2. Desarrollar y ejecutar los tests en la rama creada.
   3. Hacer Pull Request solicitando a un revisor del equipo antes de fusionar con `develop`.
 
-### Preparación de releases
+**Preparación de releases**
   - Se usará un workflow para hacer commit diario desde la rama `develop` a `main`, de manera que siempre tengamos un producto funcional actualizado en producción.
 
-### Arreglar bugs en producción
+**Arreglar bugs en producción**
   1. Crear una rama de hotfix desde `main`.
   2. Corregir el error.
   3. Fusionar la rama de hotfix con `main` y `develop`.
 
 
-### ***Revisión de las Pull Requests***
-Una vez acabada una tarea, se creará una Pull Request y se tendrá que notificar al resto de miembros del equipo, para que, con la mayor brevedad posible, un miembro la revise y dé feedback (aprobandola o solicitando cambios).
+<br>
+
+***Revisión de las Pull Requests***
+Una vez acabada una tarea, se creará una Pull Request y se tendrá que notificar al resto de miembros del equipo, para que, con la mayor brevedad posible, un miembro la revise y dé feedback (aprobándola o solicitando cambios).
 
 Se recomienda encarecidamente **no aprobar una Pull Request si no se han pasado los checks a la hora de ejecutar los workflows correspondientes**, para no arrastrar errores.
 
@@ -302,7 +313,7 @@ Se recomienda encarecidamente **no aprobar una Pull Request si no se han pasado 
 
 Para garantizar la consistencia, legibilidad y mantenibilidad del código, seguiremos estándares de codificación reconocidos en la industria para Python (backend) y JavaScript (frontend). A continuación, se detallan las prácticas recomendadas y ejemplos ilustrativos.
 
-## **Python (Backend)**
+## **6.1. Python (Backend)**
 
 #### **1. Nombrado**
 - **Positivo**:
@@ -401,7 +412,7 @@ except:
     print("Ocurrió un error")
 ```
 
-## **JavaScript (Frontend)**
+## **6.2. JavaScript (Frontend)**
 
 #### **1. Nombrado**
 - **Positivo**:
@@ -495,7 +506,94 @@ fetch('https://api.example.com/data')
 
 Todos estos ejemplos son una muestra de los más importantes que tendremos en cuenta (que quiere decir que no tenemos en cuenta el estandar al 100%), es responsabilidad de cada miembro del grupo adherirse a los estándares de código para garantizar un trabajo correcto.
 
-# **7. GESTIÓN DEL CAMBIO**
+<br>
+
+<br>
+
+<!-- \newpage -->
+
+
+# **7. ORGANIZACIÓN DE LA DOCUMENTACIÓN**
+
+Se han establecido dos canales principales para el almacenamiento y contron de la documentación: el repositorio del proyecto en **GitHub**, y una carpeta compartida en **OneDrive**. Estas unidades de almacenamento tendrán usos bastante diferenciados, y se orfanizarán de la siguiente forma:
+
+## **7.1. OneDrive**
+
+En esta carpeta compartida a todos los miembros del grupo se almacenarán archivos y documentos que NO son entregables del proyecto. Son, por ejemplo, vídeos, hojas de cálculo, documentación de consulta, material de clase, etc. Se ha decidido utilizar la siguiente estructura: 
+
+```
+└── ISPP/
+  ├── Diseño/
+  │   └── [Portadas de documentos, logos y demás material gráfico necesario para la imagen de marca del producto.]
+  |
+  ├── Organización/
+  │   └── [Documentos varios relacionados con la planificación y organización del proyecto: hojas de cálculo de los costes, vídeos explicativos, información recabada para la idea de negocio, etc.]
+  |
+  ├── Presentaciones/
+  │   └── [Versión .pdf y versión .pttx de las presentaciones realizadas cada semana.]
+  |
+  ├── Publicidad y RRSS/
+  │   └── [Material audiovisual usado para las publicaciones en redes sociales y la publicidad.]
+  |
+  └── Trabajo semanal/
+        └── [Esta carpeta ayudará al equipo de QA a organizar los informes de rendimiento del equipo, almacenarán un registro del trabajo realizado cada semana por parte de cada miembro del equipo.]
+```
+
+## **7.2. Repositorio de GitHub**
+
+En la carpeta `docs` del repositorio del proyecto se almacenará toda la documentación necesaria para los entregables del proyecto. Aquí entran: documentación ágil (sprint plannig, retrospective, review), acuerdos grupales (acuerdo de compromiso, acuerdo de uso de IA), actas de reuniones, planes, registros de requisitos, reportes y la base de conocimiento. Se ha decidido seguir la siguiente estructura:
+
+```
+└── docs/
+  ├── .img/
+  │   └── ...
+  |
+  ├── .backgrounds/
+  │   └── ...
+  |
+  ├── knowledge_base/
+  │   └── [Feedback semanal de las clases y los apuntes de los vídeos]
+  |
+  ├── meetings/
+  │   └── [Actas de reuniones]
+  |
+  ├── organization/
+  │   └── [Acuerdos grupales y documentos de análisis (agile inception, competidores, costes...)]
+  |
+  ├── planification/
+  │   └── [Planes y registros de CU, HU, requisitos y trazabilidad]
+  |
+  ├── reports_ai/
+  │   └── [Informes de uso de Inteligencia Artificial]
+  |
+  ├── reports_performance/
+  │   └── [Informes de rendimiento semanal]
+  |
+  ├── reports_time/
+  │   └── [Informes de tiempo usando la herramienta Clockify]
+  |
+  ├── sprint_1/
+  │   └── [Sprint Planning, Review y Retrospective del Sprint 1]
+  |
+  ├── sprint_2/
+  │   └── [Sprint Planning, Review y Retrospective del Sprint 2]
+  |
+  ├── sprint_3/
+  │   └── [Sprint Planning, Review y Retrospective del Sprint 3]
+  |
+  ├── knowledge_base/
+  │   └── [Feedback semanal de las clases y los apuntes de los vídeos.]
+  |
+  ├── templates/
+  │   └── ...
+  |
+  ├── build-examples.sh
+  └── eisvogel.latex
+```
+
+
+Toda la documentación deberá seguir en todo momento la **política de versionado y control** especificada en el punto 4 de este documento, y además deberá atenerse al ***Plan de Gestión del Cambio***.
+
 
 # **8. CONCLUSIÓN**
 Este documento define las políticas de gestión de configuración del proyecto **FISIO FIND**. Es crucial que estas buenas prácticas sean aplicadas por todos los miembros del equipo a lo largo de todo el proyecto para procurar un orden, trazabilidad y, en resumen, una buena calidad en el desarrollo y resultado del producto.

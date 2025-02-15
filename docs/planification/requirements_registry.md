@@ -1,5 +1,5 @@
 ---
-title: "REQUIREMENTS DOCUMENT"
+title: "REGISTRO DE REQUISITOS"
 subtitle: "FISIOFIND"                       
 author: [Alberto Carmona Sicre, Daniel Ruiz López, Rafael Pulido Cifuentes, Daniel Fernandez Caballero, Daniel Alors Romero] 
 date: "12/02/2025"                                                 
@@ -12,23 +12,27 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: ".backgrounds/background2V.pdf"                            
-header-left: "REQUIREMENTS DOCUMENT"                 
+titlepage-background: "../.backgrounds/background1V.pdf"                            
+header-left: "REGISTRO DE REQUISITOS"                 
 header-right: "12/02/2025"                                         
-footer-left: "FISIOFIND"
+footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"
 ---
 
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<p align="center" style="font-size: 30px; font-weight: bold;">
-  FISIOFIND  -  REQUIREMENTS DOCUMENT
+<p align="center">
+  <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
+
+<h1 align="center" style="font-size: 30px; font-weight: bold;">
+  FISIO FIND  -  REGISTRO DE REQUISITOS
+</h1>
 
 <br>
 
-**Índice**
+**ÍNDICE**
 - [1. INTRODUCCIÓN](#1-introducción)  
     - [1.1. RECOPILACIÓN DE REQUISITOS](#11-recopilación-de-requisitos)  
 - [2. ESTRUCTURA DE LOS REQUISITOS](#2-estructura-de-los-requisitos)    
@@ -62,16 +66,20 @@ classoption: "table"
 |------------|---------|----------------------------------|----------------------------|
 | 12/02/2025 | v1.0    | Alberto Carmona Sicre, Daniel Ruiz López, Rafael Pulido Cifuentes, Daniel Fernandez Caballero, Daniel Alors Romero          | Añadidos los apartados: Introducción, Estructura de los Requisitos y Requisitos. |
 | 12/02/2025 | v1.1    | Alberto Carmona Sicre, Daniel Fernandez Caballero       | Modificado el apartado de requisitos funcionales |
-| 12/02/2025 | v1.2    | Daniel Alors Romero       | Modificado los apartado de requisitos funcionales y no funcionales  |
+| 12/02/2025 | v1.2    | Daniel Alors Romero       | Modificados los apartados de requisitos funcionales y no funcionales  |
+
+<br>
+
+<!-- \newpage -->
 
 <br>
 
 # 1. INTRODUCCIÓN  
 En este documento se detallan cada uno de los requisitos contemplados en el proyecto FisioFind.  
 
-## 1.1. RECOPILACIÓN DE REQUISITOS  
+## 1.1. Recopilación de requisitos  
 La recopilación de requisitos es un proceso esencial para identificar y definir de manera clara y precisa las expectativas de los usuarios y los objetivos estratégicos del proyecto. Este proceso permite asegurar que el sistema a desarrollar satisfaga completamente las demandas del negocio y de los usuarios finales.  
-Para este proyecto, enfocado en la relación entre fisioterpeutas y sus clientes, la recopilación de requisitos se llevará a cabo a través de diversas técnicas, garantizando que cada aspecto relevante sea considerado.  
+Para este proyecto, enfocado en la relación entre fisioterapeutas y sus clientes, la recopilación de requisitos se llevará a cabo a través de diversas técnicas, garantizando que cada aspecto relevante sea considerado.  
 
 Métodos de Recopilación: 
 
@@ -86,6 +94,8 @@ Definición y Documentación Inicial:
 - Se asegurará que todos los requisitos estén bien definidos y comprendidos por el equipo técnico.  
 
 <br>
+
+<hr>
 
 # 2. ESTRUCTURA DE LOS REQUISITOS
 Primeramente, se hará una separación de requisitos en funcionales, no funcionales y de información, según las siguientes descripciones:  
@@ -121,6 +131,10 @@ Por otro lado, para cada requisito, se define lo siguiente:
     - **Baja:** Estos requisitos no se implementarán en el alcance actual del proyecto, ya sea porque no son necesarios o porque no son factibles dentro de los plazos y recursos disponibles. Sin embargo, podrían considerarse para fases futuras o como mejoras posteriores.   
 
 <br>
+
+<!-- \newpage -->
+
+<hr>
 
 # 3. REQUISITOS
 ## 3.1. Requisitos Funcionales

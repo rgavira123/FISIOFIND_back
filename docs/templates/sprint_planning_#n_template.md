@@ -1,6 +1,6 @@
 ---
 title: "SPRINT PLANNING SPRINT X"         # CHANGE IF NEEDED
-subtitle: "GALLERY GUIDE"
+subtitle: "FISIO FIND"
 author: [Antonio Macías Ferrera]          # CHANGE IF NEEDED
 date: "04/02/2025"                        # CHANGE IF NEEDED
 subject: "ISPP"
@@ -12,17 +12,21 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: "../.backgrounds/background2V.pdf"  # CHANGE IF NEEDED
+titlepage-background: "../.backgrounds/background4V.pdf"  # CHANGE IF NEEDED
 header-left: "SPRINT PLANNING SPRINT X"   # CHANGE IF NEEDED
 header-right: "04/02/2025"                # CHANGE IF NEEDED
-footer-left: "GALLERY GUIDE"
+footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"  
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<!-- <p align="center" style="font-size: 30px; font-weight: bold;">
-  GALLERY GUIDE  -  SPRINT PLANNING SPRINT X
+<p align="center">
+  <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
+</p>
+
+<p align="center" style="font-size: 30px; font-weight: bold;">
+  FISIO FIND  -  SPRINT PLANNING SPRINT X
 </p>
 
 <br>
@@ -31,11 +35,11 @@ classoption: "table"
 1. [OBJETIVOS DEL SPRINT](#1-objetivos-del-sprint)
 2. [SPRINT BACKLOG](#2-sprint-backlog)
 3. [METODOLOGÍA INTERNA](#3-metodología-interna)
-   - [GESTIÓN DE TAREAS EN TAIGA.IO](#31-gestión-de-tareas-en-taigaio)
+   - [GESTIÓN DE TAREAS EN GitHub Project](#31-gestión-de-tareas-en-taigaio)
    - [ORGANIZACIÓN DE LAS TAREAS](#32-organización-de-las-tareas)
    - [FLUJO DE TRABAJO](#33-flujo-de-trabajo)
    - [DEFINICIÓN DE HECHO (DOD) DE UNA HISTORIA DE USUARIO](#34-definición-de-hecho-dod-de-una-historia-de-usuario)
-   - [GESTIÓN DE LA CONFIGURACIÓN](#35-gestión-de-la-configuración) -->
+   - [GESTIÓN DE LA CONFIGURACIÓN](#35-gestión-de-la-configuración)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 ---
@@ -62,13 +66,15 @@ classoption: "table"
 
 <br>
 
+<!-- \newpage -->
+
 <br>
 
 
 # **1. OBJETIVOS DEL SPRINT**
-El propósito de este informe es definir los objetivos a lograr durante el Sprint #X y describir la metodología para alcanzarlos. Se analizarán el proceso de **Sprint Planning**, la gestión de tareas con **Taiga.io**, y el cumplimiento de las estimaciones iniciales.
+El propósito de este informe es definir los objetivos a lograr durante el Sprint #X y describir la metodología para alcanzarlos. Se analizarán el proceso de **Sprint Planning**, la gestión de tareas con **GitHub Project**, y el cumplimiento de las estimaciones iniciales.
 
-Los siguientes **objetivos** del *Sprint* harán referencia a las HU desglosadas en la plataforma *Taiga.io*.
+Los siguientes **objetivos** del *Sprint* harán referencia a las HU desglosadas en la plataforma *GitHub Project*.
 
 - ✅ **Objetivo 1:** [Descripción breve del objetivo]
 - ✅ **Objetivo 2:** [Descripción breve del objetivo]
@@ -96,9 +102,9 @@ Los siguientes **objetivos** del *Sprint* harán referencia a las HU desglosadas
 
 # **3. METODOLOGÍA INTERNA**
 
-## 3.1. Gestión de Tareas en Taiga.io
+## 3.1. Gestión de Tareas en GitHub Project
 
-El equipo utiliza *Taiga.io* como herramienta de gestión de tareas donde las actividades están organizadas en distintas columnas que reflejan su estado dentro del flujo de trabajo. Esta herramienta cuenta con un **tablero Kanban** para facilitar el seguimiento de las tareas, generación de **gráficas Burn-down** que nos serán útiles en las retrospectivas, y asignación y **estimación de tareas** además de otras funciones que procurarán una buena organización del trabajo.
+El equipo utiliza *GitHub Project* como herramienta de gestión de tareas donde las actividades están organizadas en distintas columnas que reflejan su estado dentro del flujo de trabajo. Esta herramienta cuenta con un **tablero Kanban** para facilitar el seguimiento de las tareas, generación de **gráficas Burn-down** que nos serán útiles en las retrospectivas, y asignación y **estimación de tareas** además de otras funciones que procurarán una buena organización del trabajo.
 
 ## 3.2. Organización de las Tareas
 
@@ -143,7 +149,7 @@ Para que una historia de usuario (HU) se considere terminada, debe cumplir con l
 
 ## 3.5. Gestión de la Configuración
 
-Desde la **política de versionado** de documentos y de código, hasta la **política de nombrado de ramas**, pasando por el **criterio de mensajes de commits** y el **flujo** de trabajo **Taiga.io - GitHub - Clockify** se encuentra definido en detalle en el ***Plan De Gestión De La Configuración***.
+Desde la **política de versionado** de documentos y de código, hasta la **política de nombrado de ramas**, pasando por el **criterio de mensajes de commits** y el **flujo** de trabajo **GitHub Project - GitHub - Clockify** se encuentra definido en detalle en el ***Plan De Gestión De La Configuración***.
 
 <br>
 
