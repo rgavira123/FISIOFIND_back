@@ -53,7 +53,7 @@ monofont: "Noto Sans Mono"
 
 - **Nombre del Proyecto:** FISIO FIND
 
-- **Autores:** Miguel Encina Martínez, Franciso Mateos Villarejo 
+- **Autores:** Miguel Encina Martínez, Franciso Mateos Villarejo. 
 
 - **Fecha de Creación:** 16/02/2025  
 
@@ -70,6 +70,8 @@ monofont: "Noto Sans Mono"
 | Fecha      | Versión | Realizada por | Descripción de los cambios |
 |------------|---------|--------------|----------------------------|
 | 16/02/2025 | v1.0    |  Miguel Encina Martínez, Francisco Mateos Villarejo | Versión inicial del documento. |
+| 16/02/2025 | v1.1    |  Daniel Vela Camacho | Corrección y adecuación del formato. |
+
 
 
 
@@ -79,10 +81,12 @@ monofont: "Noto Sans Mono"
 
 Para asegurar la calidad del proyecto, se ha creado un equipo de QA (Quality Assurance) que se encargará de evaluar el trabajo realizado por todos los integrantes del equipo semanalmente, así como de las horas invertidas para hacerlo.
 
-- **Daniel Alors Romero**
-- **Miguel Encina Martínez**
-- **Francisco Mateos Villarejo**
-- **Benjamín Ignacio Maureira Flores**
+| Nombre                          |  Perfil de GitHub |
+|---------------------------------|------------------|
+| Daniel Alors Romero             | [GitHub](https://github.com/DanielAlors) |
+| Miguel Encina Martínez          | [GitHub](https://github.com/MiguelEncina) |
+| Francisco Mateos Villarejo      | [GitHub](https://github.com/pacomateos10) |
+| Benjamín Ignacio Maureira Flores| [GitHub](https://github.com/benjimrfl) |
 
 # 2. Normas y procedimientos a aplicar
 
@@ -98,15 +102,15 @@ La organización aplica las siguientes normas para asegurar la calidad de los pr
 | Entregable | Métrica | Valor objetivo |
 | --- | --- | --- |
 | Backend | Cobertura de pruebas | 100% de pruebas pasadas. |
-| Frontend | Seguimiento de un diseño uniforme y que satisfaga las necesidades de los clientes | 95% de respuestas positivas por parte de los usuarios pilotos. |
-| Código fuente | Workflows | 100% de workflows relacionados con la calidad de código pasados  |
-| Documentación | Completitud del contenido | 75% del equipo de QA debe aprobar el contenido del documento |
+| Frontend | Seguimiento de un diseño uniforme y que satisfaga las necesidades de los clientes | ≈90% de respuestas positivas por parte de los usuarios pilotos. |
+| Código fuente | Workflows | 100% de workflows relacionados con la calidad de código pasados.  |
+| Documentación | Completitud del contenido | 75% del equipo de QA debe aprobar el contenido del documento. |
 
 # 4. Listas de control
 
-1. **Código fuente:** en cada entregable, se realizará un procedimiento para verificar la implementación de las funcionalidades realizadas requeridas.
-2. **Pruebas:** se verificará la correcta realización de los módulos de pruebas para cada funcionalidad implementada. Se debe comprobar la cobertura de los casos de prueba, su ejecución y su correspondiente documentación.
-3. **Documentación:** se deberá comprobar en cada entregable la calidad, claridad, riqueza y concisión de todos los documentos que se entregarán.
+1. **Código fuente:** En cada entregable, se realizará un procedimiento para verificar la implementación de las funcionalidades requeridas.
+2. **Pruebas:** Se verificará la correcta realización de los módulos de pruebas para cada funcionalidad implementada. Se debe comprobar su ejecución, cobertura y su correspondiente documentación.
+3. **Documentación:** Se deberá comprobar la calidad, claridad, riqueza y concisión de todos los documentos y/o entregables.
 4. ***Feedback:*** Evaluación por parte de los usuarios piloto a través de encuestas de la usabilidad de la plataforma. 
 
 # 5. Plan de Mejora de los Procesos de Gestión
@@ -115,9 +119,9 @@ La organización aplica las siguientes normas para asegurar la calidad de los pr
 | --- | --- | --- |
 | Retroalimentación de usuarios piloto | Se recogerán los comentarios proporcionados por los clientes y el equipo lo analizará con el objetivo de mejorar futuras entregas y prevenir futuros fallos e inconsistencias. | Project Manager |
 | Errores encontrados | Se registrarán todos los errores detectados durante el proceso y su causa raíz. Tras esto, dichos fallos no deberán de cometerse en futuros entregables. | Equipo de QA |
-| Tiempo de desarrollo | Se compararán los tiempos estimado y real del proceso para identificar posibles cuellos de botella y corregir la organización del proyecto. | Equipo de QA |
-| Análisis de procesos actuales | Realizar un estudio de los procesos actuales para encontrarineficiencias y áreas de mejora. | Project Manager |
-| Documentación de Resultados y Lecciones | Informes de Proyecto, Actas de Reuniones  | Equipo de secretarios |
+| Tiempo de desarrollo | Se compararán los tiempos estimado y real de las tareas a completar con el fin de identificar posibles cuellos de botella y corregir la organización del proyecto. | Equipo de QA |
+| Análisis de procesos actuales | Realizar un estudio de los procesos actuales para encontrar ineficiencias y áreas de mejora. | Project Manager |
+| Documentación de Resultados y Lecciones | Informes de Proyecto, Actas de Reuniones.  | Equipo de secretarios |
 
 # 6. Reuniones a realizar
 
@@ -132,14 +136,14 @@ La organización aplica las siguientes normas para asegurar la calidad de los pr
 | Tipo | Descripción |
 | --- | --- |
 | Resultados de pruebas | Por cada iteración, se deberá desarrollar un informe en el que se detalla los resultados de las pruebas realizadas, posibles errores encontrados y el estado de los mismos. |
-| Informe desempeño individual | Cada semana de trabajo, cada miembro del equipo deberá realizar un informe de desempeño siguiendo la plantilla proporcionada, donde deberá explicar las tareas realizadas durante la semana, acompañada de una descripción y un porcentaje. Este representa si ha terminado la tarea o no. |
+| Informe desempeño individual | Cada semana de trabajo, cada miembro del equipo deberá realizar un informe de desempeño siguiendo la plantilla proporcionada, donde deberá explicar las tareas realizadas durante la semana, acompañada de una descripción y un porcentaje de completitud. |
 | Informes de rendimiento | Cada semana, el equipo de QA será el encargado de evaluar el rendimiento de cada miembro del equipo. Se tomará en cuenta el número de horas invertidas, el porcentaje de tareas finalizadas y la calidad de las mismas. Estos valores están recogidos como métricas en el CA. |
 
 # 8. Herramientas para la gestión de la calidad
 
 Para asegurar la calidad del proyecto se usarán las siguientes herramientas:
 
-- **Codacy:** se usará el workflow de Codacy para asegurar una calidad mínima para el proyecto. Se encarga de la búsqueda automática de errores en el código, el cumplimiento de estándares, así como de analizar la deuda técnica que se va generando a medida que crece y avanza el proyecto.
-- **Codeql:** es una herramienta de análisis estático de código utilizada para encontrar vulnerabilidades de seguridad y errores en el código fuente. Forma parte de GitHub, y se usa en proyectos tanto de código abierto como cerrado. Ayuda a cumplir las normativas de seguridad como, por ejemplo, NIST.
-- **Dependabot:** es una herramienta de GitHub que ayuda a mantener actualizadas las dependencias de un proyecto de forma automática. Su función principal es detectar dependencias que estén desactualizadas que se puedan encontrar con vulnerabilidades y crear pull requests con las actualizaciones necesarias.
-- **IA:** utilizaremos inteligencia para corregir errores en la elaboración de documentos como faltas ortográficas o expresiones mejorables. También se usará para utilizar un lenguaje más técnico y preciso.
+- **Codacy:** Se hará uso de Codacy para asegurar una calidad mínima para el proyecto. Se encarga de la búsqueda automática de errores en el código, el cumplimiento de estándares, así como de analizar la deuda técnica que se va generando a medida que crece y avanza el proyecto.
+- **Codeql:** Se trata de una herramienta de análisis estático de código utilizada para encontrar vulnerabilidades de seguridad y errores en el código fuente. Forma parte de GitHub, y se usa en proyectos tanto de código abierto como cerrado. Ayuda a cumplir las normativas de seguridad como, por ejemplo, NIST.
+- **Dependabot:** Es una herramienta de GitHub que ayuda a mantener actualizadas las dependencias de un proyecto de forma automática. Su función principal es detectar dependencias que estén desactualizadas que se puedan encontrar con vulnerabilidades y crear pull requests con las actualizaciones necesarias.
+- **IA:** Utilizaremos herrramientas basadas en la inteligencia artificial para corregir errores en la elaboración de documentos como faltas ortográficas o expresiones mejorables. También se usará para utilizar un lenguaje más técnico y preciso.
