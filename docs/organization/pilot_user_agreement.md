@@ -1,5 +1,5 @@
 ---
-title: "PILOT USER AGREEMENT"
+title: "ACUERDO CON USUARIOS PILOTO"
 subtitle: "FISIO FIND"                       
 author: [Delfín Santana Rubio] 
 date: "10/02/2025"                                                 
@@ -12,8 +12,8 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: ".backgrounds/background1V.pdf"                            
-header-left: "PILOT USER AGREEMENT"                 
+titlepage-background: "../.backgrounds/background1V.pdf"                            
+header-left: "ACUERDO CON USUARIOS PILOTO"                 
 header-right: "10/02/2025"                                         
 footer-left: "FISIO FIND"
 documentclass: scrartcl
@@ -25,23 +25,28 @@ monofont: "Noto Sans Mono"
 
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<p align="center" style="font-size: 30px; font-weight: bold;">
-  FISIO FIND  -  PILOT USER AGREEMENT
+<p align="center">
+  <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
+
+<h1 align="center" style="font-size: 30px; font-weight: bold;">
+  FISIO FIND  -  ACUERDO CON USUARIOS PILOTO
+</h1>
 
 <br>
 
-**Índice**
+**ÍNDICE**
 - [1. INTRODUCCIÓN](#1-introducción)
-  - [1.1 DEFINICIONES](#21-dedicación-de-tiempo)
-- [2. CONDICIONES](#2-compromisos-y-condiciones)
-  - [2.1 CONDICIONES FORMALES](#21-dedicación-de-tiempo)
-    - [2.1.1 CONDICIONES FORMALES PARA EL USUARIO PILOTO](#22-horario-de-disponibilidad)
-    - [2.1.1 CONDICIONES FORMALES PARA FISIO FIND](#23-compensación-de-tiempo)
-  - [2.2 CONDICIONES INFORMALES](#24-compromiso-y-realización-de-las-tareas)
-    - [2.2.1 CONDICIONES INFORMALES PARA EL USUARIO PILOTO](#25-prácticas-de-equipo)
-    - [2.2.2 CONDICIONES INFORMALES PARA FISIO FIND](#26-criterios-de-éxito)
-- [3 FIRMA DE INTERESADOS](#3-firma-del-acuerdo)
+  - [1.1 DEFINICIONES](#11-definiciones)
+- [2. CONDICIONES](#2-condiciones)
+  - [2.1 CONDICIONES FORMALES](#21-condiciones-formales)
+    - [2.1.1 CONDICIONES FORMALES PARA EL USUARIO PILOTO](#211-condiciones-formales-para-el-usuario-piloto)
+    - [2.1.2 CONDICIONES FORMALES PARA FISIO FIND](#212-condiciones-formales-para-fisio-find)
+  - [2.2 CONDICIONES INFORMALES](#22-condiciones-informales)
+    - [2.2.1 CONDICIONES INFORMALES PARA EL USUARIO PILOTO](#221-condiciones-informales-para-el-usuario-piloto)
+    - [2.2.2 CONDICIONES INFORMALES PARA FISIO FIND](#222-condiciones-informales-para-fisio-find)
+  - [2.3 PERIODO DE PRUEBAS](#23-periodo-de-pruebas)
+- [3 FIRMA DE INTERESADOS](#3-firma-de-interesados)
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 
 
@@ -53,11 +58,11 @@ monofont: "Noto Sans Mono"
 
 - **Nombre del Proyecto:** FISIO FIND
 
-- **Autores:** Delfín Santana Rubio
+- **Autores:** Delfín Santana Rubio, Antonio Macías Ferrera
 
 - **Fecha de Creación:** 10/02/2025  
 
-- **Versión:** v1.0
+- **Versión:** v1.1
 
 <br>
 
@@ -70,55 +75,123 @@ monofont: "Noto Sans Mono"
 | Fecha      | Versión | Realizada por | Descripción de los cambios |
 |------------|---------|--------------|----------------------------|
 | 10/02/2025 | v1.0    | Delfín Santana Rubio | Versión inicial del documento |
+| 15/02/2025 | v1.1    | Antonio Macías Ferrera | Adaptación a usuarios piloto externos y alumnos de la asignatura ISPP |
 
-
+<br>
 
 <!-- \newpage  -->
+
+<br>
 
 
 # 1. INTRODUCCIÓN
 
-En este documento se exponen las condiciones del acuerdo entre el equipo de la aplicación que necesita de personas que prueben la aplicación(**FISIO FIND** a continuación) y la persona que va a probar la aplicación(**USUARIO PILOTO**). 
+En este documento se establecen las condiciones del acuerdo entre el equipo de la aplicación **FISIO FIND**, que requiere personas para probar la aplicación, y la persona que se ofrece a participar como **USUARIO PILOTO**.
 
 ## 1.1 DEFINICIONES
-- Aplicación: Conjunto de programas informáticos y recursos digitales que conforman una solución funcional ejecutable en dispositivos informáticos.
-- Prueba de la aplicación: Evaluación funcional y de experiencia de usuario mediante el uso de la aplicación conforme a las instrucciones proporcionadas y la interacción intuitiva del usuario.
-- Feedback: críticas, opiniones, comentarios de mejora y sinónimos que resultan de probar la aplicación. 
+
+- **Aplicación:** conjunto de programas informáticos y recursos digitales que conforman una solución funcional ejecutable en dispositivos informáticos.
+
+- **Prueba de la aplicación:** evaluación funcional y de experiencia de usuario mediante el uso de la aplicación conforme a las instrucciones proporcionadas y la interacción intuitiva del usuario.
+
+- **Feedback:** comentarios, sugerencias y críticas constructivas derivadas del uso de la aplicación.
+
+- **Usuario piloto:** persona seleccionada para probar una aplicación en fase de desarrollo con el objetivo de evaluar su funcionalidad, usabilidad y detectar posibles errores o mejoras antes de su lanzamiento oficial.
+
+## 1.2 TIPOS DE USUARIOS PILOTO
+
+En el contexto de este proyecto se establecen dos categorías de **usuarios piloto**:
+
+- **Usuario piloto externo:** persona externa al entorno académico en el que se enmarca este proyecto. Su participación se centra en proporcionar impresiones generales y sugerencias de mejora sobre la usabilidad y funcionalidad de la aplicación sin un compromiso técnico detallado. En el proyecto *FISIO FIND* se requerirá de usuarios piloto externos que tengan relación con el mundo de la fisioterapia, siendo de especial ayuda que estos usuarios sean profesionales cualificados del sector.
+
+- **Usuario piloto técnico:** en este contexto académico, el usuario piloto técnico será cualquier estudiante de la asignatura ISPP, quien se compromete a proporcionar un *feedback* técnico más exhaustivo, reportar incidencias de manera estructurada y contribuir activamente en la detección de errores y fallos de la aplicación. Su foco se centra más en el funcionamiento intrínseco de la aplicación y en la detección de fallos, más que en la experiencia de usuario.
+
 <br>
 
+<!-- \newpage  -->
+
+<br>
+
+
 # 2. CONDICIONES
+
 Se plantean dos tipos de condiciones aceptadas: **formales** e **informales**. Las condiciones **formales** son aquellas que si podrían acarrear una respuesta legal en algún futuro. Las **informales** son aquellas que de incumplirse no se podrían tomar acciones legales por ninguna de las dos partes.
 
 ## 2.1 CONDICIONES FORMALES
+
 ### 2.1.1 CONDICIONES FORMALES PARA EL USUARIO PILOTO
 A continuación se listan:
-- El USUARIO PILOTO se compromete a no reproducir una aplicación similar o igual a la que se ha dado acceso.
-- El USUARIO PILOTO se compromete a no reproducir ninguna parte de la aplicación a la que se ha dado acceso.
-- El USUARIO PILOTO se compromete a no compartir ningún dato o información se haya facilitado o transmitido relacionada con la aplicación.
-- El USUARIO PILOTO se compromete a pedir ninguna garantía de buen funcionamiento de la aplicación que va a probar, ya que entiende que no está terminada.
+
+- El USUARIO PILOTO se compromete a no reproducir una aplicación similar o igual a la que se le ha dado acceso.
+
+- El USUARIO PILOTO se compromete a no reproducir ninguna parte de la aplicación a la que se le ha dado acceso.
+
+- El USUARIO PILOTO se compromete a no compartir ningún dato o información que se le haya facilitado o transmitido relacionada con la aplicación.
+
+- El USUARIO PILOTO se compromete a no pedir ninguna garantía de buen funcionamiento de la aplicación que va a probar, ya que entiende que no está terminada.
+
 - El USUARIO PILOTO entiende que probar la aplicación no hace que el USUARIO PILOTO sea parte del equipo de FISIO FIND.
+
 - El USUARIO PILOTO entiende que probar la aplicación no va a dar al USUARIO PILOTO ningún beneficio o condición que no esté escrita en este documento.
+
 - EL USUARIO PILOTO **NO** se hace responsable de las acciones que se tomen a partir del *feedback* que ofrezca.
-- El USUARIO PILOTO **NO** se compromete respecto a la calidad de su *feedback*, solo se comprobete darlo de menara sincera y de buena voluntad.
-- El USUARIO PILOTO se compromete a no denuciar legalmente a FISIO FIND por ninguna razón.
+
+- El USUARIO PILOTO **NO** se compromete respecto a la calidad de su *feedback*, solo se compromete a darlo de manera sincera y de buena voluntad.
+
+- El USUARIO PILOTO se compromete a no denunciar legalmente a FISIO FIND por ninguna razón.
 
 ### 2.1.2 CONDICIONES FORMALES PARA FISIO FIND
+
 A continuación se listan:
+
 - FISIO FIND se compromete a **NO** exigir al USUARIO PILOTO ninguna responsabilidad por su *feedback*, siempre y cuando el USUARIO PILOTO no incumpla alguna de sus condiciones **formales**.
 
 ## 2.2 CONDICIONES INFORMALES
-### 2.2.1 CONDICIONES INFORMALES PARA EL USUARIO PILOTO
-A continuación se listan:
-- El USUARIO PILOTO se compromete a participar en la prueba de la aplicación con el objetivo de mejorar su funcionalidad y experiencia de usuario.
-- El USUARIO PILOTO se compromete a probar la aplicación dentro de los plazos establecidos en este escrito.
 
-### 2.2.2 CONDICIONES INFORMALES PARA FISIO FIND
+### 2.2.1 CONDICIONES INFORMALES PARA EL USUARIO PILOTO
+
 A continuación se listan:
-- FISIO FIND se compromete a ayudar en todo lo posible al USUARIO PILOTO para que consiga probar la aplicación.
-- FISIO FIND se compromete a invitar a una bebida al USUARIO PILOTO si ambas así lo deciden. Es decir, si FISIO FIND no está satisfecho con el USUARIO PILOTO puede negarse a invitarle.
+
+- El **USUARIO PILOTO EXTERNO** se compromete a participar en la prueba de la aplicación con el objetivo de mejorar su funcionalidad y experiencia de usuario.
+
+- Un **USUARIO PILOTO TÉCNICO** se compromete a dar *feedback* de errores, bugs o inconsistencias de la aplicación, reportando incidencias de una manera más exhaustiva y técnica.
+
+- Ambos **USUARIOS PILOTO** se comprometen a probar la aplicación dentro de los plazos establecidos en este escrito.
+
+
+### 2.2.2 CONDICIONES INFORMALES PARA *FISIO FIND*
+A continuación se listan:
+
+- *FISIO FIND* se compromete a ayudar en todo lo posible al USUARIO PILOTO para que consiga probar la aplicación.
+
+- *FISIO FIND* se compromete a invitar a una bebida al USUARIO PILOTO si ambas así lo deciden. Es decir, si *FISIO FIND* no está satisfecho con el USUARIO PILOTO puede negarse a invitarle.
+
 
 ## 2.3 PERIODO DE PRUEBAS
-Por completar según contrato
 
-# 3 FIRMA DE INTERESADOS
-Se podrá firmar de cualquier forma. Entre estas formas se incluye una captura de whatsapp en la que se muestre que ambas partes aceptan este contrato.
+El período de pruebas se extenderá, como muy pronto, desde el comienzo de la primera fase de desarrollo del proyecto (**24 de febrero de 2025**) hasta la entrega del producto mínimo viable (**14 de abril de 2025**) **como máximo**.
+<br>
+
+<!-- \newpage  -->
+
+<br>
+
+
+# 3. DATOS DE LAS PARTES Y FIRMA
+
+| **Nombre y Apellidos del Usuario Piloto**     |                                       |
+|-----------------------------------------------|---------------------------------------|
+| **Tipo de Usuario Piloto** (marcar con una X) | **Externo [  ]** **Alumno ISPP [  ]** |
+| **Correo Electrónico**                        |                                       |
+| **Teléfono (opcional)**                       |                                       |
+|                                               |                                       |
+| **Firma del Usuario Piloto**                  |                                       |
+|                                               |                                       |
+| **Nombre y Apellidos del Representante de FISIO FIND** |                                       |
+|                                               |                                       |
+| **Firma del Representante de FISIO FIND**     |                                       |
+|                                               |                                       |
+
+---
+
+El presente acuerdo entra en vigor en la fecha de firma y tiene validez únicamente durante el periodo de pruebas indicado. Ambas partes declaran haber leído y entendido las condiciones expuestas en este documento.
