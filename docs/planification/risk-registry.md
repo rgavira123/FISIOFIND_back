@@ -1,6 +1,6 @@
 ---
 title: "REGISTRO DE RIESGOS"
-subtitle: "FISIOFIND"                       
+subtitle: "FISIO FIND"                       
 author: [Delfín Santana Rubio] 
 date: "16/02/2025"                                                 
 subject: "ISPP"
@@ -34,9 +34,7 @@ classoption: "table"
 
 **ÍNDICE**
 - [1. INTRODUCCIÓN](#1-introducción)   
-- [2. RIESGOS](#2-riesgos)
-  - [2.1. CLASIFICACIÓN DE RIESGOS](#2.1-clasificación-de-riesgos)
-  - [2.2. LISTADO DE RIESGOS](#2.2-listado-de-riesgos)
+- [2. LISTADO DE RIESGOS](#2-listado-de-riesgos)
 
 <br>
 
@@ -44,13 +42,13 @@ classoption: "table"
 
 **Ficha del documento**
 
-- **Nombre del Proyecto:** FisioFind
+- **Nombre del Proyecto:** Fisio Find
 
 - **Autores:** Delfín Santana Rubio
 
 - **Fecha de Creación:** 16/02/2025  
 
-- **Versión:** v1.1
+- **Versión:** v1.2
 
 <br>
 
@@ -61,7 +59,8 @@ classoption: "table"
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
 | 16/02/2025 | v1.0    | Delfín Santana Rubio          | Creación del documento y primeras modificaciones |
-| 17/02/2025 | v1.0    | Delfín Santana Rubio          | Añadido impacto, probabilidad y factor a los riesgos, creación del punto 2.1 y añadidos más riesgos |
+| 17/02/2025 | v1.1    | Delfín Santana Rubio          | Añadido impacto, probabilidad y factor a los riesgos, creación del punto 2.1 y añadidos más riesgos |
+| 17/02/2025 | v1.2    | Delfín Santana Rubio          | Añadidos más riesgos y movido punto 2.1 al plan de gestión de requisitos  |
 
 <br>
 
@@ -70,20 +69,9 @@ classoption: "table"
 <br>
 
 # 1. INTRODUCCIÓN  
-En este documento se detallan cada uno de los riesgos contemplados en el proyecto FisioFind.  
+En este documento se detallan cada uno de los riesgos contemplados en el proyecto FISIO FIND.  
 
-# 2. RIESGOS
-
-## 2.1 CLASIFICACIÓN DE RIESGOS
-Se ha seguido la clasificación mostrada en la píldora teórica "ISPP - Sesión 02a":
-- Estimación.
-- Técnico.
-- Requisitos: Por ejemplo, que surja un nuevo requisito.
-- Organizacional: Problemas en la organización interna.
-- Internos.
-- Internos-externos.
-
-## 2.2 LISTADO DE RIESGOS
+# 2. LISTADO DE RIESGOS
 
 | **RIG-001** | **Filtrado de datos médicos**  |  
 | --- | --- |
@@ -118,9 +106,39 @@ Se ha seguido la clasificación mostrada en la píldora teórica "ISPP - Sesión
 | **RIG-004** | **Problemas al implementar un requisito novedoso**  |  
 | --- | --- |
 | **Versión** | V1.0 |
-| **Descripción** | Existe la posibilidad que alguna de las herramientas o funcionalidades que quiere implementar el equipo de FISIO FIND sea suficientemente difícil de implementar como para que ocurra un retraso en uan entrega o no pueda implementarse.  |
-| **Clasificación** | Requisitos |
+| **Descripción** | Existe la posibilidad de que alguna de las herramientas o funcionalidades que quiere implementar el equipo de FISIO FIND sea suficientemente difícil de implementar como para que ocurra un retraso en uan entrega o no pueda implementarse.  |
+| **Clasificación** | Técnicos |
 | **Probabilidad**<br>**Impacto**<br>**Factor** | 3<br>6<br>18 |
 | **Prioridad** | 7 |
 | **Contramedidas actuales** | Investigar sobre las tecnologías necesarias para cumplir con un requisito antes de asegurarlo. |
 | **Plan de contingencia** | De descubrirse una funcionalidad o herramienta difícil de implementar, se destinarán más recursos para desarrollarla. |
+
+| **RIG-005** | **El usuario no entiende la interfaz**  |  
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | Existe la posibilidad de que el usuario no sepa utilizar la aplicación.  |
+| **Clasificación** | Externos |
+| **Probabilidad**<br>**Impacto**<br>**Factor** | 3<br>5<br>15 |
+| **Prioridad** | 7 |
+| **Contramedidas actuales** | Se deberá de hacer la aplicación lo más intuitiva posible y evaluar el grado de usabilidad y satisfacción en las encuestas pasadas a los usuarios piloto. |
+| **Plan de contingencia** | De descubrirse de alguna forma que esto está sucediendo, se deberá de pedir al usuario final de forma más clara que ofrezca su feedback. Por ejemplo, añadiendo una mensaje en la pantalla de inicio que anime a dar feedback de la aplicación. |
+
+| **RIG-006** | **Los medios para comprobar que un fisio está colegiado dejan de estar disponibles**  |  
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | Existe la posibilidad de que los medios que FISIO FIND utiliza para comprobar si un fisio esté o no colegiado dejen de estar disponibles. Por ejemplo, actualmente esto se comprueba a través de las webs públicas de los colegiados. Si por ejemplo, una nueva ley de protección hace que estas páginas deban de dejar de ser públicas, nuestros mecanismos para comprobar que un fisio está colegiado quedarían inoperativos.  |
+| **Clasificación** | Técnicos |
+| **Probabilidad**<br>**Impacto**<br>**Factor** | 1<br>9<br>9 |
+| **Prioridad** | 6 |
+| **Contramedidas actuales** | Se deberá de estar a la orden del día en cuanto a legislación de protección de datos y a las noticias que esten relacionadas de alguna forma con este riesgo. Debido a la poca probabilidad de que suceda algo así, esto se hará de forma informal por el equipo, sin necesidad de que quede registrado. |
+| **Plan de contingencia** | De suceder este riesgo, se buscarán formas alternativas para verficar que un fisio está colegiado. Debido a que se entiende de que los fisios siempre van a tener la necesidad de ser capaces de verificar que están colegiados, simplemente se deberá de estudiar la forma de digitalizar y automatizar este proceso lo máximo posible. |
+
+| **RIG-007** | **Las tecnologías utilizadas dejan de estar mantenidas**  |  
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | Existe la posibilidad de que alguna de las tecnologías que se utilizan para el desarrollo de la aplicación dejen de ser mantenidas. Esto es un problema desde el punto de vista de la seguridad y del arreglo de bugs.  |
+| **Clasificación** | Técnicos |
+| **Probabilidad**<br>**Impacto**<br>**Factor** | 1<br>6<br>6 |
+| **Prioridad** | 5 |
+| **Contramedidas actuales** | Se deberán de utilizar tecnologías que lleven el suficiente tiempo siendo mantenidas y que tengan una amplia comunidad. |
+| **Plan de contingencia** | Se deberá de estudiar los pros y contras de seguir utilando el software no mantenido, cambiar a otro software y de que el equipo de FISIO FIND dedique recursos para ellos mismos mantener el software, para así tomar la decisión más adecuada. |
