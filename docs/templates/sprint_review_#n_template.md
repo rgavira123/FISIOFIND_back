@@ -96,7 +96,7 @@ Este documento recoge los detalles de la reunión de **Sprint Review** correspon
 
 <br>
 
-![Gráfica Burndown del Sprint X](../.img/burndown_chart_example.jpg)
+![Gráfica Burndown del Sprint X](../.img/burndown_chart_example.png)
 
 <br>
 

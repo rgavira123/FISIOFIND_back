@@ -166,7 +166,7 @@ Otros colaboradores que tengan acceso a visualizar el contenido de la Base de Co
 
 
 # 7. PROPIEDAD INTELECTUAL
-1. **Propiedad de la organización**: Todo contenido generado dentro de la Base de Conocimiento es propiedad exclusiva del grupo de trabajo de **FISIO FIND** (abajofirmante).  
+1. **Propiedad de la organización**: Todo contenido generado dentro de la Base de Conocimiento es propiedad exclusiva del grupo de trabajo de **FISIO FIND** (abajo firmante).  
 
 2. **Prohibición de reproducción**: No se permite la reproducción, distribución o uso externo del contenido sin autorización expresa por escrito.  
 
