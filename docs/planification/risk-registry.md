@@ -1,7 +1,7 @@
 ---
 title: "REGISTRO DE RIESGOS"
 subtitle: "FISIO FIND"                       
-author: [Delfín Santana Rubio] 
+author: [Delfín Santana Rubio, Julen Redondo Pacheco] 
 date: "16/02/2025"                                                 
 subject: "ISPP"
 lang: "es"
@@ -48,7 +48,7 @@ classoption: "table"
 
 - **Fecha de Creación:** 16/02/2025  
 
-- **Versión:** v1.2
+- **Versión:** v1.4
 
 <br>
 
@@ -62,6 +62,7 @@ classoption: "table"
 | 17/02/2025 | v1.1    | Delfín Santana Rubio          | Añadido impacto, probabilidad y factor a los riesgos, creación del punto 2.1 y añadidos más riesgos |
 | 17/02/2025 | v1.2    | Delfín Santana Rubio          | Añadidos más riesgos y movido punto 2.1 al plan de gestión de requisitos  |
 | 18/02/2025 | v1.3    | Julen Redondo Pacheco          | Añadidos más riesgos |
+| 18/02/2025 | v1.4    | Delfín Santana Rubio          | Modificación del título de RIG-001 por feedback de pull request |
 
 
 <br>
@@ -75,7 +76,7 @@ En este documento se detallan cada uno de los riesgos contemplados en el proyect
 
 # 2. LISTADO DE RIESGOS
 
-| **RIG-001** | **Filtrado de datos médicos**  |  
+| **RIG-001** | **Filtrado de datos clínicos**  |  
 | --- | --- |
 | **Versión** | V1.1 |
 | **Descripción** | Dado que esta aplicación maneja datos médicos, existe el riesgo de que estos se filtren (ya sea por brecha de seguridad, mal manejo de permisos, etc.). Esto es un problema ya que la regulación actual de protección de datos penaliza gravemente este tipo de sucesos. |
