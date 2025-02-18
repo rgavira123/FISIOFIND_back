@@ -70,6 +70,7 @@ monofont: "Noto Sans Mono"
 | Fecha      | Versión | Realizada por | Descripción de los cambios |
 |------------|---------|---------------|----------------------------|
 | 17/02/2025 | v1.0    | Daniel Fernández Caballero | Versión inicial del documento sin firmar, incluye los apartados: Introducción, Principios Fundamentales, Áreas de Aplicación, Áreas donde no se utiliza IA, Implementación y Gobernanza, Compromisos y Responsabilidad Legal, y Revisión y Actualización |
+| 18/02/2025 | v1.1    | Daniel Fernández Caballero | Añadidas algunas áreas de aplicación  |
 
 ---
 
@@ -103,7 +104,8 @@ Nos aseguramos de que la IA utilizada en el proyecto sea fiable y robusta, asist
 
 La IA en Fisio Find se utilizará para:
 
-- **Generación de documentación técnica**: Asistencia en la creación de documentación sobre la arquitectura y el código del proyecto.
+- **Generación de documentación**: Asistencia en la creación y mejora del contenido de la documentación del proyecto.
+- **Mejoras de estilo en la documentación**: Asistencia en la mejora del estilo de los documentos, siempre y cuando el documento no contenga datos privados o secretos.
 - **Sugerencias de refactorización de código**: Análisis automatizado para mejorar la calidad del código, detectando posibles áreas de mejora o optimización.
 - **Generación de pruebas unitarias**: Ayuda en la creación de pruebas de software de forma más eficiente, basándose en el código existente.
 
