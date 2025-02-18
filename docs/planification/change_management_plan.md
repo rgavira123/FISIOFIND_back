@@ -72,6 +72,7 @@ monofont: "Noto Sans Mono"
 |------------|---------|----------------------------------|----------------------------|
 | 16/02/2025 | v1.0    | Delfín Santana Rubio           | Creación del documento y primeros cambios. |
 | 18/02/2025 | v1.1    | Julen Redondo Pacheco          | Ampliación y finalización del documento |
+| 18/02/2025 | v1.2    | Delfín Santana Rubio           | Cambios sugeridos en pull request |
 
 
 <br>
@@ -98,25 +99,25 @@ Este documento es una continuación del apartado 4.5 del **PLAN DE GESTIÓN DE L
   - Mediante el feedback que se da en las presentaciones.
   - Mediante las encuestas o feedback de los usuarios pilotos.
   - Mediante cambios sugeridos por el equipo de FISIO FIND
-- La responsabilidad del registro del cambio será compartida y transmitida. Es decir, si un integrante del grupo es consciente de que ha recibido una solicitud de cambio, deberá de transmitirla y registrarla.
+- La responsabilidad del registro del cambio será compartida y transmitida. Es decir, si un integrante del grupo es consciente de que ha recibido una solicitud de cambio, deberá transmitirla y registrarla.
 - La forma de comunicarla será a través de los medios utilizados por el equipo.
 - Si se considera, se hará una issue para registrar el cambio.
 
 ## Paso 2 - Análisis del cambio
-- Se deberá asignar a un número de personas a que analicen el cambio y lleguen a decidir si deben de incluirlo o no y cómo.
-- Si se creó una issue, esto deberá de verse reflejado en la issue (por ejemplo, poniendo que el cambio ha sido aceptado o algo por el estilo).
-- Si no había issue, deberá de crearse.
+- Se deberá asignar a un número de personas para que analicen el cambio y decidan si debe incluirse o no y cómo.
+- Si se creó una issue, esto deberá verse reflejado en la misma indicando su estado, por ejemplo, si el cambio ha sido aceptado.
+- Si no había issue, deberá crearse.
 - En caso de no aceptarse el cambio, el proceso de cambio acaba aquí.
 
 ## Paso 3 - Modificación de registros e implementación del cambio
 - Se deberán modificar los registros necesarios e implementar el cambio siguiendo las formas generales.
 - Se notificará a los miembros del equipo sobre los cambios realizados.
-- Se deberá actualizar el esstado de la issue para reflejar el progreso de la implementación
+- Se deberá actualizar el estado de la issue para reflejar el progreso de la implementación
 
 ## Paso 4 - Pruebas y validación del cambio
 - Se deberán realizar pruebas exhaustivas para asegurar que el cambio no introduce nuevos errores o afecta negativamente a otras funcionalidades.
 - Se recogerá feedback sobre el impacto del cambio.
-- En la issue correspondiente, se deberá añadir evidencia de las pruebas realizadas, siendo éstas capturas de pantalla, logs o cualquier otro elemento de importancia.
+- En la issue correspondiente, se deberá añadir evidencia de las pruebas realizadas, siendo estas capturas de pantalla, logs o cualquier otro elemento de importancia.
 
 ## Paso 5 - Despliegue del cambio
 - Una vez validado el cambio, se procederá con su despliegue en el entorno de producción.
