@@ -1,8 +1,8 @@
 ---
-title: "SPRINT PLANNING SPRINT X"         # CHANGE IF NEEDED
-subtitle: "FISIO FIND - Grupo 6 - #X"
+title: "PLANNING SPRINT GENERAL"         # CHANGE IF NEEDED
+subtitle: "FISIO FIND - Grupo 6 - #DP"
 author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
-date: "04/02/2025"                        # CHANGE IF NEEDED
+date: "15/02/2025"                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -12,9 +12,9 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: "../.backgrounds/background4V.pdf"  # CHANGE IF NEEDED
-header-left: "SPRINT PLANNING SPRINT X"   # CHANGE IF NEEDED
-header-right: "04/02/2025"                # CHANGE IF NEEDED
+titlepage-background: "../.backgrounds/background1V.pdf"  # CHANGE IF NEEDED
+header-left: "PLANNING SPRINT GENERAL"   # CHANGE IF NEEDED
+header-right: "15/02/2025"                # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"  
@@ -25,22 +25,28 @@ classoption: "table"
   <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
-<p align="center" style="font-size: 30px; font-weight: bold;">
+<h1 align="center" style="font-size: 30px; font-weight: bold;">
   FISIO FIND  -  SPRINT PLANNING SPRINT X
-</p>
+</h1>
 
 <br>
 
 **ÍNDICE**
 - [**1. OBJETIVOS DEL SPRINT**](#1-objetivos-del-sprint)
-- [**2. SPRINT BACKLOG**](#2-sprint-backlog)
-- [**3. METODOLOGÍA INTERNA**](#3-metodología-interna)
-  - [3.1. Gestión de Tareas en GitHub Project](#31-gestión-de-tareas-en-github-project)
-  - [3.2. Organización de las Tareas](#32-organización-de-las-tareas)
-  - [3.3. Flujo de Trabajo](#33-flujo-de-trabajo)
-  - [3.4. Definición De Hecho (DoD) de una Historia de Usuario](#34-definición-de-hecho-dod-de-una-historia-de-usuario)
+- [**2. METODOLOGÍA INTERNA**](#2-metodología-interna)
+  - [2.1. Gestión de Tareas](#21-gestión-de-tareas)
+  - [2.2. Flujo de Trabajo](#22-flujo-de-trabajo)
+  - [2.3. Flujo de Desarrollo](#23-flujo-de-desarrollo)
+  - [2.4. Definición De Hecho (DoD) de una Historia de Usuario](#24-definición-de-hecho-dod-de-una-historia-de-usuario)
   - [3.5. Gestión de la Configuración](#35-gestión-de-la-configuración)
+  - [3.6. Gestión del Cambio](#36-gestión-del-cambio)
+  - [3.7. Gestión de los Riesgos](#37-gestión-de-los-riesgos)
+  - [3.8. Uso de la Inteligencia Artificial](#38-uso-de-la-inteligencia-artificial)
+- [**3. SPRINT BACKLOG**](#3-sprint-backlog)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
+
+---
+
 
 <br>
 
@@ -58,7 +64,7 @@ classoption: "table"
 
 - **Autores:** Antonio Macías Ferrera
 
-- **Fecha de Creación:** dd/mm/aaaa  
+- **Fecha de Creación:** 15/02/2025  
 
 - **Versión:** v1.0
 
@@ -67,37 +73,11 @@ classoption: "table"
 
 ---
 
-**Histórico de Modificaciones**
+**Historial de modificaciones**
 
-| Fecha      | Versión | Realizada por                    | Descripción de los cambios |
-|------------|---------|----------------------------------|----------------------------|
-| 04/02/2025 | v1.0    | Antonio Macías Ferrera           | Elaboración de la plantilla del documento. |
-
-
-<br>
-
-
----
-
-**Participantes**
-
-| Nombre completo | Rol | Contacto |
-|----------------|-----|----------|
-| Alberto Carmona Sicre | -- | albcarsic@alum.us.es |
-| Antonio Macías Ferrera | -- | antmacfer1@alum.us.es |
-| Benjamín Ignacio Maureira Flores | -- | benmauflo@alum.us.es |
-| Francisco Capote García | -- | fracapgar1@alum.us.es |
-| Daniel Alors Romero | -- | danalorom1@alum.us.es |
-| Daniel Fernández Caballero | -- | danfercab@alum.us.es |
-| Daniel Ruiz López | -- | danruilop1@alum.us.es |
-| Daniel Tortorici Bartús | -- | dantorbar1@alum.us.es |
-| Daniel Vela Camacho | -- | danvelcam@alum.us.es |
-| Delfín Santana Rubio | -- | delsanrub@alum.us.es |
-| Guadalupe Ridruejo Pineda | -- | guaridpin@alum.us.es |
-| Francisco Mateo Villalba | -- | framatvil@alum.us.es |
-| Pablo Fernández Pérez | -- | pablofp.33@gmail.com |
-| Ramón Gavira Sánchez | -- | ramgavsan@alum.us.es |
-| Rafael Pulido Cifuentes | -- | rafpulcif@alum.us.es |
+| Fecha      | Versión | Realizada por | Descripción de los cambios |
+|------------|---------|--------------|----------------------------|
+| 15/02/2025 | v1.0    |  Antonio Macías Ferrera | Elaboración de la base del documento. |
 
 <br>
 
@@ -117,35 +97,28 @@ Los siguientes **objetivos** del *Sprint* harán referencia a las HU desglosadas
 
 <br>
 
-<br>
-
-
-# **2. SPRINT BACKLOG**
-
-| Objetivo | ID | Funcionalidad |
-|----------|----|--------------|
-| Objetivo 1 | HU-XXX | Implementación del login con autenticación |
-| Objetivo 1 | HU-XXX | Integración de API externa |
-| Objetivo 2 | HU-XXX | Diseño del dashboard de usuario |
-| Objetivo 2 | HU-XXX | CRUD 1 |
-| Objetivo 3 | HU-XXX | Datos de clases |
-
-<br>
+<!-- \newpage -->
 
 <br>
 
 
-# **3. METODOLOGÍA INTERNA**
+# **2. METODOLOGÍA INTERNA**
 
-## 3.1. Gestión de Tareas en GitHub Project
+## 2.1. Gestión de Tareas
 
 El equipo utiliza *GitHub Project* como herramienta de gestión de tareas donde las actividades están organizadas en distintas columnas que reflejan su estado dentro del flujo de trabajo. Esta herramienta cuenta con un **tablero Kanban** para facilitar el seguimiento de las tareas, generación de **gráficas Burn-down** que nos serán útiles en las retrospectivas, y asignación y **estimación de tareas** además de otras funciones que procurarán una buena organización del trabajo.
 
-## 3.2. Organización de las Tareas
-
 Todas las tareas a ejecutar en el *Sprint* se encontrarán inicialmente en la columna "Product Backlog", habiendo sido previamente asignadas y estimadas por el equipo *Scrum*.
 
-## 3.3. Flujo de Trabajo
+<br>
+
+## 2.2. Flujo de Trabajo
+
+\TODO
+
+<br>
+
+## 2.3. Flujo de Desarrollo
 
 Cada miembro del equipo será responsable de gestionar el estado de sus tareas ateniéndose al siguiente procedimiento:
 
@@ -163,7 +136,9 @@ Cada miembro del equipo será responsable de gestionar el estado de sus tareas a
     - Si la revisión es satisfactoria, el revisor aprueba la PR y fusiona los cambios.
     - Si se identifican errores o mejoras necesarias, la tarea se devuelve a "In Progress", notificando los ajustes requeridos.
 
-## 3.4. Definición De Hecho (DoD) de una Historia de Usuario
+<br>
+
+## 2.4. Definición De Hecho (DoD) de una Historia de Usuario
 
 Para que una historia de usuario (HU) se considere terminada, debe cumplir con los siguientes requisitos:
 
@@ -181,6 +156,7 @@ Para que una historia de usuario (HU) se considere terminada, debe cumplir con l
 
 - Cada issue debe contar con al menos **un comentario positivo** de otro miembro del equipo antes de su aprobación final.
 
+<br>
 
 ## 3.5. Gestión de la Configuración
 
@@ -188,11 +164,35 @@ Desde la **política de versionado** de documentos y de código, hasta la **pol�
 
 <br>
 
+## 3.6. Gestión del Cambio
+
+\TODO
+
+<br>
+
+## 3.7. Gestión de los Riesgos
+
+\TODO
+
+<br>
+
+## 3.8. Uso de la Inteligencia Artificial
+
+\TODO
+
+<br>
+<!-- \newpage -->
+
 <br>
 
 
----
+# **3. SPRINT BACKLOG**
 
-**Aprobado por:**  
-**Scrum Master:** Antonio Macías Ferrera  
-**Rol:** [Nombre Apellidos]
+| Objetivo | ID | Funcionalidad |
+|----------|----|--------------|
+| Objetivo 1 | HU-XXX | Implementación del login con autenticación |
+| Objetivo 1 | HU-XXX | Integración de API externa |
+| Objetivo 2 | HU-XXX | Diseño del dashboard de usuario |
+| Objetivo 2 | HU-XXX | CRUD 1 |
+| Objetivo 3 | HU-XXX | Datos de clases |
+

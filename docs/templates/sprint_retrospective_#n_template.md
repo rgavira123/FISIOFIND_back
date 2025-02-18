@@ -1,7 +1,7 @@
 ---
 title: "SPRINT RETROSPECTIVE SPRINT X"         # CHANGE IF NEEDED
-subtitle: "FISIO FIND"
-author: [Antonio Macías Ferrera]        # CHANGE IF NEEDED
+subtitle: "FISIO FIND - Grupo 6 - #X"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
 date: "04/02/2025"                      # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
@@ -34,15 +34,50 @@ monofont: "Noto Sans Mono"
 
 <br>
 
+
+---
+
+**Ficha del documento**
+
+- **Nombre del Proyecto:** FISIO FIND
+
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+
+- **Autores:** Antonio Macías Ferrera
+
+- **Fecha de Creación:** dd/mm/aaaa  
+
+- **Versión:** v1.0
+
+<br>
+
+
+---
+
+**Histórico de Modificaciones**
+
+| Fecha      | Versión | Realizada por                    | Descripción de los cambios |
+|------------|---------|----------------------------------|----------------------------|
+| 04/02/2025 | v1.0    | Antonio Macías Ferrera           | Elaboración de la plantilla del documento. |
+
+<br>
+
+
+---
+
 **ÍNDICE**
-1. [OBJETIVOS DE LA RETROSPECTIVA](#1-objetivos-de-la-retrospectiva)
-2. [METODOLOGÍA UTILIZADA](#2-metodología-utilizada)
-3. [DISCUSIÓN Y FEEDBACK](#2-discusión-y-feedback)
-   - [GOOD: ¿QUÉ SALIÓ BIEN?](#good-qué-salió-bien)
-   - [BAD: ¿QUÉ NO SALIÓ BIEN?](#bad-qué-no-salió-bien)
-   - [START: ¿QUÉ DEBEMOS EMPEZAR A HACER?](#start-qué-debemos-empezar-a-hacer)
-   - [STOP: ¿QUÉ DEBEMOS DEJAR DE HACER?](#stop-qué-debemos-dejar-de-hacer)
-4. [CONCLUSIONES](#3-conclusiones)
+- [**1. OBJETIVOS DE LA RETROSPECTIVA**](#1-objetivos-de-la-retrospectiva)
+- [**2. METODOLOGÍA UTILIZADA**](#2-metodología-utilizada)
+- [**2. DISCUSIÓN Y FEEDBACK**](#2-discusión-y-feedback)
+  - [**GOOD: ¿Qué salió bien?**](#good-qué-salió-bien)
+  - [**BAD: ¿Qué NO salió bien?**](#bad-qué-no-salió-bien)
+  - [**START: ¿Qué debemos empezar a hacer?**](#start-qué-debemos-empezar-a-hacer)
+  - [**STOP: ¿Qué debemos dejar de hacer?**](#stop-qué-debemos-dejar-de-hacer)
+- [**3. CONCLUSIONES**](#3-conclusiones)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 ---
