@@ -69,7 +69,7 @@ monofont: "Noto Sans Mono"
 
 - **Fecha de Creación:** 10/02/2025  
 
-- **Versión:** v1.1
+- **Versión:** v1.2
 
 <br>
 
@@ -82,6 +82,7 @@ monofont: "Noto Sans Mono"
 |------------|---------|--------------|----------------------------|
 | 10/02/2025 | v1.0    | Delfín Santana Rubio | Versión inicial del documento |
 | 15/02/2025 | v1.1    | Antonio Macías Ferrera | Adaptación a usuarios piloto externos y alumnos de la asignatura ISPP |
+| 18/02/2025 | v1.2    | Delfín Santana Rubio  | Cambio en los beneficios para los usuarios pilotos(se puede ver en el apartado 2.1.2) |
 
 <br>
 
@@ -151,6 +152,9 @@ A continuación se listan:
 A continuación se listan:
 
 - FISIO FIND se compromete a **NO** exigir al USUARIO PILOTO ninguna responsabilidad por su *feedback*, siempre y cuando el USUARIO PILOTO no incumpla alguna de sus condiciones **formales**.
+
+- Si la aplicación se lanzase al mercado, FISIO FIND se compromete a hacer un plan especial para el **USUARIO PILOTO EXTERNO**. En este plan especial el primer mes de uso sería gratis y después de este primer mes tendrían que elegir un plan de pago de los disponibles en la aplicación, pero a este se le aplicaría un descuento del 20% de por vida. Este beneficio solo se aplica si el USUARIO PILOTO EXTERNO ha cumplido con todo lo descrito en este escrito, la aplicación se lanza oficialmente al mercado y FISIO FIND se puede permitir cumplirlo.
+
 
 ## 2.2 CONDICIONES INFORMALES
 
