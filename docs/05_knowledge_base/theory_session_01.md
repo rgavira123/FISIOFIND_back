@@ -17,7 +17,9 @@ header-left: "PÍLDORA TEÓRICA"
 header-right: "17/02/2025"               
 footer-left: "FISIO FIND"
 documentclass: scrartcl
-classoption: "table"  
+classoption: "table"
+# header-includes:
+#   - \usepackage{float}
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
@@ -32,23 +34,28 @@ classoption: "table"
 <br>
 
 **ÍNDICE**
-1. [METODOLOGÍAS ÁGILES: SCRUM](#1-metodologías-ágiles-scrum)  
-2. [PMBOK](#2-pmbok)  
-   - [TABLA DE PROCESOS](#tabla-de-procesos)  
-   - [ÁREAS DE CONOCIMIENTO](#áreas-de-conocimiento)  
-3. [FRACASOS DE LOS PROYECTOS SOFTWARE](#3-fracasos-de-los-proyectos-software)  
-4. [GESTIÓN DE EQUIPOS](#4-gestión-de-equipos)  
-   - [6 FORMAS DE SER DERROTADO - EL ARTE DE LA GUERRA (SUN TZU)](#6-formas-de-ser-derrotado---el-arte-de-la-guerra-sun-tzu)
-   - [PLAN DE RRHH](#plan-de-rrhh)
-   - [PRODUCTIVIDAD DE UN EQUIPO](#productividad-de-un-equipo)
-   - [PIRÁMIDE DE MASLOW](#pirámide-de-maslow)
-   - [TEORÍA DE LA AUTODETERMINACIÓN](#teoría-de-la-autodeterminación)
-5. [GESTIÓN DE LAS COMUNICACIONES](#5-gestión-de-las-comunicaciones)  
-6. [INFORMES DE DESEMPEÑO](#6-informes-de-desempeño)  
-
+- [**1. METODOLOGÍAS ÁGILES: SCRUM**](#1-metodologías-ágiles-scrum)
+- [**2. PMBOK**](#2-pmbok)
+  - [**Tabla de procesos**](#tabla-de-procesos)
+  - [**Áreas de conocimiento**](#áreas-de-conocimiento)
+- [**3. FRACASOS DE LOS PROYECTOS SOFTWARE**](#3-fracasos-de-los-proyectos-software)
+- [**4. GESTIÓN DE EQUIPOS**](#4-gestión-de-equipos)
+  - [**6 formas de ser derrotado - El arte de la guerra (Sun Tzu)**](#6-formas-de-ser-derrotado---el-arte-de-la-guerra-sun-tzu)
+  - [**Plan de RRHH**](#plan-de-rrhh)
+  - [**Productividad de un equipo**](#productividad-de-un-equipo)
+  - [**Pirámide de Maslow**](#pirámide-de-maslow)
+  - [**Teoría de la autodeterminación**](#teoría-de-la-autodeterminación)
+- [**5. GESTIÓN DE LAS COMUNICACIONES**](#5-gestión-de-las-comunicaciones)
+- [**6. INFORMES DE DESEMPEÑO**](#6-informes-de-desempeño)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
+
 <br>
+
+<!-- \newpage -->
+
+<br>
+
 
 # **1. METODOLOGÍAS ÁGILES: SCRUM**
 Scrum es una metodología ágil enfocada en la entrega incremental de valor en proyectos de software. Se basa en roles clave como:
@@ -64,8 +71,13 @@ Cada sprint tiene eventos como:
 - **Sprint Review**: Presentación del trabajo completado.
 - **Sprint Retrospective**: Reflexión y mejora continua.
 
-
 ![Desarrollo de la metodología Scrum](../.img/scrum.png)
+
+<br>
+
+<!-- \newpage -->
+
+<br>
 
 
 # **2. PMBOK**
@@ -84,7 +96,6 @@ El PMBOK es un estándar para la gestión de proyectos que incluye:
 ## **Áreas de conocimiento**
 
 ![Áreas de conocimiento de PMBOK](../.img/pmbok_knowledge_fields.png)
-
 
 1. **Integración**: Procesos necesarios para coordinar las diferentes áreas, identificando, definiendo y coordinando los procesos y actividades de la dirección de proyectos.
 
@@ -106,6 +117,9 @@ El PMBOK es un estándar para la gestión de proyectos que incluye:
 
 10. **Interesados**: Procesos para la identificación y gestión de los interesados.
 
+<br>
+
+<br>
 
 
 # **3. FRACASOS DE LOS PROYECTOS SOFTWARE**
@@ -130,6 +144,11 @@ El PMBOK es un estándar para la gestión de proyectos que incluye:
 
 - 🫥 No hacer nada
 
+<br>
+
+<!-- \newpage -->
+
+<br>
 
 
 # **4. GESTIÓN DE EQUIPOS**
@@ -137,7 +156,7 @@ El PMBOK es un estándar para la gestión de proyectos que incluye:
 - Sin equipo no hay proyecto. 
 - Fomentar la comunicación y la comunidad → base de conocimiento.
 
-![El manifiesto ágil](../.img/agile_manifest.png)
+![El manifiesto agil](../.img/agile_principles.png)
 
 ## **6 formas de ser derrotado - El arte de la guerra (Sun Tzu)**
 
@@ -171,15 +190,18 @@ CIONES EXTERNAS
 
 ## **Pirámide de Maslow**
 
-![Pirámide de Maslow](../.img/agile_manifest.png)
+![Pirámide de Maslow](../.img/mashlow_piramid.png)
 
 
 ## **Teoría de la autodeterminación**
 
 ![Teoría de la autodeterminación](../.img/autodetermination_theory.png)
 
+<br>
 
+<!-- \newpage -->
 
+<br>
 
 
 # **5. GESTIÓN DE LAS COMUNICACIONES**
@@ -210,6 +232,9 @@ Para elaborar un buen *Plan de Gestión de la Comunicación* nos debemos pregunt
 
 - ¿CON QUÉ FRECUENCIA SE REALIZA COMUNICACIÓN?
 
+<br>
+
+<br>
 
 
 # **6. INFORMES DE DESEMPEÑO**
@@ -219,5 +244,4 @@ Para elaborar un buen *Plan de Gestión de la Comunicación* nos debemos pregunt
 - Presenta las solicitudes de cambio.
 
 - Trackear el tiempo empleado en las tareas.
-
 

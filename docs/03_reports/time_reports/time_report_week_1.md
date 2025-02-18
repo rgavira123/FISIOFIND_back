@@ -12,7 +12,7 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: "../.backgrounds/background4V.pdf" # CHANGE IF NEEDED
+titlepage-background: "../../.backgrounds/background4V.pdf" # CHANGE IF NEEDED
 header-left: "CLOCKIFY REPORT"
 header-right: "10/02/2025"               # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
@@ -22,7 +22,7 @@ classoption: "table"
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 <p align="center">
-  <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
+  <img src="../../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
 <h1 align="center" style="font-size: 30px; font-weight: bold;">
@@ -33,9 +33,9 @@ classoption: "table"
 
 **ÍNDICE**
 1. [PROYECTOS](#1-proyectos)  
-    1.1 [DEFINICIÓN DE CADA PROYECTO](#11-definición-de-cada-proyecto)  
-    1.2 [PROYECTOS REALIZADOS EN LA SEMANA](#12-proyectos-realizados-en-la-semana)
-    1.3 [PROYECTOS DESTACADOS](#13-proyectos-destacados)
+    1.1. [DEFINICIÓN DE CADA PROYECTO](#11-definición-de-cada-proyecto)  
+    1.2. [PROYECTOS REALIZADOS EN LA SEMANA](#12-proyectos-realizados-en-la-semana)
+    1.3. [PROYECTOS DESTACADOS](#13-proyectos-destacados)
 2. [HORAS TOTALES](#2-horas-totales)
 3. [DESGLOSE](#3-desglose)  
     3.1 [DESGLOSE POR DÍAS](#31-desglose-por-días)  
