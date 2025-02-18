@@ -33,7 +33,7 @@ classoption: "table"
 <br>
 
 **ÍNDICE**
-- [1. INTRODUCCIÓN](#1-introducción)   
+- [1. INTRODUCCIÓN](#1-introducción)
 - [2. LISTADO DE RIESGOS](#2-listado-de-riesgos)
 
 <br>
@@ -61,6 +61,8 @@ classoption: "table"
 | 16/02/2025 | v1.0    | Delfín Santana Rubio          | Creación del documento y primeras modificaciones |
 | 17/02/2025 | v1.1    | Delfín Santana Rubio          | Añadido impacto, probabilidad y factor a los riesgos, creación del punto 2.1 y añadidos más riesgos |
 | 17/02/2025 | v1.2    | Delfín Santana Rubio          | Añadidos más riesgos y movido punto 2.1 al plan de gestión de requisitos  |
+| 18/02/2025 | v1.3    | Julen Redondo Pacheco          | Añadido más riesgos |
+
 
 <br>
 
@@ -76,17 +78,17 @@ En este documento se detallan cada uno de los riesgos contemplados en el proyect
 | **RIG-001** | **Filtrado de datos médicos**  |  
 | --- | --- |
 | **Versión** | V1.1 |
-| **Descripción** | Dado que esta aplicación maneja datos médicos, existe el riesgo de que estos se filtren(ya sea por brecha de seguridad, mal manejo de permisos, etc.). Esto es un problema ya que la regulación actual de protección de datos penaliza gravemente este tipo de sucesos. |
+| **Descripción** | Dado que esta aplicación maneja datos médicos, existe el riesgo de que estos se filtren (ya sea por brecha de seguridad, mal manejo de permisos, etc.). Esto es un problema ya que la regulación actual de protección de datos penaliza gravemente este tipo de sucesos. |
 | **Clasificación** | Internos-externos |
 | **Probabilidad**<br>**Impacto**<br>**Factor** | 3<br>10<br>30 |
 | **Prioridad** | 10|
 | **Contramedidas actuales** | Implementar las medidas de seguridad necesarias: cifrado, herramientas de escaneo de código en búsqueda de vulnerabilidades, etc. |
-| **Plan de contingencia** | Se entiende que es un riesgo que no podemos dejar que suceda. De suceder, siguiendo el GDPR y la LOPD tendríamos que notificar la brecha de seguriar a Incibe y aceptar las consecuencias legales. No tenemos capacidad para hacer una investigación de seguridad sobre incidentes de este tipo. |
+| **Plan de contingencia** | Este riesgo debe ser completamente evitado. De suceder, siguiendo el GDPR y la LOPD tendríamos que notificar la brecha de seguridad a Incibe y aceptar las consecuencias legales. No tenemos capacidad para hacer una investigación de seguridad sobre incidentes de este tipo. |
 
 | **RIG-002** | **Surgen nuevas necesidades para los fisioterapeutas**  |  
 | --- | --- |
 | **Versión** | V1.1 |
-| **Descripción** | Existe la posibilidad de que surja la necesidad de una nueva herramienta para las consultas telemáticas. |
+| **Descripción** | Podría surgir la necesidad de incorporar nuevas herramientas para mejorar las consultas telemáticas. |
 | **Clasificación** | Requisitos |
 | **Probabilidad**<br>**Impacto**<br>**Factor** | 5<br>7<br>35 |
 | **Prioridad** | 7|
@@ -96,7 +98,7 @@ En este documento se detallan cada uno de los riesgos contemplados en el proyect
 | **RIG-003** | **Competidores**  |  
 | --- | --- |
 | **Versión** | V1.1 |
-| **Descripción** | Existe la posibilidad de que los competidore que tienen algunas funcionalidades que tiene FISIO FIND, implementen las mismas que tiene FISIO FIND. |
+| **Descripción** | Los competidores pueden desarrollar funcionalidades similares a las de FISIO FIND, reduciendo nuestra ventaja competitiva. |
 | **Clasificación** | Externos |
 | **Probabilidad**<br>**Impacto**<br>**Factor** | 5<br>8<br>40 |
 | **Prioridad** | 6 |
@@ -106,7 +108,7 @@ En este documento se detallan cada uno de los riesgos contemplados en el proyect
 | **RIG-004** | **Problemas al implementar un requisito novedoso**  |  
 | --- | --- |
 | **Versión** | V1.0 |
-| **Descripción** | Existe la posibilidad de que alguna de las herramientas o funcionalidades que quiere implementar el equipo de FISIO FIND sea suficientemente difícil de implementar como para que ocurra un retraso en uan entrega o no pueda implementarse.  |
+| **Descripción** | Existe la posibilidad de que alguna de las herramientas o funcionalidades que quiere implementar el equipo de FISIO FIND sea suficientemente difícil de implementar como para que ocurra un retraso en una entrega o no pueda implementarse.  |
 | **Clasificación** | Técnicos |
 | **Probabilidad**<br>**Impacto**<br>**Factor** | 3<br>6<br>18 |
 | **Prioridad** | 7 |
@@ -120,18 +122,18 @@ En este documento se detallan cada uno de los riesgos contemplados en el proyect
 | **Clasificación** | Externos |
 | **Probabilidad**<br>**Impacto**<br>**Factor** | 3<br>5<br>15 |
 | **Prioridad** | 7 |
-| **Contramedidas actuales** | Se deberá de hacer la aplicación lo más intuitiva posible y evaluar el grado de usabilidad y satisfacción en las encuestas pasadas a los usuarios piloto. |
-| **Plan de contingencia** | De descubrirse de alguna forma que esto está sucediendo, se deberá de pedir al usuario final de forma más clara que ofrezca su feedback. Por ejemplo, añadiendo una mensaje en la pantalla de inicio que anime a dar feedback de la aplicación. |
+| **Contramedidas actuales** | Se deberá hacer la aplicación lo más intuitiva posible y evaluar el grado de usabilidad y satisfacción en las encuestas pasadas a los usuarios piloto. |
+| **Plan de contingencia** | De descubrirse de alguna forma que esto está sucediendo, se deberá pedir al usuario final de forma más clara que ofrezca su feedback. Por ejemplo, añadiendo un mensaje en la pantalla de inicio que anime a dar feedback de la aplicación. |
 
 | **RIG-006** | **Los medios para comprobar que un fisio está colegiado dejan de estar disponibles**  |  
 | --- | --- |
 | **Versión** | V1.0 |
-| **Descripción** | Existe la posibilidad de que los medios que FISIO FIND utiliza para comprobar si un fisio esté o no colegiado dejen de estar disponibles. Por ejemplo, actualmente esto se comprueba a través de las webs públicas de los colegiados. Si por ejemplo, una nueva ley de protección hace que estas páginas deban de dejar de ser públicas, nuestros mecanismos para comprobar que un fisio está colegiado quedarían inoperativos.  |
+| **Descripción** | Existe la posibilidad de que los medios que FISIO FIND utiliza para comprobar si un fisio esté o no colegiado dejen de estar disponibles. Por ejemplo, actualmente esto se comprueba a través de las webs públicas de los colegiados. Si, por ejemplo, una nueva ley de protección impide que estas páginas sean públcias, nuestros mecanismos para comprobar que un fisio está colegiado quedarían inoperativos.  |
 | **Clasificación** | Técnicos |
 | **Probabilidad**<br>**Impacto**<br>**Factor** | 1<br>9<br>9 |
 | **Prioridad** | 6 |
-| **Contramedidas actuales** | Se deberá de estar a la orden del día en cuanto a legislación de protección de datos y a las noticias que esten relacionadas de alguna forma con este riesgo. Debido a la poca probabilidad de que suceda algo así, esto se hará de forma informal por el equipo, sin necesidad de que quede registrado. |
-| **Plan de contingencia** | De suceder este riesgo, se buscarán formas alternativas para verficar que un fisio está colegiado. Debido a que se entiende de que los fisios siempre van a tener la necesidad de ser capaces de verificar que están colegiados, simplemente se deberá de estudiar la forma de digitalizar y automatizar este proceso lo máximo posible. |
+| **Contramedidas actuales** | Se deberá estar a la orden del día en cuanto a legislación de protección de datos y a las noticias que esten relacionadas de alguna forma con este riesgo. Debido a la poca probabilidad de que suceda algo así, esto se hará de forma informal por el equipo, sin necesidad de que quede registrado. |
+| **Plan de contingencia** | De suceder este riesgo, se buscarán formas alternativas para verficar que un fisio está colegiado. Debido a que se entiende de que los fisios siempre van a tener la necesidad de ser capaces de verificar que están colegiados, simplemente se deberá estudiar la forma de digitalizar y automatizar este proceso lo máximo posible. |
 
 | **RIG-007** | **Las tecnologías utilizadas dejan de estar mantenidas**  |  
 | --- | --- |
@@ -140,5 +142,36 @@ En este documento se detallan cada uno de los riesgos contemplados en el proyect
 | **Clasificación** | Técnicos |
 | **Probabilidad**<br>**Impacto**<br>**Factor** | 1<br>6<br>6 |
 | **Prioridad** | 5 |
-| **Contramedidas actuales** | Se deberán de utilizar tecnologías que lleven el suficiente tiempo siendo mantenidas y que tengan una amplia comunidad. |
-| **Plan de contingencia** | Se deberá de estudiar los pros y contras de seguir utilando el software no mantenido, cambiar a otro software y de que el equipo de FISIO FIND dedique recursos para ellos mismos mantener el software, para así tomar la decisión más adecuada. |
+| **Contramedidas actuales** | Se deberán utilizar tecnologías que lleven el suficiente tiempo siendo mantenidas y que tengan una amplia comunidad. |
+| **Plan de contingencia** | Se deberá estudiar los pros y contras de seguir utilando el software no mantenido, cambiar a otro software y de que el equipo de FISIO FIND dedique recursos para ellos mismos mantener el software, para así tomar la decisión más adecuada. |
+
+| **RIG-008** | **Problemas con la interoperabilidad entre plataformas**  |  
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | Existe el riesgo de que la aplicación no funcione correctamente en todos los dispositivos o plataformas para los que se ha diseñado, afectando la experiencia del usuario y reduciendo la adopción de la aplicación.  |
+| **Clasificación** | Técnicos |
+| **Probabilidad**<br>**Impacto**<br>**Factor** | 2<br>6<br>12 |
+| **Prioridad** | 5 |
+| **Contramedidas actuales** | Realizar pruebas de compatibilidad exhaustivas en todos los dispositivos y navegadores principales. |
+| **Plan de contingencia** | Si se detectan problemas de interoperabilidad, se ajustarán las configuraciones de la aplicación para garantizar su correcto funcionamiento en las plataformas afectadas. |
+
+| **RIG-009** | **Cambios en estándares web o de sistemas operativos**  |  
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | Existe el riesgo de que surjan cambios en los estándares web o en sistemas operativos, lo que puede afectar la compatibilidad de la aplicación.  |
+| **Clasificación** | Técnicos |
+| **Probabilidad**<br>**Impacto**<br>**Factor** | 1<br>7<br>7 |
+| **Prioridad** | 5 |
+| **Contramedidas actuales** | El equipo de desarrollo debe mantener una relación cercana con las comunidades de tecnología web y estar al tanto de las nuevas especificaciones. |
+| **Plan de contingencia** | Mantenerse actualizado sobre cambios en los estándares web y adaptar la aplicación conforme sea necesario. |
+
+| **RIG-010** | **Problemas de escalabilidad**  |  
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | Si la aplicación crece rápidamente en número de usuarios, la infraestructura podría no ser capaz de soportar la demanda, generando tiempos de carga lentos o caídas del sistema.  |
+| **Clasificación** | Técnicos |
+| **Probabilidad**<br>**Impacto**<br>**Factor** | 5<br>8<br>40 |
+| **Prioridad** | 6 |
+| **Contramedidas actuales** | Realizar pruebas de carga y estrés periódicas para evaluar la capacidad del sistema, además de optimizar el código y las bases de datos para mejorar la eficiencia en el uso de recursos. |
+| **Plan de contingencia** | Evaluar la posibilidad de migrar a una infraestructura más robusta en caso de ser necesario. |
+
