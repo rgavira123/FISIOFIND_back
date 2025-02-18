@@ -1,8 +1,8 @@
 ---
 title: "REGISTRO DE RIESGOS"
-subtitle: "FISIO FIND"                       
-author: [Delfín Santana Rubio, Julen Redondo Pacheco] 
-date: "16/02/2025"                                                 
+subtitle: "FISIO FIND - Grupo 6 - #DP"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
+date: "16/02/2025"
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -20,9 +20,8 @@ documentclass: scrartcl
 classoption: "table"
 ---
 
-
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<p align="center">
+<!-- <p align="center">
   <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
@@ -34,7 +33,8 @@ classoption: "table"
 
 **ÍNDICE**
 - [1. INTRODUCCIÓN](#1-introducción)
-- [2. LISTADO DE RIESGOS](#2-listado-de-riesgos)
+- [2. LISTADO DE RIESGOS](#2-listado-de-riesgos) -->
+<!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 
 <br>
 
@@ -42,7 +42,13 @@ classoption: "table"
 
 **Ficha del documento**
 
-- **Nombre del Proyecto:** Fisio Find
+- **Nombre del Proyecto:** FisioFind
+
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
 - **Autores:** Delfín Santana Rubio, Julen Redondo Pacheco
 
@@ -64,10 +70,9 @@ classoption: "table"
 | 18/02/2025 | v1.3    | Julen Redondo Pacheco          | Añadidos más riesgos |
 | 18/02/2025 | v1.4    | Delfín Santana Rubio          | Modificación del título de RIG-001 por feedback de pull request |
 
-
 <br>
 
-<!-- \newpage -->
+\newpage
 
 <br>
 
@@ -129,11 +134,11 @@ En este documento se detallan cada uno de los riesgos contemplados en el proyect
 | **RIG-006** | **Los medios para comprobar que un fisioterapeuta está colegiado dejan de estar disponibles**  |  
 | --- | --- |
 | **Versión** | V1.0 |
-| **Descripción** | Existe la posibilidad de que los medios que FISIO FIND utiliza para comprobar si un fisioterapeuta esté o no colegiado dejen de estar disponibles. Actualmente, esto se comprueba a través de las webs públicas de los colegiados. Si una nueva ley de protección impidiera que estas páginas fueran públicas, nuestros mecanismos para verificar la colegiación de un fisioterapeuta quedarían inoperativos.  |
+| **Descripción** | Existe la posibilidad de que los medios que FISIO FIND utiliza para comprobar si un fisioterapeuta está o no colegiado dejen de estar disponibles. Actualmente, esto se comprueba a través de las webs públicas de los colegiados. Si una nueva ley de protección impidiera que estas páginas fueran públicas, nuestros mecanismos para verificar la colegiación de un fisioterapeuta quedarían inoperativos.  |
 | **Clasificación** | Técnicos |
 | **Probabilidad**<br>**Impacto**<br>**Factor** | 1<br>9<br>9 |
 | **Prioridad** | 6 |
-| **Contramedidas actuales** | Se deberá estar a la orden del día en cuanto a legislación de protección de datos y a las noticias que estén relacionadas de alguna forma con este riesgo. Debido a la poca probabilidad de que suceda algo así, esto se hará de forma informal por el equipo, sin necesidad de que quede registrado. |
+| **Contramedidas actuales** | Se deberá estar al día en cuanto a legislación de protección de datos y a las noticias que estén relacionadas de alguna forma con este riesgo. Debido a la poca probabilidad de que suceda algo así, esto se hará de forma informal por el equipo, sin necesidad de que quede registrado. |
 | **Plan de contingencia** | De suceder este riesgo, se buscarán formas alternativas para verificar la colegiación de los fisioterapeutas. Dado que siempre necesitarán comprobar su colegiación, se deberá estudiar la forma de digitalizar y automatizar este proceso al máximo. |
 
 | **RIG-007** | **Las tecnologías utilizadas dejan de estar mantenidas**  |  

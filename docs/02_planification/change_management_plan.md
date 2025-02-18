@@ -1,7 +1,7 @@
 ---
 title: "PLAN DE GESTIÓN DEL CAMBIO"                       
-subtitle: "FISIO FIND"
-author: [Delfín Santana Rubio] 
+subtitle: "FISIO FIND - Grupo 6 - #DP"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
 date: "16/02/2025"                                                 
 subject: "ISPP"
 lang: "es"
@@ -43,7 +43,6 @@ monofont: "Noto Sans Mono"
   - [Paso 4 - Pruebas y validación del cambio](#paso-4---pruebas-y-validación-del-cambio)
   - [Paso 5 - Despliegue del cambio](#paso-5---despliegue-del-cambio)
   - [Paso 6 - Seguimiento y mejora continua](#paso-6---seguimiento-y-mejora-continua)
-
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
@@ -54,25 +53,31 @@ monofont: "Noto Sans Mono"
 
 - **Nombre del Proyecto:** FISIO FIND
 
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+
 - **Autores:** Delfín Santana Rubio, Julen Redondo Pacheco
 
 - **Fecha de Creación:** 16/02/2025  
 
-- **Versión:** v1.1
-
-<br>
+- **Versión:** v1.2
 
 <br>
 
 ---
 
+<!-- \newpage -->
+
 **Histórico de Modificaciones**
 
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
-| 16/02/2025 | v1.0    | Delfín Santana Rubio           | Creación del documento y primeros cambios. |
-| 18/02/2025 | v1.1    | Julen Redondo Pacheco          | Ampliación y finalización del documento |
-| 18/02/2025 | v1.2    | Delfín Santana Rubio           | Cambios sugeridos en pull request |
+| 16/02/2025 | v1.0    | Delfín Santana Rubio             | Creación del documento y primeros cambios. |
+| 18/02/2025 | v1.1    | Julen Redondo Pacheco            | Ampliación y finalización del documento |
+| 18/02/2025 | v1.2    | Delfín Santana Rubio             | Cambios sugeridos en pull request |
 
 
 <br>
@@ -98,7 +103,7 @@ Este documento es una continuación del apartado 4.5 del **PLAN DE GESTIÓN DE L
 - La solicitud de cambio puede venir de distintas formas:
   - Mediante el feedback que se da en las presentaciones.
   - Mediante las encuestas o feedback de los usuarios pilotos.
-  - Mediante cambios sugeridos por el equipo de FISIO FIND
+  - Mediante cambios sugeridos por el equipo de FISIO FIND.
 - La responsabilidad del registro del cambio será compartida y transmitida. Es decir, si un integrante del grupo es consciente de que ha recibido una solicitud de cambio, deberá transmitirla y registrarla.
 - La forma de comunicarla será a través de los medios utilizados por el equipo.
 - Si se considera, se hará una issue para registrar el cambio.
@@ -112,7 +117,7 @@ Este documento es una continuación del apartado 4.5 del **PLAN DE GESTIÓN DE L
 ## Paso 3 - Modificación de registros e implementación del cambio
 - Se deberán modificar los registros necesarios e implementar el cambio siguiendo las formas generales.
 - Se notificará a los miembros del equipo sobre los cambios realizados.
-- Se deberá actualizar el estado de la issue para reflejar el progreso de la implementación
+- Se deberá actualizar el estado de la issue para reflejar el progreso de la implementación.
 
 ## Paso 4 - Pruebas y validación del cambio
 - Se deberán realizar pruebas exhaustivas para asegurar que el cambio no introduce nuevos errores o afecta negativamente a otras funcionalidades.
