@@ -53,7 +53,7 @@ classoption: "table"
 
 - **Fecha de Creación:** 17/02/2025  
 
-- **Versión:** v1.0
+- **Versión:** v1.2
 
 <br>
 
@@ -65,6 +65,7 @@ classoption: "table"
 |------------|---------|----------------------------------|----------------------------|
 | 17/02/2025 | v1.0    | Delfín Santana Rubio          | Creación del documento y primeras modificaciones |
 | 18/02/2025 | v1.1    | Julen Redondo Pacheco        | Correcciones y modificaciones |
+| 18/02/2025 | v1.2    | Delfín Santana Rubio        | Modificado punto 5 para añadir tipos de contramedidas a riesgos |
 
 
 <br>
@@ -104,6 +105,12 @@ Para evaluar un riesgo, se debe analizar su probabilidad y su impacto. Una vez e
 
 # 5. PLANES DE CONTIGENCIA Y CONTRAMEDIDAS
 Se deberán indicar las medidas que se deben tomar de suceder el riesgo. Además, se deberán indicar las contramedidas que se están tomando para evitar que suceda o minimizar el impacto del riesgo en cuestión.
+
+Las contramedidas que se pueden aplicar a un riesgo pueden diferenciarse entre:
+- Aceptar: Aceptar el riesgo y no tomar medidas.
+- Evitar: Descartar o modificar aquello que causa el riesgo.
+- Mitigar: Tomar acciones para evitar que suceda o minimizar el impacto del riesgo en cuestión.
+- Transferir: Transferir el riesgo a un sujeto externo al equipo.
 
 # 6. SEGUIMIENTO DE RIESGOS
 Para los riesgos registrados, se debe hacer un seguimiento mediante la revisión de las contramedidas implementadas.
