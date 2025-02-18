@@ -143,25 +143,3 @@ La IA **no** será utilizada para influir en la funcionalidad principal de la ap
 Este compromiso será revisado y actualizado de manera periódica para garantizar su alineación con las mejores prácticas y los avances tecnológicos en IA. Cualquier cambio en el uso de la IA será documentado y revisado por el equipo de desarrollo.
 
 <br>
-
----
-
-Firmado,
-
-<!-- - Alberto Carmona Sicre - --/02/2025
-- Antonio Macías Ferrera -  --/02/2025
-- Benjamín Ignacio Maureira Flores -  --/02/2025
-- Francisco Capote García -  --/02/2025
-- Daniel Alors Romero - --/02/2025
-- Daniel Fernández Caballero -  --/02/2025
-- Daniel Ruiz López  -  --/02/2025
-- Daniel Tortorici Bartús - --/02/2025
-- Daniel Vela Camacho - --/02/2025
-- Delfín Santana Rubio - --/02/2025
-- Guadalupe Ridruejo Pineda - --/02/2025
-- Julen Redondo Pacheco -  --/02/2025
-- Miguel Encina Martínez -  --/02/2025
-- Francisco Mateos Villarejo -  --/02/2025
-- Pablo Fernández Pérez -  --/02/2025
-- Ramón Gavira Sánchez  -  --/02/2025
-- Rafael Pulido Cifuentes -  --/02/2025 -->
