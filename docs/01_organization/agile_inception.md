@@ -1,8 +1,8 @@
 ---
 title: "AGILE INCEPTION"                       
-subtitle: "FISIOFIND"
-author: [Miguel Encina Martínez, Daniel Tortorici Bartús, Francisco Capote García] 
-date: "12/02/2025"                                                 
+subtitle: "FISIO FIND - Grupo 6 - #DP"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
+date: "12/02/2025"
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -35,21 +35,22 @@ monofont: "Noto Sans Mono"
 <br>
 
 **ÍNDICE**
-- [1. RESUMEN](#1-resumen)
-- [2. PROBLEMA PRINCIPAL Y RELEVANCIA](#2-problema-principal-y-relevancia)
-- [3. CONTEXTO Y CIRCUNSTANCIAS](#3-contexto-y-circunstancias)
-- [4. NECESIDADES DEL PROYECTO](#4-necesidades-del-proyecto)
-- [5. ARQUITECTURA DE LA APP](#5-arquitectura-de-la-app)
-  - [5.1. CORE](#51-core)
-  - [5.2. MÓDULOS EXTRA (ADDONS)](#52-módulos-extra-addons)
-  - [5.3. FUERA DEL SCOPE](#53-fuera-del-scope)
-- [6. USUARIOS OBJETIVO](#6-usuarios-objetivo)
-- [7. MONETIZACIÓN](#7-monetización)
-- [8. COSTE ESTIMADO](#8-coste-estimado)
-- [9. IMPLEMENTACIÓN Y JUSTIFICACIÓN DE LA APP](#9-implementación-y-justificación-de-la-app)
-- [10. IMPACTO ESPERADO](#10-impacto-esperado)
-- [11. COMPETIDORES POTENCIALES](#11-competidores-potenciales)
-- [12. DIFERENCIACIÓN DEL PROYECTO](#12-diferenciación-del-proyecto)
+- [**1. RESUMEN**](#1-resumen)
+- [**2. PROBLEMA PRINCIPAL Y RELEVANCIA**](#2-problema-principal-y-relevancia)
+- [**3. CONTEXTO Y CIRCUNSTANCIAS**](#3-contexto-y-circunstancias)
+- [**4. NECESIDADES DEL PROYECTO**](#4-necesidades-del-proyecto)
+- [**5. ARQUITECTURA DE LA APP**](#5-arquitectura-de-la-app)
+  - [**5.1. CORE**](#51-core)
+  - [**5.2. MÓDULOS EXTRA (ADDONS)**](#52-módulos-extra-addons)
+  - [**5.3. FUERA DEL SCOPE**](#53-fuera-del-scope)
+- [**6. USUARIOS OBJETIVO**](#6-usuarios-objetivo)
+- [**Meet your Neighbours (La comunidad)**](#meet-your-neighbours-la-comunidad)
+- [**7. MONETIZACIÓN**](#7-monetización)
+- [**8. COSTE ESTIMADO**](#8-coste-estimado)
+- [**9. IMPLEMENTACIÓN Y JUSTIFICACIÓN DE LA APP**](#9-implementación-y-justificación-de-la-app)
+- [**10. IMPACTO ESPERADO**](#10-impacto-esperado)
+- [**11. COMPETIDORES POTENCIALES**](#11-competidores-potenciales)
+- [**12. DIFERENCIACIÓN DEL PROYECTO**](#12-diferenciación-del-proyecto)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
@@ -60,13 +61,17 @@ monofont: "Noto Sans Mono"
 
 - **Nombre del Proyecto:** FISIOFIND
 
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+
 - **Autores:** Miguel Encina Martínez, Daniel Tortorici Bartús, Francisco Capote García
 
 - **Fecha de Creación:** 12/02/2025  
 
 - **Versión:** v1.4
-
-<br>
 
 <br>
 

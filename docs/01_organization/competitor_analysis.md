@@ -1,7 +1,7 @@
 ---
 title: "COMPETITOR ANALYSIS"
-subtitle: "FISIOFIND"
-author: [Daniel Vela Camacho, Francisco Mateos Villarejo, Daniel Tortorici Bartús]
+subtitle: "FISIO FIND - Grupo 6 - #DP"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
 date: "12/02/2025"
 subject: "ISPP"
 lang: "es"
@@ -24,7 +24,7 @@ monofont: "Noto Sans Mono"
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<!-- <p align="center">
+<p align="center">
   <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
@@ -35,24 +35,48 @@ FISIO FIND  - COMPETITOR ANALYSIS
 <br>
 
 # **ÍNDICE**
-1. [INTRODUCCIÓN](#1-introducción)
-2. [DESCUBRIMIENTO DE LOS COMPETIDORES](#2-descubrimiento-de-los-competidores)
-3. [COMPETIDORES UTILIZADOS POR LOS USUARIOS](#3-competidores-utilizados-por-los-usuarios)
-    3.1 [ARCHIVEX](#31-archivex)
-    3.2 [CLINIC CLOUD *BY DOCTORALIA*](#32-clinic-cloud-by-doctoralia)
-    3.3 [DOCTORALIA](#33-doctoralia)
-    3.4 [PROET](#34-proet)
-    3.5 [DEPORWEB](#35-deporweb)
-    3.6 [I-FISIO](#36-i-fisio)
-4. [COMPETIDORES DESCUBIERTOS MEDIANTE *KEYWORDS*](#4-competidores-descubiertos-mediante-keywords) 
-    4.1 [FISIO APP AI](#41-fisio-app-ai)
-    4.2 [PLATAFORMA DE REHABILITACIÓN DIGITAL](#42-plataforma-de-rehabilitacion-digital)
-    4.3 [FISIOTERAPIA ONLINE](#43-fisioterapia-online)
-    4.4 [APP PARA FISIOTERAPEUTAS](#44-app-para-fisioterapeutas)
-    4.5 [FISIO MANAGEMENT APP](#45-fisio-management-app)
-5. [ALTERNATIVAS NO CONTEMPLADAS](#5-alternativas-no-contempladas)
-6. [COMPETIDORES IDENTIFICADOS POR FEEDBACK](#6-competidores-identificados-por-feedback)
-    6.1 [DOCTOLIB](#61-doctolib) -->
+- [**ÍNDICE**](#índice)
+- [1. INTRODUCCIÓN](#1-introducción)
+- [2. DESCUBRIMIENTO DE LOS COMPETIDORES](#2-descubrimiento-de-los-competidores)
+- [3. COMPETIDORES UTILIZADOS POR LOS USUARIOS](#3-competidores-utilizados-por-los-usuarios)
+  - [3.1 ARCHIVEX](#31-archivex)
+  - [3.2 CLINIC CLOUD *BY DOCTORALIA*](#32-clinic-cloud-by-doctoralia)
+  - [3.3 DOCTORALIA](#33-doctoralia)
+  - [3.4 PROET](#34-proet)
+  - [3.5 DEPORWEB](#35-deporweb)
+  - [3.6 I-FISIO](#36-i-fisio)
+- [4. COMPETIDORES DESCUBIERTOS MEDIANTE *KEYWORDS*](#4-competidores-descubiertos-mediante-keywords)
+  - [4.1 FISIO APP AI](#41-fisio-app-ai)
+    - [4.1.1 FISIA](#411-fisia)
+    - [4.1.2 TRAK](#412-trak)
+    - [4.1.3 FISIFY](#413-fisify)
+    - [4.1.4 PHYSIA](#414-physia)
+    - [4.1.5 PHYSIO SET APP](#415-physio-set-app)
+  - [4.2 PLATAFORMA DE REHABILITACIÓN DIGITAL](#42-plataforma-de-rehabilitación-digital)
+    - [4.2.1 SALUCENTER](#421-salucenter)
+    - [4.2.2 FROOMCARE](#422-froomcare)
+    - [4.2.3 HOMAGE](#423-homage)
+    - [4.2.4 PHYSIOTEC / WIBBI](#424-physiotec--wibbi)
+    - [4.2.5 PHYSIOTOOLS / PHYSITRACK](#425-physiotools--physitrack)
+    - [4.2.6 THEREHABLAB](#426-therehablab)
+  - [4.3 FISIOTERAPIA ONLINE](#43-fisioterapia-online)
+    - [4.3.1 TUFISIO](#431-tufisio)
+    - [4.3.2 FISIOMAP](#432-fisiomap)
+    - [4.3.3 URBANFISIO](#433-urbanfisio)
+    - [4.3.4 EFISIO](#434-efisio)
+    - [4.3.5 FISIOFORCE](#435-fisioforce)
+    - [4.3.6 TRAKPHYSIO](#436-trakphysio)
+    - [4.3.7 NUBIMED](#437-nubimed)
+  - [4.4 APP PARA FISIOTERAPEUTAS](#44-app-para-fisioterapeutas)
+    - [4.4.1 TIMP](#441-timp)
+  - [4.5 FISIO MANAGEMENT APP](#45-fisio-management-app)
+    - [4.5.1 FEEXIO](#451-feexio)
+    - [4.5.2 FISIOTRACK](#452-fisiotrack)
+- [5. ALTERNATIVAS NO CONTEMPLADAS](#5-alternativas-no-contempladas)
+- [6. COMPETIDORES IDENTIFICADOS POR FEEDBACK](#6-competidores-identificados-por-feedback)
+  - [6.1 DOCTOLIB](#61-doctolib)
+    - [**MONETIZACIÓN**](#monetización)
+  - [**FEATURES AGRUPADAS POR CATEGORÍA**](#features-agrupadas-por-categoría)
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 
 ---
@@ -60,13 +84,21 @@ FISIO FIND  - COMPETITOR ANALYSIS
 **Ficha del documento**
 
 - **Nombre del Proyecto:** FISIOFIND
+
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+
 - **Autores:** Daniel Vela Camacho, Francisco Mateos Villarejo
+
 - **Fecha de Creación:** 12/02/2025
+
 - **Versión:** v1.3
 
 <br>
 
-<br>
 
 ---
 
@@ -84,7 +116,7 @@ FISIO FIND  - COMPETITOR ANALYSIS
 
 <br>
 
-\newpage
+<!-- \newpage -->
 
 <br>
 
@@ -120,7 +152,7 @@ A lo largo del informe, los competidores estarán relacionados con las **keyword
 
 <br>
 
-\newpage
+<!-- \newpage -->
 
 <br>
 
@@ -424,7 +456,7 @@ Al buscar varias keywords no se ha encontrado ninguna en las que aparezca esta a
 
 <br>
 
-\newpage
+<!-- \newpage -->
 
 <br>
 
@@ -927,7 +959,7 @@ Por otro lado, FisioFind se especializa en la gestión de consultas online, prop
 
 <br>
 
-\newpage
+<!-- \newpage -->
 
 <br>
 
@@ -1000,7 +1032,7 @@ Tras este extenso y detallado análisis llevado a cabo de las competencias direc
 
 <br>
 
-\newpage
+<!-- \newpage -->
 
 <br>
 

@@ -1,7 +1,7 @@
 ---
 title: "SPRINT PLANNING SPRINT X"         # CHANGE IF NEEDED
-subtitle: "FISIO FIND"
-author: [Antonio Macías Ferrera]          # CHANGE IF NEEDED
+subtitle: "FISIO FIND - Grupo 6 - #X"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
 date: "04/02/2025"                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
@@ -32,15 +32,50 @@ classoption: "table"
 <br>
 
 **ÍNDICE**
-1. [OBJETIVOS DEL SPRINT](#1-objetivos-del-sprint)
-2. [SPRINT BACKLOG](#2-sprint-backlog)
-3. [METODOLOGÍA INTERNA](#3-metodología-interna)
-   - [GESTIÓN DE TAREAS EN GitHub Project](#31-gestión-de-tareas-en-taigaio)
-   - [ORGANIZACIÓN DE LAS TAREAS](#32-organización-de-las-tareas)
-   - [FLUJO DE TRABAJO](#33-flujo-de-trabajo)
-   - [DEFINICIÓN DE HECHO (DOD) DE UNA HISTORIA DE USUARIO](#34-definición-de-hecho-dod-de-una-historia-de-usuario)
-   - [GESTIÓN DE LA CONFIGURACIÓN](#35-gestión-de-la-configuración)
+- [**1. OBJETIVOS DEL SPRINT**](#1-objetivos-del-sprint)
+- [**2. SPRINT BACKLOG**](#2-sprint-backlog)
+- [**3. METODOLOGÍA INTERNA**](#3-metodología-interna)
+  - [3.1. Gestión de Tareas en GitHub Project](#31-gestión-de-tareas-en-github-project)
+  - [3.2. Organización de las Tareas](#32-organización-de-las-tareas)
+  - [3.3. Flujo de Trabajo](#33-flujo-de-trabajo)
+  - [3.4. Definición De Hecho (DoD) de una Historia de Usuario](#34-definición-de-hecho-dod-de-una-historia-de-usuario)
+  - [3.5. Gestión de la Configuración](#35-gestión-de-la-configuración)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
+
+<br>
+
+---
+
+**Ficha del documento**
+
+- **Nombre del Proyecto:** FISIO FIND
+
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+
+- **Autores:** Antonio Macías Ferrera
+
+- **Fecha de Creación:** dd/mm/aaaa  
+
+- **Versión:** v1.0
+
+<br>
+
+
+---
+
+**Histórico de Modificaciones**
+
+| Fecha      | Versión | Realizada por                    | Descripción de los cambios |
+|------------|---------|----------------------------------|----------------------------|
+| 04/02/2025 | v1.0    | Antonio Macías Ferrera           | Elaboración de la plantilla del documento. |
+
+
+<br>
+
 
 ---
 

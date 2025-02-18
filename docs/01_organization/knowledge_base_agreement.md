@@ -1,8 +1,8 @@
 ---
 title: "ACUERDO DE BASE DE CONOCIMIENTO"
-subtitle: "FISIO FIND"                       
-author: [Daniel Alors Romero, Antonio Macías Ferrera] 
-date: "13/02/2025"                                                 
+subtitle: "FISIO FIND - Grupo 6 - #DP"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
+date: "13/02/2025"
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -41,10 +41,10 @@ monofont: "Noto Sans Mono"
 - [3. ALCANCE](#3-alcance)
 - [4. RESPONSABILIDADES](#4-responsabilidades)
 - [5. NORMAS DE USO](#5-normas-de-uso)
-- [6. CONTROL DE ACCESO](#7-control-de-acceso)
-- [7. PROPIEDAD INTELECTUAL](#8-propiedad-intelectual)
-- [8. VIGENCIA Y MODIFICACIÓN DEL ACUERDO](#9-vigencia-y-modificación-del-acuerdo)
-- [9. ACEPTACIÓN DEL ACUERDO](#10-aceptación-del-acuerdo)
+- [6. CONTRO DEL ACCESO](#6-contro-del-acceso)
+- [7. PROPIEDAD INTELECTUAL](#7-propiedad-intelectual)
+- [8. VIGENCIA Y MODIFICACIÓN DE ACUERDO](#8-vigencia-y-modificación-de-acuerdo)
+- [9. ACEPTACIÓN DEL ACUERDO](#9-aceptación-del-acuerdo)
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 
 
@@ -56,6 +56,12 @@ monofont: "Noto Sans Mono"
 
 - **Nombre del Proyecto:** FISIO FIND
 
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+
 - **Autores:** Daniel Alors Romero, Antonio Macías Ferrera
 
 - **Fecha de Creación:** 13/02/2025  
@@ -64,7 +70,6 @@ monofont: "Noto Sans Mono"
 
 <br>
 
-<br>
 
 ---
 

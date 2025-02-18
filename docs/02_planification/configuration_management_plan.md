@@ -1,7 +1,7 @@
 ---
 title: "PLAN DE GESTIÓN DE LA CONFIGURACIÓN"                       # CHANGE IF NEEDED
-subtitle: "FISIO FIND"
-author: [Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores] # CHANGE IF NEEDED
+subtitle: "FISIO FIND - Grupo 6 - #DP"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
 date: "04/02/2025"                                                 # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
@@ -35,21 +35,31 @@ monofont: "Noto Sans Mono"
 <br>
 
 **ÍNDICE**
-- [1. NORMAS Y PROCEDIMIENTOS APLICABLES](#1-normas-y-procedimientos-aplicables)
-- [2. ELEMENTOS CONFIGURABLES](#2-elementos-configurables)
-- [3. HERRAMIENTAS A UTILIZAR](#3-herramientas-a-utilizar)
-- [4. CONTROL Y POLÍTICA DE VERSIONADO](#4-control-y-política-de-versionado)
-  - [4.1. VERSIONADO DE DOCUMENTACIÓN Y REGISTROS](#41-versionado-de-documentación-y-registros)
-  - [4.2. HU, TAREAS Y ACTIVIDADES](#42-hu-tareas-y-actividades)
-  - [4.3. CONTROL DEL TIEMPO](#43-control-del-tiempo)
-  - [4.4. VERSIONADO DE CÓDIGO FUENTE EN GIT Y GITHUB](#44-versionado-de-código-fuente-en-git-y-github)
-  - [4.5. SOLICITUDES DE CAMBIO (REGISTRO DE CAMBIOS)](#45-solicitudes-de-cambio-registro-de-cambios)
-- [5. ESTRATEGIA DE RAMAS](#5-estrategia-de-ramas)
-- [6. ESTÁNDARES DE CODIFICACIÓN](#6-estándares-de-codificación)
-  - [6.1. BACKEND](#61-python-backend)
-  - [6.2. FRONTEND](#62-javascript-frontend)
-- [7. ORGANIZACIÓN DE LA DOCUMENTACIÓN](#7-organización-de-la-documentación)
-- [8. CONCLUSIÓN](#8-conclusión)
+- [**1. NORMAS Y PROCEDIMIENTOS APLICABLES**](#1-normas-y-procedimientos-aplicables)
+- [**2. ELEMENTOS CONFIGURABLES**](#2-elementos-configurables)
+- [**3. HERRAMIENTAS A UTILIZAR**](#3-herramientas-a-utilizar)
+- [**4. CONTROL y POLÍTICA DE VERSIONADO**](#4-control-y-política-de-versionado)
+  - [**4.1. Versionado de Documentación y Registros**](#41-versionado-de-documentación-y-registros)
+  - [**4.2. HU, tareas y actividades**](#42-hu-tareas-y-actividades)
+  - [**4.3.  Control del tiempo**](#43--control-del-tiempo)
+  - [**4.4. Versionado de Código Fuente en Git y GitHub**](#44-versionado-de-código-fuente-en-git-y-github)
+  - [**4.5. Solicitudes de cambio (Registro de cambios)**](#45-solicitudes-de-cambio-registro-de-cambios)
+- [**5. ESTRATEGIA DE RAMAS**](#5-estrategia-de-ramas)
+- [**6. ESTÁNDARES DE CODIFICACIÓN**](#6-estándares-de-codificación)
+  - [**6.1. Python (Backend)**](#61-python-backend)
+      - [**1. Nombrado**](#1-nombrado)
+      - [**2. Indentación y espaciado**](#2-indentación-y-espaciado)
+      - [**3. Docstrings y comentarios**](#3-docstrings-y-comentarios)
+      - [**4. Manejo de excepciones**](#4-manejo-de-excepciones)
+  - [**6.2. JavaScript (Frontend)**](#62-javascript-frontend)
+      - [**1. Nombrado**](#1-nombrado-1)
+      - [**2. Uso de `let` y `const`**](#2-uso-de-let-y-const)
+      - [**3. Formato y espaciado**](#3-formato-y-espaciado)
+      - [**4. Manejo de promesas**](#4-manejo-de-promesas)
+- [**7. ORGANIZACIÓN DE LA DOCUMENTACIÓN**](#7-organización-de-la-documentación)
+  - [**7.1. OneDrive**](#71-onedrive)
+  - [**7.2. Repositorio de GitHub**](#72-repositorio-de-github)
+- [**8. CONCLUSIÓN**](#8-conclusión)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
@@ -60,6 +70,12 @@ monofont: "Noto Sans Mono"
 
 - **Nombre del Proyecto:** FISIO FIND
 
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+
 - **Autores:** Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores
 
 - **Fecha de Creación:** 04/02/2025  
@@ -68,7 +84,6 @@ monofont: "Noto Sans Mono"
 
 <br>
 
-<br>
 
 ---
 
@@ -80,8 +95,6 @@ monofont: "Noto Sans Mono"
 | 05/02/2025 | v2.0    | Benjamín Ignacio Maureira Flores | Completado según la metodología a seguir en el proyecto. |
 | 13/02/2025 | v2.1    | Antonio Macías Ferrera | Adecuación al nuevo proyecto Fisio Find. |
 | 15/02/2025 | v2.2    | Antonio Macías Ferrera | Adecuación al feedback de la clase del 14/02/2025. Sustitución de Taiga.io por GitHub Project, estructuración de la documentación y adición de apartado *Gestión del Cambio* y *Gestión de los Riesgos*. |
-
-
 
 <br>
 

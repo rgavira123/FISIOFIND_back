@@ -1,7 +1,7 @@
 ---
 title: "FEEDBACK DD-MM-AAAA"            # CHANGE IF NEEDED
-subtitle: "FISIO FIND"
-author: [Alberto Carmona Sicre]         # CHANGE IF NEEDED
+subtitle: "FISIO FIND - Grupo 6 - #X"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
 date: "dd/mm/aaaa"                      # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
@@ -31,12 +31,53 @@ classoption: "table"
 
 <br>
 
+
+---
+
+**Ficha del documento**
+
+- **Nombre del Proyecto:** FISIO FIND
+
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+
+- **Autores:** Antonio Macías Ferrera
+
+- **Fecha de Creación:** dd/mm/aaaa  
+
+- **Versión:** v1.0
+
+<br>
+
+
+---
+
+**Histórico de Modificaciones**
+
+| Fecha      | Versión | Realizada por                    | Descripción de los cambios |
+|------------|---------|----------------------------------|----------------------------|
+| dd/mm/aaaa | v1.0    | Antonio Macías Ferrera           | Elaboración de la plantilla del documento. |
+
+<br>
+
+
+---
+
 **ÍNDICE**
-1. [RESUMEN DEL FEEDBACK POR GRUPO](#1-resumen-del-feedback-por-grupo)
-2. [ANÁLISIS DEL FEEDBACK](#2-análisis-del-feedback)
-    - 2.1. [TENDENCIAS GENERALES](#21-tendencias-generales)
-    - 2.2. [COMPARACIÓN DEL FEEDBACK DE NUESTRO GRUPO VS LOS OTROS](#22-comparación-del-feedback-de-nuestro-grupo-vs-los-otros)
-3. [CONCLUSIONES Y OBSERVACIONES](#3-conclusiones-y-observaciones)
+- [**1. RESUMEN DEL FEEDBACK POR GRUPO**](#1-resumen-del-feedback-por-grupo)
+  - [**Primer grupo (Nombre del grupo):**](#primer-grupo-nombre-del-grupo)
+  - [**Segundo grupo (Nombre del grupo):**](#segundo-grupo-nombre-del-grupo)
+  - [**Tercer grupo (Nombre del grupo):**](#tercer-grupo-nombre-del-grupo)
+  - [**Cuarto grupo (Nombre del grupo):**](#cuarto-grupo-nombre-del-grupo)
+  - [**Quinto grupo (Nombre del grupo):**](#quinto-grupo-nombre-del-grupo)
+  - [**Sexto grupo (Nombre del grupo):**](#sexto-grupo-nombre-del-grupo)
+- [**2. ANÁLISIS DEL FEEDBACK**](#2-análisis-del-feedback)
+  - [2.1. TENDENCIAS GENERALES](#21-tendencias-generales)
+  - [2.2. COMPARACIÓN DEL FEEDBACK DE NUESTRO GRUPO VS LOS OTROS](#22-comparación-del-feedback-de-nuestro-grupo-vs-los-otros)
+- [**3. CONCLUSIONES Y OBSERVACIONES**](#3-conclusiones-y-observaciones)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 
@@ -46,6 +87,7 @@ classoption: "table"
 
 
 # **1. RESUMEN DEL FEEDBACK POR GRUPO**
+
 ## **Primer grupo (Nombre del grupo):** 
 **Feedback recibido (resumen de los comentarios de los profesores)**
 

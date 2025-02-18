@@ -1,7 +1,7 @@
 ---
 title: "ISPP - PÍLDORA TEÓRICA 2"             
-subtitle: "FISIO FIND"
-author: [Antonio Macías Ferrera]                                 
+subtitle: "FISIO FIND - Grupo 6 - #DP"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
 date: "17/02/2025"                       
 subject: "ISPP"
 lang: "es"
@@ -33,6 +33,41 @@ classoption: "table"
 
 <br>
 
+
+---
+
+**Ficha del documento**
+
+- **Nombre del Proyecto:** FISIO FIND
+
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+
+- **Autores:** Antonio Macías Ferrera
+
+- **Fecha de Creación:** 17/02/2024  
+
+- **Versión:** v1.0
+
+<br>
+
+
+---
+
+**Histórico de Modificaciones**
+
+| Fecha      | Versión | Realizada por                    | Descripción de los cambios |
+|------------|---------|----------------------------------|----------------------------|
+| 17/02/2025 | v1.0    | Antonio Macías Ferrera           | Elaboración de la primera versión del documento. |
+
+<br>
+
+
+---
+
 **ÍNDICE**
 - [**1. GESTIÓN DE RIESGOS**](#1-gestión-de-riesgos)
   - [**Identificación / Clasificación**](#identificación--clasificación)
@@ -45,8 +80,12 @@ classoption: "table"
   - [**Tipos de competencia**](#tipos-de-competencia)
   - [**Identificación de competidores**](#identificación-de-competidores)
   - [**Búsqueda de competidores (4Ps)**](#búsqueda-de-competidores-4ps)
-- [**5. GESTIÓN DE LAS COMUNICACIONES**](#5-gestión-de-las-comunicaciones)
-- [**6. INFORMES DE DESEMPEÑO**](#6-informes-de-desempeño)
+  - [**Elaborar perfil de competidores**](#elaborar-perfil-de-competidores)
+  - [**Matriz DAFO**](#matriz-dafo)
+  - [**Errores comunes**](#errores-comunes)
+- [**4. PRESENTACIONES EFECTIVAS**](#4-presentaciones-efectivas)
+  - [**Errores comunes**](#errores-comunes-1)
+  - [**Tips ;)**](#tips-)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 
@@ -58,7 +97,7 @@ classoption: "table"
 
 
 # **1. GESTIÓN DE RIESGOS**
-La gestión de los riesgos siempre pasa por estas 4 fases: **IDENTIFICACIÓN / CLASIFICACIÓN, ANÁLISIS / PRIORIZACIÓN, MITICACIÓN, MONITOREO**. 
+La gestión de los riesgos siempre pasa por estas 4 fases: **IDENTIFICACIÓN / CLASIFICACIÓN, ANÁLISIS / PRIORIZACIÓN, MITIGACIÓN, MONITOREO**. 
 
 ## **Identificación / Clasificación**
 
@@ -78,30 +117,41 @@ La gestión de los riesgos siempre pasa por estas 4 fases: **IDENTIFICACIÓN / C
 
 - Fecha de solución
 
-**Factores que influyen en los riesgos** 
-- Grado de innovación tecnológica 
 
-- Baja productividad 
+**Factores que influyen en los riesgos**
 
-- Cambio de requisitos 
+<div style="column-count: 2;">
 
-- Documentación deficiente 
+- Grado de innovación tecnológica
 
-- Arquitectura del sistema no planificada 
+- Baja productividad
 
-- Falta de compromiso 
+- Cambio de requisitos
 
-- Falta de pruebas del sistema. 
+- Documentación deficiente
 
-- Falta de comunicación 
+- Arquitectura del sistema no planificada
 
-- Factor de bus 
+- Falta de compromiso
 
-- Mala calidad del código 
+- Falta de pruebas del sistema
 
-- Cuestiones presupuestarias 
+- Falta de comunicación
+
+- Factor de bus
+
+- Mala calidad del código
+
+- Cuestiones presupuestarias
 
 - Plazos agresivos
+
+</div>
+
+<br>
+
+<br>
+
 
 **Clasificación de riesgos (Ejemplo)** 
 
@@ -142,14 +192,14 @@ La gestión de los riesgos siempre pasa por estas 4 fases: **IDENTIFICACIÓN / C
 
 ## **Mitigación**
 
-laboración de planes de contingencia: **EVITAR - MITIGAR - ACEPTAR**.
+Elaboración de planes de contingencia: **EVITAR - MITIGAR - ACEPTAR**.
 
 
 ## **Monitoreo**
 
 Ejecución del plan de contingencia → empleo de acciones correctivas → **monitoreo de las acciones correctivas**. 
 
-Se debe controlar que las acciones de mitigación de riesgos se están cumpliendo realmente, y  reelaborar el plan de contingencia y/o aplicar nuevas acciones correctivas si fuera necesario
+Se debe controlar que las acciones de mitigación de riesgos se están cumpliendo realmente, y reelaborar el plan de contingencia y/o aplicar nuevas acciones correctivas si fuera necesario
 
 
 
@@ -237,14 +287,14 @@ Muestra el ritmo al que competidores similares crecen en el mercado.
 
 **Mapa de posicionamiento** 
 
-Relación entre numero de palabras clave comunes vs tráfico.
+Relación entre número de palabras clave comunes vs tráfico.
 
 ![Mapa de posicionamiento](../.img/positionning_map.png)
 
 
 ## **Búsqueda de competidores (4Ps)** 
 
-� Producto
+📦 Producto
 
 - ¿Cuál es su ***producto*** o servicio más popular? 
 
@@ -255,25 +305,55 @@ Relación entre numero de palabras clave comunes vs tráfico.
 - ¿Qué ***problema*** resuelve este producto? 
 
 
-� Lugar 
+📍 Lugar 
 
 - ¿***Dónde compra su público*** objetivo? 
 
 - ¿Qué ***canales de distribución*** deberías usar para llegar a tu audiencia? 
 
 
-� Precios 
+💰 Precios
+
 - ¿***Cómo se alinean los precios*** de los productos de su competidor ***con productos comparables***? 
 
 - ¿Tienen ***rebajas*** frecuentes, descuentos u otras ofertas especiales? 
 
 
-� Promoción 
+📣 Promoción 
+
 - ¿Cuál de los canales promocionales de su competidor funciona mejor? 
 
 - ¿El mensaje de su marca resuena con su público objetivo? 
 
-Herramientas: Metricool, SimilarWeb, [ahrefs](https://ahrefs.com/es/site-explorer).
+
+Herramientas: [Metricool](https://metricool.com/es/), [SimilarWeb](https://www.similarweb.com/), [ahrefs](https://ahrefs.com/es/site-explorer).
+
+
+## **Elaborar perfil de competidores**
+
+![Pizarra de perfil de un competidor](../.img/competitor_profile_study.png)
+
+
+## **Matriz DAFO**
+
+![Ejemplo de matriz DAFO](../.img/dafo_example.png)
+
+
+## **Errores comunes**
+
+- No saber quiénes son ***todos los competidores*** o solo elegir a uno. 
+
+- No hacer investigación de ***palabras clave*** o monitorear el rango de búsqueda de Google. 
+
+- No seguir las ***noticias*** de la industria o mantenerse al día con las tendencias de la industria. 
+
+- No monitorear las noticias o ***publicaciones de blog*** para las menciones de los competidores. 
+
+- No reconocer **lo que sus competidores están haciendo bien**. 
+
+- ***Solo lo hacen una vez*** y ocasionalmente revisar y actualizar. 
+
+- ***Solo compartirlo con unos pocos***.
 
 
 <br>
@@ -283,44 +363,38 @@ Herramientas: Metricool, SimilarWeb, [ahrefs](https://ahrefs.com/es/site-explore
 <br>
 
 
-# **5. GESTIÓN DE LAS COMUNICACIONES**
-La comunicación en proyectos de software debe ser clara y efectiva. Se recomienda:
+# **4. PRESENTACIONES EFECTIVAS**
 
-- Usar herramientas de comunicación interna.
+## **Errores comunes**
 
-- Definir flujos de comunicación.
+- Miedo a hablar en público
 
-- Asegurar transparencia en la toma de decisiones.
+- No mantener la atención de la audiencia 
+
+- No saber qué contenido, y cuánto, colocar en las diapositivas 
+
+- Incomodidad incorporando lenguaje no verbal 
 
 
-Para elaborar un buen *Plan de Gestión de la Comunicación* nos debemos preguntar:
+## **Tips ;)**
 
-- ¿QUÉ INFORMACIÓN NECESITAN LOS INTERESADOS?
+- Inicio efectivo 
 
-- ¿QUIÉN RECIBIRÁ Y QUIÉN DISTRIBUIRÁ LA INFORMACIÓN?
+- Contar una historia 
 
-- ¿CUÁNDO NECESITARÁN LA INFORMACIÓN?
+- Sonreír y mirar al público a los ojos 
 
-- ¿CÓMO SE DISTRIBUIRÁ LA INFORMACIÓN?
+- Mostrar pasión 
 
-- ¿CUÁNTOS CANALES EXISTEN?
+- Cuidar la presencia 
 
-- ¿QUÉ TECNOLOGÍA SE UTILIZARÁ?
+- Practicar 
 
-- ¿QUIÉN SE COMUNICA CON QUIÉN?
+- Respirar :D 
 
-- ¿CON QUÉ FRECUENCIA SE REALIZA COMUNICACIÓN?
+- Regla 10-20-30 
+
+![Regla 10-20-30 para las presentaciones](../.img/10_20_30_rule.png)
+
 
 <br>
-
-<br>
-
-
-# **6. INFORMES DE DESEMPEÑO**
-
-- Recopila la información sobre el desempeño del proyecto (informes de estado, mediciones del avance, predicciones, etc.) y la distribuye.
-
-- Presenta las solicitudes de cambio.
-
-- Trackear el tiempo empleado en las tareas.
-

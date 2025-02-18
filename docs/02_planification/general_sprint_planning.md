@@ -1,7 +1,7 @@
 ---
 title: "PLANNING SPRINT GENERAL"         # CHANGE IF NEEDED
-subtitle: "FISIO FIND"
-author: [Antonio Macías Ferrera]          # CHANGE IF NEEDED
+subtitle: "FISIO FIND - Grupo 6 - #DP"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
 date: "15/02/2025"                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
@@ -32,17 +32,17 @@ classoption: "table"
 <br>
 
 **ÍNDICE**
-1. [OBJETIVOS DEL PROYECTO](#1-objetivos-del-sprint)
-2. [METODOLOGÍA INTERNA](#2-metodología-interna)
-   - [GESTIÓN DE TAREAS](#21-gestión-de-tareas)
-   - [FLUJO DE TRABAJO](#22-flujo-de-desarrollo)
-   - [FLUJO DE DESAROLLO](#23-flujo-de-desarrollo)
-   - [DEFINICIÓN DE HECHO (DOD)](#24-definición-de-hecho-dod)
-   - [GESTIÓN DE LA CONFIGURACIÓN](#25-gestión-de-la-configuración)
-   - [GESTIÓN DEL CAMBIO](#26-gestión-del-cambio)
-   - [GESTIÓN DE LOS RIESGOS](#27-gestión-de-los-riesgos)
-   - [USO DE INTELIGENCIA ARTIFICIAL](#28-uso-de-inteligencia-artificial)
-3. [PRODUCT BACKLOG](#3-sprint-backlog)
+- [**1. OBJETIVOS DEL SPRINT**](#1-objetivos-del-sprint)
+- [**2. METODOLOGÍA INTERNA**](#2-metodología-interna)
+  - [2.1. Gestión de Tareas](#21-gestión-de-tareas)
+  - [2.2. Flujo de Trabajo](#22-flujo-de-trabajo)
+  - [2.3. Flujo de Desarrollo](#23-flujo-de-desarrollo)
+  - [2.4. Definición De Hecho (DoD) de una Historia de Usuario](#24-definición-de-hecho-dod-de-una-historia-de-usuario)
+  - [3.5. Gestión de la Configuración](#35-gestión-de-la-configuración)
+  - [3.6. Gestión del Cambio](#36-gestión-del-cambio)
+  - [3.7. Gestión de los Riesgos](#37-gestión-de-los-riesgos)
+  - [3.8. Uso de la Inteligencia Artificial](#38-uso-de-la-inteligencia-artificial)
+- [**3. SPRINT BACKLOG**](#3-sprint-backlog)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 ---
@@ -56,6 +56,12 @@ classoption: "table"
 
 - **Nombre del Proyecto:** FISIO FIND
 
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+
 - **Autores:** Antonio Macías Ferrera
 
 - **Fecha de Creación:** 15/02/2025  
@@ -64,7 +70,6 @@ classoption: "table"
 
 <br>
 
-<br>
 
 ---
 

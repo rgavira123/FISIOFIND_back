@@ -1,7 +1,7 @@
 ---
 title: "INFORME DE TIEMPO DE LA SEMANA 1 (31/01-06/02)"              # CHANGE IF NEEDED
-subtitle: "FISIO FIND"
-author: [Rafael Pulido Cifuentes, Alberto Carmona Sicre]         # CHANGE IF NEEDED
+subtitle: "FISIO FIND - Grupo 6 - #DP"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
 date: "10/02/2025"                       # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
@@ -30,6 +30,41 @@ classoption: "table"
 </h1>
 
 <br>
+
+
+---
+
+**Ficha del documento**
+
+- **Nombre del Proyecto:** FISIO FIND
+
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+
+- **Autores:** Alberto Carmona Sicre, Rafael Pulido Cifuentes
+
+- **Fecha de Creación:** 10/02/2025  
+
+- **Versión:** v1.0
+
+<br>
+
+
+---
+
+**Histórico de Modificaciones**
+
+| Fecha      | Versión | Realizada por                    | Descripción de los cambios |
+|------------|---------|----------------------------------|----------------------------|
+| 10/02/2025 | v1.0    | Alberto Carmona Sicre, Rafael Pulido Cifuentes           | Elaboración de la primera versión del documento. |
+
+<br>
+
+
+---
 
 **ÍNDICE**
 1. [PROYECTOS](#1-proyectos)  

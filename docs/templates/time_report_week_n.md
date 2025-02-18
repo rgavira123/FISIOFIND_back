@@ -1,7 +1,7 @@
 ---
-title: "INFORME DE TIEMPO DE LA SEMANA n (dd/mm-dd/mm)"              # CHANGE IF NEEDED
-subtitle: "FISIO FIND"
-author: [Rafael Pulido Cifuentes, Alberto Carmona Sicre]         # CHANGE IF NEEDED
+title: "INFORME DE TIEMPO - SEMANA n (dd/mm-dd/mm)"              # CHANGE IF NEEDED
+subtitle: "FISIO FIND - Grupo 6 - #X"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
 date: "10/02/2025"                       # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
@@ -21,7 +21,7 @@ classoption: "table"
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<!-- <p align="center">
+<p align="center">
   <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
@@ -30,6 +30,41 @@ classoption: "table"
 </h1>
 
 <br>
+
+
+---
+
+**Ficha del documento**
+
+- **Nombre del Proyecto:** FISIO FIND
+
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+
+- **Autores:** Alberto Carmona Sicre
+
+- **Fecha de Creación:** 10/02/2025  
+
+- **Versión:** v1.0
+
+<br>
+
+
+---
+
+**Histórico de Modificaciones**
+
+| Fecha      | Versión | Realizada por                    | Descripción de los cambios |
+|------------|---------|----------------------------------|----------------------------|
+| 10/02/2025 | v1.0    | Alberto Carmona Sicre           | Elaboración de la plantilla del documento. |
+
+<br>
+
+
+---
 
 **ÍNDICE**
 1. [PROYECTOS](#1-proyectos)  
@@ -40,7 +75,7 @@ classoption: "table"
 3. [DESGLOSE](#3-desglose)  
     3.1 [DESGLOSE POR DÍAS](#31-desglose-por-días)  
     3.2 [DESGLOSE POR PROYECTOS](#32-desglose-por-proyectos)  
-    3.3 [DESGLOSE POR INTEGRANTES](#33-desglose-por-integrantes) -->
+    3.3 [DESGLOSE POR INTEGRANTES](#33-desglose-por-integrantes)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>

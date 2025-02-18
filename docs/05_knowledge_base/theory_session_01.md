@@ -1,7 +1,7 @@
 ---
 title: "ISPP - PÍLDORA TEÓRICA 1"             
-subtitle: "FISIO FIND"
-author: [Antonio Macías Ferrera]                                 
+subtitle: "FISIO FIND - Grupo 6 - #DP"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
 date: "17/02/2025"                       
 subject: "ISPP"
 lang: "es"
@@ -32,6 +32,41 @@ classoption: "table"
 </h1>
 
 <br>
+
+
+---
+
+**Ficha del documento**
+
+- **Nombre del Proyecto:** FISIO FIND
+
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+
+- **Autores:** Antonio Macías Ferrera
+
+- **Fecha de Creación:** 17/02/2024  
+
+- **Versión:** v1.0
+
+<br>
+
+
+---
+
+**Histórico de Modificaciones**
+
+| Fecha      | Versión | Realizada por                    | Descripción de los cambios |
+|------------|---------|----------------------------------|----------------------------|
+| 17/02/2025 | v1.0    | Antonio Macías Ferrera           | Elaboración de la primera versión del documento. |
+
+<br>
+
+
+---
 
 **ÍNDICE**
 - [**1. METODOLOGÍAS ÁGILES: SCRUM**](#1-metodologías-ágiles-scrum)

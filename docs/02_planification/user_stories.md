@@ -1,8 +1,8 @@
 ---
 title: "USER STORIES"
-subtitle: "FISIOFIND"                       
-author: [Daniel Ruiz López, Daniel Fernández Caballero, Daniel Alors Romero, Alberto Carmona Sicre ] 
-date: "13/02/2025"                                                 
+subtitle: "FISIO FIND - Grupo 6 - #DP"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
+date: "13/02/2025"
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -25,12 +25,6 @@ classoption: "table"
 <p align="center" style="font-size: 30px; font-weight: bold;">
   FISIOFIND  -  USER STORIES
 </p>
-
-<br>
-
-**Índice**
-- [1. ESTRUCTURA DE LAS HISTORIAS DE USUARIO](#1-estructura-de-las-historias-de-usuario)   
-- [2. HISTORIAS DE USUARIO](#2-historias-de-usuario)    
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 
 <br>
@@ -41,6 +35,12 @@ classoption: "table"
 
 - **Nombre del Proyecto:** FisioFind
 
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+
 - **Autores:** Daniel Ruiz López, Daniel Fernandez Caballero, Daniel Alors Romero, Alberto Carmona Sicre
 
 - **Fecha de Creación:** 13/02/2025  
@@ -49,6 +49,7 @@ classoption: "table"
 
 <br>
 
+
 ---
 
 **Histórico de Modificaciones**
@@ -56,8 +57,12 @@ classoption: "table"
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
 | 13/02/2025 | v1.0    | Daniel Ruiz López, Alberto Carmona Sicre, Daniel Fernández Caballero, Daniel Alors Romero | Añadidas las historias de usuario. |
+
 <br>
 
+<!-- \newpage -->
+
+<br>
 
 
 # 1. ESTRUCTURA DE LAS HISTORIAS DE USUARIO  

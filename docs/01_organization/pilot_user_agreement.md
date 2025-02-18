@@ -1,8 +1,8 @@
 ---
 title: "ACUERDO CON USUARIOS PILOTO"
-subtitle: "FISIO FIND"                       
-author: [Delfín Santana Rubio] 
-date: "10/02/2025"                                                 
+subtitle: "FISIO FIND - Grupo 6 - #DP"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
+date: "10/02/2025"
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -38,15 +38,16 @@ monofont: "Noto Sans Mono"
 **ÍNDICE**
 - [1. INTRODUCCIÓN](#1-introducción)
   - [1.1 DEFINICIONES](#11-definiciones)
+  - [1.2 TIPOS DE USUARIOS PILOTO](#12-tipos-de-usuarios-piloto)
 - [2. CONDICIONES](#2-condiciones)
   - [2.1 CONDICIONES FORMALES](#21-condiciones-formales)
     - [2.1.1 CONDICIONES FORMALES PARA EL USUARIO PILOTO](#211-condiciones-formales-para-el-usuario-piloto)
     - [2.1.2 CONDICIONES FORMALES PARA FISIO FIND](#212-condiciones-formales-para-fisio-find)
   - [2.2 CONDICIONES INFORMALES](#22-condiciones-informales)
     - [2.2.1 CONDICIONES INFORMALES PARA EL USUARIO PILOTO](#221-condiciones-informales-para-el-usuario-piloto)
-    - [2.2.2 CONDICIONES INFORMALES PARA FISIO FIND](#222-condiciones-informales-para-fisio-find)
+    - [2.2.2 CONDICIONES INFORMALES PARA *FISIO FIND*](#222-condiciones-informales-para-fisio-find)
   - [2.3 PERIODO DE PRUEBAS](#23-periodo-de-pruebas)
-- [3 FIRMA DE INTERESADOS](#3-firma-de-interesados)
+- [3. DATOS DE LAS PARTES Y FIRMA](#3-datos-de-las-partes-y-firma)
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 
 
@@ -58,6 +59,12 @@ monofont: "Noto Sans Mono"
 
 - **Nombre del Proyecto:** FISIO FIND
 
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+
 - **Autores:** Delfín Santana Rubio, Antonio Macías Ferrera
 
 - **Fecha de Creación:** 10/02/2025  
@@ -66,7 +73,6 @@ monofont: "Noto Sans Mono"
 
 <br>
 
-<br>
 
 ---
 

@@ -1,8 +1,8 @@
 ---
 title: "REGISTRO DE CASOS DE USO"
-subtitle: "FISIO FIND"                       
-author: [Alberto Carmona Sicre, Daniel Ruiz López, Rafael Pulido Cifuentes, Daniel Fernández Caballero, Daniel Alors Romero] 
-date: "13/02/2025"                                                 
+subtitle: "FISIO FIND - Grupo 6 - #DP"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
+date: "13/02/2025"
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -32,17 +32,24 @@ classoption: "table"
 <br>
 
 **ÍNDICE**
-- [1. ESTRUCTURA DE LOS CASOS DE USO](#1-estructura-de-los-casos-de-uso)   
+- [1. ESTRUCTURA DE LOS CASOS DE USO](#1-estructura-de-los-casos-de-uso)
 - [2. CASOS DE USO](#2-casos-de-uso)
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 
 <br>
+
 
 ---
 
 **Ficha del documento**
 
 - **Nombre del Proyecto:** FisioFind
+
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
 - **Autores:** Alberto Carmona Sicre, Daniel Ruiz López, Rafael Pulido Cifuentes, Daniel Fernández Caballero, Daniel Alors Romero
 
@@ -51,6 +58,7 @@ classoption: "table"
 - **Versión:** v1.1
 
 <br>
+
 
 ---
 
@@ -66,6 +74,7 @@ classoption: "table"
 <!-- \newpage -->
 
 <br>
+
 
 # 1. ESTRUCTURA DE LOS CASOS DE USO
 

@@ -1,8 +1,8 @@
 ---
 title: "AGUILE INCEPTION"                       
-subtitle: "FISIO FIND"
-author: [Ramón Gavira Sánchez, Daniel Vela Camacho, Delfín Santana Rubio] 
-date: "05/02/2025"                                                 
+subtitle: "FISIO FIND - Grupo 6 - #DP"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
+date: "05/02/2025"
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -36,25 +36,32 @@ monofont: "Noto Sans Mono"
 <br>
 
 **Índice**
-- [1. RESUMEN](#1-resumen)
-- [2. PROBLEMA PRINCIPAL Y RELEVANCIA](#2-problema-principal-y-relevancia)
-- [3. CONTEXTO Y CIRCUNSTANCIAS](#3-contexto-y-circunstancias)
-- [4. NECESIDADES DEL PROYECTO](#4-necesidades-del-proyecto)
-- [5. ARQUITECTURA SPL](#5-arquitectura-spl)
-  - [5.1. CORE](#51-core)
-  - [5.2. MÓDULOS EXTRA (ADDONS)](#52-módulos-extra-addons)
-  - [5.3. FUERA DEL SCOPE](#53-fuera-del-scope)
-- [6. USUARIOS OBJETIVO](#6-usuarios-objetivo)
-- [7. MONETIZACIÓN](#7-monetización)
-- [8. COSTE ESTIMADO](#8-coste-estimado)
-- [9. IMPLEMENTACIÓN Y JUSTIFICACIÓN DE SPL](#9-implementación-y-justificación-de-spl)
-- [10. IMPACTO ESPERADO](#10-impacto-esperado)
-- [11. COMPETIDORES POTENCIALES](#11-competidores-potenciales)
-  - [11.1. GVAM / SITUM](#111-gvam--situm)
-  - [11.2. SMARTIFY](#112-smartify)
-  - [11.3. EXPLORE - AMNH OFFICIAL APP](#113-explore---amnh-official-app)
-  - [11.4. OTROS COMPETIDORES](#114-otros-competidores)
-- [12. DIFERENCIACIÓN DEL PROYECTO](#12-diferenciación-del-proyecto)
+- [**1. RESUMEN**](#1-resumen)
+- [**2. PROBLEMA PRINCIPAL Y RELEVANCIA**](#2-problema-principal-y-relevancia)
+- [**3. CONTEXTO Y CIRCUNSTANCIAS**](#3-contexto-y-circunstancias)
+- [**4. NECESIDADES DEL PROYECTO**](#4-necesidades-del-proyecto)
+- [**5. ARQUITECTURA SPL**](#5-arquitectura-spl)
+  - [**5.1. CORE**](#51-core)
+  - [**5.2. MÓDULOS EXTRA (ADDONS)**](#52-módulos-extra-addons)
+  - [**5.3. FUERA DEL SCOPE**](#53-fuera-del-scope)
+- [**6. USUARIOS OBJETIVO**](#6-usuarios-objetivo)
+- [**Meet your Neighbours (La comunidad)**](#meet-your-neighbours-la-comunidad)
+- [**7. MONETIZACIÓN**](#7-monetización)
+- [**8. COSTE ESTIMADO**](#8-coste-estimado)
+- [**9. IMPLEMENTACIÓN Y JUSTIFICACIÓN DE SPL**](#9-implementación-y-justificación-de-spl)
+- [**10. IMPACTO ESPERADO**](#10-impacto-esperado)
+- [**11. COMPETIDORES POTENCIALES**](#11-competidores-potenciales)
+  - [**11.1. GVAM / SITUM**](#111-gvam--situm)
+    - [**Puntos fuertes:**](#puntos-fuertes)
+    - [**Monetización:**](#monetización)
+  - [**11.2. SMARTIFY**](#112-smartify)
+    - [**Puntos fuertes:**](#puntos-fuertes-1)
+    - [**Monetización:**](#monetización-1)
+  - [**11.3. EXPLORE - AMNH OFFICIAL APP**](#113-explore---amnh-official-app)
+    - [**Puntos fuertes:**](#puntos-fuertes-2)
+    - [**Monetización:**](#monetización-2)
+  - [**11.4. OTROS COMPETIDORES**](#114-otros-competidores)
+- [**12. DIFERENCIACIÓN DEL PROYECTO**](#12-diferenciación-del-proyecto)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
@@ -64,6 +71,12 @@ monofont: "Noto Sans Mono"
 **Ficha del documento**
 
 - **Nombre del Proyecto:** FISIO FIND
+
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
 - **Autores:** Ramón Gavira Sánchez, Daniel Vela Camacho, Delfín Santana Rubio
 
@@ -87,13 +100,9 @@ monofont: "Noto Sans Mono"
 | 06/02/2025 | v1.3    | Delfín Santana Rubio        | Modificación de Tecnologías y Herramientas Clave y Monetización. |
 | 06/02/2025 | v1.4  | Miguel Encina Martínez      | Corrección errores ortográficos  |
 
-
 <br>
 
-<br>
-
-
-<br>
+<!-- \newpage -->
 
 <br>
 

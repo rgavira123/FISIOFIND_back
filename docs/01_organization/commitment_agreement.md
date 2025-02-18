@@ -1,8 +1,8 @@
 ---
 title: "COMMITMENT AGREEMENT"
-subtitle: "FISIO FIND"                       
-author: [Alberto Carmona Sicre, Daniel Ruiz López, Miguel Encina Martínez, Delfín Santana Rubio, Antonio Macías Ferrera] 
-date: "07/02/2025"                                                 
+subtitle: "FISIO FIND - Grupo 6 - #DP"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
+date: "07/02/2025"
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -37,15 +37,15 @@ monofont: "Noto Sans Mono"
 **ÍNDICE**
 - [1. INTRODUCCIÓN](#1-introducción)
 - [2. COMPROMISOS Y CONDICIONES](#2-compromisos-y-condiciones)
-  - [2.1. DEDICACIÓN DE TIEMPO](#21-dedicación-de-tiempo)
-  - [2.2. HORARIO DE DISPONIBILIDAD](#22-horario-de-disponibilidad)
-  - [2.3. COMPENSACIÓN DE TIEMPO](#23-compensación-de-tiempo)
-  - [2.4. COMPROMISO Y REALIZACIÓN DE LAS TAREAS](#24-compromiso-y-realización-de-las-tareas)
-  - [2.5. PRÁCTICAS DE EQUIPO](#25-prácticas-de-equipo)
-  - [2.6. CRITERIOS DE ÉXITO](#26-criterios-de-éxito)
-  - [2.7. CUMPLIMIENTO DEL ACUERDO](#27-cumplimiento-del-acuerdo)
-  - [2.8. CONDICIONES DEL ACUERDO](#28-condiciones-del-acuerdo)
-  - [2.9. CASOS NO CONTEMPLADOS](#29-casos-no-contemplados)
+  - [2.1 DEDICACIÓN DE TIEMPO](#21-dedicación-de-tiempo)
+  - [2.2 HORARIO DE DISPONIBILIDAD](#22-horario-de-disponibilidad)
+  - [2.3 COMPENSACIÓN DE TIEMPO](#23-compensación-de-tiempo)
+  - [2.4 COMPROMISO Y REALIZACIÓN DE LAS TAREAS](#24-compromiso-y-realización-de-las-tareas)
+  - [2.5 PRÁCTICAS DE EQUIPO](#25-prácticas-de-equipo)
+  - [2.6 CRITERIOS DE ÉXITO](#26-criterios-de-éxito)
+  - [2.7 CUMPLIMIENTO DEL ACUERDO](#27-cumplimiento-del-acuerdo)
+  - [2.8 CONDICIONES DEL ACUERDO](#28-condiciones-del-acuerdo)
+  - [2.9 CASOS NO CONTEMPLADOS](#29-casos-no-contemplados)
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 
 <br>
@@ -56,13 +56,17 @@ monofont: "Noto Sans Mono"
 
 - **Nombre del Proyecto:** FISIO FIND
 
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+
 - **Autores:** Alberto Carmona Sicre, Daniel Ruiz López, Miguel Encina Martínez, Delfín Santana Rubio, Antonio Macías Ferrera
 
 - **Fecha de Creación:** 03/02/2025  
 
 - **Versión:** v1.5
-
-<br>
 
 <br>
 
@@ -79,10 +83,11 @@ monofont: "Noto Sans Mono"
 | 07/02/2025 | v1.4    |  Alberto Carmona Sicre, Daniel Ruiz López | Modificación de los apartados: Horario de disponibilidad, Compromiso y realización de las tareas. Añadidas portada e Índice. |
 | 09/02/2025 | v1.5    |  Antonio Macías Ferrera | Pequeñas correcciones de formato. |
 
-
+<br>
 
 <!-- \newpage  -->
 
+<br>
 
 
 # 1. INTRODUCCIÓN

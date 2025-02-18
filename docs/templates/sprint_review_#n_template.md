@@ -1,7 +1,7 @@
 ---
 title: "SPRINT REVIEW SPRINT X"         # CHANGE IF NEEDED
-subtitle: "FISIO FIND"
-author: [Antonio Macías Ferrera]        # CHANGE IF NEEDED
+subtitle: "FISIO FIND - Grupo 6 - #X"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
 date: "04/02/2025"                      # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
@@ -34,11 +34,46 @@ monofont: "Noto Sans Mono"
 
 <br>
 
+
+---
+
+**Ficha del documento**
+
+- **Nombre del Proyecto:** FISIO FIND
+
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+
+- **Autores:** Antonio Macías Ferrera
+
+- **Fecha de Creación:** dd/mm/aaaa  
+
+- **Versión:** v1.0
+
+<br>
+
+
+---
+
+**Histórico de Modificaciones**
+
+| Fecha      | Versión | Realizada por                    | Descripción de los cambios |
+|------------|---------|----------------------------------|----------------------------|
+| 04/02/2025 | v1.0    | Antonio Macías Ferrera           | Elaboración de la plantilla del documento. |
+
+<br>
+
+
+---
+
 **ÍNDICE**
-1. [OBJETIVOS DEL SPRINT](#1-objetivos-del-sprint)
-2. [FUNCIONALIDADES ENTREGADAS](#2-funcionalidades-entregadas)
-3. [FEEDBACK Y OBSERVACIONES](#3-feedback-y-observaciones)
-4. [ACCIONES A SEGUIR](#4-acciones-a-seguir)
+- [**1. OBJETIVOS DEL SPRINT**](#1-objetivos-del-sprint)
+- [**2. FUNCIONALIDADES ENTREGADAS**](#2-funcionalidades-entregadas)
+- [**3. FEEDBACK Y OBSERVACIONES**](#3-feedback-y-observaciones)
+- [**4. ACCIONES A SEGUIR**](#4-acciones-a-seguir)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>

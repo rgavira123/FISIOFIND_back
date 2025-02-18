@@ -1,8 +1,8 @@
 ---
 title: "REGISTRO DE REQUISITOS"
-subtitle: "FISIOFIND"                       
-author: [Alberto Carmona Sicre, Daniel Ruiz López, Rafael Pulido Cifuentes, Daniel Fernandez Caballero, Daniel Alors Romero] 
-date: "12/02/2025"                                                 
+subtitle: "FISIO FIND - Grupo 6 - #DP"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
+date: "12/02/2025"
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -33,22 +33,29 @@ classoption: "table"
 <br>
 
 **ÍNDICE**
-- [1. INTRODUCCIÓN](#1-introducción)  
-    - [1.1. RECOPILACIÓN DE REQUISITOS](#11-recopilación-de-requisitos)  
-- [2. ESTRUCTURA DE LOS REQUISITOS](#2-estructura-de-los-requisitos)    
+- [1. INTRODUCCIÓN](#1-introducción)
+  - [1.1. Recopilación de requisitos](#11-recopilación-de-requisitos)
+- [2. ESTRUCTURA DE LOS REQUISITOS](#2-estructura-de-los-requisitos)
 - [3. REQUISITOS](#3-requisitos)
-    - [3.1. REQUISITOS FUNCIONALES](#31-requisitos-funcionales)  
-    - [3.2. REQUISITOS NO FUNCIONALES](#32-requisitos-no-funcionales)  
-    - [3.3. REQUISITOS DE INFORMACIÓN](#33-requisitos-de-información) 
+  - [3.1. Requisitos Funcionales](#31-requisitos-funcionales)
+  - [3.2 Requisitos No Funcionales](#32-requisitos-no-funcionales)
+  - [3.3 Requisitos de Información](#33-requisitos-de-información)
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 
 <br>
+
 
 ---
 
 **Ficha del documento**
 
 - **Nombre del Proyecto:** FisioFind
+
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
 - **Autores:** Alberto Carmona Sicre, Daniel Ruiz López, Rafael Pulido Cifuentes, Daniel Fernandez Caballero, Daniel Alors Romero
 
@@ -57,6 +64,7 @@ classoption: "table"
 - **Versión:** v1.1
 
 <br>
+
 
 ---
 
@@ -73,6 +81,7 @@ classoption: "table"
 <!-- \newpage -->
 
 <br>
+
 
 # 1. INTRODUCCIÓN  
 En este documento se detallan cada uno de los requisitos contemplados en el proyecto FisioFind.  
