@@ -1,6 +1,6 @@
 ---
-title: "INFORME DE TIEMPO - SEMANA n (dd/mm-dd/mm)"              # CHANGE IF NEEDED
-subtitle: "FISIO FIND - Grupo 6 - #X"
+title: "INFORME DE TIEMPO DE LA SEMANA 1 (31/01-06/02)"              # CHANGE IF NEEDED
+subtitle: "FISIO FIND - Grupo 6 - #DP"
 author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
 date: "10/02/2025"                       # CHANGE IF NEEDED
 subject: "ISPP"
@@ -12,7 +12,7 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: "../.backgrounds/background4V.pdf" # CHANGE IF NEEDED
+titlepage-background: "../../.backgrounds/background4V.pdf" # CHANGE IF NEEDED
 header-left: "CLOCKIFY REPORT"
 header-right: "10/02/2025"               # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
@@ -22,11 +22,11 @@ classoption: "table"
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 <p align="center">
-  <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
+  <img src="../../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
 <h1 align="center" style="font-size: 30px; font-weight: bold;">
-  FISIO FIND  -  INFORME DE TIEMPO dd-mm-aa
+  FISIO FIND  -  INFORME DE TIEMPO 10-02-2025
 </h1>
 
 <br>
@@ -44,7 +44,7 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** Alberto Carmona Sicre
+- **Autores:** Alberto Carmona Sicre, Rafael Pulido Cifuentes
 
 - **Fecha de Creación:** 10/02/2025  
 
@@ -59,7 +59,7 @@ classoption: "table"
 
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
-| 10/02/2025 | v1.0    | Alberto Carmona Sicre           | Elaboración de la plantilla del documento. |
+| 10/02/2025 | v1.0    | Alberto Carmona Sicre, Rafael Pulido Cifuentes           | Elaboración de la primera versión del documento. |
 
 <br>
 
@@ -68,9 +68,9 @@ classoption: "table"
 
 **ÍNDICE**
 1. [PROYECTOS](#1-proyectos)  
-    1.1 [DEFINICIÓN DE CADA PROYECTO](#11-definición-de-cada-proyecto)  
-    1.2 [PROYECTOS REALIZADOS EN LA SEMANA](#12-proyectos-realizados-en-la-semana)
-    1.3 [PROYECTOS DESTACADOS](#13-proyectos-destacados)
+    1.1. [DEFINICIÓN DE CADA PROYECTO](#11-definición-de-cada-proyecto)  
+    1.2. [PROYECTOS REALIZADOS EN LA SEMANA](#12-proyectos-realizados-en-la-semana)
+    1.3. [PROYECTOS DESTACADOS](#13-proyectos-destacados)
 2. [HORAS TOTALES](#2-horas-totales)
 3. [DESGLOSE](#3-desglose)  
     3.1 [DESGLOSE POR DÍAS](#31-desglose-por-días)  
@@ -80,7 +80,7 @@ classoption: "table"
 
 <br>
 
-\newpage
+<!-- \newpage -->
 
 
 # 1. PROYECTOS
@@ -106,6 +106,10 @@ A continuación, se muestran los posibles tipos de tarea en las que pueden traba
 
 - **Organización:** todo lo relacionado con la organización inicial del proyecto.
 
+- **Ideas para proyecto:** proyecto para aquellas reuniones en las que se debaten diferentes ideas de proyectos.
+
+- **Acuerdo de compromiso:** relacionado con la elaboración del documento Acuerdo de Compromiso en la etapa inicial del proyecto.
+
 
 ## 1.2. Proyectos realizados en la semana
 En esta semana de trabajo se ha trabajado en los siguientes proyectos:  
@@ -124,10 +128,13 @@ En esta semana de trabajo se ha trabajado en los siguientes proyectos:
 
 7. Planificación
 
-8. Documentación
+8. Ideas para proyecto
 
-9. feat
+9. Documentación
 
+10. feat
+
+11. Acuerdo de compromiso
 
 
 <br>
@@ -135,17 +142,17 @@ En esta semana de trabajo se ha trabajado en los siguientes proyectos:
 ## 1.3. Proyectos destacados
 Entre los proyectos destacados de la semana, aquellos en los que se ha invertido más tiempo, encontramos los siguientes:  
 
-- **proyecto:** 22:50
+- **docs:** 22:50:29
 
-- **proyecto:** 18:17
+- **Presentaciones / Diseños:** 18:17:34
 
-- ...
+- **Reuniones:** 17:11:11
 
-Esto debido a ...  
+Esto debido a la naturaleza de las **fases iniciales** de los proyectos software, donde las reuniones, la documentación y la exposición de la idea son fundamentales.  
 
 
 # 2. HORAS TOTALES
-Para esta semana de trabajo, el tiempo total dedicado al proyecto ha sido de **X horas** Y minutos.  
+Para la primera semana de trabajo, el tiempo total dedicado al proyecto ha sido de **118 horas**, 42 minutos y 30 segundos.  
 
 <br>
 
@@ -158,19 +165,19 @@ Para una mejor visualización del tiempo dedicado, se realiza un desglose por d�
 ## 3.1 Desglose por días  
 Ordenado de manera cronológica:
 
-- **Viernes dd/mm:** hh:mm
+- **Viernes 31/01:** 25:10:00
 
-- **Sábado dd/mm:** hh:mm
+- **Sábado 01/02:** 00:00:00
 
-- **Domingo dd/mm:** hh:m
+- **Domingo 02/02:** 00:00:00
 
-- **Lunes dd/mm:** hh:mm
+- **Lunes 03/02:** 44:15:36
 
-- **Martes dd/mm:** hh:mm
+- **Martes 04/02:** 21:22:47
 
-- **Miércoles dd/mm:** hh:mm
+- **Miércoles 05/02:** 11:12:06
 
-- **Jueves dd/mm:** hh:mm
+- **Jueves 06/02:** 16:34:01
 
 
 <br>
@@ -178,24 +185,27 @@ Ordenado de manera cronológica:
 ## 3.2 Desglose por proyectos  
 Ordenado de mayor a menor tiempo dedicado en cada proyecto: 
 
-**1. docs:** hh:mm
+**1. docs:** 22:50:29
 
-**2. Presentaciones / Diseños:** hh:mm
+**2. Presentaciones / Diseños:** 18:17:34
 
-**3. Reuniones:** hh:mm
+**3. Reuniones:** 17:11:11
 
-**4. Clases / Vídeos:** hh:mm
+**4. Clases / Vídeos:** 15:58:47
 
-**5. Clases presenciales:** hh:mm
+**5. Clases presenciales:** 15:30:00
 
-**6. Organización:** hh:mm
+**6. Organización:** 12:58:46
 
-**7. Planificación:** hh:mm
+**7. Planificación:** 08:39:56
 
-**8. Documentación:** hh:mm
+**8. Ideas para proyecto:** 03:39:00
 
-**9. feat:** hh:mm
+**9. Documentación:** 02:09:25
 
+**10. feat:** 01:00:00
+
+**11. Acuerdo de compromiso:** 00:27:22
 
 <br>
 
@@ -203,39 +213,39 @@ Ordenado de mayor a menor tiempo dedicado en cada proyecto:
 
 Ordenado por orden alfabético:
 
-**1. Alberto Carmona Sicre** - hh:mm
+**1. Alberto Carmona Sicre** - 08:10:54
 
-**2. Antonio Macías Ferrera** -  hh:mm
+**2. Antonio Macías Ferrera** -  09:02:45
 
-**3. Benjamín Ignacio Maureira Flores** -  hh:mm
+**3. Benjamín Ignacio Maureira Flores** -  05:09:25
 
-**4. Daniel Alors Romero** - hh:mm
+**4. Daniel Alors Romero** - 00:45:21
 
-**5. Daniel Fernández Caballero** - hh:mm
+**5. Daniel Fernández Caballero** -  02:00:00
 
-**6. Daniel Ruiz López**  -  hh:mm
+**6. Daniel Ruiz López**  -  11:06:23
 
-**7. Daniel Tortorici Bartús** - hh:mm
+**7. Daniel Tortorici Bartús** - 02:00:00
 
-**8. Daniel Vela Camacho** - hh:mm
+**8. Daniel Vela Camacho** - 09:02:00
 
-**9. Delfín Santana Rubio** - hh:mm
+**9. Delfín Santana Rubio** - 10:08:44
 
-**10. Francisco Capote García** -  hh:mm
+**10. Francisco Capote García** -  03:28:04
 
-**11. Francisco Mateos Villarejo** -  hh:mm
+**11. Francisco Mateos Villarejo** -  06:20:00
 
-**12. Guadalupe Ridruejo Pineda** - hh:mm
+**12. Guadalupe Ridruejo Pineda** - 19:48:57
 
-**13. Julen Redondo Pacheco** -  hh:mm
+**13. Julen Redondo Pacheco** -  02:13:00
 
-**14. Miguel Encina Martínez** -  hh:mm
+**14. Miguel Encina Martínez** -  08:07:28
 
-**15. Pablo Fernández Pérez** -  hh:mm
+**15. Pablo Fernández Pérez** -  07:35:00
 
-**16. Ramón Gavira Sánchez**  -  hh:mm
+**16. Ramón Gavira Sánchez**  -  08:00:00
 
-**17. Rafael Pulido Cifuentes** -  hh:mm
+**17. Rafael Pulido Cifuentes** -  05:44:29
 
 
 <br>
