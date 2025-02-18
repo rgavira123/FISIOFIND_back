@@ -20,7 +20,6 @@ documentclass: scrartcl
 classoption: "table"
 ---
 
-
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 <p align="center">
   <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
@@ -44,7 +43,6 @@ classoption: "table"
 
 <br>
 
-
 ---
 
 **Ficha del documento**
@@ -57,23 +55,24 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** Alberto Carmona Sicre, Daniel Ruiz López, Rafael Pulido Cifuentes, Daniel Fernandez Caballero, Daniel Alors Romero
+- **Autores:** Alberto Carmona Sicre, Daniel Ruiz López, Rafael Pulido Cifuentes, Daniel Fernández Caballero, Daniel Alors Romero
 
 - **Fecha de Creación:** 12/02/2025  
 
-- **Versión:** v1.1
+- **Versión:** v1.2
 
 <br>
 
-
 ---
+
+<!-- \newpage -->
 
 **Histórico de Modificaciones**
 
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
-| 12/02/2025 | v1.0    | Alberto Carmona Sicre, Daniel Ruiz López, Rafael Pulido Cifuentes, Daniel Fernandez Caballero, Daniel Alors Romero          | Añadidos los apartados: Introducción, Estructura de los Requisitos y Requisitos. |
-| 12/02/2025 | v1.1    | Alberto Carmona Sicre, Daniel Fernandez Caballero       | Modificado el apartado de requisitos funcionales |
+| 12/02/2025 | v1.0    | Alberto Carmona Sicre, Daniel Ruiz López, Rafael Pulido Cifuentes, Daniel Fernández Caballero, Daniel Alors Romero          | Añadidos los apartados: Introducción, Estructura de los Requisitos y Requisitos. |
+| 12/02/2025 | v1.1    | Alberto Carmona Sicre, Daniel Fernández Caballero       | Modificado el apartado de requisitos funcionales |
 | 12/02/2025 | v1.2    | Daniel Alors Romero       | Modificados los apartados de requisitos funcionales y no funcionales  |
 
 <br>
@@ -81,7 +80,6 @@ classoption: "table"
 <!-- \newpage -->
 
 <br>
-
 
 # 1. INTRODUCCIÓN  
 En este documento se detallan cada uno de los requisitos contemplados en el proyecto FisioFind.  
@@ -125,7 +123,7 @@ Por otro lado, para cada requisito, se define lo siguiente:
 
     - **ID requisitos de información**: RI-XXX.    
 
-- **Versión**: indica las distintas fases por las que pasa el requisito. Las versión empieza en la V1.0 y va aumentando en función de las modificaciones.  
+- **Versión**: indica las distintas fases por las que pasa el requisito. La versión empieza en la V1.0 y va aumentando en función de las modificaciones.  
 
 - **Descripción**: una breve descripción de lo que se busca implementar o tener en cuenta con el requisito. 
 
@@ -175,7 +173,7 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | **RF-005** | **Gestión de pagos y facturación automatizada** |
 | --- | --- |
 | **Versión** | V1.1 |
-| **Descripción** | La aplicación debe permitir la gestión de pagos a través de métodos comunes (tarjetas de crédito, transferencias bancarias, plataformas como PayPal u otros métodos de pago relevantes.), así como la generación automatizada de facturas para cada transacción realizada, facilitando los datos del proveedor, cliente, el importe de la factura y comentarios adicionales. |
+| **Descripción** | La aplicación debe permitir la gestión de pagos a través de métodos comunes (tarjetas de crédito, transferencias bancarias, plataformas como PayPal u otros métodos de pago relevantes), así como la generación automatizada de facturas para cada transacción realizada, facilitando los datos del proveedor, cliente, el importe de la factura y comentarios adicionales. |
 | **Prioridad** | Crítica |
 
 | **RF-006** | **Sistema de valoraciones y comentarios de pacientes**  |

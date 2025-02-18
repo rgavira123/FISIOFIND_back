@@ -121,7 +121,7 @@ En el contexto de este proyecto se establecen dos categorías de **usuarios pilo
 
 # 2. CONDICIONES
 
-Se plantean dos tipos de condiciones aceptadas: **formales** e **informales**. Las condiciones **formales** son aquellas que si podrían acarrear una respuesta legal en algún futuro. Las **informales** son aquellas que de incumplirse no se podrían tomar acciones legales por ninguna de las dos partes.
+Se plantean dos tipos de condiciones aceptadas: **formales** e **informales**. Las condiciones **formales** son aquellas que sí podrían acarrear una respuesta legal en algún futuro. Las **informales** son aquellas que, de incumplirse, no se podrían tomar acciones legales por ninguna de las dos partes.
 
 ## 2.1 CONDICIONES FORMALES
 
@@ -169,8 +169,6 @@ A continuación se listan:
 A continuación se listan:
 
 - *FISIO FIND* se compromete a ayudar en todo lo posible al USUARIO PILOTO para que consiga probar la aplicación.
-
-- *FISIO FIND* se compromete a invitar a una bebida al USUARIO PILOTO si ambas así lo deciden. Es decir, si *FISIO FIND* no está satisfecho con el USUARIO PILOTO puede negarse a invitarle.
 
 
 ## 2.3 PERIODO DE PRUEBAS

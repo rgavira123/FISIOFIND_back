@@ -72,6 +72,8 @@ monofont: "Noto Sans Mono"
 
 ---
 
+<!-- \newpage  -->
+
 **Historial de modificaciones**
 
 | Fecha      | Versión | Realizada por | Descripción de los cambios |
@@ -109,7 +111,7 @@ Al unirme a la asignatura de Ingeniería de Software y Práctica Profesional (IS
 - Me comprometo a finalizar mis tareas asignadas a tiempo para evitar retrasos en las actividades de otros compañeros.
 - Me comprometo a ofrecer mis servicios a compañeros que lo necesiten si mi trabajo semanal ha sido finalizado.
 
-[1] En caso de que las personas adelanten tareas de semanas posteriores y sean aprobadas por el equipo de QA, el tiempo extra dedicado en esa semana podrá ser descontado de futuras semanas. Asímismo, si un miembro del grupo no pudiera llegar al mínimo de horas a lo largo de una semana de trabajo, deberá compensarlo invirtiendo más horas la siguiente semana.
+[1] En caso de que las personas adelanten tareas de semanas posteriores y sean aprobadas por el equipo de QA, el tiempo extra dedicado en esa semana podrá ser descontado de futuras semanas. Asimismo, si un miembro del grupo no pudiera llegar al mínimo de horas a lo largo de una semana de trabajo, deberá compensarlo invirtiendo más horas la siguiente semana.
 
 <br>
 

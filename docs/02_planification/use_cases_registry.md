@@ -66,8 +66,8 @@ classoption: "table"
 
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
-| 12/02/2025 | v1.0    | Daniel Ruiz López, Rafael Pulido Cifuentes, Daniel Fernández Caballero      | Añadidos los Casos de uso. |
-| 13/02/2025 | v1.1    | Alberto Carmona Sicre, Daniel Fernández Caballero       | Añadidos los apartados: Estructura de los casos de Uso y Casos de Uso |
+| 12/02/2025 | v1.0    | Daniel Ruiz López, Rafael Pulido Cifuentes, Daniel Fernández Caballero      | Añadidos los casos de uso. |
+| 13/02/2025 | v1.1    | Alberto Carmona Sicre, Daniel Fernández Caballero       | Añadidos los apartados: Estructura de los casos de uso y Casos de uso |
 
 <br>
 

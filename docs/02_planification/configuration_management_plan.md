@@ -59,6 +59,7 @@ monofont: "Noto Sans Mono"
 - [**7. ORGANIZACIÓN DE LA DOCUMENTACIÓN**](#7-organización-de-la-documentación)
   - [**7.1. OneDrive**](#71-onedrive)
   - [**7.2. Repositorio de GitHub**](#72-repositorio-de-github)
+    - [**7.3. Documentación como código**](#73-documentación-como-código)
 - [**8. CONCLUSIÓN**](#8-conclusión)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
@@ -114,7 +115,7 @@ Este plan contiene la información sobre cómo el equipo de trabajo realizará e
 
 # **2. ELEMENTOS CONFIGURABLES**
 
-Los elementos configurables del proyecto incluyen aquellos artefactos y entregables que pueden estar sujetos a modificaciones durante el desarrollo. Cada uno de estos elementos tendrá un identificador único, y se someterá a control de versiones.
+Los elementos configurables del proyecto incluyen aquellos artefactos y entregables que pueden estar sujetos a modificaciones durante el desarrollo. Cada uno de estos elementos tendrá un identificador único y se someterá a control de versiones.
 
 1. **Documentación**: todos los documentos que surjan a lo largo de todas las fases del proyecto deberán estar sujetos a un sistema de control de versiones específico y unificado.
 
@@ -135,7 +136,7 @@ Los elementos configurables del proyecto incluyen aquellos artefactos y entregab
 
 | Tecnología | Elementos Configurables | Descripción |
 |------------|--------------------------|-------------|
-| Pandoc y Eisvogel   | Documentación, Registros  | Plataforma para la edición  de documentos en Markdown. |
+| Pandoc y Eisvogel   | Documentación, Registros  | Plataforma para la edición de documentos en Markdown. |
 | Clockify   | Tareas                    | Seguimiento del tiempo de trabajo por actividad. |
 | GitHub Project   | Hitos, requisitos, HU     | Herramienta ágil para gestión de proyectos. |
 | Git        | Código fuente             | Control de versiones del código fuente. |
@@ -165,7 +166,7 @@ Ejemplo de versionado: `v1.2` (vMayor.Menor)
 ## **4.2. HU, tareas y actividades**
 Cada historia de usuario y caso de uso tiene un identificador único asignado tras su creación.
 
-Cambios importantes en la descripción o criterios de aceptación de una HU se anotan y actualizaremos la versión. Se seguirá un versionado similar al visto en el punto anterior. La versión de cada elemento se añadirá en un campo específico que encontraremos en su tabla.
+Cambios importantes en la descripción o criterios de aceptación de una HU se anotan y actualizan la versión. Se seguirá un versionado similar al visto en el punto anterior. La versión de cada elemento se añadirá en un campo específico que encontraremos en su tabla.
 
 - **Mayor**: Cambios significativos en el contenido debido a un cambio en los requisitos.
 
@@ -175,7 +176,7 @@ Ejemplo de versionado: `v1.2` (vMayor.Menor).
 
 A la hora de crear nuevas tareas en *GitHub Project* en base a las HU, se deberá usar un nombre descriptivo y breve, similar al título de la HU asociada. Como esta tarea estará asociada a una Issue de GitHub irá acompañada de un código de la Issue(#XX). ***Esto ayudará a llevar una trazabilidad entre Issue - Tarea - HU - Clockify***.
 
-La nomenclatura a seguir para los distintos requisitos, CU e HU se con un esquema de numeración para cada tipo de registro: 
+La nomenclatura a seguir para los distintos requisitos, CU e HU será un esquema de numeración para cada tipo de registro: 
 
 
 | **Categoría**                                            | **Código**    |
@@ -203,7 +204,7 @@ Las tareas se numeran en orden cronológico y deben incluir un identificador ún
 
 Se excluyen de esta nomenclatura las tareas de las fases de Inicio y Planificación. Todas
 las tareas deberán estar asignadas a UNA SOLA persona y a un proyecto de Clockify previamente
-creado. Esto ayudará evaluar mejor el desempeño y el tiempo empleado en las tareas.
+creado. Esto ayudará a evaluar mejor el desempeño y el tiempo empleado en las tareas.
 
 Ejemplo de versionado: `Realización de ventana de inicio de sesión #53`.
 
@@ -234,7 +235,7 @@ Ejemplo de versionado: `Realización de ventana de inicio de sesión #53`.
 - **Reglas de versionado**: Cuando la versión mayor sea incrementada se resetean las demás, cuando se incremente la versión menor, se resetea el parche. Seguramente se hagan de manera automática usando un workflow.
 
 ***Commits (Conventional Commits)***
-La política de nombrado de commits se ajustará a las directrices de *Conventional Commits*, siendo estos **siempre en inglés**:
+La política de nombrado de commits se ajustará a las directrices de *Conventional Commits*, siendo el cuerpo de estos **siempre en ESPAÑOL**:
 
 ```
 <tipo>: <descripción breve>
@@ -276,6 +277,9 @@ BREAKING CHANGE: The login API now requires a JWT token instead of a cookie-base
 Los registros se mantienen como archivos en formato *Markdown*. Cada cambio, HU o caso de uso tiene un identificador único (ejemplo: HU-001, CU-003). Cambios aprobados se reflejan en el historial de cambios del documento correspondiente actualizando su versión acorde a lo mencionado anteriormente.
 
 Para las solicitudes de cambio formales, se deberá seguir la plantilla ubicada en el ***Plan De Gestión Del Cambio***.
+
+Dentro del sistema de control de versiones de *GitHub*, los cambios que se gestionen mediante *Issues* deberá seguir la plantilla especificada, siendo el cuerpo de estas **siempre en ESPAÑOL**:
+
 
 <br>
 
@@ -528,7 +532,7 @@ Todos estos ejemplos son una muestra de los más importantes que tendremos en cu
 
 # **7. ORGANIZACIÓN DE LA DOCUMENTACIÓN**
 
-Se han establecido dos canales principales para el almacenamiento y contron de la documentación: el repositorio del proyecto en **GitHub**, y una carpeta compartida en **OneDrive**. Estas unidades de almacenamento tendrán usos bastante diferenciados, y se orfanizarán de la siguiente forma:
+Se han establecido dos canales principales para el almacenamiento y control de la documentación: el repositorio del proyecto en **GitHub**, y una carpeta compartida en **OneDrive**. Estas unidades de almacenamiento tendrán usos bastante diferenciados, y se organizarán de la siguiente forma:
 
 ## **7.1. OneDrive**
 
@@ -554,7 +558,7 @@ En esta carpeta compartida a todos los miembros del grupo se almacenarán archiv
 
 ## **7.2. Repositorio de GitHub**
 
-En la carpeta `docs` del repositorio del proyecto se almacenará toda la documentación necesaria para los entregables del proyecto. Aquí entran: documentación ágil (sprint plannig, retrospective, review), acuerdos grupales (acuerdo de compromiso, acuerdo de uso de IA), actas de reuniones, planes, registros de requisitos, reportes y la base de conocimiento. Se ha decidido seguir la siguiente estructura:
+En la carpeta `docs` del repositorio del proyecto se almacenará toda la documentación necesaria para los entregables del proyecto. Aquí entran: documentación ágil (sprint planning, retrospective, review), acuerdos grupales (acuerdo de compromiso, acuerdo de uso de IA), actas de reuniones, planes, registros de requisitos, reportes y la base de conocimiento. Se ha decidido seguir la siguiente estructura:
 
 ```
 └── docs/
@@ -564,38 +568,34 @@ En la carpeta `docs` del repositorio del proyecto se almacenará toda la documen
   ├── .backgrounds/
   │   └── ...
   |
-  ├── knowledge_base/
-  │   └── [Feedback semanal de las clases y los apuntes de los vídeos]
   |
-  ├── meetings/
-  │   └── [Actas de reuniones]
-  |
-  ├── organization/
+  ├── 01_organization/
   │   └── [Acuerdos grupales y documentos de análisis (agile inception, competidores, costes...)]
   |
-  ├── planification/
+  |
+  ├── 02_planification/
   │   └── [Planes y registros de CU, HU, requisitos y trazabilidad]
   |
-  ├── reports_ai/
-  │   └── [Informes de uso de Inteligencia Artificial]
   |
-  ├── reports_performance/
-  │   └── [Informes de rendimiento semanal]
+  ├── 03_reports/
+  │   ├── ia_reports/ [Informes de uso de Inteligencia Artificial]
+  |   |
+  │   └── time_reports/ [Informes de rendimiento semanal]
   |
-  ├── reports_time/
-  │   └── [Informes de tiempo usando la herramienta Clockify]
   |
-  ├── sprint_1/
-  │   └── [Sprint Planning, Review y Retrospective del Sprint 1]
+  ├── 04_monitoring/
+  │   ├── meetings/ [Actas de reuniones]
+  |   |
+  │   ├── sprint_1/ [Sprint Planning, Review y Retrospective del Sprint 1]
+  |   |
+  │   ├── sprint_2/ [Sprint Planning, Review y Retrospective del Sprint 2]
+  |   |
+  │   └── sprint_3/ [Sprint Planning, Review y Retrospective del Sprint 3]
   |
-  ├── sprint_2/
-  │   └── [Sprint Planning, Review y Retrospective del Sprint 2]
   |
-  ├── sprint_3/
-  │   └── [Sprint Planning, Review y Retrospective del Sprint 3]
+  ├── 05_knowledge_base/
+  │   └── [Feedback semanal de las clases y los apuntes de los vídeos]
   |
-  ├── knowledge_base/
-  │   └── [Feedback semanal de las clases y los apuntes de los vídeos.]
   |
   ├── templates/
   │   └── ...
@@ -603,6 +603,62 @@ En la carpeta `docs` del repositorio del proyecto se almacenará toda la documen
   ├── build-examples.sh
   └── eisvogel.latex
 ```
+
+### **7.3. Documentación como código**
+
+Siguiendo la filosofía ***Docs as Code*** se ha creado un repositorio de documentación externo al repositorio principal en el que, haciendo uso de la herramienta Docusaurus, se ha montado una página estática que recoge toda la documentación del proyecto.
+
+La estructura del repositorio es la siguiente
+
+```
+└── fisio-find
+    └── docs 
+    │   ├── 01. Organización/
+    │   │   └── [Acuerdos grupales y documentos de análisis (agile inception, competidores, costes...)]
+    │   |
+    │   ├── 02. Planificación/
+    │   │   └── [Planes y registros de CU, HU, requisitos y trazabilidad]
+    │   |
+    │   ├── 03. Informes/
+    │   |   ├── 3.1. Informes de horas/
+    │   │   |   └── [Informes de tiempo usando la herramienta Clockify]
+    │   |   |
+    │   |   ├── 3.2. Informes de rendimiento/
+    │   │   |   └── [Informes de rendimiento semanal]
+    │   |   |
+    │   |   └── 3.3. Informes de IA/
+    │   |       └── [Informes de uso de Inteligencia Artificial]
+    │   |
+    │   ├── 04. Seguimiento/
+    │   |   ├── 4.1. Reuniones/
+    │   │   |   └── [Actas de reuniones]
+    │   |   |
+    │   |   └── 4.2. Sprint 1/
+    │   │   |   └── [Sprint Planning, Review y Retrospective del Sprint 1]
+    │   |   |
+    │   |   ├── 4.3. Sprint 2/
+    │   │   |   └── [Sprint Planning, Review y Retrospective del Sprint 2]
+    │   |   |    
+    │   |   └── 4.4. Sprint 3/
+    │   │       └── [Sprint Planning, Review y Retrospective del Sprint 3]
+    │   |
+    │   |
+    │   ├── 05. Recursos/
+    │   |   └── 5.1. Feedbacks/
+    │   |       └──[Feedback semanal de las clases]
+    │   |
+    │   └── Inicio.md
+    |
+    ├── src/
+    |   └── [Lógica de la aplicación estática]
+    .
+    .
+    .
+    (Resto del código )
+```
+
+Se puede observar que, con respecto al repositorio principal, en la página se mantiene la misma documentación y una estructura similiar, adaptada para un mayor entendimiento por parte del usuario.
+Así mismo, todos los cambios en los documentos son revisados de forma diaria para mantener la página actualizada constantemente.
 
 
 Toda la documentación deberá seguir en todo momento la **política de versionado y control** especificada en el punto 4 de este documento, y además deberá atenerse al ***Plan de Gestión del Cambio***.
@@ -612,6 +668,3 @@ Toda la documentación deberá seguir en todo momento la **política de versiona
 Este documento define las políticas de gestión de configuración del proyecto **FISIO FIND**. Es crucial que estas buenas prácticas sean aplicadas por todos los miembros del equipo a lo largo de todo el proyecto para procurar un orden, trazabilidad y, en resumen, una buena calidad en el desarrollo y resultado del producto.
 
 <br>
-
-<br>
-

@@ -1,5 +1,5 @@
 ---
-title: "AGUILE INCEPTION"                       
+title: "AGILE INCEPTION"                       
 subtitle: "FISIO FIND - Grupo 6 - #DP"
 author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
 date: "05/02/2025"
@@ -13,7 +13,7 @@ titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
 titlepage-background: "../.backgrounds/background1V.pdf"                            
-header-left: "AGUILE INCEPTION"                 
+header-left: "AGILE INCEPTION"                 
 header-right: "05/02/2025"                                         
 footer-left: "FISIO FIND"
 documentclass: scrartcl
@@ -23,19 +23,18 @@ sansfont: "Noto Sans"
 monofont: "Noto Sans Mono"
 ---
 
-
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 <p align="center">
   <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
 <h1 align="center" style="font-size: 30px; font-weight: bold;">
-  FISIO FIND  -  AGULE INCEPTION
+  FISIO FIND  -  AGILE INCEPTION
 </h1>
 
 <br>
 
-**Índice**
+**ÍNDICE**
 - [**1. RESUMEN**](#1-resumen)
 - [**2. PROBLEMA PRINCIPAL Y RELEVANCIA**](#2-problema-principal-y-relevancia)
 - [**3. CONTEXTO Y CIRCUNSTANCIAS**](#3-contexto-y-circunstancias)
@@ -52,19 +51,14 @@ monofont: "Noto Sans Mono"
 - [**10. IMPACTO ESPERADO**](#10-impacto-esperado)
 - [**11. COMPETIDORES POTENCIALES**](#11-competidores-potenciales)
   - [**11.1. GVAM / SITUM**](#111-gvam--situm)
-    - [**Puntos fuertes:**](#puntos-fuertes)
-    - [**Monetización:**](#monetización)
   - [**11.2. SMARTIFY**](#112-smartify)
-    - [**Puntos fuertes:**](#puntos-fuertes-1)
-    - [**Monetización:**](#monetización-1)
   - [**11.3. EXPLORE - AMNH OFFICIAL APP**](#113-explore---amnh-official-app)
-    - [**Puntos fuertes:**](#puntos-fuertes-2)
-    - [**Monetización:**](#monetización-2)
   - [**11.4. OTROS COMPETIDORES**](#114-otros-competidores)
 - [**12. DIFERENCIACIÓN DEL PROYECTO**](#12-diferenciación-del-proyecto)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
+
 
 ---
 
@@ -82,9 +76,7 @@ monofont: "Noto Sans Mono"
 
 - **Fecha de Creación:** 04/02/2025  
 
-- **Versión:** v1.3
-
-<br>
+- **Versión:** v1.4
 
 <br>
 
@@ -96,16 +88,15 @@ monofont: "Noto Sans Mono"
 |------------|---------|----------------------------------|----------------------------|
 | 04/02/2025 | v1.0    | Ramón Gavira Sánchez, Daniel Vela Camacho, Delfín Santana Rubio           | Elaboración de la primera versión del documento. |
 | 05/02/2025 | v1.1    | Delfín Santana Rubio          | Desarrollo de apartados. |
-| 06/02/2025 | v1.2    | Daniel Alors Romero           | Transpaso de documentación y corrección del formato. |
+| 06/02/2025 | v1.2    | Daniel Alors Romero           | Traspaso de documentación y corrección del formato. |
 | 06/02/2025 | v1.3    | Delfín Santana Rubio        | Modificación de Tecnologías y Herramientas Clave y Monetización. |
-| 06/02/2025 | v1.4  | Miguel Encina Martínez      | Corrección errores ortográficos  |
+| 06/02/2025 | v1.4  | Miguel Encina Martínez      | Corrección de errores ortográficos  |
 
 <br>
 
 <!-- \newpage -->
 
 <br>
-
 
 # **1. RESUMEN**
 
@@ -125,9 +116,16 @@ Esta solución está basada en el siguiente contexto:
 
 La solución se basa en la estrategia **Software Product Line (SPL)** lo que permite ofrecer un conjunto de funcionalidades básicas (core) y módulos adicionales personalizables según los requisitos de cada museo.
 
+<br>
+
+<!-- \newpage -->
+
+<br>
+
+
 # **4. NECESIDADES DEL PROYECTO**
 **¿Cómo se llegó a la necesidad de llevar a cabo el proyecto?**
-Un miembro del grupo vivió esta problemática en primera persona durante su visita al *Museo del Louvre* en París, donde se sintió abrumado por las dimensiones y la cantidad de obras que tenía el museo, donde un simple mapa en papel no era suficiente para plainificar una ruta adaptada a su tiempo y preferencias.
+Un miembro del grupo vivió esta problemática en primera persona durante su visita al *Museo del Louvre* en París, donde se sintió abrumado por las dimensiones y la cantidad de obras que tenía el museo, donde un simple mapa en papel no era suficiente para planificar una ruta adaptada a su tiempo y preferencias.
 
 
 # **5. ARQUITECTURA SPL**
@@ -170,7 +168,7 @@ Un miembro del grupo vivió esta problemática en primera persona durante su vis
     - Hemos llamado a este módulo así porque nos referimos a integrar cosas que ellos ya tienen, como por ejemplo, venta de entradas, colección de obras o una integración de una tienda.
 
 - Módulo Trivia:
-    - Para hacerlo más dinámico proponer un trivial de preguntas, foto y preugnta de cuál es esta obra...
+    - Para hacerlo más dinámico proponer un trivial de preguntas, foto y pregunta de cuál es esta obra...
 
 ## **5.3. FUERA DEL SCOPE**
 
@@ -178,6 +176,13 @@ Un miembro del grupo vivió esta problemática en primera persona durante su vis
 - ❌ No es una visita virtual inmersiva ni con reconstrucción 3D.
 - ❌ No es una aplicación que te ubique en tiempo real, más bien es para planificar.
 - ❌ No gestiona el aforo o la afluencia del museo.
+
+<br>
+
+<!-- \newpage -->
+
+<br>
+
 
 # **6. USUARIOS OBJETIVO**
 # **Meet your Neighbours (La comunidad)**
@@ -203,7 +208,7 @@ Hemos decidido ofrecer un Software as a Service a partir de planes mensuales. Es
 - Louvre: cerca de 300 salas, 210,000 m<sup>2</sup>
 - Museo Nacional Centro de Arte Reina Sofía: 84,048 m<sup>2</sup>
 
-Las fuentes de estos datos son planos oficiales de los museos o o consultadas directamente desde *Wikipedia*.
+Las fuentes de estos datos son planos oficiales de los museos o consultadas directamente desde *Wikipedia*.
 
 A partir de estos datos, en un primer momento hemos decidido ofrecer los siguientes planes para las entidades privadas:
 
@@ -226,7 +231,6 @@ Sin embargo, si hiciera falta participar en concurso público para dar nuestros 
 # **8. COSTE ESTIMADO** 
 Haced una estimación de las horas que vamos a hacer (10h semanales x semanas x 17 personas x X€/hora).
 
-
 # **9. IMPLEMENTACIÓN Y JUSTIFICACIÓN DE SPL**
 
 **Qué vamos a hacer nosotros (Por qué un SPL)**
@@ -247,7 +251,6 @@ Como primer cliente ficticio usaremos los datos del Louvre, que son públicos pa
 
 - PostgreSQL
 
-
 # **10. IMPACTO ESPERADO**
 
 - Mejora de la satisfacción del visitante al permitirle optimizar su recorrido.
@@ -258,12 +261,11 @@ Como primer cliente ficticio usaremos los datos del Louvre, que son públicos pa
 
 - Mayor flexibilidad para los museos, que podrán personalizar la aplicación con módulos según sus necesidades sin afectar al core del sistema.
 
-
 # **11. COMPETIDORES POTENCIALES**
 
 ## **11.1. GVAM / SITUM**
 
-### **Puntos fuertes:**
+**Puntos fuertes:**
 
 1. Situm ofrece la geolocalización dentro del establecimiento mediante una tecnología innovadora (*Indoor Maps*), para poder localizar determinados elementos dentro del recinto.
 
@@ -272,14 +274,14 @@ Como primer cliente ficticio usaremos los datos del Louvre, que son públicos pa
     - También ofrece soluciones para poder gestionar y actualizar guías interactivas.
     - Ofrece audioguías completas relativas a una ruta, ya sea determinada por ellos o por el propio museo.
 
-### **Monetización:**  
+**Monetización:**  
 - Parece ofrecer soluciones personalizadas a los diferentes museos interesados en servicios y mejoras específicas.
 
 ---
 
 ## **11.2. SMARTIFY**
 
-### **Puntos fuertes:**
+**Puntos fuertes:**
 
 1. Aplicación donde se pueden adquirir entradas para una gran cantidad de museos o puntos culturales.
 
@@ -293,7 +295,8 @@ Como primer cliente ficticio usaremos los datos del Louvre, que son públicos pa
 
 6. Identifica obras de arte online.
 
-### **Monetización:**  
+**Monetización:**  
+
 - Venta de entradas, acordada mediante un modelo de *split* económico con los museos.  
 
 - Venta de productos de *merchandising*.
@@ -302,7 +305,8 @@ Como primer cliente ficticio usaremos los datos del Louvre, que son públicos pa
 
 ## **11.3. EXPLORE - AMNH OFFICIAL APP**
 
-### **Puntos fuertes:**
+**Puntos fuertes:**
+
 1. Es la aplicación oficial del museo.
 
 2. Tiene un mapa digitalizado interactivo del plano del museo, incluyendo puntos de interés y obras.
@@ -321,8 +325,8 @@ Como primer cliente ficticio usaremos los datos del Louvre, que son públicos pa
 
 9. Para cada obra ofrece información y una sección interactiva con datos curiosos en forma de trivias.
 
+**Monetización:**
 
-### **Monetización:**  
 - Al ser una aplicación propia del museo, la monetización proviene directamente de la venta de entradas y membresías a través de la aplicación.
 
 ---
@@ -349,9 +353,6 @@ Existen numerosas aplicaciones que ofrecen guías de visita estáticas de museos
 
 - [Museos virtuales](https://ecobnb.es/blog/2021/07/museos-virtuales-mundo-online-visitar-gratis/) y [Google Arts](https://www.juntadeandalucia.es/organismos/culturaydeporte/areas/cultura/museos-arte/vistas-virtuales.html): Permite visitas virtuales pero parece no dejar crear rutas.
 
-
-
-
 # **12. DIFERENCIACIÓN DEL PROYECTO**
 
 **Elementos a Tener en Cuenta:**
@@ -363,7 +364,6 @@ Existen numerosas aplicaciones que ofrecen guías de visita estáticas de museos
 - No somos una aplicación basada en el *matchmaking* como Airbnb o Uber, ya que no conectamos personas para satisfacer servicios específicos.
 
 - No es un proyecto de servicio que utilice la monetización basada en los datos de los usuarios, como *LinkedIn*.
-
 
 **Razones por las cuales nos parecemos a Netflix:**
 - ✔ Es un servicio digital innovador que mejora la experiencia del usuario dentro del museo.  
