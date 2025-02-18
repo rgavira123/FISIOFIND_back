@@ -27,7 +27,7 @@ classoption: "table"
 </p>
 
 <h1 align="center" style="font-size: 30px; font-weight: bold;">
-  FISIO FIND  -  REGISTRO DE RIESGOS
+  FISIO FIND - REGISTRO DE RIESGOS
 </h1>
 
 <br>
@@ -44,7 +44,7 @@ classoption: "table"
 
 - **Nombre del Proyecto:** Fisio Find
 
-- **Autores:** Delfín Santana Rubio
+- **Autores:** Delfín Santana Rubio, Julen Redondo Pacheco
 
 - **Fecha de Creación:** 16/02/2025  
 
@@ -61,7 +61,7 @@ classoption: "table"
 | 16/02/2025 | v1.0    | Delfín Santana Rubio          | Creación del documento y primeras modificaciones |
 | 17/02/2025 | v1.1    | Delfín Santana Rubio          | Añadido impacto, probabilidad y factor a los riesgos, creación del punto 2.1 y añadidos más riesgos |
 | 17/02/2025 | v1.2    | Delfín Santana Rubio          | Añadidos más riesgos y movido punto 2.1 al plan de gestión de requisitos  |
-| 18/02/2025 | v1.3    | Julen Redondo Pacheco          | Añadido más riesgos |
+| 18/02/2025 | v1.3    | Julen Redondo Pacheco          | Añadidos más riesgos |
 
 
 <br>
@@ -79,7 +79,7 @@ En este documento se detallan cada uno de los riesgos contemplados en el proyect
 | --- | --- |
 | **Versión** | V1.1 |
 | **Descripción** | Dado que esta aplicación maneja datos médicos, existe el riesgo de que estos se filtren (ya sea por brecha de seguridad, mal manejo de permisos, etc.). Esto es un problema ya que la regulación actual de protección de datos penaliza gravemente este tipo de sucesos. |
-| **Clasificación** | Internos-externos |
+| **Clasificación** | Internos-Externos |
 | **Probabilidad**<br>**Impacto**<br>**Factor** | 3<br>10<br>30 |
 | **Prioridad** | 10|
 | **Contramedidas actuales** | Implementar las medidas de seguridad necesarias: cifrado, herramientas de escaneo de código en búsqueda de vulnerabilidades, etc. |
@@ -125,15 +125,15 @@ En este documento se detallan cada uno de los riesgos contemplados en el proyect
 | **Contramedidas actuales** | Se deberá hacer la aplicación lo más intuitiva posible y evaluar el grado de usabilidad y satisfacción en las encuestas pasadas a los usuarios piloto. |
 | **Plan de contingencia** | De descubrirse de alguna forma que esto está sucediendo, se deberá pedir al usuario final de forma más clara que ofrezca su feedback. Por ejemplo, añadiendo un mensaje en la pantalla de inicio que anime a dar feedback de la aplicación. |
 
-| **RIG-006** | **Los medios para comprobar que un fisio está colegiado dejan de estar disponibles**  |  
+| **RIG-006** | **Los medios para comprobar que un fisioterapeuta está colegiado dejan de estar disponibles**  |  
 | --- | --- |
 | **Versión** | V1.0 |
-| **Descripción** | Existe la posibilidad de que los medios que FISIO FIND utiliza para comprobar si un fisio esté o no colegiado dejen de estar disponibles. Por ejemplo, actualmente esto se comprueba a través de las webs públicas de los colegiados. Si, por ejemplo, una nueva ley de protección impide que estas páginas sean públcias, nuestros mecanismos para comprobar que un fisio está colegiado quedarían inoperativos.  |
+| **Descripción** | Existe la posibilidad de que los medios que FISIO FIND utiliza para comprobar si un fisioterapeuta esté o no colegiado dejen de estar disponibles. Actualmente, esto se comprueba a través de las webs públicas de los colegiados. Si una nueva ley de protección impidiera que estas páginas fueran públicas, nuestros mecanismos para verificar la colegiación de un fisioterapeuta quedarían inoperativos.  |
 | **Clasificación** | Técnicos |
 | **Probabilidad**<br>**Impacto**<br>**Factor** | 1<br>9<br>9 |
 | **Prioridad** | 6 |
-| **Contramedidas actuales** | Se deberá estar a la orden del día en cuanto a legislación de protección de datos y a las noticias que esten relacionadas de alguna forma con este riesgo. Debido a la poca probabilidad de que suceda algo así, esto se hará de forma informal por el equipo, sin necesidad de que quede registrado. |
-| **Plan de contingencia** | De suceder este riesgo, se buscarán formas alternativas para verficar que un fisio está colegiado. Debido a que se entiende de que los fisios siempre van a tener la necesidad de ser capaces de verificar que están colegiados, simplemente se deberá estudiar la forma de digitalizar y automatizar este proceso lo máximo posible. |
+| **Contramedidas actuales** | Se deberá estar a la orden del día en cuanto a legislación de protección de datos y a las noticias que estén relacionadas de alguna forma con este riesgo. Debido a la poca probabilidad de que suceda algo así, esto se hará de forma informal por el equipo, sin necesidad de que quede registrado. |
+| **Plan de contingencia** | De suceder este riesgo, se buscarán formas alternativas para verificar la colegiación de los fisioterapeutas. Dado que siempre necesitarán comprobar su colegiación, se deberá estudiar la forma de digitalizar y automatizar este proceso al máximo. |
 
 | **RIG-007** | **Las tecnologías utilizadas dejan de estar mantenidas**  |  
 | --- | --- |
@@ -143,7 +143,7 @@ En este documento se detallan cada uno de los riesgos contemplados en el proyect
 | **Probabilidad**<br>**Impacto**<br>**Factor** | 1<br>6<br>6 |
 | **Prioridad** | 5 |
 | **Contramedidas actuales** | Se deberán utilizar tecnologías que lleven el suficiente tiempo siendo mantenidas y que tengan una amplia comunidad. |
-| **Plan de contingencia** | Se deberá estudiar los pros y contras de seguir utilando el software no mantenido, cambiar a otro software y de que el equipo de FISIO FIND dedique recursos para ellos mismos mantener el software, para así tomar la decisión más adecuada. |
+| **Plan de contingencia** | Se deberá estudiar los pros y contras de seguir utilizando el software no mantenido, cambiar a otro software y de que el equipo de FISIO FIND dedique recursos para ellos mismos mantener el software, para así tomar la decisión más adecuada. |
 
 | **RIG-008** | **Problemas con la interoperabilidad entre plataformas**  |  
 | --- | --- |
@@ -168,7 +168,7 @@ En este documento se detallan cada uno de los riesgos contemplados en el proyect
 | **RIG-010** | **Problemas de escalabilidad**  |  
 | --- | --- |
 | **Versión** | V1.0 |
-| **Descripción** | Si la aplicación crece rápidamente en número de usuarios, la infraestructura podría no ser capaz de soportar la demanda, generando tiempos de carga lentos o caídas del sistema.  |
+| **Descripción** | Si la cantidad de usuarios de la aplicación crece rápidamente, la infraestructura podría no soportar la demanda, provocando tiempos de carga lentos o caídas del sistema.  |
 | **Clasificación** | Técnicos |
 | **Probabilidad**<br>**Impacto**<br>**Factor** | 5<br>8<br>40 |
 | **Prioridad** | 6 |

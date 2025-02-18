@@ -33,11 +33,11 @@ classoption: "table"
 <br>
 
 **ÍNDICE**
-- [1. INTRODUCCIÓN](#1-introducción)   
+- [1. INTRODUCCIÓN](#1-introducción)
 - [2. REGISTRO DE RIESGOS](#2-registro-de-riesgos)
-- [3. CLASIFICACIÓN DE RIESGOS](#3-clasificacion-de-riesgos)
-- [4. EVALUACIÓN DE RIESGOS](#4-evaluacion-de-riesgos)
-- [5. PLANES DE CONTIGENCIA Y CONTRAMEDIDAS](#5-planes-de-contingencia-y-contramedidas)
+- [3. CLASIFICACIÓN DE RIESGOS](#3-clasificación-de-riesgos)
+- [4. EVALUACIÓN DE RIESGOS](#4-evaluación-de-riesgos)
+- [5. PLANES DE CONTIGENCIA Y CONTRAMEDIDAS](#5-planes-de-contigencia-y-contramedidas)
 - [6. SEGUIMIENTO DE RIESGOS](#6-seguimiento-de-riesgos)
 - [7. MATRIZ DE RIESGOS](#7-matriz-de-riesgos)
 
@@ -49,7 +49,7 @@ classoption: "table"
 
 - **Nombre del Proyecto:** FISIO FIND
 
-- **Autores:** Delfín Santana Rubio
+- **Autores:** Delfín Santana Rubio, Julen Redondo Pacheco
 
 - **Fecha de Creación:** 17/02/2025  
 
@@ -64,6 +64,8 @@ classoption: "table"
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
 | 17/02/2025 | v1.0    | Delfín Santana Rubio          | Creación del documento y primeras modificaciones |
+| 18/02/2025 | v1.1    | Julen Redondo Pacheco        | Correcciones y modificaciones |
+
 
 <br>
 
@@ -72,14 +74,14 @@ classoption: "table"
 <br>
 
 # 1. INTRODUCCIÓN  
-En este documento se detalla el plan de gestión de riesgos del proyecto FISIO FIND. Se detalla la clasificación de los riesgos y la forma de analizarlos y clasificarlos.
+En este documento se detalla el plan de gestión de riesgos del proyecto FISIO FIND. Se detalla la clasificación de los riesgos y la metodología para analizarlos y categorizarlos.
 
 # 2. REGISTRO DE RIESGOS
-Se deberán de registrar los riesgos en el documento **Risk Registry**. Para esto, se entienden dos formas posibles de conocer riesgos:
-- Forma pasiva: el que se conoce de forma pasiva. Como puede ser, atendiendo al feedback de clase.
+Se deberán registrar los riesgos en el documento **Risk Registry**. Para esto, se identifican dos formas posibles de conocer riesgos:
+- Forma pasiva: riesgos detectados indirectamente, por ejemplo, a través del feedback de clase.
 - Forma activa: analizando los requisitos, hablando con los usuarios piloto, dedicando recursos a registrarlos, etc.
 
-El registro de un riesgo deberá de estar acompañado de una clasificación, una evaluación, contramedidas y un plan de contigencia.
+El registro de un riesgo deberá estar acompañado de una clasificación, una evaluación, contramedidas y un plan de contingencia.
 
 # 3. CLASIFICACIÓN DE RIESGOS
 Se ha seguido la clasificación mostrada en la píldora teórica "ISPP - Sesión 02a":
@@ -91,23 +93,29 @@ Se ha seguido la clasificación mostrada en la píldora teórica "ISPP - Sesión
 - Internos-externos: Problemas relacionados con interacciones entre la parte interna y externa.
 
 # 4. EVALUACIÓN DE RIESGOS
-Para evaluar un riesgo se deberá de estudiar su probabilidad y su impacto. Una vez establecidos estos parámetros, se deberán de establecer el factor, que es el resultado de multiplicar la probabilidad por el impacto, y la prioridad.
+Para evaluar un riesgo, se debe analizar su probabilidad y su impacto. Una vez establecidos estos parámetros, se deberán establecer el factor, que es el resultado de multiplicar la probabilidad por el impacto, y la prioridad.
+
+| Parámetro  | Descripción | Escala |
+|------------|------------|--------|
+| **Probabilidad (P)** | Posibilidad de que ocurra el riesgo | 1-10 |
+| **Impacto (I)** | Consecuencias si el riesgo ocurre | 1-10 |
+| **Factor (F = P × I)** | Grado de criticidad del riesgo | 1-100 |
+
 
 # 5. PLANES DE CONTIGENCIA Y CONTRAMEDIDAS
-Se deberán de indicar las medidas que se deben de tomar de suceder el riesgo. Además, se deberán de indicar las contramedidas que se están tomando para evitar que suceda o minimizar el impacto del riesgo en cuestión.
+Se deberán indicar las medidas que se deben tomar de suceder el riesgo. Además, se deberán indicar las contramedidas que se están tomando para evitar que suceda o minimizar el impacto del riesgo en cuestión.
 
 # 6. SEGUIMIENTO DE RIESGOS
-Para los riesgos ya registrados, se deberá de hacer seguimiento a través de la revisión de las contramedidas impuestas.
+Para los riesgos registrados, se debe hacer un seguimiento mediante la revisión de las contramedidas implementadas.
 
-Además, se entiende que el proceso de registro de riesgos es un proceso constante. Es decir, el documento de riesgos deberá de revisarse periódicamente y añadirse los nuevos riesgos que se hayan conseguido(siendo el punto 2).
+Además, se entiende que el proceso de registro de riesgos es un proceso constante. Es decir, el documento de riesgos debe revisarse periódicamente y actualizarse con los nuevos riesgos identificados.
 
 # 7. MATRIZ DE RIESGOS
 
-|PROBABILIDAD |     |     |     |     |     |        |
-|-------|--------|--------|-------|---------|---------|---------| 
-| 0 - 2 |        |        |        |        |        |        |
-| 3 - 4 |         |        |        |        |        |        |
-| 5 - 6 |        |        |        |        |        |        |
-| 7 - 8 |        |        |        |        |        |        |
-| 9 - 10 |        |        |        |        |        |        |
-| | 0 - 2 | 3 - 4 | 5 - 6 | 7 - 8 | 9 - 10 |IMPACTO|
+| IMPACTO ↓   PROBABILIDAD →  | 1-2 (Baja)      | 3-4 (Moderada)   | 5-6 (Alta)      | 7-8 (Crítica)   | 9-10 (Extrema)  |
+|-------------------------------|----------------|----------------|----------------|----------------|----------------|
+| **1-2 (Bajo impacto)**      | Riesgo mínimo    | Riesgo tolerable  | Riesgo moderado  | Riesgo alto     | Riesgo crítico  |
+| **3-4 (Moderado impacto)**  | Riesgo tolerable | Riesgo moderado   | Riesgo alto      | Riesgo crítico  | Riesgo extremo  |
+| **5-6 (Alto impacto)**      | Riesgo moderado  | Riesgo alto       | Riesgo crítico   | Riesgo extremo  | Riesgo extremo  |
+| **7-8 (Crítico impacto)**   | Riesgo alto      | Riesgo crítico    | Riesgo extremo   | Riesgo extremo  | Riesgo extremo  |
+| **9-10 (Extremo impacto)**  | Riesgo crítico   | Riesgo extremo    | Riesgo extremo   | Riesgo extremo  | Riesgo extremo  |
