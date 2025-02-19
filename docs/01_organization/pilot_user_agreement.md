@@ -1,8 +1,8 @@
 ---
-title: "ACUERDO CON USUARIOS PILOTO"
+title: "ACUERDO CON USUARIOS PILOTO"                      # CHANGE IF NEEDED
 subtitle: "FISIO FIND - Grupo 6 - #DP"
-author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
-date: "10/02/2025"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
+date: "10/02/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -12,9 +12,9 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: "../.backgrounds/background1V.pdf"                            
-header-left: "ACUERDO CON USUARIOS PILOTO"                 
-header-right: "10/02/2025"                                         
+titlepage-background: "../.backgrounds/background1V.pdf"  # CHANGE IF NEEDED
+header-left: "ACUERDO CON USUARIOS PILOTO"                # CHANGE IF NEEDED
+header-right: "10/02/2025"                                # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"
@@ -63,7 +63,7 @@ monofont: "Noto Sans Mono"
 
 - **Entregable:** #DP
 
-- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
 - **Autores:** Delfín Santana Rubio, Antonio Macías Ferrera
 
@@ -122,7 +122,7 @@ En el contexto de este proyecto se establecen dos categorías de **usuarios pilo
 
 # 2. CONDICIONES
 
-Se plantean dos tipos de condiciones aceptadas: **formales** e **informales**. Las condiciones **formales** son aquellas que si podrían acarrear una respuesta legal en algún futuro. Las **informales** son aquellas que de incumplirse no se podrían tomar acciones legales por ninguna de las dos partes.
+Se plantean dos tipos de condiciones aceptadas: **formales** e **informales**. Las condiciones **formales** son aquellas que sí podrían acarrear una respuesta legal en algún futuro. Las **informales** son aquellas que, de incumplirse, no se podrían tomar acciones legales por ninguna de las dos partes.
 
 ## 2.1 CONDICIONES FORMALES
 
@@ -173,6 +173,7 @@ A continuación se listan:
 A continuación se listan:
 
 - *FISIO FIND* se compromete a ayudar en todo lo posible al USUARIO PILOTO para que consiga probar la aplicación.
+
 
 ## 2.3 PERIODO DE PRUEBAS
 

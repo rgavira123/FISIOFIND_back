@@ -1,8 +1,8 @@
 ---
-title: "COMPETITOR ANALYSIS"
+title: "COMPETITOR ANALYSIS"                              # CHANGE IF NEEDED
 subtitle: "FISIO FIND - Grupo 6 - #DP"
-author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
-date: "12/02/2025"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
+date: "12/02/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -12,9 +12,9 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: "../.backgrounds/background1V.pdf"                            
-header-left: "COMPETITOR ANALYSIS"
-header-right: "05/02/2025"
+titlepage-background: "../.backgrounds/background1V.pdf"  # CHANGE IF NEEDED
+header-left: "COMPETITOR ANALYSIS"                        # CHANGE IF NEEDED
+header-right: "05/02/2025"                                # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"
@@ -34,8 +34,7 @@ FISIO FIND  - COMPETITOR ANALYSIS
 
 <br>
 
-# **ÍNDICE**
-- [**ÍNDICE**](#índice)
+**ÍNDICE**
 - [1. INTRODUCCIÓN](#1-introducción)
 - [2. DESCUBRIMIENTO DE LOS COMPETIDORES](#2-descubrimiento-de-los-competidores)
 - [3. COMPETIDORES UTILIZADOS POR LOS USUARIOS](#3-competidores-utilizados-por-los-usuarios)
@@ -75,8 +74,6 @@ FISIO FIND  - COMPETITOR ANALYSIS
 - [5. ALTERNATIVAS NO CONTEMPLADAS](#5-alternativas-no-contempladas)
 - [6. COMPETIDORES IDENTIFICADOS POR FEEDBACK](#6-competidores-identificados-por-feedback)
   - [6.1 DOCTOLIB](#61-doctolib)
-    - [**MONETIZACIÓN**](#monetización)
-  - [**FEATURES AGRUPADAS POR CATEGORÍA**](#features-agrupadas-por-categoría)
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 
 ---
@@ -89,18 +86,20 @@ FISIO FIND  - COMPETITOR ANALYSIS
 
 - **Entregable:** #DP
 
-- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
 - **Autores:** Daniel Vela Camacho, Francisco Mateos Villarejo
 
 - **Fecha de Creación:** 12/02/2025
 
-- **Versión:** v1.3
+- **Versión:** v1.7
 
 <br>
 
 
 ---
+
+<!-- \newpage -->
 
 **Histórico de Modificaciones**
 
@@ -136,7 +135,7 @@ Para ello, cada competidor ha sido examinado bajo los siguientes criterios:
 
 <br>
 
-\newpage
+<!-- \newpage -->
 
 <br>
 
@@ -271,7 +270,7 @@ Este software está dirigido a **clínicas dentales, centros de fisioterapia, cl
 
 - No ofrece mucho detalle acerca de todas las funcionalidades
 - El *matchmaking* entre pacientes y clínicas / profesionales está ofrecida por Doctoralia.
-    - El precio podría llegar a incrementarse de una manera desmedida en caso de que se quiera acceder a todas las funcionalidades.
+- El precio podría llegar a incrementarse de una manera desmedida en caso de que se quiera acceder a todas las funcionalidades.
 
 **KEYWORDS**
 
@@ -1044,7 +1043,7 @@ En esta sección se presentan y analizan los competidores identificados a travé
 ## 6.1 DOCTOLIB
 Se trata de una plataforma que facilita la conexión entre profesionales de diferentes áreas de la salud mediante un sistema de matchmaking, permitiendo la gestión de citas entre ellos y con los pacientes. La plataforma opera bajo un modelo de suscripción que ofrece distintas funcionalidades dependiendo del plan seleccionado. Cabe destacar que este competidor tiene presencia exclusiva en Alemania, Francia e Italia, limitando su alcance geográfico a estos mercados.
 
-### **MONETIZACIÓN**
+**MONETIZACIÓN**
 
 - **Suite completa sin necesidad de reservar cita online** → 109 € TTC / mes por cuidador *(precio adaptado para grupos, con facturación anual o pago mensual)*
 - **Suite completa con reserva de cita online** → 189 € TTC / mes por cuidador *(precio adaptado para grupos, con facturación anual o pago mensual de 199 €)*
@@ -1077,7 +1076,7 @@ Se trata de una plataforma que facilita la conexión entre profesionales de dife
 | Campañas de prevención | ✅ | ✅ |
 | Mensajería para pacientes | ✅ | ✅ |
 
-## **FEATURES AGRUPADAS POR CATEGORÍA**
+**FEATURES AGRUPADAS POR CATEGORÍA**
 
 | Categoría | Funcionalidad |
 | --- | --- |
@@ -1099,6 +1098,6 @@ Se trata de una plataforma que facilita la conexión entre profesionales de dife
 - Respecto el resto de competidores del mercado sus soluciones son algo más caras
 
 
-**Diferencias con FisioFind**
+**DIFERENCIAS CON FISIO FIND**
 
 A diferencia de FisioFind, que está completamente orientada a los fisioterapeutas y ofrece herramientas especializadas para optimizar los procesos de rehabilitación online, Doctolib se posiciona como una plataforma de matchmaking y gestión de citas para profesionales de distintas áreas de la salud. Mientras que nuestra propuesta busca brindar recursos personalizados para los fisioterapeutas, facilitando su trabajo y mejorando la experiencia del paciente en la rehabilitación digital, Doctolib se enfoca en la conexión entre profesionales y pacientes sin una especialización concreta en fisioterapia. Además, al tratarse de un servicio que opera exclusivamente en Francia, Alemania e Italia, su alcance geográfico es completamente distinto al de FisioFind, cuyo enfoque está en el mercado español. Por estas razones, no podemos considerarlo un competidor directo, ya que tanto su modelo de negocio como su público objetivo son diferentes.

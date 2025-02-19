@@ -1,8 +1,8 @@
 ---
-title: "ISPP - PÍLDORA TEÓRICA 1"             
+title: "ISPP - PÍLDORA TEÓRICA 1"                         # CHANGE IF NEEDED
 subtitle: "FISIO FIND - Grupo 6 - #DP"
-author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
-date: "17/02/2025"                       
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
+date: "17/02/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -12,14 +12,12 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: "../.backgrounds/background2V.pdf"
-header-left: "PÍLDORA TEÓRICA"
-header-right: "17/02/2025"               
+titlepage-background: "../.backgrounds/background2V.pdf"  # CHANGE IF NEEDED
+header-left: "PÍLDORA TEÓRICA"                            # CHANGE IF NEEDED
+header-right: "17/02/2025"                                # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"
-# header-includes:
-#   - \usepackage{float}
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
@@ -32,41 +30,6 @@ classoption: "table"
 </h1>
 
 <br>
-
-
----
-
-**Ficha del documento**
-
-- **Nombre del Proyecto:** FISIO FIND
-
-- **Número de Grupo:** Grupo 6
-
-- **Entregable:** #DP
-
-- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
-
-- **Autores:** Antonio Macías Ferrera
-
-- **Fecha de Creación:** 17/02/2024  
-
-- **Versión:** v1.0
-
-<br>
-
-
----
-
-**Histórico de Modificaciones**
-
-| Fecha      | Versión | Realizada por                    | Descripción de los cambios |
-|------------|---------|----------------------------------|----------------------------|
-| 17/02/2025 | v1.0    | Antonio Macías Ferrera           | Elaboración de la primera versión del documento. |
-
-<br>
-
-
----
 
 **ÍNDICE**
 - [**1. METODOLOGÍAS ÁGILES: SCRUM**](#1-metodologías-ágiles-scrum)
@@ -84,6 +47,37 @@ classoption: "table"
 - [**6. INFORMES DE DESEMPEÑO**](#6-informes-de-desempeño)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
+<br>
+
+
+---
+
+**Ficha del documento**
+
+- **Nombre del Proyecto:** FISIO FIND
+
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+
+- **Autores:** Antonio Macías Ferrera
+
+- **Fecha de Creación:** 17/02/2024  
+
+- **Versión:** v1.0
+
+<br>
+
+
+---
+
+**Histórico de Modificaciones**
+
+| Fecha      | Versión | Realizada por                    | Descripción de los cambios |
+|------------|---------|----------------------------------|----------------------------|
+| 17/02/2025 | v1.0    | Antonio Macías Ferrera           | Elaboración de la primera versión del documento. |
 
 <br>
 
@@ -163,7 +157,7 @@ El PMBOK es un estándar para la gestión de proyectos que incluye:
 
 - 📅 **Falta de plan**
 
-- 📊 No hacer caso a gestión de riesgos
+- 📊 No hacer caso a la gestión de riesgos
 
 - 📑 No tener control de costes, calidad, tiempo
 
@@ -191,13 +185,13 @@ El PMBOK es un estándar para la gestión de proyectos que incluye:
 - Sin equipo no hay proyecto. 
 - Fomentar la comunicación y la comunidad → base de conocimiento.
 
-![El manifiesto agil](../.img/agile_principles.png)
+![El manifiesto ágil](../.img/agile_principles.png)
 
 ## **6 formas de ser derrotado - El arte de la guerra (Sun Tzu)**
 
 1. **No calibrar el número de fuerzas**
 
-2. **Ausencia de sistema claro de recompensas y castigos**
+2. **Ausencia de un sistema claro de recompensas y castigos**
 
 3. **Falta de entrenamiento**
 
@@ -265,7 +259,7 @@ Para elaborar un buen *Plan de Gestión de la Comunicación* nos debemos pregunt
 
 - ¿QUIÉN SE COMUNICA CON QUIÉN?
 
-- ¿CON QUÉ FRECUENCIA SE REALIZA COMUNICACIÓN?
+- ¿CON QUÉ FRECUENCIA SE REALIZA LA COMUNICACIÓN?
 
 <br>
 

@@ -1,25 +1,23 @@
----
-title: "USER STORIES"
+title: "USER STORIES"                                     # CHANGE IF NEEDED
 subtitle: "FISIO FIND - Grupo 6 - #DP"
-author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
-date: "13/02/2025"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
+date: "13/02/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
-toc: true
+# toc: true
 titlepage: true
 titlepage-text-color: "1C1C1C"
 titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: ".backgrounds/background2V.pdf"                            
-header-left: "USER STORIES"                 
-header-right: "13/02/2025"                                         
+titlepage-background: "../.backgrounds/background1V.pdf"  # CHANGE IF NEEDED
+header-left: "USER STORIES"                               # CHANGE IF NEEDED
+header-right: "13/02/2025"                                # CHANGE IF NEEDED
 footer-left: "FISIOFIND"
 documentclass: scrartcl
 classoption: "table"
 ---
-
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 <p align="center" style="font-size: 30px; font-weight: bold;">
@@ -29,7 +27,6 @@ classoption: "table"
 
 <br>
 
----
 
 **Ficha del documento**
 
@@ -39,9 +36,9 @@ classoption: "table"
 
 - **Entregable:** #DP
 
-- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** Daniel Ruiz López, Daniel Fernandez Caballero, Daniel Alors Romero, Alberto Carmona Sicre, Delfín Santana Rubio
+- **Autores:** Daniel Ruiz López, Daniel Fernández Caballero, Daniel Alors Romero, Alberto Carmona Sicre
 
 - **Fecha de Creación:** 13/02/2025  
 
@@ -1482,5 +1479,3 @@ Se explica el índice de las historias de usuario:
 
 
 ---
-
-

@@ -1,8 +1,8 @@
 ---
-title: "SPRINT RETROSPECTIVE SPRINT X"         # CHANGE IF NEEDED
+title: "SPRINT RETROSPECTIVE SPRINT X"                    # CHANGE IF NEEDED
 subtitle: "FISIO FIND - Grupo 6 - #X"
-author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
-date: "04/02/2025"                      # CHANGE IF NEEDED
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
+date: "04/02/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -12,9 +12,9 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: "../.backgrounds/background4V.pdf" # CHANGE IF NEEDED
-header-left: "SPRINT RETROSPECTIVE SPRINT X"    # CHANGE IF NEEDED
-header-right: "04/02/2025"               # CHANGE IF NEEDED
+titlepage-background: "../.backgrounds/background4V.pdf"  # CHANGE IF NEEDED
+header-left: "SPRINT RETROSPECTIVE SPRINT X"              # CHANGE IF NEEDED
+header-right: "04/02/2025"                                # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"
@@ -35,6 +35,20 @@ monofont: "Noto Sans Mono"
 <br>
 
 
+**ÍNDICE**
+- [**1. OBJETIVOS DE LA RETROSPECTIVA**](#1-objetivos-de-la-retrospectiva)
+- [**2. METODOLOGÍA UTILIZADA**](#2-metodología-utilizada)
+- [**3. DISCUSIÓN Y FEEDBACK**](#3-discusión-y-feedback)
+  - [**GOOD: ¿Qué salió bien?**](#good-qué-salió-bien)
+  - [**BAD: ¿Qué NO salió bien?**](#bad-qué-no-salió-bien)
+  - [**START: ¿Qué debemos empezar a hacer?**](#start-qué-debemos-empezar-a-hacer)
+  - [**STOP: ¿Qué debemos dejar de hacer?**](#stop-qué-debemos-dejar-de-hacer)
+- [**4. CONCLUSIONES**](#4-conclusiones)
+<!-- COMMENT WHEN EXPORTING TO PDF -->
+
+<br>
+
+
 ---
 
 **Ficha del documento**
@@ -45,7 +59,7 @@ monofont: "Noto Sans Mono"
 
 - **Entregable:** #DP
 
-- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
 - **Autores:** Antonio Macías Ferrera
 
@@ -58,6 +72,8 @@ monofont: "Noto Sans Mono"
 
 ---
 
+<!-- \newpage -->
+
 **Histórico de Modificaciones**
 
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
@@ -66,19 +82,6 @@ monofont: "Noto Sans Mono"
 
 <br>
 
-
----
-
-**ÍNDICE**
-- [**1. OBJETIVOS DE LA RETROSPECTIVA**](#1-objetivos-de-la-retrospectiva)
-- [**2. METODOLOGÍA UTILIZADA**](#2-metodología-utilizada)
-- [**2. DISCUSIÓN Y FEEDBACK**](#2-discusión-y-feedback)
-  - [**GOOD: ¿Qué salió bien?**](#good-qué-salió-bien)
-  - [**BAD: ¿Qué NO salió bien?**](#bad-qué-no-salió-bien)
-  - [**START: ¿Qué debemos empezar a hacer?**](#start-qué-debemos-empezar-a-hacer)
-  - [**STOP: ¿Qué debemos dejar de hacer?**](#stop-qué-debemos-dejar-de-hacer)
-- [**3. CONCLUSIONES**](#3-conclusiones)
-<!-- COMMENT WHEN EXPORTING TO PDF -->
 
 ---
 
@@ -136,7 +139,7 @@ Este tipo de retrospectiva permite que el equipo reflexione de manera estructura
 
 <br>
 
-# **2. DISCUSIÓN Y FEEDBACK**
+# **3. DISCUSIÓN Y FEEDBACK**
 
 ## **GOOD: ¿Qué salió bien?**
 - ✅ [Aspecto positivo 1]
@@ -163,7 +166,7 @@ Este tipo de retrospectiva permite que el equipo reflexione de manera estructura
 <br>
 
 
-# **3. CONCLUSIONES**
+# **4. CONCLUSIONES**
 Detalle de las acciones acordadas para el próximo Sprint. Se deberá incluir el contenido de **ACTIONS**, mencionando los aspectos que se deben empezar y dejar de hacer:
 
 | Acción | Responsable | Fecha límite |
