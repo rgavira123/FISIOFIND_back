@@ -38,10 +38,10 @@ classoption: "table"
   - [2.2. Flujo de Trabajo](#22-flujo-de-trabajo)
   - [2.3. Flujo de Desarrollo](#23-flujo-de-desarrollo)
   - [2.4. Definición De Hecho (DoD) de una Historia de Usuario](#24-definición-de-hecho-dod-de-una-historia-de-usuario)
-  - [3.5. Gestión de la Configuración](#35-gestión-de-la-configuración)
-  - [3.6. Gestión del Cambio](#36-gestión-del-cambio)
-  - [3.7. Gestión de los Riesgos](#37-gestión-de-los-riesgos)
-  - [3.8. Uso de la Inteligencia Artificial](#38-uso-de-la-inteligencia-artificial)
+  - [2.5. Gestión de la Configuración](#35-gestión-de-la-configuración)
+  - [2.6. Gestión del Cambio](#36-gestión-del-cambio)
+  - [2.7. Gestión de los Riesgos](#37-gestión-de-los-riesgos)
+  - [2.8. Uso de la Inteligencia Artificial](#38-uso-de-la-inteligencia-artificial)
 - [**3. SPRINT BACKLOG**](#3-sprint-backlog)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
@@ -62,11 +62,11 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** Antonio Macías Ferrera
+- **Autores:** Antonio Macías Ferrera, Delfín Santana Rubio
 
 - **Fecha de Creación:** 15/02/2025  
 
-- **Versión:** v1.0
+- **Versión:** v1.1
 
 <br>
 
@@ -78,6 +78,7 @@ classoption: "table"
 | Fecha      | Versión | Realizada por | Descripción de los cambios |
 |------------|---------|--------------|----------------------------|
 | 15/02/2025 | v1.0    |  Antonio Macías Ferrera | Elaboración de la base del documento. |
+| 18/02/2025 | v1.1    | Delfín Santana Rubio | Progreso en puntos 2.2, 2.3, 2.5, 2.6, 2.7 y 2.8 |
 
 <br>
 
@@ -114,11 +115,76 @@ Todas las tareas a ejecutar en el *Sprint* se encontrarán inicialmente en la co
 
 ## 2.2. Flujo de Trabajo
 
-\TODO
+Para las tareas que no esten relacionadas con el desarrollo, el equipo tiene dos formas de dividirse:
+- La primera es diferenciando entre dos tipos de tareas:
+  - Marketing y Diseño:
+    - Redes sociales: Encargados de todo aquello relacionado con las redes sociales.
+    - Presentaciones: Encargados diseñar y crear las presentaciones y exponerlas.
+    - Diseño de imagen.
+  - Documentación:
+    - Planificación: Encargados de hacer todo lo relacionado con la planifiación y la dirección del proyecto.
+    - Documentación y reportes.
+    - Seguimiento y desempeño: En la práctica, este equipo se encarga de tomar notas del feedback, hacer las actas y todo lo que esté relacionado.
+- La segunda es en 3 equipos, en la que cada grupo tiene un representante y un secretario.
+
+| GRUPO 1                                    | GRUPO 2                               | GRUPO 3                                |
+|--------------------------------------------|---------------------------------------|----------------------------------------|
+| RAFAEL PULIDO CIFUENTES (representante)    | JULEN REDONDO PACHECO                 | DANIEL VELA CAMACHO                    |
+| DANIEL RUIZ LOPEZ                          | BENJAMIN I. MAUREIRA FLORES           | DANI TORTORICI BARTUS                  |
+| ALBERTO CARMONA SICRE (Secretario General) | DELFIN SANTANA RUBIO                  | FRANCISCO MATEOS VILLAREJO             |
+| DANIEL FERNÁNDEZ CABALLERO                 | GUADALUPE RIGRUEJO PINEDA             | FRANCISCO CAPOTE GARCIA                |
+| DANIEL ALORS ROMERO                        | ANTONIO MACIAS FERRERA (Scrum Master) | MIGUEL ENCINA MARTINEZ (representante) |
+| PABLO FERNANDEZ PEREZ                      | RAMON GAVIRA SANCHEZ                  |                   --                   |
+
+
+| RRSS                         | Planificación                   | Documentación y Reportes       | Seguimiento y Desempeño (Secretarios) | QA                          |
+|------------------------------|--------------------------------|--------------------------------|---------------------------------------|-----------------------------|
+| PABLO FERNANDEZ PEREZ        | PABLO FERNANDEZ PEREZ         | JULEN REDONDO PACHECO        | ALBERTO CARMONA SICRE (Secretario General) | FRANCISCO MATEOS VILLAREJO  |
+| FRANCISCO CAPOTE GARCIA      | RAFAEL PULIDO CIFUENTES (representante)       | GUADALUPE RIDRUEJO PINEDA    | DELFIN SANTANA RUBIO                  | MIGUEL ENCINA MARTINEZ  (representante)     |
+| RAFAEL PULIDO CIFUENTES (representante)      | MIGUEL ENCINA MARTINEZ (representante)       | DANIEL RUIZ LOPEZ            | DANIEL VELA CAMACHO                   | BENJAMIN I. MAUREIRA FLORES    |
+| DANIEL RUIZ LOPEZ            | FRANCISCO CAPOTE GARCIA       | DANIEL FERNÁNDEZ CABALLERO   |                                       | DANIEL ALORS ROMERO         |
+| FRANCISCO MATEOS VILLAREJO   | RAMON GAVIRA SANCHEZ         |                                |                                       |                             |
+|                              | ANTONIO MACIAS FERRERA (Scrum Master)       |                                |                                       |                             |
+
+
+Entonces, las tareas se podrán asignar a equipos siguiendo alguno de los dos tipos de subdivisiones explicados. Sin embargo, dado que seguimos una organización ágil, esta organización se podrá saltar en cualquier momento. Por ejemplo, si se sabe que hay dos personas que son idóneas para hacer una tarea, se podrá asignar a esas dos personas a hacerlas. También, si por ejemplo el equipo de QA o de seguimiento han terminado sus tareas, podrán ayudar en cualquier otra tarea.
+
+
 
 <br>
 
 ## 2.3. Flujo de Desarrollo
+
+Siguiendo la subdivisión anteriormente descrita, se puede especificar en qué tareas se especializa cada miembro de cada subgrupo.
+- Grupo 1:
+  - Frontend:
+    - Rafael Pulido Cifuentes
+    - Daniel Ruiz López
+  - Backend:
+    - Alberto Carmona Sicre
+    - Daniel Fernández Caballero
+  - Fullstack:
+    - Pablo Fernández Pérez
+- Grupo 2:
+  - Frontend:
+    - Julen Redondo Pacheco
+    - Benjamín Ignacio Maureira Flores
+  - Backend
+    - Delfín Santana Rubio
+    - Guadalupe Ridruejo Pineda
+    - Antonio Macías Ferrera
+  - Fullstack:
+    - Ramón Gavira Sánchez
+- Grupo 3:
+  - Frontend:
+    - Daniel Vela Camacho
+    - Daniel Tortorici Bartús
+  - Backend:
+    - Francisco Mateo Villalba
+    - Francisco Capote García
+  - FullStack
+    - Miguel Encina Martínez
+
 
 Cada miembro del equipo será responsable de gestionar el estado de sus tareas ateniéndose al siguiente procedimiento:
 
@@ -166,19 +232,19 @@ Desde la **política de versionado** de documentos y de código, hasta la **pol�
 
 ## 3.6. Gestión del Cambio
 
-\TODO
+Los cambios no pueden ser implementados de manera arbitraria, sino que deben de seguir un proceso que cubra las fases de registro, análisis, aceptación, implantación, evaluación y seguimiento. La gestión del cambio se hará tal y como se describe en el documento *Change Management Plan*. 
 
 <br>
 
 ## 3.7. Gestión de los Riesgos
 
-\TODO
+La gestión del riesgo se hará tal y como se describe en el documento *Risk Management Plan*. En este documento, entre otras cosas, se explica que se deberá de hacer seguimiento a los riesgos y actualizar el registro de riesgos periódicamente.
 
 <br>
 
 ## 3.8. Uso de la Inteligencia Artificial
 
-\TODO
+El uso de la inteligencia artificial estará regulado por el Acuerdo de IA y se deberán de hacer informes periódicos de su uso. Uno de los puntos a destacar de este acuerdo es la importancia de la intervención humana en la aplicación de soluciones IA en el proyecto.
 
 <br>
 <!-- \newpage -->

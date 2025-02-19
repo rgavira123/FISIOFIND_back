@@ -188,13 +188,13 @@ Ordenado de mayor a menor tiempo dedicado en cada proyecto:
 
 **4. Clases / Vídeos:** hh:mm
 
-**5. Clases presenciales:** hh:mm
+**5. Redes sociales:** hh:mm
 
-**6. Organización:** hh:mm
+**6. test:** hh:mm
 
 **7. Planificación:** hh:mm
 
-**8. Documentación:** hh:mm
+**8. fix / refactor / style:** hh:mm
 
 **9. feat:** hh:mm
 
