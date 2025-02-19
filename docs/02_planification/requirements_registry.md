@@ -59,7 +59,7 @@ classoption: "table"
 
 - **Fecha de Creación:** 12/02/2025  
 
-- **Versión:** v1.2
+- **Versión:** v1.3
 
 <br>
 
@@ -74,6 +74,7 @@ classoption: "table"
 | 12/02/2025 | v1.0    | Alberto Carmona Sicre, Daniel Ruiz López, Rafael Pulido Cifuentes, Daniel Fernández Caballero, Daniel Alors Romero          | Añadidos los apartados: Introducción, Estructura de los Requisitos y Requisitos. |
 | 12/02/2025 | v1.1    | Alberto Carmona Sicre, Daniel Fernández Caballero       | Modificado el apartado de requisitos funcionales |
 | 12/02/2025 | v1.2    | Daniel Alors Romero       | Modificados los apartados de requisitos funcionales y no funcionales  |
+| 12/02/2025 | v1.3    | Daniel Fernández Caballero      | Añadidos nuevos requisitos funcionales, editados los requisitos funcionales 6, 7, 12, y 23 y añadidos nuevos requisitos no funcionales  |
 
 <br>
 
@@ -176,16 +177,16 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | **Descripción** | La aplicación debe permitir la gestión de pagos a través de métodos comunes (tarjetas de crédito, transferencias bancarias, plataformas como PayPal u otros métodos de pago relevantes), así como la generación automatizada de facturas para cada transacción realizada, facilitando los datos del proveedor, cliente, el importe de la factura y comentarios adicionales. |
 | **Prioridad** | Crítica |
 
-| **RF-006** | **Sistema de valoraciones y comentarios de pacientes**  |
+| **RF-006** | **Valoración y comentarios de pacientes**  |
 | --- | --- |
-| **Versión** | V1.0 |
-| **Descripción** | Los pacientes deben poder dejar valoraciones y comentarios sobre los profesionales y las consultas recibidas. |
+| **Versión** | V1.1 |
+| **Descripción** | La plataforma debe permitir a los pacientes valorar y dejar comentarios sobre los fisioterapeutas y las consultas recibidas. Las valoraciones deben ser visibles en el perfil del fisioterapeuta y servir como referencia para otros pacientes. Los comentarios deben ser moderados para garantizar que sean respetuosos y relevantes. |
 | **Prioridad** | Importante |
 
-| **RF-007** | **Seguimiento del paciente** |
+| **RF-007** | **Seguimiento del progreso del paciente** |
 | --- | --- |
-| **Versión** | V1.0 |
-| **Descripción** | La plataforma debe permitir el seguimiento del paciente fuera de la consulta mediante tablas de desempeño, cuestionarios, entre otros. |
+| **Versión** | V1.1 |
+| **Descripción** | La plataforma debe ofrecer herramientas para que los fisioterapeutas puedan realizar un seguimiento del progreso de sus pacientes, incluyendo la evolución de su condición, el cumplimiento del tratamiento, los resultados de evaluaciones y tests, etc. Esta información debe ser accesible tanto para el fisioterapeuta como para el paciente y permitir la generación de informes de progreso. |
 | **Prioridad** | Deseable |
 
 | **RF-008** | **Búsqueda y filtrado por especialidad, ubicación y disponibilidad** |
@@ -214,8 +215,8 @@ Por otro lado, para cada requisito, se define lo siguiente:
 
 | **RF-012** | **Agenda en la plataforma** |  
 | --- | --- |
-| **Versión** | V1.0 |
-| **Descripción** | La plataforma debe ofrecer la opción de visualizar la agenda de citas, mostrando de forma diferenciada las consultas online (con enlaces de acceso) y las consultas presenciales (con información de ubicación). |
+| **Versión** | V1.1 |
+| **Descripción** | La agenda debe permitir visualizar las citas programadas, mostrando detalles importantes como la fecha, hora, tipo de consulta (online o presencial) y el estado de la cita (pendiente, confirmada, cancelada, etc.). Esta visualización debe ser clara e intuitiva para facilitar la gestión de citas tanto para pacientes como para fisioterapeutas. |
 | **Prioridad** | Importante |
 
 | **RF-013** | **Inicio de sesión y autenticación social** |
@@ -278,10 +279,10 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | **Descripción** | La plataforma debe permitir a los fisioterapeutas iniciar y grabar las videollamadas con los pacientes en el horario previamente agendado para la consulta, garantizando una comunicación fluida y segura. |
 | **Prioridad** | Crítica |
 
-| **RF-023** | **Sistema de mensajería para confirmación de citas** |
+| **RF-023** | **Sistema de notificaciones y alertas sobre citas** |
 | --- | --- |
-| **Versión** | V1.0 |
-| **Descripción** | La plataforma debe contar con un sistema de notificación (por mensaje o correo electrónico) que confirme las citas agendadas y envíe recordatorios automáticos, incluyendo notificaciones días previos a la cita. |
+| **Versión** | V1.1 |
+| **Descripción** | La plataforma debe contar con un sistema de notificaciones y alertas que informe a los usuarios sobre eventos importantes relacionados con sus citas, como recordatorios de citas próximas, confirmaciones de reserva, cancelaciones, modificaciones, etc.|
 | **Prioridad** | Importante |
 
 | **RF-024** | **Perfil profesional completo** | 
@@ -344,6 +345,54 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | **Descripción** | La plataforma debe permitir a los pacientes buscar los profesionales cercanos en la ciudad a través de un mapa interactivo, mejorando la interactividad en la búsqueda de fisioterapeutas. |
 | **Prioridad** | Deseable |
 
+| **RF-034** | **Acceso a la plataforma para usuarios invitados** |
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | La plataforma debe permitir el acceso a usuarios invitados, tanto pacientes como fisioterapeutas, con funcionalidades limitadas. Los usuarios invitados podrán explorar perfiles de fisioterapeutas, servicios y demás información relevante, pero no podrán realizar acciones que requieran registro, como reservar citas o contactar directamente con profesionales. |
+| **Prioridad** | Deseable |
+
+| **RF-035** | **Acceso a la información de contacto de un fisioterapeuta** |
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | La plataforma debe permitir a los usuarios acceder a la información de contacto de un fisioterapeuta, como su número de teléfono, correo electrónico o dirección de la clínica, en caso de que esta información se haya incluido en su perfil. Esta información debe ser fácilmente accesible para facilitar la comunicación directa entre el paciente y el fisioterapeuta. |
+| **Prioridad** | Crítica |
+
+| **RF-036** | **Modificación de citas** |
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | La plataforma debe permitir a los usuarios (pacientes y fisioterapeutas) modificar citas previamente agendadas. Esta funcionalidad debe incluir la posibilidad de cambiar la fecha, hora, tipo de consulta y otros detalles relevantes. El sistema debe notificar a ambas partes sobre cualquier modificación realizada en la cita. |
+| **Prioridad** | Importante |
+
+| **RF-038** | **Cancelación de citas** |
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | La plataforma debe permitir a los usuarios (pacientes y fisioterapeutas) cancelar citas previamente agendadas. El sistema debe notificar a ambas partes sobre la cancelación y, en caso de que aplique, gestionar el reembolso del pago según las políticas de la plataforma. |
+| **Prioridad** | Importante |
+
+| **RF-039** | **Historial de citas** |
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | La plataforma debe permitir a los usuarios (pacientes y fisioterapeutas) acceder a un historial completo de sus citas pasadas, incluyendo detalles como la fecha, hora, tipo de consulta, profesional o paciente, y el estado de la cita (completada, cancelada, etc.). Este historial debe ser fácilmente accesible por el usuario. |
+| **Prioridad** | Importante |
+
+| **RF-040** | **Gestión de ejercicios y recursos** |
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | La plataforma debe permitir a los fisioterapeutas crear y gestionar una biblioteca de ejercicios y recursos (videos, documentos, etc.) que puedan ser asignados a los pacientes como parte de su tratamiento. |
+| **Prioridad** | Importante |
+
+| **RF-041** | **Chat en tiempo real durante la videollamada** |
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | Durante las videollamadas, la plataforma debe ofrecer un chat en tiempo real que permita la comunicación entre el fisioterapeuta y el paciente sin interrumpir la sesión. Este chat puede ser utilizado para compartir enlaces, documentos, o para resolver dudas rápidas. |
+| **Prioridad** | Importante |
+
+| **RF-042** | **Landing page para SEO** |
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | La plataforma debe contar con una landing page optimizada para SEO que permita mejorar el posicionamiento en buscadores y atraer a nuevos usuarios. Esta página debe incluir información relevante sobre la plataforma y enlaces para el registro o inicio de sesión. |
+| **Prioridad** | Importante |
+
 ---
 
 <br>
@@ -368,18 +417,71 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | **Descripción** | La plataforma debe ofrecer soporte en varios idiomas, al menos en español e inglés. |
 | **Prioridad** | Deseable |
 
-| **RNF-04** | **Cumplimiento con normativa GDPR/LOPD** |
+| **RNF-004** | **Cumplimiento con normativa GDPR/LOPD** |
 | --- | --- |
 | **Versión** | V1.0 |
 | **Descripción** | La plataforma debe cumplir con las regulaciones de protección de datos como el GDPR en Europa o la LOPD en España. |
 | **Prioridad** | Crítica |
 
-| **RF-05** | **Aceptación de términos y condiciones sobre responsabilidad** |  
+| **RNF-005** | **Aceptación de términos y condiciones sobre responsabilidad** |  
 | --- | --- |
 | **Versión** | V1.1 |
 | **Descripción** | Durante el registro, el paciente debe aceptar los "Términos y Condiciones" de la plataforma, los cuales especificarán las responsabilidades del paciente, incluyendo la exoneración de responsabilidad del fisioterapeuta en caso de realizar los ejercicios de forma autónoma sin seguimiento directo. Este paso será obligatorio para la creación de la cuenta. |
 | **Prioridad** | Importante |
 
+| **RNF-006** | **Seguridad y protección de datos** |  
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | La plataforma debe garantizar la seguridad de los datos de los usuarios, mediante autenticación segura y encriptación de datos.|
+| **Prioridad** | Importante |
+
+| **RNF-007** | **Usabilidad** |  
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | La plataforma debe ser fácil de usar tanto para fisioterapeutas como para pacientes, con una interfaz intuitiva. |
+| **Prioridad** | Crítica |
+
+| **RNF-008** | **Accesibilidad para personas con discapacidad** |  
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | La plataforma debe ser accesible para personas con discapacidad, incluyendo el cumplimiento de los estándares de accesibilidad web (WCAG) y la garantía de que la interfaz sea compatible con lectores de pantalla, teclados alternativos y otras tecnologías de asistencia. |
+| **Prioridad** | Deseable |
+
+| **RNF-009** | **Soporte técnico** |  
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | La plataforma debe ofrecer un servicio de soporte técnico para resolver dudas y problemas que puedan surgir durante el uso de la plataforma. El soporte puede ser ofrecido a través de diferentes canales (chat, correo electrónico, teléfono) y debe estar disponible en horarios convenientes para los usuarios. |
+| **Prioridad** | Importante |
+
+| **RNF-010** | **Marca y diseño** |  
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | La plataforma debe tener una imagen de marca coherente y un diseño atractivo y profesional. El diseño debe reflejar los valores de la marca y ser consistente en todos los elementos de la plataforma (logo, colores, tipografía, etc.). |
+| **Prioridad** | Deseable |
+
+| **RNF-010** | **Marca y diseño** |  
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | La plataforma debe tener una imagen de marca coherente y un diseño atractivo y profesional. El diseño debe reflejar los valores de la marca y ser consistente en todos los elementos de la plataforma (logo, colores, tipografía, etc.). |
+| **Prioridad** | Deseable |
+
+| **RNF-011** | **Integración con pasarelas de pago** |  
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | La plataforma debe integrarse con pasarelas de pago seguras y confiables para permitir a los pacientes realizar pagos online de forma segura y cómoda. Se deben ofrecer diferentes opciones de pago (tarjeta de crédito, PayPal, etc.) y garantizar que la información de pago esté protegida en todo momento. |
+| **Prioridad** | Crítica |
+
+| **RNF-012** | **Disponibilidad y rendimiento** |  
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | La plataforma debe estar disponible para los usuarios de forma continua, con un rendimiento óptimo que permita una navegación fluida y una respuesta rápida a las acciones del usuario. |
+| **Prioridad** | Crítica |
+
+| **RNF-013** | **Validación de perfiles de fisioterapeutas** |  
+| --- | --- |
+| **Versión** | V1.0 |
+| **Descripción** | La plataforma debe incluir un proceso de validación para los perfiles de fisioterapeutas, que verifique la autenticidad de la información proporcionada, como el número de colegiado y las certificaciones. Este proceso puede incluir la revisión manual por parte de un administrador o la integración con bases de datos de colegios profesionales. |
+| **Prioridad** | Crítica |
 
 ---
 
