@@ -32,16 +32,19 @@ classoption: "table"
 <br>
 
 **ÍNDICE**
-- [**1. INTRPODUCCIÓN**](#1-intrpoducción)
+- [**1. INTRODUCCIÓN**](#1-introducción)
 - [**2. METODOLOGÍA INTERNA**](#2-metodología-interna)
   - [2.1. Gestión de Tareas](#21-gestión-de-tareas)
   - [2.2. Flujo de Trabajo](#22-flujo-de-trabajo)
+  - [|                                         | RAMÓN GAVIRA SÁNCHEZ (representante)  | --                                     |](#------------------------------------------ramón-gavira-sánchez-representante------------------------------------------)
+  - [| DANIEL RUIZ        |                    |                 |                      |](#-daniel-ruiz-------------------------------------------------------------------)
+  - [|                    |                 |                  |](#-------------------------------------------------------)
   - [2.3. Flujo de Desarrollo](#23-flujo-de-desarrollo)
   - [2.4. Definición De Hecho (DoD) de una Historia de Usuario](#24-definición-de-hecho-dod-de-una-historia-de-usuario)
-  - [3.5. Gestión de la Configuración](#35-gestión-de-la-configuración)
-  - [3.6. Gestión del Cambio](#36-gestión-del-cambio)
-  - [3.7. Gestión de los Riesgos](#37-gestión-de-los-riesgos)
-  - [3.8. Uso de la Inteligencia Artificial](#38-uso-de-la-inteligencia-artificial)
+  - [2.5. Gestión de la Configuración](#25-gestión-de-la-configuración)
+  - [2.6. Gestión del Cambio](#26-gestión-del-cambio)
+  - [2.7. Gestión de los Riesgos](#27-gestión-de-los-riesgos)
+  - [2.8. Uso de la Inteligencia Artificial](#28-uso-de-la-inteligencia-artificial)
 - [**3. PRODUCT BACKLOG**](#3-product-backlog)
   - [SPRINT 1](#sprint-1)
   - [SPRINT 2](#sprint-2)
@@ -82,7 +85,7 @@ classoption: "table"
 | ---------- | ------- | ---------------------- | -------------------------------------------------------------------------- |
 | 15/02/2025 | v1.0    | Antonio Macías Ferrera | Elaboración de la base del documento.                                      |
 | 18/02/2025 | v1.1    | Delfín Santana Rubio   | Progreso en puntos 2.2, 2.3, 2.5, 2.6, 2.7 y 2.8                           |
-| 19/02/2025 | v1.2    | Antonio Macías Ferrera | Adición de la panificación inicial de acuerdo a la reunión del 16/02/2024. |
+| 19/02/2025 | v1.2    | Antonio Macías Ferrera | Adición de la planificación inicial de acuerdo a la reunión del 16/02/2024. |
 
 <br>
 
@@ -91,9 +94,9 @@ classoption: "table"
 <br>
 
 
-# **1. INTRPODUCCIÓN**
+# **1. INTRODUCCIÓN**
 
-El propósito de este informe es definir los objetivos a lograr a lo largo del desarrollo del proyecto. Siguiendo los estándares marcados por los *principios ágiles* el equipo dividirá el trabajo en tres *Sprints*. En este documento se explicará la metodología de trabajo en general, y se definirán los objetivos a cumplir en cada iterración del proyecto.
+El propósito de este informe es definir los objetivos a lograr a lo largo del desarrollo del proyecto. Siguiendo los estándares marcados por los *principios ágiles*, el equipo dividirá el trabajo en tres *Sprints*. En este documento se explicará la metodología de trabajo en general, y se definirán los objetivos a cumplir en cada iteración del proyecto.
 
 <br>
 
@@ -114,39 +117,67 @@ Todas las tareas a ejecutar en el *Sprint* se encontrarán inicialmente en la co
 
 ## 2.2. Flujo de Trabajo
 
-Para las tareas que no esten relacionadas con el desarrollo, el equipo tiene dos formas de dividirse:
-- La primera es diferenciando entre dos tipos de tareas:
-  - Marketing y Diseño:
-    - Redes sociales: Encargados de todo aquello relacionado con las redes sociales.
-    - Presentaciones: Encargados diseñar y crear las presentaciones y exponerlas.
-    - Diseño de imagen.
-  - Documentación:
-    - Planificación: Encargados de hacer todo lo relacionado con la planifiación y la dirección del proyecto.
-    - Documentación y reportes.
-    - Seguimiento y desempeño: En la práctica, este equipo se encarga de tomar notas del feedback, hacer las actas y todo lo que esté relacionado.
-- La segunda es en 3 equipos, en la que cada grupo tiene un representante y un secretario.
+La organización del trabajo, dado el gran número de participantes del proyecto, se ha llevado a cabo siguiendo una estructura doble: por un lado, una **división horizontal** en 3 subgrupos, y por otro lado, una **división transversal** en función de las tareas a realizar. Para ver en más detalle la división del trabajo, consultar el *Plan de Recursos Humanos*. 
 
-| GRUPO 1                                    | GRUPO 2                               | GRUPO 3                                |
-| ------------------------------------------ | ------------------------------------- | -------------------------------------- |
-| RAFAEL PULIDO CIFUENTES (representante)    | JULEN REDONDO PACHECO                 | DANIEL VELA CAMACHO                    |
-| DANIEL RUIZ LOPEZ                          | BENJAMIN I. MAUREIRA FLORES           | DANI TORTORICI BARTUS                  |
-| ALBERTO CARMONA SICRE (Secretario General) | DELFIN SANTANA RUBIO                  | FRANCISCO MATEOS VILLAREJO             |
-| DANIEL FERNÁNDEZ CABALLERO                 | GUADALUPE RIGRUEJO PINEDA             | FRANCISCO CAPOTE GARCIA                |
-| DANIEL ALORS ROMERO                        | ANTONIO MACIAS FERRERA (Scrum Master) | MIGUEL ENCINA MARTINEZ (representante) |
-| PABLO FERNANDEZ PEREZ                      | RAMON GAVIRA SANCHEZ                  | --                                     |
+La **organización horizontal** está compuesta por tres grupos de trabajo, en los que cada uno tiene un representante y un secretario.
 
+--
+| GRUPO 1                                 | GRUPO 2                               | GRUPO 3                                |
+| --------------------------------------- | ------------------------------------- | -------------------------------------- |
+| ALBERTO CARMONA SICRE (secretario)      | ANTONIO MACÍAS FERRERA (Scrum Master) | DANIEL TORTORICI BARTUS                |
+| DANIEL FERNÁNDEZ CABALLERO              | BENJAMÍN I. MAUREIRA FLORES           | DANIEL VELA CAMACHO (secretario)       |
+| DANIEL RUIZ LÓPEZ                       | DELFÍN SANTANA RUBIO (secretario)     | FRANCISCO CAPOTE GARCÍA                |
+| PABLO FERNÁNDEZ PÉREZ                   | GUADALUPE RIDRUEJO PINEDA             | FRANCISCO MATEO VILLALBA               |
+| RAFAEL PULIDO CIFUENTES (representante) | JULEN REDONDO PACHECO                 | MIGUEL ENCINA MARTÍNEZ (representante) |
+|                                         | RAMÓN GAVIRA SÁNCHEZ (representante)  | --                                     |
+--
 
-| RRSS                                    | Planificación                           | Documentación y Reportes   | Seguimiento y Desempeño (Secretarios)      | QA                                      |
-| --------------------------------------- | --------------------------------------- | -------------------------- | ------------------------------------------ | --------------------------------------- |
-| PABLO FERNANDEZ PEREZ                   | PABLO FERNANDEZ PEREZ                   | JULEN REDONDO PACHECO      | ALBERTO CARMONA SICRE (Secretario General) | FRANCISCO MATEOS VILLAREJO              |
-| FRANCISCO CAPOTE GARCIA                 | RAFAEL PULIDO CIFUENTES (representante) | GUADALUPE RIDRUEJO PINEDA  | DELFIN SANTANA RUBIO                       | MIGUEL ENCINA MARTINEZ  (representante) |
-| RAFAEL PULIDO CIFUENTES (representante) | MIGUEL ENCINA MARTINEZ (representante)  | DANIEL RUIZ LOPEZ          | DANIEL VELA CAMACHO                        | BENJAMIN I. MAUREIRA FLORES             |
-| DANIEL RUIZ LOPEZ                       | FRANCISCO CAPOTE GARCIA                 | DANIEL FERNÁNDEZ CABALLERO |                                            | DANIEL ALORS ROMERO                     |
-| FRANCISCO MATEOS VILLAREJO              | RAMON GAVIRA SANCHEZ                    |                            |                                            |                                         |
-|                                         | ANTONIO MACIAS FERRERA (Scrum Master)   |                            |                                            |                                         |
+Estos grupos trabajarán de forma autosuficiente durante la fase de ejecución (desarrollo del producto). 
+
+Los **representantes** serán necesarios para favorecer una buena comunicación, y serán los encargados de elaborar los *Sprint Planning* en conjunto y dividir las tareas en cada grupo.
+
+Los **secretarios** serán los encargados de tomar actas de las reuniones internas y tomar nota del *feedback* de los profesores.
 
 
-Entonces, las tareas se podrán asignar a equipos siguiendo alguno de los dos tipos de subdivisiones explicados. Sin embargo, dado que seguimos una organización ágil, esta organización se podrá saltar en cualquier momento. Por ejemplo, si se sabe que hay dos personas que son idóneas para hacer una tarea, se podrá asignar a esas dos personas a hacerlas. También, si por ejemplo el equipo de QA o de seguimiento han terminado sus tareas, podrán ayudar en cualquier otra tarea.
+Por otro lado, la **organización transversal** a lo largo de los equipos asignará distintos **roles** a los miembros del equipo para realizar tareas más ajenas al desarrollo de la aplicación. Estas serán tareas de planificación, documentación, publicidad...:
+
+- **Equipo de redes sociales y publicidad**: encargados de todo aquello relacionado con las redes sociales, promoción, publicidad y comunicaciones externas del proyecto (dentro de estas comunicaciones externas entra el contacto con Usuarios Piloto).
+
+- **Equipo de Planificación**: encargados de la planificación de tareas y asignación por grupos, encargados también de la elaboración de la documentación Scrum (planning, review, retrospective...). El equipo de planificación estará formado por los representantes de cada grupo, además del *Scrum Master*.
+
+- **Equipo de Secretarios**: encargados de elaborar las actas de reuniones de cada grupo y tomar nota del feedback de cada clase. El equipo estará formado por los secretarios de cada grupo.
+
+- **Equipo de Quality Assurance**: encargados de evaluar la calidad del desarrollo, documentación, planificación y desempeño del equipo y comunicar semanalmente sus conclusiones.
+
+- **Encargados de Presentaciones y Diseño**: encargados de diseñar y crear las presentaciones y exponerlas.
+
+- **Encargados de informes de tiempo**: encargados de elaborar informes semanales de tiempo.
+
+- **Encargados de informes de Inteligencia Artificial**: encargados de elaborar informes semanales sobre el uso de la Inteligencia Artificial.
+
+
+--
+| RRSS Y PUBLICIDAD  | PLANIFICACIÓN      | SECRETARIOS     | QA                   |
+| ------------------ | ------------------ | --------------- | -------------------- |
+| ANTONIO MACÍAS     | ANTONIO MACÍAS     | ALBERTO CARMONA | BENJAMÍN I. MAUREIRA |
+| FRANCISCO CAPOTE   | GUADALUPE RIDRUEJO | DANIEL VELA     | DANIEL ALORS         |
+| FRANCISCO MATEO    | MIGUEL ENCINA      | DELFÍN SANTANA  | FRANCISCO MATEO      |
+| GUADALUPE RIDRUEJO | PABLO FERNÁNDEZ    |                 | MIGUEL ENCINA        |
+| PABLO FERNÁNDEZ    | RAFAEL PULIDO      |                 |                      |
+| RAFAEL PULIDO      | RAMÓN GAVIRA       |                 |                      |
+| DANIEL RUIZ        |                    |                 |                      |
+--
+
+--
+| PRESENTACIONES     | TIEMPO          | IA               |
+| ------------------ | --------------- | ---------------- |
+| ANTONIO MACÍAS     | ALBERTO CARMONA | DANIEL FERNÁNDEZ |
+| GUADALUPE RIDRUEJO | RAFAEL PULIDO   | DANIEL RUIZ      |
+|                    |                 |                  |
+--
+
+
+Así, las tareas se podrán asignar a equipos siguiendo alguno de los dos tipos de subdivisiones explicados. Sin embargo, dado que seguimos una organización ágil, esta organización se podrá modificar en cualquier momento. Por ejemplo, si se sabe que hay dos personas que son idóneas para hacer una tarea, se podrá asignar a esas dos personas a hacerla. También, si por ejemplo el equipo de QA o de seguimiento han terminado sus tareas, podrán ayudar en cualquier otra tarea.
 
 
 
@@ -155,41 +186,57 @@ Entonces, las tareas se podrán asignar a equipos siguiendo alguno de los dos ti
 ## 2.3. Flujo de Desarrollo
 
 Siguiendo la subdivisión anteriormente descrita, se puede especificar en qué tareas se especializa cada miembro de cada subgrupo.
+
 - Grupo 1:
+
   - Frontend:
     - Rafael Pulido Cifuentes
     - Daniel Ruiz López
+
   - Backend:
     - Alberto Carmona Sicre
     - Daniel Fernández Caballero
+
   - Fullstack:
     - Pablo Fernández Pérez
+
+
 - Grupo 2:
+
   - Frontend:
     - Julen Redondo Pacheco
     - Benjamín Ignacio Maureira Flores
-  - Backend
+
+  - Backend:
     - Delfín Santana Rubio
     - Guadalupe Ridruejo Pineda
     - Antonio Macías Ferrera
+
   - Fullstack:
     - Ramón Gavira Sánchez
+
+
 - Grupo 3:
+
   - Frontend:
     - Daniel Vela Camacho
     - Daniel Tortorici Bartús
+
   - Backend:
     - Francisco Mateo Villalba
     - Francisco Capote García
-  - FullStack
+
+  - FullStack:
     - Miguel Encina Martínez
 
 
 Cada miembro del equipo será responsable de gestionar el estado de sus tareas ateniéndose al siguiente procedimiento:
 
+
 1. **Inicio de la Tarea**
     - El desarrollador selecciona una tarea de la columna "Product Backlog" y la traslada a "Todo".
     - Esta acción indica que la tarea ha sido priorizada para su ejecución.
+    - Los representantes de cada grupo serán responsables de estimar y asignar las tareas a realizar por ese grupo.
 
 2. **Trabajo en Progreso**
     - Cuando se comienza a trabajar en la tarea, se mueve a la columna "In Progress".
@@ -200,6 +247,7 @@ Cada miembro del equipo será responsable de gestionar el estado de sus tareas a
     - El otro miembro del equipo asignado se encarga de analizar el código y verificar su calidad.
     - Si la revisión es satisfactoria, el revisor aprueba la PR y fusiona los cambios.
     - Si se identifican errores o mejoras necesarias, la tarea se devuelve a "In Progress", notificando los ajustes requeridos.
+    - Por norma general, el *testing* será realizado también acorde a la revisión por pares.
 
 <br>
 
@@ -223,27 +271,27 @@ Para que una historia de usuario (HU) se considere terminada, debe cumplir con l
 
 <br>
 
-## 3.5. Gestión de la Configuración
+## 2.5. Gestión de la Configuración
 
 Desde la **política de versionado** de documentos y de código, hasta la **política de nombrado de ramas**, pasando por el **criterio de mensajes de commits** y el **flujo** de trabajo **GitHub Project - GitHub - Clockify** se encuentra definido en detalle en el ***Plan De Gestión De La Configuración***.
 
 <br>
 
-## 3.6. Gestión del Cambio
+## 2.6. Gestión del Cambio
 
-Los cambios no pueden ser implementados de manera arbitraria, sino que deben de seguir un proceso que cubra las fases de registro, análisis, aceptación, implantación, evaluación y seguimiento. La gestión del cambio se hará tal y como se describe en el documento *Change Management Plan*. 
-
-<br>
-
-## 3.7. Gestión de los Riesgos
-
-La gestión del riesgo se hará tal y como se describe en el documento *Risk Management Plan*. En este documento, entre otras cosas, se explica que se deberá de hacer seguimiento a los riesgos y actualizar el registro de riesgos periódicamente.
+Los cambios no pueden ser implementados de manera arbitraria, sino que deben de seguir un proceso que cubra las fases de registro, análisis, aceptación, implantación, evaluación y seguimiento. La gestión del cambio se hará tal y como se describe en el documento *Plan de Gestión del Cambio*. 
 
 <br>
 
-## 3.8. Uso de la Inteligencia Artificial
+## 2.7. Gestión de los Riesgos
 
-El uso de la inteligencia artificial estará regulado por el Acuerdo de IA y se deberán de hacer informes periódicos de su uso. Uno de los puntos a destacar de este acuerdo es la importancia de la intervención humana en la aplicación de soluciones IA en el proyecto.
+La gestión del riesgo se hará tal y como se describe en el documento *Plan de Gestión de los Riesgos*. En este documento, entre otras cosas, se explica que se deberá de hacer seguimiento a los riesgos y actualizar el registro de riesgos periódicamente.
+
+<br>
+
+## 2.8. Uso de la Inteligencia Artificial
+
+El uso de la inteligencia artificial estará regulado por el *Acuerdo de IA* y se deberán de hacer informes periódicos de su uso. Uno de los puntos a destacar de este acuerdo es la importancia de la intervención humana en la aplicación de soluciones IA en el proyecto.
 
 <br>
 <!-- \newpage -->
@@ -253,7 +301,7 @@ El uso de la inteligencia artificial estará regulado por el Acuerdo de IA y se 
 
 # **3. PRODUCT BACKLOG**
 
-A continuación, se desglosarán los objetivos del proyecto, divididos en *Sprints*. Cada *Sprint* contará con un **Sprint Goal** ademas de unos **objetivos de alto nivel** acorde con los requisitos marcados por los distintos entregables de la asignatura. 
+A continuación, se desglosarán los objetivos del proyecto, divididos en *Sprints*. Cada *Sprint* contará con un **Sprint Goal** además de unos **objetivos de alto nivel** acorde con los requisitos marcados por los distintos entregables de la asignatura. 
 
 Para cada iteración, se dividirá el trabajo en *Historias Épicas* trazables con los objetivos de alto nivel, y para cada épica se asignarán unas **historias de usuario** trazables en el *Registro de Historias de Usuario*. 
 
@@ -267,16 +315,16 @@ Los objetivos marcados para este *Sprint* son los siguientes:
 - ✅ **Objetivo 1:** Formar al equipo
 - ✅ **Objetivo 2:** Implementar una gestión de usuarios básica
 - ✅ **Objetivo 3:** Implementar las funcionalidades correspondientes a los casos de uso *'core'*.
-- ✅ **Objetivo 4:** Desplegar una '*landing page*' estética y accesible para posicinar y mostrar al público nuestra aplicación.
+- ✅ **Objetivo 4:** Desplegar una '*landing page*' estética y accesible para posicionar y mostrar al público nuestra aplicación.
 
 
-| Historia Épica      | Historias de Usuario |
-|---------------------|---------------------|
-| Formación          | HA-02               |
-| Gestión usuarios  | HF-01, HF-02, HP-01, HP-02, HP-03, HP-06, HF-01, HF-02, HA-01 |
-| Videollamada      | HF-10, HF-19         |
-| Landing page      | HA-03               |
-| Cita/Calendario   | HP-05, HF-03, HF-03, HF-01 |
+| Historia Épica   | Historias de Usuario                                          |
+| ---------------- | ------------------------------------------------------------- |
+| Formación        | HA-02                                                         |
+| Gestión usuarios | HF-01, HF-02, HP-01, HP-02, HP-03, HP-06, HF-01, HF-02, HA-01 |
+| Videollamada     | HF-10, HF-19                                                  |
+| Landing page     | HA-03                                                         |
+| Cita/Calendario  | HP-05, HF-03, HF-03, HF-01                                    |
 
 
 
@@ -290,10 +338,10 @@ Los objetivos marcados para este *Sprint* son los siguientes:
 - ✅ **Objetivo 2:** Implementar las herramientas para fisioterapeutas
 
 
-| Historia Épica              | Historias de Usuario |
-|-----------------------------|---------------------|
-| Payment Pricing            | HP-04, HP-07, HF-08, HF-09 |
-| Subida vídeos/archivos     | HF-12               |
+| Historia Épica              | Historias de Usuario              |
+| --------------------------- | --------------------------------- |
+| Payment Pricing             | HP-04, HP-07, HF-08, HF-09        |
+| Subida vídeos/archivos      | HF-12                             |
 | Herramientas de seguimiento | HF-06, HF-07, HF-11, HF-13, HF-14 |
 
 
@@ -308,8 +356,8 @@ Los objetivos marcados para este *Sprint* son los siguientes:
 - ✅ **Objetivo 2:** Desarrollar herramientas de soporte para los usuarios
 - ✅ **Objetivo 3:** Realizar pruebas de la apliación de forma más dedicada.
 
-| Historia Épica                      | Historias de Usuario |
-|--------------------------------------|---------------------|
+| Historia Épica                                                                                          | Historias de Usuario                     |
+| ------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
 | Testing, búsqueda avanzada, subida docs, historial paciente, API SMS, mapa de búsqueda, chatbot support | HF-03, HF-05, HF-13, HF-16, HF-17, HF-18 |
 
 Cabe aclarar que la división en épicas y la asignación de tareas e HU es menos detalla ya que este último *Sprint* queda supeditado al trabajo realizado en los dos anteriores y se presta a modificaciones a lo largo del desarrollo del proyecto.
