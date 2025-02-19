@@ -1,8 +1,8 @@
 ---
-title: "INFORME DE TIEMPO - SEMANA n (dd/mm-dd/mm)"              # CHANGE IF NEEDED
-subtitle: "FISIO FIND - Grupo 6 - #X"
-author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
-date: "10/02/2025"                       # CHANGE IF NEEDED
+title: "INFORME DE TIEMPO DE LA SEMANA 2 (07/02-13/02)"              # CHANGE IF NEEDED
+subtitle: "FISIO FIND"
+author: [Rafael Pulido Cifuentes, Alberto Carmona Sicre]         # CHANGE IF NEEDED
+date: "15/02/2025"                       # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -21,7 +21,7 @@ classoption: "table"
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<p align="center">
+<!-- <p align="center">
   <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
@@ -30,41 +30,6 @@ classoption: "table"
 </h1>
 
 <br>
-
-
----
-
-**Ficha del documento**
-
-- **Nombre del Proyecto:** FISIO FIND
-
-- **Número de Grupo:** Grupo 6
-
-- **Entregable:** #DP
-
-- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
-
-- **Autores:** Alberto Carmona Sicre
-
-- **Fecha de Creación:** 10/02/2025  
-
-- **Versión:** v1.0
-
-<br>
-
-
----
-
-**Histórico de Modificaciones**
-
-| Fecha      | Versión | Realizada por                    | Descripción de los cambios |
-|------------|---------|----------------------------------|----------------------------|
-| 10/02/2025 | v1.0    | Alberto Carmona Sicre           | Elaboración de la plantilla del documento. |
-
-<br>
-
-
----
 
 **ÍNDICE**
 1. [PROYECTOS](#1-proyectos)  
@@ -75,7 +40,7 @@ classoption: "table"
 3. [DESGLOSE](#3-desglose)  
     3.1 [DESGLOSE POR DÍAS](#31-desglose-por-días)  
     3.2 [DESGLOSE POR PROYECTOS](#32-desglose-por-proyectos)  
-    3.3 [DESGLOSE POR INTEGRANTES](#33-desglose-por-integrantes)
+    3.3 [DESGLOSE POR INTEGRANTES](#33-desglose-por-integrantes) -->
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
@@ -135,17 +100,15 @@ En esta semana de trabajo se ha trabajado en los siguientes proyectos:
 ## 1.3. Proyectos destacados
 Entre los proyectos destacados de la semana, aquellos en los que se ha invertido más tiempo, encontramos los siguientes:  
 
-- **proyecto:** 22:50
+- **Reuniones:** 81:18:47
 
-- **proyecto:** 18:17
+- **docs:** 74:04:32
 
-- ...
-
-Esto debido a ...  
+Esto debido a que estando aún en las semanas iniciales del proyecto, el equipo se reune con mucha asiduidad con el objetivo de poner apunto todos los infomes y documentos durante el comienzo del proyecto
 
 
 # 2. HORAS TOTALES
-Para esta semana de trabajo, el tiempo total dedicado al proyecto ha sido de **X horas** Y minutos.  
+Para esta semana de trabajo, el tiempo total dedicado al proyecto ha sido de **272** horas y **59** minutos.
 
 <br>
 
@@ -158,19 +121,19 @@ Para una mejor visualización del tiempo dedicado, se realiza un desglose por d�
 ## 3.1 Desglose por días  
 Ordenado de manera cronológica:
 
-- **Viernes dd/mm:** hh:mm
+- **Viernes dd/mm:** 65:47:28
 
-- **Sábado dd/mm:** hh:mm
+- **Sábado dd/mm:** 02:01:45
 
-- **Domingo dd/mm:** hh:m
+- **Domingo dd/mm:** 31:10:20
 
-- **Lunes dd/mm:** hh:mm
+- **Lunes dd/mm:** 37:25:57
 
-- **Martes dd/mm:** hh:mm
+- **Martes dd/mm:** 42:35:52
 
-- **Miércoles dd/mm:** hh:mm
+- **Miércoles dd/mm:** 47:51:20
 
-- **Jueves dd/mm:** hh:mm
+- **Jueves dd/mm:** 46:11:07
 
 
 <br>
@@ -178,23 +141,23 @@ Ordenado de manera cronológica:
 ## 3.2 Desglose por proyectos  
 Ordenado de mayor a menor tiempo dedicado en cada proyecto: 
 
-**1. docs:** hh:mm
+**1. docs:** 74:04:32
 
-**2. Presentaciones / Diseños:** hh:mm
+**2. Presentaciones / Diseños:** 26:47:44
 
-**3. Reuniones:** hh:mm
+**3. Reuniones:** 81:18:47
 
-**4. Clases / Vídeos:** hh:mm
+**4. Clases / Vídeos:** 65:08:04
 
-**5. Redes sociales:** hh:mm
+**5. Redes sociales:** 00:00:00
 
-**6. test:** hh:mm
+**6. test:** 00:00:00
 
-**7. Planificación:** hh:mm
+**7. Planificación:** 24:03:42
 
-**8. fix / refactor / style:** hh:mm
+**8. fix / refactor / style:** 00:00:00
 
-**9. feat:** hh:mm
+**9. feat:** 01:36:00	
 
 
 <br>
@@ -203,39 +166,39 @@ Ordenado de mayor a menor tiempo dedicado en cada proyecto:
 
 Ordenado por orden alfabético:
 
-**1. Alberto Carmona Sicre** - hh:mm
+**1. Alberto Carmona Sicre** - 20:06:17
 
-**2. Antonio Macías Ferrera** -  hh:mm
+**2. Antonio Macías Ferrera** -  20:19:31
 
-**3. Benjamín Ignacio Maureira Flores** -  hh:mm
+**3. Benjamín Ignacio Maureira Flores** -  07:34:00
 
-**4. Daniel Alors Romero** - hh:mm
+**4. Daniel Alors Romero** - 15:34:51
 
-**5. Daniel Fernández Caballero** - hh:mm
+**5. Daniel Fernández Caballero** - 14:32:21
 
-**6. Daniel Ruiz López**  -  hh:mm
+**6. Daniel Ruiz López**  -  21:48:01
 
-**7. Daniel Tortorici Bartús** - hh:mm
+**7. Daniel Tortorici Bartús** - 14:06:26
 
-**8. Daniel Vela Camacho** - hh:mm
+**8. Daniel Vela Camacho** - 24:23:00
 
-**9. Delfín Santana Rubio** - hh:mm
+**9. Delfín Santana Rubio** - 15:43:02
 
-**10. Francisco Capote García** -  hh:mm
+**10. Francisco Capote García** -  16:16:44
 
-**11. Francisco Mateos Villarejo** -  hh:mm
+**11. Francisco Mateos Villarejo** -  16:12:28
 
-**12. Guadalupe Ridruejo Pineda** - hh:mm
+**12. Guadalupe Ridruejo Pineda** - 20:36:03
 
-**13. Julen Redondo Pacheco** -  hh:mm
+**13. Julen Redondo Pacheco** -  07:07:28
 
-**14. Miguel Encina Martínez** -  hh:mm
+**14. Miguel Encina Martínez** -  14:34:30
 
-**15. Pablo Fernández Pérez** -  hh:mm
+**15. Pablo Fernández Pérez** -  13:50:26
 
-**16. Ramón Gavira Sánchez**  -  hh:mm
+**16. Ramón Gavira Sánchez**  -  12:23:00
 
-**17. Rafael Pulido Cifuentes** -  hh:mm
+**17. Rafael Pulido Cifuentes** -  17:50:41
 
 
 <br>
