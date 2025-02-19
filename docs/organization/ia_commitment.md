@@ -59,7 +59,7 @@ monofont: "Noto Sans Mono"
 - **Nombre del Proyecto:** FISIO FIND
 - **Autores:** Daniel Fernández Caballero
 - **Fecha de Creación:** 17/02/2025
-- **Versión:** v1.0
+- **Versión:** v1.2
 
 <br>
 
@@ -71,6 +71,7 @@ monofont: "Noto Sans Mono"
 |------------|---------|---------------|----------------------------|
 | 17/02/2025 | v1.0    | Daniel Fernández Caballero | Versión inicial del documento sin firmar, incluye los apartados: Introducción, Principios Fundamentales, Áreas de Aplicación, Áreas donde no se utiliza IA, Implementación y Gobernanza, Compromisos y Responsabilidad Legal, y Revisión y Actualización |
 | 18/02/2025 | v1.1    | Daniel Fernández Caballero | Añadidas algunas áreas de aplicación  |
+| 19/02/2025 | v1.2    | Daniel Fernández Caballero, Daniel Alors Romero | Se ha añadido el área de aplicación de Asistencia en la generación de código y el apartado de Registro de Consultas en el apartado de Compromisos y Responsabilidad Legal. |
 
 ---
 
@@ -86,7 +87,7 @@ Nos comprometemos a hacer un uso transparente de la IA en el desarrollo del proy
 
 ## 2.2 JUSTICIA Y NO DISCRIMINACIÓN
 
-La IA será utilizada para generar sugerencias de código y documentación, pero nunca tomará decisiones que puedan generar sesgos en el desarrollo del producto. Nos aseguramos de que todos los procesos automatizados sean imparciales y justos.
+La IA será utilizada para generar sugerencias de código y documentación, pero nunca tomará decisiones que puedan generar sesgos en el desarrollo del producto. Nos aseguramos de que todos los procesos automatizados sean imparciales, justos y siempre supervisados por un humano.
 
 ## 2.3 PRIVACIDAD Y SEGURIDAD
 
@@ -106,8 +107,9 @@ La IA en Fisio Find se utilizará para:
 
 - **Generación de documentación**: Asistencia en la creación y mejora del contenido de la documentación del proyecto.
 - **Mejoras de estilo en la documentación**: Asistencia en la mejora del estilo de los documentos, siempre y cuando el documento no contenga datos privados o secretos.
-- **Sugerencias de refactorización de código**: Análisis automatizado para mejorar la calidad del código, detectando posibles áreas de mejora o optimización.
+- **Sugerencias de refactorización de código**: Análisis automatizado para mejorar la calidad del código, detectando posibles áreas de mejora u optimización.
 - **Generación de pruebas unitarias**: Ayuda en la creación de pruebas de software de forma más eficiente, basándose en el código existente.
+- **Asistencia en la generación de código**: La IA proporcionará apoyo en la creación de fragmentos de código, sugiriendo implementaciones eficientes y estructuradas, siempre respetando la confidencialidad y sin hacer uso de datos privados de la empresa.
 
 La IA **no** será utilizada para influir en la funcionalidad principal de la aplicación ni en la toma de decisiones relacionadas con los usuarios o sus datos.
 
@@ -137,6 +139,7 @@ La IA **no** será utilizada para influir en la funcionalidad principal de la ap
 
 - La responsabilidad sobre las decisiones tomadas con la asistencia de IA siempre recae en los desarrolladores humanos, quienes son responsables de revisar y validar cualquier output generado.
 - Garantizamos que la IA no será utilizada para tomar decisiones automáticas sin la intervención del equipo humano.
+- Se mantiene un registro detallado de todas las consultas realizadas a la IA, el cual podrá ser presentado en caso de solicitud legal por parte de los clientes, asegurando transparencia y trazabilidad en el uso de la tecnología.
 
 # 7. REVISIÓN Y ACTUALIZACIÓN
 
