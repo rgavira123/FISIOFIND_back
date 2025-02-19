@@ -1,8 +1,8 @@
 ---
-title: "INFORME DE TIEMPO DE LA SEMANA 2 (07/02-13/02)"              # CHANGE IF NEEDED
-subtitle: "FISIO FIND"
-author: [Rafael Pulido Cifuentes, Alberto Carmona Sicre]         # CHANGE IF NEEDED
-date: "15/02/2025"                       # CHANGE IF NEEDED
+title: "INFORME DE TIEMPO DE LA SEMANA 2 (07/02-13/02)"      # CHANGE IF NEEDED
+subtitle: "FISIO FIND - Grupo 6 - #DP"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
+date: "15/02/2025"                                           # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -12,16 +12,16 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: "../.backgrounds/background4V.pdf" # CHANGE IF NEEDED
-header-left: "CLOCKIFY REPORT"
-header-right: "10/02/2025"               # CHANGE IF NEEDED
+titlepage-background: "../../.backgrounds/background4V.pdf"  # CHANGE IF NEEDED
+header-left: "CLOCKIFY REPORT"                               # CHANGE IF NEEDED
+header-right: "15/02/2025"                                   # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"  
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<!-- <p align="center">
+<p align="center">
   <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
@@ -30,6 +30,7 @@ classoption: "table"
 </h1>
 
 <br>
+
 
 **ÍNDICE**
 1. [PROYECTOS](#1-proyectos)  
@@ -40,22 +41,59 @@ classoption: "table"
 3. [DESGLOSE](#3-desglose)  
     3.1 [DESGLOSE POR DÍAS](#31-desglose-por-días)  
     3.2 [DESGLOSE POR PROYECTOS](#32-desglose-por-proyectos)  
-    3.3 [DESGLOSE POR INTEGRANTES](#33-desglose-por-integrantes) -->
+    3.3 [DESGLOSE POR INTEGRANTES](#33-desglose-por-integrantes)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
 
-\newpage
+---
+
+**Ficha del documento**
+
+- **Nombre del Proyecto:** FISIO FIND
+
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+
+- **Autores:** Alberto Carmona Sicre, Rafael Pulido Cifuentes
+
+- **Fecha de Creación:** 15/02/2025  
+
+- **Versión:** v1.1
+
+<br>
+
+
+---
+
+<!-- \newpage -->
+
+**Histórico de Modificaciones**
+
+| Fecha      | Versión | Realizada por   | Descripción de los cambios                       |
+| ---------- | ------- | --------------- | ------------------------------------------------ |
+| 15/02/2025 | v1.0    | Alberto Carmona Sicre, Rafael Pulido Cifuentes | Elaboración de la primera versión del documento. |
+| 15/02/2025 | v1.1    | Antonio Macías Ferrera | Correcciones de formato y de errores ortográficos. |
+
+
+<br>
+
+<!-- \newpage -->
+
+<br>
 
 
 # 1. PROYECTOS
 
 ## 1.1. Definición de cada proyecto
-A continuación, se muestran los posibles tipos de tarea en las que pueden trabajar los integrantes del equipo, junto con una breve definición de estas:
+A continuación, se muestran los posibles tipos de tareas en las que pueden trabajar los integrantes del equipo, junto con una breve definición de estas:
 
-- **Clases / Vídeos:** aquellas horas que corresponden a acudir a las clases presenciales de la asignatura, así como de ver los vídeos que se ofrecen como contenido.
+- **Clases / Vídeos:** aquellas horas que corresponden a acudir a las clases presenciales de la asignatura, así como ver los vídeos que se ofrecen como contenido.
 
-- **feat:** tanto este proyecto como los tres siguientes se referirán a tareas que requieran desarrollo de código en el repositorio, en concreto este proyecto abarca aquellas tareas que se relacionen con el desarrollo de código y nuevas funcionalidades.
+- **feat:** tanto este proyecto como los tres siguientes se referirán a tareas que requieran desarrollo de código en el repositorio. En concreto, este proyecto abarca aquellas tareas que se relacionen con el desarrollo de código y nuevas funcionalidades.
 
 - **docs:** todo lo relacionado con la realización de los diferentes documentos que se redactarán a lo largo del proyecto.
 
@@ -63,11 +101,11 @@ A continuación, se muestran los posibles tipos de tarea en las que pueden traba
 
 - **test:** tipo de tarea para realizar las pruebas correspondientes tras la integración de nuevas funcionalidades que se crean terminadas.
 
-- **Presentaciones / Diseños:** todo lo relacionado con preparar las presentaciones semanales de la asignatura o elaborar los diseños de la aplicación tales como logos, portadas ...
+- **Presentaciones / Diseños:** todo lo relacionado con preparar las presentaciones semanales de la asignatura o elaborar los diseños de la aplicación, tales como logos, portadas, etc.
 
 - **Redes sociales:** para aquellas tareas relacionadas con la gestión de las redes sociales, posicionamiento y publicidad del proyecto.
 
-- **Reuniones:** como su nombre indica, son aquellas tareas en las que se invierta el tiempo en reuniones del equipo de carácter general.
+- **Reuniones:** como su nombre indica, son aquellas tareas en las que se invierte el tiempo en reuniones del equipo de carácter general.
 
 - **Organización:** todo lo relacionado con la organización inicial del proyecto.
 
@@ -104,7 +142,7 @@ Entre los proyectos destacados de la semana, aquellos en los que se ha invertido
 
 - **docs:** 74:04:32
 
-Esto debido a que estando aún en las semanas iniciales del proyecto, el equipo se reune con mucha asiduidad con el objetivo de poner apunto todos los infomes y documentos durante el comienzo del proyecto
+Esto se debe a que, estando aún en las semanas iniciales del proyecto, el equipo se reúne con mucha asiduidad con el objetivo de poner a punto todos los informes y documentos durante el comienzo del proyecto.
 
 
 # 2. HORAS TOTALES
@@ -121,19 +159,19 @@ Para una mejor visualización del tiempo dedicado, se realiza un desglose por d�
 ## 3.1 Desglose por días  
 Ordenado de manera cronológica:
 
-- **Viernes dd/mm:** 65:47:28
+- **Viernes:** 65:47:28
 
-- **Sábado dd/mm:** 02:01:45
+- **Sábado:** 02:01:45
 
-- **Domingo dd/mm:** 31:10:20
+- **Domingo:** 31:10:20
 
-- **Lunes dd/mm:** 37:25:57
+- **Lunes:** 37:25:57
 
-- **Martes dd/mm:** 42:35:52
+- **Martes:** 42:35:52
 
-- **Miércoles dd/mm:** 47:51:20
+- **Miércoles:** 47:51:20
 
-- **Jueves dd/mm:** 46:11:07
+- **Jueves:** 46:11:07
 
 
 <br>
