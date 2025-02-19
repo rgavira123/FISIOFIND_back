@@ -48,7 +48,7 @@ classoption: "table"
 
 - **Fecha de Creación:** 16/02/2025  
 
-- **Versión:** v1.4
+- **Versión:** v1.5
 
 <br>
 
