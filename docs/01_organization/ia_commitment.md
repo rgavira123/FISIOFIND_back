@@ -1,8 +1,8 @@
 ---
-title: "IA COMMITMENT"
-subtitle: "FISIO FIND"
-author: [Daniel Fernández Caballero]
-date: 17/02/2025
+title: "IA COMMITMENT"                                    # CHANGE IF NEEDED
+subtitle: "FISIO FIND - Grupo 6 - #DP"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
+date: 17/02/2025                                          # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -12,9 +12,9 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: FISIO FIND
-titlepage-background: "../.backgrounds/background1V.pdf"
-header-left: "IA COMMITMENT"
-header-right: "17/02/2025"
+titlepage-background: "../.backgrounds/background1V.pdf"  # CHANGE IF NEEDED
+header-left: "IA COMMITMENT"                              # CHANGE IF NEEDED
+header-right: "17/02/2025"                                # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"
@@ -24,7 +24,7 @@ monofont: "Noto Sans Mono"
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<p align="center">
+<!-- <p align="center">
   <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
@@ -37,17 +37,16 @@ monofont: "Noto Sans Mono"
 **ÍNDICE**
 - [1. INTRODUCCIÓN](#1-introducción)
 - [2. PRINCIPIOS FUNDAMENTALES](#2-principios-fundamentales)
-  - [2.1. TRANSPARENCIA](#21-transparencia)
-  - [2.2. JUSTICIA Y NO DISCRIMINACIÓN](#22-justicia-y-no-discriminación)
-  - [2.3. PRIVACIDAD Y SEGURIDAD](#23-privacidad-y-seguridad)
-  - [2.4. RESPONSABILIDAD](#24-responsabilidad)
-  - [2.5. FIABILIDAD Y ROBUSTEZ](#25-fiabilidad-y-robustez)
+  - [2.1 TRANSPARENCIA](#21-transparencia)
+  - [2.2 JUSTICIA Y NO DISCRIMINACIÓN](#22-justicia-y-no-discriminación)
+  - [2.3 PRIVACIDAD Y SEGURIDAD](#23-privacidad-y-seguridad)
+  - [2.4 RESPONSABILIDAD](#24-responsabilidad)
+  - [2.5 FIABILIDAD Y ROBUSTEZ](#25-fiabilidad-y-robustez)
 - [3. ÁREAS DE APLICACIÓN](#3-áreas-de-aplicación)
 - [4. ÁREAS DONDE **NO** SE UTILIZA IA](#4-áreas-donde-no-se-utiliza-ia)
 - [5. IMPLEMENTACIÓN Y GOBERNANZA](#5-implementación-y-gobernanza)
 - [6. COMPROMISOS Y RESPONSABILIDAD LEGAL](#6-compromisos-y-responsabilidad-legal)
-- [7. REVISIÓN Y ACTUALIZACIÓN](#7-revisión-y-actualización)
-
+- [7. REVISIÓN Y ACTUALIZACIÓN](#7-revisión-y-actualización) -->
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 
 <br>
@@ -57,9 +56,18 @@ monofont: "Noto Sans Mono"
 **Ficha del documento**
 
 - **Nombre del Proyecto:** FISIO FIND
+
+- **Número de Grupo:** Grupo 6
+
+- **Entregable:** #DP
+
+- **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
+
 - **Autores:** Daniel Fernández Caballero
+
 - **Fecha de Creación:** 17/02/2025
-- **Versión:** v1.0
+
+- **Versión:** v1.1
 
 <br>
 
@@ -72,7 +80,12 @@ monofont: "Noto Sans Mono"
 | 17/02/2025 | v1.0    | Daniel Fernández Caballero | Versión inicial del documento sin firmar, incluye los apartados: Introducción, Principios Fundamentales, Áreas de Aplicación, Áreas donde no se utiliza IA, Implementación y Gobernanza, Compromisos y Responsabilidad Legal, y Revisión y Actualización |
 | 18/02/2025 | v1.1    | Daniel Fernández Caballero | Añadidas algunas áreas de aplicación  |
 
----
+<br>
+
+\newpage
+
+<br>
+
 
 # 1. INTRODUCCIÓN
 
@@ -106,7 +119,7 @@ La IA en Fisio Find se utilizará para:
 
 - **Generación de documentación**: Asistencia en la creación y mejora del contenido de la documentación del proyecto.
 - **Mejoras de estilo en la documentación**: Asistencia en la mejora del estilo de los documentos, siempre y cuando el documento no contenga datos privados o secretos.
-- **Sugerencias de refactorización de código**: Análisis automatizado para mejorar la calidad del código, detectando posibles áreas de mejora o optimización.
+- **Sugerencias de refactorización de código**: Análisis automatizado para mejorar la calidad del código, detectando posibles áreas de mejora u optimización.
 - **Generación de pruebas unitarias**: Ayuda en la creación de pruebas de software de forma más eficiente, basándose en el código existente.
 
 La IA **no** será utilizada para influir en la funcionalidad principal de la aplicación ni en la toma de decisiones relacionadas con los usuarios o sus datos.
