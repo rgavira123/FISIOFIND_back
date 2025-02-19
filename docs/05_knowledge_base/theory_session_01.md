@@ -1,8 +1,8 @@
 ---
-title: "ISPP - PÍLDORA TEÓRICA 1"             
+title: "ISPP - PÍLDORA TEÓRICA 1"                         # CHANGE IF NEEDED
 subtitle: "FISIO FIND - Grupo 6 - #DP"
-author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
-date: "17/02/2025"                       
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
+date: "17/02/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -12,14 +12,12 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: "../.backgrounds/background2V.pdf"
-header-left: "PÍLDORA TEÓRICA"
-header-right: "17/02/2025"               
+titlepage-background: "../.backgrounds/background2V.pdf"  # CHANGE IF NEEDED
+header-left: "PÍLDORA TEÓRICA"                            # CHANGE IF NEEDED
+header-right: "17/02/2025"                                # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"
-# header-includes:
-#   - \usepackage{float}
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
@@ -30,6 +28,24 @@ classoption: "table"
 <h1 align="center" style="font-size: 30px; font-weight: bold;">
   ISPP - PÍLDORA TEÓRICA 1
 </h1>
+
+<br>
+
+**ÍNDICE**
+- [**1. METODOLOGÍAS ÁGILES: SCRUM**](#1-metodologías-ágiles-scrum)
+- [**2. PMBOK**](#2-pmbok)
+  - [**Tabla de procesos**](#tabla-de-procesos)
+  - [**Áreas de conocimiento**](#áreas-de-conocimiento)
+- [**3. FRACASOS DE LOS PROYECTOS SOFTWARE**](#3-fracasos-de-los-proyectos-software)
+- [**4. GESTIÓN DE EQUIPOS**](#4-gestión-de-equipos)
+  - [**6 formas de ser derrotado - El arte de la guerra (Sun Tzu)**](#6-formas-de-ser-derrotado---el-arte-de-la-guerra-sun-tzu)
+  - [**Plan de RRHH**](#plan-de-rrhh)
+  - [**Productividad de un equipo**](#productividad-de-un-equipo)
+  - [**Pirámide de Maslow**](#pirámide-de-maslow)
+  - [**Teoría de la autodeterminación**](#teoría-de-la-autodeterminación)
+- [**5. GESTIÓN DE LAS COMUNICACIONES**](#5-gestión-de-las-comunicaciones)
+- [**6. INFORMES DE DESEMPEÑO**](#6-informes-de-desempeño)
+<!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
 
@@ -62,28 +78,6 @@ classoption: "table"
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
 | 17/02/2025 | v1.0    | Antonio Macías Ferrera           | Elaboración de la primera versión del documento. |
-
-<br>
-
-
----
-
-**ÍNDICE**
-- [**1. METODOLOGÍAS ÁGILES: SCRUM**](#1-metodologías-ágiles-scrum)
-- [**2. PMBOK**](#2-pmbok)
-  - [**Tabla de procesos**](#tabla-de-procesos)
-  - [**Áreas de conocimiento**](#áreas-de-conocimiento)
-- [**3. FRACASOS DE LOS PROYECTOS SOFTWARE**](#3-fracasos-de-los-proyectos-software)
-- [**4. GESTIÓN DE EQUIPOS**](#4-gestión-de-equipos)
-  - [**6 formas de ser derrotado - El arte de la guerra (Sun Tzu)**](#6-formas-de-ser-derrotado---el-arte-de-la-guerra-sun-tzu)
-  - [**Plan de RRHH**](#plan-de-rrhh)
-  - [**Productividad de un equipo**](#productividad-de-un-equipo)
-  - [**Pirámide de Maslow**](#pirámide-de-maslow)
-  - [**Teoría de la autodeterminación**](#teoría-de-la-autodeterminación)
-- [**5. GESTIÓN DE LAS COMUNICACIONES**](#5-gestión-de-las-comunicaciones)
-- [**6. INFORMES DE DESEMPEÑO**](#6-informes-de-desempeño)
-<!-- COMMENT WHEN EXPORTING TO PDF -->
-
 
 <br>
 
@@ -163,7 +157,7 @@ El PMBOK es un estándar para la gestión de proyectos que incluye:
 
 - 📅 **Falta de plan**
 
-- 📊 No hacer caso a gestión de riesgos
+- 📊 No hacer caso a la gestión de riesgos
 
 - 📑 No tener control de costes, calidad, tiempo
 
@@ -191,13 +185,13 @@ El PMBOK es un estándar para la gestión de proyectos que incluye:
 - Sin equipo no hay proyecto. 
 - Fomentar la comunicación y la comunidad → base de conocimiento.
 
-![El manifiesto agil](../.img/agile_principles.png)
+![El manifiesto ágil](../.img/agile_principles.png)
 
 ## **6 formas de ser derrotado - El arte de la guerra (Sun Tzu)**
 
 1. **No calibrar el número de fuerzas**
 
-2. **Ausencia de sistema claro de recompensas y castigos**
+2. **Ausencia de un sistema claro de recompensas y castigos**
 
 3. **Falta de entrenamiento**
 
@@ -265,7 +259,7 @@ Para elaborar un buen *Plan de Gestión de la Comunicación* nos debemos pregunt
 
 - ¿QUIÉN SE COMUNICA CON QUIÉN?
 
-- ¿CON QUÉ FRECUENCIA SE REALIZA COMUNICACIÓN?
+- ¿CON QUÉ FRECUENCIA SE REALIZA LA COMUNICACIÓN?
 
 <br>
 

@@ -1,8 +1,8 @@
 ---
-title: "ACUERDO DE BASE DE CONOCIMIENTO"
+title: "ACUERDO DE BASE DE CONOCIMIENTO"                  # CHANGE IF NEEDED
 subtitle: "FISIO FIND - Grupo 6 - #DP"
-author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
-date: "13/02/2025"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
+date: "13/02/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -12,9 +12,9 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: "../.backgrounds/background1V.pdf"                            
-header-left: "ACUERDO DE BASE DE CONOCIMIENTO"                 
-header-right: "13/02/2025"                                         
+titlepage-background: "../.backgrounds/background1V.pdf"  # CHANGE IF NEEDED
+header-left: "ACUERDO DE BASE DE CONOCIMIENTO"            # CHANGE IF NEEDED
+header-right: "13/02/2025"                                # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"
@@ -41,7 +41,7 @@ monofont: "Noto Sans Mono"
 - [3. ALCANCE](#3-alcance)
 - [4. RESPONSABILIDADES](#4-responsabilidades)
 - [5. NORMAS DE USO](#5-normas-de-uso)
-- [6. CONTRO DEL ACCESO](#6-contro-del-acceso)
+- [6. CONTROL DEL ACCESO](#6-control-del-acceso)
 - [7. PROPIEDAD INTELECTUAL](#7-propiedad-intelectual)
 - [8. VIGENCIA Y MODIFICACIÓN DE ACUERDO](#8-vigencia-y-modificación-de-acuerdo)
 - [9. ACEPTACIÓN DEL ACUERDO](#9-aceptación-del-acuerdo)
@@ -122,7 +122,7 @@ Este acuerdo aplica a:
 
 # 4. RESPONSABILIDADES  
 
-Los administradores de la base de conocimiento, que en este caso serán los miembros del proyecto **FISIO FIND** firmates de este documento, acatarán a las siguientes responsabilidades:
+Los administradores de la base de conocimiento, que en este caso serán los miembros del proyecto **FISIO FIND** firmantes de este documento, acatarán las siguientes responsabilidades:
 
 1. **Mantener y organizar** la información de manera estructurada y coherente, siguiendo estándares de documentación predefinidos.  
 
@@ -132,9 +132,9 @@ Los administradores de la base de conocimiento, que en este caso serán los miem
 
 4. **Resolver conflictos** relacionados con la información o el acceso a la Base de Conocimiento.  
 
-Otros colaboradores que tengan acceso a visualizar el contenido de la Base de Conocimiento, como podrán serlo los usuarios piloto o el resto de alumnos y alumnas de la asignatura ISPP tendrán que:
+Otros colaboradores que tengan acceso a visualizar el contenido de la Base de Conocimiento, como podrán ser los usuarios piloto o el resto de alumnos y alumnas de la asignatura ISPP, tendrán que:
 
-5. **Utilizar la información** de manera responsable y conforme a las políticas de la organización, ***sin teniendo acceso a modificar el contenido de la Base de Conocimiento***.  
+5. **Utilizar la información** de manera responsable y conforme a las políticas de la organización, ***sin tener acceso a modificar el contenido de la Base de Conocimiento***.  
 
 <br>
 
@@ -156,16 +156,16 @@ Otros colaboradores que tengan acceso a visualizar el contenido de la Base de Co
 <br>
 
 
-# 6. CONTRO DEL ACCESO
+# 6. CONTROL DEL ACCESO
 1. **Niveles de acceso**: Se implementarán niveles de acceso basados en roles.
 
-  - Administradores: los administradores de la Base de Conocimiento serán los encargados de manternerla actualizada y vigente, teniendo permisos de lectura y escritura sobre ella. Deberán gestionar la documentación acorde a la normativa especificada en el punto anterior, haciendo especial incapié en cumplir los planes de ***Gestión del Cambio*** y de ***Gestión de la Configuración***.
+  - Administradores: los administradores de la Base de Conocimiento serán los encargados de mantenerla actualizada y vigente, teniendo permisos de lectura y escritura sobre ella. Deberán gestionar la documentación acorde a la normativa especificada en el punto anterior, haciendo especial hincapié en cumplir los planes de ***Gestión del Cambio*** y de ***Gestión de la Configuración***.
   
   - Usuario de solo lectura: otras personas autorizadas a visualizar el contenido de la Base de Conocimiento. Estos usuarios podrán ver el contenido, pero NO podrán modificarlo.
 
 2. **Modificación de información crítica**: Solo los administradores podrán modificar o eliminar información de la Base de conocimiento.  
 
-3. **Registro de actividades**: Se mantendrá un registro detallado de las actividades realizadas en la Base de Conocimiento, incluyendo accesos, ediciones y descargas. Esto se logrará mediante el uso de ***GitHub*** como sisitema de gestión de versiones descentralizado.
+3. **Registro de actividades**: Se mantendrá un registro detallado de las actividades realizadas en la Base de Conocimiento, incluyendo accesos, ediciones y descargas. Esto se logrará mediante el uso de ***GitHub*** como sistema de gestión de versiones descentralizado.
 
 <br>
 

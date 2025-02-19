@@ -1,8 +1,8 @@
 ---
-title: "ISPP - PÍLDORA TEÓRICA 2"             
+title: "ISPP - PÍLDORA TEÓRICA 2"                         # CHANGE IF NEEDED
 subtitle: "FISIO FIND - Grupo 6 - #DP"
-author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
-date: "17/02/2025"                       
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
+date: "17/02/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -12,14 +12,12 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: "../.backgrounds/background2V.pdf"
-header-left: "PÍLDORA TEÓRICA"
-header-right: "17/02/2025"               
+titlepage-background: "../.backgrounds/background2V.pdf"  # CHANGE IF NEEDED
+header-left: "PÍLDORA TEÓRICA"                            # CHANGE IF NEEDED
+header-right: "17/02/2025"                                # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"
-# header-includes:
-#   - \usepackage{float}
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
@@ -30,6 +28,29 @@ classoption: "table"
 <h1 align="center" style="font-size: 30px; font-weight: bold;">
   ISPP - PÍLDORA TEÓRICA 2
 </h1>
+
+<br>
+
+
+**ÍNDICE**
+- [**1. GESTIÓN DE RIESGOS**](#1-gestión-de-riesgos)
+  - [**Identificación / Clasificación**](#identificación--clasificación)
+  - [**Análisis / priorización**](#análisis--priorización)
+  - [**Mitigación**](#mitigación)
+  - [**Monitoreo**](#monitoreo)
+- [**2. GESTIÓN DE USUARIOS PILOTO**](#2-gestión-de-usuarios-piloto)
+  - [**Pilot testing vs Beta testing**](#pilot-testing-vs-beta-testing)
+- [**3. ANÁLISIS DE COMPETIDORES**](#3-análisis-de-competidores)
+  - [**Tipos de competencia**](#tipos-de-competencia)
+  - [**Identificación de competidores**](#identificación-de-competidores)
+  - [**Búsqueda de competidores (4Ps)**](#búsqueda-de-competidores-4ps)
+  - [**Elaborar perfil de competidores**](#elaborar-perfil-de-competidores)
+  - [**Matriz DAFO**](#matriz-dafo)
+  - [**Errores comunes**](#errores-comunes)
+- [**4. PRESENTACIONES EFECTIVAS**](#4-presentaciones-efectivas)
+  - [**Errores comunes**](#errores-comunes-1)
+  - [**Tips ;)**](#tips-)
+<!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
 
@@ -62,32 +83,6 @@ classoption: "table"
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
 | 17/02/2025 | v1.0    | Antonio Macías Ferrera           | Elaboración de la primera versión del documento. |
-
-<br>
-
-
----
-
-**ÍNDICE**
-- [**1. GESTIÓN DE RIESGOS**](#1-gestión-de-riesgos)
-  - [**Identificación / Clasificación**](#identificación--clasificación)
-  - [**Análisis / priorización**](#análisis--priorización)
-  - [**Mitigación**](#mitigación)
-  - [**Monitoreo**](#monitoreo)
-- [**2. GESTIÓN DE USUARIOS PILOTO**](#2-gestión-de-usuarios-piloto)
-  - [**Pilot testing vs Beta testing**](#pilot-testing-vs-beta-testing)
-- [**3. ANÁLISIS DE COMPETIDORES**](#3-análisis-de-competidores)
-  - [**Tipos de competencia**](#tipos-de-competencia)
-  - [**Identificación de competidores**](#identificación-de-competidores)
-  - [**Búsqueda de competidores (4Ps)**](#búsqueda-de-competidores-4ps)
-  - [**Elaborar perfil de competidores**](#elaborar-perfil-de-competidores)
-  - [**Matriz DAFO**](#matriz-dafo)
-  - [**Errores comunes**](#errores-comunes)
-- [**4. PRESENTACIONES EFECTIVAS**](#4-presentaciones-efectivas)
-  - [**Errores comunes**](#errores-comunes-1)
-  - [**Tips ;)**](#tips-)
-<!-- COMMENT WHEN EXPORTING TO PDF -->
-
 
 <br>
 

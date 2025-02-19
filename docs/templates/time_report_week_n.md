@@ -1,8 +1,8 @@
 ---
-title: "INFORME DE TIEMPO - SEMANA n (dd/mm-dd/mm)"              # CHANGE IF NEEDED
+title: "INFORME DE TIEMPO - SEMANA n (dd/mm-dd/mm)"       # CHANGE IF NEEDED
 subtitle: "FISIO FIND - Grupo 6 - #X"
-author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
-date: "10/02/2025"                       # CHANGE IF NEEDED
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
+date: "10/02/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -12,9 +12,9 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: "../.backgrounds/background4V.pdf" # CHANGE IF NEEDED
-header-left: "CLOCKIFY REPORT"
-header-right: "10/02/2025"               # CHANGE IF NEEDED
+titlepage-background: "../.backgrounds/background4V.pdf"  # CHANGE IF NEEDED
+header-left: "CLOCKIFY REPORT"                            # CHANGE IF NEEDED
+header-right: "10/02/2025"                                # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"  
@@ -32,7 +32,22 @@ classoption: "table"
 <br>
 
 
+**ÍNDICE**
+1. [PROYECTOS](#1-proyectos)  
+    1.1 [DEFINICIÓN DE CADA PROYECTO](#11-definición-de-cada-proyecto)  
+    1.2 [PROYECTOS REALIZADOS EN LA SEMANA](#12-proyectos-realizados-en-la-semana)
+    1.3 [PROYECTOS DESTACADOS](#13-proyectos-destacados)
+2. [HORAS TOTALES](#2-horas-totales)
+3. [DESGLOSE](#3-desglose)  
+    3.1 [DESGLOSE POR DÍAS](#31-desglose-por-días)  
+    3.2 [DESGLOSE POR PROYECTOS](#32-desglose-por-proyectos)  
+    3.3 [DESGLOSE POR INTEGRANTES](#33-desglose-por-integrantes)
+<!-- COMMENT WHEN EXPORTING TO PDF -->
+
+<br>
+
 ---
+
 
 **Ficha del documento**
 
@@ -55,42 +70,29 @@ classoption: "table"
 
 ---
 
+<!-- \newpage -->
+
 **Histórico de Modificaciones**
 
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
-| 10/02/2025 | v1.0    | Alberto Carmona Sicre           | Elaboración de la plantilla del documento. |
+| 10/02/2025 | v1.0    | Alberto Carmona Sicre            | Elaboración de la plantilla del documento. |
 
 <br>
 
-
----
-
-**ÍNDICE**
-1. [PROYECTOS](#1-proyectos)  
-    1.1 [DEFINICIÓN DE CADA PROYECTO](#11-definición-de-cada-proyecto)  
-    1.2 [PROYECTOS REALIZADOS EN LA SEMANA](#12-proyectos-realizados-en-la-semana)
-    1.3 [PROYECTOS DESTACADOS](#13-proyectos-destacados)
-2. [HORAS TOTALES](#2-horas-totales)
-3. [DESGLOSE](#3-desglose)  
-    3.1 [DESGLOSE POR DÍAS](#31-desglose-por-días)  
-    3.2 [DESGLOSE POR PROYECTOS](#32-desglose-por-proyectos)  
-    3.3 [DESGLOSE POR INTEGRANTES](#33-desglose-por-integrantes)
-<!-- COMMENT WHEN EXPORTING TO PDF -->
+<!-- \newpage -->
 
 <br>
-
-\newpage
 
 
 # 1. PROYECTOS
 
 ## 1.1. Definición de cada proyecto
-A continuación, se muestran los posibles tipos de tarea en las que pueden trabajar los integrantes del equipo, junto con una breve definición de estas:
+A continuación, se muestran los posibles tipos de tareas en las que pueden trabajar los integrantes del equipo, junto con una breve definición de estas:
 
-- **Clases / Vídeos:** aquellas horas que corresponden a acudir a las clases presenciales de la asignatura, así como de ver los vídeos que se ofrecen como contenido.
+- **Clases / Vídeos:** aquellas horas que corresponden a acudir a las clases presenciales de la asignatura, así como ver los vídeos que se ofrecen como contenido.
 
-- **feat:** tanto este proyecto como los tres siguientes se referirán a tareas que requieran desarrollo de código en el repositorio, en concreto este proyecto abarca aquellas tareas que se relacionen con el desarrollo de código y nuevas funcionalidades.
+- **feat:** tanto este proyecto como los tres siguientes se referirán a tareas que requieran desarrollo de código en el repositorio. En concreto, este proyecto abarca aquellas tareas que se relacionen con el desarrollo de código y nuevas funcionalidades.
 
 - **docs:** todo lo relacionado con la realización de los diferentes documentos que se redactarán a lo largo del proyecto.
 
@@ -98,11 +100,11 @@ A continuación, se muestran los posibles tipos de tarea en las que pueden traba
 
 - **test:** tipo de tarea para realizar las pruebas correspondientes tras la integración de nuevas funcionalidades que se crean terminadas.
 
-- **Presentaciones / Diseños:** todo lo relacionado con preparar las presentaciones semanales de la asignatura o elaborar los diseños de la aplicación tales como logos, portadas ...
+- **Presentaciones / Diseños:** todo lo relacionado con preparar las presentaciones semanales de la asignatura o elaborar los diseños de la aplicación tales como logos, portadas, etc.
 
 - **Redes sociales:** para aquellas tareas relacionadas con la gestión de las redes sociales, posicionamiento y publicidad del proyecto.
 
-- **Reuniones:** como su nombre indica, son aquellas tareas en las que se invierta el tiempo en reuniones del equipo de carácter general.
+- **Reuniones:** como su nombre indica, son aquellas tareas en las que se invierte el tiempo en reuniones del equipo de carácter general.
 
 - **Organización:** todo lo relacionado con la organización inicial del proyecto.
 
@@ -162,7 +164,7 @@ Ordenado de manera cronológica:
 
 - **Sábado dd/mm:** hh:mm
 
-- **Domingo dd/mm:** hh:m
+- **Domingo dd/mm:** hh:mm
 
 - **Lunes dd/mm:** hh:mm
 
@@ -223,7 +225,7 @@ Ordenado por orden alfabético:
 
 **10. Francisco Capote García** -  hh:mm
 
-**11. Francisco Mateos Villarejo** -  hh:mm
+**11. Francisco Mateo Villalba** -  hh:mm
 
 **12. Guadalupe Ridruejo Pineda** - hh:mm
 

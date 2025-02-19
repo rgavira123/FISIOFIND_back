@@ -1,8 +1,8 @@
 ---
-title: "INFORME DE TIEMPO DE LA SEMANA 1 (31/01-06/02)"              # CHANGE IF NEEDED
+title: "INFORME DE TIEMPO DE LA SEMANA 1 (31/01-06/02)"     # CHANGE IF NEEDED
 subtitle: "FISIO FIND - Grupo 6 - #DP"
-author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
-date: "10/02/2025"                       # CHANGE IF NEEDED
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
+date: "10/02/2025"                                          # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -13,8 +13,8 @@ titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
 titlepage-background: "../../.backgrounds/background4V.pdf" # CHANGE IF NEEDED
-header-left: "CLOCKIFY REPORT"
-header-right: "10/02/2025"               # CHANGE IF NEEDED
+header-left: "CLOCKIFY REPORT"                              # CHANGE IF NEEDED
+header-right: "10/02/2025"                                  # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"  
@@ -31,6 +31,19 @@ classoption: "table"
 
 <br>
 
+**ÍNDICE**
+1. [PROYECTOS](#1-proyectos)  
+    1.1. [DEFINICIÓN DE CADA PROYECTO](#11-definición-de-cada-proyecto)  
+    1.2. [PROYECTOS REALIZADOS EN LA SEMANA](#12-proyectos-realizados-en-la-semana)
+    1.3. [PROYECTOS DESTACADOS](#13-proyectos-destacados)
+2. [HORAS TOTALES](#2-horas-totales)
+3. [DESGLOSE](#3-desglose)  
+    3.1 [DESGLOSE POR DÍAS](#31-desglose-por-días)  
+    3.2 [DESGLOSE POR PROYECTOS](#32-desglose-por-proyectos)  
+    3.3 [DESGLOSE POR INTEGRANTES](#33-desglose-por-integrantes)
+<!-- COMMENT WHEN EXPORTING TO PDF -->
+
+<br>
 
 ---
 
@@ -55,6 +68,8 @@ classoption: "table"
 
 ---
 
+<!-- \newpage -->
+
 **Histórico de Modificaciones**
 
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
@@ -63,32 +78,17 @@ classoption: "table"
 
 <br>
 
-
----
-
-**ÍNDICE**
-1. [PROYECTOS](#1-proyectos)  
-    1.1. [DEFINICIÓN DE CADA PROYECTO](#11-definición-de-cada-proyecto)  
-    1.2. [PROYECTOS REALIZADOS EN LA SEMANA](#12-proyectos-realizados-en-la-semana)
-    1.3. [PROYECTOS DESTACADOS](#13-proyectos-destacados)
-2. [HORAS TOTALES](#2-horas-totales)
-3. [DESGLOSE](#3-desglose)  
-    3.1 [DESGLOSE POR DÍAS](#31-desglose-por-días)  
-    3.2 [DESGLOSE POR PROYECTOS](#32-desglose-por-proyectos)  
-    3.3 [DESGLOSE POR INTEGRANTES](#33-desglose-por-integrantes)
-<!-- COMMENT WHEN EXPORTING TO PDF -->
+<!-- \newpage -->
 
 <br>
-
-<!-- \newpage -->
 
 
 # 1. PROYECTOS
 
-## 1.1. Definición de cada proyecto
+## 1.1. DEFINICIÓN DE CADA PROYECTO
 A continuación, se muestran los posibles tipos de tarea en las que pueden trabajar los integrantes del equipo, junto con una breve definición de estas:
 
-- **Clases / Vídeos:** aquellas horas que corresponden a acudir a las clases presenciales de la asignatura, así como de ver los vídeos que se ofrecen como contenido.
+- **Clases / Vídeos:** aquellas horas que corresponden a acudir a las clases presenciales de la asignatura, así como ver los vídeos que se ofrecen como contenido.
 
 - **feat:** tanto este proyecto como los tres siguientes se referirán a tareas que requieran desarrollo de código en el repositorio, en concreto este proyecto abarca aquellas tareas que se relacionen con el desarrollo de código y nuevas funcionalidades.
 
@@ -102,7 +102,7 @@ A continuación, se muestran los posibles tipos de tarea en las que pueden traba
 
 - **Redes sociales:** para aquellas tareas relacionadas con la gestión de las redes sociales, posicionamiento y publicidad del proyecto.
 
-- **Reuniones:** como su nombre indica, son aquellas tareas en las que se invierta el tiempo en reuniones del equipo de carácter general.
+- **Reuniones:** como su nombre indica, son aquellas tareas en las que se invierte el tiempo en reuniones del equipo de carácter general.
 
 - **Organización:** todo lo relacionado con la organización inicial del proyecto.
 
@@ -111,7 +111,7 @@ A continuación, se muestran los posibles tipos de tarea en las que pueden traba
 - **Acuerdo de compromiso:** relacionado con la elaboración del documento Acuerdo de Compromiso en la etapa inicial del proyecto.
 
 
-## 1.2. Proyectos realizados en la semana
+## 1.2. PROYECTOS REALIZADOS EN LA SEMANA
 En esta semana de trabajo se ha trabajado en los siguientes proyectos:  
 
 1. docs
@@ -139,7 +139,7 @@ En esta semana de trabajo se ha trabajado en los siguientes proyectos:
 
 <br>
 
-## 1.3. Proyectos destacados
+## 1.3. PROYECTOS DESTACADOS
 Entre los proyectos destacados de la semana, aquellos en los que se ha invertido más tiempo, encontramos los siguientes:  
 
 - **docs:** 22:50:29
@@ -150,6 +150,11 @@ Entre los proyectos destacados de la semana, aquellos en los que se ha invertido
 
 Esto debido a la naturaleza de las **fases iniciales** de los proyectos software, donde las reuniones, la documentación y la exposición de la idea son fundamentales.  
 
+<br>
+
+<!-- \newpage -->
+
+<br>
 
 # 2. HORAS TOTALES
 Para la primera semana de trabajo, el tiempo total dedicado al proyecto ha sido de **118 horas**, 42 minutos y 30 segundos.  
@@ -162,7 +167,7 @@ Para la primera semana de trabajo, el tiempo total dedicado al proyecto ha sido 
 # 3. DESGLOSE
 Para una mejor visualización del tiempo dedicado, se realiza un desglose por días, proyectos e integrantes. 
 
-## 3.1 Desglose por días  
+## 3.1. DESGLOSE POR DÍAS  
 Ordenado de manera cronológica:
 
 - **Viernes 31/01:** 25:10:00
@@ -182,7 +187,7 @@ Ordenado de manera cronológica:
 
 <br>
 
-## 3.2 Desglose por proyectos  
+## 3.2. DESGLOSE POR PROYECTOS  
 Ordenado de mayor a menor tiempo dedicado en cada proyecto: 
 
 **1. docs:** 22:50:29
@@ -209,7 +214,7 @@ Ordenado de mayor a menor tiempo dedicado en cada proyecto:
 
 <br>
 
-## 3.3 Desglose por integrantes
+## 3.3. DESGLOSE POR INTEGRANTES
 
 Ordenado por orden alfabético:
 

@@ -1,8 +1,8 @@
 ---
-title: "COMMITMENT AGREEMENT"
+title: "COMMITMENT AGREEMENT"                             # CHANGE IF NEEDED
 subtitle: "FISIO FIND - Grupo 6 - #DP"
-author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
-date: "07/02/2025"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
+date: "07/02/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -12,9 +12,9 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: FISIO FIND
-titlepage-background: "../.backgrounds/background1V.pdf"                            
-header-left: "COMMITMENT AGREEMENT"                 
-header-right: "07/02/2025"                                         
+titlepage-background: "../.backgrounds/background1V.pdf"  # CHANGE IF NEEDED
+header-left: "COMMITMENT AGREEMENT"                       # CHANGE IF NEEDED
+header-right: "07/02/2025"                                # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"
@@ -72,6 +72,8 @@ monofont: "Noto Sans Mono"
 
 ---
 
+<!-- \newpage  -->
+
 **Historial de modificaciones**
 
 | Fecha      | Versión | Realizada por | Descripción de los cambios |
@@ -109,7 +111,7 @@ Al unirme a la asignatura de Ingeniería de Software y Práctica Profesional (IS
 - Me comprometo a finalizar mis tareas asignadas a tiempo para evitar retrasos en las actividades de otros compañeros.
 - Me comprometo a ofrecer mis servicios a compañeros que lo necesiten si mi trabajo semanal ha sido finalizado.
 
-[1] En caso de que las personas adelanten tareas de semanas posteriores y sean aprobadas por el equipo de QA, el tiempo extra dedicado en esa semana podrá ser descontado de futuras semanas. Asímismo, si un miembro del grupo no pudiera llegar al mínimo de horas a lo largo de una semana de trabajo, deberá compensarlo invirtiendo más horas la siguiente semana.
+[1] En caso de que las personas adelanten tareas de semanas posteriores y sean aprobadas por el equipo de QA, el tiempo extra dedicado en esa semana podrá ser descontado de futuras semanas. Asimismo, si un miembro del grupo no pudiera llegar al mínimo de horas a lo largo de una semana de trabajo, deberá compensarlo invirtiendo más horas la siguiente semana.
 
 <br>
 

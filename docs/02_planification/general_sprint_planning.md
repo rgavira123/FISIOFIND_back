@@ -1,8 +1,8 @@
 ---
-title: "PLANNING SPRINT GENERAL"         # CHANGE IF NEEDED
+title: "PLANNING SPRINT GENERAL"                          # CHANGE IF NEEDED
 subtitle: "FISIO FIND - Grupo 6 - #DP"
-author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
-date: "15/02/2025"                        # CHANGE IF NEEDED
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
+date: "15/02/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -13,8 +13,8 @@ titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
 titlepage-background: "../.backgrounds/background1V.pdf"  # CHANGE IF NEEDED
-header-left: "PLANNING SPRINT GENERAL"   # CHANGE IF NEEDED
-header-right: "15/02/2025"                # CHANGE IF NEEDED
+header-left: "PLANNING SPRINT GENERAL"                    # CHANGE IF NEEDED
+header-right: "15/02/2025"                                # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"  
@@ -32,17 +32,20 @@ classoption: "table"
 <br>
 
 **ÍNDICE**
-- [**1. OBJETIVOS DEL SPRINT**](#1-objetivos-del-sprint)
+- [**1. INTRPODUCCIÓN**](#1-intrpoducción)
 - [**2. METODOLOGÍA INTERNA**](#2-metodología-interna)
   - [2.1. Gestión de Tareas](#21-gestión-de-tareas)
   - [2.2. Flujo de Trabajo](#22-flujo-de-trabajo)
   - [2.3. Flujo de Desarrollo](#23-flujo-de-desarrollo)
   - [2.4. Definición De Hecho (DoD) de una Historia de Usuario](#24-definición-de-hecho-dod-de-una-historia-de-usuario)
-  - [2.5. Gestión de la Configuración](#35-gestión-de-la-configuración)
-  - [2.6. Gestión del Cambio](#36-gestión-del-cambio)
-  - [2.7. Gestión de los Riesgos](#37-gestión-de-los-riesgos)
-  - [2.8. Uso de la Inteligencia Artificial](#38-uso-de-la-inteligencia-artificial)
-- [**3. SPRINT BACKLOG**](#3-sprint-backlog)
+  - [3.5. Gestión de la Configuración](#35-gestión-de-la-configuración)
+  - [3.6. Gestión del Cambio](#36-gestión-del-cambio)
+  - [3.7. Gestión de los Riesgos](#37-gestión-de-los-riesgos)
+  - [3.8. Uso de la Inteligencia Artificial](#38-uso-de-la-inteligencia-artificial)
+- [**3. PRODUCT BACKLOG**](#3-product-backlog)
+  - [SPRINT 1](#sprint-1)
+  - [SPRINT 2](#sprint-2)
+  - [SPRINT 3](#sprint-3)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 ---
@@ -66,7 +69,7 @@ classoption: "table"
 
 - **Fecha de Creación:** 15/02/2025  
 
-- **Versión:** v1.1
+- **Versión:** v1.2
 
 <br>
 
@@ -75,10 +78,11 @@ classoption: "table"
 
 **Historial de modificaciones**
 
-| Fecha      | Versión | Realizada por | Descripción de los cambios |
-|------------|---------|--------------|----------------------------|
-| 15/02/2025 | v1.0    |  Antonio Macías Ferrera | Elaboración de la base del documento. |
-| 18/02/2025 | v1.1    | Delfín Santana Rubio | Progreso en puntos 2.2, 2.3, 2.5, 2.6, 2.7 y 2.8 |
+| Fecha      | Versión | Realizada por          | Descripción de los cambios                                                 |
+| ---------- | ------- | ---------------------- | -------------------------------------------------------------------------- |
+| 15/02/2025 | v1.0    | Antonio Macías Ferrera | Elaboración de la base del documento.                                      |
+| 18/02/2025 | v1.1    | Delfín Santana Rubio   | Progreso en puntos 2.2, 2.3, 2.5, 2.6, 2.7 y 2.8                           |
+| 19/02/2025 | v1.2    | Antonio Macías Ferrera | Adición de la panificación inicial de acuerdo a la reunión del 16/02/2024. |
 
 <br>
 
@@ -87,14 +91,9 @@ classoption: "table"
 <br>
 
 
-# **1. OBJETIVOS DEL SPRINT**
-El propósito de este informe es definir los objetivos a lograr durante el Sprint #X y describir la metodología para alcanzarlos. Se analizarán el proceso de **Sprint Planning**, la gestión de tareas con **GitHub Project**, y el cumplimiento de las estimaciones iniciales.
+# **1. INTRPODUCCIÓN**
 
-Los siguientes **objetivos** del *Sprint* harán referencia a las HU desglosadas en la plataforma *GitHub Project*.
-
-- ✅ **Objetivo 1:** [Descripción breve del objetivo]
-- ✅ **Objetivo 2:** [Descripción breve del objetivo]
-- ✅ **Objetivo 3:** [Descripción breve del objetivo]
+El propósito de este informe es definir los objetivos a lograr a lo largo del desarrollo del proyecto. Siguiendo los estándares marcados por los *principios ágiles* el equipo dividirá el trabajo en tres *Sprints*. En este documento se explicará la metodología de trabajo en general, y se definirán los objetivos a cumplir en cada iterración del proyecto.
 
 <br>
 
@@ -128,23 +127,23 @@ Para las tareas que no esten relacionadas con el desarrollo, el equipo tiene dos
 - La segunda es en 3 equipos, en la que cada grupo tiene un representante y un secretario.
 
 | GRUPO 1                                    | GRUPO 2                               | GRUPO 3                                |
-|--------------------------------------------|---------------------------------------|----------------------------------------|
+| ------------------------------------------ | ------------------------------------- | -------------------------------------- |
 | RAFAEL PULIDO CIFUENTES (representante)    | JULEN REDONDO PACHECO                 | DANIEL VELA CAMACHO                    |
 | DANIEL RUIZ LOPEZ                          | BENJAMIN I. MAUREIRA FLORES           | DANI TORTORICI BARTUS                  |
 | ALBERTO CARMONA SICRE (Secretario General) | DELFIN SANTANA RUBIO                  | FRANCISCO MATEOS VILLAREJO             |
 | DANIEL FERNÁNDEZ CABALLERO                 | GUADALUPE RIGRUEJO PINEDA             | FRANCISCO CAPOTE GARCIA                |
 | DANIEL ALORS ROMERO                        | ANTONIO MACIAS FERRERA (Scrum Master) | MIGUEL ENCINA MARTINEZ (representante) |
-| PABLO FERNANDEZ PEREZ                      | RAMON GAVIRA SANCHEZ                  |                   --                   |
+| PABLO FERNANDEZ PEREZ                      | RAMON GAVIRA SANCHEZ                  | --                                     |
 
 
-| RRSS                         | Planificación                   | Documentación y Reportes       | Seguimiento y Desempeño (Secretarios) | QA                          |
-|------------------------------|--------------------------------|--------------------------------|---------------------------------------|-----------------------------|
-| PABLO FERNANDEZ PEREZ        | PABLO FERNANDEZ PEREZ         | JULEN REDONDO PACHECO        | ALBERTO CARMONA SICRE (Secretario General) | FRANCISCO MATEOS VILLAREJO  |
-| FRANCISCO CAPOTE GARCIA      | RAFAEL PULIDO CIFUENTES (representante)       | GUADALUPE RIDRUEJO PINEDA    | DELFIN SANTANA RUBIO                  | MIGUEL ENCINA MARTINEZ  (representante)     |
-| RAFAEL PULIDO CIFUENTES (representante)      | MIGUEL ENCINA MARTINEZ (representante)       | DANIEL RUIZ LOPEZ            | DANIEL VELA CAMACHO                   | BENJAMIN I. MAUREIRA FLORES    |
-| DANIEL RUIZ LOPEZ            | FRANCISCO CAPOTE GARCIA       | DANIEL FERNÁNDEZ CABALLERO   |                                       | DANIEL ALORS ROMERO         |
-| FRANCISCO MATEOS VILLAREJO   | RAMON GAVIRA SANCHEZ         |                                |                                       |                             |
-|                              | ANTONIO MACIAS FERRERA (Scrum Master)       |                                |                                       |                             |
+| RRSS                                    | Planificación                           | Documentación y Reportes   | Seguimiento y Desempeño (Secretarios)      | QA                                      |
+| --------------------------------------- | --------------------------------------- | -------------------------- | ------------------------------------------ | --------------------------------------- |
+| PABLO FERNANDEZ PEREZ                   | PABLO FERNANDEZ PEREZ                   | JULEN REDONDO PACHECO      | ALBERTO CARMONA SICRE (Secretario General) | FRANCISCO MATEOS VILLAREJO              |
+| FRANCISCO CAPOTE GARCIA                 | RAFAEL PULIDO CIFUENTES (representante) | GUADALUPE RIDRUEJO PINEDA  | DELFIN SANTANA RUBIO                       | MIGUEL ENCINA MARTINEZ  (representante) |
+| RAFAEL PULIDO CIFUENTES (representante) | MIGUEL ENCINA MARTINEZ (representante)  | DANIEL RUIZ LOPEZ          | DANIEL VELA CAMACHO                        | BENJAMIN I. MAUREIRA FLORES             |
+| DANIEL RUIZ LOPEZ                       | FRANCISCO CAPOTE GARCIA                 | DANIEL FERNÁNDEZ CABALLERO |                                            | DANIEL ALORS ROMERO                     |
+| FRANCISCO MATEOS VILLAREJO              | RAMON GAVIRA SANCHEZ                    |                            |                                            |                                         |
+|                                         | ANTONIO MACIAS FERRERA (Scrum Master)   |                            |                                            |                                         |
 
 
 Entonces, las tareas se podrán asignar a equipos siguiendo alguno de los dos tipos de subdivisiones explicados. Sin embargo, dado que seguimos una organización ágil, esta organización se podrá saltar en cualquier momento. Por ejemplo, si se sabe que hay dos personas que son idóneas para hacer una tarea, se podrá asignar a esas dos personas a hacerlas. También, si por ejemplo el equipo de QA o de seguimiento han terminado sus tareas, podrán ayudar en cualquier otra tarea.
@@ -252,13 +251,65 @@ El uso de la inteligencia artificial estará regulado por el Acuerdo de IA y se 
 <br>
 
 
-# **3. SPRINT BACKLOG**
+# **3. PRODUCT BACKLOG**
 
-| Objetivo | ID | Funcionalidad |
-|----------|----|--------------|
-| Objetivo 1 | HU-XXX | Implementación del login con autenticación |
-| Objetivo 1 | HU-XXX | Integración de API externa |
-| Objetivo 2 | HU-XXX | Diseño del dashboard de usuario |
-| Objetivo 2 | HU-XXX | CRUD 1 |
-| Objetivo 3 | HU-XXX | Datos de clases |
+A continuación, se desglosarán los objetivos del proyecto, divididos en *Sprints*. Cada *Sprint* contará con un **Sprint Goal** ademas de unos **objetivos de alto nivel** acorde con los requisitos marcados por los distintos entregables de la asignatura. 
 
+Para cada iteración, se dividirá el trabajo en *Historias Épicas* trazables con los objetivos de alto nivel, y para cada épica se asignarán unas **historias de usuario** trazables en el *Registro de Historias de Usuario*. 
+
+
+## SPRINT 1 
+
+**🔴 Sprint Goal:** CORE USE CASES (Casos de uso principales)
+
+Los objetivos marcados para este *Sprint* son los siguientes:
+
+- ✅ **Objetivo 1:** Formar al equipo
+- ✅ **Objetivo 2:** Implementar una gestión de usuarios básica
+- ✅ **Objetivo 3:** Implementar las funcionalidades correspondientes a los casos de uso *'core'*.
+- ✅ **Objetivo 4:** Desplegar una '*landing page*' estética y accesible para posicinar y mostrar al público nuestra aplicación.
+
+
+| Historia Épica      | Historias de Usuario |
+|---------------------|---------------------|
+| Formación          | HA-02               |
+| Gestión usuarios  | HF-01, HF-02, HP-01, HP-02, HP-03, HP-06, HF-01, HF-02, HA-01 |
+| Videollamada      | HF-10, HF-19         |
+| Landing page      | HA-03               |
+| Cita/Calendario   | HP-05, HF-03, HF-03, HF-01 |
+
+
+
+## SPRINT 2
+
+**🔴 Sprint Goal:** TOOLS & PAYMENT (Herramientas para fisioterapeutas y gestión de pagos y monetización)
+
+Los objetivos marcados para este *Sprint* son los siguientes:
+
+- ✅ **Objetivo 1:** Elaborar el sistema de pagos y monetización
+- ✅ **Objetivo 2:** Implementar las herramientas para fisioterapeutas
+
+
+| Historia Épica              | Historias de Usuario |
+|-----------------------------|---------------------|
+| Payment Pricing            | HP-04, HP-07, HF-08, HF-09 |
+| Subida vídeos/archivos     | HF-12               |
+| Herramientas de seguimiento | HF-06, HF-07, HF-11, HF-13, HF-14 |
+
+
+
+## SPRINT 3
+
+**🔴 Sprint Goal:** EXTRAS & TESTING (Funcionalidades extra y *testing* de integración)
+
+Los objetivos marcados para este *Sprint* son los siguientes:
+
+- ✅ **Objetivo 1:** Desarrollar funcionalidades extra de la aplicación
+- ✅ **Objetivo 2:** Desarrollar herramientas de soporte para los usuarios
+- ✅ **Objetivo 3:** Realizar pruebas de la apliación de forma más dedicada.
+
+| Historia Épica                      | Historias de Usuario |
+|--------------------------------------|---------------------|
+| Testing, búsqueda avanzada, subida docs, historial paciente, API SMS, mapa de búsqueda, chatbot support | HF-03, HF-05, HF-13, HF-16, HF-17, HF-18 |
+
+Cabe aclarar que la división en épicas y la asignación de tareas e HU es menos detalla ya que este último *Sprint* queda supeditado al trabajo realizado en los dos anteriores y se presta a modificaciones a lo largo del desarrollo del proyecto.
