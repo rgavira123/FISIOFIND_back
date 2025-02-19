@@ -21,7 +21,7 @@ classoption: "table"
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<p align="center">
+<!-- <p align="center">
   <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
@@ -36,9 +36,6 @@ classoption: "table"
 - [**2. METODOLOGÍA INTERNA**](#2-metodología-interna)
   - [2.1. Gestión de Tareas](#21-gestión-de-tareas)
   - [2.2. Flujo de Trabajo](#22-flujo-de-trabajo)
-  - [|                                         | RAMÓN GAVIRA SÁNCHEZ (representante)  | --                                     |](#------------------------------------------ramón-gavira-sánchez-representante------------------------------------------)
-  - [| DANIEL RUIZ        |                    |                 |                      |](#-daniel-ruiz-------------------------------------------------------------------)
-  - [|                    |                 |                  |](#-------------------------------------------------------)
   - [2.3. Flujo de Desarrollo](#23-flujo-de-desarrollo)
   - [2.4. Definición De Hecho (DoD) de una Historia de Usuario](#24-definición-de-hecho-dod-de-una-historia-de-usuario)
   - [2.5. Gestión de la Configuración](#25-gestión-de-la-configuración)
@@ -48,7 +45,7 @@ classoption: "table"
 - [**3. PRODUCT BACKLOG**](#3-product-backlog)
   - [SPRINT 1](#sprint-1)
   - [SPRINT 2](#sprint-2)
-  - [SPRINT 3](#sprint-3)
+  - [SPRINT 3](#sprint-3) -->
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 ---
@@ -81,15 +78,15 @@ classoption: "table"
 
 **Historial de modificaciones**
 
-| Fecha      | Versión | Realizada por          | Descripción de los cambios                                                 |
-| ---------- | ------- | ---------------------- | -------------------------------------------------------------------------- |
-| 15/02/2025 | v1.0    | Antonio Macías Ferrera | Elaboración de la base del documento.                                      |
-| 18/02/2025 | v1.1    | Delfín Santana Rubio   | Progreso en puntos 2.2, 2.3, 2.5, 2.6, 2.7 y 2.8                           |
+| Fecha      | Versión | Realizada por          | Descripción de los cambios                                                  |
+| ---------- | ------- | ---------------------- | --------------------------------------------------------------------------- |
+| 15/02/2025 | v1.0    | Antonio Macías Ferrera | Elaboración de la base del documento.                                       |
+| 18/02/2025 | v1.1    | Delfín Santana Rubio   | Progreso en puntos 2.2, 2.3, 2.5, 2.6, 2.7 y 2.8                            |
 | 19/02/2025 | v1.2    | Antonio Macías Ferrera | Adición de la planificación inicial de acuerdo a la reunión del 16/02/2024. |
 
 <br>
 
-<!-- \newpage -->
+\newpage
 
 <br>
 
@@ -100,7 +97,7 @@ El propósito de este informe es definir los objetivos a lograr a lo largo del d
 
 <br>
 
-<!-- \newpage -->
+\newpage
 
 <br>
 
@@ -121,16 +118,16 @@ La organización del trabajo, dado el gran número de participantes del proyecto
 
 La **organización horizontal** está compuesta por tres grupos de trabajo, en los que cada uno tiene un representante y un secretario.
 
---
+
 | GRUPO 1                                 | GRUPO 2                               | GRUPO 3                                |
 | --------------------------------------- | ------------------------------------- | -------------------------------------- |
 | ALBERTO CARMONA SICRE (secretario)      | ANTONIO MACÍAS FERRERA (Scrum Master) | DANIEL TORTORICI BARTUS                |
-| DANIEL FERNÁNDEZ CABALLERO              | BENJAMÍN I. MAUREIRA FLORES           | DANIEL VELA CAMACHO (secretario)       |
-| DANIEL RUIZ LÓPEZ                       | DELFÍN SANTANA RUBIO (secretario)     | FRANCISCO CAPOTE GARCÍA                |
-| PABLO FERNÁNDEZ PÉREZ                   | GUADALUPE RIDRUEJO PINEDA             | FRANCISCO MATEO VILLALBA               |
-| RAFAEL PULIDO CIFUENTES (representante) | JULEN REDONDO PACHECO                 | MIGUEL ENCINA MARTÍNEZ (representante) |
-|                                         | RAMÓN GAVIRA SÁNCHEZ (representante)  | --                                     |
---
+| DANIEL ALORS ROMERO                     | BENJAMÍN I. MAUREIRA FLORES           | DANIEL VELA CAMACHO (secretario)       |
+| DANIEL FERNÁNDEZ CABALLERO              | DELFÍN SANTANA RUBIO (secretario)     | FRANCISCO CAPOTE GARCÍA                |
+| DANIEL RUIZ LÓPEZ                       | GUADALUPE RIDRUEJO PINEDA             | Francisco Mateos Villarejo             |
+| PABLO FERNÁNDEZ PÉREZ                   | JULEN REDONDO PACHECO                 | MIGUEL ENCINA MARTÍNEZ (representante) |
+| RAFAEL PULIDO CIFUENTES (representante) | RAMÓN GAVIRA SÁNCHEZ (representante)  |                                        |
+
 
 Estos grupos trabajarán de forma autosuficiente durante la fase de ejecución (desarrollo del producto). 
 
@@ -149,14 +146,18 @@ Por otro lado, la **organización transversal** a lo largo de los equipos asigna
 
 - **Equipo de Quality Assurance**: encargados de evaluar la calidad del desarrollo, documentación, planificación y desempeño del equipo y comunicar semanalmente sus conclusiones.
 
+<br>
+
 - **Encargados de Presentaciones y Diseño**: encargados de diseñar y crear las presentaciones y exponerlas.
+
+- **Encargados de formación**: encargados de investigar sobre las tecnologías a usar, planificar y ejecutar la formación del equipo.
 
 - **Encargados de informes de tiempo**: encargados de elaborar informes semanales de tiempo.
 
 - **Encargados de informes de Inteligencia Artificial**: encargados de elaborar informes semanales sobre el uso de la Inteligencia Artificial.
 
 
---
+
 | RRSS Y PUBLICIDAD  | PLANIFICACIÓN      | SECRETARIOS     | QA                   |
 | ------------------ | ------------------ | --------------- | -------------------- |
 | ANTONIO MACÍAS     | ANTONIO MACÍAS     | ALBERTO CARMONA | BENJAMÍN I. MAUREIRA |
@@ -166,15 +167,15 @@ Por otro lado, la **organización transversal** a lo largo de los equipos asigna
 | PABLO FERNÁNDEZ    | RAFAEL PULIDO      |                 |                      |
 | RAFAEL PULIDO      | RAMÓN GAVIRA       |                 |                      |
 | DANIEL RUIZ        |                    |                 |                      |
---
 
---
-| PRESENTACIONES     | TIEMPO          | IA               |
-| ------------------ | --------------- | ---------------- |
-| ANTONIO MACÍAS     | ALBERTO CARMONA | DANIEL FERNÁNDEZ |
-| GUADALUPE RIDRUEJO | RAFAEL PULIDO   | DANIEL RUIZ      |
-|                    |                 |                  |
---
+
+
+| PRESENTACIONES     | TIEMPO          | IA               | FORMACIÓN     |
+| ------------------ | --------------- | ---------------- | ------------- |
+| ANTONIO MACÍAS     | ALBERTO CARMONA | DANIEL FERNÁNDEZ | RAFAEL PULIDO |
+| GUADALUPE RIDRUEJO | RAFAEL PULIDO   | DANIEL RUIZ      | RAMÓN GAVIRA  |
+|                    |                 |                  |               |
+
 
 
 Así, las tareas se podrán asignar a equipos siguiendo alguno de los dos tipos de subdivisiones explicados. Sin embargo, dado que seguimos una organización ágil, esta organización se podrá modificar en cualquier momento. Por ejemplo, si se sabe que hay dos personas que son idóneas para hacer una tarea, se podrá asignar a esas dos personas a hacerla. También, si por ejemplo el equipo de QA o de seguimiento han terminado sus tareas, podrán ayudar en cualquier otra tarea.
@@ -196,6 +197,7 @@ Siguiendo la subdivisión anteriormente descrita, se puede especificar en qué t
   - Backend:
     - Alberto Carmona Sicre
     - Daniel Fernández Caballero
+    - Daniel Alors Romero
 
   - Fullstack:
     - Pablo Fernández Pérez
@@ -223,7 +225,7 @@ Siguiendo la subdivisión anteriormente descrita, se puede especificar en qué t
     - Daniel Tortorici Bartús
 
   - Backend:
-    - Francisco Mateo Villalba
+    - Francisco Mateos Villarejo
     - Francisco Capote García
 
   - FullStack:
@@ -294,7 +296,8 @@ La gestión del riesgo se hará tal y como se describe en el documento *Plan de 
 El uso de la inteligencia artificial estará regulado por el *Acuerdo de IA* y se deberán de hacer informes periódicos de su uso. Uno de los puntos a destacar de este acuerdo es la importancia de la intervención humana en la aplicación de soluciones IA en el proyecto.
 
 <br>
-<!-- \newpage -->
+
+\newpage
 
 <br>
 
