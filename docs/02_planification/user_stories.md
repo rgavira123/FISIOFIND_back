@@ -45,7 +45,7 @@ classoption: "table"
 
 - **Fecha de Creación:** 13/02/2025  
 
-- **Versión:** v1.1
+- **Versión:** v1.2
 
 <br>
 
@@ -57,7 +57,8 @@ classoption: "table"
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
 | 13/02/2025 | v1.0    | Daniel Ruiz López, Alberto Carmona Sicre, Daniel Fernández Caballero, Daniel Alors Romero | Añadidas las historias de usuario. |
-| 18/02/2025 | v1.1    | Delfín Santana Rubio  |  Actualizadas las historias de usuario |
+| 18/02/2025 | v1.1    | Delfín Santana Rubio  |  Actualizadas las historias de usuario en markdown (copiadas de la actualización del word que hizo Guadalupe). |
+| 19/02/2025 | v1.2    | Delfín Santana Rubio  |  Corregido estilo de algunas historias de usuario, añadido títulos para separar las historias por rol (2.1., 2.2., 2.3. y 2.4.) y añadida HF 16 que no se había añadido por error. |
 
 <br>
 
@@ -91,14 +92,15 @@ Esta estructura permite definir claramente los requerimientos y facilita la plan
 ## Leyenda sobre el índice de historias de usuario
 Se explica el índice de las historias de usuario:
 - HI-00x: Historia de usuario para rol invitado.
-- HF-00x: Historia de usuario para rol fisioterapeutas
-- HP-00x: Historia de usuario para rol paciente
-- HA-00x: Historia de usuario para rol admin
+- HP-00x: Historia de usuario para rol paciente.
+- HF-00x: Historia de usuario para rol fisioterapeuta.
+- HA-00x: Historia de usuario para rol admin.
 
 # 2. HISTORIAS DE USUARIO
 
+## 2.1. HISTORIAS DE USUARIO PARA ROL INVITADO
 
-## HI-001: Acceso como paciente invitado
+### HI-001: Acceso como paciente invitado
 > **Como** usuario invitado,
 > **Quiero** poder acceder a la plataforma de Fisio Find y realizar búsquedas de fisioterapeutas que se adapten a mis necesidades sin necesidad de estar registrado,  
 > **Para** explorar opciones de profesionales y disponibilidad horaria antes de crear una cuenta.
@@ -109,7 +111,7 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HI-002: Acceso como fisioterapeuta invitado  
+### HI-002: Acceso como fisioterapeuta invitado  
 > **Como** usuario invitado,
 > **Quiero** poder acceder a la información de los servicios que ofrece la plataforma de Fisio Find,  
 > **Para** valorar si me interesa registrarme como fisioterapeuta y ofrecer mis consultas a los pacientes.
@@ -120,7 +122,7 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HI-003: Valoración de otros fisioterapeutas
+### HI-003: Valoración de otros fisioterapeutas
 > **Como** usuario invitado,
 > **Quiero** poder conocer la opinión de otros fisioterapeutas registrados en la plataforma,
 > **Para** saber si los servicios que ofrece Fisio Find merecen la pena.
@@ -131,7 +133,9 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HP-001: Búsqueda avanzada
+## 2.2. HISTORIAS DE USUARIO PARA ROL PACIENTE
+
+### HP-001: Búsqueda avanzada
 > **Como** usuario,
 > **Quiero** poder buscar al mejor fisioterapeuta basándome en:
 > - Palabras clave introducidas en la búsqueda
@@ -148,7 +152,7 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HP-002: Registro en Fisio Find
+### HP-002: Registro en Fisio Find
 > **Como** usuario invitado,
 > **Quiero** poder registrarme en la plataforma,
 > **Para** facilitar mis datos a los fisioterapeutas al reservar una cita y acceder a todas las funcionalidades de Fisio Find.
@@ -159,7 +163,7 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HP-003: Reserva de citas como usuario registrado 
+### HP-003: Reserva de citas como usuario registrado 
 > **Como** usuario registrado,
 > **Quiero** una vez he seleccionado el fisioterapeuta idóneo para mi patología, quiero poder escoger mediante un calendario la fecha y hora que más me convenga para la cita,
 > **Para** gestionar mi disponibilidad de manera eficiente.
@@ -170,7 +174,7 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HP-004: Pago de citas por la aplicación  
+### HP-004: Pago de citas por la aplicación  
 > **Como** paciente,
 > **Quiero** abonar el coste de la cita en la propia plataforma con tarjeta bancaria,
 > **Para** completar el pago de manera segura y cómoda sin necesidad de realizar transferencias externas.
@@ -181,7 +185,7 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HP-005: Mis citas 
+### HP-005: Mis citas 
 > **Como** paciente,
 > **Quiero** poder consultar mis futuras citas en un apartado de mi perfil y/o en un calendario interactivo con recordatorios dentro de la aplicación,
 > **Para** gestionar mis consultas de manera organizada y evitar olvidos.
@@ -192,7 +196,7 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HP-006: Mi perfil
+### HP-006: Mi perfil
 > **Como** paciente,
 > **Quiero** poder consultar mi información y modificar cualquier parámetro permitido por la aplicación,
 > **Para** mantener mis datos actualizados y personalizados según mis necesidades.
@@ -205,7 +209,7 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HP-007: Reembolso en caso de cancelación del fisioterapeuta 
+### HP-007: Reembolso en caso de cancelación del fisioterapeuta 
 > **Como** paciente,
 > **Quiero** que, una vez transcurrido el límite de cancelación, si el fisioterapeuta cancela la consulta, recibir un reembolso del coste de esta,
 > **Para** no perder el dinero de la consulta.
@@ -217,7 +221,9 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HF-001: Registro como fisioterapeuta
+## 2.3. HISTORIAS DE USUARIO PARA ROL FISIOTERAPEUTA
+
+### HF-001: Registro como fisioterapeuta
 > **Como** fisioterapeuta,
 > **Quiero** poder registrarme en la plataforma proporcionando mis datos personales y profesionales,
 > **Para** validar mi perfil y comenzar a ofrecer mis servicios.
@@ -239,10 +245,10 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HF-002: Personalización del perfil de fisioterapeuta 
+### HF-002: Personalización del perfil de fisioterapeuta 
 > **Como** fisioterapeuta, una vez registrado en el sistema,
-> **Quiero**poder personalizar mi perfil modificando la siguiente información,
-> **Para**que los pacientes puedan conocer mejor mis servicios y experiencia.
+> **Quiero** poder personalizar mi perfil modificando la siguiente información,
+> **Para** que los pacientes puedan conocer mejor mis servicios y experiencia.
 > Los datos editables incluyen:
 > - Foto de perfil
 > - Especialidad 
@@ -271,7 +277,7 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HF-003: Agenda y calendario 
+### HF-003: Agenda y calendario 
 > **Como** fisioterapeuta,
 > **Quiero** poder acceder a un calendario donde se muestren mis citas agendadas y tener la posibilidad de modificar mi disponibilidad horaria
 > **Para** gestionar mi agenda de manera eficiente.
@@ -284,7 +290,7 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HF-004: Aceptación, rechazarla y modificación de citas   
+### HF-004: Aceptación, rechazarla y modificación de citas   
 > **Como** fisioterapeuta,  
 > **Quiero** poder consultar el estado de una cita solicitada y poder aceptarla, rechazarla o solicitar una modificación de fecha y hora, notificando al paciente sobre cualquier cambio.   
 > **Para** gestionar de manera eficiente mi agenda.
@@ -297,7 +303,7 @@ Se explica el índice de las historias de usuario:
    
 ---
 
-## HF-005: Valoración del fisio
+### HF-005: Valoración del fisio
 > **Como** fisioterapeuta,  
 > **Quiero** que los pacientes puedan evaluar la consulta realizada y dejar comentarios en mi perfil,
 > **Para** que futuros pacientes puedan tener referencias de mi trabajo.
@@ -308,9 +314,9 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HF-006: Personalización de herramientas  
+### HF-006: Personalización de herramientas  
 > **Como** fisioterapeuta,  
-> **Quiero** ener un espacio donde poder personalizar los tests y cuestionarios plantilla ofrecidos por la plataforma,   
+> **Quiero** tener un espacio donde poder personalizar los tests y cuestionarios plantilla ofrecidos por la plataforma,   
 > **Para** ofrecer un servicio personalizado a mis pacientes.
 
 **Comentarios**: Vacío intencionadamente.
@@ -319,7 +325,7 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HF-007: Cuestionario preintervención   
+### HF-007: Cuestionario preintervención   
 > **Como** fisioterapeuta,  
 > **Quiero** que antes de confirmar la cita de un paciente, esté obligado a rellenar un cuestionario preintervención,   
 > **Para** conocer el motivo de la consulta y sus hábitos para realizar un diagnóstico previo.
@@ -332,7 +338,7 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HF-008: Pago previo de la consulta
+### HF-008: Pago previo de la consulta
 > **Como** fisioterapeuta,  
 > **Quiero** que el paciente abone de antemano el precio de la consulta,   
 > **Para** garantizar el compromiso del paciente.
@@ -344,7 +350,7 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HF-009: Registro de facturas 
+### HF-009: Registro de facturas 
 > **Como** fisioterapeuta,  
 > **Quiero** que el sistema genere una factura por cada consulta realizada y que se almacenen en el sistema,  
 > **Para** que pueda consultarlas y descargarlas.
@@ -356,7 +362,7 @@ Se explica el índice de las historias de usuario:
 ---
 
 
-## HF-010: Videollamada  
+### HF-010: Videollamada  
 > **Como** fisioterapeuta,  
 > **Quiero** poder iniciar la consulta con un paciente desde mi agenda de citas,  
 > **Para** iniciar la videollamada.
@@ -369,9 +375,7 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-
-
-## HF-011: Herramientas en la videollamada 
+### HF-011: Herramientas en la videollamada 
 > **Como** fisioterapeuta,  
 > **Quiero** poder tener acceso durante el transcurso de la videollamada a las siguientes herramientas y poder modificar la información que se requiera:
 > - Historial clínico del paciente almacenado en el sistema
@@ -388,7 +392,7 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HF-012: Archivos en la nube 
+### HF-012: Archivos en la nube 
 > **Como** fisioterapeuta,  
 > **Quiero** poder modificar los vídeos subidos en mi espacio personal y darle acceso a los pacientes que correspondan,   
 > **Para** que pueda consultar en cualquier momento cómo se realiza un ejercicio o para que tengan acceso a alguna explicación que quiera ofrecerle.
@@ -400,7 +404,7 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HF-013: Test y cuestionarios 
+### HF-013: Test y cuestionarios 
 > **Como** fisioterapeuta,  
 > **Quiero** disponer de plantillas de test, cuestionarios y prescripción de ejercicios,   
 > **Para** valuar a mis pacientes, personalizar los tratamientos y almacenarlos en mi espacio dentro de la plataforma para tenerlos siempre disponibles.
@@ -431,7 +435,7 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HF-014: Seguimiento    
+### HF-014: Seguimiento    
 > **Como** fisioterapeuta,  
 > **Quiero** disponer de un apartado en la plataforma que me permita acceder al seguimiento de todos los pacientes que tengo en activo,  
 > **Para** poder consultar su progreso e informes sobre cómo están respondiendo al tratamiento, si lo están realizando, etc.
@@ -442,7 +446,7 @@ Se explica el índice de las historias de usuario:
  
 ---
 
-## HF-015: Recordatorios de consultas   
+### HF-015: Recordatorios de consultas   
 > **Como** fisioterapeuta,  
 > **Quiero** poder recordarle a mi paciente cuándo tiene agendada una consulta,  
 > **Para** que no se le olvide o para que la cancele a tiempo si así lo desea.
@@ -453,7 +457,18 @@ Se explica el índice de las historias de usuario:
  
 ---
 
-## HF-017: Compartir archivos clínicos   
+### HF-016: Recordatorios de ejercicio 
+> **Como** fisioterapeuta,  
+> **Quiero** poder enviar un recordatorio de “inicio de sesión de ejercicio” a los pacientes que tengan asignado como tratamiento una sesión de entrenamiento,  
+> **Para** que no se olviden de realizar el ejercicio pautada.
+
+**Comentarios**: Vacío intencionadamente.
+
+**Criterios de aceptación**: TODO
+ 
+---
+
+### HF-017: Compartir archivos clínicos   
 > **Como** fisioterapeuta,  
 > **Quiero** poder recibir archivos de mis pacientes, principalmente imágenes de diagnóstico (ecografías, radiografías, etc.) y que se almacenen en un lugar de su perfil de pacientes al que yo pueda acceder,  
 > **Para** consultarlos en cualquier momento y tomar decisiones sobre su valoración y tratamiento.
@@ -464,7 +479,7 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HF-018: Accesibilidad 
+### HF-018: Accesibilidad 
 > **Como** fisioterapeuta,  
 > **Quiero** que la aplicación sea accesible, especialmente para personas con discapacidad que suelen constituir un gran porcentaje de los pacientes, 
 > **Para** ofrecer un servicio inclusivo a todos los perfiles de usuarios de la plataforma.
@@ -475,17 +490,20 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HF-019: Chat
+### HF-019: Chat
 > **Como** fisioterapeuta,  
-> **Quiero** ener acceso a un chat durante la videollamada con el paciente,  
+> **Quiero** tener acceso a un chat durante la videollamada con el paciente,  
 > **Para** poder garantizar una comunicación fluida y eficiente en caso de problemas técnicos, aclaraciones o envío de indicaciones sin interrumpir la sesión verbalmente.
 
 **Comentarios**: Vacío intencionadamente.
 
 **Criterios de aceptación**: TODO
+
 ---
 
-## HA-001: Administración de sistema  
+## 2.4. HISTORIAS DE USUARIO PARA ROL ADMINISTRADOR
+
+### HA-001: Administración de sistema  
 > **Como** administrador,  
 > **Quiero** poder gestionar los usuarios, fisioterapeutas, citas y configuración general del sistema,  
 > **Para** asegurar el correcto funcionamiento del servicio y garantizar una buena experiencia tanto para los fisioterapeutas como para los pacientes.
@@ -519,7 +537,7 @@ Se explica el índice de las historias de usuario:
 
 ---
 
-## HA-002: Formación del equipo 
+### HA-002: Formación del equipo 
 > **Como** administrador de la plataforma,  
 > **Quiero** poder formar a mi equipo de desarrollo en las tecnologías decididas por el equipo de planificación,  
 > **Para** asegurar un buen arranque del proyecto..
@@ -527,13 +545,13 @@ Se explica el índice de las historias de usuario:
 **Comentarios**: 
 - MongoDB
 - NextJS
-- Djagno Rest 
+- Django Rest 
 
 **Criterios de aceptación**: TODO
 
 ---
 
-## HA-003: Landing page  
+### HA-003: Landing page  
 > **Como** administrador de la plataforma,  
 > **Quiero** poder disponer de una landing page para poder indexar en los motores de búsqueda, y que al iniciar sesión redirija a la plataforma,
 > **Para** asegurar un buen posicionamiento en el SEO.
