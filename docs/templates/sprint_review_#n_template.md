@@ -1,8 +1,8 @@
 ---
-title: "SPRINT REVIEW SPRINT X"         # CHANGE IF NEEDED
+title: "SPRINT REVIEW SPRINT X"                           # CHANGE IF NEEDED
 subtitle: "FISIO FIND - Grupo 6 - #X"
-author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]         # CHANGE IF NEEDED
-date: "04/02/2025"                      # CHANGE IF NEEDED
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villalba, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
+date: "04/02/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -12,9 +12,9 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: "../.backgrounds/background4V.pdf" # CHANGE IF NEEDED
-header-left: "SPRINT REVIEW SPRINT X"    # CHANGE IF NEEDED
-header-right: "04/02/2025"               # CHANGE IF NEEDED
+titlepage-background: "../.backgrounds/background4V.pdf"  # CHANGE IF NEEDED
+header-left: "SPRINT REVIEW SPRINT X"                     # CHANGE IF NEEDED
+header-right: "04/02/2025"                                # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"
@@ -31,6 +31,16 @@ monofont: "Noto Sans Mono"
 <h1 align="center" style="font-size: 30px; font-weight: bold;">
   FISIO FIND  -  SPRINT REVIEW SPRINT X
 </h1>
+
+<br>
+
+
+**ÍNDICE**
+- [**1. OBJETIVOS DEL SPRINT**](#1-objetivos-del-sprint)
+- [**2. FUNCIONALIDADES ENTREGADAS**](#2-funcionalidades-entregadas)
+- [**3. FEEDBACK Y OBSERVACIONES**](#3-feedback-y-observaciones)
+- [**4. ACCIONES A SEGUIR**](#4-acciones-a-seguir)
+<!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
 
@@ -66,17 +76,6 @@ monofont: "Noto Sans Mono"
 
 <br>
 
-
----
-
-**ÍNDICE**
-- [**1. OBJETIVOS DEL SPRINT**](#1-objetivos-del-sprint)
-- [**2. FUNCIONALIDADES ENTREGADAS**](#2-funcionalidades-entregadas)
-- [**3. FEEDBACK Y OBSERVACIONES**](#3-feedback-y-observaciones)
-- [**4. ACCIONES A SEGUIR**](#4-acciones-a-seguir)
-<!-- COMMENT WHEN EXPORTING TO PDF -->
-
-<br>
 
 ---
 
