@@ -87,7 +87,7 @@ Nos comprometemos a hacer un uso transparente de la IA en el desarrollo del proy
 
 ## 2.2 JUSTICIA Y NO DISCRIMINACIÓN
 
-La IA será utilizada para generar sugerencias de código y documentación, pero nunca tomará decisiones que puedan generar sesgos en el desarrollo del producto. Nos aseguramos de que todos los procesos automatizados sean imparciales, justos y siempre superv.
+La IA será utilizada para generar sugerencias de código y documentación, pero nunca tomará decisiones que puedan generar sesgos en el desarrollo del producto. Nos aseguramos de que todos los procesos automatizados sean imparciales, justos y siempre supervisados por un humano.
 
 ## 2.3 PRIVACIDAD Y SEGURIDAD
 
