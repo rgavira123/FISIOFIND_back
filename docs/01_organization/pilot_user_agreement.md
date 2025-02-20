@@ -48,6 +48,7 @@ monofont: "Noto Sans Mono"
     - [2.2.2 CONDICIONES INFORMALES PARA *FISIO FIND*](#222-condiciones-informales-para-fisio-find)
   - [2.3 PERIODO DE PRUEBAS](#23-periodo-de-pruebas)
 - [3. DATOS DE LAS PARTES Y FIRMA](#3-datos-de-las-partes-y-firma)
+  - [| **Firma del Representante de FISIO FIND**     |              AMF                         |](#-firma-del-representante-de-fisio-find-------------------amf-------------------------)
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 
 
@@ -82,7 +83,8 @@ monofont: "Noto Sans Mono"
 |------------|---------|--------------|----------------------------|
 | 10/02/2025 | v1.0    | Delfín Santana Rubio | Versión inicial del documento |
 | 15/02/2025 | v1.1    | Antonio Macías Ferrera | Adaptación a usuarios piloto externos y alumnos de la asignatura ISPP |
-| 18/02/2025 | v1.2    | Delfín Santana Rubio  | Cambio en los beneficios para los usuarios pilotos(se puede ver en el apartado 2.1.2) |
+| 18/02/2025 | v1.2    | Delfín Santana Rubio  | Cambio en los beneficios para los usuarios  (se puede ver en el apartado 2.1.2) |
+| 20/02/2025 | v1.3    | Guadalupe Ridruejo Pineda  | Firmas de los primeros usuarios piloto |
 
 <br>
 
@@ -187,19 +189,82 @@ El período de pruebas se extenderá, como muy pronto, desde el comienzo de la p
 
 # 3. DATOS DE LAS PARTES Y FIRMA
 
-| **Nombre y Apellidos del Usuario Piloto**     |                                       |
+| **Nombre y Apellidos del Usuario Piloto**     |              Cristina Gómez Ramos                         |
 |-----------------------------------------------|---------------------------------------|
-| **Tipo de Usuario Piloto** (marcar con una X) | **Externo [  ]** **Alumno ISPP [  ]** |
-| **Correo Electrónico**                        |                                       |
+| **Tipo de Usuario Piloto**                    | **Externo [ X ]** **Alumno ISPP [  ]** |
+| **Correo Electrónico**                        |            cristigomez00@gmail.com                           |
+| **Rol de prueba**                        |               Fisioterapeuta                        |
 | **Teléfono (opcional)**                       |                                       |
 |                                               |                                       |
-| **Firma del Usuario Piloto**                  |                                       |
-|                                               |                                       |
-| **Nombre y Apellidos del Representante de FISIO FIND** |                                       |
-|                                               |                                       |
-| **Firma del Representante de FISIO FIND**     |                                       |
-|                                               |                                       |
+| **Firma del Usuario Piloto**                  |                 CGR                      |
 
+| **Nombre y Apellidos del Usuario Piloto**     |              Carlos Solo de Zaldívar Liviano                         |
+|-----------------------------------------------|---------------------------------------|
+| **Tipo de Usuario Piloto**                    | **Externo [ X ]** **Alumno ISPP [  ]** |
+| **Correo Electrónico**                        |            csolodezaldivarl01@gmail.com                          |
+| **Rol de prueba**                        |               Fisioterapeuta                        |
+| **Teléfono (opcional)**                       |                616995167                       |
+|                                               |                                       |
+| **Firma del Usuario Piloto**                  |                 CSZL                      |
+
+| **Nombre y Apellidos del Usuario Piloto**     |              Javier Rodriguez Hava                         |
+|-----------------------------------------------|---------------------------------------|
+| **Tipo de Usuario Piloto**                    | **Externo [ X ]** **Alumno ISPP [  ]** |
+| **Correo Electrónico**                        |            javierrodriguezhava@gmail.com                          |
+| **Rol de prueba**                        |               Fisioterapeuta                        |
+| **Teléfono (opcional)**                       |                656986546                       |
+|                                               |                                       |
+| **Firma del Usuario Piloto**                  |                JRH                     |
+
+| **Nombre y Apellidos del Usuario Piloto**     |              Alba Pineda Grijota                        |
+|-----------------------------------------------|---------------------------------------|
+| **Tipo de Usuario Piloto**                    | **Externo [ X ]** **Alumno ISPP [  ]** |
+| **Correo Electrónico**                        |            albapm92@hotmail.es                          |
+| **Rol de prueba**                        |               Fisioterapeuta                        |
+| **Teléfono (opcional)**                       |                656986546                       |
+|                                               |                                       |
+| **Firma del Usuario Piloto**                  |                APG                     |
+
+| **Nombre y Apellidos del Usuario Piloto**     |              Jorge García Chaparro                         |
+|-----------------------------------------------|---------------------------------------|
+| **Tipo de Usuario Piloto**                    | **Externo [ X ]** **Alumno ISPP [  ]** |
+| **Correo Electrónico**                        |            jorgepesca84@gmail.com                         |
+| **Rol de prueba**                        |               Fisioterapeuta                        |
+| **Teléfono (opcional)**                       |                671225592                      |
+|                                               |                                       |
+| **Firma del Usuario Piloto**                  |                JGC                     |
+
+| **Nombre y Apellidos del Usuario Piloto**     |             Pedro Pablo Gallego Mendoza                        |
+|-----------------------------------------------|---------------------------------------|
+| **Tipo de Usuario Piloto**                    | **Externo [ X ]** **Alumno ISPP [  ]** |
+| **Correo Electrónico**                        |            pedropablo.gall@gmail.com                         |
+| **Rol de prueba**                        |               Paciente                        |
+| **Teléfono (opcional)**                       |                                      |
+|                                               |                                       |
+| **Firma del Usuario Piloto**                  |                PPGM                     |
+
+| **Nombre y Apellidos del Usuario Piloto**     |             Rodrigo Macías Ferrera                        |
+|-----------------------------------------------|---------------------------------------|
+| **Tipo de Usuario Piloto**                    | **Externo [ X ]** **Alumno ISPP [  ]** |
+| **Correo Electrónico**                        |            rodrigomaciasferrera@gmail.com                        |
+| **Rol de prueba**                        |               Paciente                        |
+| **Teléfono (opcional)**                       |                                      |
+|                                               |                                       |
+| **Firma del Usuario Piloto**                  |                RMF                     |
+
+| **Nombre y Apellidos del Usuario Piloto**     |             Mº Dolores (Lola) Ferrera Ortiz                        |
+|-----------------------------------------------|---------------------------------------|
+| **Tipo de Usuario Piloto**                    | **Externo [ X ]** **Alumno ISPP [  ]** |
+| **Correo Electrónico**                        |            lolaferrera@grupoaddu.com                        |
+| **Rol de prueba**                        |               Paciente                        |
+| **Teléfono (opcional)**                       |                                      |
+|                                               |                                       |
+| **Firma del Usuario Piloto**                  |                LFO                     |
+
+
+| **Nombre y Apellidos del Representante de FISIO FIND** |          Antonio Macías Ferrera (Project Manager) |
+|-----------------------------------------------|---------------------------------------|
+| **Firma del Representante de FISIO FIND**     |              AMF                         |
 ---
 
 El presente acuerdo entra en vigor en la fecha de firma y tiene validez únicamente durante el periodo de pruebas indicado. Ambas partes declaran haber leído y entendido las condiciones expuestas en este documento.
