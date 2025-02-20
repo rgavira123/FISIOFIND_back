@@ -72,7 +72,7 @@ monofont: "Noto Sans Mono"
 
 ---
 
-<!-- \newpage  -->
+<!-- \newpage -->
 
 **Historial de modificaciones**
 
@@ -87,7 +87,7 @@ monofont: "Noto Sans Mono"
 
 <br>
 
-<!-- \newpage  -->
+<!-- \newpage -->
 
 <br>
 

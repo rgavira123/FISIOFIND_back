@@ -86,7 +86,7 @@ monofont: "Noto Sans Mono"
 
 <br>
 
-<!-- \newpage  -->
+<!-- \newpage -->
 
 <br>
 
@@ -115,7 +115,7 @@ En el contexto de este proyecto se establecen dos categorías de **usuarios pilo
 
 <br>
 
-<!-- \newpage  -->
+<!-- \newpage -->
 
 <br>
 
@@ -180,7 +180,7 @@ A continuación se listan:
 El período de pruebas se extenderá, como muy pronto, desde el comienzo de la primera fase de desarrollo del proyecto (**24 de febrero de 2025**) hasta la entrega del producto mínimo viable (**14 de abril de 2025**) **como máximo**.
 <br>
 
-<!-- \newpage  -->
+<!-- \newpage -->
 
 <br>
 

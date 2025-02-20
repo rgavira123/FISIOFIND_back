@@ -92,7 +92,7 @@ classoption: "table"
 | Guadalupe Ridruejo Pineda        | --  | guaridpin@alum.us.es  |
 | Julen Redondo Pacheco            | --  | julredpac@alum.us.es  |
 | Miguel Encina Martínez           | --  | migencmar@alum.us.es  |
-| Francisco Mateo Villalba         | --  | framatvil@alum.us.es  |
+| Francisco Mateos Villarejo         | --  | framatvil@alum.us.es  |
 | Pablo Fernández Pérez            | --  | pablofp.33@gmail.com  |
 | Ramón Gavira Sánchez             | --  | ramgavsan@alum.us.es  |
 | Rafael Pulido Cifuentes          | --  | rafpulcif@alum.us.es  |

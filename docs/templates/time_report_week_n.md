@@ -1,7 +1,7 @@
 ---
 title: "INFORME DE TIEMPO - SEMANA n (dd/mm-dd/mm)"       # CHANGE IF NEEDED
 subtitle: "FISIO FIND - Grupo 6 - #X"
-author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateo Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
 date: "10/02/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
@@ -225,7 +225,7 @@ Ordenado por orden alfabético:
 
 **10. Francisco Capote García** -  hh:mm
 
-**11. Francisco Mateo Villalba** -  hh:mm
+**11. Francisco Mateos Villarejo** -  hh:mm
 
 **12. Guadalupe Ridruejo Pineda** - hh:mm
 

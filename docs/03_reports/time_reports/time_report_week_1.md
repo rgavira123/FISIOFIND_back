@@ -1,8 +1,8 @@
 ---
-title: "INFORME DE TIEMPO DE LA SEMANA 1 (31/01-06/02)"     # CHANGE IF NEEDED
+title: "INFORME DE TIEMPO DE LA SEMANA 1 (31/01-06/02)"    # CHANGE IF NEEDED
 subtitle: "FISIO FIND - Grupo 6 - #DP"
-author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
-date: "10/02/2025"                                          # CHANGE IF NEEDED
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]                                          # CHANGE IF NEEDED
+date: "10/02/2025"                                         # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -12,9 +12,9 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: "../../.backgrounds/background4V.pdf" # CHANGE IF NEEDED
-header-left: "CLOCKIFY REPORT"                              # CHANGE IF NEEDED
-header-right: "10/02/2025"                                  # CHANGE IF NEEDED
+titlepage-background: "../../.backgrounds/background4V.pdf"  # CHANGE IF NEEDED
+header-left: "CLOCKIFY REPORT"                               # CHANGE IF NEEDED
+header-right: "10/02/2025"                                   # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"  

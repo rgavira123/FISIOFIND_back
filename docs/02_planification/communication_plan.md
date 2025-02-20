@@ -35,8 +35,7 @@ header-includes:
 <br>
 
 
-## ÍNDICE
-
+**ÍNDICE**
 - [1. INTRODUCCIÓN](#1-introducción)
 - [2. IDENTIFICACIÓN DE LOS INTERLOCUTORES](#2-identificación-de-los-interlocutores)
 - [3. PLAN DE LAS COMUNICACIONES](#3-plan-de-las-comunicaciones)

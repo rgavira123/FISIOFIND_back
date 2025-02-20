@@ -24,7 +24,7 @@ monofont: "Noto Sans Mono"
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<!-- <p align="center">
+<p align="center">
   <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
@@ -46,7 +46,7 @@ monofont: "Noto Sans Mono"
 - [4. ÁREAS DONDE **NO** SE UTILIZA IA](#4-áreas-donde-no-se-utiliza-ia)
 - [5. IMPLEMENTACIÓN Y GOBERNANZA](#5-implementación-y-gobernanza)
 - [6. COMPROMISOS Y RESPONSABILIDAD LEGAL](#6-compromisos-y-responsabilidad-legal)
-- [7. REVISIÓN Y ACTUALIZACIÓN](#7-revisión-y-actualización) -->
+- [7. REVISIÓN Y ACTUALIZACIÓN](#7-revisión-y-actualización)
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 
 <br>
@@ -82,7 +82,7 @@ monofont: "Noto Sans Mono"
 
 <br>
 
-\newpage
+<!-- \newpage -->
 
 <br>
 

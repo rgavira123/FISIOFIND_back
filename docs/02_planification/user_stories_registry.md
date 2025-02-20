@@ -1,3 +1,4 @@
+---
 title: "USER STORIES"                                     # CHANGE IF NEEDED
 subtitle: "FISIO FIND - Grupo 6 - #DP"
 author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
@@ -198,7 +199,6 @@ Se explica el índice de las historias de usuario:
 > - Código postal (información del perfil)
 > - Valoraciones del fisioterapeuta
 > - Precio 
-> 
 > **Para** encontrar un fisioterapeuta que se ajuste a mis necesidades.
 
 **Comentarios**: La barra de búsqueda debe poder asociar el motivo de consulta que indicaría un paciente en una llamada telefónica o presencial (p.e: dolor lumbar, dolor de cuello, traumatismo, hernia, fascitis plantar, etc.) con los fisioterapeutas especialistas en esas patologías, para ello, será necesario tener registrada una asociación especialización-patología. 
@@ -1392,7 +1392,7 @@ Se explica el índice de las historias de usuario:
 ### HA-002: Formación del equipo 
 > **Como** administrador de la plataforma,  
 > **Quiero** poder formar a mi equipo de desarrollo en las tecnologías decididas por el equipo de planificación,  
-> **Para** asegurar un buen arranque del proyecto..
+> **Para** asegurar un buen arranque del proyecto.
 
 **Comentarios**: 
 - MongoDB
