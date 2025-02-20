@@ -21,7 +21,7 @@ classoption: "table"
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<!-- <p align="center">
+<p align="center">
   <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
@@ -42,7 +42,7 @@ classoption: "table"
 - [**4. GESTIÓN DEL PERSONAL**](#4-gestión-del-personal)
   - [**4.1. Entrenamiento**](#41-entrenamiento)
   - [**4.2. Evaluación del Rendimiento**](#42-evaluación-del-rendimiento)
-  - [**4.3. Reconocimientos y Recompensas**](#43-reconocimientos-y-recompensas) -->
+  - [**4.3. Reconocimientos y Recompensas**](#43-reconocimientos-y-recompensas)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
@@ -71,16 +71,18 @@ classoption: "table"
 
 ---
 
+<!-- \newpage -->
+
 **Historial de modificaciones**
 
-| Fecha      | Versión | Realizada por              | Descripción de los cambios                                                             |
-| ---------- | ------- | -------------------------- | -------------------------------------------------------------------------------------- |
-| 19/02/2025 | v1.0    | Daniel Fernández Caballero | Elaboración de la matriz RACI de responsabilidades.                                    |
-| 19/02/2025 | v1.1    | Antonio Macías Ferrera     | Adición del resto de puntos del documento de acuerdo con el *Sprint Planning* general. |
+| Fecha        | Versión | Realizada por              | Descripción de los cambios                              |
+| ------------ | ------- | -------------------------- | ------------------------------------------------------- |
+| 19/02/2025   | v1.0    | Daniel Fernández Caballero | Elaboración de la matriz RACI de responsabilidades.     |
+| 19/02/2025   | v1.1    | Antonio Macías Ferrera     | Adición del resto de puntos del documento de acuerdo con el *Sprint Planning* general. |
 
 <br>
 
-\newpage
+<!-- \newpage -->
 
 <br>
 
@@ -88,7 +90,9 @@ classoption: "table"
 ## **1. INTRODUCCIÓN**
 Este documento describe la gestión de los recursos humanos del proyecto, en conformidad con el estándar PMBOK. Se definen los roles, responsabilidades y autoridad de cada miembro del equipo, se establece la asignación de tareas mediante una matriz RACI y se detallan los procesos de gestión del personal, incluyendo entrenamiento, evaluación del rendimiento y reconocimientos.
 
----
+<br>
+
+
 ## **2. ROLES Y RESPONSABILIDADES**
 
 Cada rol dentro del equipo tiene responsabilidades y niveles de autoridad específicos. A continuación, se describen los principales roles en el proyecto:
@@ -105,13 +109,15 @@ Cada rol dentro del equipo tiene responsabilidades y niveles de autoridad espec�
 | **Desarrolladores Fullstack**    | Integrar frontend y backend.                                                    | Técnica en su área                    | Desarrollo web completo, API REST.                 |
 | **Equipo de QA**                 | Evaluar calidad del software y documentación.                                   | Técnica en estándares de calidad      | Testing, documentación, revisión de procesos.      |
 | **Equipo de Planificación**      | Planificar tareas, documentar Scrum.                                            | Alta en asignación de tareas          | Organización, análisis de riesgos.                 |
-| **Equipo de RRSS/Publicidad**    | Gestionar redes sociales y promoción.                                           | Moderada en comunicación externa      | Creatividad, redacción, gestión de redes sociales. |
+| **Equipo de RRSS**    | Gestionar redes sociales y promoción.                                           | Moderada en comunicación externa      | Creatividad, redacción, gestión de redes sociales. |
 | **Equipo de Presentaciones**     | Elaborar y exponer presentaciones del proyecto.                                 | Moderada en comunicación interna      | Comunicación, diseño gráfico, expresión oral.      |
 | **Equipo de Formación**          | Capacitar en tecnologías y metodologías.                                        | Moderada, asesoramiento técnico       | Investigación, docencia, liderazgo.                |
 | **Equipo de Informes IA**        | Elaborar reportes sobre IA aplicada en el proyecto.                             | Técnica en su área                    | Inteligencia Artificial, redacción técnica.        |
 | **Equipo de Informes de Tiempo** | Elaborar informes sobre el uso del tiempo en el proyecto.                       | Técnica en su área                    | Análisis de datos, gestión del tiempo.             |
 
----
+<br>
+
+
 ## **3. ORGANIGRAMA Y MATRIZ RACI**
 
 ### **3.1. ORGANIGRAMA DEL PROYECTO**
@@ -210,6 +216,7 @@ Así, las tareas se podrán asignar a equipos siguiendo alguno de los dos tipos 
 | Miguel Encina Martínez           | -                 | X             | -          | X   | -              | -                 | -             | X        | X       |
 
 
+<!-- COMMENT WHEN EXPORTING TO PDF -->
 | *Miembro del Equipo*             | *RRSS y Publicidad* | *Planificación* | *Secretaría* | *QA* | *Presentaciones* | *Informe de Tiempo* | *Informe de IA* | *Frontend* | *Backend* |
 | -------------------------------- | ------------------- | --------------- | ------------ | ---- | ---------------- | ------------------- | --------------- | ---------- | --------- |
 | Rafael Pulido Cifuentes          | 🟩                   | 🟩               | ⬜            | ⬜    | ⬜                | 🟩                   | ⬜               | 🟦          | ⬜         |
@@ -231,6 +238,7 @@ Así, las tareas se podrán asignar a equipos siguiendo alguno de los dos tipos 
 | Miguel Encina Martínez           | ⬜                   | 🟩               | ⬜            | 🟩    | ⬜                | ⬜                   | ⬜               | 🟦          | 🟦         |
 
 Leyenda: 🟦 Frontend; 🟩 Backend.
+<!-- COMMENT WHEN EXPORTING TO PDF -->
 
 
 
@@ -239,7 +247,7 @@ Leyenda: 🟦 Frontend; 🟩 Backend.
 
 ![Organización horizontal](../.img/edr_01.png)
 
-![Organización transversar](../.img/ed2_02.png)
+![Organización transversar](../.img/edr_02.png)
 
 <br>
 

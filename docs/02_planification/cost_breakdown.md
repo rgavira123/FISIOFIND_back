@@ -21,7 +21,7 @@ classoption: "table"
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<!-- <p align="center">
+<p align="center">
   <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
@@ -39,14 +39,12 @@ classoption: "table"
   - [**2.3. COSTES DE HARDWARE**](#23-costes-de-hardware)
   - [**2.4. COSTES DE LICENCIAS Y HERRAMIENTAS**](#24-costes-de-licencias-y-herramientas)
   - [**2.5. CÁLCULO DE COSTES MENSUALES**](#25-cálculo-de-costes-mensuales)
-  - [**2.6. COSTES DE HARDWARE**](#26-costes-de-hardware)
-  - [**2.7. COSTES DE LICENCIAS Y HERRAMIENTAS**](#27-costes-de-licencias-y-herramientas)
 - [**3. COSTES DE PRODUCCIÓN (DESDE JUNIO)**](#3-costes-de-producción-desde-junio)
 - [**4. COSTES DE MANTENIMIENTO**](#4-costes-de-mantenimiento)
   - [**4.1. MANTENIMIENTO ADAPTATIVO**](#41-mantenimiento-adaptativo)
   - [**4.2. MANTENIMIENTO CORRECTIVO**](#42-mantenimiento-correctivo)
 - [**5. COSTES DE MARKETING**](#5-costes-de-marketing)
-- [**6. ESTIMACIÓN DE RETORNO DE INVERSIÓN**](#6-estimación-de-retorno-de-inversión) -->
+- [**6. ESTIMACIÓN DE RETORNO DE INVERSIÓN**](#6-estimación-de-retorno-de-inversión)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
@@ -76,10 +74,10 @@ classoption: "table"
 
 **Historial de modificaciones**
 
-| Fecha      | Versión | Realizada por                               | Descripción de los cambios                                                             |
-| ---------- | ------- | ------------------------------------------- | -------------------------------------------------------------------------------------- |
-| 19/02/2025 | v1.0    | Ramón Gavira Sánchez, Pablo Fernández Pérez | Elaboración de la primera versión del documento.                                       |
-| 19/02/2025 | v1.1    | Antonio Macías Ferrera                      | Adición del resto de puntos del documento de acuerdo con el *Sprint Planning* general. |
+| Fecha         | Versión | Realizada por                               | Descripción de los cambios                       |
+| ------------- | ------- | ------------------------------------------- | ------------------------------------------------ |
+| 19/02/2025    | v1.0    | Ramón Gavira Sánchez, Pablo Fernández Pérez | Elaboración de la primera versión del documento. |
+| 19/02/2025    | v1.1    | Antonio Macías Ferrera                      | Adición del resto de puntos del documento de acuerdo con el *Sprint Planning* general. |
 
 <br>
 
@@ -93,9 +91,6 @@ Este documento detalla el desglose de los costes asociados al desarrollo y produ
 
 <br>
 
-<!-- \newpage -->
-
-<br>
 
 # **2. COSTES DE DESARROLLO - PROYECTO FISIOFIND**
 
@@ -162,29 +157,6 @@ Se suman todos los costes fijos mensuales:
 | **Total Coste de Desarrollo**             | **A calcular**          |
 
 El coste de desarrollo mensual variará según el mes, ya que depende de las horas de trabajo asignadas. Una vez sumados todos los costes mensuales, se aplicará un **10% de margen de contingencia**.
-
-
-## **2.6. COSTES DE HARDWARE**
-
-Se estima que la **vida útil media de un equipo es de 3 años**, lo que implica que cada año se debe renovar **1/3 de los equipos**. El coste medio de un equipo es **800€**, por lo que:
-
-- Renovación de equipos: **5.5 equipos/año x 800€ = 4400€**
-- Se aplica un **20% de contingencia**: **4400€ × 1.2 = 5280€/año**
-- Coste mensual de hardware: **5280€/12 = 440€/mes**
-
-Este coste se sumará a los costes de desarrollo y será constante en el tiempo.
-
-
-## **2.7. COSTES DE LICENCIAS Y HERRAMIENTAS**
-
-**GITHUB ENTERPRISE**
-Se utilizará **GitHub Enterprise** para la gestión del código del equipo. El coste es de:
-
-- **20,04€ por miembro del equipo**
-- Total: **20,04€ x 17 = 340,68€/mes**
-
-**ENTORNO DE DESARROLLO Y PRE-PRODUCCIÓN**
-Para entornos de prueba y pre-producción se estima un coste fijo de **20€/mes**.
 
 <br>
 

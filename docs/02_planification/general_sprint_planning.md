@@ -20,8 +20,8 @@ documentclass: scrartcl
 classoption: "table"  
 ---
 
-<!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<!-- <p align="center">
+<!-- COMMENT THIS WHEN *EXPORTING* TO PDF -->
+<p align="center">
   <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
@@ -37,7 +37,7 @@ classoption: "table"
   - [2.1. Gestión de Tareas](#21-gestión-de-tareas)
   - [2.2. Flujo de Trabajo](#22-flujo-de-trabajo)
   - [2.3. Flujo de Desarrollo](#23-flujo-de-desarrollo)
-  - [2.4. Definición De Hecho (DoD) de una Historia de Usuario](#24-definición-de-hecho-dod-de-una-historia-de-usuario)
+  - [2.4. Definición de Hecho (DoD) de una Historia de Usuario](#24-definición-de-hecho-dod-de-una-historia-de-usuario)
   - [2.5. Gestión de la Configuración](#25-gestión-de-la-configuración)
   - [2.6. Gestión del Cambio](#26-gestión-del-cambio)
   - [2.7. Gestión de los Riesgos](#27-gestión-de-los-riesgos)
@@ -45,13 +45,11 @@ classoption: "table"
 - [**3. PRODUCT BACKLOG**](#3-product-backlog)
   - [SPRINT 1](#sprint-1)
   - [SPRINT 2](#sprint-2)
-  - [SPRINT 3](#sprint-3) -->
+  - [SPRINT 3](#sprint-3)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
----
-
-
 <br>
+
 
 ---
 
@@ -78,15 +76,15 @@ classoption: "table"
 
 **Historial de modificaciones**
 
-| Fecha      | Versión | Realizada por          | Descripción de los cambios                                                  |
-| ---------- | ------- | ---------------------- | --------------------------------------------------------------------------- |
-| 15/02/2025 | v1.0    | Antonio Macías Ferrera | Elaboración de la base del documento.                                       |
-| 18/02/2025 | v1.1    | Delfín Santana Rubio   | Progreso en puntos 2.2, 2.3, 2.5, 2.6, 2.7 y 2.8                            |
-| 19/02/2025 | v1.2    | Antonio Macías Ferrera | Adición de la planificación inicial de acuerdo a la reunión del 16/02/2024. |
+| Fecha        | Versión | Realizada por          | Descripción de los cambios          |
+| ------------ | ------- | ---------------------- | ----------------------------------- |
+| 15/02/2025   | v1.0    | Antonio Macías Ferrera | Elaboración de la base del documento.                                       |
+| 18/02/2025   | v1.1    | Delfín Santana Rubio   | Progreso en puntos 2.2, 2.3, 2.5, 2.6, 2.7 y 2.8                            |
+| 19/02/2025   | v1.2    | Antonio Macías Ferrera | Adición de la planificación inicial de acuerdo a la reunión del 16/02/2024. |
 
 <br>
 
-\newpage
+<!-- \newpage -->
 
 <br>
 
@@ -94,10 +92,6 @@ classoption: "table"
 # **1. INTRODUCCIÓN**
 
 El propósito de este informe es definir los objetivos a lograr a lo largo del desarrollo del proyecto. Siguiendo los estándares marcados por los *principios ágiles*, el equipo dividirá el trabajo en tres *Sprints*. En este documento se explicará la metodología de trabajo en general, y se definirán los objetivos a cumplir en cada iteración del proyecto.
-
-<br>
-
-\newpage
 
 <br>
 
@@ -137,25 +131,6 @@ Los **secretarios** serán los encargados de tomar actas de las reuniones intern
 
 
 Por otro lado, la **organización transversal** a lo largo de los equipos asignará distintos **roles** a los miembros del equipo para realizar tareas más ajenas al desarrollo de la aplicación. Estas serán tareas de planificación, documentación, publicidad...:
-
-- **Equipo de redes sociales y publicidad**: encargados de todo aquello relacionado con las redes sociales, promoción, publicidad y comunicaciones externas del proyecto (dentro de estas comunicaciones externas entra el contacto con Usuarios Piloto).
-
-- **Equipo de Planificación**: encargados de la planificación de tareas y asignación por grupos, encargados también de la elaboración de la documentación Scrum (planning, review, retrospective...). El equipo de planificación estará formado por los representantes de cada grupo, además del *Scrum Master*.
-
-- **Equipo de Secretarios**: encargados de elaborar las actas de reuniones de cada grupo y tomar nota del feedback de cada clase. El equipo estará formado por los secretarios de cada grupo.
-
-- **Equipo de Quality Assurance**: encargados de evaluar la calidad del desarrollo, documentación, planificación y desempeño del equipo y comunicar semanalmente sus conclusiones.
-
-<br>
-
-- **Encargados de Presentaciones y Diseño**: encargados de diseñar y crear las presentaciones y exponerlas.
-
-- **Encargados de formación**: encargados de investigar sobre las tecnologías a usar, planificar y ejecutar la formación del equipo.
-
-- **Encargados de informes de tiempo**: encargados de elaborar informes semanales de tiempo.
-
-- **Encargados de informes de Inteligencia Artificial**: encargados de elaborar informes semanales sobre el uso de la Inteligencia Artificial.
-
 
 
 | RRSS Y PUBLICIDAD  | PLANIFICACIÓN      | SECRETARIOS     | QA                   |
@@ -228,7 +203,7 @@ Siguiendo la subdivisión anteriormente descrita, se puede especificar en qué t
     - Francisco Mateos Villarejo
     - Francisco Capote García
 
-  - FullStack:
+  - Fullstack:
     - Miguel Encina Martínez
 
 
@@ -253,7 +228,7 @@ Cada miembro del equipo será responsable de gestionar el estado de sus tareas a
 
 <br>
 
-## 2.4. Definición De Hecho (DoD) de una Historia de Usuario
+## 2.4. Definición de Hecho (DoD) de una Historia de Usuario
 
 Para que una historia de usuario (HU) se considere terminada, debe cumplir con los siguientes requisitos:
 
@@ -297,7 +272,7 @@ El uso de la inteligencia artificial estará regulado por el *Acuerdo de IA* y s
 
 <br>
 
-\newpage
+<!-- \newpage -->
 
 <br>
 
@@ -364,3 +339,13 @@ Los objetivos marcados para este *Sprint* son los siguientes:
 | Testing, búsqueda avanzada, subida docs, historial paciente, API SMS, mapa de búsqueda, chatbot support | HF-03, HF-05, HF-13, HF-16, HF-17, HF-18 |
 
 Cabe aclarar que la división en épicas y la asignación de tareas e HU es menos detalla ya que este último *Sprint* queda supeditado al trabajo realizado en los dos anteriores y se presta a modificaciones a lo largo del desarrollo del proyecto.
+
+<br>
+
+Por otro lado, de manera separada a la organización por *Sprints* propia de la fase de ejecución del proyecto, se definirán otros objetivos que tendrán relación con la organización, seguimiento y planificación del proyecto más que con el desarrollo del producto. Estas tareas serán realizadas por los equipos transversales y se ejecutarán de forma paralela a las tareas del *Product Backlog*. Estos objetivos se han trazado en las siguientes *épicas* para llevar un control adecuado del trabajo y del tiempo: 
+
+- **Planificación**
+- **Usuarios Piloto**
+- **Redes sociales / publicidad**
+- **Presentaciones**
+- **Documentación / reports**
