@@ -175,7 +175,7 @@ La **división transversal** asigna roles específicos a los miembros del equipo
 | ------------------ | ------------------ | --------------- | -------------------- |
 | ANTONIO MACÍAS     | ANTONIO MACÍAS     | ALBERTO CARMONA | BENJAMÍN I. MAUREIRA |
 | FRANCISCO CAPOTE   | GUADALUPE RIDRUEJO | DANIEL VELA     | DANIEL ALORS         |
-| FRANCISCO MATEO    | MIGUEL ENCINA      | DELFÍN SANTANA  | FRANCISCO MATEO      |
+| FRANCISCO MATEOS   | MIGUEL ENCINA      | DELFÍN SANTANA  | FRANCISCO MATEOS     |
 | GUADALUPE RIDRUEJO | PABLO FERNÁNDEZ    |                 | MIGUEL ENCINA        |
 | PABLO FERNÁNDEZ    | RAFAEL PULIDO      |                 |                      |
 | RAFAEL PULIDO      | RAMÓN GAVIRA       |                 |                      |
@@ -211,7 +211,7 @@ Así, las tareas se podrán asignar a equipos siguiendo alguno de los dos tipos 
 | Ramón Gavira Sánchez             | -                 | X             | -          | -   | -              | -                 | -             | X        | X       |
 | Daniel Vela Camacho              | -                 | -             | X          | -   | -              | -                 | -             | X        | -       |
 | Daniel Tortorici Bartús          | -                 | -             | -          | -   | -              | -                 | -             | X        | -       |
-| Francisco Mateo Villalba         | X                 | -             | -          | X   | -              | -                 | -             | -        | X       |
+| Francisco Mateos Villarejo       | X                 | -             | -          | X   | -              | -                 | -             | -        | X       |
 | Francisco Capote García          | X                 | -             | -          | -   | -              | -                 | -             | -        | X       |
 | Miguel Encina Martínez           | -                 | X             | -          | X   | -              | -                 | -             | X        | X       |
 
@@ -233,7 +233,7 @@ Así, las tareas se podrán asignar a equipos siguiendo alguno de los dos tipos 
 | Ramón Gavira Sánchez             | ⬜                   | 🟩               | ⬜            | ⬜    | ⬜                | ⬜                   | ⬜               | 🟦          | 🟦         |
 | Daniel Vela Camacho              | ⬜                   | ⬜               | 🟩            | ⬜    | ⬜                | ⬜                   | ⬜               | 🟦          | ⬜         |
 | Daniel Tortorici Bartús          | ⬜                   | ⬜               | ⬜            | ⬜    | ⬜                | ⬜                   | ⬜               | 🟦          | ⬜         |
-| Francisco Mateo Villalba         | 🟩                   | ⬜               | ⬜            | 🟩    | ⬜                | ⬜                   | ⬜               | ⬜          | 🟦         |
+| Francisco Mateos Villarejo       | 🟩                   | ⬜               | ⬜            | 🟩    | ⬜                | ⬜                   | ⬜               | ⬜          | 🟦         |
 | Francisco Capote García          | 🟩                   | ⬜               | ⬜            | ⬜    | ⬜                | ⬜                   | ⬜               | ⬜          | 🟦         |
 | Miguel Encina Martínez           | ⬜                   | 🟩               | ⬜            | 🟩    | ⬜                | ⬜                   | ⬜               | 🟦          | 🟦         |
 

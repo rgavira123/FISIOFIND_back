@@ -1,8 +1,8 @@
 ---
-title: "SPRINT PLANNING SPRINT X"                         # CHANGE IF NEEDED
-subtitle: "FISIO FIND - Grupo 6 - #X"
+title: "SPRINT PLANNING SPRINT 1"                         # CHANGE IF NEEDED
+subtitle: "FISIO FIND - Grupo 6 - #DP"
 author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
-date: "04/02/2025"                                        # CHANGE IF NEEDED
+date: "20/02/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -12,9 +12,9 @@ titlepage-rule-color: "1C1C1C"
 titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
-titlepage-background: "../.backgrounds/background4V.pdf"  # CHANGE IF NEEDED
-header-left: "SPRINT PLANNING SPRINT X"                   # CHANGE IF NEEDED
-header-right: "04/02/2025"                                # CHANGE IF NEEDED
+titlepage-background: "../../.backgrounds/background4V.pdf"  # CHANGE IF NEEDED
+header-left: "SPRINT PLANNING SPRINT 1"                   # CHANGE IF NEEDED
+header-right: "20/02/2025"                                # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"  
@@ -22,11 +22,11 @@ classoption: "table"
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 <p align="center">
-  <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
+  <img src="../../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
 <p align="center" style="font-size: 30px; font-weight: bold;">
-  FISIO FIND  -  SPRINT PLANNING SPRINT X
+  FISIO FIND  -  SPRINT PLANNING SPRINT 1
 </p>
 
 <br>
@@ -35,6 +35,11 @@ classoption: "table"
 **ÍNDICE**
 - [**1. OBJETIVOS DEL SPRINT**](#1-objetivos-del-sprint)
 - [**2. SPRINT BACKLOG**](#2-sprint-backlog)
+  - [**Épica 1: Formación**](#épica-1-formación)
+  - [**Épica 2: Gestión usuarios**](#épica-2-gestión-usuarios)
+  - [**Épica 3: Videollamada**](#épica-3-videollamada)
+  - [**Épica 4: Landing page**](#épica-4-landing-page)
+  - [**Épica 5: Cita/Calendario**](#épica-5-citacalendario)
 - [**3. METODOLOGÍA INTERNA**](#3-metodología-interna)
   - [3.1. Gestión de Tareas en GitHub Project](#31-gestión-de-tareas-en-github-project)
   - [3.2. Flujo de Trabajo](#32-flujo-de-trabajo)
@@ -63,7 +68,7 @@ classoption: "table"
 
 - **Autores:** Antonio Macías Ferrera
 
-- **Fecha de Creación:** dd/mm/aaaa  
+- **Fecha de Creación:** 20/02/2025
 
 - **Versión:** v1.0
 
@@ -76,9 +81,9 @@ classoption: "table"
 
 **Histórico de Modificaciones**
 
-| Fecha      | Versión | Realizada por          | Descripción de los cambios                 |
-| ---------- | ------- | ---------------------- | ------------------------------------------ |
-| 04/02/2025 | v1.0    | Antonio Macías Ferrera | Elaboración de la plantilla del documento. |
+| Fecha      | Versión | Realizada por          | Descripción de los cambios                       |
+| ---------- | ------- | ---------------------- | ------------------------------------------------ |
+| 20/02/2025 | v1.0    | Antonio Macías Ferrera | Elaboración de la primera versión del documento. |
 
 
 <br>
@@ -88,23 +93,14 @@ classoption: "table"
 
 **Participantes**
 
-| Nombre completo                  | Rol | Contacto              |
-| -------------------------------- | --- | --------------------- |
-| Alberto Carmona Sicre            | --  | albcarsic@alum.us.es  |
-| Antonio Macías Ferrera           | --  | antmacfer1@alum.us.es |
-| Benjamín Ignacio Maureira Flores | --  | benmauflo@alum.us.es  |
-| Francisco Capote García          | --  | fracapgar1@alum.us.es |
-| Daniel Alors Romero              | --  | danalorom1@alum.us.es |
-| Daniel Fernández Caballero       | --  | danfercab@alum.us.es  |
-| Daniel Ruiz López                | --  | danruilop1@alum.us.es |
-| Daniel Tortorici Bartús          | --  | dantorbar1@alum.us.es |
-| Daniel Vela Camacho              | --  | danvelcam@alum.us.es  |
-| Delfín Santana Rubio             | --  | delsanrub@alum.us.es  |
-| Guadalupe Ridruejo Pineda        | --  | guaridpin@alum.us.es  |
-| Francisco Mateos Villarejo       | --  | framatvil@alum.us.es  |
-| Pablo Fernández Pérez            | --  | pablofp.33@gmail.com  |
-| Ramón Gavira Sánchez             | --  | ramgavsan@alum.us.es  |
-| Rafael Pulido Cifuentes          | --  | rafpulcif@alum.us.es  |
+| Nombre completo           | Rol                                              | Contacto              |
+| ------------------------- | ------------------------------------------------ | --------------------- |
+| Antonio Macías Ferrera    | Scrum Master, analista, programador              | antmacfer1@alum.us.es |
+| Delfín Santana Rubio      | Secretario, analista, programador                | delsanrub@alum.us.es  |
+| Guadalupe Ridruejo Pineda | Analista, programadora                           | guaridpin@alum.us.es  |
+| Miguel Encina Martínez    | Representante grupo 3, analista, programador, QA | migencmar@alum.us.es  |
+| Ramón Gavira Sánchez      | Representante grupo 2, analista, programador     | ramgavsan@alum.us.es  |
+| Rafael Pulido Cifuentes   | Representante grupo 1, analista, programador     | rafpulcif@alum.us.es  |
 
 <br>
 
@@ -114,32 +110,208 @@ classoption: "table"
 
 
 # **1. OBJETIVOS DEL SPRINT**
-El propósito de este informe es definir los objetivos a lograr durante el Sprint #X y describir la metodología para alcanzarlos. Se analizarán el proceso de **Sprint Planning**, la gestión de tareas con **GitHub Project**, y el cumplimiento de las estimaciones iniciales.
 
-**🔴 Sprint Goal:** *sprint goal*.
+El propósito de este informe es definir los objetivos a lograr durante el Sprint #1 y describir la metodología para alcanzarlos.
+
+**🔴 Sprint Goal:** CORE USE CASES (Casos de uso principales)
 
 Los siguientes **objetivos** del *Sprint* harán referencia a las épicas desglosadas en la plataforma *GitHub Project*.
 
-- ✅ **Objetivo 1:** [Descripción breve del objetivo]
-- ✅ **Objetivo 2:** [Descripción breve del objetivo]
-- ✅ **Objetivo 3:** [Descripción breve del objetivo]
+- ✅ **Objetivo 1:** Formar al equipo
+- ✅ **Objetivo 2:** Implementar una gestión de usuarios básica
+- ✅ **Objetivo 3:** Implementar las funcionalidades correspondientes a los casos de uso *'core'*.
+- ✅ **Objetivo 4:** Desplegar una '*landing page*' estética y accesible para posicionar y mostrar al público nuestra aplicación.
+
+
+| Historia Épica   | Historias de Usuario                                                   |
+| ---------------- | ---------------------------------------------------------------------- |
+| Formación        | HA-002                                                                 |
+| Gestión usuarios | HF-001, HF-002, HI-001, HI-002, HP-001, HP-002, HP-003, HP-006, HA-001 |
+| Videollamada     | HF-010, HF-019                                                         |
+| Landing page     | HA-003                                                                 |
+| Cita/Calendario  | HP-005, HF-003, HF-004                                                 |
 
 <br>
+
+<!-- \newpage -->
 
 <br>
 
 
 # **2. SPRINT BACKLOG**
 
-| Objetivo   | ID     | Funcionalidad                              |
-| ---------- | ------ | ------------------------------------------ |
-| Objetivo 1 | HU-XXX | Implementación del login con autenticación |
-| Objetivo 1 | HU-XXX | Integración de API externa                 |
-| Objetivo 2 | HU-XXX | Diseño del dashboard de usuario            |
-| Objetivo 2 | HU-XXX | CRUD 1                                     |
-| Objetivo 3 | HU-XXX | Datos de clases                            |
+## **Épica 1: Formación**
+
+***HA-002: Formación del equipo ***
+
+> **Como** administrador de la plataforma,  
+> **Quiero** poder formar a mi equipo de desarrollo en las tecnologías decididas por el equipo de planificación.
+> **Para** asegurar un buen arranque del proyecto.
 
 <br>
+
+<br>
+
+
+## **Épica 2: Gestión usuarios**
+
+***HF-001: Registro como fisioterapeuta***
+
+> **Como** fisioterapeuta,
+> **Quiero** poder registrarme en la plataforma proporcionando mis datos personales y profesionales,
+> **Para** validar mi perfil y comenzar a ofrecer mis servicios.
+> Los datos requeridos para el registro son:
+> - Nombre
+> - Apellidos
+> - Correo electrónico
+> - Contraseña
+> - Colegio profesional
+> - Número de colegiado
+
+
+***HF-002: Personalización del perfil de fisioterapeuta*** 
+
+> **Como** fisioterapeuta, una vez registrado en el sistema,
+> **Quiero** poder personalizar mi perfil modificando la siguiente información,
+> **Para** que los pacientes puedan conocer mejor mis servicios y experiencia.
+> Los datos editables incluyen:
+> - Foto de perfil
+> - Especialidad 
+> - Descripción (bio) 
+> - Información del título 
+> - Cursos y certificaciones 
+> - Teléfono de contacto 
+> - Código postal 
+> - Clínica (si aplica) 
+> - Número de cuenta bancaria para recibir ingresos de consultas 
+> - Disponibilidad horaria 
+> - Precios de consulta (incluyendo la opción de ofrecer la primera consulta gratis) 
+> - Tipos de servicios y bonos (Ejemplos:) 
+>   - Consulta de valoración (opcionalmente gratuita) 
+>   - Sesiones semanales durante 3-6 meses 
+>   - Dos sesiones por semana durante X meses 
+>   - Una sesión cada quince días durante X meses 
+> - Archivos personalizados, como cuestionarios y herramientas específicas para el tratamiento de los pacientes
+
+
+***HI-001: Acceso como paciente invitado***
+
+> **Como** usuario invitado,
+> **Quiero** poder acceder a la plataforma de Fisio Find y realizar búsquedas de fisioterapeutas que se adapten a mis necesidades sin necesidad de estar registrado,  
+> **Para** explorar opciones de profesionales y disponibilidad horaria antes de crear una cuenta.
+
+
+***HI-002: Acceso como fisioterapeuta invitado*** 
+
+> **Como** usuario invitado,
+> **Quiero** poder acceder a la información de los servicios que ofrece la plataforma de Fisio Find,  
+> **Para** valorar si me interesa registrarme como fisioterapeuta y ofrecer mis consultas a los pacientes.
+
+**Comentarios**: Vacío intencionadamente.
+
+
+***HP-001: Búsqueda avanzada***
+
+> **Como** usuario,
+> **Quiero** poder buscar al mejor fisioterapeuta basándome en:
+> - Palabras clave introducidas en la búsqueda
+> - Especialidad
+> - Código postal (información del perfil)
+> - Valoraciones del fisioterapeuta
+> - Precio 
+> **Para** encontrar un fisioterapeuta que se ajuste a mis necesidades.
+
+
+***HP-002: Registro en Fisio Find***
+
+> **Como** usuario invitado,
+> **Quiero** poder registrarme en la plataforma,
+> **Para** facilitar mis datos a los fisioterapeutas al reservar una cita y acceder a todas las funcionalidades de Fisio Find.
+
+
+***HP-003: Reserva de citas como usuario registrado*** 
+
+> **Como** usuario registrado,
+> **Quiero** una vez he seleccionado el fisioterapeuta idóneo para mi patología, quiero poder escoger mediante un calendario la fecha y hora que más me convenga para la cita,
+> **Para** gestionar mi disponibilidad de manera eficiente.
+
+
+***HP-006: Mi perfil***
+
+> **Como** paciente,
+> **Quiero** poder consultar mi información y modificar cualquier parámetro permitido por la aplicación,
+> **Para** mantener mis datos actualizados y personalizados según mis necesidades.
+
+
+***HA-001: Administración de sistema***
+
+> **Como** administrador,  
+> **Quiero** poder gestionar los usuarios, fisioterapeutas, citas y configuración general del sistema,  
+> **Para** asegurar el correcto funcionamiento del servicio y garantizar una buena experiencia tanto para los fisioterapeutas como para los pacientes.
+
+<br>
+
+<br>
+
+
+## **Épica 3: Videollamada**
+
+***HF-010: Videollamada***
+
+> **Como** fisioterapeuta,  
+> **Quiero** poder iniciar la consulta con un paciente desde mi agenda de citas,  
+> **Para** iniciar la videollamada.
+
+
+***HF-019: Chat***
+
+> **Como** fisioterapeuta,  
+> **Quiero** tener acceso a un chat durante la videollamada con el paciente,  
+> **Para** poder garantizar una comunicación fluida y eficiente en caso de problemas técnicos, aclaraciones o envío de indicaciones sin interrumpir la sesión verbalmente.
+
+<br>
+
+<br>
+
+
+## **Épica 4: Landing page**
+
+***HA-003: Landing page***
+
+> **Como** administrador de la plataforma,  
+> **Quiero** poder disponer de una landing page para poder indexar en los motores de búsqueda, y que al iniciar sesión redirija a la plataforma,
+> **Para** asegurar un buen posicionamiento en el SEO.
+
+<br>
+
+<br>
+
+
+## **Épica 5: Cita/Calendario**
+
+***HP-005: Mis citas***
+
+> **Como** paciente,
+> **Quiero** poder consultar mis futuras citas en un apartado de mi perfil y/o en un calendario interactivo con recordatorios dentro de la aplicación,
+> **Para** gestionar mis consultas de manera organizada y evitar olvidos.
+
+
+***HF-003: Agenda y calendario***
+
+> **Como** fisioterapeuta,
+> **Quiero** poder acceder a un calendario donde se muestren mis citas agendadas y tener la posibilidad de modificar mi disponibilidad horaria
+> **Para** gestionar mi agenda de manera eficiente.
+
+
+***HF-004: Aceptación, rechazarla y modificación de citas***
+
+> **Como** fisioterapeuta,  
+> **Quiero** poder consultar el estado de una cita solicitada y poder aceptarla, rechazarla o solicitar una modificación de fecha y hora, notificando al paciente sobre cualquier cambio.   
+> **Para** gestionar de manera eficiente mi agenda.
+
+<br>
+
+<!-- \newpage -->
 
 <br>
 
@@ -258,7 +430,16 @@ El uso de la inteligencia artificial estará regulado por el *Acuerdo de IA* y s
 
 
 ---
-
 **Aprobado por:**  
+
 **Scrum Master:** Antonio Macías Ferrera  
-**Rol:** [Nombre Apellidos]
+**Rol:** Scrum Master, analista, programador
+
+**Representante grupo 3:** Miguel Encina Martínez  
+**Rol:** Representante grupo 3, analista, programador, QA
+
+**Representante grupo 2:** Ramón Gavira Sánchez  
+**Rol:** Representante grupo 2, analista, programador
+
+**Representante grupo 1:** Rafael Pulido Cifuentes  
+**Rol:** Representante grupo 1, analista, programador

@@ -67,7 +67,7 @@ classoption: "table"
 
 - **Fecha de Creación:** 15/02/2025  
 
-- **Versión:** v1.2
+- **Versión:** v1.3
 
 <br>
 
@@ -81,6 +81,8 @@ classoption: "table"
 | 15/02/2025   | v1.0    | Antonio Macías Ferrera | Elaboración de la base del documento.                                       |
 | 18/02/2025   | v1.1    | Delfín Santana Rubio   | Progreso en puntos 2.2, 2.3, 2.5, 2.6, 2.7 y 2.8                            |
 | 19/02/2025   | v1.2    | Antonio Macías Ferrera | Adición de la planificación inicial de acuerdo a la reunión del 16/02/2024. |
+| 20/02/2025   | v1.3    | Antonio Macías Ferrera | Corrección de algunas HU. |
+
 
 <br>
 
@@ -296,13 +298,13 @@ Los objetivos marcados para este *Sprint* son los siguientes:
 - ✅ **Objetivo 4:** Desplegar una '*landing page*' estética y accesible para posicionar y mostrar al público nuestra aplicación.
 
 
-| Historia Épica   | Historias de Usuario                                          |
-| ---------------- | ------------------------------------------------------------- |
-| Formación        | HA-02                                                         |
-| Gestión usuarios | HF-01, HF-02, HP-01, HP-02, HP-03, HP-06, HF-01, HF-02, HA-01 |
-| Videollamada     | HF-10, HF-19                                                  |
-| Landing page     | HA-03                                                         |
-| Cita/Calendario  | HP-05, HF-03, HF-03, HF-01                                    |
+| Historia Épica   | Historias de Usuario                                                   |
+| ---------------- | ---------------------------------------------------------------------- |
+| Formación        | HA-002                                                                 |
+| Gestión usuarios | HF-001, HF-002, HI-001, HI-002, HP-001, HP-002, HP-003, HP-006, HA-001 |
+| Videollamada     | HF-010, HF-019                                                         |
+| Landing page     | HA-003                                                                 |
+| Cita/Calendario  | HP-005, HF-003, HF-004                                                 |
 
 
 
@@ -336,7 +338,7 @@ Los objetivos marcados para este *Sprint* son los siguientes:
 
 | Historia Épica                                                                                          | Historias de Usuario                     |
 | ------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
-| Testing, búsqueda avanzada, subida docs, historial paciente, API SMS, mapa de búsqueda, chatbot support | HF-03, HF-05, HF-13, HF-16, HF-17, HF-18 |
+| Testing, búsqueda avanzada, subida docs, historial paciente, API SMS, mapa de búsqueda, chatbot support | HI-03, HF-05, HF-16, HF-17, HF-18 |
 
 Cabe aclarar que la división en épicas y la asignación de tareas e HU es menos detalla ya que este último *Sprint* queda supeditado al trabajo realizado en los dos anteriores y se presta a modificaciones a lo largo del desarrollo del proyecto.
 
