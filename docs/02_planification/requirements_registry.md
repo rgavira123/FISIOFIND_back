@@ -253,6 +253,20 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | **Descripción** | El paciente debe poder buscar fisioterapeutas utilizando filtros avanzados, tales como especialidad vinculándola a la patología del paciente, código postal, valoraciones y precio. |
 | **Prioridad** | Importante |
 
+| **RF-XXX** | **Sistema equitativo de visibilidad en la búsqueda de fisioterapeutas** |
+| --- | --- |
+| **Código HU** | HP-001 |
+| **Versión** | V1.0 |
+| **Descripción** | El sistema deberá garantizar que todos los fisioterapeutas tengan las mismas probabilidades de aparecer en las búsquedas de pacientes, con excepción de los fisioterapeutas con suscripción "Gold", quienes siempre aparecerán en los primeros resultados dentro de esa probabilidad. |
+| **Prioridad** | Deseable |
+
+| **RF-XXX** | **Criterios de ordenamiento en la búsqueda de fisioterapeutas** |
+| --- | --- |
+| **Código HU** | HP-001 |
+| **Versión** | V1.0 |
+| **Descripción** | El orden de aparición de los fisioterapeutas en los resultados de búsqueda se determinará según la siguiente jerarquía de importancia: 1) Especialidad, 2) Suscripción Gold, 3) Valoraciones, y 4) Cercanía (si el paciente ha seleccionado este criterio). |
+| **Prioridad** | Deseable |
+
 | **RF-XXX** | **Registro de usuarios en Fisio Find** |
 | --- | --- |
 | **Código HU** | HP-002 |
@@ -306,14 +320,14 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | --- | --- |
 | **Código HU** | HP-003 |
 | **Versión** | V1.0 |
-| **Descripción** |El usuario debe poder revisar, modificar o cancelar su cita desde su perfil, y cualquier cambio debe reflejarse en tiempo real en el calendario del fisioterapeuta. En caso de cancelación, se debe permitir reprogramar citas si el fisioterapeuta lo permite y hay disponibilidad de horarios. |
+| **Descripción** |El usuario debe poder cancelar su cita desde su perfil, siempre en una ventana superior a las 48 horas antes de la cita. |
 | **Prioridad** | Crítica |
 
 | **RF-XXX** | **Disponibilidad del pago en la plataforma** |
 | --- | --- |
 | **Código HU** | HP-004 |
 | **Versión** | V1.0 |
-| **Descripción** |La opción de pago debe estar visible y accesible hasta las 48 horas previas a la cita. El sistema debe notificar al usuario cuando el pago esté habilitado. En caso de no confirmarse el pago, se cancelará la cita. |
+| **Descripción** | *El pago debe registrarse al momento de la reserva y se cobrará automáticamente 48 horas antes de la consulta.* |
 | **Prioridad** | Importante |
 
 | **RF-XXX** | **Métodos de pago admitidos** |
@@ -327,22 +341,15 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | --- | --- |
 | **Código HU** | HP-004 |
 | **Versión** | V1.0 |
-| **Descripción** |Se implementará una pasarela de pago segura con cifrado de datos, cumpliendo normativas de seguridad como PCI DSS. Se podrá requerir autenticación en dos pasos según la entidad bancaria. |
+| **Descripción** | Se implementará una pasarela de pago segura con cifrado de datos, cumpliendo normativas de seguridad como PCI DSS. Se podrá requerir autenticación en dos pasos según la entidad bancaria. |
 | **Prioridad** | Importante |
 
 | **RF-XXX** | **Confirmación y registro del pago** |
 | --- | --- |
 | **Código HU** | HP-004 |
 | **Versión** | V1.0 |
-| **Descripción** |Tras realizar el pago, se generará una confirmación visible en la plataforma y se enviará un recibo al correo del usuario. El estado de la cita se actualizará automáticamente a "Pagada". |
+| **Descripción** | Tras realizar el pago, se generará una confirmación visible en la plataforma y se enviará un recibo al correo del usuario. |
 | **Prioridad** | Crítica |
-
-| **RF-XXX** | **Condiciones de pago y cancelación** |
-| --- | --- |
-| **Código HU** | HP-004 |
-| **Versión** | V1.0 |
-| **Descripción** |El pago solo podrá realizarse dentro de las 48 horas previas a la cita. Si el pago no se ha realizado en este período, la cita será cancelada. Si la cita ha sido pagada y se cancela dentro de las 48 horas previas, se aplicará un reembolso según las políticas de la plataforma. |
-| **Prioridad** | Importante |
 
 | **RF-XXX** | **Visualizacióon y calendario de citas** |
 | --- | --- |
@@ -425,14 +432,7 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | --- | --- |
 | **Código HU** | HP-007 |
 | **Versión** | V1.0 |
-| **Descripción** |Si un fisioterapeuta cancela una consulta después del límite de 48 horas antes de la cita, el paciente recibirá un reembolso completo del importe pagado.|
-| **Prioridad** | Importante |
-
-| **RF-XXX** | **Condiciones de cancelación antes del límite** |
-| --- | --- |
-| **Código HU** | HP-007 |
-| **Versión** | V1.0 |
-| **Descripción** |Si la cancelación ocurre antes del límite de 48 horas, no se generará ningún reembolso porque el pago aún no se habrá efectuado.|
+| **Descripción** | Si un fisioterapeuta cancela una consulta después del límite de 48 horas antes de la cita, el paciente recibirá un reembolso completo del importe abonado.|
 | **Prioridad** | Importante |
 
 | **RF-XXX** | **Proceso del reembolso** |
@@ -646,20 +646,6 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | **Versión** | V1.0 |
 | **Descripción** | Los pacientes verán el perfil actualizado en tiempo real tras la edición del fisioterapeuta. |
 | **Prioridad** | Importante |
-
-| **RF-XXX** | **Actualización en tiempo real**  |
-| --- | --- |
-| **Código HU** | HF-002 |
-| **Versión** | V1.0 |
-| **Descripción** | Los pacientes verán el perfil actualizado en tiempo real tras la edición del fisioterapeuta. |
-| **Prioridad** | Importante |
-
-| **RF-XXX** | **Archivos personalizados**  |
-| --- | --- |
-| **Código HU** | HF-002 |
-| **Versión** | V1.0 |
-| **Descripción** | El sistema deberá permitir a los fisioterapeutas crear y modificar cuestionarios, tests y herramientas de las proporcionadas por la plataforma. |
-| **Prioridad** | Crítica |
 
 | **RF-XXX** | **Archivos personalizados**  |
 | --- | --- |
@@ -1018,53 +1004,95 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | **Descripción** | El sistema debe validar que todos los campos obligatorios estén completos y que no haya respuestas incorrectas o fuera de lugar antes de permitir que el paciente envíe el cuestionario. |
 | **Prioridad** | Deseable |
 
-| **RF-XXX** | **Obligación de pago antes de confirmar la cita**  |
+| **RF-XXX** | **Registro de método de pago**  |
 | --- | --- |
 | **Código HU** | HF-008 |
-| **Versión** | V1.0 |
-| **Descripción** | Los pacientes deberán abonar el importe completo de la consulta en una ventada de 48 horas antes de la consulta. El pago debe realizarse a través de la plataforma con tarjeta bancaria o un método de pago habilitado. |
-| **Prioridad** | Importante |
+| **Versión** | V1.1 |
+| **Descripción** | Los pacientes deberán registrar un método de pago al momento de agendar una consulta para garantizar el cobro automático. |
+| **Prioridad** | Crítica |
 
-| **RF-XXX** | **Política de cancelación y reembolso**  |
+| **RF-XXX** | **Cobro automático 48 horas antes de la consulta**  |
 | --- | --- |
 | **Código HU** | HF-008 |
-| **Versión** | V1.0 |
-| **Descripción** | El paciente podrá cancelar hasta 48 horas antes de la cita y no se efectuará ningún pago. Después de las 48 horas, no habrá reembolso. El sistema debe notificar al paciente sobre esta política al momento de *introducir sus datos para realizar el cobro (tengo dudas sobre si el paciente debe introducir sus datos bancarios al solicitar la consulta o si 48h antes de la misma para confirmar la consulta el paciente debe abonar el importe y en caso contrario automáticamente se cancela)*. |
-| **Prioridad** | Importante |
+| **Versión** | V1.1 |
+| **Descripción** | El sistema realizará automáticamente el cobro 48 horas antes de la consulta, utilizando el método de pago registrado por el paciente.|
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Restricción de reservas con menos de 72 horas de antelación**  |
+| --- | --- |
+| **Código HU** | HF-008 |
+| **Versión** | V1.1 |
+| **Descripción** | Los pacientes solo podrán reservar citas si la fecha de la consulta está a más de 72 horas de la solicitud. |
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Política de cancelación sin cargo**  |
+| --- | --- |
+| **Código HU** | HF-008 |
+| **Versión** | V1.1 |
+| **Descripción** | Entre las 72 y 48 horas previas a la consulta, el paciente podrá cancelar la cita sin cargo y sin que se realice el cobro. |
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Cobro irrevocable dentro de las 48 horas previas**  |
+| --- | --- |
+| **Código HU** | HF-008 |
+| **Versión** | V1.1 |
+| **Descripción** | Pasadas las 48 horas previas a la consulta, el sistema realizará el cobro automático sin posibilidad de reembolso, salvo que el fisioterapeuta cancele la cita. |
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Reembolso por cancelación del fisioterapeuta**  |
+| --- | --- |
+| **Código HU** | HF-008 |
+| **Versión** | V1.1 |
+| **Descripción** | Si el fisioterapeuta cancela la cita dentro de las 48 horas previas, el sistema gestionará automáticamente un reembolso completo al paciente. |
+| **Prioridad** | Crítica |
 
 | **RF-XXX** | **Integración con la agenda del fisioterapeuta**  |
 | --- | --- |
 | **Código HU** | HF-008 |
-| **Versión** | V1.0 |
-| **Descripción** | Una vez realizado el pago, la cita debe reflejarse como confirmada en la agenda del fisioterapeuta. El fisioterapeuta podrá ver si el pago está confirmado o pendiente. |
+| **Versión** | V1.1 |
+| **Descripción** | Al programar una cita, esta se reflejará en la agenda del fisioterapeuta como "pendiente de cobro". Una vez realizado el cobro automático, la cita pasará a estado "confirmada". |
 | **Prioridad** | Crítica |
 
-| **RF-XXX** | **Notificación al paciente sobre pago y cancelación**  |
+| **RF-XXX** | **Notificación de reserva al paciente**  |
 | --- | --- |
 | **Código HU** | HF-008 |
-| **Versión** | V1.0 |
-| **Descripción** | El paciente recibirá una notificación confirmando el pago exitoso y la cita agendada. También recibirá una notificación en caso de reembolso tras la cancelación por parte del fisioterapeuta (si aplica). |
+| **Versión** | V1.1 |
+| **Descripción** | Al reservar una cita, el paciente recibirá una notificación que incluirá la política de cobro y cancelación. |
 | **Prioridad** | Importante |
 
-| **RF-XXX** | **Seguridad en el proceso de pago**  |
+| **RF-XXX** | **Notificación de cobro inminente**  |
 | --- | --- |
 | **Código HU** | HF-008 |
-| **Versión** | V1.0 |
-| **Descripción** | El sistema debe garantizar que todos los pagos se procesen de manera segura, cumpliendo con las normativas de seguridad bancaria, como PCI-DSS. |
+| **Versión** | V1.1 |
+| **Descripción** | 48 horas antes de la consulta, el paciente recibirá una notificación recordándole que el cobro automático se realizará en breve. |
+| **Prioridad** | Importante |
+
+| **RF-XXX** | **Notificación de cancelación y reembolso**  |
+| --- | --- |
+| **Código HU** | HF-008 |
+| **Versión** | V1.1 |
+| **Descripción** | Si el fisioterapeuta cancela la consulta dentro de las 48 horas previas, el paciente recibirá una notificación indicando la cancelación y el reembolso automático. |
+| **Prioridad** | Importante |
+
+| **RF-XXX** | **Seguridad del proceso de pago**  |
+| --- | --- |
+| **Código HU** | HF-008 |
+| **Versión** | V1.1 |
+| **Descripción** | Todos los pagos deben realizarse de manera segura, cumpliendo con normativas como PCI-DSS. La plataforma debe garantizar que el cobro automático se realice sin errores antes de confirmar la cita. |
 | **Prioridad** | Crítica |
 
-| **RF-XXX** | **Procesamiento automático de reembolsos**  |
+| **RF-XXX** | **Acceso al historial de pagos**  |
 | --- | --- |
 | **Código HU** | HF-008 |
-| **Versión** | V1.0 |
-| **Descripción** | En caso de cancelación dentro de las 48 horas, el sistema procesará automáticamente el reembolso del pago al mismo método utilizado para la transacción. |
-| **Prioridad** | Crítica |
+| **Versión** | V1.1 |
+| **Descripción** | Tanto el paciente como el fisioterapeuta podrán acceder al historial de pagos de consultas anteriores para verificar transacciones y estados de pago. |
+| **Prioridad** | Importante |
 
-| **RF-XXX** | **Historial de pagos accesible para paciente y fisioterapeuta**  |
+| **RF-XXX** | **Verificación del estado de pago**  |
 | --- | --- |
 | **Código HU** | HF-008 |
-| **Versión** | V1.0 |
-| **Descripción** | Tanto el paciente como el fisioterapeuta tendrán acceso al historial de pagos, permitiendo verificar los pagos realizados y confirmar si el paciente ha pagado. |
+| **Versión** | V1.1 |
+| **Descripción** | El fisioterapeuta podrá consultar en su perfil el estado de pago de cada consulta programada. |
 | **Prioridad** | Importante |
 
 | **RF-XXX** | **Generación automática de facturas**  |
@@ -1072,13 +1100,6 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | **Código HU** | HF-009 |
 | **Versión** | V1.0 |
 | **Descripción** | El sistema generará automáticamente una factura por cada consulta realizada. La factura incluirá detalles como: nombre del paciente, especialidad del fisioterapeuta, motivo de la consulta, fecha de la cita, importe, impuestos aplicables y forma de pago. |
-| **Prioridad** | Deseable |
-
-| **RF-XXX** | **Almacenamiento seguro de facturas**  |
-| --- | --- |
-| **Código HU** | HF-009 |
-| **Versión** | V1.0 |
-| **Descripción** | Las facturas generadas se almacenarán de manera segura en la base de datos del sistema, accesibles solo por el fisioterapeuta correspondiente. |
 | **Prioridad** | Deseable |
 
 | **RF-XXX** | **Almacenamiento seguro de facturas**  |
@@ -1171,13 +1192,6 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | **Versión** | V1.0 |
 | **Descripción** | La videollamada debe estar protegida con cifrado de extremo a extremo para garantizar la privacidad de la consulta. Solo el fisioterapeuta y el paciente deben tener acceso a la videollamada. |
 | **Prioridad** | Crítica |
-
-| **RF-XXX** | **Resolución de problemas comunes**  |
-| --- | --- |
-| **Código HU** | HF-010 |
-| **Versión** | V1.0 |
-| **Descripción** | El sistema debe incluir opciones para solucionar problemas comunes durante las videollamadas, como problemas de conexión o de audio/video. En caso de interrupciones, el sistema debe permitir reanudar la llamada o reprogramar la cita. |
-| **Prioridad** | Baja |
 
 | **RF-XXX** | **Resolución de problemas comunes**  |
 | --- | --- |
