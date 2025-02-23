@@ -800,42 +800,43 @@ Se explica el índice de las historias de usuario:
 ### HF-008: Pago previo de la consulta
 > **Como** fisioterapeuta,  
 > **Quiero** que el paciente abone de antemano el precio de la consulta,   
-> **Para** garantizar el compromiso del paciente.
+> **Para** garantizar el compromiso del paciente y reducir cancelaciones de última hora.
 
 **Comentarios**: 
-- Aunque esta podrá ser cancelada hasta 48 horas antes y se realizará un reembolso del mismo.
+- Un paciente solo podrá reservar una consulta si la fecha de la cita está a más de 72 horas de la solicitud.
+- Entre las 72 y 48 horas previas a la consulta, el paciente podrá cancelar la cita sin cargo.
+- Pasadas las 48 horas previas a la consulta, el cobro se realizará automáticamente.
+- El único caso en el que un paciente recibirá un reembolso será si el fisioterapeuta cancela la consulta dentro de las 48 horas previas.
+- Esta historia excluye a las consultas que estén catalogadas como "GRATUITAS".
 
 **Criterios de aceptación**:
 
 - Opciones de pago previo:
-  - El fisioterapeuta podrá activar o desactivar la opción de pago previo para sus consultas.
-  - Los pacientes deberán pagar el importe completo de la consulta antes de confirmar la cita.
-  - El pago debe realizarse a través de la plataforma utilizando una tarjeta bancaria o un método de pago habilitado.
+  - Los pacientes deberán registrar un método de pago al momento de agendar una consulta.
+  - El pago se procesará automáticamente 48 horas antes de la consulta.
 
 - Política de cancelación:
-  - El paciente podrá cancelar la cita hasta 48 horas antes de la consulta y recibir un reembolso completo del pago realizado.
-  - Si el paciente cancela después de las 48 horas, no se realizará reembolso.
-  - El sistema debe notificar al paciente sobre la política de cancelación al momento de realizar el pago.
+  - Los pacientes solo podrán reservar citas con al menos 72 horas de antelación.
+  - Entre las 72 y 48 horas previas a la consulta, el paciente podrá cancelar la cita sin cargo.
+  - Pasadas las 48 horas previas a la consulta, el sistema realizará el cobro automático sin posibilidad de reembolso.
+  - En caso de cancelación por parte del fisioterapeuta dentro de las 48 horas previas, el paciente recibirá un reembolso completo.
 
 - Integración con la agenda:
-  - Una vez realizado el pago, la cita se reflejará en la agenda del fisioterapeuta como confirmada.
-  - El fisioterapeuta podrá visualizar si la cita tiene el pago confirmado o pendiente.
+  - Una vez programada, la cita se reflejará en la agenda del fisioterapeuta como "pendiente de cobro" hasta 48 horas antes.
+  - Cuando se realice el cobro automático, la cita pasará a estado "confirmada".
 
 - Notificación al paciente:
-  - Los pacientes recibirán una notificación confirmando que su pago ha sido exitoso y que la cita está agendada.
-  - El paciente será notificado también en caso de reembolso tras la cancelación de la cita (si aplica).
+  - El paciente recibirá una notificación al reservar la cita, indicando la política de cobro y cancelación.
+  - 48 horas antes de la consulta, el paciente será notificado sobre el cobro inminente.
+  - Si el fisioterapeuta cancela la cita dentro de las 48 horas previas, el paciente será notificado y recibirá un reembolso automático.
 
 - Seguridad del pago:
-  - El sistema debe garantizar que todos los pagos sean realizados de manera segura, cumpliendo con las normativas de seguridad bancaria (por ejemplo, PCI-DSS).
-  - El pago debe procesarse correctamente antes de confirmar la cita para evitar errores.
-
-- Reembolsos:
-  - En caso de cancelación por parte del paciente dentro del límite de 48 horas, el sistema debe procesar automáticamente el reembolso del pago.
-  - El reembolso se efectuará al mismo método de pago utilizado por el paciente para completar la transacción.
+  - Todos los pagos deben realizarse de manera segura, cumpliendo con normativas como PCI-DSS.
+  - La plataforma debe garantizar que el cobro automático se realice sin errores antes de confirmar la cita.
 
 - Historial de pagos:
-  - El paciente y el fisioterapeuta tendrán acceso al historial de pagos previos de las consultas.
-  - El fisioterapeuta podrá ver detalles de los pagos y confirmar si el paciente ha pagado.
+  - Tanto el paciente como el fisioterapeuta podrán acceder al historial de pagos de consultas anteriores.
+  - El fisioterapeuta podrá verificar el estado de pago de cada consulta programada.
 
 ---
 
