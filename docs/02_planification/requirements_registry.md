@@ -153,33 +153,322 @@ Por otro lado, para cada requisito, se define lo siguiente:
 ## 3.1. Requisitos Funcionales
 ### 3.1.1 Rol en el sistema: Usuario invitado
 
-| **RF-XXX** | **Perfil profesional verificado**  |
+| **RF-XXX** | **Acceso sin registro** |
 | --- | --- |
-| **Código HU** | HI-XXX |
+| **Código HU** | HI-001 |
 | **Versión** | V1.0 |
-| **Descripción** | x |
-| **Prioridad** | x |
+| **Descripción** | El usuario invitado podrá acceder a la plataforma sin necesidad de registrarse o iniciar sesión. |
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Navegación por la lista de fisioterapeutas** |
+| --- | --- |
+| **Código HU** | HI-001 |
+| **Versión** | V1.0 |
+| **Descripción** | El usuario invitado podrá ver la lista de fisioterapeutas, incluyendo sus perfiles. |
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Búsqueda de fisioterapeutas con filtros** |
+| --- | --- |
+| **Código HU** | HI-001 |
+| **Versión** | V1.0 |
+| **Descripción** | El usuario invitado podrá buscar fisioterapeutas aplicando filtros como especialidad y ubicación. |
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Redirección al registro al intentar reservar** |
+| --- | --- |
+| **Código HU** | HI-001 |
+| **Versión** | V1.0 |
+| **Descripción** | Si el usuario invitado intenta reservar una cita, será redirigido a la página de registro o inicio de sesión. |
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Acceso sin registro** |
+| --- | --- |
+| **Código HU** | HI-002 |
+| **Versión** | V1.0 |
+| **Descripción** | El usuario invitado podrá acceder a la plataforma sin necesidad de registrarse o iniciar sesión y podrá ver la lista de servicios y funcionalidades que la plataforma ofrece a los fisioterapeutas, como gestión de citas, visibilidad ante pacientes y administración de horarios. |
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Información sobre los beneficios de la plataforma** |
+| --- | --- |
+| **Código HU** | HI-002 |
+| **Versión** | V1.0 |
+| **Descripción** | El usuario invitado podrá consultar información sobre las ventajas de registrarse como fisioterapeuta, incluyendo visibilidad, gestión de citas y pagos, entre otros. |
+| **Prioridad** | Importante |
+
+| **RF-XXX** | **Visualización de precios y suscripciones** |
+| --- | --- |
+| **Código HU** | HI-002 |
+| **Versión** | V1.0 |
+| **Descripción** | El usuario invitado podrá ver las opciones de suscripción disponibles con sus precios y características. |
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Redirección al registro al intentar interactuar con funciones avanzadas** |
+| --- | --- |
+| **Código HU** | HI-002 |
+| **Versión** | V1.0 |
+| **Descripción** | Si el usuario invitado intenta acceder a funciones avanzadas como ofrecer servicios o gestionar citas, será redirigido a la página de registro. |
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Visualización de valoraciones de fisioterapeutas** |
+| --- | --- |
+| **Código HU** | HI-003 |
+| **Versión** | V1.0 |
+| **Descripción** | El usuario invitado podrá acceder a las opiniones y valoraciones dejadas por fisioterapeutas registrados sobre la plataforma Fisio Find. |
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Claridad y destacabilidad de las valoraciones** |
+| --- | --- |
+| **Código HU** | HI-003 |
+| **Versión** | V1.0 |
+| **Descripción** | Las valoraciones deben presentarse de manera clara y destacada para facilitar la comprensión de la experiencia de otros fisioterapeutas. |
+| **Prioridad** | Deseable |
+
+| **RF-XXX** | **Veracidad de las valoraciones** |
+| --- | --- |
+| **Código HU** | HI-003 |
+| **Versión** | V1.0 |
+| **Descripción** | Solo se mostrarán valoraciones verificadas de fisioterapeutas registrados en la plataforma. |
+| **Prioridad** | Importante |
+
+| **RF-XXX** | **Indicación de estado de suscripción** |
+| --- | --- |
+| **Código HU** | HI-003 |
+| **Versión** | V1.0 |
+| **Descripción** |Se indicará si la valoración proviene de un usuario con una suscripción activa en la plataforma. |
+| **Prioridad** | Deseable |
+
+| **RF-XXX** | **Redirección al registro para interactuar con valoraciones** |
+| --- | --- |
+| **Código HU** | HI-003 |
+| **Versión** | V1.0 |
+| **Descripción** | Para dejar una opinión o interactuar con otras valoraciones, el usuario deberá registrarse como fisioterapeuta en la plataforma. |
+| **Prioridad** | Crítica |
 
 ### 3.1.1 Rol en el sistema: Paciente
 
-| **RF-XXX** | **Perfil profesional verificado**  |
+| **RF-XXX** | **Búsqueda y filtrado de fisioterapeutas** |
 | --- | --- |
-| **Código HU** | HI-XXX |
+| **Código HU** | HP-001 |
 | **Versión** | V1.0 |
-| **Descripción** | x |
-| **Prioridad** | x |
+| **Descripción** | El paciente debe poder buscar fisioterapeutas utilizando filtros avanzados, tales como especialidad vinculándola a la patología del paciente, código postal, valoraciones y precio. |
+| **Prioridad** | Importante |
 
-| **RF-008** | **Búsqueda y filtrado por especialidad, ubicación y disponibilidad** |
+| **RF-XXX** | **Registro de usuarios en Fisio Find** |
 | --- | --- |
+| **Código HU** | HP-002 |
 | **Versión** | V1.0 |
-| **Descripción** | El paciente debe poder buscar fisioterapeutas utilizando filtros avanzados, tales como especialidad, nombre de la localidad, técnicas, patologías y disponibilidad; además, podrá ordenar los resultados por precio, valoración y distancia, filtrar por tipo de consulta (online, presencial o a domicilio) y visualizar los resultados en un mapa interactivo. |
+| **Descripción** | El usuario invitado debe poder registrarse en la plataforma a través de un formulario accesible o a través de una autenticación social |
+| **Prioridad** | Importante |
+
+| **RF-XXX** | **Validación de los datos del registro** |
+| --- | --- |
+| **Código HU** | HP-002 |
+| **Versión** | V1.0 |
+| **Descripción** | El sistema debe validar la información ingresada en el registro, asegurando que el correo sea válido y la contraseña cumpla con los requisitos de seguridad. Además de verificar si dicha cuenta está ya en uso. |
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Manejo de errores en la validación** |
+| --- | --- |
+| **Código HU** | HP-002 |
+| **Versión** | V1.0 |
+| **Descripción** | Si la verificación del usuario no es exitosa, el sistema debe mostrar un mensaje de error claro con los pasos a seguir. |
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Selección de fisioterapeuta** |
+| --- | --- |
+| **Código HU** | HP-003 |
+| **Versión** | V1.0 |
+| **Descripción** | El usuario registrado debe poder seleccionar un fisioterapeuta de la lista de resultados de búsqueda o desde su perfil, visualizando información relevante como nombre, especialidad, valoraciones y precio. |
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Calendario para la reserva** |
+| --- | --- |
+| **Código HU** | HP-003 |
+| **Versión** | V1.0 |
+| **Descripción** | El usuario debe poder seleccionar la fecha y hora de su cita mediante un calendario interactivo que muestre disponibilidad en tiempo real. |
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Confirmación de disponibilidad** |
+| --- | --- |
+| **Código HU** | HP-003 |
+| **Versión** | V1.0 |
+| **Descripción** | Una vez seleccionada la fecha y hora, el sistema debe mostrar un mensaje de confirmación con los detalles de la cita antes de finalizar la reserva. |
+| **Prioridad** | Importante |
+
+| **RF-XXX** | **Notificaciones de cita** |
+| --- | --- |
+| **Código HU** | HP-003 |
+| **Versión** | V1.0 |
+| **Descripción** |El usuario debe recibir notificaciones de confirmación y cambios en su cita por correo electrónico o dentro de la aplicación. |
 | **Prioridad** | Deseable |
 
-| **RF-009** | **Historial de consultas y posibilidad de agendar sesiones** |  
+| **RF-XXX** | **Gestión de citas** |
 | --- | --- |
+| **Código HU** | HP-003 |
 | **Versión** | V1.0 |
-| **Descripción** | Los pacientes deben poder visualizar un historial de sus consultas previas y contar con la opción de agendar sesiones con su fisioterapeuta, a espera de confirmación de este último. |
+| **Descripción** |El usuario debe poder revisar, modificar o cancelar su cita desde su perfil, y cualquier cambio debe reflejarse en tiempo real en el calendario del fisioterapeuta. En caso de cancelación, se debe permitir reprogramar citas si el fisioterapeuta lo permite y hay disponibilidad de horarios. |
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Disponibilidad del pago en la plataforma** |
+| --- | --- |
+| **Código HU** | HP-004 |
+| **Versión** | V1.0 |
+| **Descripción** |La opción de pago debe estar visible y accesible hasta las 48 horas previas a la cita. El sistema debe notificar al usuario cuando el pago esté habilitado. En caso de no confirmarse el pago, se cancelará la cita. |
 | **Prioridad** | Importante |
+
+| **RF-XXX** | **Métodos de pago admitidos** |
+| --- | --- |
+| **Código HU** | HP-004 |
+| **Versión** | V1.0 |
+| **Descripción** |El sistema debe permitir el pago con tarjetas bancarias (Visa, MasterCard, etc.) y, opcionalmente, incluir otros métodos como PayPal o billeteras digitales. |
+| **Prioridad** | Deseable |
+
+| **RF-XXX** | **Seguridad en el pago** |
+| --- | --- |
+| **Código HU** | HP-004 |
+| **Versión** | V1.0 |
+| **Descripción** |Se implementará una pasarela de pago segura con cifrado de datos, cumpliendo normativas de seguridad como PCI DSS. Se podrá requerir autenticación en dos pasos según la entidad bancaria. |
+| **Prioridad** | Importante |
+
+| **RF-XXX** | **Confirmación y registro del pago** |
+| --- | --- |
+| **Código HU** | HP-004 |
+| **Versión** | V1.0 |
+| **Descripción** |Tras realizar el pago, se generará una confirmación visible en la plataforma y se enviará un recibo al correo del usuario. El estado de la cita se actualizará automáticamente a "Pagada". |
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Condiciones de pago y cancelación** |
+| --- | --- |
+| **Código HU** | HP-004 |
+| **Versión** | V1.0 |
+| **Descripción** |El pago solo podrá realizarse dentro de las 48 horas previas a la cita. Si el pago no se ha realizado en este período, la cita será cancelada. Si la cita ha sido pagada y se cancela dentro de las 48 horas previas, se aplicará un reembolso según las políticas de la plataforma. |
+| **Prioridad** | Importante |
+
+| **RF-XXX** | **Visualizacióon y calendario de citas** |
+| --- | --- |
+| **Código HU** | HP-005 |
+| **Versión** | V1.0 |
+| **Descripción** |El usuario podrá consultar un listado de sus citas futuras en un apartado específico de su perfil. Además se deberá incluir un calendario interactivo donde se reflejen las citas programadas del paciente. |
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Detalles de la cita** |
+| --- | --- |
+| **Código HU** | HP-005 |
+| **Versión** | V1.0 |
+| **Descripción** | Cada cita debe mostrar información relevante como fecha, hora, fisioterapeuta, ubicación y estado de la reserva. Si la cita es online, se deberá incluir el enlace para acceder a la videollamada. |
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Acceso y visualización del perfil** |
+| --- | --- |
+| **Código HU** | HP-006 |
+| **Versión** | V1.0 |
+| **Descripción** | El sistema debe permitir al paciente acceder a su perfil desde la barra de navegación o la sección de usuario y visualizar su información personal. |
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Edición de datos personales** |
+| --- | --- |
+| **Código HU** | HP-006 |
+| **Versión** | V1.0 |
+| **Descripción** | El sistema debe permitir al paciente modificar su información personal, incluyendo nombre, correo electrónico y número de teléfono. |
+| **Prioridad** | Importante |
+
+| **RF-XXX** | **Cambio de contraseña** |
+| --- | --- |
+| **Código HU** | HP-006 |
+| **Versión** | V1.0 |
+| **Descripción** | El usuario debe poder actualizar su contraseña de acceso de manera segura desde su perfil. |
+| **Prioridad** | Importante |
+
+| **RF-XXX** | **Gestión de información médica relevante** |
+| --- | --- |
+| **Código HU** | HP-006 |
+| **Versión** | V1.0 |
+| **Descripción** | El paciente debe poder añadir o modificar información médica relevante, como antecedentes de enfermedades, condiciones preexistentes o historial de tratamientos. |
+| **Prioridad** | Deseable |
+
+| **RF-XXX** | **Validación y confirmación de los datos** |
+| --- | --- |
+| **Código HU** | HP-006 |
+| **Versión** | V1.0 |
+| **Descripción** | El sistema debe validar que los datos ingresados por el paciente sean correctos y completos, notificando al usuario cuando los cambios sean guardados correctamente. |
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Eliminación de la cuenta** |
+| --- | --- |
+| **Código HU** | HP-006 |
+| **Versión** | V1.0 |
+| **Descripción** | El usuario debe poder eliminar su cuenta desde el perfil, con un proceso de confirmación para evitar eliminaciones accidentales. |
+| **Prioridad** | Importante |
+
+| **RF-XXX** | **Historial de citas** |
+| --- | --- |
+| **Código HU** | HP-006 |
+| **Versión** | V1.0 |
+| **Descripción** | El perfil del usuario debe mostrar un historial de citas pasadas y futuras, incluyendo detalles como fisioterapeutas consultados, fechas, horas y estado de las citas. |
+| **Prioridad** | Importante |
+
+| **RF-XXX** | **Restricciones y mensajes de error** |
+| --- | --- |
+| **Código HU** | HP-006 |
+| **Versión** | V1.0 |
+| **Descripción** | Si el usuario intenta ingresar información incorrecta o incompleta, el sistema debe mostrar mensajes de error claros y específicos.|
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Seguridad y privacidad de los datos** |
+| --- | --- |
+| **Código HU** | HP-006 |
+| **Versión** | V1.0 |
+| **Descripción** |Los datos del perfil deben estar protegidos de acuerdo con las normativas de privacidad (como GDPR), asegurando que la información médica sea tratada con el máximo nivel de seguridad.|
+| **Prioridad** | Importante |
+
+| **RF-XXX** | **Condiciones de reembolso por cancelación tardía** |
+| --- | --- |
+| **Código HU** | HP-007 |
+| **Versión** | V1.0 |
+| **Descripción** |Si un fisioterapeuta cancela una consulta después del límite de 48 horas antes de la cita, el paciente recibirá un reembolso completo del importe pagado.|
+| **Prioridad** | Importante |
+
+| **RF-XXX** | **Condiciones de cancelación antes del límite** |
+| --- | --- |
+| **Código HU** | HP-007 |
+| **Versión** | V1.0 |
+| **Descripción** |Si la cancelación ocurre antes del límite de 48 horas, no se generará ningún reembolso porque el pago aún no se habrá efectuado.|
+| **Prioridad** | Importante |
+
+| **RF-XXX** | **Proceso del reembolso** |
+| --- | --- |
+| **Código HU** | HP-007 |
+| **Versión** | V1.0 |
+| **Descripción** |El sistema debe gestionar automáticamente el reembolso sin necesidad de que el paciente lo solicite a la misma cuenta o método de pago empleado en la transacción original, deberá reflejarse en la cuenta del paciente en un plazo máximo de 5 a 7 días.|
+| **Prioridad** | Crítica |
+
+| **RF-XXX** | **Notificación del reembolso** |
+| --- | --- |
+| **Código HU** | HP-007 |
+| **Versión** | V1.0 |
+| **Descripción** |El usuario debe recibir una notificación por correo electrónico y/o en la aplicación cuando se haya procesado el reembolso.|
+| **Prioridad** | Importante |
+
+| **RF-XXX** | **Estado del reembolso en la plataforma** |
+| --- | --- |
+| **Código HU** | HP-007 |
+| **Versión** | V1.0 |
+| **Descripción** |La plataforma debe mostrar un mensaje con el estado del reembolso en el perfil del paciente.|
+| **Prioridad** | Deseable |
+
+| **RF-XXX** | **Historial de pagos y reembolsos en la plataforma** |
+| --- | --- |
+| **Código HU** | HP-007 |
+| **Versión** | V1.0 |
+| **Descripción** |El usuario podrá consultar el estado de su reembolso en el historial de pagos dentro de su perfil.|
+| **Prioridad** | Importante |
+
+| **RF-XXX** | **Soporte técnico** |
+| --- | --- |
+| **Código HU** | HP-007 |
+| **Versión** | V1.0 |
+| **Descripción** |Si el paciente tiene problemas con su reembolso, podrá contactar con el soporte técnico de la plataforma.|
+| **Prioridad** | Deseable |
 
 ### 3.1.1 Rol en el sistema: Fisioterapeuta
 
