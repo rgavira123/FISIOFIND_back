@@ -28,7 +28,7 @@ def cita_detail(request, pk):
     Retrieve, update or delete a code cita.
     """
     try:
-        cita = cita.objects.get(pk=pk)
+        cita = Citas.objects.get(pk=pk)
     except cita.DoesNotExist:
         return HttpResponse(status=404)
 
