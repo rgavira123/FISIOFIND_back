@@ -2,6 +2,9 @@ from django.db import models
 
 class StatusChoices(models.TextChoices):
         PENDING = 'pendiente', 'Pendiente'
+        REJECTED = 'rechazada', 'Rechazada'
+        MODIFIED = 'modificada', 'Modificada'
+        FINISHED = 'acabada', 'Acabada'
         ACCEPTED = 'aceptada', 'Aceptada'
         CANCELED = 'cancelada', 'Cancelada'
 

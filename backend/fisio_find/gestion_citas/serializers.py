@@ -11,6 +11,9 @@ class CitasSerializer(serializers.Serializer):
     status = serializers.ChoiceField(
         choices=[
             ('pendiente', 'Pendiente'),
+            ('rechazada', 'Rechazada'),
+            ('modificada', 'Modificada'),
+            ('acabada', 'Acabada'),
             ('aceptada', 'Aceptada'),
             ('cancelada', 'Cancelada'),
         ],
