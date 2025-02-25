@@ -21,7 +21,7 @@ classoption: "table"
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<!-- <p align="center">
+<p align="center">
   <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
@@ -41,10 +41,7 @@ classoption: "table"
 - [**5. COSTES DE MARKETING**](#5-costes-de-marketing)
 - [**6. ESTIMACIÓN DE RETORNO DE INVERSIÓN (ROI)**](#6-estimación-de-retorno-de-inversión-roi)
 - [**7. ANEXO Y EJEMPLO DE CÁLCULO**](#7-anexo-y-ejemplo-de-cálculo)
-    - [**A. Primer Año (TCO ≈ 123.910 €)**](#a-primer-año-tco--123910-)
-    - [**B. Segundo Año (TCO ≈ 24.600 €)**](#b-segundo-año-tco--24600-)
-    - [**C. Estimación del ROI**](#c-estimación-del-roi)
-- [**8. CONCLUSIONES**](#8-conclusiones) -->
+- [**8. CONCLUSIONES**](#8-conclusiones)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
@@ -83,7 +80,7 @@ classoption: "table"
 
 <br>
 
-\newpage
+<!-- \newpage -->
 
 <br>
 
