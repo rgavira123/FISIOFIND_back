@@ -70,7 +70,7 @@ classoption: "table"
 
 - **Fecha de Creación:** 20/02/2025
 
-- **Versión:** v1.0
+- **Versión:** v1.1
 
 <br>
 
@@ -84,6 +84,7 @@ classoption: "table"
 | Fecha      | Versión | Realizada por          | Descripción de los cambios                       |
 | ---------- | ------- | ---------------------- | ------------------------------------------------ |
 | 20/02/2025 | v1.0    | Antonio Macías Ferrera | Elaboración de la primera versión del documento. |
+| 25/02/2025 | v1.1    | Antonio Macías Ferrera | Corrección de HP-003 y organización de las HU en orden alfabetico para cada épica. |
 
 
 <br>
@@ -126,10 +127,10 @@ Los siguientes **objetivos** del *Sprint* harán referencia a las épicas desglo
 | Historia Épica   | Historias de Usuario                                                   |
 | ---------------- | ---------------------------------------------------------------------- |
 | Formación        | HA-002                                                                 |
-| Gestión usuarios | HF-001, HF-002, HI-001, HI-002, HP-001, HP-002, HP-003, HP-006, HA-001 |
+| Gestión usuarios | HA-001, HF-001, HF-002, HI-001, HI-002, HP-001, HP-002, HP-006         |
 | Videollamada     | HF-010, HF-019                                                         |
 | Landing page     | HA-003                                                                 |
-| Cita/Calendario  | HP-005, HF-003, HF-004                                                 |
+| Cita/Calendario  | HF-003, HF-004, HP-003, HP-005                                         |
 
 <br>
 
@@ -154,6 +155,13 @@ Los siguientes **objetivos** del *Sprint* harán referencia a las épicas desglo
 
 
 ## **Épica 2: Gestión usuarios**
+
+***HA-001: Administración de sistema***
+
+> **Como** administrador,  
+> **Quiero** poder gestionar los usuarios, fisioterapeutas, citas y configuración general del sistema,  
+> **Para** asegurar el correcto funcionamiento del servicio y garantizar una buena experiencia tanto para los fisioterapeutas como para los pacientes.
+
 
 ***HF-001: Registro como fisioterapeuta***
 
@@ -228,27 +236,6 @@ Los siguientes **objetivos** del *Sprint* harán referencia a las épicas desglo
 > **Quiero** poder registrarme en la plataforma,
 > **Para** facilitar mis datos a los fisioterapeutas al reservar una cita y acceder a todas las funcionalidades de Fisio Find.
 
-
-***HP-003: Reserva de citas como usuario registrado*** 
-
-> **Como** usuario registrado,
-> **Quiero** una vez he seleccionado el fisioterapeuta idóneo para mi patología, quiero poder escoger mediante un calendario la fecha y hora que más me convenga para la cita,
-> **Para** gestionar mi disponibilidad de manera eficiente.
-
-
-***HP-006: Mi perfil***
-
-> **Como** paciente,
-> **Quiero** poder consultar mi información y modificar cualquier parámetro permitido por la aplicación,
-> **Para** mantener mis datos actualizados y personalizados según mis necesidades.
-
-
-***HA-001: Administración de sistema***
-
-> **Como** administrador,  
-> **Quiero** poder gestionar los usuarios, fisioterapeutas, citas y configuración general del sistema,  
-> **Para** asegurar el correcto funcionamiento del servicio y garantizar una buena experiencia tanto para los fisioterapeutas como para los pacientes.
-
 <br>
 
 <br>
@@ -289,13 +276,6 @@ Los siguientes **objetivos** del *Sprint* harán referencia a las épicas desglo
 
 ## **Épica 5: Cita/Calendario**
 
-***HP-005: Mis citas***
-
-> **Como** paciente,
-> **Quiero** poder consultar mis futuras citas en un apartado de mi perfil y/o en un calendario interactivo con recordatorios dentro de la aplicación,
-> **Para** gestionar mis consultas de manera organizada y evitar olvidos.
-
-
 ***HF-003: Agenda y calendario***
 
 > **Como** fisioterapeuta,
@@ -308,6 +288,20 @@ Los siguientes **objetivos** del *Sprint* harán referencia a las épicas desglo
 > **Como** fisioterapeuta,  
 > **Quiero** poder consultar el estado de una cita solicitada y poder aceptarla, rechazarla o solicitar una modificación de fecha y hora, notificando al paciente sobre cualquier cambio.   
 > **Para** gestionar de manera eficiente mi agenda.
+
+
+***HP-005: Mis citas***
+
+> **Como** paciente,
+> **Quiero** poder consultar mis futuras citas en un apartado de mi perfil y/o en un calendario interactivo con recordatorios dentro de la aplicación,
+> **Para** gestionar mis consultas de manera organizada y evitar olvidos.
+
+
+***HP-003: Reserva de citas como usuario registrado*** 
+
+> **Como** usuario registrado,
+> **Quiero** una vez he seleccionado el fisioterapeuta idóneo para mi patología, quiero poder escoger mediante un calendario la fecha y hora que más me convenga para la cita,
+> **Para** gestionar mi disponibilidad de manera eficiente.
 
 <br>
 
