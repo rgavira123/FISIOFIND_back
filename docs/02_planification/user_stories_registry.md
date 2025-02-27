@@ -39,11 +39,11 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** Daniel Ruiz López, Daniel Fernández Caballero, Daniel Alors Romero, Alberto Carmona Sicre
+- **Autores:** Guadalupe Ridruejo Pineda, Delfín Santana Rubio, Daniel Ruiz López, Daniel Fernández Caballero, Daniel Alors Romero, Alberto Carmona Sicre, Francisco Mateos Villarjo, Daniel Tortorici Bartús, Daniel Vela Camacho, Ramón Gavira Sánchez
 
 - **Fecha de Creación:** 13/02/2025  
 
-- **Versión:** v1.3
+- **Versión:** v1.4
 
 <br>
 
@@ -55,9 +55,10 @@ classoption: "table"
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
 | 13/02/2025 | v1.0    | Daniel Ruiz López, Alberto Carmona Sicre, Daniel Fernández Caballero, Daniel Alors Romero | Añadidas las historias de usuario. |
-| 18/02/2025 | v1.1    | Delfín Santana Rubio  |  Actualizadas las historias de usuario en markdown (copiadas de la actualización del word que hizo Guadalupe). |
+| 18/02/2025 | v1.1    | Delfín Santana Rubio, Guadalupe Ridruejo Pineda |  Actualizadas las historias de usuario en markdown (copiadas de la actualización del word que hizo Guadalupe). |
 | 19/02/2025 | v1.2    | Delfín Santana Rubio  |  Corregido estilo de algunas historias de usuario, añadido títulos para separar las historias por rol (2.1., 2.2., 2.3. y 2.4.) y añadida HF 16 que no se había añadido por error. |
 | 19/02/2025 | v1.3    | Daniel Fernández Rubio, Daniel Alors Romero  |  Hemos añadido todos los criterios de aceptación de las distintas historias de usuario. |
+| 24/02/2025 | v1.4    | Francisco Mateos Villarjo, Daniel Tortorici Bartús, Daniel Vela Camacho, Ramón Gavira Sánchez | Actualizado el sistema de modificación de citas |
 
 <br>
 
@@ -650,9 +651,9 @@ Se explica el índice de las historias de usuario:
   - El estado de la cita debe cambiar a "rechazada" y la agenda del fisioterapeuta debe reflejar el cambio.
 
 - Modificación de citas:
-  - El fisioterapeuta debe poder solicitar una modificación de la fecha y hora de una cita, y especificar la nueva disponibilidad.
-  - El sistema debe enviar una notificación al paciente para informarle sobre la solicitud de modificación y permitirle aceptar o rechazar la nueva propuesta.
-  - Una vez que el paciente confirme la modificación, la cita debe actualizarse con la nueva fecha y hora en ambas agendas (la del fisioterapeuta y la del paciente).
+  - El proceso se basaría en una interfaz donde el fisioterapeuta puede proponer múltiples alternativas de fechas y horas garantizadas para la sesión.  
+  - El sistema debe enviar una notificación al paciente para informarle sobre la solicitud de modificación y permitirle aceptar o rechazar las nuevas propuestas.  
+  - Una vez que el paciente confirme la modificación, la cita debe actualizarse con la nueva fecha y hora en ambas agendas (la del fisioterapeuta y la del paciente). En caso de que el paciente rechace las nuevas propuestas, se cancelará la solicitud de modificación y el paciente deberá re-agendar la cita desde cero.
   
 - Notificación de citas pendientes:
   - El sistema debe notificar al fisioterapeuta sobre las citas pendientes de aceptar, rechazar o modificar dentro de un plazo determinado.
