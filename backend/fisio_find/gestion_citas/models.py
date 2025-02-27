@@ -1,4 +1,5 @@
 from django.db import models
+from gestion_usuarios.models import AppUser
 
 class StatusChoices(models.TextChoices):
     FINISHED = "finished", "Finished"
@@ -12,8 +13,18 @@ class Appointment(models.Model):
     end_time = models.DateTimeField(verbose_name="end_time")
     is_online = models.BooleanField(verbose_name="is_online")
     service = models.JSONField(verbose_name="service")
-    patient_id = models.IntegerField(verbose_name="Id_Patient") # patient = models.ForeignKey('Patient', on_delete=models.CASCADE, verbose_name="Id_Patient")
-    physiotherapist_id = models.IntegerField(verbose_name="Id_physiotherapist") # physiotherapist = models.ForeignKey('Physiotherapist', on_delete=models.CASCADE, verbose_name="Id_physiotherapist")
+    patient = models.ForeignKey(
+        AppUser, 
+        on_delete=models.CASCADE, 
+        related_name="patient_appointments", 
+        verbose_name="Patient"
+    )
+    physiotherapist = models.ForeignKey(
+        AppUser, 
+        on_delete=models.CASCADE, 
+        related_name="physio_appointments", 
+        verbose_name="Physiotherapist"
+    )
     status = models.CharField(
         max_length=50,
         choices=StatusChoices.choices,
@@ -26,4 +37,4 @@ class Appointment(models.Model):
         verbose_name_plural = "Appointment"
 
     def __str__(self):
-        return f"Reserva {self.id} - {self.start_time}"
+        return f"Appointment {self.id} - {self.start_time} ({self.patient.name} with {self.physiotherapist.name})"

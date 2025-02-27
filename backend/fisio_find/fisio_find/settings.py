@@ -59,7 +59,10 @@ INSTALLED_APPS += [
 
 # APPS DE TERCEROS
 
-INSTALLED_APPS += [ 'corsheaders']
+INSTALLED_APPS += [
+    'corsheaders',
+    'django_filters',
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

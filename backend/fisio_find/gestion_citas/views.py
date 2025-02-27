@@ -1,22 +1,18 @@
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.parsers import JSONParser
+from rest_framework import generics, filters
+from django_filters.rest_framework import DjangoFilterBackend
 from gestion_citas.models import Appointment
 from gestion_citas.serializers import AppointmentSerializer
-from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from django.http import Http404
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework import mixins
-from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 
 class AppointmentList(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializer
-    
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filterset_fields = ['patient', 'physiotherapist', 'status', 'is_online']
+    ordering_fields = ['start_time', 'end_time']
+
 class AppointmentDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializer
