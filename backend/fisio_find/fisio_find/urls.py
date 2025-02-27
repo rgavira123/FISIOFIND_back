@@ -16,8 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("¡Bienvenido a FisioFind!")
 
 urlpatterns = [
+    path('', home, name='home'),  # Agregar esta línea para la página principal
     path('admin/', admin.site.urls),
     path('app_user/', include('gestion_usuarios.urls')),
     path('', include('videocall.urls')),

@@ -1,0 +1,131 @@
+.video-grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background-color: black;
+}
+
+.main-grid-container {
+    display: grid;
+    grid-template-columns: 60% 20%;
+}
+
+video {
+    border-radius: 25%;
+    background-color: black;
+}
+
+/* Reflejar solo el video local (modo espejo) */
+#local-video, #remote-video {
+    transform: scaleX(-1);
+}
+
+.video-call-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.video-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.video-large video {
+    width: 500px;
+    height: 280px;
+    border-radius: 15px;
+    background-color: black;
+}
+
+.video-small video {
+    width: 200px;
+    height: 120px;
+    border-radius: 10px;
+    background-color: black;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+/* Estilos para los botones con iconos */
+.control-btn {
+    background: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Cambio de color al pasar el mouse */
+.control-btn:hover {
+    background: #d9e0ea;
+}
+
+/* Estilos para el botón de colgar */
+.hangup {
+    background: red;
+}
+
+.hangup:hover {
+    background: darkred;
+}
+
+.control-btn img {
+    width: 24px;  /* Ajustar tamaño de los íconos */
+    height: 24px;
+}
+
+.side-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.side-btn {
+    background: #0ab9a3;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.side-btn:hover {
+    background: #088f83;
+}
+
+.medical-image img {
+    width: 180px;
+    margin-top: 20px;
+}
+
+#remote-video {
+    transition: opacity 0.3s ease-in-out;
+}
+
+#remote-video.hidden {
+    opacity: 0;
+    visibility: hidden;
+}

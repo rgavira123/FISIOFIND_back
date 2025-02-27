@@ -1,97 +1,46 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Video Call</title>
-</head>
-<body>
-    <video id="localVideo" autoplay playsinline></video>
-    <video id="remoteVideo" autoplay playsinline></video>
 
-    <script>
-        const localVideo = document.getElementById('localVideo');
-        const remoteVideo = document.getElementById('remoteVideo');
-        const roomName = "{{ room_name }}";
-        const wsProtocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
-        const wsUrl = `${wsProtocol}://${window.location.host}/ws/videocall/${roomName}/`;
-        const socket = new WebSocket(wsUrl);
+{% load static %}
 
-        let localStream;
-        let peerConnection;
-        const config = {
-            iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
-        };
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Video Chat</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    </head>
+    <body>
+        <h3 id="label-username">USERNAME</h3>
+        <div>
+            <input id="username"><button id="btn-join">Join Room</button>
+        </div>
 
-        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-            .then(stream => {
-                localVideo.srcObject = stream;
-                localStream = stream;
-            })
-            .catch(error => console.error('Error accessing media devices.', error));
+        <div class="main-grid-container">
+            <div id="video-container">
+                <div><video id="local-video" style="float: left;" autoplay playsinline></video></div>
+                    <button id="btn-toggle-audio" class="control-btn">
+                        <img src="{% static 'icons/microphone.svg' %}" alt="Mute">
+                    </button>
+                    <button id="btn-toggle-video" class="control-btn">
+                        <img src="{% static 'icons/video.svg' %}" alt="Video">
+                    </button>
+                    <button id="btn-share-screen" class="control-btn">
+                        <img src="{% static 'icons/screen-share.svg' %}" alt="Share Screen">
+                    </button>
+                    <button id="btn-hangup" class="control-btn hangup">
+                        <img src="{% static 'icons/hangup.svg' %}" alt="Hang Up">
+                    </button>
+            </div>
 
-        socket.onmessage = async (event) => {
-            const data = JSON.parse(event.data);
+            <div id="chat">
+                <h3>CHAT</h3>
+                <div id="messages">
+                    <ul id="message-list"></ul>
+                </div>
 
-            if (data.offer) {
-                await handleOffer(data.offer);
-            } else if (data.answer) {
-                await handleAnswer(data.answer);
-            } else if (data.candidate) {
-                await handleCandidate(data.candidate);
-            }
-        };
+                <div><input id="msg"><button id="btn-send-msg">Send Message</button></div>
+            </div>
+        </div>
 
-        socket.onopen = () => {
-            createPeerConnection();
-            localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
-            if (isInitiator) {
-                createOffer();
-            }
-        };
-
-        function createPeerConnection() {
-            peerConnection = new RTCPeerConnection(config);
-
-            peerConnection.onicecandidate = ({ candidate }) => {
-                if (candidate) {
-                    socket.send(JSON.stringify({ candidate }));
-                }
-            };
-
-            peerConnection.ontrack = (event) => {
-                remoteVideo.srcObject = event.streams[0];
-            };
-        }
-
-        function createOffer() {
-            peerConnection.createOffer()
-                .then(offer => {
-                    peerConnection.setLocalDescription(offer);
-                    socket.send(JSON.stringify({ offer }));
-                })
-                .catch(error => console.error('Error creating offer.', error));
-        }
-
-        async function handleOffer(offer) {
-            if (!peerConnection) {
-                createPeerConnection();
-            }
-            await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
-            const answer = await peerConnection.createAnswer();
-            await peerConnection.setLocalDescription(answer);
-            socket.send(JSON.stringify({ answer }));
-        }
-
-        async function handleAnswer(answer) {
-            await peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
-        }
-
-        async function handleCandidate(candidate) {
-            try {
-                await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
-            } catch (error) {
-                console.error('Error adding received ICE candidate', error);
-            }
-        }
-    </script>
-</body>
+        <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+    </body>
 </html>
