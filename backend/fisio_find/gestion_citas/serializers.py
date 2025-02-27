@@ -1,40 +1,40 @@
 from rest_framework import serializers
-from gestion_citas.models import Citas
+from gestion_citas.models import Appointment
 
-class CitasSerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    date = serializers.DateField()
-    time = serializers.TimeField()
+class AppointmentSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True) 
+    start_time = serializers.DateTimeField()
+    end_time = serializers.DateTimeField()
+    is_online = serializers.BooleanField()
+    service = serializers.JSONField()
     patient_id = serializers.IntegerField() # patient = serializers.PrimaryKeyRelatedField(queryset=Patient.objects.all())
     physiotherapist_id = serializers.IntegerField() # physiotherapist = serializers.PrimaryKeyRelatedField(queryset=Physiotherapist.objects.all())
-    reason = serializers.CharField(max_length=200, allow_blank=True, required=False)
     status = serializers.ChoiceField(
         choices=[
-            ('pendiente', 'Pendiente'),
-            ('rechazada', 'Rechazada'),
-            ('modificada', 'Modificada'),
-            ('acabada', 'Acabada'),
-            ('aceptada', 'Aceptada'),
-            ('cancelada', 'Cancelada'),
+            ('finished', 'finished'),
+            ('confirmed', 'confirmed'),
+            ('canceled', 'canceled'),
+            ('booked', 'booked'),
         ],
-        default='pendiente'
+        default='booked'
     )
 
     def create(self, validated_data):
         """
-        Create and return a new `Citas` instance, given the validated data.
+        Create and return a new `Appointment` instance, given the validated data.
         """
-        return Citas.objects.create(**validated_data)
+        return Appointment.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         """
-        Update and return an existing `Citas` instance, given the validated data.
+        Update and return an existing `Appointment` instance, given the validated data.
         """
-        instance.date = validated_data.get('date', instance.date)
-        instance.time = validated_data.get('time', instance.time)
+        instance.start_time = validated_data.get('start_time', instance.start_time)
+        instance.end_time = validated_data.get('end_time', instance.end_time)
+        instance.is_online = validated_data.get('is_online', instance.is_online)
+        instance.service = validated_data.get('service', instance.service)
         instance.patient_id = validated_data.get('patient_id', instance.patient_id)
         instance.physiotherapist_id = validated_data.get('physiotherapist_id', instance.physiotherapist_id)
-        instance.reason = validated_data.get('reason', instance.reason)
         instance.status = validated_data.get('status', instance.status)
         instance.save()
         return instance

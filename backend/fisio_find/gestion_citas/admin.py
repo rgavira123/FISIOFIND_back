@@ -1,5 +1,5 @@
 from django.contrib import admin
-from gestion_citas.models import Citas
+from gestion_citas.models import Appointment
 
 # Register your models here.
-admin.site.register(Citas)
+admin.site.register(Appointment)
