@@ -71,7 +71,6 @@ classoption: "table"
 
 <br>
 
-
 ---
 
 **Historial de modificaciones**
@@ -497,6 +496,16 @@ EPB                     |
 |                                               |                                       |
 | **Firma del Usuario Piloto**                  |                
 MMB                    |
+
+| **Nombre y Apellidos del Usuario Piloto**     |            Luis Manuel Martín Domínguez                          |
+|-----------------------------------------------|---------------------------------------|
+| **Tipo de Usuario Piloto**                    | **Externo [ X ]** **Alumno ISPP [  ]** |
+| **Correo Electrónico**                        |            lmmdominguez@gmail.com                     |
+| **Rol de prueba**                        |               Paciente                        |
+| **Teléfono (opcional)**                       |                                      |
+|                                               |                                       |
+| **Firma del Usuario Piloto**                  |                
+LMMD                    |
 
 | **Nombre y Apellidos del Usuario Piloto**     |      Antonio Daniel Porcar Aragón                               |
 |-----------------------------------------------|---------------------------------------|
