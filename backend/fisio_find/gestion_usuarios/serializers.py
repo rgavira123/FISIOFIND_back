@@ -1,12 +1,10 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
-from gestion_usuarios.models import AppUser
+from gestion_usuarios.models import AppUser, Patient
 
 class AppUserSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(
-        validators=[UniqueValidator(queryset=AppUser.objects.all())]
-    )
-
     class Meta:
         model = AppUser
-        fields = '__all__'
+        fields = ['username', 'email', 'password', 'name', 'surname', 'dni', 'phone_number', 'postal_code', 'photo']
+
+
