@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from gestion_citas.models import Appointment
+from gestion_citas.models import Appointment, StatusChoices
 from gestion_usuarios.models import AppUser
 
 class AppointmentSerializer(serializers.Serializer):
@@ -11,12 +11,7 @@ class AppointmentSerializer(serializers.Serializer):
     patient = serializers.PrimaryKeyRelatedField(queryset=AppUser.objects.all())
     physiotherapist = serializers.PrimaryKeyRelatedField(queryset=AppUser.objects.all())
     status = serializers.ChoiceField(
-        choices=[
-            ('finished', 'finished'),
-            ('confirmed', 'confirmed'),
-            ('canceled', 'canceled'),
-            ('booked', 'booked'),
-        ],
+        choices = StatusChoices.choices,
         default='booked'
     )
     class Meta:
@@ -31,8 +26,12 @@ class AppointmentSerializer(serializers.Serializer):
         end_time = data.get('end_time')
         physiotherapist = data.get('physiotherapist')
 
+        # verify that the appointment starts and ends on the same day
+        if start_time.date() != end_time.date():
+            raise serializers.ValidationError("The appointment must end the same day it starts.")
+        
         # verify that the start time is before the end time
-        if start_time >= end_time:
+        if start_time.time() >= end_time.time():
             raise serializers.ValidationError("End time must be after start time.")
 
         # verify that the physiotherapist is available
