@@ -52,6 +52,7 @@ classoption: "table"
     - [RI-007: Tabla `document`](#ri-007-tabla-document)
     - [RI-008: Tabla `college_data`](#ri-008-tabla-college_data)
     - [RI-009: Tabla `admin`](#ri-009-tabla-admin)
+    - [RFI-010: Tabla `terms_conditions`](#rfi-010-tabla-terms_conditions)
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 
 <br>
@@ -72,7 +73,7 @@ classoption: "table"
 
 - **Fecha de Creación:** 12/02/2025  
 
-- **Versión:** v3.0
+- **Versión:** v3.1
 
 <br>
 
@@ -92,6 +93,7 @@ classoption: "table"
 | 27/02/2025 | v2.1    | Guadalupe Ridruejo Pineda  | Añadido nuevo requisito de comprobación continua de fisioterapeutas colegiados |
 | 27/02/2025 | v2.2    | Guadalupe Ridruejo Pineda  | Numeración de requisitos |
 | 27/02/2025 | v3.0    | Guadalupe Ridruejo Pineda  | Requisitos de información |
+| 28/02/2025 | v3.1    | Guadalupe Ridruejo Pineda  | Correcciones derivadas de la revisión |
 
 <br>
 
@@ -229,14 +231,14 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | --- | --- |
 | **Código HU** | HI-003 |
 | **Versión** | V1.0 |
-| **Descripción** | El usuario invitado podrá acceder a las opiniones y valoraciones dejadas por fisioterapeutas registrados sobre la plataforma Fisio Find. |
+| **Descripción** | El usuario invitado podrá acceder a las opiniones y valoraciones dejadas por fisioterapeutas registrados sobre la plataforma Fisio Find. Estas deberán mostrarse de forma clara y destacada. |
 | **Prioridad** | Crítica |
 
-| **RFI-010** | **Claridad y destacabilidad de las valoraciones** |
+| **RFI-010** | **Accesibilidad a las valoraciones** |
 | --- | --- |
 | **Código HU** | HI-003 |
 | **Versión** | V1.0 |
-| **Descripción** | Las valoraciones deben presentarse de manera clara y destacada para facilitar la comprensión de la experiencia de otros fisioterapeutas. |
+| **Descripción** | Antes de registrarse en Fisio Find, los fisioterapeutas deben poder acceder fácilmente a las valoraciones de otros profesionales. Estas valoraciones podrían mostrarse en la *landing page*, en la misma sección donde se detallan los planes de precios. |
 | **Prioridad** | Deseable |
 
 | **RFI-011** | **Veracidad de las valoraciones** |
@@ -273,28 +275,32 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | --- | --- |
 | **Código HU** | HP-001 |
 | **Versión** | V1.0 |
-| **Descripción** | El sistema deberá garantizar que todos los fisioterapeutas tengan las mismas probabilidades de aparecer en las búsquedas de pacientes, con excepción de los fisioterapeutas con suscripción "Gold", quienes siempre aparecerán en los primeros resultados dentro de esa probabilidad. |
+| **Descripción** | El sistema deberá garantizar que todos los fisioterapeutas tengan una distribución equitativa en las búsquedas de pacientes dentro de su nivel de relevancia, evitando favoritismos injustificados. No obstante, los fisioterapeutas con suscripción "Gold" recibirán prioridad y se mostrarán en los primeros resultados dentro de su grupo de relevancia. Para fisioterapeutas con el mismo nivel de relevancia, el orden de aparición se determinará de forma rotativa o aleatoria en cada búsqueda. |
 | **Prioridad** | Deseable |
 
 | **RFP-003** | **Criterios de ordenamiento en la búsqueda de fisioterapeutas** |
 | --- | --- |
 | **Código HU** | HP-001 |
 | **Versión** | V1.0 |
-| **Descripción** | El orden de aparición de los fisioterapeutas en los resultados de búsqueda se determinará según la siguiente jerarquía de importancia: 1) Especialidad, 2) Suscripción Gold, 3) Valoraciones, y 4) Cercanía (si el paciente ha seleccionado este criterio). |
+| **Descripción** | El orden de aparición de los fisioterapeutas en los resultados de búsqueda se determinará según la siguiente jerarquía de criterios:
+
+1. Especialidad (los fisioterapeutas que coincidan con la especialidad buscada tendrán prioridad).
+2. Suscripción Gold (los fisioterapeutas con esta suscripción aparecerán antes que los que no la tengan).
+3. Valoraciones (se priorizarán los fisioterapeutas con mejor puntuación promedio).
+4. Cercanía (si el paciente ha seleccionado este criterio, se priorizarán los fisioterapeutas más cercanos).
+
+En caso de que dos o más fisioterapeutas tengan la misma prioridad según estos criterios, su orden de aparición se establecerá de forma rotativa o aleatoria en cada búsqueda para garantizar equidad. |
 | **Prioridad** | Deseable |
 
-| **RFP-004** | **Registro de usuarios en Fisio Find** |
+| **RFP-004** | **Registro y validación de usuarios en Fisio Find** |
 | --- | --- |
 | **Código HU** | HP-002 |
 | **Versión** | V1.0 |
-| **Descripción** | El usuario invitado debe poder registrarse en la plataforma a través de un formulario accesible o a través de una autenticación social. |
-| **Prioridad** | Importante |
-
-| **RFP-004** | **Validación de los datos del registro** |
-| --- | --- |
-| **Código HU** | HP-002 |
-| **Versión** | V1.0 |
-| **Descripción** | El sistema debe validar la información ingresada en el registro, asegurando que el correo sea válido y la contraseña cumpla con los requisitos de seguridad. Además de verificar si dicha cuenta está ya en uso. |
+| **Descripción** | La plataforma deberá permitir el registro de nuevos usuarios mediante un formulario accesible o autenticación social. Al completar el registro, el sistema deberá validar la información ingresada de la siguiente manera:
+- Correo electrónico: Verificación de formato válido y comprobación de si la cuenta ya está en uso.
+- Contraseña: Como mínimo la contraseña deberá cumplir con tener al menos 8 caracteres e incluir una mayúscula, una minúscula, un número y un carácter especial. Se implementará un bloqueo temporal tras 5 intentos fallidos para prevenir ataques de fuerza bruta.
+- Autenticación social: Validación de credenciales a través de los proveedores de autenticación habilitados.
+Si algún dato no cumple con los criterios establecidos, el sistema deberá mostrar un mensaje de error claro y orientar al usuario para corregirlo. |
 | **Prioridad** | Crítica |
 
 | **RFP-005** | **Manejo de errores en la validación** |
@@ -877,7 +883,7 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | --- | --- |
 | **Código HU** | HF-006 |
 | **Versión** | V1.0 |
-| **Descripción** | El fisioterapeuta podrá crear nuevos cuestionarios desde cero y guardarlos como plantillas reutilizables. |
+| **Descripción** | El fisioterapeuta podrá crear nuevos cuestionarios desde cero y guardarlos como plantillas reutilizables. Por supuesto, estas no podrán ser visualizadas ni modificadas por los pacientes. |
 | **Prioridad** | Crítica |
 
 | **RFF-057** | **Tipos de preguntas personalizables**  |
@@ -1062,455 +1068,455 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | **Descripción** | Si el fisioterapeuta cancela la cita dentro de las 48 horas previas, el sistema gestionará automáticamente un reembolso completo al paciente. |
 | **Prioridad** | Crítica |
 
-| **RFF-084** | **Integración con la agenda del fisioterapeuta**  |
+| **RFF-083** | **Integración con la agenda del fisioterapeuta**  |
 | --- | --- |
 | **Código HU** | HF-008 |
 | **Versión** | V1.1 |
 | **Descripción** | Al programar una cita, esta se reflejará en la agenda del fisioterapeuta como "pendiente de cobro". Una vez realizado el cobro automático, la cita pasará a estado "confirmada". |
 | **Prioridad** | Crítica |
 
-| **RFF-085** | **Notificación de reserva al paciente**  |
+| **RFF-084** | **Notificación de reserva al paciente**  |
 | --- | --- |
 | **Código HU** | HF-008 |
 | **Versión** | V1.1 |
 | **Descripción** | Al reservar una cita, el paciente recibirá una notificación que incluirá la política de cobro y cancelación. |
 | **Prioridad** | Importante |
 
-| **RFF-086** | **Notificación de cobro inminente**  |
+| **RFF-085** | **Notificación de cobro inminente**  |
 | --- | --- |
 | **Código HU** | HF-008 |
 | **Versión** | V1.1 |
 | **Descripción** | 48 horas antes de la consulta, el paciente recibirá una notificación recordándole que el cobro automático se realizará en breve. |
 | **Prioridad** | Importante |
 
-| **RFF-087** | **Notificación de cancelación y reembolso**  |
+| **RFF-086** | **Notificación de cancelación y reembolso**  |
 | --- | --- |
 | **Código HU** | HF-008 |
 | **Versión** | V1.1 |
 | **Descripción** | Si el fisioterapeuta cancela la consulta dentro de las 48 horas previas, el paciente recibirá una notificación indicando la cancelación y el reembolso automático. |
 | **Prioridad** | Importante |
 
-| **RFF-088** | **Seguridad del proceso de pago**  |
+| **RFF-087** | **Seguridad del proceso de pago**  |
 | --- | --- |
 | **Código HU** | HF-008 |
 | **Versión** | V1.1 |
 | **Descripción** | Todos los pagos deben realizarse de manera segura, cumpliendo con normativas como PCI-DSS. La plataforma debe garantizar que el cobro automático se realice sin errores antes de confirmar la cita. |
 | **Prioridad** | Crítica |
 
-| **RFF-089** | **Acceso al historial de pagos**  |
+| **RFF-088** | **Acceso al historial de pagos**  |
 | --- | --- |
 | **Código HU** | HF-008 |
 | **Versión** | V1.1 |
 | **Descripción** | Tanto el paciente como el fisioterapeuta podrán acceder al historial de pagos de consultas anteriores para verificar transacciones y estados de pago. |
 | **Prioridad** | Importante |
 
-| **RFF-090** | **Verificación del estado de pago**  |
+| **RFF-089** | **Verificación del estado de pago**  |
 | --- | --- |
 | **Código HU** | HF-008 |
 | **Versión** | V1.1 |
 | **Descripción** | El fisioterapeuta podrá consultar en su perfil el estado de pago de cada consulta programada. |
 | **Prioridad** | Importante |
 
-| **RFF-091** | **Generación automática de facturas**  |
+| **RFF-0910** | **Generación automática de facturas**  |
 | --- | --- |
 | **Código HU** | HF-009 |
 | **Versión** | V1.0 |
 | **Descripción** | El sistema generará automáticamente una factura por cada consulta realizada. La factura incluirá detalles como: nombre del paciente, especialidad del fisioterapeuta, motivo de la consulta, fecha de la cita, importe, impuestos aplicables y forma de pago. |
 | **Prioridad** | Deseable |
 
-| **RFF-092** | **Almacenamiento seguro de facturas**  |
+| **RFF-091** | **Almacenamiento seguro de facturas**  |
 | --- | --- |
 | **Código HU** | HF-009 |
 | **Versión** | V1.0 |
 | **Descripción** | Las facturas generadas se almacenarán de manera segura en la base de datos del sistema, accesibles solo por el fisioterapeuta correspondiente. |
 | **Prioridad** | Deseable |
 
-| **RFF-093** | **Consulta de facturas**  |
+| **RFF-092** | **Consulta de facturas**  |
 | --- | --- |
 | **Código HU** | HF-009 |
 | **Versión** | V1.0 |
 | **Descripción** | El fisioterapeuta podrá consultar y ver todas las facturas generadas, ordenadas por fecha de emisión. |
 | **Prioridad** | Deseable |
 
-| **RFF-094** | **Descarga de facturas en formato PDF**  |
+| **RFF-093** | **Descarga de facturas en formato PDF**  |
 | --- | --- |
 | **Código HU** | HF-009 |
 | **Versión** | V1.0 |
 | **Descripción** | El sistema permitirá al fisioterapeuta descargar las facturas generadas en formato PDF. |
 | **Prioridad** | Deseable |
 
-| **RFF-095** | **Envío de facturas por correo electrónico**  |
+| **RFF-094** | **Envío de facturas por correo electrónico**  |
 | --- | --- |
 | **Código HU** | HF-009 |
 | **Versión** | V1.0 |
 | **Descripción** | El sistema enviará una copia de la factura al correo electrónico del fisioterapeuta una vez que se haya generado. |
 | **Prioridad** | Deseable |
 
-| **RFF-096** | **Notificación de facturación**  |
+| **RFF-095** | **Notificación de facturación**  |
 | --- | --- |
 | **Código HU** | HF-009 |
 | **Versión** | V1.0 |
 | **Descripción** | El sistema notificará al fisioterapeuta cuando una factura haya sido generada y esté disponible para su consulta y descarga. |
 | **Prioridad** | Deseable |
 
-| **RFF-097** | **Seguridad y privacidad de las facturas**  |
+| **RFF-096** | **Seguridad y privacidad de las facturas**  |
 | --- | --- |
 | **Código HU** | HF-009 |
 | **Versión** | V1.0 |
 | **Descripción** | El sistema garantizará que las facturas sean accesibles solo para el fisioterapeuta correspondiente. Además, la información de las facturas estará protegida mediante medidas de seguridad adecuadas, como el cifrado de datos y el acceso autenticado. |
 | **Prioridad** | Deseable |
 
-| **RFF-098** | **Iniciar videollamada desde la agenda de citas**  |
+| **RFF-097** | **Iniciar videollamada desde la agenda de citas**  |
 | --- | --- |
 | **Código HU** | HF-010 |
 | **Versión** | V1.0 |
 | **Descripción** | El fisioterapeuta debe poder iniciar la videollamada directamente desde su agenda de citas, mediante un botón o enlace visible en la cita programada. El sistema debe proporcionar una interfaz sencilla para acceder a la videollamada. |
 | **Prioridad** | Crítica |
 
-| **RFF-099** | **Temporizador visible durante la videollamada**  |
+| **RFF-098** | **Temporizador visible durante la videollamada**  |
 | --- | --- |
 | **Código HU** | HF-010 |
 | **Versión** | V1.0 |
 | **Descripción** | El sistema debe mostrar un temporizador visible que indique el tiempo restante de la consulta. Este temporizador debe iniciar automáticamente cuando la videollamada comience y detenerse al finalizar. |
 | **Prioridad** | Deseable |
 
-| **RFF-100** | **Restricciones de tiempo para finalizar la videollamada**  |
+| **RFF-099** | **Restricciones de tiempo para finalizar la videollamada**  |
 | --- | --- |
 | **Código HU** | HF-010 |
 | **Versión** | V1.0 |
 | **Descripción** | *El sistema no permitirá al fisioterapeuta finalizar la videollamada hasta que haya transcurrido al menos el 75% del tiempo asignado a la consulta. El fisioterapeuta debe ser notificado cuando el 75% del tiempo haya pasado (esot está pensado porque como el paciente abona el precio de la consulta previo a la misma, para que no reciba un servicio menor de por lo que ha pagado).* |
 | **Prioridad** | Deseable |
 
-| **RFF-101** | **Calidad de la videollamada**  |
+| **RFF-100** | **Calidad de la videollamada**  |
 | --- | --- |
 | **Código HU** | HF-010 |
 | **Versión** | V1.0 |
 | **Descripción** | La videollamada debe tener alta calidad con opciones para ajustar micrófono, video y compartir pantalla si es necesario. El sistema debe garantizar que no haya interrupciones significativas en la calidad de la videollamada (latencia, cortes, etc.). |
 | **Prioridad** | Baja |
 
-| **RFF-102** | **Notificación de finalización de la videollamada**  |
+| **RFF-101** | **Notificación de finalización de la videollamada**  |
 | --- | --- |
 | **Código HU** | HF-010 |
 | **Versión** | V1.0 |
 | **Descripción** | Al finalizar la videollamada, el sistema notificará al fisioterapeuta y al paciente que la consulta ha terminado. Además, se guardará un registro de la videollamada en el historial de citas del paciente y fisioterapeuta. |
 | **Prioridad** | Deseable |
 
-| **RFF-103** | **Compatibilidad y accesibilidad**  |
+| **RFF-102** | **Compatibilidad y accesibilidad**  |
 | --- | --- |
 | **Código HU** | HF-010 |
 | **Versión** | V1.0 |
 | **Descripción** | La videollamada debe ser compatible con dispositivos móviles y de escritorio. Debe ser accesible desde cualquier navegador común sin necesidad de instalar software adicional. |
 | **Prioridad** | Importante |
 
-| **RFF-104** | **Seguridad de la videollamada**  |
+| **RFF-103** | **Seguridad de la videollamada**  |
 | --- | --- |
 | **Código HU** | HF-010 |
 | **Versión** | V1.0 |
 | **Descripción** | La videollamada debe estar protegida con cifrado de extremo a extremo para garantizar la privacidad de la consulta. Solo el fisioterapeuta y el paciente deben tener acceso a la videollamada. |
 | **Prioridad** | Crítica |
 
-| **RFF-105** | **Resolución de problemas comunes**  |
+| **RFF-104** | **Resolución de problemas comunes**  |
 | --- | --- |
 | **Código HU** | HF-010 |
 | **Versión** | V1.0 |
 | **Descripción** | El sistema debe incluir opciones para solucionar problemas comunes durante las videollamadas, como problemas de conexión o de audio/video. En caso de interrupciones, el sistema debe permitir reanudar la llamada o reprogramar la cita. |
 | **Prioridad** | Baja |
 
-| **RFF-106** | **Acceso al historial clínico del paciente durante la videollamada**  |
+| **RFF-105** | **Acceso al historial clínico del paciente durante la videollamada**  |
 | --- | --- |
 | **Código HU** | HF-011 |
 | **Versión** | V1.0 |
 | **Descripción** | Durante la videollamada, el fisioterapeuta podrá acceder al historial clínico del paciente almacenado en el sistema, con la opción de modificar la información que sea necesaria. |
 | **Prioridad** | Deseable |
 
-| **RFF-107** | **Compartir pantalla durante la videollamada**  |
+| **RFF-106** | **Compartir pantalla durante la videollamada**  |
 | --- | --- |
 | **Código HU** | HF-011 |
 | **Versión** | V1.0 |
-| **Descripción** | El fisioterapeuta podrá compartir su pantalla con el paciente durante la videollamada para mostrar diapositivas, documentos o cualquier otra información relevante. |
+| **Descripción** | El fisioterapeuta podrá compartir su pantalla con el paciente durante la videollamada para mostrar contenido que tenga almacenado en su dispositivo, como diapositivas, documentos o cualquier otra información relevante, sin que la aplicación esté involucrada en el almacenamiento o gestión de dicho material. |
 | **Prioridad** | Deseable |
 
-| **RFF-108** | **Acceso al modelo anatómico 3D**  |
+| **RFF-107** | **Acceso al modelo anatómico 3D**  |
 | --- | --- |
 | **Código HU** | HF-011 |
 | **Versión** | V1.0 |
 | **Descripción** | El sistema permitirá al fisioterapeuta acceder y utilizar un modelo anatómico 3D para ilustrar al paciente sobre su patología y tratamiento durante la videollamada. |
 | **Prioridad** | Importante |
 
-| **RFF-109** | **Acceso a plantillas de test y cuestionarios**  |
+| **RFF-108** | **Acceso a plantillas de test y cuestionarios**  |
 | --- | --- |
 | **Código HU** | HF-011 |
 | **Versión** | V1.0 |
 | **Descripción** | El fisioterapeuta podrá acceder a plantillas de tests y cuestionarios predefinidos que se podrán personalizar y utilizar durante la videollamada. |
 | **Prioridad** | Importante |
 
-| **RFF-110** | **Personalización de cuestionarios y tests**  |
+| **RFF-109** | **Personalización de cuestionarios y tests**  |
 | --- | --- |
 | **Código HU** | HF-011 |
 | **Versión** | V1.0 |
 | **Descripción** | El sistema permitirá crear y personalizar cuestionarios, tests y pautas de ejercicio (como Google Forms), los cuales podrán incluir elementos como mapas de dolor, escalas de evaluación, entre otros. |
 | **Prioridad** | Crítica |
 
-| **RFF-111** | **Almacenamiento de información recogida durante la videollamada**  |
+| **RFF-110** | **Almacenamiento de información recogida durante la videollamada**  |
 | --- | --- |
 | **Código HU** | HF-011 |
 | **Versión** | V1.0 |
 | **Descripción** | Toda la información recogida mediante cuestionarios, tests, o notas del fisioterapeuta durante la videollamada debe ser almacenada en el sistema para su posterior consulta y análisis. |
 | **Prioridad** | Importante |
 
-| **RFF-112** | **Subida y gestión de archivos de vídeo**  |
+| **RFF-111** | **Subida y gestión de archivos de vídeo**  |
 | --- | --- |
 | **Código HU** | HF-012 |
 | **Versión** | V1.0 |
-| **Descripción** | El fisioterapeuta podrá subir archivos de vídeo a su espacio personal en la plataforma, y el sistema debe permitir la modificación de los vídeos ya subidos con opciones para editar, borrar o reemplazar los archivos existentes. |
+| **Descripción** | El fisioterapeuta podrá subir archivos de vídeo a su espacio personal en la plataforma, y el sistema debe permitir la modificación de los vídeos ya subidos con opciones para editar (*esto solo hace referencia a los metadatos del vídeo, no ofreceremos un medio para poder editar el contenido del vídeo en sí*), borrar o reemplazar los archivos existentes. |
 | **Prioridad** | Crítica |
 
-| **RFF-113** | **Acceso a los vídeos por parte de los pacientes**  |
+| **RFF-112** | **Acceso a los vídeos por parte de los pacientes**  |
 | --- | --- |
 | **Código HU** | HF-012 |
 | **Versión** | V1.0 |
 | **Descripción** | El fisioterapeuta podrá configurar permisos para que solo los pacientes correspondientes puedan acceder a los vídeos. Los pacientes con acceso podrán visualizar los vídeos desde su perfil en la plataforma. |
 | **Prioridad** | Crítico |
 
-| **RFF-114** | **Vinculación de vídeos explicativos a ejercicios**  |
+| **RFF-113** | **Vinculación de vídeos explicativos a ejercicios**  |
 | --- | --- |
 | **Código HU** | HF-012 |
 | **Versión** | V1.0 |
 | **Descripción** | El sistema permitirá asociar vídeos explicativos a ejercicios específicos dentro de una planificación de ejercicios. Los pacientes podrán acceder directamente al vídeo desde el ejercicio asignado. |
 | **Prioridad** | Deseable |
 
-| **RFF-115** | **Acceso desde cualquier dispositivo**  |
+| **RFF-114** | **Acceso desde cualquier dispositivo**  |
 | --- | --- |
 | **Código HU** | HF-012 |
 | **Versión** | V1.0 |
 | **Descripción** | Los pacientes podrán acceder a los vídeos subidos desde cualquier dispositivo (móvil o escritorio) de forma sencilla y sin problemas de compatibilidad. |
 | **Prioridad** | Deseable |
 
-| **RFF-116** | **Seguridad y privacidad de los vídeos**  |
+| **RFF-115** | **Seguridad y privacidad de los vídeos**  |
 | --- | --- |
 | **Código HU** | HF-012 |
 | **Versión** | V1.0 |
 | **Descripción** | Los vídeos deben estar protegidos por medidas de seguridad adecuadas, como permisos de acceso y cifrado, para garantizar que solo los pacientes autorizados puedan visualizarlos. |
 | **Prioridad** | Crítico |
 
-| **RFF-117** | **Control de acceso de los vídeos**  |
+| **RFF-116** | **Control de acceso de los vídeos**  |
 | --- | --- |
 | **Código HU** | HF-012 |
 | **Versión** | V1.0 |
 | **Descripción** | El sistema garantizará que solo el fisioterapeuta que subió el vídeo y los pacientes autorizados tengan acceso a los archivos de vídeo. |
 | **Prioridad** | Crítico |
 
-| **RFF-118** | **Calidad y optimización de los vídeos**  |
+| **RFF-117** | **Calidad y optimización de los vídeos**  |
 | --- | --- |
 | **Código HU** | HF-012 |
 | **Versión** | V1.0 |
 | **Descripción** | El sistema garantizará que los vídeos subidos mantengan una calidad adecuada para su visualización en diferentes dispositivos. Además, los archivos de vídeo deben optimizarse para evitar tiempos de carga excesivos o problemas de reproducción. |
 | **Prioridad** | Baja |
 
-| **RFF-119** | **Acceso y gestión de plantillas predefinidas**  |
+| **RFF-118** | **Acceso y gestión de plantillas predefinidas**  |
 | --- | --- |
 | **Código HU** | HF-013 |
 | **Versión** | V1.0 |
 | **Descripción** | El fisioterapeuta debe poder acceder a plantillas predefinidas para test de valoración, cuestionarios y prescripción de ejercicios dentro de la plataforma. Las plantillas deben ser fácilmente editables para permitir personalización según las necesidades del fisioterapeuta. |
 | **Prioridad** | Crítica |
 
-| **RFF-120** | **Creación de test y cuestionarios personalizados**  |
+| **RFF-119** | **Creación de test y cuestionarios personalizados**  |
 | --- | --- |
 | **Código HU** | HF-013 |
 | **Versión** | V1.0 |
 | **Descripción** | El sistema debe permitir al fisioterapeuta crear test y cuestionarios personalizados desde cero, permitiendo definir preguntas y respuestas, tipos de respuestas (por ejemplo, opción múltiple, texto libre, escala de valoración) y establecer criterios de evaluación. |
 | **Prioridad** | Crítica |
 
-| **RFF-121** | **Generación de prescripción de ejercicios**  |
+| **RFF-120** | **Generación de prescripción de ejercicios**  |
 | --- | --- |
 | **Código HU** | HF-013 |
 | **Versión** | V1.0 |
 | **Descripción** | El sistema debe permitir al fisioterapeuta generar plantillas de prescripción de ejercicios con campos como: nombre del paciente, diagnóstico, frecuencia de los ejercicios, tiempo estimado de la sesión, hora recomendada para realizar los ejercicios (opcional), detalles del ejercicio (nombre, objetivo, descripción, material necesario, series, repeticiones, carga, método de evaluación). El fisioterapeuta debe poder incluir enlaces a vídeos subidos por él para ilustrar los ejercicios. |
 | **Prioridad** | Crítica |
 
-| **RFF-122** | **Cuestionarios interactivos para pacientes**  |
+| **RFF-121** | **Cuestionarios interactivos para pacientes**  |
 | --- | --- |
 | **Código HU** | HF-013 |
 | **Versión** | V1.0 |
 | **Descripción** | El paciente debe poder completar los cuestionarios directamente en la plataforma. Los resultados de los cuestionarios deben ser enviados automáticamente al fisioterapeuta para su revisión. Idealmente, estos podrían ser visualizados como *dashborads* |
 | **Prioridad** | Crítica |
 
-| **RFF-123** | **Almacenamiento en el espacio personal del fisioterapeuta**  |
+| **RFF-122** | **Almacenamiento en el espacio personal del fisioterapeuta**  |
 | --- | --- |
 | **Código HU** | HF-013 |
 | **Versión** | V1.0 |
 | **Descripción** | Todos los test, cuestionarios y prescripciones de ejercicios deben almacenarse en el espacio personal del fisioterapeuta dentro de la plataforma. El fisioterapeuta debe poder consultar y acceder a los cuestionarios y ejercicios en cualquier momento. |
 | **Prioridad** | Crítica |
 
-| **RFF-124** | **Notificaciones y recordatorios para pacientes**  |
+| **RFF-123** | **Notificaciones y recordatorios para pacientes**  |
 | --- | --- |
 | **Código HU** | HF-013 |
 | **Versión** | V1.0 |
 | **Descripción** | El sistema debe permitir que se envíen notificaciones y recordatorios automáticos al paciente sobre la hora recomendada para realizar los ejercicios. El paciente debe tener la opción de ajustar las notificaciones de recordatorio en su sección de tratamiento/seguimiento. |
 | **Prioridad** | Importante |
 
-| **RFF-125** | **Seguridad y privacidad de datos**  |
+| **RFF-124** | **Seguridad y privacidad de datos**  |
 | --- | --- |
 | **Código HU** | HF-013 |
 | **Versión** | V1.0 |
 | **Descripción** | El sistema debe garantizar que toda la información personal y los resultados de los cuestionarios estén protegidos por medidas de seguridad adecuadas. Solo el fisioterapeuta que ha creado los test y cuestionarios debe tener acceso completo a ellos, y los pacientes deben tener acceso solo a los cuestionarios que se les han asignado. |
 | **Prioridad** | Crítica |
 
-| **RFF-126** | **Acceso a la lista de pacientes activos**  |
+| **RFF-125** | **Acceso a la lista de pacientes activos**  |
 | --- | --- |
 | **Código HU** | HF-014 |
 | **Versión** | V1.0 |
 | **Descripción** | El fisioterapeuta debe tener acceso a una lista de todos los pacientes que están bajo su seguimiento activo. La lista debe estar ordenada por fecha de inicio del tratamiento o por cualquier otra métrica relevante para el fisioterapeuta (por ejemplo, nombre del paciente). |
 | **Prioridad** | Crítica |
 
-| **RFF-127** | **Visibilidad del progreso de cada paciente**  |
+| **RFF-126** | **Visibilidad del progreso de cada paciente**  |
 | --- | --- |
 | **Código HU** | HF-014 |
 | **Versión** | V1.0 |
 | **Descripción** | El fisioterapeuta debe poder ver un resumen de cada paciente, que incluya detalles clave sobre el tratamiento, como el tipo de tratamiento asignado, las fechas de consulta y el progreso general. Los datos de progreso deben incluir informes de ejercicios realizados, evolución del dolor o movilidad, y otros indicadores de tratamiento relevantes (*estos vendrán determinados por los ejercicios pautados*). |
 | **Prioridad** | Crítica |
 
-| **RFF-128** | **Acceso a informes de progreso**  |
+| **RFF-127** | **Acceso a informes de progreso**  |
 | --- | --- |
 | **Código HU** | HF-014 |
 | **Versión** | V1.0 |
 | **Descripción** | El fisioterapeuta debe poder generar y consultar informes detallados del progreso de cada paciente, basados en las evaluaciones previas y en el seguimiento realizado. Los informes deben ser accesibles desde el perfil de cada paciente, y deben incluir gráficos o tablas de evolución. |
 | **Prioridad** | Importante |
 
-| **RFF-129** | **Registro de interacciones**  |
+| **RFF-128** | **Registro de interacciones**  |
 | --- | --- |
 | **Código HU** | HF-014 |
 | **Versión** | V1.0 |
 | **Descripción** | El sistema debe registrar y mostrar las interacciones pasadas entre el fisioterapeuta y el paciente, incluyendo consultas, notas de evaluación, ajustes en el tratamiento y cualquier comunicación relevante. El fisioterapeuta debe poder agregar notas adicionales sobre cada paciente. |
 | **Prioridad** | Deseable |
 
-| **RFF-130** | **Acciones en función del progreso**  |
+| **RFF-129** | **Acciones en función del progreso**  |
 | --- | --- |
 | **Código HU** | HF-014 |
 | **Versión** | V1.0 |
 | **Descripción** | Si un paciente no está siguiendo el tratamiento correctamente, el fisioterapeuta debe poder tomar acciones como enviar recordatorios, modificar el tratamiento o contactar al paciente para discutir el progreso. El sistema debe permitir configurar alertas o notificaciones para los fisioterapeutas si un paciente muestra signos de no seguir el tratamiento. |
 | **Prioridad** | Deseable |
 
-| **RFF-131** | **Visualización del cumplimiento del tratamiento**  |
+| **RFF-130** | **Visualización del cumplimiento del tratamiento**  |
 | --- | --- |
 | **Código HU** | HF-014 |
 | **Versión** | V1.0 |
 | **Descripción** | El fisioterapeuta debe tener acceso a un registro claro de cuántos ejercicios han sido completados por el paciente y qué porcentaje del tratamiento se ha seguido correctamente. Esta visualización debe estar disponible en tiempo real para que el fisioterapeuta pueda ajustar el tratamiento según sea necesario. |
 | **Prioridad** | Deseable |
 
-| **RFF-132** | **Historial completo de tratamiento**  |
+| **RFF-131** | **Historial completo de tratamiento**  |
 | --- | --- |
 | **Código HU** | HF-014 |
 | **Versión** | V1.0 |
 | **Descripción** | Los fisioterapeutas deben poder ver el historial completo de tratamiento de cada paciente, con detalles sobre todas las citas anteriores, diagnósticos, tratamientos realizados, y resultados obtenidos. |
 | **Prioridad** | Importante |
 
-| **RFF-133** | **Comunicación con el paciente**  |
+| **RFF-132** | **Comunicación con el paciente**  |
 | --- | --- |
 | **Código HU** | HF-014 |
 | **Versión** | V1.0 |
 | **Descripción** | El fisioterapeuta debe tener una opción para comunicarse directamente con el paciente dentro de la plataforma, ya sea por mensaje o video, si es necesario para discutir el progreso o hacer ajustes en el tratamiento.|
 | **Prioridad** | Deseable |
 
-| **RFF-134** | **Filtrado y búsqueda de pacientes**  |
+| **RFF-133** | **Filtrado y búsqueda de pacientes**  |
 | --- | --- |
 | **Código HU** | HF-014 |
 | **Versión** | V1.0 |
 | **Descripción** | El fisioterapeuta debe poder filtrar o buscar pacientes según diferentes criterios (por ejemplo, fecha de inicio del tratamiento, tipo de tratamiento, progreso) para facilitar la gestión de su carga de trabajo.|
 | **Prioridad** | Importante |
 
-| **RFF-135** | **Notificaciones de consultas**  |
+| **RFF-134** | **Notificaciones de consultas**  |
 | --- | --- |
 | **Código HU** | HF-015 |
 | **Versión** | V1.0 |
 | **Descripción** | El sistema debe enviar recordatorios automáticos a los pacientes sobre la fecha y hora de la consulta agendada, con suficiente antelación.|
 | **Prioridad** | Importante |
 
-| **RFF-136** | **Cancelación de consultas**  |
+| **RFF-135** | **Cancelación de consultas**  |
 | --- | --- |
 | **Código HU** | HF-015 |
 | **Versión** | V1.0 |
 | **Descripción** | El paciente debe tener la opción de cancelar la consulta a través de la plataforma, y el fisioterapeuta debe recibir una notificación cuando esto ocurra.|
 | **Prioridad** | Crítica |
 
-| **RFF-137** | **Configuración de recordatorios**  |
+| **RFF-136** | **Configuración de recordatorios**  |
 | --- | --- |
 | **Código HU** | HF-015 |
 | **Versión** | V1.0 |
 | **Descripción** | El fisioterapeuta debe poder configurar los recordatorios según sus preferencias, ajustando la antelación y frecuencia de los mismos.|
 | **Prioridad** | Deseable |
 
-| **RFF-138** | **Visualización de recordatorios**  |
+| **RFF-137** | **Visualización de recordatorios**  |
 | --- | --- |
 | **Código HU** | HF-015 |
 | **Versión** | V1.0 |
 | **Descripción** | El fisioterapeuta debe poder ver los recordatorios programados para cada paciente en su agenda, con la posibilidad de editar o anular los recordatorios si es necesario.|
 | **Prioridad** | Deseable |
 
-| **RFF-139** | **Frecuencia y notificación de recordatorios**  |
+| **RFF-138** | **Frecuencia y notificación de recordatorios**  |
 | --- | --- |
 | **Código HU** | HF-016 |
 | **Versión** | V1.0 |
 | **Descripción** | El fisioterapeuta debe seleccionar la frecuencia y hora específica para enviar los recordatorios, que deben llegar al paciente por aplicación o correo electrónico. |
 | **Prioridad** | Deseable |
 
-| **RFF-140** | **Confirmación de ejercicio realizado**  |
+| **RFF-139** | **Confirmación de ejercicio realizado**  |
 | --- | --- |
 | **Código HU** | HF-016 |
 | **Versión** | V1.0 |
 | **Descripción** | El paciente debe marcar los ejercicios como realizados, y el fisioterapeuta debe poder ver un resumen de ejercicios completados y no completados. |
 | **Prioridad** | Importante |
 
-| **RFF-141** | **Seguimiento y modificación de recordatorios**  |
+| **RFF-140** | **Seguimiento y modificación de recordatorios**  |
 | --- | --- |
 | **Código HU** | HF-016 |
 | **Versión** | V1.0 |
 | **Descripción** | El paciente debe marcar los ejercicios como realizados, y el fisioterapeuta debe poder ver un resumen de ejercicios completados y no completados. |
 | **Prioridad** | Importante |
 
-| **RFF-142** | **Recepción y carga de archivos**  |
+| **RFF-141** | **Recepción y carga de archivos**  |
 | --- | --- |
 | **Código HU** | HF-017 |
 | **Versión** | V1.0 |
 | **Descripción** | El fisioterapeuta debe poder recibir y cargar archivos de los pacientes, principalmente imágenes de diagnóstico, directamente en el perfil del paciente. |
 | **Prioridad** | Importante |
 
-| **RFF-143** | **Tipos de archivo soportados y notificaciones**  |
+| **RFF-142** | **Tipos de archivo soportados y notificaciones**  |
 | --- | --- |
 | **Código HU** | HF-017 |
 | **Versión** | V1.0 |
 | **Descripción** | La plataforma debe admitir formatos comunes como JPG, PNG, PDF, DICOM y notificar a los pacientes cuando su archivo haya sido recibido correctamente. |
 | **Prioridad** | Deseable |
 
-| **RFF-144** | **Acceso y organización de archivos**  |
+| **RFF-143** | **Acceso y organización de archivos**  |
 | --- | --- |
 | **Código HU** | HF-017 |
 | **Versión** | V1.0 |
 | **Descripción** | Los fisioterapeutas deben poder acceder a los archivos cargados, organizados por fecha o tipo (ej. radiografía, ecografía), desde el perfil del paciente. |
 | **Prioridad** | Deseable |
 
-| **RFF-145** | **Almacenamiento seguro y acceso restringido**  |
+| **RFF-144** | **Almacenamiento seguro y acceso restringido**  |
 | --- | --- |
 | **Código HU** | HF-017 |
 | **Versión** | V1.0 |
 | **Descripción** | Los archivos deben almacenarse de forma segura con cifrado y cumplimiento normativo (ej. GDPR) y ser accesibles solo para el fisioterapeuta asignado. |
 | **Prioridad** | Importante |
 
-| **RFF-146** | **Acceso al chat durante la videollamada**  |
+| **RFF-145** | **Acceso al chat durante la videollamada**  |
 | --- | --- |
 | **Código HU** | HF-019 |
 | **Versión** | V1.0 |
 | **Descripción** | El fisioterapeuta debe tener acceso a un chat en tiempo real durante la videollamada, sin interferir con la visualización de la sesión. |
 | **Prioridad** | Importante |
 
-| **RFF-147** | **Funcionalidad de chat y envío de archivos adjuntos**  |
+| **RFF-146** | **Funcionalidad de chat y envío de archivos adjuntos**  |
 | --- | --- |
 | **Código HU** | HF-019 |
 | **Versión** | V1.0 |
 | **Descripción** | El chat debe permitir enviar y recibir mensajes de texto sin retrasos, así como archivos adjuntos (documentos, imágenes, enlaces) que deben ser visibles para ambas partes. |
 | **Prioridad** | Deseable |
 
-| **RFF-148** | **Notificación de nuevos mensajes y facilidad de uso**  |
+| **RFF-147** | **Notificación de nuevos mensajes y facilidad de uso**  |
 | --- | --- |
 | **Código HU** | HF-019 |
 | **Versión** | V1.0 |
@@ -1530,21 +1536,27 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | --- | --- |
 | **Código HU** | HA-001 |
 | **Versión** | V1.0 |
-| **Descripción** | El administrador debe poder monitorear citas programadas, canceladas y completadas, y intervenir en disputas entre pacientes y fisioterapeutas si es necesario. |
+| **Descripción** | El administrador debe poder monitorear citas programadas, canceladas y completadas. |
 | **Prioridad** | Deseable |
 
 | **RFA-003** | **Gestión de pagos y suscripciones**  |
 | --- | --- |
 | **Código HU** | HA-001 |
 | **Versión** | V1.0 |
-| **Descripción** | El administrador debe supervisar pagos, administrar planes de suscripción (Fisio Blue y Fisio Gold), y gestionar solicitudes de reembolsos o problemas de facturación. |
+| **Descripción** | El administrador debe supervisar pagos, administrar planes de suscripción (Fisio Blue y Fisio Gold), y gestionar solicitudes de reembolsos o problemas de facturación, siempre que lo permita la pasarela de pago empleada. |
 | **Prioridad** | Importante |
 
 | **RFA-004** | **Configuración general del sistema**  |
 | --- | --- |
 | **Código HU** | HA-001 |
 | **Versión** | V1.0 |
-| **Descripción** | El administrador debe poder modificar términos y condiciones, configurar parámetros generales de la plataforma (horarios, políticas, etc.) y gestionar bases de datos para validar fisioterapeutas. |
+| **Descripción** | El administrador deberá poder gestionar la configuración general de la plataforma a través de un panel de administración. Esto incluirá:
+
+- Términos y condiciones: Su contenido deberá estar almacenado en la base de datos para permitir su modificación desde el panel de administración.
+- Parámetros generales: Configuración de horarios, políticas y otros ajustes, que también deberán estar almacenados en la base de datos para su gestión dinámica.
+- Validación de fisioterapeutas: Acceso a la base de datos de registros pendientes para aprobar o rechazar solicitudes, asegurando el control de los profesionales en la plataforma.
+
+La implementación deberá garantizar que estos cambios se reflejen en tiempo real y se registren auditorías de modificaciones críticas. |
 | **Prioridad** | Crítica |
 
 | **RFA-005** | **Generación de reportes y análisis**  |
@@ -1595,7 +1607,7 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | **RNF-006** | **Seguridad y protección de datos** |  
 | --- | --- |
 | **Versión** | V1.0 |
-| **Descripción** | La plataforma debe garantizar la seguridad de los datos de los usuarios, mediante autenticación segura y encriptación de datos.|
+| **Descripción** | La plataforma debe garantizar la seguridad de los datos de los usuarios, mediante autenticación segura y cifrado de datos.|
 | **Prioridad** | Importante |
 
 | **RNF-007** | **Usabilidad** |  
@@ -1648,7 +1660,7 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | id         | Integer    | Identificador único del usuario |
 | username   | String     | Nombre de usuario único |
 | email      | String     | Correo electrónico del usuario |
-| password   | String     | Contraseña encriptada |
+| password   | String     | Contraseña segura |
 | name       | String     | Nombre del usuario |
 | surname    | String     | Apellido del usuario |
 | dni        | String     | Documento de identidad |
@@ -1670,6 +1682,7 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | collegiate_number | Integer | Número de colegiado |
 | college_name | Integer | Nombre del colegio profesional |
 | services    | JSON     | Servicios ofrecidos |
+| account_status | Enum(ACCOUNT_STATUS) | Estado de la cuenta (ACTIVA, SUSPENDIDA, ELIMINADA). Este campo puede ser modificado por el administrador para activar, suspender o eliminar cuentas |
 
 ### RI-003: Tabla `patient`
 | Campo      | Tipo     | Descripción |
@@ -1677,6 +1690,7 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | id        | Integer | Identificador único del paciente |
 | age       | Integer | Edad del paciente |
 | gender    | Enum(GENDER) | Género del paciente |
+| account_status | Enum(ACCOUNT_STATUS) | Estado de la cuenta (ACTIVA, SUSPENDIDA, ELIMINADA). Este campo puede ser modificado por el administrador para activar, suspender o eliminar cuentas |
 
 ### RI-004: Tabla `appointment`
 | Campo      | Tipo      | Descripción |
@@ -1721,3 +1735,15 @@ Por otro lado, para cada requisito, se define lo siguiente:
 | Campo | Tipo     | Descripción |
 |------|---------|-------------|
 | id   | Integer | Identificador único del administrador |
+
+### RFI-010: Tabla `terms_conditions`
+| Campo         | Tipo      | Descripción |
+|--------------|----------|-------------|
+| id        | Integer  | Identificador único de los términos y condiciones. |
+| content   | Text     | Contenido de los términos y condiciones en formato HTML o Markdown. |
+| version   | String   | Número de versión de los términos y condiciones. |
+| created_at | Timestamp | Fecha y hora de creación del registro. |
+| updated_at | Timestamp | Fecha y hora de la última modificación. |
+| modified_by | Integer  | ID del administrador que realizó la última modificación. |
+
+
