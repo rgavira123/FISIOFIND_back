@@ -1,1 +1,85 @@
-.DS_Store
+# ========================================
+# 🐍 Python / Django
+# ========================================
+
+# Archivos compilados de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Entornos virtuales
+venv/
+.env
+*.env
+.venv/
+
+# Archivos de configuración de bases de datos locales
+db.sqlite3
+*.sqlite3
+
+# Migraciones (manténlas si quieres control de versiones)
+*/migrations/*.py
+*/migrations/*.pyc
+
+# Archivos estáticos y subidos
+staticfiles/
+media/
+
+# Archivos de logs y cache
+*.log
+*.pot
+*.mo
+*.swp
+*.swo
+*.DS_Store
+
+# Django Debug Toolbar
+debug_toolbar/
+
+# IDEs y editores
+.vscode/
+.idea/
+
+# ========================================
+# 🚀 Next.js con TypeScript
+# ========================================
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+.pnp/
+.pnp.js
+
+# Archivos de compilación y build
+.next/
+out/
+dist/
+
+# Archivos de configuración de ambiente
+.env
+.env.local
+.env.development
+.env.production
+
+# Archivos de cache
+.cache/
+build/
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# IDEs y editores (frontend)
+.vscode/
+.idea/
+
+# ========================================
+# 🔑 Secretos y Seguridad
+# ========================================
+
+# Archivos sensibles
+*.pem
+*.key
+*.crt
+*.cert
