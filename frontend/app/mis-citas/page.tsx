@@ -7,6 +7,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import esLocale from '@fullcalendar/core/locales/es';
 import listPlugin from '@fullcalendar/list';
+import Calendar from "@/components/ui/calendar";
+import Cards from "@/components/ui/cards";
 
 interface APIResponse {
   message: string;
@@ -32,15 +34,15 @@ export default function Home() {
     allDay: false
   });
 
-  useEffect(() => {
-    axios.get("http://localhost:8000/app_user/prueba/")
-      .then(response => {
-        setData(response.data);
-      })
-      .catch(error => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios.get("http://localhost:8000/app_user/prueba/")
+  //     .then(response => {
+  //       setData(response.data);
+  //     })
+  //     .catch(error => {
+  //       console.error("Error fetching data:", error);
+  //     });
+  // }, []);
 
   // Función para añadir eventos
   const addEvent = (e: React.FormEvent) => {
@@ -63,8 +65,6 @@ export default function Home() {
 
   return (
     <>
-      <p className="text-xl font-bold text-red-500 text-center">Voy a hacer la s palabra</p>
-
       {/* Botón para cambiar entre FullCalendar y vista en Cards */}
       <div className="flex justify-center my-4">
         <button 
@@ -119,42 +119,12 @@ export default function Home() {
 
       {/* Vista del Calendario */}
       {view === "calendar" && (
-        <div className="w-[1000px] h-[800px] mx-auto mt-4">
-          <FullCalendar
-            plugins={[dayGridPlugin, timeGridPlugin, listPlugin]}
-            locale={esLocale}
-            headerToolbar={{
-              left: "prev,next today",
-              center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
-            }}
-            initialView="dayGridMonth"
-            editable={true}
-            selectable={true}
-            selectMirror={true}
-            dayMaxEvents={true}
-            events={events}
-            eventContent={(eventInfo) => (
-              <div className="bg-blue-500 text-white p-2 rounded-md w-full h-full flex items-center justify-center">
-                {eventInfo.event.title}
-              </div>
-            )}
-            height="100%"
-          />
-        </div>
+        <Calendar events={events} />
       )}
 
       {/* Vista en Cards */}
       {view === "cards" && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-          {events.map((event, index) => (
-            <div key={index} className="bg-white shadow-lg rounded-lg p-4 border-l-4 border-blue-500">
-              <h3 className="text-lg font-semibold text-gray-800">{event.title}</h3>
-              <p className="text-gray-600">{new Date(event.start).toLocaleString()}</p>
-              {event.end && <p className="text-gray-500">Hasta {new Date(event.end).toLocaleString()}</p>}
-            </div>
-          ))}
-        </div>
+        <Cards events={events} />
       )}
 
       {/* Mostrar datos de API si existen */}
