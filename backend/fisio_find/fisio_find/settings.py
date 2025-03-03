@@ -52,7 +52,7 @@ INSTALLED_APPS += [
 
 # APPS PROPIAS
 
-INSTALLED_APPS += [ 'gestion_usuarios']
+INSTALLED_APPS += [ 'gestion_usuarios', 'gestion_terminos']
 
 # APPS DE TERCEROS
 
