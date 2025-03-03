@@ -9,13 +9,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import DynamicFormModal from "./dinamic-form-modal";
 
-const Calendar = () => {
+const Calendar = ({  hoveredEventId }: { hoveredEventId: string | null }) => {
   const [selectedEvent, setSelectedEvent] = useState<CalendarProps | null>(
     null
   );
   const [events, setEvents] = useState();
   const [editionMode, setEditionMode] = useState(false);
-  const [alternatives, setAlternatives] = useState([]);
   
 
   useEffect(() => {
@@ -44,7 +43,7 @@ const Calendar = () => {
   };
 
   return (
-    <div className="justify-items-center">
+    <div className="justify-items-center w-2/3 pt-16 hidden lg:block">
       <FullCalendar
         height={"85vh"}
         plugins={[dayGridPlugin, timeGridPlugin, listPlugin]}
@@ -62,11 +61,18 @@ const Calendar = () => {
         events={events}
         handleWindowResize={true}
         eventContent={(eventInfo) => (
-          <div className="w-full h-full whitespace-nowrap overflow-hidden overflow-ellipsis"
+          <div className={`w-full h-full whitespace-nowrap overflow-hidden overflow-ellipsis`}
           >
             {eventInfo.event.title}
           </div>
         )}
+        eventClassNames={(eventInfo) => {
+          // Si el evento tiene el ID que está siendo hoverado, añade la clase
+          if (eventInfo.event.title === hoveredEventId) {
+            return ["fc-event-hovered"]; // Aquí estamos añadiendo la clase .fc-event-hovered
+          }
+          return []; // No añadimos ninguna clase si no coincide
+        }}
         eventClick={(info) => {
           setSelectedEvent({
             title: info.event.title?.toString() || "Sin título",

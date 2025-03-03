@@ -1,11 +1,9 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import axios from "axios";
 import Cards from "@/components/ui/cards";
-import dynamic from "next/dynamic";
-
-const Calendar = dynamic(() => import("@/components/ui/calendar"), { ssr: false });
+import Calendar from "@/components/ui/calendar";
 
 interface APIResponse {
   message: string;
@@ -13,23 +11,52 @@ interface APIResponse {
 }
 
 const initialEvents = [
-  { title: 'Reunión de equipo', start: '2025-03-01T10:00:00', end: '2025-03-01T11:30:00', description: 'Reunión semanal de equipo' },
-  { title: 'Patata', allDay: true, start: '2025-03-01', description: 'Patata' },
-  { title: 'Almuerzo con cliente', start: '2025-03-02T12:00:00', end: '2025-03-02T13:30:00', description: 'Almuerzo con el cliente para discutir el proyecto' },
+  {
+    title: "Reunión de equipo",
+    start: "2025-03-01T10:00:00",
+    end: "2025-03-01T11:30:00",
+    description: "Reunión semanal de equipo",
+  },
+  { title: "Patata", allDay: true, start: "2025-03-01", description: "Patata" },
+  {
+    title: "Almuerzo con cliente",
+    start: "2025-03-02T12:00:00",
+    end: "2025-03-02T13:30:00",
+    description: "Almuerzo con el cliente para discutir el proyecto",
+  },
 ];
 
 export default function Home() {
   const [data, setData] = useState<APIResponse | null>(null);
   const [view, setView] = useState<"calendar" | "cards">("calendar"); // Estado para cambiar vista
   const [events, setEvents] = useState(initialEvents);
-  
+  const [hoveredEventId, setHoveredEventId] = useState<string | null>(null); // Estado para el hover de tarjetas
+
   // Estado para el nuevo evento
   const [newEvent, setNewEvent] = useState({
     title: "",
     start: "",
     end: "",
-    allDay: false
-  });  
+    allDay: false,
+  });
+
+  // useEffect(() => {
+  //   axios.get("http://localhost:8000/api/appointment?physiotherapist=2")
+  //     .then(response => {
+  //       const transformedEvents = response.data.map((event: any) => ({
+  //         id: event.id,
+  //         title: event.title,
+  //         start: event.start_time,  // Cambio de start_time a start
+  //         end: event.end_time,      // Cambio de end_time a end
+  //         description: event.description,
+  //         allDay: event.allDay || false,
+  //       }));
+  //       setEvents(transformedEvents);
+  //     })
+  //     .catch(error => {
+  //       console.error("Error fetching data:", error);
+  //     });
+  // }, []);
 
   // Función para añadir eventos
   const addEvent = (e: React.FormEvent) => {
@@ -43,24 +70,38 @@ export default function Home() {
       title: newEvent.title,
       start: newEvent.start,
       end: newEvent.end || null,
-      allDay: newEvent.allDay
+      allDay: newEvent.allDay,
     };
 
     setEvents([...events, formattedEvent]);
     setNewEvent({ title: "", start: "", end: "", allDay: false }); // Reset form
   };
 
+    const handleCardHover = (eventId: string | null) => {
+      setHoveredEventId(eventId);
+    };
+
   return (
     <>
+      <div className="flex flex-row justify-between">
+        {/* Vista en Cards */}
+        <Cards events={events} onCardHover={handleCardHover} />
+
+        <div style={{ borderLeft: "1px solid #000", minHeight: "100vh" }}></div>
+
+        {/* Vista del Calendario */}
+        <Calendar hoveredEventId={hoveredEventId} />
+      </div>
+
       {/* Botón para cambiar entre FullCalendar y vista en Cards */}
-      <div className="flex justify-center my-4">
-        <button 
+      {/* <div className="flex justify-center my-4">
+        <button
           onClick={() => setView(view === "calendar" ? "cards" : "calendar")}
           className="px-4 py-2 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700 transition"
         >
           {view === "calendar" ? "Ver en Tarjetas" : "Ver Calendario"}
         </button>
-      </div>
+      </div> */}
 
       {/* Formulario para agregar eventos */}
       {/* <div className="max-w-lg mx-auto bg-white shadow-md p-4 rounded-md">
@@ -103,16 +144,6 @@ export default function Home() {
           </button>
         </form>
       </div> */}
-
-      {/* Vista del Calendario */}
-      {view === "calendar" && (
-        <Calendar/>
-      )}
-
-      {/* Vista en Cards */}
-      {view === "cards" && (
-        <Cards events={events} />
-      )}
 
       {/* Mostrar datos de API si existen */}
       {data && (
