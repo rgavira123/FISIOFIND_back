@@ -9,6 +9,8 @@ class StatusChoices(models.TextChoices):
 
 class Appointment(models.Model):
     id = models.AutoField(primary_key=True) 
+    title = models.CharField(max_length=100, verbose_name="title", default="Sin título")
+    description = models.TextField(verbose_name="description", null=True, blank=True)
     start_time = models.DateTimeField(verbose_name="start_time")
     end_time = models.DateTimeField(verbose_name="end_time")
     is_online = models.BooleanField(verbose_name="is_online")
