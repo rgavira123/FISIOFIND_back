@@ -1,53 +1,17 @@
-from django.http import JsonResponse
-from django.shortcuts import render
-from rest_framework.parsers import JSONParser
-from rest_framework import generics
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.permissions import AllowAny
+from .serializers import PatientRegisterSerializer
 
-from .models import AppUser
-from .serializers import AppUserSerializer
+class PatientRegisterView(APIView):
+    # Permite el acceso sin autenticación, pues es el registro
+    permission_classes = [AllowAny]
 
-# Create your views here.
-class AppUserCreate(generics.CreateAPIView):
-    '''
-    API endpoint that allows creation of a new app user.
-    '''
-    queryset = AppUser.objects.all()
-    serializer_class = AppUserSerializer
-
-class AppUserList(generics.ListAPIView):
-    '''
-    API endpoint that allows app users to be viewed.
-    '''
-    queryset = AppUser.objects.all()
-    serializer_class = AppUserSerializer
-
-class AppUserDetail(generics.RetrieveAPIView):
-    '''
-    API endpoint that returns a single app user by pk.
-    '''
-    queryset = AppUser.objects.all()
-    serializer_class = AppUserSerializer
-
-class AppUserUpdate(generics.RetrieveUpdateAPIView):
-    '''
-    API endpoint that allows a single app user to be updated.
-    '''
-    queryset = AppUser.objects.all()
-    serializer_class = AppUserSerializer
-
-class AppUserDelete(generics.DestroyAPIView):
-    '''
-    API endpoint that allows a single app user to be deleted.
-    '''
-    queryset = AppUser.objects.all()
-    serializer_class = AppUserSerializer
+    def post(self, request):
+        serializer = PatientRegisterSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "Paciente registrado correctamente"}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-def test_json_response(request):
-    '''
-    API endpoint that returns a test JSON response.
-    '''
-    data = {
-        'message': 'This is a test JSON response',
-        'status': 'success'
-    }
-    return JsonResponse(data)
