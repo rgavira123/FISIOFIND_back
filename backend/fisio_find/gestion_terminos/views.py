@@ -1,6 +1,8 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from rest_framework.parsers import JSONParser
+from rest_framework import generics, status
+from rest_framework.response import Response
 from rest_framework import generics
 
 from .models import AppTerminos
@@ -8,18 +10,39 @@ from .serializers import AppTerminosSerializer
 
 # Create your views here.
 class AppTerminosCreate(generics.CreateAPIView):
-    '''
-    API endpoint that allows creation of a new term of service.
-    '''
-    queryset = AppTerminos.objects.all()
-    serializer_class = AppTerminosSerializer
+    def post(self, request, *args, **kwargs):
+        modifier = request.user
+
+        if not modifier.is_admin:
+            return Response({"error": "You have to be an admin to edit this"}, status=status.HTTP_403_FORBIDDEN)
+
+        content = request.data.get('content')
+        version = request.data.get('version')
+
+        if AppTerminos.objects.filter(content=content).exists():
+            return Response({"error": "A configuration with this content already exists"}, status=status.HTTP_400_BAD_REQUEST)
+
+        AppTerminos.objects.create(
+            content=content,
+            version=version,
+            modifier=modifier
+        )
+
+        return Response({"message": "Configuration created successfully"}, status=status.HTTP_201_CREATED)
 
 class AppTerminosList(generics.ListAPIView):
     '''
     API endpoint that allows term of services to be viewed.
     '''
-    queryset = AppTerminos.objects.all()
-    serializer_class = AppTerminosSerializer
+    def get(self, request, *args, **kwargs):
+        modifier = request.user
+
+        if not modifier.is_admin:
+            return Response({"error": "You have to be an admin to edit this"}, status=status.HTTP_403_FORBIDDEN)
+
+        queryset = AppTerminos.objects.all()
+        #serializer_class = AppTerminosSerializer
+        return Response(queryset)
 
 class AppTerminosDetail(generics.RetrieveAPIView):
     '''
@@ -41,13 +64,3 @@ class AppTerminosDelete(generics.DestroyAPIView):
     '''
     queryset = AppTerminos.objects.all()
     serializer_class = AppTerminosSerializer
-    
-def test_json_response(request):
-    '''
-    API endpoint that returns a test JSON response.
-    '''
-    data = {
-        'message': 'This is a test JSON response',
-        'status': 'success'
-    }
-    return JsonResponse(data)
