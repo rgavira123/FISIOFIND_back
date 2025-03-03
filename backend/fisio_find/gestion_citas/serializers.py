@@ -4,6 +4,8 @@ from gestion_usuarios.models import AppUser
 
 class AppointmentSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True) 
+    title = serializers.CharField(max_length=100)
+    description = serializers.CharField()
     start_time = serializers.DateTimeField()
     end_time = serializers.DateTimeField()
     is_online = serializers.BooleanField()
@@ -16,7 +18,7 @@ class AppointmentSerializer(serializers.Serializer):
     )
     class Meta:
         model = Appointment
-        fields = ['id', 'start_time', 'end_time', 'is_online', 'service', 'patient', 'physiotherapist', 'status']
+        fields = ['id', 'title', 'description', 'start_time', 'end_time', 'is_online', 'service', 'patient', 'physiotherapist', 'status']
         
     def validate(self, data):
         """
@@ -57,6 +59,8 @@ class AppointmentSerializer(serializers.Serializer):
         """
         Update and return an existing `Appointment` instance, given the validated data.
         """
+        instance.title = validated_data.get('title', instance.title)
+        instance.description = validated_data.get('description', instance.description)
         instance.start_time = validated_data.get('start_time', instance.start_time)
         instance.end_time = validated_data.get('end_time', instance.end_time)
         instance.is_online = validated_data.get('is_online', instance.is_online)
