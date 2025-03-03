@@ -107,6 +107,11 @@
     margin-block: 0.15rem;
   }
 
+  .fc-event-hovered {
+    background-color: #41B8D5 !important; /* Ejemplo: Color de fondo cuando se pasa el ratón */
+  }
+  
+
   
   /* ======= EVENTO HOVER ======= */
   .fc-event:hover {

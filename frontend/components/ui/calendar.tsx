@@ -7,13 +7,13 @@ import { CalendarProps } from "@/lib/definitions";
 import "@/app/mis-citas/mis-citas.css";
 import { useState } from "react";
 
-const Calendar = ({ events }: { events: CalendarProps[] }) => {
+const Calendar = ({ events, hoveredEventId }: { events: CalendarProps[]; hoveredEventId: string | null }) => {
   const [selectedEvent, setSelectedEvent] = useState<CalendarProps | null>(
     null
   );
 
   return (
-    <div className="justify-items-center">
+    <div className="justify-items-center w-2/3 pt-16 hidden lg:block">
       <FullCalendar
         height={"85vh"}
         plugins={[dayGridPlugin, timeGridPlugin, listPlugin]}
@@ -31,11 +31,18 @@ const Calendar = ({ events }: { events: CalendarProps[] }) => {
         events={events}
         handleWindowResize={true}
         eventContent={(eventInfo) => (
-          <div className="w-full h-full whitespace-nowrap overflow-hidden overflow-ellipsis"
+          <div className={`w-full h-full whitespace-nowrap overflow-hidden overflow-ellipsis`}
           >
             {eventInfo.event.title}
           </div>
         )}
+        eventClassNames={(eventInfo) => {
+          // Si el evento tiene el ID que está siendo hoverado, añade la clase
+          if (eventInfo.event.title === hoveredEventId) {
+            return ["fc-event-hovered"]; // Aquí estamos añadiendo la clase .fc-event-hovered
+          }
+          return []; // No añadimos ninguna clase si no coincide
+        }}
         eventClick={(info) => {
           setSelectedEvent({
             title: info.event.title,
