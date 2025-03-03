@@ -2,11 +2,6 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import esLocale from '@fullcalendar/core/locales/es';
-import listPlugin from '@fullcalendar/list';
 import Cards from "@/components/ui/cards";
 import dynamic from "next/dynamic";
 
@@ -34,17 +29,7 @@ export default function Home() {
     start: "",
     end: "",
     allDay: false
-  });
-
-  // useEffect(() => {
-  //   axios.get("http://localhost:8000/app_user/prueba/")
-  //     .then(response => {
-  //       setData(response.data);
-  //     })
-  //     .catch(error => {
-  //       console.error("Error fetching data:", error);
-  //     });
-  // }, []);
+  });  
 
   // Función para añadir eventos
   const addEvent = (e: React.FormEvent) => {
@@ -121,7 +106,7 @@ export default function Home() {
 
       {/* Vista del Calendario */}
       {view === "calendar" && (
-        <Calendar events={events} />
+        <Calendar/>
       )}
 
       {/* Vista en Cards */}

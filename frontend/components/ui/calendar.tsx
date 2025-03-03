@@ -5,12 +5,43 @@ import esLocale from "@fullcalendar/core/locales/es";
 import listPlugin from "@fullcalendar/list";
 import { CalendarProps } from "@/lib/definitions";
 import "@/app/mis-citas/mis-citas.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import DynamicFormModal from "./dinamic-form-modal";
 
-const Calendar = ({ events }: { events: CalendarProps[] }) => {
+const Calendar = () => {
   const [selectedEvent, setSelectedEvent] = useState<CalendarProps | null>(
     null
   );
+  const [events, setEvents] = useState();
+  const [editionMode, setEditionMode] = useState(false);
+  const [alternatives, setAlternatives] = useState([]);
+  
+
+  useEffect(() => {
+    axios.get("http://localhost:8000/api/appointment?physiotherapist=2")
+      .then(response => {
+        const transformedEvents = response.data.map((event: any) => ({
+          id: event.id,
+          title: event.title,
+          start: event.start_time,  // Cambio de start_time a start
+          end: event.end_time,      // Cambio de end_time a end
+          description: event.description,
+          allDay: event.allDay || false,
+        }));
+        setEvents(transformedEvents);
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
+  // Función para recibir las alternativas del modal
+  const handleAlternativesSubmit = (alternatives: string[]) => {
+    console.log("Fechas alternativas enviadas:", alternatives);
+    // Aquí podrías hacer una petición al backend para actualizar la cita,
+    // por ejemplo, usando axios.post con el array de alternativas
+  };
 
   return (
     <div className="justify-items-center">
@@ -38,7 +69,7 @@ const Calendar = ({ events }: { events: CalendarProps[] }) => {
         )}
         eventClick={(info) => {
           setSelectedEvent({
-            title: info.event.title,
+            title: info.event.title?.toString() || "Sin título",
             start: info.event.start?.toISOString() || "",
             end: info.event.end?.toISOString() || "",
             description:
@@ -68,8 +99,21 @@ const Calendar = ({ events }: { events: CalendarProps[] }) => {
             >
               Cerrar
             </button>
+            <button
+              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+              onClick={() => setEditionMode(true)}
+            >
+              Modificar
+            </button>
           </div>
         </div>
+      )}
+      {/* MODAL */}
+      {editionMode && (
+        <DynamicFormModal
+          onClose={() => setEditionMode(false)}
+          onSubmit={handleAlternativesSubmit}
+        />
       )}
     </div>
   );
