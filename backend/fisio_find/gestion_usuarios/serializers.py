@@ -7,16 +7,18 @@ class PatientRegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
     gender = serializers.ChoiceField(choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Other')])
-    age = serializers.IntegerField()
+    birth_date = serializers.DateField()
 
     class Meta:
         model = Patient
-        fields = ['username', 'email', 'password', 'gender', 'age']
+        fields = ['username', 'email', 'password', 'gender', 'birth_date']
 
     def create(self, validated_data):
         username = validated_data.pop('username')
         email = validated_data.pop('email')
         raw_password = validated_data.pop('password')
+        birth_date = validated_data.pop('birth_date')
+        gender = validated_data.pop('gender')
         
         user = AppUser.objects.create(
             username=username,
@@ -24,5 +26,9 @@ class PatientRegisterSerializer(serializers.ModelSerializer):
             password=make_password(raw_password)
         )
         
-        patient = Patient.objects.create(user=user, **validated_data)
+        patient = Patient.objects.create(
+            user=user,
+            birth_date=birth_date,
+            gender=gender
+        )
         return patient
