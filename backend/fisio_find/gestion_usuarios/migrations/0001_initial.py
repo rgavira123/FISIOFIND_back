@@ -30,13 +30,4 @@ class Migration(migrations.Migration):
                 ('postal_code', models.CharField(max_length=10)),
             ],
         ),
-        migrations.CreateModel(
-            name='Patient',
-            fields=[
-                ('appuser_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='gestion_usuarios.appuser')),
-                ('gender', models.CharField(choices=[('M', 'Masculino'), ('F', 'Femenino'), ('O', 'Otro')], max_length=1)),
-                ('age', models.PositiveIntegerField()),
-            ],
-            bases=('gestion_usuarios.appuser',),
-        ),
     ]

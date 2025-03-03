@@ -1,14 +1,11 @@
 from django.urls import path
-from .views import AppUserCreate, AppUserList, AppUserDetail, AppUserUpdate, AppUserDelete, test_json_response, PatientLoginView, PatientRegisterView
+from .views import PatientRegisterView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
-    path('create/', AppUserCreate.as_view(), name='app_user_create'),
-    path('list/', AppUserList.as_view(), name='app_user_list'),
-    path('<int:pk>/', AppUserDetail.as_view(), name='app_user_detail'),
-    path('update/<int:pk>/', AppUserUpdate.as_view(), name='app_user_update'),
-    path('delete/<int:pk>/', AppUserDelete.as_view(), name='app_user_delete'),
-    path('prueba/', test_json_response, name='test_json_response'),
-    path('login/', PatientLoginView.as_view(), name='patient_login'),
-    path('register/', PatientRegisterView.as_view(), name='patient-register'),
-
+    path('api/v1/patient/register', PatientRegisterView.as_view(), name='patient_register'),
+    path('api/v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
+
+

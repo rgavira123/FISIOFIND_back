@@ -58,6 +58,10 @@ INSTALLED_APPS += [ 'gestion_usuarios']
 
 INSTALLED_APPS += [ 'corsheaders']
 
+
+
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -69,6 +73,15 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+         'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+         'rest_framework.permissions.IsAuthenticated',
+    ),
+}
 
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",  # Add your frontend URL here
@@ -109,6 +122,8 @@ DATABASES = {
         'PORT': os.getenv('DATABASE_PORT'),
     }
 }
+
+AUTH_USER_MODEL = 'gestion_usuarios.AppUser'
 
 
 # Password validation
