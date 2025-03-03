@@ -56,7 +56,7 @@ INSTALLED_APPS += [ 'gestion_usuarios']
 
 # APPS DE TERCEROS
 
-INSTALLED_APPS += [ 'corsheaders']
+INSTALLED_APPS += [ 'corsheaders', 'django_extensions']
 
 
 
