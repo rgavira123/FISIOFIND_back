@@ -150,30 +150,36 @@ var userMedia = navigator.mediaDevices.getUserMedia(constraints)
     });
 
 
-var btnSendMsg = document.querySelector('#btn-send-msg');
-var messageList = document.querySelector('#message-list');
-var messageInput = document.querySelector('#msg');
-
-btnSendMsg.addEventListener('click', sendMsgOnClick);
-
-
-function sendMsgOnClick(){
-    var message = messageInput.value;
-
-    var li = document.createElement('li');
-    li.appendChild(document.createTextNode('Me: '+ message));
-    messageList.appendChild(li);
-
-    var dataChannels = getDataChannels();
-
-    message = username + ': ' + message;
-
-    for(index in dataChannels){
-        dataChannels[index].send(message);
+    var btnSendMsg = document.querySelector("#btn-send-msg");
+    var messageList = document.querySelector("#message-list");
+    var messageInput = document.querySelector("#msg");
+    
+    btnSendMsg.addEventListener("click", sendMsgOnClick);
+    
+    function sendMsgOnClick() {
+        var message = messageInput.value.trim(); // Elimina espacios en blanco al inicio y final
+    
+        // Evita que se envíen mensajes vacíos o con solo espacios
+        if (message === "") {
+            alert("No puedes enviar un mensaje vacío.");
+            return;
+        }
+    
+        var li = document.createElement("li");
+        li.appendChild(document.createTextNode("Me: " + message));
+        messageList.appendChild(li);
+    
+        var dataChannels = getDataChannels();
+    
+        message = username + ": " + message;
+    
+        for (index in dataChannels) {
+            dataChannels[index].send(message);
+        }
+    
+        messageInput.value = ""; // Limpia el input después de enviar
     }
-
-    messageInput.value = ''
-}
+    
 
 function sendSignal(action, message){
     var jsonStr = JSON.stringify({
@@ -412,30 +418,63 @@ btnShareScreen.addEventListener('click', () => {
 });
 
 function shareScreen() {
-    navigator.mediaDevices.getDisplayMedia({ video: true, cursor: true })
+    navigator.mediaDevices.getDisplayMedia({ video: { width: 1280, height: 720 }, cursor: true })
         .then(stream => {
             const screenTrack = stream.getTracks()[0];
 
-            // Cambia la vista local para que A también vea lo que comparte
-            localVideo.srcObject = new MediaStream([screenTrack]);
+            // Crear el contenedor de la pantalla compartida si no existe
+            let screenContainer = document.getElementById('screen-container');
+            if (!screenContainer) {
+                screenContainer = document.createElement('div');
+                screenContainer.id = 'screen-container';
+                screenContainer.style.position = 'absolute';
+                screenContainer.style.bottom = '10px';
+                screenContainer.style.right = '10px';
+                screenContainer.style.width = '30vw';  // Ocupa 1/3 de la pantalla
+                screenContainer.style.height = 'auto';
+                screenContainer.style.border = '2px solid #0AB9A3';
+                screenContainer.style.borderRadius = '10px';
+                screenContainer.style.overflow = 'hidden';
+                screenContainer.style.zIndex = '1000';
+                screenContainer.style.backgroundColor = 'black';
+                document.body.appendChild(screenContainer);
+            }
 
-            // Buscar el sender de video y reemplazar su pista con la de la pantalla compartida
+            // Crear un video para la pantalla compartida
+            let screenVideo = document.getElementById('screen-video');
+            if (!screenVideo) {
+                screenVideo = document.createElement('video');
+                screenVideo.id = 'screen-video';
+                screenVideo.autoplay = true;
+                screenVideo.playsInline = true;
+                screenVideo.style.width = '100%';
+                screenVideo.style.height = '100%';
+                screenVideo.style.objectFit = 'cover'; // Mantiene aspecto estable
+                screenContainer.appendChild(screenVideo);
+            }
+
+            // Asignar el stream al video
+            screenVideo.srcObject = new MediaStream([screenTrack]);
+
+            // Reemplazar el track de video en WebRTC
             let videoSender = senders.find(sender => sender.track.kind === 'video');
-
             if (videoSender) {
                 videoSender.replaceTrack(screenTrack);
             }
 
-            // Cuando el usuario deja de compartir la pantalla, restauramos la cámara
+            // Cuando el usuario deja de compartir pantalla
             screenTrack.onended = function () {
-                let cameraTrack = localStream.getVideoTracks()[0]; // Recuperamos la cámara
+                let cameraTrack = localStream.getVideoTracks()[0]; // Recuperar cámara
 
                 if (videoSender) {
                     videoSender.replaceTrack(cameraTrack);
                 }
 
-                // Restaurar la cámara en la vista local
+                // Restaurar la cámara en el video local
                 localVideo.srcObject = localStream;
+
+                // Remover el contenedor de la pantalla compartida
+                screenContainer.remove();
             };
         })
         .catch(error => {
