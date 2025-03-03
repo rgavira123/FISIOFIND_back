@@ -9,31 +9,31 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import DynamicFormModal from "./dinamic-form-modal";
 
-const Calendar = ({  hoveredEventId }: { hoveredEventId: string | null }) => {
+const Calendar = ({  events, hoveredEventId }: { events: any; hoveredEventId: string | null }) => {
   const [selectedEvent, setSelectedEvent] = useState<CalendarProps | null>(
     null
   );
-  const [events, setEvents] = useState();
+  // const [events, setEvents] = useState();
   const [editionMode, setEditionMode] = useState(false);
   
 
-  useEffect(() => {
-    axios.get("http://localhost:8000/api/appointment?physiotherapist=2")
-      .then(response => {
-        const transformedEvents = response.data.map((event: any) => ({
-          id: event.id,
-          title: event.title,
-          start: event.start_time,  // Cambio de start_time a start
-          end: event.end_time,      // Cambio de end_time a end
-          description: event.description,
-          allDay: event.allDay || false,
-        }));
-        setEvents(transformedEvents);
-      })
-      .catch(error => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios.get("http://localhost:8000/api/appointment?physiotherapist=2")
+  //     .then(response => {
+  //       const transformedEvents = response.data.map((event: any) => ({
+  //         id: event.id,
+  //         title: event.title,
+  //         start: event.start_time,  // Cambio de start_time a start
+  //         end: event.end_time,      // Cambio de end_time a end
+  //         description: event.description,
+  //         allDay: event.allDay || false,
+  //       }));
+  //       setEvents(transformedEvents);
+  //     })
+  //     .catch(error => {
+  //       console.error("Error fetching data:", error);
+  //     });
+  // }, []);
 
   // Función para recibir las alternativas del modal
   const handleAlternativesSubmit = (alternatives: string[]) => {

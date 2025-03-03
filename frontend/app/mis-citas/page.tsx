@@ -29,7 +29,7 @@ const initialEvents = [
 export default function Home() {
   const [data, setData] = useState<APIResponse | null>(null);
   const [view, setView] = useState<"calendar" | "cards">("calendar"); // Estado para cambiar vista
-  const [events, setEvents] = useState(initialEvents);
+  const [events, setEvents] = useState([]);
   const [hoveredEventId, setHoveredEventId] = useState<string | null>(null); // Estado para el hover de tarjetas
 
   // Estado para el nuevo evento
@@ -40,23 +40,23 @@ export default function Home() {
     allDay: false,
   });
 
-  // useEffect(() => {
-  //   axios.get("http://localhost:8000/api/appointment?physiotherapist=2")
-  //     .then(response => {
-  //       const transformedEvents = response.data.map((event: any) => ({
-  //         id: event.id,
-  //         title: event.title,
-  //         start: event.start_time,  // Cambio de start_time a start
-  //         end: event.end_time,      // Cambio de end_time a end
-  //         description: event.description,
-  //         allDay: event.allDay || false,
-  //       }));
-  //       setEvents(transformedEvents);
-  //     })
-  //     .catch(error => {
-  //       console.error("Error fetching data:", error);
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios.get("http://localhost:8000/api/appointment?physiotherapist=2")
+      .then(response => {
+        const transformedEvents = response.data.map((event: any) => ({
+          id: event.id,
+          title: event.title,
+          start: event.start_time,  // Cambio de start_time a start
+          end: event.end_time,      // Cambio de end_time a end
+          description: event.description,
+          allDay: event.allDay || false,
+        }));
+        setEvents(transformedEvents);
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
 
   // Función para añadir eventos
   const addEvent = (e: React.FormEvent) => {
@@ -90,7 +90,7 @@ export default function Home() {
         <div style={{ borderLeft: "1px solid #000", minHeight: "100vh" }}></div>
 
         {/* Vista del Calendario */}
-        <Calendar hoveredEventId={hoveredEventId} />
+        <Calendar events={events} hoveredEventId={hoveredEventId} />
       </div>
 
       {/* Botón para cambiar entre FullCalendar y vista en Cards */}
