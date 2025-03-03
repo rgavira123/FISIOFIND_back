@@ -7,8 +7,10 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import esLocale from '@fullcalendar/core/locales/es';
 import listPlugin from '@fullcalendar/list';
-import Calendar from "@/components/ui/calendar";
 import Cards from "@/components/ui/cards";
+import dynamic from "next/dynamic";
+
+const Calendar = dynamic(() => import("@/components/ui/calendar"), { ssr: false });
 
 interface APIResponse {
   message: string;
@@ -16,9 +18,9 @@ interface APIResponse {
 }
 
 const initialEvents = [
-  { title: 'Reunión de equipo', start: '2025-03-01T10:00:00', end: '2025-03-01T11:30:00' },
-  { title: 'Patata', allDay: true, start: '2025-03-01' },
-  { title: 'Almuerzo con cliente', start: '2025-03-02T12:00:00', end: '2025-03-02T13:30:00' },
+  { title: 'Reunión de equipo', start: '2025-03-01T10:00:00', end: '2025-03-01T11:30:00', description: 'Reunión semanal de equipo' },
+  { title: 'Patata', allDay: true, start: '2025-03-01', description: 'Patata' },
+  { title: 'Almuerzo con cliente', start: '2025-03-02T12:00:00', end: '2025-03-02T13:30:00', description: 'Almuerzo con el cliente para discutir el proyecto' },
 ];
 
 export default function Home() {
@@ -76,7 +78,7 @@ export default function Home() {
       </div>
 
       {/* Formulario para agregar eventos */}
-      <div className="max-w-lg mx-auto bg-white shadow-md p-4 rounded-md">
+      {/* <div className="max-w-lg mx-auto bg-white shadow-md p-4 rounded-md">
         <h2 className="text-lg font-semibold mb-3">Añadir Evento</h2>
         <form onSubmit={addEvent} className="space-y-2">
           <input 
@@ -115,7 +117,7 @@ export default function Home() {
             Añadir Evento
           </button>
         </form>
-      </div>
+      </div> */}
 
       {/* Vista del Calendario */}
       {view === "calendar" && (

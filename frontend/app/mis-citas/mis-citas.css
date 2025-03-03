@@ -30,6 +30,7 @@
 
 /* ======= FONDO GENERAL DEL CALENDARIO ======= */
 .fc {
+    width: 75%;
     background-color: #253240; /* Azul oscuro */
     border-radius: 10px;
     padding: 10px;
@@ -85,7 +86,7 @@
   
   /* ======= DÍA ACTUAL ======= */
   .fc-day-today {
-    background-color: #05AC9C !important; /* Verde agua translúcido */
+    background-color: #05918F !important; /* Verde agua translúcido */
     /* border: 2px solid #6BC9BE !important; */
   }
   
@@ -214,3 +215,10 @@
   .fc-list-event:hover, .fc-list-event-time:hover, .fc-list-event-graphic:hover{
     --fc-list-event-hover-bg-color: #41B8D5 !important;
   }
+
+  .fc-event {
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+    overflow: hidden; /* Oculta el exceso de texto */
+    text-overflow: ellipsis; /* Agrega "..." si el texto es muy largo */
+  }
+  

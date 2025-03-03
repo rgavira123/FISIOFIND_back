@@ -3,4 +3,5 @@ export type CalendarProps = {
     start: string;
     end?: string;
     allDay?: boolean;
+    description?: string;
 }
