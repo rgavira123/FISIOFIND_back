@@ -52,11 +52,17 @@ INSTALLED_APPS += [
 
 # APPS PROPIAS
 
-INSTALLED_APPS += [ 'gestion_usuarios']
+INSTALLED_APPS += [
+    'gestion_usuarios',
+    'gestion_citas',
+]
 
 # APPS DE TERCEROS
 
-INSTALLED_APPS += [ 'corsheaders']
+INSTALLED_APPS += [
+    'corsheaders',
+    'django_filters',
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
