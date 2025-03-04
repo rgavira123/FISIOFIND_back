@@ -8,30 +8,57 @@ const VideoGrid = ({
   remoteVideoRef, 
   cameraActive, 
   connected, 
-  isSharing 
+  isSharing, 
+  userRole
 }) => {
   return (
     <div className={styles.videoGrid}>
-      <div className={styles.videoContainer}>
-        <video 
-          ref={localVideoRef} 
-          className={styles.localVideo} 
-          autoPlay 
-          muted
-          playsInline
-        />
-        {!cameraActive && (
-          <div className={styles.noVideoOverlay}>
-            <FontAwesomeIcon icon={faVideoSlash} className={styles.iconLarge} />
-            <p>Cámara desactivada</p>
+      {/* Fisioterapeuta */}
+      {userRole === 'physio' && (
+        <div className={styles.videoContainer}>
+          <video 
+            ref={localVideoRef} 
+            className={styles.localVideo} 
+            autoPlay 
+            muted
+            playsInline
+          />
+          {!cameraActive && (
+            <div className={styles.noVideoOverlay}>
+              <FontAwesomeIcon icon={faVideoSlash} className={styles.iconLarge} />
+              <p>Cámara desactivada</p>
+            </div>
+          )}
+          <div className={styles.videoLabel}>
+            <span className={styles.labelText}>Tú (Fisioterapeuta)</span>
+            {isSharing && <span className={styles.sharingIndicator}>Compartiendo pantalla</span>}
           </div>
-        )}
-        <div className={styles.videoLabel}>
-          <span className={styles.labelText}>Tú</span>
-          {isSharing && <span className={styles.sharingIndicator}>Compartiendo pantalla</span>}
         </div>
-      </div>
+      )}
 
+      {/* Paciente */}
+      {userRole === 'patient' && (
+        <div className={styles.videoContainer}>
+          <video 
+            ref={localVideoRef} 
+            className={styles.localVideo} 
+            autoPlay 
+            muted
+            playsInline
+          />
+          {!cameraActive && (
+            <div className={styles.noVideoOverlay}>
+              <FontAwesomeIcon icon={faVideoSlash} className={styles.iconLarge} />
+              <p>Cámara desactivada</p>
+            </div>
+          )}
+          <div className={styles.videoLabel}>
+            <span className={styles.labelText}>Tú (Paciente)</span>
+          </div>
+        </div>
+      )}
+
+      {/* Cámara remota */}
       <div className={styles.videoContainer}>
         <video 
           ref={remoteVideoRef} 
@@ -46,7 +73,7 @@ const VideoGrid = ({
           </div>
         )}
         <div className={styles.videoLabel}>
-          <span className={styles.labelText}>Paciente</span>
+          <span className={styles.labelText}>{userRole === 'physio' ? 'Paciente' : 'Fisioterapeuta'}</span>
         </div>
       </div>
     </div>
