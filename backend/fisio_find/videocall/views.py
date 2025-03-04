@@ -1,16 +1,25 @@
-from django.shortcuts import render
-""" from .models import Room """
+# views.py
 
-# Create your views here.
-def video_call(request, room_name):
-    return render(request, 'room.html', {'room_name': room_name})
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Room
+from .serializers import RoomSerializer
 
-def video_calls(request):
-    return render(request, 'video_calls.html')
+class RoomCreateView(APIView):
+    def post(self, request):
+        # Crea una nueva sala
+        room = Room.objects.create()  # El código se generará automáticamente
+        serializer = RoomSerializer(room)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-# Codigo para mostrar salas activas
-""" 
-def video_calls(request):
-    rooms = Room.objects.all()  # Obtener todas las salas activas
-    return render(request, 'video_calls.html', {'rooms': rooms}) """
-
+class RoomJoinView(APIView):
+    def get(self, request, code):
+        # Verifica si la sala existe
+        try:
+            room = Room.objects.get(code=code)
+            print(room)
+            serializer = RoomSerializer(room)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Room.DoesNotExist:
+            return Response({'detail': 'Room not found'}, status=status.HTTP_404_NOT_FOUND)

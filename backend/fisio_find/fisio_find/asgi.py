@@ -1,30 +1,19 @@
-"""
-ASGI config for mysite project.
-
-It exposes the ASGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/3.2/howto/deployment/asgi/
-"""
+# asgi.py
 
 import os
-
-from channels.routing import ProtocolTypeRouter, URLRouter
 from django.core.asgi import get_asgi_application
+from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
-import videocall.routing
+from django.urls import path
+from videocall import consumers
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
-# Initialize Django ASGI application early to ensure the AppRegistry
-# is populated before importing code that may import ORM models.
-django_asgi_app = get_asgi_application()
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myproject.settings')
 
 application = ProtocolTypeRouter({
-    "http": django_asgi_app,
-    # Just HTTP for now. (We can add other protocols later.)
+    "http": get_asgi_application(),
     "websocket": AuthMiddlewareStack(
-        URLRouter(
-            videocall.routing.websocket_urlpatterns
-        )
-    )
+        URLRouter([
+            path("ws/room/<room_code>/", consumers.ChatConsumer.as_asgi()),  # Configuración de WebSocket
+        ])
+    ),
 })

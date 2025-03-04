@@ -25,5 +25,6 @@ urlpatterns = [
     path('', home, name='home'),  # Agregar esta línea para la página principal
     path('admin/', admin.site.urls),
     path('app_user/', include('gestion_usuarios.urls')),
-    path('', include('videocall.urls')),
+    path('api/videocall/', include('videocall.urls')),
+    path('api/', include('gestion_citas.urls')),
 ]

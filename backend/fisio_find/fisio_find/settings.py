@@ -21,12 +21,28 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
-    'rest_framework',
-    'rest_framework.authtoken',
-    'rest_framework_simplejwt',
-    'gestion_usuarios',
     'videocall',
+]
+
+# DJANGO REST FRAMEWORK 
+INSTALLED_APPS += [
+    'rest_framework',               # API REST principal
+    'rest_framework.authtoken',     # Autenticación por tokens (opcional)
+    'rest_framework_simplejwt',     # Autenticación JWT (recomendada)
+]   
+
+# APPS PROPIAS
+
+INSTALLED_APPS += [
+    'gestion_usuarios',
+    'gestion_citas',
+]
+
+# APPS DE TERCEROS
+
+INSTALLED_APPS += [
     'corsheaders',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

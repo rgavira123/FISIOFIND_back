@@ -13,7 +13,7 @@ export default function Home() {
   const [data, setData] = useState<APIReponse | null>(null);
 
   useEffect(() => {
-    axios.get("http:/localhost:8000/app_user/prueba/") 
+    axios.get("http://localhost:8000/app_user/prueba/") 
       .then(response => {
         setData(response.data); // Axios already parses JSON automatically
       })
