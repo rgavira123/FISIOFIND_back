@@ -12,4 +12,4 @@ class IsPhysioOrPatient(BasePermission):
     Permite el acceso a usuarios que sean pacientes o fisioterapeutas.
     """
     def has_permission(self, request, view):
-        return hasattr(request.user, 'patien') or hasattr(request.user, 'physio')
+        return hasattr(request.user, 'patient') or hasattr(request.user, 'physio')
