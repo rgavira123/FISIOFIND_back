@@ -22,13 +22,22 @@ export default function LoginPaciente() {
     setMessage("");
 
     try {
-      const response = await axios.post("http://localhost:8000/api/app_user/login/", formData);
-      setMessage("Inicio de sesión exitoso");
+      axios.post("http://localhost:8000/api/app_user/login/", formData).then((response) => {
+        if (response.status == 200){
+          localStorage.setItem("token",response.data.access)
+          setMessage("Inicio de sesión exitoso");
 
-      setTimeout(() => {
-        router.push("/gestion-paciente/perfil"); 
-      }, 500); 
-
+          setTimeout(() => {
+            router.push("/gestion-paciente/perfil"); 
+          }, 500); 
+        } else {
+          setMessage("Las credenciales no son válidas");
+        }
+      })
+      .catch(error => {
+        setMessage(error.response?.data?.error || "Las credenciales no son válidas");
+        console.error("Error fetching data:", error);
+    });
     } catch (error: any) {
       setMessage(error.response?.data?.error || "Las credenciales no son válidas");
     }
