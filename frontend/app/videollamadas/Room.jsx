@@ -13,6 +13,9 @@ import SettingsPanel from './SettingsPanel';
 import ToolsContainer from './ToolsContainer';
 import ToolPanel from './ToolPanel';
 
+import axios from 'axios';
+
+
 /**
  * Componente principal de la Sala de videollamada
  * @param {string} roomCode - ID/código de la sala
@@ -36,6 +39,14 @@ const Room = ({ roomCode }) => {
   const [connected, setConnected] = useState(false);
   const [connecting, setConnecting] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
+  const [modalMessage, setModalMessage] = useState("");
+  
+  // ---------------------------------
+  const [showModal, setShowModal] = useState(false);
+  const [showDeleteButtons, setShowDeleteButtons] = useState(false);
+  const [waitingForDeletion, setWaitingForDeletion] = useState(false);
+  // ---------------------------------  
+
 
   // Controles de medios
   const [micActive, setMicActive] = useState(true);
@@ -230,7 +241,22 @@ const Room = ({ roomCode }) => {
         
         case 'chat-message':
           console.log('Mensaje de chat recibido:', message);
-          addChatMessage(userRole === 'physio' ? 'Paciente' : 'Fisioterapeuta', message.text);
+          if (message.text) {
+            const rol = message.sender === userRole ? 'Tú' : 'Usuario';
+            addChatMessage(rol, message.text);
+          }
+          break;
+        
+        
+        case 'call-ended':
+          console.log('La llamada ha finalizado. Se cerrar');
+          setModalMessage("La reunión ha finalizado.");
+          setShowModal(true);
+
+          setTimeout(() => {
+              closeConnection();
+              window.location.href = '/videollamadas';
+          }, 5000);
           break;
         
         default:
@@ -726,15 +752,67 @@ const Room = ({ roomCode }) => {
     }
   };
 
-  // Finalizar llamada
-  const endCall = () => {
-    closeConnection();
-    addChatMessage('Sistema', 'Has finalizado la llamada');
-    // Redirigir o cambiar el estado para mostrar pantalla de finalización
-  };
+
+// ========== FINALIZAR LLAMADA ==========
+
+
+const endCall = async () => {
+  closeConnection();
+  addChatMessage('Sistema', 'Has finalizado la llamada');
+
+  // Si es un physio, muestra botones de acción
+  if (userRole === 'physio') {
+      setModalMessage("¿Deseas eliminar la sala de la videollamada?");
+      setShowDeleteButtons(true);
+      setShowModal(true);
+  } else {
+      // Si es paciente, espera confirmación del physio
+      window.location.href = '/videollamadas';
+  }
+};
+
+// Función que el physio usa para confirmar la eliminación
+const confirmDeleteRoom = async () => {
+  try {
+      const response = await axios.delete(`http://localhost:8000/api/videocall/delete-room/${roomCode}/`);
+      if (response.status === 204) {
+          console.log('Sala eliminada correctamente');
+          await sendWebSocketMessage({
+              action: 'call-ended',
+              message: { text: 'La llamada ha sido eliminada.' }
+          });
+
+          // Ahora muestra el modal al paciente
+          setModalMessage("La llamada ha finalizado");
+          setShowDeleteButtons(false);
+          setShowModal(true);
+          setWaitingForDeletion(true);
+      }
+  } catch (error) {
+      console.error('Error eliminando la sala:', error);
+  }
+};
+
+// Cancelar eliminación
+const cancelDelete = () => {
+  setShowModal(false);
+};
+
+// Si el paciente está esperando y recibe el mensaje del WebSocket
+const handleCallEnded = () => {
+  if (waitingForDeletion) {
+      setModalMessage("La llamada ha finalizado");
+      setShowModal(true);
+      setTimeout(() => {
+          setShowModal(false);
+          window.location.href = '/videollamadas';
+      }, 3000);
+  }
+};
+
 
   // ========== CHAT ==========
-  
+
   // Efecto para auto-scroll en chat
   useEffect(() => {
     if (chatMessagesRef.current) {
@@ -754,11 +832,10 @@ const Room = ({ roomCode }) => {
     sendWebSocketMessage({
       action: 'chat-message',
       message: {
-        text: messageInput
+        text: messageInput,
+        sender: userRole === 'physio' ? 'physio' : 'patient'
       }
     });
-    
-    addChatMessage(userRole === 'physio' ? 'Fisioterapeuta' : 'Paciente', messageInput);
     setMessageInput('');
     
     if (messageInputRef.current) {
@@ -797,13 +874,43 @@ const Room = ({ roomCode }) => {
 
   return (
     <div className={styles.roomContainer}>
-      {/* Header con título y errorMessage */}
-      <RoomHeader 
-        roomCode={roomCode} 
-        errorMessage={errorMessage}
-      />
+        <RoomHeader 
+          roomCode={roomCode} 
+          errorMessage={errorMessage}
+        />
+        {showModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+          <h3 className="text-lg font-semibold mb-4">Aviso</h3>
+          <p className="mb-4">{modalMessage}</p>
+          {showDeleteButtons && userRole == 'physio' ? (
+            <div className="flex justify-between">
+              <button
+                onClick={confirmDeleteRoom}
+                className="bg-red-600 hover:bg-red-700 text-black py-2 px-4 rounded"
+                  >
+                Sí
+              </button>
+              <button
+                onClick={cancelDelete}
+                className="bg-gray-600 hover:bg-gray-700 text-black py-2 px-4 rounded"
+                  > 
+                No
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => window.location.href = '/videollamadas'}
+              className="bg-gray-600 hover:bg-gray-700 text-black py-2 px-4 rounded"
+            >
+              Cerrar
+            </button>
+          )}
+            </div>
+          </div>
+        )}
 
-      {/* Grilla de videos */}
+        {/* Grilla de videos */}
       <VideoGrid 
         localVideoRef={localVideoRef}
         remoteVideoRef={remoteVideoRef}

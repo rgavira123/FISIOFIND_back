@@ -23,3 +23,13 @@ class RoomJoinView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Room.DoesNotExist:
             return Response({'detail': 'Room not found'}, status=status.HTTP_404_NOT_FOUND)
+
+class RoomDeleteView(APIView):
+    def delete(self, request, code):
+        # Elimina una sala
+        try:
+            room = Room.objects.get(code=code)
+            room.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Room.DoesNotExist:
+            return Response({'detail': 'Room not found'}, status=status.HTTP_404_NOT_FOUND)

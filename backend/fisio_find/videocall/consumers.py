@@ -98,7 +98,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                         'message': message
                     }
                 )
-                
+
         except json.JSONDecodeError:
             print(f"ERROR: Mensaje JSON inválido: {text_data[:100]}")
         except Exception as e:
