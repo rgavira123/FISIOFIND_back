@@ -1,19 +1,52 @@
 'use client';
 
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { print_time } from "../util";
+
+interface terminoInterface {
+  id: string;
+  content: string;
+  version: string;
+  updated_at: string;
+  created_at: string;
+}
 
 export default function GestionarTerminos() {
+  const [terminos, setTerminos] = useState<[terminoInterface] | null>(null);
+
+  useEffect(() => {
+    axios.get('http://localhost:8000/api/terminos/list/'
+    ).then(response => {
+        setTerminos(response.data);
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
 
   return (
     <>
-      <h1>Página de administración de términos</h1>
-      <a href="/gestion-admin/terminos/create"><button>Crear</button></a>
-      <div>
+      <div className="admin-header">
+        <a href="/gestion-admin/"><button className="btn-admin">Volver</button></a>
+        <h1>Página de administración de términos</h1>
+      </div>
+      <div className="terminos-container">
+        <a href="/gestion-admin/terminos/create"><button className="btn-admin">Crear</button></a>
         <div>
-            <h3>Termino 1</h3>
-            <p>Fecha de creación: 01-01-01</p>
-            <p>Última de actualización: 01-01-01</p>
-            <a href="/gestion-admin/terminos/view/"><button>Ver</button></a>
-            <a href="/gestion-admin/terminos/edit/"><button>Editar</button></a>
+          {terminos && 
+            terminos.map(function(termino,key) {
+              return <div key={key} className="termino-list-view">
+                <h3>{termino.content.substring(0,10)}</h3>
+                <p>Versión: {termino.version} </p>
+                <p>Editado en: {print_time(termino.updated_at)}</p>
+                <p>Creado en: {print_time(termino.created_at)}</p>
+                <a href={"/gestion-admin/terminos/view/"+termino.id}><button className="btn-admin-green">Ver</button></a>
+                <a href={"/gestion-admin/terminos/edit/"+termino.id}><button className="btn-admin-yellow">Editar</button></a>
+                <a href={"/gestion-admin/terminos/delete/"+termino.id}><button className="btn-admin-red">Eliminar</button></a>
+              </div>
+            })
+          }
         </div>
       </div>
     </>
