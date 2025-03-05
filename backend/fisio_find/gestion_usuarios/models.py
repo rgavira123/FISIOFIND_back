@@ -42,7 +42,7 @@ class AppUser(AbstractUser):
     
     def __str__(self):
         return f"{self.username} - {self.email}"
-    
+
 class Patient(models.Model):
     user = models.OneToOneField(AppUser, on_delete=models.CASCADE, related_name='patient')
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
@@ -61,6 +61,12 @@ class Physiotherapist(models.Model):
     collegiate_number = models.CharField(max_length=30, unique=True)
     services = models.JSONField()
     account_status = models.CharField(max_length=10, choices=ACCOUNT_STATUS_CHOICES, default='ACTIVE')
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.user.email}"
+
+class Admin(models.Model):
+    user = models.OneToOneField(AppUser, on_delete=models.CASCADE, related_name='admin')
     
     def __str__(self):
         return f"{self.user.username} - {self.user.email}"

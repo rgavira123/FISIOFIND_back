@@ -56,9 +56,9 @@ INSTALLED_APPS += [
 INSTALLED_APPS += [
     'gestion_usuarios',
     'gestion_citas',
+    'gestion_terminos'
 ]
 
-# APPS DE TERCEROS
 
 
 INSTALLED_APPS += [ 'corsheaders', 'django_extensions',
