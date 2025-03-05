@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function editarTerminos() {
+export default function crearTerminos() {
   const [content, setContent] = useState("");
   const [version, setVersion] = useState("");
   
@@ -24,6 +24,7 @@ export default function editarTerminos() {
   return (
     <>
       <div className="admin-header">
+        <a href="/gestion-admin/terminos"><button className="btn-admin">Volver</button></a>
         <h1>Crear término</h1>
       </div>
       <div className="terminos-container">

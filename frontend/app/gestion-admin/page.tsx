@@ -13,6 +13,11 @@ export default function GestionAdmin() {
               <a href="/gestion-admin/terminos"><button className="btn-admin-green">Acceder</button></a>
             </p>
         </div>
+        <div>
+            <p>Panel de gestión de usuarios
+              <a href="/gestion-admin/usuarios"><button className="btn-admin-green">Acceder</button></a>
+            </p>
+        </div>
       </div>
     </>
   );

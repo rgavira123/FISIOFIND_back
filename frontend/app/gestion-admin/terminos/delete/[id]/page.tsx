@@ -12,7 +12,7 @@ interface terminoInterface {
   created_at: string;
 }
 
-export default function VerTerminos() {
+export default function EliminarTermino() {
   const id = get_id_from_url()
 
   const [termino, setTermino] = useState<terminoInterface | null>(null);
