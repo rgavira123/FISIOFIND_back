@@ -31,3 +31,20 @@ class LogoutView(APIView):
     def post(self, request):
         # Aquí podemos hacer lo que queramos, pero por ahora solo por dar constancia en el servidor
         return Response({"message": "Logout exitoso."}, status=200)
+    
+    
+class CheckRoleView(APIView):
+
+    def get(self, request):
+        user = request.user  # Obtenemos el usuario autenticado
+
+        if hasattr(user, 'patient'):
+            role = "patient"
+        elif hasattr(user, 'physio'):
+            role = "physiotherapist"
+        elif hasattr(user, 'admin'):
+            role = "admin"
+        else:
+            role = "unknown"
+
+        return Response({"user_role": role})
