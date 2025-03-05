@@ -7,10 +7,16 @@ const {
  
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{ts,tsx}"],
-  darkMode: ["class", "class"],
+  content: [
+	"./src/**/*.{ts,tsx}",
+	"./app/**/*.{ts,tsx}"
+  ],
+  darkMode: ["class"],
   theme: {
   	extend: {
+		fontFamily: {
+			sans: ['var(--font-poppins)'],
+		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',

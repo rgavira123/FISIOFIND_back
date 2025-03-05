@@ -1,35 +1,34 @@
-"use client";
-
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { usePathname } from "next/navigation";
+import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import { ReactNode } from "react";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import "./globals.css";
+import { SidebarDemo } from "@/components/sidebar-demo";
 
 const poppins = Poppins({
-  weight: "400",
-  subsets: ["latin"],
-  display: "swap",
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-poppins',
 });
 
-type RootLayoutProps = {
-  children: ReactNode;
+export const metadata: Metadata = {
+  title: "FisioFind",
+  description: "Find your physiotherapist",
 };
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.className} ${geistMono.className} ${poppins.className}`}>
+    <html lang="en">
+      <body className={`${poppins.variable} font-sans antialiased bg-gray-50 dark:bg-neutral-900`}>
+        <div className="flex min-h-screen">
+          <SidebarDemo />
+          <main className="flex-1 transition-all duration-300 ml-[20px] p-6 h-screen overflow-auto">            <div className="w-full min-h-full rounded-xl border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-800 p-6">
+              {children}
+            </div>
+          </main>
+        </div>
       </body>
     </html>
   );
