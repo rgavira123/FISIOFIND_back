@@ -26,7 +26,7 @@ export default function LoginPaciente() {
         if (response.status == 200){
           localStorage.setItem("token",response.data.access)
           setMessage("Inicio de sesión exitoso");
-
+          console.log(response.data.access)
           setTimeout(() => {
             router.push("/gestion-paciente/perfil"); 
           }, 500); 

@@ -95,7 +95,7 @@ export default function RegisterPaciente() {
       setShowSuccessPopup(true); // Mostrar pop-up de éxito
 
       setTimeout(() => {
-        router.push("/gestion-paciente/perfil"); // Redirigir a la página de perfil
+        router.push("/gestion-usuario/login"); // Redirigir a la página de perfil
       }, 1500); 
 
     } catch (error: any) {
@@ -107,8 +107,6 @@ export default function RegisterPaciente() {
         Object.keys(backendErrors).forEach((key) => {
           if (backendErrors[key] === "This field may not be blank.") {
             translatedErrors[key] = "Este campo es obligatorio.";
-          } else if (backendErrors[key] === "This field is required.") {
-            translatedErrors[key] = "Este campo es obligatorio."; 
           } else {
             translatedErrors[key] = backendErrors[key];
           }
@@ -134,7 +132,7 @@ export default function RegisterPaciente() {
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
             <div className="bg-white p-8 rounded-xl shadow-2xl text-center max-w-xs">
               <p className="text-[#253240] font-semibold text-lg">Paciente registrado correctamente</p>
-              <p className="mt-2 text-[#41b8d5]">Serás redirigido a tu perfil.</p>
+              <p className="mt-2 text-[#41b8d5]">Serás redirigido a la pantalla de inicio de sesión.</p>
             </div>
           </div>
         )}
