@@ -1,11 +1,11 @@
 from django.urls import path
-from .views import AppUserCreate, AppUserList, AppUserDetail, AppUserUpdate, AppUserDelete, test_json_response
+from .views import CheckRoleView, CustomTokenObtainView, LogoutView, PatientRegisterView
 
 urlpatterns = [
-    path('create/', AppUserCreate.as_view(), name='app_user_create'),
-    path('list/', AppUserList.as_view(), name='app_user_list'),
-    path('<int:pk>/', AppUserDetail.as_view(), name='app_user_detail'),
-    path('update/<int:pk>/', AppUserUpdate.as_view(), name='app_user_update'),
-    path('delete/<int:pk>/', AppUserDelete.as_view(), name='app_user_delete'),
-    path('prueba/', test_json_response, name='test_json_response'),
+    path('patient/register/', PatientRegisterView.as_view(), name='patient_register'),
+    path('login/', CustomTokenObtainView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('check-role/', CheckRoleView.as_view(), name='check_role'),
 ]
+    
+
