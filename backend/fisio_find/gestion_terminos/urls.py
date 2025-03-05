@@ -3,13 +3,8 @@ from .views import AppTerminosCreate, AppTerminosList, AppTerminosDetail, AppTer
 
 urlpatterns = [
     path('create/', AppTerminosCreate.as_view(), name='app_terminos_create'),
-    path('create', AppTerminosCreate.as_view(), name='app_terminos_create'),
     path('list/', AppTerminosList.as_view(), name='app_terminos_list'),
-    path('list', AppTerminosList.as_view(), name='app_terminos_list'),
     path('list/<int:pk>/', AppTerminosDetail.as_view(), name='app_terminos_detail'),
-    path('list/<int:pk>', AppTerminosDetail.as_view(), name='app_terminos_detail'),
     path('update/<int:pk>/', AppTerminosUpdate.as_view(), name='app_terminos_update'),
-    path('update/<int:pk>', AppTerminosUpdate.as_view(), name='app_terminos_update'),
     path('delete/<int:pk>/', AppTerminosDelete.as_view(), name='app_terminos_delete'),
-    path('delete/<int:pk>', AppTerminosDelete.as_view(), name='app_terminos_delete'),
 ]

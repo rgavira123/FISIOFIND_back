@@ -13,3 +13,10 @@ class IsPhysioOrPatient(BasePermission):
     """
     def has_permission(self, request, view):
         return hasattr(request.user, 'patient') or hasattr(request.user, 'physio')
+    
+class IsAdmin(BasePermission):
+    """
+    Permite el acceso a usuarios que sean administrador.
+    """
+    def has_permission(self, request, view):
+        return hasattr(request.user, 'admin')
