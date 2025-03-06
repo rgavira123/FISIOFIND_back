@@ -87,7 +87,25 @@ classoption: "table"
 
 # 1. INFORMACIÓN DEL ESTUDIO QA
 
-
+| Alumno | Dedicación | Compensación | Disponibilidad | Compromiso | Prácticas | Valoración Final | 
+| ------ | ---------- | ------------ | -------------- | ---------- | --------- | ---------------- |
+| Alberto Carmona Sicre | 30% | X | 10% | 30% | 30% | E |
+| Antonio Macías Ferrera | 30% | X | 10% | 30% | 30% | E |
+| Benjamín Ignacio Maureira Flores | 30% | X | 10% | 30% | 30% | E |
+| Francisco Capote García | 30% | X | 10% | 30% | 30% | E |
+| Daniel Alors Romero | 30% | X | 8% | 30% | 30% | E |
+| Daniel Fernández Caballero | 30% | X | 10% | 30% | 30% | E |
+| Daniel Ruíz López | 30% | X | 10% | 30% | 30% | E |
+| Daniel Tortorici Bartús | 30% | X | 10% | 28% | 30% | E |
+| Daniel Vela Camacho | 30% | X | 10% | 30% | 30% | E |
+| Delfín Santana Rubio | 30% | X | 10% | 30% | 30% | E |
+| Guadalupe Ridruejo Pineda | 30% | X | 10% | 30% | 30% | E |
+| Julen Redondo Pacheco | 30% | X | 10% | 30% | 30% | E |
+| Miguel Encina Martínez | 30% | X | 10% | 30% | 30% | E |
+| Francisco Mateos Villarejo | 30% | X | 10% | 30% | 30% | E |
+| Pablo Fernández Pérez | 30% | X | 10% | 30% | 30% | E |
+| Ramón Gavira Sánchez | 30% | X | 10% | 30% | 30% | E |
+| Rafael Pulido Cifuentes | 30% | X | 10% | 28% | 30% | E |
 
 <br>
 
