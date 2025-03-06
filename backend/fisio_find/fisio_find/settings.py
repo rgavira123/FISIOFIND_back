@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-# DJANGO REST FRAMEWORK 
+# DJANGO REST FRAMEWORK
 INSTALLED_APPS += [
     'rest_framework',               # API REST principal
     'rest_framework.authtoken',     # Autenticación por tokens (opcional)
