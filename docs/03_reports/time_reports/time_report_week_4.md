@@ -2,7 +2,7 @@
 title: "INFORME DE TIEMPO - SEMANA 4 (21/02-27/02)"       # CHANGE IF NEEDED
 subtitle: "FISIO FIND - Grupo 6 - #S1"
 author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
-date: "02/03/2025"                                        # CHANGE IF NEEDED
+date: "06/03/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -14,7 +14,7 @@ colorlinks: true
 linkcolor: blue
 titlepage-background: "../../.backgrounds/background4V.pdf"  # CHANGE IF NEEDED
 header-left: "CLOCKIFY REPORT"                            # CHANGE IF NEEDED
-header-right: "02/03/2025"                                # CHANGE IF NEEDED
+header-right: "06/03/2025"                                # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"
@@ -63,7 +63,7 @@ classoption: "table"
 
 - **Fecha de Creación:** 02/03/2025  
 
-- **Versión:** v1.1
+- **Versión:** v1.2
 
 <br>
 
@@ -78,6 +78,7 @@ classoption: "table"
 |------------|---------|----------------------------------|----------------------------|
 | 02/03/2025 | v1.0    | Alberto Carmona Sicre            | Elaboración de la primera versión del documento de informe de tiempo de la semana 4 |
 | 02/03/2025 | v1.1    | Antonio Macías Ferrera           | Correcciones de título e información adicional |
+| 06/03/2025 | v1.2    | Alberto Carmona Sicre            | Correción en las horas. Añadidas gráficas en los apartados: Desglose por proyectos y Desglose por integrantes |
 
 
 <br>
@@ -134,9 +135,9 @@ En esta semana de trabajo se ha trabajado en los siguientes proyectos:
 ## 1.3. Proyectos destacados
 Entre los proyectos destacados de la semana, aquellos en los que se ha invertido más tiempo, encontramos los siguientes:  
 
-- **feat:** 72:04:59	
+- **feat:** 72:11:49	
 
-- **Clases / Vídeos:** 63:22:17  
+- **Clases / Vídeos:** 63:42:17  
 
 - **Reuniones:** 24:08:12  
 
@@ -144,7 +145,7 @@ Entre los proyectos destacados de la semana, aquellos en los que se ha invertido
 
 
 # 2. HORAS TOTALES
-Para esta semana de trabajo, el tiempo total dedicado al proyecto ha sido de 204 horas y 7 minutos.
+Para esta semana de trabajo, el tiempo total dedicado al proyecto ha sido de 205 horas y 4 minutos.
   
 
 <br>
@@ -156,13 +157,13 @@ Para una mejor visualización del tiempo dedicado, se realiza un desglose por d�
 ## 3.1 Desglose por días  
 Ordenado de manera cronológica:
 
-- **Viernes 21/02:** 66:01:50  
+- **Viernes 21/02:** 66:21:50  
 
 - **Sábado 22/02:** 23:30:11  
 
-- **Domingo 23/02:** 17:23:46  
+- **Domingo 23/02:** 17:33:46  
 
-- **Lunes 24/02:** 48:50:33  
+- **Lunes 24/02:** 49:17:23  
 
 - **Martes 25/02:** 19:24:56  
 
@@ -176,15 +177,15 @@ Ordenado de manera cronológica:
 ## 3.2 Desglose por proyectos  
 Ordenado de mayor a menor tiempo dedicado en cada proyecto: 
 
-**1. feat:** 72:04:59  	
+**1. feat:** 72:11:49    	
 
-**2. Clases / Vídeos:** 63:22:17  
+**2. Clases / Vídeos:** 63:42:17  
 
 **3. Reuniones:** 24:08:12  
 
-**4. docs:** 22:53:40  
+**4. docs:** 23:13:40  
 
-**5. Planificación:** 18:21:47    
+**5. Planificación:** 18:31:47    
 
 **6. Redes sociales:** 02:19:39	  
 
@@ -193,6 +194,10 @@ Ordenado de mayor a menor tiempo dedicado en cada proyecto:
 **8. fix / refactor / style:** 00:10:46  
 
 **9. test:** hh:mm  	 
+
+Diagrama de sectores para una mejor visualización de la división:
+
+![Diagrama de proyectos](../../.img/projects_diagram_week_4.png)
 
 
 <br>
@@ -203,7 +208,7 @@ Ordenado por orden alfabético:
 
 **1. Alberto Carmona Sicre** - 10:42:02
 
-**2. Antonio Macías Ferrera** -  09:10:21
+**2. Antonio Macías Ferrera** -  09:40:21
 
 **3. Benjamín Ignacio Maureira Flores** -  11:18:54
 
@@ -211,7 +216,7 @@ Ordenado por orden alfabético:
 
 **5. Daniel Fernández Caballero** - 09:45:51
 
-**6. Daniel Ruiz López**  -  11:48:17
+**6. Daniel Ruiz López**  -  11:55:07
 
 **7. Daniel Tortorici Bartús** - 12:12:00
 
@@ -225,16 +230,19 @@ Ordenado por orden alfabético:
 
 **12. Guadalupe Ridruejo Pineda** - 16:25:11
 
-**13. Julen Redondo Pacheco** -  08:46:53
+**13. Julen Redondo Pacheco** -  08:56:53
 
 **14. Miguel Encina Martínez** -  13:17:23
 
 **15. Pablo Fernández Pérez** -  09:58:18
 
-**16. Ramón Gavira Sánchez**  -  10:14:00
+**16. Ramón Gavira Sánchez**  -  10:24:00
 
 **17. Rafael Pulido Cifuentes** -  19:28:28
 
+Diagrama de sectores para una mejor visualización:
+
+![Diagrama de integrantes](../../.img/users_diagram_week_4.png)  
 
 <br>
 
