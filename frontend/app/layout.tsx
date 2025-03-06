@@ -25,8 +25,8 @@ export default function RootLayout({
         <div className="flex min-h-screen">
           <SidebarDemo />
           <main className="flex-1 transition-all duration-300 ml-[20px] p-6 h-screen overflow-auto">            <div className="w-full min-h-full rounded-xl border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-800 p-6">
-              {children}
-            </div>
+            {children}
+          </div>
           </main>
         </div>
       </body>

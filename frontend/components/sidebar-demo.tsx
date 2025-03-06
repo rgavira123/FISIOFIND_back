@@ -9,38 +9,39 @@ import {
   IconUser,
 } from "@tabler/icons-react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export function SidebarDemo() {
+  const isAuthenticated = false; // Replace with actual authentication check
+
   const links = [
     {
       label: "Buscar",
       href: "/",
       icon: (
-        <IconSearch className="text-[#1E5ACD] h-5 w-5 flex-shrink-0" />
+        <IconSearch className="text-[#253240] h-5 w-5 flex-shrink-0 mx-auto" />
       ),
     },
     {
       label: "Mis citas",
-      href: "#",
+      href: isAuthenticated ? "/mis-citas" : "/gestion-paciente/registro",
       icon: (
-        <IconCalendar className="text-[#1E5ACD] h-5 w-5 flex-shrink-0" />
+        <IconCalendar className="text-[#253240] h-5 w-5 flex-shrink-0 mx-auto" />
       ),
     },
     {
       label: "Tratamientos",
-      href: "#",
+      href: isAuthenticated ? "#" : "/gestion-paciente/registro",
       icon: (
-        <IconStethoscope className="text-[#1E5ACD] h-5 w-5 flex-shrink-0" />
+        <IconStethoscope className="text-[#253240] h-5 w-5 flex-shrink-0 mx-auto" />
       ),
     },
     {
-        label: "Mi perfil",
-        href: "#",
-        icon: (
-          <IconUser className="text-[#1E5ACD] h-5 w-5 flex-shrink-0" />
-        ),
+      label: "Mi perfil",
+      href: isAuthenticated ? "#" : "/gestion-paciente/registro",
+      icon: (
+        <IconUser className="text-[#253240] h-5 w-5 flex-shrink-0 mx-auto" />
+      ),
     }
   ];
 
@@ -70,7 +71,7 @@ export function SidebarDemo() {
                 label: "Salir",
                 href: "#",
                 icon: (
-                  <IconArrowLeft className="text-[#1E5ACD] h-3 w-3 flex-shrink-0" />
+                  <IconArrowLeft className="text-[#253240] h-3 w-3 flex-shrink-0 mx-auto" />
                 ),
               }}
             />
@@ -81,33 +82,35 @@ export function SidebarDemo() {
   );
 }
 
-export const Logo = () => {
+const Logo = () => {
   return (
     <Link
       href="/"
-      className="font-normal flex items-center text-sm text-black py-1 relative z-100"
+      className="font-normal flex items-center text-sm text-[#253240] py-1 relative z-100"
     >
-      <img 
+      <img
         src="/static/fisio_find_logo.webp"
         alt="Logo"
         className="h-1.5 w-auto flex-shrink-0"
+        style={{ filter: "brightness(0) invert(0)" }}
       />
     </Link>
   );
 };
+export default Logo;
 export const LogoIcon = () => {
   return (
     <Link
       href="/"
-      className="font-normal flex space-x-5 items-center text-base text-black py-2 relative z-100"
+      className="font-normal flex space-x-5 items-center text-base text-[#253240] py-2 relative z-100"
     >
-      <img 
+      <img
         src="/static/fisio_find_logo.webp"
         alt="Fisio Find logo"
         className="h-0.5 w-auto flex-shrink-0"
+        style={{ filter: "brightness(0) invert(0)" }}
       />
     </Link>
   );
 };
-
 
