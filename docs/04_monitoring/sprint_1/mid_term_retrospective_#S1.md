@@ -85,138 +85,26 @@ classoption: "table"
 <br>
 
 
-# 1. INFO ESTUDIO QA
-
-
-## 1.2. Proyectos realizados en la semana
-En esta semana de trabajo se ha trabajado en los siguientes proyectos:  
-
-1. docs
-
-2. Presentaciones / Diseños
-
-3. Reuniones
-
-4. Clases / Vídeos
-
-5. Clases presenciales
-
-6. Organización
-
-7. Planificación
-
-8. Documentación
-
-9. feat
+# 1. INFORMACIÓN DEL ESTUDIO QA
 
 
 
 <br>
 
-## 1.3. Proyectos destacados
-Entre los proyectos destacados de la semana, aquellos en los que se ha invertido más tiempo, encontramos los siguientes:  
+# 2. PROBLEMAS ENCONTRADOS
 
-- **docs:** 74:46:16	
+En esta sección analizaremos los problemas encontrados durante las dos primeras semanas de trabajo, su impacto, las decisiones tomadas y su trazabilidad con los riesgos identificados durante la planificación del proyecto.
 
-- **proyecto:** 51:32:15	
+| Problema encontrado | Descripción | ¿Cómo se ha resuelto? | Riesgo relacionado | Estado | 
+| ------------------- | ----------- | --------------------- | ------------------ | ------ |
+| Tecnologías desconocidas en frontend | Para implementar funcionalidades como la videollamada o el calendario interactivo, se han hecho uso de herramientas desconocidas y de nivel avanzado | Se ha realizado un esfuerzo para formarse en dichas tecnologías con el fin de completar las tareas en el tiempo establecido | RIG-004 | Solucionado |
+| Diversidad de los modelos de almacenamiento de los colegios de fisioterapeutas | Para verificar si un fisioterapeuta está colegiado, se ha requerido hacer *scrapping* a las páginas oficiales de los colegios de fisioterapia de todas las comunidades autónomas que almacenaban diferentes datos de los fisioterapeutas. | Se ha tenido que crear un modelo diferente para cada uno. | RIG-006 | Solucionado |
+| Dependencia de tareas necesarias para completar otras tareas | Algunas tareas dependían de otras tareas que se han retrasado, lo que el retraso de solo una tarea ha llevado al retraso de varias. | Añadir recursos a las tareas críticas | N/A | Solucionado
 
+# 3. RELOJ DEL AVANCE DEL PROYECTO 
+![Burn Up Chart](../../.img/burnup_chart_week_4-5.png)
 
-# 2. HORAS TOTALES
-Para esta semana de trabajo, el tiempo total dedicado al proyecto ha sido de 215 horas y 33 minutos
-  
-
-<br>
-
-<br>
-
-
-# 3. DESGLOSE
-Para una mejor visualización del tiempo dedicado, se realiza un desglose por días, proyectos e integrantes. 
-
-## 3.1 Desglose por días  
-Ordenado de manera cronológica:
-
-- **Viernes 14/02:** 55:52:15
-
-- **Sábado 15/02:** 05:31:10
-
-- **Domingo 16/02:** 23:00:05
-
-- **Lunes 17/02:** 44:33:38
-
-- **Martes 18/02:** 32:13:58
-
-- **Miércoles 19/02:** 29:26:42
-
-- **Jueves 20/02:** 24:55:12
-
-
-<br>
-
-## 3.2 Desglose por proyectos  
-Ordenado de mayor a menor tiempo dedicado en cada proyecto: 
-
-**1. docs:** 74:46:16	
-
-**2. Presentaciones / Diseños:** 32:59:15
-
-**3. Reuniones:** 08:55:15	
-
-**4. Clases / Vídeos:** 51:32:15	
-
-**5. Redes sociales:** 03:29:59	
-
-**6. test:** hh:mm
-
-**7. Planificación:** 28:41:31	
-
-**8. fix / refactor / style:** 00:15:25	
-
-**9. feat:** 14:53:04	
-
-
-<br>
-
-## 3.3 Desglose por integrantes
-
-Ordenado por orden alfabético:
-
-**1. Alberto Carmona Sicre** - 00:00:00
-
-**2. Antonio Macías Ferrera** -  25:03:45
-
-**3. Benjamín Ignacio Maureira Flores** -  10:01:52
-
-**4. Daniel Alors Romero** - 10:03:46
-
-**5. Daniel Fernández Caballero** - 08:34:29
-
-**6. Daniel Ruiz López**  -  17:54:39
-
-**7. Daniel Tortorici Bartús** - 11:56:00
-
-**8. Daniel Vela Camacho** - 15:59:53
-
-**9. Delfín Santana Rubio** - 11:55:04
-
-**10. Francisco Capote García** -  10:02:02
-
-**11. Francisco Mateos Villarejo** -  10:35:03
-
-**12. Guadalupe Ridruejo Pineda** - 26:34:20
-
-**13. Julen Redondo Pacheco** -  04:47:49
-
-**14. Miguel Encina Martínez** -  12:09:21
-
-**15. Pablo Fernández Pérez** -  10:42:46
-
-**16. Ramón Gavira Sánchez**  -  11:06:08
-
-**17. Rafael Pulido Cifuentes** -  18:06:03
-
-
-<br>
+Como podemos observar, hay un avance progresivo de las tareas durante estas primeras semanas de trabajo, lo que indica que el equipo está trabajando diariamente de forma equitativa. Sin embargo, si se quiere completar con todas las tareas planificadas para este primer Sprint, va a ser necesario incrementar la productividad y el esfuerzo dedicado. Aún así, cabe destacar que esta gráfica no representa el progreso de las tareas no finalizadas, por lo que no podemos profundizar más en el análisis.
 
 ---
 
