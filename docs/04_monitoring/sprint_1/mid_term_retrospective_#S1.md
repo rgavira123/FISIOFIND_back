@@ -76,7 +76,7 @@ classoption: "table"
 
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
-| 06/03/2025 | v1.0    | Benjamín Ignacio Maureira Flores, Daniel Alors Romero | Elaboración de la primera versión del documento |
+| 06/03/2025 | v1.0    | Benjamín Ignacio Maureira Flores, Daniel Alors Romero, Miguel Encina Martínez, Francisco Mateos Villarejo | Elaboración de la primera versión del documento |
 
 <br>
 
