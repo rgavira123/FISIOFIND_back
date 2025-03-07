@@ -120,9 +120,9 @@ En esta sección analizaremos los problemas encontrados durante las dos primeras
 | Dependencia de tareas necesarias para completar otras tareas | Algunas tareas dependían de otras tareas que se han retrasado, lo que el retraso de solo una tarea ha llevado al retraso de varias. | Añadir recursos a las tareas críticas | N/A | Solucionado
 
 # 3. RELOJ DEL AVANCE DEL PROYECTO 
-![Burn Up Chart](../../.img/burnup_chart_week_4-5.png)
+![Reloj de avance del proyecto](../../.img/reloj_de_avance_proyecto_06-03-2025.png)
 
-Como podemos observar, hay un avance progresivo de las tareas durante estas primeras semanas de trabajo, lo que indica que el equipo está trabajando diariamente de forma equitativa. Sin embargo, si se quiere completar con todas las tareas planificadas para este primer Sprint, va a ser necesario incrementar la productividad y el esfuerzo dedicado. Aún así, cabe destacar que esta gráfica no representa el progreso de las tareas no finalizadas, por lo que no podemos profundizar más en el análisis.
+Como podemos observar, en estas primeras semanas vamos por encima del tiempo estimado propuesto de 170 horas semanales debido a que en la segunda semana se hizo un extra esfuerzo debido a que hubo un cambio de idea y hubo que realizar el trabajo de dos semanas en una única.
 
 ---
 
