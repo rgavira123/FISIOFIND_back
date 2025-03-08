@@ -2,8 +2,32 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny
-from .serializers import PatientRegisterSerializer
+from .serializers import PatientRegisterSerializer, PatientBasicSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from .permissions import IsPatient
+
+class PatientProfileView(APIView):
+    permission_classes = [IsPatient]
+
+    def get(self, request):
+        patient = request.user.patient  # Aquí obtienes el paciente relacionado con el usuario
+        serializer = PatientBasicSerializer(patient)
+        return Response(serializer.data)
+    
+    def patch(self, request, *args, **kwargs):
+        patient = request.user.patient
+        print(f"👤 Usuario autenticado: {request.user.pk} - {request.user.username}")
+
+        serializer = PatientBasicSerializer(patient, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            print("✅ Perfil actualizado correctamente")
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        print(f"❌ Errores de validación: {serializer.errors}")
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class PatientRegisterView(APIView):

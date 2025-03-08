@@ -7,6 +7,58 @@ from .models import AppUser, Patient
 import re
 from datetime import date  # Importar para obtener la fecha de hoy
 
+class AppUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AppUser
+        fields = ['username', 'email', 'phone_number', 'postal_code']
+
+    def validate_username(self, value):
+        """
+        Permite actualizar el username solo si no pertenece a otro usuario distinto.
+        """
+        user = self.instance  # Usuario actual que se está actualizando
+
+        # Si el username no ha cambiado, no hacer validación
+        if user and user.username == value:
+            return value
+
+        # Validar solo si pertenece a otro usuario distinto
+        if AppUser.objects.exclude(pk=user.pk).filter(username=value).exists():
+            raise serializers.ValidationError("A user with that username already exists.")
+
+        return value
+
+
+class PatientBasicSerializer(serializers.ModelSerializer):
+    user = AppUserSerializer()
+
+    class Meta:
+        model = Patient
+        fields = ['user', 'gender', 'birth_date']
+
+    def update(self, instance, validated_data):
+        user_data = validated_data.pop('user', None)
+
+        if user_data:
+            user_instance = instance.user  # Usuario que se está actualizando
+
+            # Asegurarse de que la instancia del usuario se pasa correctamente
+            user_serializer = AppUserSerializer(user_instance, data=user_data, partial=True)
+
+            if user_serializer.is_valid():
+                user_serializer.save()
+            else:
+                raise serializers.ValidationError(user_serializer.errors)  # Mostrar errores si fallan
+
+        # Actualizar los otros datos del paciente
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
+        instance.save()
+        return instance
+
+
+
 class PatientRegisterSerializer(serializers.ModelSerializer):
     # Validación para campos únicos con `UniqueValidator`
     username = serializers.CharField(
