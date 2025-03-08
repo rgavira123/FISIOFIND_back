@@ -1,20 +1,24 @@
+// app/page.tsx
 "use client";
+import React from "react";
+import Wizard from "@/components/ui/wizard";
+import { Step } from "@/lib/definitions";
+import { AppointmentProvider } from "@/context/appointmentContext";
 
-import WizardLG from "@/components/ui/wizard-lg";
-import WizardSM from "@/components/ui/wizard-sm";
 
-export default function CreateAppointment() {
-  const steps = [
-    { step: 1, label: "Selecciona el servicio" },
-    { step: 2, label: "Agenda tu cita y hora" },
-    { step: 3, label: "Método de pago" },
-    { step: 4, label: "Resumen final" },
-  ];
+const steps: Step[] = [
+  { step: 1, label: "Selecciona el servicio" },
+  { step: 2, label: "Agenda tu cita y hora" },
+  { step: 3, label: "Elige tu método de pago" },
+  { step: 4, label: "Resumen final" },
+];
+
+
+export default function WizardPage() {
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <WizardLG steps={steps} />
-      <WizardSM steps={steps} />
-    </div>
+    <AppointmentProvider>
+      <Wizard steps={steps} />
+    </AppointmentProvider>
   );
 }
