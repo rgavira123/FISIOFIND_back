@@ -3,7 +3,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from gestion_citas.permissions import IsOwner
 from gestion_citas.models import Appointment
 from gestion_citas.serializers import AppointmentSerializer
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 from gestion_usuarios.permissions import IsAdmin
 
 class AppointmentList(generics.ListCreateAPIView):
@@ -40,7 +40,7 @@ class AdminAppointmennDetail(generics.RetrieveAPIView):
     '''
     API endpoint que retorna un solo término por su id para admin.
     '''
-    permission_classes = [AllowAny]#[IsAdmin]
+    permission_classes = [IsAdmin]
     queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializer
 
