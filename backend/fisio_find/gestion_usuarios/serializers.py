@@ -125,6 +125,13 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
         dni_pattern = re.compile(r'^\d{8}[A-HJ-NP-TV-Z]$')
         if not dni_pattern.match(data['dni']):
             raise serializers.ValidationError({"dni": "El DNI debe tener 8 números seguidos de una letra válida."})
+
+        # Validar que la letra del DNI es correcta
+        dni_numbers = data['dni'][:-1]
+        dni_letter = data['dni'][-1].upper()
+        letters = "TRWAGMYFPDXBNJZSQVHLCKE"
+        if letters[int(dni_numbers) % 23] != dni_letter:
+            raise serializers.ValidationError({"dni": "La letra del DNI no coincide con el número."})
         
         if len(data['phone_number']) != 9:
             raise serializers.ValidationError({"phone_number": "El número de teléfono debe tener 9 caracteres."})
