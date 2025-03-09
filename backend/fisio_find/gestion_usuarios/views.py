@@ -2,31 +2,46 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny
-from .serializers import PatientRegisterSerializer, PatientBasicSerializer
+from .serializers import PatientRegisterSerializer, PatientSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .permissions import IsPatient
+from .models import Patient
+from rest_framework.permissions import IsAuthenticated
 
 class PatientProfileView(APIView):
     permission_classes = [IsPatient]
 
     def get(self, request):
-        patient = request.user.patient  # Aquí obtienes el paciente relacionado con el usuario
-        serializer = PatientBasicSerializer(patient)
-        return Response(serializer.data)
-    
-    def patch(self, request, *args, **kwargs):
-        patient = request.user.patient
-        print(f"👤 Usuario autenticado: {request.user.pk} - {request.user.username}")
-
-        serializer = PatientBasicSerializer(patient, data=request.data, partial=True)
-
-        if serializer.is_valid():
-            serializer.save()
-            print("✅ Perfil actualizado correctamente")
+        try:
+            patient = Patient.objects.get(user=request.user)
+            serializer = PatientSerializer(patient)
             return Response(serializer.data, status=status.HTTP_200_OK)
+        except Patient.DoesNotExist:
+            return Response({"error": "Perfil de paciente no encontrado"}, status=status.HTTP_404_NOT_FOUND)
 
-        print(f"❌ Errores de validación: {serializer.errors}")
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self, request, *args, **kwargs):
+        try:
+            patient = Patient.objects.get(user=request.user)  
+
+            request_data = request.data.copy()
+
+            user_data = request_data.get('user', {})  
+            user_data['id'] = request.user.id  
+
+            request_data['user'] = user_data  
+
+            serializer = PatientSerializer(patient, data=request_data, partial=True, context={'request': request})
+
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+
+            print("Errores en PatientSerializer:", serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        except Patient.DoesNotExist:
+            return Response({"error": "Perfil de paciente no encontrado"}, status=status.HTTP_404_NOT_FOUND)
 
 
 
