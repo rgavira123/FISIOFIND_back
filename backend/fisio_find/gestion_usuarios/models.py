@@ -52,7 +52,7 @@ class Patient(models.Model):
         return f"{self.user.username} - {self.user.email}"
     
 class Specialization(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.name
