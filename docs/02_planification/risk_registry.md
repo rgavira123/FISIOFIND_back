@@ -250,7 +250,7 @@ En este documento se detallan cada uno de los riesgos contemplados en el proyect
 | **Probabilidad** | 4 |
 | **Impacto** | 5 |
 | **Factor** | 20 |
-| **Prioridad** | 8 |
+| **Prioridad** | 6 |
 | **Contramedidas actuales** | La planificación de los sprints no se está haciendo solo con las tareas necesarias, sino que también se hace con tareas extras para intentar ahorrar trabajo para el resto de sprints. Esto hace que de necesitarse dejar una tarea para el siguiente sprint se pueda hacer. Además, existen canales de comunicación destinados a compartir información importante, como es la de que existe una tarea que es demasiado grande para los asignados. Las personas que ya hayan acabado, podrán ayudar a aquellas que tengan tareas mal estimadas. |
 | **Plan de contingencia** | Se deberá de hacer una nueva estimación de las tareas y una redistribución de los recursos para intentar solucionar el problema. De no poderse arreglar, se deberán de gastar más recursos para terminar todas las tareas. |
 
@@ -262,6 +262,6 @@ En este documento se detallan cada uno de los riesgos contemplados en el proyect
 | **Probabilidad** | 4 |
 | **Impacto** | 5 |
 | **Factor** | 20 |
-| **Prioridad** | 8 |
+| **Prioridad** | 7 |
 | **Contramedidas actuales** | La planificación de los sprints no se está haciendo solo con las tareas necesarias, sino que también se hace con tareas extras para intentar ahorrar trabajo para el resto de sprints. Esto hace que de necesitarse dejar una tarea para el siguiente sprint se pueda hacer. Además, existen canales de comunicación destinados a compartir información importante, como es la de que existe una tarea que tiene dependencias no esperadas. Aquellas personas que están trabajando en la dependencia, deberán de acabarla(al menos aquello que se necesite para solucionar la dependencia) cuanto antes.  Las personas que ya hayan acabado, podrán ayudar a aquellas que tengan tareas mal estimadas.  |
 | **Plan de contingencia** | Se deberá de hacer una nueva estimación de las tareas y una redistribución de los recursos para intentar solucionar el problema. De no poderse arreglar, se deberán de gastar más recursos para terminar todas las tareas. |
