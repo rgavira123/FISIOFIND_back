@@ -6,24 +6,25 @@ import Image from "next/image";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import Modal from "@/components/ui/Modal";
 
+interface Physiotherapist {
+  name: string;
+  specialty: string;
+  rating: number;
+  image: string;
+  location: string;
+  reviews: number;
+}
+
 const Home = () => {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [searchResults, setSearchResults] = useState<
-    {
-      name: string;
-      specialty: string;
-      rating: number;
-      image: string;
-      location: string;
-      reviews: number;
-    }[]
-  >([]);
+  const [searchResults, setSearchResults] = useState<Physiotherapist[]>([]);
   const [isPhysioModalOpen, setIsPhysioModalOpen] = useState(false);
 
   const openPhysioModal = () => setIsPhysioModalOpen(true);
   const closePhysioModal = () => setIsPhysioModalOpen(false);
 
+  // Si el usuario está autenticado se abre el modal, si no, redirige al perfil público
   const handleViewPhysio = (physioName: string) => {
     if (isAuthenticated) {
       openPhysioModal();
@@ -32,37 +33,29 @@ const Home = () => {
     }
   };
 
+  // Solo comprueba la existencia del token en localStorage
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (!user) {
-      localStorage.removeItem("authToken");
-      setIsAuthenticated(false);
-    }
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      setIsAuthenticated(true);
-    }
-  }, [router]);
+    const token = localStorage.getItem("token");
+    setIsAuthenticated(!!token);
+  }, []);
 
+  // Efecto para mover imágenes flotantes al hacer scroll
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const floatingImages = document.querySelectorAll(".floating-image");
       floatingImages.forEach((image, index) => {
-        const offset = (index + 1) * 50; // Adjust the multiplier for speed
-        (image as HTMLElement).style.transform = `translateX(${
-          scrollY / offset
-        }px)`;
+        const offset = (index + 1) * 50;
+        (image as HTMLElement).style.transform = `translateX(${scrollY / offset}px)`;
       });
     };
 
     window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const topPhysiotherapists = [
+  // Datos de ejemplo para los fisioterapeutas destacados
+  const topPhysiotherapists: Physiotherapist[] = [
     {
       name: "Dr. Ana García",
       specialty: "Fisioterapia Deportiva",
@@ -92,9 +85,10 @@ const Home = () => {
     },
   ];
 
-  const handleSearch = (event: { preventDefault: () => void }) => {
+  // Simula una búsqueda de fisioterapeutas
+  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const mockResults = [
+    const mockResults: Physiotherapist[] = [
       {
         name: "Dr. Ana García",
         specialty: "Fisioterapia Deportiva",
@@ -123,48 +117,22 @@ const Home = () => {
       <section className="flex flex-col items-center justify-center text-center relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full">
           <div className="floating-image" style={{ left: "10%", top: "20%" }}>
-            <Image
-              src="/static/1_heart.webp"
-              alt="Floating Image 1"
-              width={100}
-              height={100}
-            />
+            <Image src="/static/1_heart.webp" alt="Floating Image 1" width={100} height={100} />
           </div>
-          <div
-            className="floating-image"
-            style={{ right: "12%", bottom: "30%" }}
-          >
-            <Image
-              src="/static/4_shine.webp"
-              alt="Floating Image 2"
-              width={100}
-              height={100}
-            />
+          <div className="floating-image" style={{ right: "12%", bottom: "30%" }}>
+            <Image src="/static/4_shine.webp" alt="Floating Image 2" width={100} height={100} />
           </div>
           <div className="floating-image" style={{ right: "5%", top: "10%" }}>
-            <Image
-              src="/static/7_treatment.webp"
-              alt="Floating Image 3"
-              width={100}
-              height={100}
-            />
+            <Image src="/static/7_treatment.webp" alt="Floating Image 3" width={100} height={100} />
           </div>
         </div>
-        <Image
-          src={"/static/fisio_find_logo.webp"}
-          alt="Fisio Find Logo"
-          width={256}
-          height={256}
-          className="mb-8"
-        />
-        <h1 className={`text-6xl font-bold mb-4 font-alfa-slab-one`}>
+        <Image src="/static/fisio_find_logo.webp" alt="Fisio Find Logo" width={256} height={256} className="mb-8" />
+        <h1 className="text-6xl font-bold mb-4 font-alfa-slab-one">
           <span className="text-[#1E5ACD]">Fisio </span>
           <span className="text-[#253240]">Find</span>
         </h1>
-        <p className={`text-xl mb-8 max-w-2xl`}>
-          Una plataforma innovadora creada para conectar a los pacientes con los
-          mejores fisioterapeutas de manera rápida y eficiente, a través de
-          consultas online personalizadas.
+        <p className="text-xl mb-8 max-w-2xl">
+          La plataforma especializada en fisioterapia online donde te conectamos con el profesional que mejor se ajusta a tus necesidades.
         </p>
       </section>
 
@@ -204,28 +172,28 @@ const Home = () => {
                     className="px-4"
                     style={{ paddingLeft: "1rem", paddingRight: "1rem" }}
                   >
-                    Fisioterapia Deportiva
+                    Deportiva
                   </option>
                   <option
                     value="neurologica"
                     className="px-4"
                     style={{ paddingLeft: "1rem", paddingRight: "1rem" }}
                   >
-                    Rehabilitación Neurológica
+                    Neurológica
                   </option>
                   <option
                     value="pediatrica"
                     className="px-4"
                     style={{ paddingLeft: "1rem", paddingRight: "1rem" }}
                   >
-                    Fisioterapia Pediátrica
+                    Pediátrica
                   </option>
                   <option
                     value="muscular"
                     className="px-4"
                     style={{ paddingLeft: "1rem", paddingRight: "1rem" }}
                   >
-                    Fisioterapia Muscular
+                    Muscular
                   </option>
                 </select>
               </div>
@@ -247,43 +215,25 @@ const Home = () => {
             </div>
           </form>
         </div>
-
-        {/* Search Results */}
         {searchResults.length > 0 && (
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 bg-white p-6 rounded-xl">
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {searchResults.map((physio, index) => (
               <CardContainer key={index}>
                 <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-blue-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-full h-auto rounded-xl p-6 border">
-                  <CardItem
-                    translateZ="50"
-                    className="text-xl font-bold text-neutral-600 dark:text-white"
-                  >
+                  <CardItem translateZ="50" className="text-xl font-bold text-neutral-600 dark:text-white">
                     {physio.name}
                   </CardItem>
-                  <CardItem
-                    as="p"
-                    translateZ="40"
-                    className="text-neutral-500 text-sm mt-2 dark:text-neutral-300"
-                  >
+                  <CardItem as="p" translateZ="40" className="text-neutral-500 text-sm mt-2 dark:text-neutral-300">
                     {physio.specialty}
                   </CardItem>
                   <CardItem translateZ="60" className="w-full mt-4">
-                    <img
-                      src={physio.image}
-                      className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl"
-                      alt={physio.name}
-                    />
+                    <img src={physio.image} className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl" alt={physio.name} />
                   </CardItem>
                   <div className="flex justify-between items-center mt-6">
-                    <CardItem
-                      translateZ="20"
-                      className="flex items-center gap-1"
-                    >
+                    <CardItem translateZ="20" className="flex items-center gap-1">
                       <span className="text-yellow-500">★</span>
                       <span className="font-semibold">{physio.rating}</span>
-                      <span className="text-sm text-neutral-500">
-                        ({physio.reviews} reviews)
-                      </span>
+                      <span className="text-sm text-neutral-500">({physio.reviews} reviews)</span>
                     </CardItem>
                     <CardItem
                       translateZ="20"
@@ -300,34 +250,31 @@ const Home = () => {
         )}
       </section>
 
-      {/* Focus Cards Section */}
-      {isAuthenticated && (
+      {/* Focus Cards Section: solo se muestra si NO está autenticado */}
+      {!isAuthenticated && (
         <section className="flex flex-col items-center justify-center text-center py-12 dark:bg-neutral-900">
-          <br></br>
-          <h2 className="text-3xl text-[#253240] font-bold mb-4">
-            Únete a Fisio Find
-          </h2>
+          <br />
+          <h2 className="text-3xl text-[#253240] font-bold mb-4">Únete a Fisio Find</h2>
           <p className="text-lg mb-8">
-            Crea una cuenta o inicia sesión para disfrutar de todas nuestras
-            posibilidades.
+            Crea una cuenta o inicia sesión para disfrutar de todas nuestras posibilidades.
           </p>
           <div className="flex flex-col gap-4">
             <button
               className="shadow__btn bg-[#1E5ACD] text-white px-4 py-3 rounded font-bold hover:bg-[#1848A3] transition-colors"
-              onClick={() => router.push("/profile/signup")}
+              onClick={() => router.push("/gestion-usuario/login")}
             >
               Crea una cuenta
             </button>
             <p className="text-lg">Si ya tienes una cuenta ...</p>
             <button
               className="shadow__btn text-white rounded font-bold hover:bg-[#0A7487] transition-colors text-sm"
-              onClick={() => router.push("/profile/login")}
+              onClick={() => router.push("/login")}
               style={{ "--shadow-color": "#0A7487" } as React.CSSProperties}
             >
               Inicia sesión
             </button>
           </div>
-          <br></br>
+          <br />
         </section>
       )}
 
@@ -354,11 +301,7 @@ const Home = () => {
                   {physio.specialty}
                 </CardItem>
                 <CardItem translateZ="60" className="w-full mt-4">
-                  <img
-                    src={physio.image}
-                    className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl"
-                    alt={physio.name}
-                  />
+                  <img src={physio.image} className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl" alt={physio.name} />
                 </CardItem>
                 <div className="flex justify-between items-center mt-6">
                   <CardItem translateZ="20" className="flex items-center gap-1">
@@ -382,35 +325,25 @@ const Home = () => {
           ))}
         </div>
       </section>
-
       {/* Footer */}
-      <footer className={`py-12 px-4`}>
+      <footer className="py-12 px-4">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 pt-8 gap-8 border-t border-gray-700">
           <div>
             <h3 className="text-lg font-bold mb-4">Sobre Fisio Find</h3>
             <p>
-              Una plataforma innovadora diseñada para conectar pacientes con los
-              mejores fisioterapeutas.
+              Una plataforma innovadora diseñada para conectar pacientes con los mejores fisioterapeutas.
             </p>
           </div>
           <div>
             <h3 className="text-lg font-bold mb-4">Enlaces Útiles</h3>
             <ul>
               <li>
-                <a
-                  href="https://fisiofind.netlify.app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://fisiofind.netlify.app" target="_blank" rel="noopener noreferrer">
                   Conoce Fisio Find
                 </a>
               </li>
               <li>
-                <a
-                  href="https://github.com/Proyecto-ISPP/FISIOFIND"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://github.com/Proyecto-ISPP/FISIOFIND" target="_blank" rel="noopener noreferrer">
                   Repositorio GitHub
                 </a>
               </li>
@@ -433,32 +366,22 @@ const Home = () => {
         </div>
       </footer>
 
-      {/* Modal */}
+      {/* Modal para usuarios no autenticados */}
       {isPhysioModalOpen && (
         <Modal onClose={closePhysioModal}>
           <div className="p-6 bg-white rounded-lg shadow-lg">
             <h2 className="text-2xl font-bold mb-4">Acceso requerido</h2>
             <p className="mb-4">
-              Por favor, inicia sesión o crea una cuenta para ver el perfil del
-              fisioterapeuta.
+              Por favor, inicia sesión o crea una cuenta para ver el perfil del fisioterapeuta.
             </p>
             <div className="flex justify-end gap-4">
-              <button
-                className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
-                onClick={closePhysioModal}
-              >
+              <button className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300" onClick={closePhysioModal}>
                 Cancelar
               </button>
-              <button
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-                onClick={() => router.push("/profile/login")}
-              >
+              <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" onClick={() => router.push("/profile/login")}>
                 Iniciar sesión
               </button>
-              <button
-                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
-                onClick={() => router.push("/profile/signup")}
-              >
+              <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700" onClick={() => router.push("/profile/signup")}>
                 Crear cuenta
               </button>
             </div>
