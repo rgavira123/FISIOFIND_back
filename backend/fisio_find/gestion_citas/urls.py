@@ -6,8 +6,10 @@ urlpatterns = [
     path('appointment/<int:pk>/', views.AppointmentDetail.as_view()),
     #Patients
     path('appointment/patient/', views.create_appointment_patient),
+    path('appointment/patient/list/', views.list_appointments_patient),
     #Physiotherapists
     path('appointment/physio/', views.create_appointment_physio),
+    path('appointment/physio/list/', views.list_appointments_physio),
     #Admin 
     path('appointment/admin/create/', views.AdminAppointmenCreate.as_view()),
     path('appointment/admin/list/', views.AdminAppointmenList.as_view()),
