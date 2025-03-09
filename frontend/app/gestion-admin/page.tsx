@@ -14,8 +14,12 @@ export default function GestionAdmin() {
             </p>
         </div>
         <div>
-            <p>Panel de gestión de usuarios
-              <a href="/gestion-admin/usuarios"><button className="btn-admin-green">Acceder</button></a>
+            <p>Panel de gestión de usuarios</p>
+            <a href="/gestion-admin/usuarios"><button className="btn-admin-green">Acceder</button></a>
+        </div>
+        <div>
+            <p>Panel de gestión de citas
+            <a href="/gestion-admin/citas"><button className="btn-admin-green">Acceder</button></a>
             </p>
         </div>
       </div>
