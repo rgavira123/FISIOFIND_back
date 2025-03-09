@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 import os
 from dotenv import load_dotenv
@@ -55,14 +56,14 @@ INSTALLED_APPS += [
 INSTALLED_APPS += [
     'gestion_usuarios',
     'gestion_citas',
+    'gestion_terminos'
 ]
 
-# APPS DE TERCEROS
 
-INSTALLED_APPS += [
-    'corsheaders',
-    'django_filters',
-]
+
+INSTALLED_APPS += [ 'corsheaders', 'django_extensions',
+    'django_filters']
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -75,6 +76,23 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+         'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+         'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),  # El token dura 1 día
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),   # No lo vamos a usar, pero se requiere
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': False,
+    'AUTH_HEADER_TYPES': ("Bearer",),
+}
 
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",  # Add your frontend URL here
@@ -115,6 +133,8 @@ DATABASES = {
         'PORT': os.getenv('DATABASE_PORT'),
     }
 }
+
+AUTH_USER_MODEL = 'gestion_usuarios.AppUser'
 
 
 # Password validation
