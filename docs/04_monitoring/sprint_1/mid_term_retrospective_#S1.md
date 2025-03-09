@@ -1,6 +1,6 @@
 ---
-title: "MID TERM RETROSPECTIVE - SPRINT 1 (21/02-06/03)"       # CHANGE IF NEEDED
-subtitle: "FISIO FIND - Grupo 6 - #X"
+title: "MID TERM RETROSPECTIVE - SPRINT 1 (21/02-06/03)"  # CHANGE IF NEEDED
+subtitle: "FISIO FIND - Grupo 6 - #S1"
 author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
 date: "06/03/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
@@ -22,7 +22,7 @@ classoption: "table"
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 <p align="center">
-  <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
+  <img src="../../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
 <h1 align="center" style="font-size: 30px; font-weight: bold;">
@@ -30,7 +30,6 @@ classoption: "table"
 </h1>
 
 <br>
-
 
 **ÍNDICE**
 1. [PROYECTOS](#1-proyectos)  
@@ -63,7 +62,7 @@ classoption: "table"
 
 - **Fecha de Creación:** 06/03/2025  
 
-- **Versión:** v1.0
+- **Versión:** v1.1
 
 <br>
 
@@ -77,6 +76,7 @@ classoption: "table"
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
 | 06/03/2025 | v1.0    | Benjamín Ignacio Maureira Flores, Daniel Alors Romero, Miguel Encina Martínez, Francisco Mateos Villarejo | Elaboración de la primera versión del documento |
+| 09/03/2025 | v1.0    | Antonio Macías Ferrera | Correcciones ortográficas, elaboración en más detalle de algunos puntos (como los problemas encontrados), adición imagen *"reloj del proyecto"*. |
 
 <br>
 
@@ -86,6 +86,15 @@ classoption: "table"
 
 
 # 1. INFORMACIÓN DEL ESTUDIO QA
+
+La siguiente tabla muestra la evaluación detallada de cada miembro del equipo según los siguientes criterios:
+
+- **Dedicación:** Porcentaje de tiempo dedicado al proyecto
+- **Compensación:** Equilibrio en la distribución de tareas
+- **Disponibilidad:** Porcentaje de tiempo disponible para el proyecto
+- **Compromiso:** Nivel de implicación con el proyecto
+- **Prácticas:** Cumplimiento de las buenas prácticas de desarrollo
+- **Valoración Final:** Evaluación global (E: Excelente, B: Bueno, R: Regular)
 
 | Alumno | Dedicación | Compensación | Disponibilidad | Compromiso | Prácticas | Valoración Final | 
 | ------ | ---------- | ------------ | -------------- | ---------- | --------- | ---------------- |
@@ -111,20 +120,29 @@ classoption: "table"
 
 # 2. PROBLEMAS ENCONTRADOS
 
-En esta sección analizaremos los problemas encontrados durante las dos primeras semanas de trabajo, su impacto, las decisiones tomadas y su trazabilidad con los riesgos identificados durante la planificación del proyecto.
+Durante las dos primeras semanas de desarrollo, se han identificado varios desafíos significativos que han impactado en el avance del proyecto. A continuación, se detallan estos problemas, su resolución y su relación con los riesgos previamente identificados:
 
-| Problema encontrado | Descripción | ¿Cómo se ha resuelto? | Riesgo relacionado | Estado | 
-| ------------------- | ----------- | --------------------- | ------------------ | ------ |
-| Tecnologías desconocidas en frontend | Para implementar funcionalidades como la videollamada o el calendario interactivo, se han hecho uso de herramientas desconocidas y de nivel avanzado | Se ha realizado un esfuerzo para formarse en dichas tecnologías con el fin de completar las tareas en el tiempo establecido | RIG-004 | Solucionado |
-| Diversidad de los modelos de almacenamiento de los colegios de fisioterapeutas | Para verificar si un fisioterapeuta está colegiado, se ha requerido hacer *scrapping* a las páginas oficiales de los colegios de fisioterapia de todas las comunidades autónomas que almacenaban diferentes datos de los fisioterapeutas. | Se ha tenido que crear un modelo diferente para cada uno. | RIG-006 | Solucionado |
-| Dependencia de tareas necesarias para completar otras tareas | Algunas tareas dependían de otras tareas que se han retrasado, lo que el retraso de solo una tarea ha llevado al retraso de varias. | Añadir recursos a las tareas críticas | N/A | Solucionado
+| Problema encontrado | Descripción detallada | Solución implementada | Riesgo relacionado | Estado | 
+| ------------------- | -------------------- | -------------------- | ------------------ | ------ |
+| Complejidad en tecnologías de frontend | La implementación de funcionalidades avanzadas como videollamadas y calendario interactivo requirió el uso de tecnologías y librerías desconocidas por el equipo | Se organizaron sesiones intensivas de formación y se dedicaron recursos adicionales al aprendizaje de estas tecnologías. Se creó documentación interna para futura referencia | RIG-004: Riesgo por desconocimiento tecnológico | Resuelto |
+| Heterogeneidad en los sistemas de colegios profesionales | La verificación de colegiación requirió adaptarse a diferentes estructuras de datos y formatos de las páginas web de los colegios de fisioterapeutas por comunidad autónoma | Se desarrolló un sistema modular de scraping con modelos específicos para cada colegio, permitiendo una gestión flexible de los diferentes formatos de datos | RIG-006: Riesgo de integración con sistemas externos | Resuelto |
+| Dependencias críticas entre tareas | La estructura secuencial de algunas tareas provocó que los retrasos en tareas críticas afectaran en cascada a otras dependientes | Se reorganizó la planificación para paralelizar tareas donde fue posible y se asignaron recursos adicionales a las tareas críticas para minimizar retrasos | N/A - Nuevo riesgo identificado | Resuelto |
 
 # 3. RELOJ DEL AVANCE DEL PROYECTO 
-![Reloj de avance del proyecto](../../.img/reloj_de_avance_proyecto_06-03-2025.png)
 
-Como podemos observar, en estas primeras semanas vamos por encima del tiempo estimado propuesto de 170 horas semanales debido a que en la segunda semana se hizo un extra esfuerzo debido a que hubo un cambio de idea y hubo que realizar el trabajo de dos semanas en una única.
+El gráfico muestra el progreso actual del proyecto en relación con la planificación inicial. Destacamos:
+
+- **Horas estimadas:** 170 horas semanales
+- **Horas realizadas:** Superior a lo estimado
+- **Causa principal:** Cambio significativo en el alcance durante la segunda semana que requirió concentrar el trabajo planificado para dos semanas en una sola
+- **Impacto:** A pesar del esfuerzo adicional, se han alcanzado los objetivos planificados
+- **Medidas futuras:** Se realizará un ajuste en la planificación para evitar situaciones similares en próximos sprints
+
+![Reloj de avance del proyecto](../../.img/rejo_proyecto_06_03.png)
 
 ---
 
 **Aprobado por:**  
-**Scrum Master:** Antonio Macías Ferrera
+**Responsable de equipo de QA:** Miguel Encina Martínez
+**Scrum Master:** Antonio Macías Ferrera  
+**Fecha de aprobación:** 06/03/2025
