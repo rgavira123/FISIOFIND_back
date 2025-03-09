@@ -40,7 +40,7 @@ classoption: "table"
   - [**4.2. HU, tareas y actividades**](#42-hu-tareas-y-actividades)
   - [**4.3.  Control del tiempo**](#43--control-del-tiempo)
   - [**4.4. Versionado de Código Fuente en Git y GitHub**](#44-versionado-de-código-fuente-en-git-y-github)
-  - [**4.5. Solicitudes de cambio (Registro de cambios)**](#45-solicitudes-de-cambio-registro-de-cambios)
+  - [**4.5. Solicitudes de cambio (Issues y Pull Requests)**](#45-solicitudes-de-cambio-issues-y-pull-requests)
 - [**5. ESTRATEGIA DE RAMAS**](#5-estrategia-de-ramas)
 - [**6. ESTÁNDARES DE CODIFICACIÓN**](#6-estándares-de-codificación)
   - [**6.1. Python (Backend)**](#61-python-backend)
@@ -56,7 +56,7 @@ classoption: "table"
 - [**7. ORGANIZACIÓN DE LA DOCUMENTACIÓN**](#7-organización-de-la-documentación)
   - [**7.1. OneDrive**](#71-onedrive)
   - [**7.2. Repositorio de GitHub**](#72-repositorio-de-github)
-    - [**7.3. Documentación como código**](#73-documentación-como-código)
+  - [**7.3. Documentación como código**](#73-documentación-como-código)
 - [**8. CONCLUSIÓN**](#8-conclusión)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
@@ -78,7 +78,7 @@ classoption: "table"
 
 - **Fecha de Creación:** 04/02/2025  
 
-- **Versión:** v2.2
+- **Versión:** v2.3
 
 <br>
 
@@ -87,12 +87,14 @@ classoption: "table"
 
 **Histórico de Modificaciones**
 
-| Fecha      | Versión | Realizada por                    | Descripción de los cambios |
-|------------|---------|----------------------------------|----------------------------|
-| 04/02/2025 | v1.0    | Antonio Macías Ferrera           | Elaboración de la plantilla del documento. |
-| 05/02/2025 | v2.0    | Benjamín Ignacio Maureira Flores | Completado según la metodología a seguir en el proyecto. |
-| 13/02/2025 | v2.1    | Antonio Macías Ferrera | Adecuación al nuevo proyecto Fisio Find. |
-| 15/02/2025 | v2.2    | Antonio Macías Ferrera | Adecuación al feedback de la clase del 14/02/2025. Sustitución de Taiga.io por GitHub Project, estructuración de la documentación y adición de apartado *Gestión del Cambio* y *Gestión de los Riesgos*. |
+| Fecha        | Versión  | Realizada por                    | Descripción de los cambios                                        |
+| ------------ | -------- | -------------------------------- | ----------------------------------------------------------------- |
+| 04/02/2025   | v1.0     | Antonio Macías Ferrera           | Elaboración de la plantilla del documento.                        |
+| 05/02/2025   | v2.0     | Benjamín Ignacio Maureira Flores | Completado según la metodología a seguir en el proyecto.          |
+| 13/02/2025   | v2.1     | Antonio Macías Ferrera           | Adecuación al nuevo proyecto Fisio Find.                          |
+| 15/02/2025   | v2.2     | Antonio Macías Ferrera           | Adecuación al feedback de la clase del 14/02/2025. Sustitución de Taiga.io por GitHub Project, estructuración de la documentación y adición de apartado *Gestión del Cambio* y *Gestión de los Riesgos*. |
+| 25/02/2025   | v2.3     | Antonio Macías Ferrera           | Añadida la plantilla de incidencias y pull requests.              |
+
 
 <br>
 
@@ -131,13 +133,15 @@ Los elementos configurables del proyecto incluyen aquellos artefactos y entregab
 
 # **3. HERRAMIENTAS A UTILIZAR**
 
-| Tecnología | Elementos Configurables | Descripción |
-|------------|--------------------------|-------------|
-| Pandoc y Eisvogel   | Documentación, Registros  | Plataforma para la edición de documentos en Markdown. |
-| Clockify   | Tareas                    | Seguimiento del tiempo de trabajo por actividad. |
-| GitHub Project   | Hitos, requisitos, HU     | Herramienta ágil para gestión de proyectos. |
-| Git        | Código fuente             | Control de versiones del código fuente. |
-| GitHub     | Código fuente, Hitos, HU  | Gestión del desarrollo colaborativo. |
+| Tecnología        | Elementos Configurables  | Descripción                                           |
+| ----------------- | ------------------------ | ----------------------------------------------------- |
+| Pandoc y Eisvogel | Documentación, Registros | Plataforma para la edición de documentos en Markdown. |
+| Clockify          | Tareas                   | Seguimiento del tiempo de trabajo por actividad.      |
+| GitHub Project    | Hitos, requisitos, HU    | Herramienta ágil para gestión de proyectos.           |
+| Git               | Código fuente            | Control de versiones del código fuente.               |
+| GitHub            | Código fuente, Hitos, HU | Gestión del desarrollo colaborativo.                  |
+| Draw.io, ChartDB  | Requisitos, HU           | Elaboración de diagramas de clases / UML.             |
+
 
 <br>
 
@@ -176,21 +180,21 @@ A la hora de crear nuevas tareas en *GitHub Project* en base a las HU, se deber�
 La nomenclatura a seguir para los distintos requisitos, CU e HU será un esquema de numeración para cada tipo de registro: 
 
 
-| **Categoría**                                            | **Código**    |
-|----------------------------------------------------------|---------------|
-| Objetivos de alto nivel                                  | OBJ-XXX       |
-| Requisitos del proyecto                                  | PRO-XXX       |
-| Requisitos de información                                | RI-XXX        |
-| Requisitos de reglas de negocio                          | RN-XXX        |
-| Requisitos de conducta                                   | CON-XXX       |
-| Requisitos de fiabilidad                                 | FIB-XXX       |
-| Requisitos de portabilidad                               | POR-XXX       |
-| Requisitos de seguridad                                  | SEG-XXX       |
-| Requisitos de organización (incluye entrega, uso de estándares y tecnología) | ORG-XXX |
-| Requisitos de factores ambientales (incluye requisitos legislativos y de privacidad) | FA-XXX |
-| Cambios                                                  | CAM-XXX       |
-| Historias de usuario                                     | HU-XXX        |
-| Casos de Uso                                             | CU-XXX        |
+| **Categoría**                                                                        | **Código** |
+| ------------------------------------------------------------------------------------ | ---------- |
+| Objetivos de alto nivel                                                              | OBJ-XXX    |
+| Requisitos del proyecto                                                              | PRO-XXX    |
+| Requisitos de información                                                            | RI-XXX     |
+| Requisitos de reglas de negocio                                                      | RN-XXX     |
+| Requisitos de conducta                                                               | CON-XXX    |
+| Requisitos de fiabilidad                                                             | FIB-XXX    |
+| Requisitos de portabilidad                                                           | POR-XXX    |
+| Requisitos de seguridad                                                              | SEG-XXX    |
+| Requisitos de organización (incluye entrega, uso de estándares y tecnología)         | ORG-XXX    |
+| Requisitos de factores ambientales (incluye requisitos legislativos y de privacidad) | FA-XXX     |
+| Cambios                                                                              | CAM-XXX    |
+| Historias de usuario                                                                 | HU-XXX     |
+| Casos de Uso                                                                         | CU-XXX     |
 
 
 
@@ -200,8 +204,7 @@ La nomenclatura a seguir para los distintos requisitos, CU e HU será un esquema
 Las tareas se numeran en orden cronológico y deben incluir un identificador único en el formato `#XX`.
 
 Se excluyen de esta nomenclatura las tareas de las fases de Inicio y Planificación. Todas
-las tareas deberán estar asignadas a UNA SOLA persona y a un proyecto de Clockify previamente
-creado. Esto ayudará a evaluar mejor el desempeño y el tiempo empleado en las tareas.
+las tareas deberán estar asignadas a un proyecto de Clockify previamente creado. Esto ayudará a evaluar mejor el desempeño y el tiempo empleado en las tareas.Los proyectos son: `Clases / Vídeos, docs, feat, fix / refactor / style, Planificación, Presentaciones / Diseños, Redes sociales, Reuniones, test`.
 
 Ejemplo de versionado: `Realización de ventana de inicio de sesión #53`.
 
@@ -270,13 +273,47 @@ BREAKING CHANGE: The login API now requires a JWT token instead of a cookie-base
 ```
 
 
-## **4.5. Solicitudes de cambio (Registro de cambios)**
+## **4.5. Solicitudes de cambio (Issues y Pull Requests)**
 Los registros se mantienen como archivos en formato *Markdown*. Cada cambio, HU o caso de uso tiene un identificador único (ejemplo: HU-001, CU-003). Cambios aprobados se reflejan en el historial de cambios del documento correspondiente actualizando su versión acorde a lo mencionado anteriormente.
 
-Para las solicitudes de cambio formales, se deberá seguir la plantilla ubicada en el ***Plan De Gestión Del Cambio***.
+Para las solicitudes de cambio formales, se deberá seguir la **plantilla de Issues**.
 
-Dentro del sistema de control de versiones de *GitHub*, los cambios que se gestionen mediante *Issues* deberá seguir la plantilla especificada, siendo el cuerpo de estas **siempre en ESPAÑOL**:
+Dentro del sistema de control de versiones de *GitHub*, los cambios que se gestionen mediante *Issues y Pull Requests* deberá seguir la plantilla especificada, siendo el cuerpo de estas **siempre en ESPAÑOL**:
 
+```
+**Descripción del cambio:**
+Realizar X funcionalidad añadiendo X datos referente al requisito RNN-0NM...
+- Cambio 1
+- Cambio 2
+- ...
+
+**Motivación e impacto:**
+- Se ha mejorado ...
+- Se ha completado ...
+- ...
+
+**Instrucciones**
+- Se deben hacer tests unitarios
+- Se debe comprobar que el cambio funciona correctamente
+- ...
+```
+
+
+***Ejemplo de Pull Request***
+```
+**Descripción del cambio:**
+- Se han exportado a pdf los documentos
+- Se ha completado el documento de 3-sprint-planning general
+- Se ha completado el plan de RRHH
+
+**Motivación e impacto:**
+- Se ha mejorado y unificado la calidad, formato y organización de todos los documentos
+- Se ha completado la planificación del proyecto
+
+**Instrucciones**
+- COMPROBAR QUE LOS DOCUMENTOS SE HAN PASADO CORRECTAMENTE A PDF
+- ¡OJO! NO SE HAN PODIDO PASAR A PDF LOS SIGUIENTES DOCUMENTOS, POR FAVOR, PASARLOS Y HACER COMMIT: **cost_breakdown, human_resource_plan, general_sprint_plannig**
+```
 
 <br>
 
@@ -601,7 +638,7 @@ En la carpeta `docs` del repositorio del proyecto se almacenará toda la documen
   └── eisvogel.latex
 ```
 
-### **7.3. Documentación como código**
+## **7.3. Documentación como código**
 
 Siguiendo la filosofía ***Docs as Code*** se ha creado un repositorio de documentación externo al repositorio principal en el que, haciendo uso de la herramienta Docusaurus, se ha montado una página estática que recoge toda la documentación del proyecto.
 
@@ -654,11 +691,9 @@ La estructura del repositorio es la siguiente
     (Resto del código )
 ```
 
-Se puede observar que, con respecto al repositorio principal, en la página se mantiene la misma documentación y una estructura similiar, adaptada para un mayor entendimiento por parte del usuario.
-Así mismo, todos los cambios en los documentos son revisados de forma diaria para mantener la página actualizada constantemente.
+Se puede observar que, con respecto al repositorio principal, en la página se mantiene la misma documentación y una estructura similiar, adaptada para un mayor entendimiento por parte del usuario. Así mismo, todos los cambios en los documentos son revisados de forma diaria para mantener la página actualizada constantemente.
 
-
-Toda la documentación deberá seguir en todo momento la **política de versionado y control** especificada en el punto 4 de este documento, y además deberá atenerse al ***Plan de Gestión del Cambio***.
+Toda la documentación deberá seguir en todo momento la **política de versionado y control** especificada en el punto 4 de este documento.
 
 
 # **8. CONCLUSIÓN**
