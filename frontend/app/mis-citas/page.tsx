@@ -41,7 +41,7 @@ export default function Home() {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/appointment?physiotherapist=2")
+    axios.get("http://localhost:8000/api/appointment?physiotherapist=1")
       .then(response => {
         const transformedEvents = response.data.map((event: any) => ({
           id: event.id,
@@ -50,6 +50,11 @@ export default function Home() {
           end: event.end_time,      // Cambio de end_time a end
           description: event.description,
           allDay: event.allDay || false,
+          status: event.status,
+          service: {
+            type: event.service.type,
+            duration: event.service.duration,
+          }
         }));
         setEvents(transformedEvents);
       })

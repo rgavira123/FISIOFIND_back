@@ -4,6 +4,12 @@ export type CalendarProps = {
   end?: string;
   allDay?: boolean;
   description?: string;
+  status?: string;
+  id?: string;
+  service?: {
+    type: string;
+    duration: number;
+  };
 };
 
 export interface Step {

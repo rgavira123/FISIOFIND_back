@@ -6,6 +6,7 @@ class StatusChoices(models.TextChoices):
     CONFIRMED = "confirmed", "Confirmed"
     CANCELED = "canceled", "Canceled"
     BOOKED = "booked", "Booked"
+    PENDING = "pending", "Pending"
 
 class Appointment(models.Model):
     id = models.AutoField(primary_key=True) 
@@ -33,6 +34,7 @@ class Appointment(models.Model):
         default=StatusChoices.BOOKED,
         verbose_name="status"
     )
+    alternatives = models.JSONField(verbose_name="alternatives", null=True, blank=True)
 
     class Meta:
         verbose_name = "Appointment"
