@@ -9,13 +9,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import DynamicFormModal from "./dinamic-form-modal";
 
-const Calendar = ({  events, hoveredEventId }: { events: any; hoveredEventId: string | null }) => {
+const Calendar = ({ events, hoveredEventId }: { events: any; hoveredEventId: string | null }) => {
   const [selectedEvent, setSelectedEvent] = useState<CalendarProps | null>(
     null
   );
   // const [events, setEvents] = useState();
   const [editionMode, setEditionMode] = useState(false);
-  
+
 
   // useEffect(() => {
   //   axios.get("http://localhost:8000/api/appointment?physiotherapist=2")
@@ -36,11 +36,48 @@ const Calendar = ({  events, hoveredEventId }: { events: any; hoveredEventId: st
   // }, []);
 
   // Función para recibir las alternativas del modal
-  const handleAlternativesSubmit = (alternatives: string[]) => {
+  const handleAlternativesSubmit = (alternatives: Record<string, { start: string; end: string }[]>) => {
     console.log("Fechas alternativas enviadas:", alternatives);
     // Aquí podrías hacer una petición al backend para actualizar la cita,
     // por ejemplo, usando axios.post con el array de alternativas
+    axios.patch(`http://localhost:8000/api/appointment/${selectedEvent?.id}/`, {
+      "title": selectedEvent?.title,
+      "description": selectedEvent?.description,
+      "start_time": selectedEvent?.start,
+      "end_time": selectedEvent?.end,
+      // "is_online": false,
+      // "service": {
+      //   "type": "Fisioterapia",
+      //   "duration": 30
+      // },
+      "status": "pending",
+      "alternatives": alternatives
+    })
+      .then((response) => {
+        // Si la respuesta fue exitosa
+        alert("La cita se actualizó correctamente.");
+        console.log("Cita actualizada correctamente", response);
+      })
+      .catch((error) => {
+        // Si hubo un error en la solicitud
+        console.error("Error en la actualización de la cita:", error);
+        alert("Hubo un problema con la conexión. Intenta nuevamente.");
+      })
   };
+
+  const deleteEvent = () => {
+    axios.delete(`http://localhost:8000/api/appointment/${selectedEvent?.id}/`)
+      .then((response) => {
+        // Si la respuesta fue exitosa
+        alert("La cita se eliminó correctamente.");
+        console.log("Cita eliminada correctamente", response);
+      })
+      .catch((error) => {
+        // Si hubo un error en la solicitud
+        console.error("Error en la eliminación de la cita:", error);
+        alert("Hubo un problema con la conexión. Intenta nuevamente.");
+      })
+  }
 
   return (
     <div className="justify-items-center w-2/3 pt-16 hidden lg:block">
@@ -75,11 +112,17 @@ const Calendar = ({  events, hoveredEventId }: { events: any; hoveredEventId: st
         }}
         eventClick={(info) => {
           setSelectedEvent({
+            id: info.event.id?.toString() || "",
             title: info.event.title?.toString() || "Sin título",
             start: info.event.start?.toISOString() || "",
             end: info.event.end?.toISOString() || "",
             description:
               info.event.extendedProps.description || "Sin descripción",
+            status: info.event.extendedProps.status || "Sin estado",
+            service: {
+              type: info.event.extendedProps.service.type || "Sin servicio",
+              duration: info.event.extendedProps.service.duration || 0,
+            },
           });
         }}
       />
@@ -105,18 +148,29 @@ const Calendar = ({  events, hoveredEventId }: { events: any; hoveredEventId: st
             >
               Cerrar
             </button>
-            <button
-              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-              onClick={() => setEditionMode(true)}
-            >
-              Modificar
-            </button>
+            {selectedEvent.status == "booked" &&
+              <div>
+                <button
+                  className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                  onClick={() => setEditionMode(true)}
+                >
+                  Modificar
+                </button>
+                <button
+                  className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                  onClick={() => deleteEvent()}
+                >
+                  Cancelar
+                </button>
+              </div>
+            }
           </div>
         </div>
       )}
       {/* MODAL */}
       {editionMode && (
         <DynamicFormModal
+          event={selectedEvent}
           onClose={() => setEditionMode(false)}
           onSubmit={handleAlternativesSubmit}
         />

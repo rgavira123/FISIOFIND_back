@@ -16,9 +16,10 @@ class AppointmentSerializer(serializers.Serializer):
         choices = StatusChoices.choices,
         default='booked'
     )
+    alternatives = serializers.JSONField()
     class Meta:
         model = Appointment
-        fields = ['id', 'title', 'description', 'start_time', 'end_time', 'is_online', 'service', 'patient', 'physiotherapist', 'status']
+        fields = ['id', 'title', 'description', 'start_time', 'end_time', 'is_online', 'service', 'patient', 'physiotherapist', 'status', 'alternatives']
         
     def validate(self, data):
         """
@@ -68,5 +69,6 @@ class AppointmentSerializer(serializers.Serializer):
         instance.patient_id = validated_data.get('patient_id', instance.patient_id)
         instance.physiotherapist_id = validated_data.get('physiotherapist_id', instance.physiotherapist_id)
         instance.status = validated_data.get('status', instance.status)
+        instance.alternatives = validated_data.get('alternatives', instance.alternatives)
         instance.save()
         return instance
