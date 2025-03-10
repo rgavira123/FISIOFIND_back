@@ -8,8 +8,9 @@ import "@/app/mis-citas/mis-citas.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import DynamicFormModal from "./dinamic-form-modal";
+import AlternativeSelector from "./alternative-selector";
 
-const Calendar = ({ events, hoveredEventId }: { events: any; hoveredEventId: string | null }) => {
+const Calendar = ({ events, currentRole, hoveredEventId }: { events: any; currentRole: string; hoveredEventId: string | null }) => {
   const [selectedEvent, setSelectedEvent] = useState<CalendarProps | null>(
     null
   );
@@ -17,27 +18,11 @@ const Calendar = ({ events, hoveredEventId }: { events: any; hoveredEventId: str
   const [editionMode, setEditionMode] = useState(false);
 
 
-  // useEffect(() => {
-  //   axios.get("http://localhost:8000/api/appointment?physiotherapist=2")
-  //     .then(response => {
-  //       const transformedEvents = response.data.map((event: any) => ({
-  //         id: event.id,
-  //         title: event.title,
-  //         start: event.start_time,  // Cambio de start_time a start
-  //         end: event.end_time,      // Cambio de end_time a end
-  //         description: event.description,
-  //         allDay: event.allDay || false,
-  //       }));
-  //       setEvents(transformedEvents);
-  //     })
-  //     .catch(error => {
-  //       console.error("Error fetching data:", error);
-  //     });
-  // }, []);
-
   // Función para recibir las alternativas del modal
   const handleAlternativesSubmit = (alternatives: Record<string, { start: string; end: string }[]>) => {
     console.log("Fechas alternativas enviadas:", alternatives);
+    const token = localStorage.getItem("token"); // Obtén el JWT desde localStorage (o desde donde lo tengas almacenado)
+
     // Aquí podrías hacer una petición al backend para actualizar la cita,
     // por ejemplo, usando axios.post con el array de alternativas
     axios.patch(`http://localhost:8000/api/appointment/${selectedEvent?.id}/`, {
@@ -52,11 +37,18 @@ const Calendar = ({ events, hoveredEventId }: { events: any; hoveredEventId: str
       // },
       "status": "pending",
       "alternatives": alternatives
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Envía el JWT en la cabecera de la petición
+      },
     })
       .then((response) => {
         // Si la respuesta fue exitosa
         alert("La cita se actualizó correctamente.");
         console.log("Cita actualizada correctamente", response);
+        setEditionMode(false);
+        setSelectedEvent(null);
+        window.location.reload();
       })
       .catch((error) => {
         // Si hubo un error en la solicitud
@@ -71,6 +63,8 @@ const Calendar = ({ events, hoveredEventId }: { events: any; hoveredEventId: str
         // Si la respuesta fue exitosa
         alert("La cita se eliminó correctamente.");
         console.log("Cita eliminada correctamente", response);
+        setSelectedEvent(null);
+        window.location.reload();
       })
       .catch((error) => {
         // Si hubo un error en la solicitud
@@ -78,6 +72,41 @@ const Calendar = ({ events, hoveredEventId }: { events: any; hoveredEventId: str
         alert("Hubo un problema con la conexión. Intenta nuevamente.");
       })
   }
+
+  const handleSelection = (date: string, startTime: string) => {
+
+    const [startTimeSplit, endTimeSplit] = startTime.split(" - "); // Tomamos solo la hora de inicio
+    const startDateTime = new Date(`${date}T${startTimeSplit}:00Z`).toISOString(); // Generamos la fecha completa en formato UTC
+    const endDateTime = new Date(`${date}T${endTimeSplit}:00Z`).toISOString(); // Generamos la fecha completa en formato UTC
+    
+    console.log("Seleccion confirmada:", { startDateTime, endDateTime });
+    alert(`Seleccionaste: ${startDateTime} - ${endDateTime}`);
+
+    const token = localStorage.getItem("token"); // Obtén el JWT desde localStorage (o desde donde lo tengas almacenado)
+    
+    axios.patch(`http://localhost:8000/api/appointment/${selectedEvent?.id}/`, {
+      "start_time": startDateTime,
+      "end_time": endDateTime,
+      "status": "confirmed",
+      "alternatives": ""
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Envía el JWT en la cabecera de la petición
+      },
+    })
+      .then((response) => {
+        // Si la respuesta fue exitosa
+        alert("La cita se actualizó correctamente.");
+        console.log("Cita actualizada correctamente", response);
+        setSelectedEvent(null);
+        window.location.reload();
+      })
+      .catch((error) => {
+        // Si hubo un error en la solicitud
+        console.error("Error en la actualización de la cita:", error);
+        alert("Hubo un problema con la conexión. Intenta nuevamente.");
+      })
+  };
 
   return (
     <div className="justify-items-center w-2/3 pt-16 hidden lg:block">
@@ -123,6 +152,7 @@ const Calendar = ({ events, hoveredEventId }: { events: any; hoveredEventId: str
               type: info.event.extendedProps.service.type || "Sin servicio",
               duration: info.event.extendedProps.service.duration || 0,
             },
+            alternatives: info.event.extendedProps.alternatives || null,
           });
         }}
       />
@@ -148,14 +178,21 @@ const Calendar = ({ events, hoveredEventId }: { events: any; hoveredEventId: str
             >
               Cerrar
             </button>
+            {selectedEvent.alternatives && currentRole == "patient" && (
+              <div className="flex justify-center items-center">
+                <AlternativeSelector alternatives={selectedEvent.alternatives} onConfirmSelection={handleSelection}/>
+              </div>
+            )}
             {selectedEvent.status == "booked" &&
               <div>
-                <button
-                  className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-                  onClick={() => setEditionMode(true)}
-                >
-                  Modificar
-                </button>
+                {currentRole == "physiotherapist" && (
+                  <button
+                    className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                    onClick={() => setEditionMode(true)}
+                  >
+                    Modificar
+                  </button>
+                )}
                 <button
                   className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
                   onClick={() => deleteEvent()}

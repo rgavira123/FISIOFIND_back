@@ -31,6 +31,7 @@ export default function Home() {
   const [view, setView] = useState<"calendar" | "cards">("calendar"); // Estado para cambiar vista
   const [events, setEvents] = useState([]);
   const [hoveredEventId, setHoveredEventId] = useState<string | null>(null); // Estado para el hover de tarjetas
+  const [currentRole, setCurrentRole] = useState("");
 
   // Estado para el nuevo evento
   const [newEvent, setNewEvent] = useState({
@@ -43,31 +44,74 @@ export default function Home() {
   useEffect(() => {
     const token = localStorage.getItem("token"); // Obtén el JWT desde localStorage (o desde donde lo tengas almacenado)
 
-    axios.get("http://localhost:8000/api/app_appointment/appointment/patient/list", {
+    axios.get("http://localhost:8000/api/app_user/check-role/", {
       headers: {
-        Authorization: `Bearer ${token}`, // Envía el JWT en la cabecera de la petición
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
       .then(response => {
-        const transformedEvents = response.data.map((event: any) => ({
-          id: event.id,
-          title: event.service.type + "-" + event.patient || "Sin título",
-          start: event.start_time,  // Cambio de start_time a start
-          end: event.end_time,      // Cambio de end_time a end
-          description: event.description,
-          allDay: event.allDay || false,
-          status: event.status,
-          service: {
-            type: event.service.type,
-            duration: event.service.duration,
-          }
-        }));
-        setEvents(transformedEvents);
+        setCurrentRole(response.data.user_role);
       })
       .catch(error => {
         console.error("Error fetching data:", error);
       });
-  }, []);
+
+    if (currentRole == "physiotherapist") {
+      axios.get("http://localhost:8000/api/appointment/physio/list", {
+        headers: {
+          Authorization: `Bearer ${token}`, // Envía el JWT en la cabecera de la petición
+        },
+      })
+        .then(response => {
+          const transformedEvents = response.data.results.map((event: any) => ({
+            id: event.id,
+            title: event.service.type + "-" + event.patient || "Sin título",
+            start: event.start_time,  // Cambio de start_time a start
+            end: event.end_time,      // Cambio de end_time a end
+            description: event.description,
+            allDay: event.allDay || false,
+            status: event.status,
+            service: {
+              type: event.service.type,
+              duration: event.service.duration,
+            },
+            alternatives: event.alternatives,
+          }));
+          console.log("citas", response.data);
+          setEvents(transformedEvents);
+        })
+        .catch(error => {
+          console.error("Error fetching data:", error);
+        });
+    } else if (currentRole == "patient") {
+      axios.get("http://localhost:8000/api/appointment/patient/list", {
+        headers: {
+          Authorization: `Bearer ${token}`, // Envía el JWT en la cabecera de la petición
+        },
+      })
+        .then(response => {
+          const transformedEvents = response.data.map((event: any) => ({
+            id: event.id,
+            title: event.service.type + "-" + event.patient || "Sin título",
+            start: event.start_time,  // Cambio de start_time a start
+            end: event.end_time,      // Cambio de end_time a end
+            description: event.description,
+            allDay: event.allDay || false,
+            status: event.status,
+            service: {
+              type: event.service.type,
+              duration: event.service.duration,
+            },
+            alternatives: event.alternatives,
+          }));
+          console.log("citas", response.data);
+          setEvents(transformedEvents);
+        })
+        .catch(error => {
+          console.error("Error fetching data:", error);
+        });
+    }
+  }, [currentRole]);
 
   // Función para añadir eventos
   const addEvent = (e: React.FormEvent) => {
@@ -88,9 +132,9 @@ export default function Home() {
     setNewEvent({ title: "", start: "", end: "", allDay: false }); // Reset form
   };
 
-    const handleCardHover = (eventId: string | null) => {
-      setHoveredEventId(eventId);
-    };
+  const handleCardHover = (eventId: string | null) => {
+    setHoveredEventId(eventId);
+  };
 
   return (
     <>
@@ -101,7 +145,7 @@ export default function Home() {
         <div style={{ borderLeft: "1px solid #000", minHeight: "100vh" }}></div>
 
         {/* Vista del Calendario */}
-        <Calendar events={events} hoveredEventId={hoveredEventId} />
+        <Calendar events={events} currentRole={currentRole} hoveredEventId={hoveredEventId} />
       </div>
 
       {/* Botón para cambiar entre FullCalendar y vista en Cards */}

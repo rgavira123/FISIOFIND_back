@@ -10,6 +10,7 @@ export type CalendarProps = {
     type: string;
     duration: number;
   };
+  alternatives?: Record<string, { start: string; end: string }[]>;
 };
 
 export interface Step {
