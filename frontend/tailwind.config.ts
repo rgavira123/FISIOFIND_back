@@ -13,13 +13,6 @@ module.exports = {
   ],
   darkMode: "class",
   theme: {
-    extend: {},  
-
-	"./src/**/*.{ts,tsx}",
-	"./app/**/*.{ts,tsx}"
-  ],
-  darkMode: ["class"],
-  theme: {
   	extend: {
 		fontFamily: {
 			sans: ['var(--font-poppins)'],

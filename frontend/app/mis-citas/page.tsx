@@ -41,7 +41,7 @@ export default function Home() {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/appointment?physiotherapist=1")
+    axios.get("http://localhost:8000/api/app_appointment/appointment/physio/list")
       .then(response => {
         const transformedEvents = response.data.map((event: any) => ({
           id: event.id,
