@@ -13,19 +13,6 @@ from datetime import date  # Importar para obtener la fecha de hoy
 class AppUserSerializer(serializers.ModelSerializer):
     user_id = serializers.IntegerField(source='id', read_only=True)
 
-    password = serializers.CharField(write_only=True, required=True)
-    phone_number = serializers.CharField(required=True)
-    postal_code = serializers.CharField(required=True)
-    first_name = serializers.CharField(
-        required=True, 
-        error_messages={'required': 'El campo nombre es obligatorio.'}
-    )
-    last_name = serializers.CharField(
-        required=True, 
-        error_messages={'required': 'El campo apellido es obligatorio.'}
-    )
-    birth_date = serializers.DateField(required=True)
-
     class Meta:
         model = AppUser
         fields = [
