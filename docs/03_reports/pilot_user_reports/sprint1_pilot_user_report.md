@@ -34,33 +34,18 @@ classoption: "table"
 
 **ÍNDICE**
 - [1. INTRODUCCIÓN](#1-introducción)
-- [2. OBTENCIÓN DE USUARIOS PILOTO](#2-obtención-de-usuarios-piloto)
-  - [2.1. CRITERIOS DE SELECCIÓN](#21-criterios-de-selección)
-  - [2.2. ESTRATEGIAS DE CAPTACIÓN Y CANALES UTILIZADOS](#22-estrategias-de-captación-y-canales-utilizados)
-- [3. DETALLES DEL ACUERDO CON LOS USUARIOS PILOTO](#3-detalles-del-acuerdo-con-los-usuarios-piloto)
-  - [3.1. ALCANCE DEL ACUERDO](#31-alcance-del-acuerdo)
-  - [3.2. DERECHOS Y RESPONSABILIDADES DE LOS USUARIOS PILOTO](#32-derechos-y-responsabilidades-de-los-usuarios-piloto)
-    - [Derechos](#derechos)
-    - [Responsabilidades](#responsabilidades)
-  - [3.3. DURACIÓN Y CONDICIONES DE PARTICIPACIÓN](#33-duración-y-condiciones-de-participación)
-    - [Fechas de prueba](#fechas-de-prueba)
-    - [Estructura de las pruebas](#estructura-de-las-pruebas)
-- [4. LISTA DE USUARIOS PILOTO](#4-lista-de-usuarios-piloto)
+- [2. LISTA DE USUARIOS PILOTO](#2-lista-de-usuarios-piloto)
     - [FISIOTERAPEUTAS](#fisioterapeutas)
     - [PACIENTES](#pacientes)
     - [USUARIOS PILOTO TÉCNICOS](#usuarios-piloto-técnicos)
-- [5. GESTIÓN DE LAS COMUNICACIONES CON LOS USUARIOS PILOTO](#5-gestión-de-las-comunicaciones-con-los-usuarios-piloto)
-  - [5.1. CANALES DE COMUNICACIÓN](#51-canales-de-comunicación)
-  - [5.2. FRECUENCIA DE INTERACCIONES](#52-frecuencia-de-interacciones)
-  - [5.3. DOCUMENTACIÓN Y SOPORTE](#53-documentación-y-soporte)
-- [6. FEEDBACK OBTENIDO](#6-feedback-obtenido)
-- [6.1. PRINCIPALES OBSERVACIONES Y SUGERENCIAS](#61-principales-observaciones-y-sugerencias)
-- [6.2. PROBLEMAS DETECTADOS](#62-problemas-detectados)
-- [6.3. FUNCIONALIDADES VALORADAS POSITIVAMENTE](#63-funcionalidades-valoradas-positivamente)
-- [7. CONCLUSIONES, LECCIONES APRENDIDAS Y PROCESADO DEL FEEDBACK](#7-conclusiones-lecciones-aprendidas-y-procesado-del-feedback)
-  - [7.1. AJUSTES REALIZADOS EN BASE AL FEEDBACK](#71-ajustes-realizados-en-base-al-feedback)
-  - [7.2. ESTRATEGIAS DE MEJORA FUTURA](#72-estrategias-de-mejora-futura)
-  - [7.3. EVALUACIÓN DE LA EXPERIENCIA PILOTO](#73-evaluación-de-la-experiencia-piloto)
+- [3. FEEDBACK OBTENIDO](#3-feedback-obtenido)
+  - [3.1. PRINCIPALES OBSERVACIONES Y SUGERENCIAS](#31-principales-observaciones-y-sugerencias)
+- [3.2. PROBLEMAS DETECTADOS](#32-problemas-detectados)
+- [3.3. FUNCIONALIDADES VALORADAS POSITIVAMENTE](#33-funcionalidades-valoradas-positivamente)
+- [4. CONCLUSIONES, LECCIONES APRENDIDAS Y PROCESADO DEL FEEDBACK](#4-conclusiones-lecciones-aprendidas-y-procesado-del-feedback)
+  - [4.1. AJUSTES REALIZADOS EN BASE AL FEEDBACK](#41-ajustes-realizados-en-base-al-feedback)
+  - [4.2. ESTRATEGIAS DE MEJORA FUTURA](#42-estrategias-de-mejora-futura)
+- [5. EVALUACIÓN DE LA EXPERIENCIA PILOTO](#5-evaluación-de-la-experiencia-piloto)
 
 <br>
 
@@ -103,115 +88,9 @@ classoption: "table"
 
 # 1. INTRODUCCIÓN
 
-En este documento se detallan el proceso de comunicación con los usuarios piloto, sus perfiles personales y profesionales, así como las conclusiones y acciones tomadas tras el feedback recibido en las pruebas del **SPRINT 1** del proyecto **FISIO FIND**. Este informe tiene como objetivo analizar la eficacia de la captación de usuarios, su participación en la evaluación de la plataforma y las mejoras derivadas de su retroalimentación en esta primera iteración del desarrollo de la plataforma, que comprende desde el 21/02/2025 hasta 13/02/2025.
+En este documento se recogerá el feedback recogido en la fase piloto de FISIO FIND. Se analizarán las opiniones y comentarios recibidos, identificando problemas detectados, funcionalidades mejor valoradas y áreas de mejora. También se evaluarán a los usuarios piloto técnicos (estudiantes de la asignatura ISPP).
 
-> [!NOTE]
-El equipo de Fisio Find decidió no programar ninguna prueba para el SPRITN 1 y comenzar a desarrollar con las primeras opiniones expresadas por los más de 30 fisioterapeutas que fueron consultados para la definición inicial de la plataforma. En su defecto, la primera prueba para todos los usuarios piloto tendrá lugar en los días comprendidos entre el 21/03/2025 y el 24/03/2025, donde ya habrá una primera versión de la plataforma con todos los casos de uso principales definidos como parte del producto mínimo viable.
-
-# 2. OBTENCIÓN DE USUARIOS PILOTO
-
-Para garantizar la validez de las pruebas piloto, fue fundamental establecer criterios claros para la selección de usuarios, definir estrategias efectivas de captación y utilizar los canales de comunicación más adecuados. A continuación, se detallan estos aspectos clave en el proceso de reclutamiento.
-
-## 2.1. CRITERIOS DE SELECCIÓN
-
-Tal y como se detalló en el documento [Acuerdo de usuarios piloto](../../01_organization/pilot_user_agreement.md), se disinguen dos categorías principales de usuarios piloto:
-
-- **Usuario piloto externo**:  persona ajena al entorno académico del proyecto, cuya función es dar impresiones y sugerencias sobre la usabilidad y funcionalidad de la aplicación sin entrar en detalles técnicos. Dentro de esta categoría se distinguen dos roles principales:
-  - **Fisioterapeutas**: Son los usuarios clave en el proceso de validación, ya que la plataforma debe adaptarse a sus necesidades y flujos de trabajo. Su retroalimentación será fundamental para definir y ajustar las herramientas especializadas, la gestión de consultas y la experiencia de uso profesional.
-  - **Pacientes**: Su participación se centrará en evaluar la usabilidad y la experiencia de usuario de la plataforma. Sus opiniones ayudarán a mejorar la navegación, la accesibilidad y la claridad en la interacción con los fisioterapeutas, asegurando que el servicio sea intuitivo y fácil de usar.
-
-- **Usuario piloto técnico**: estudiante de la asignatura ISPP que proporciona *feedback* detallado, reporta incidencias y ayuda a detectar errores en la aplicación, centrándose en su funcionamiento más que en la experiencia de usuario.
-
-El tipo de usuario piloto que más difícil ha sido de encontrar, y de conseguir su compromiso para todo el periodo de pruebas, han sido los fisioterapeutas. Desconocemos el alcance real que alcanzó el formulario de inscripción para este tipo de usuarios, pero podemos estimar que 1 de cada 4 fisioterapeutas que tuvieron acceso al mismo se inscribieron. Finalmente, obtuvimos una lista definitiva de **16 usuarios piloto fisioterapeutas**, con los siguientes perfiles profesionales:
-
-- **Lugar / forma de trabajo**:
-  ![Trabajo fisioterapeutas](.img/lugar_trabajo_fisios.png)
-- **Especialidades**:
-  ![Especialidades fisioterapeutas](.img/especialidades_fisioterapeutas.png)
-- **Años de experiencia**:
-  ![Años de experiencia fisioterapeutas](.img/experiencia_fisioterapeutas.png)
-
-En el caso de los usuarios piloto que actuarán en el rol de paciente, el proceso de captación fue mucho más sencillo. La gran mayoría de las personas inscritas son familiares cercanos, vecinos o amigos de miembros del equipo de FISIO FIND. Se ha procurado cubrir todas las franjas de edad posibles, para obtener un *feedback* que nos permita adaptar la plataforma al nivel de conocimientos y habilidades tecnológicas de cualquier persona. Todas las personas a las que se solicitó inscribirse así lo hicieron, dejando una lista definitiva con **18 usuarios piloto pacientes**, con las siguientes características destacables:
-
-- **Edad**:
-  ![Edad pacientes](.img/edad_pacientes.png)
-- **Frecuencia de consulta con un fisioterapeuta**:
-  ![Frecuencia consulta](.img/frecuencia_consulta.png)
-- **Motivos más frecuentes de consulta**:
-  ![Motivos consulta](.img/motivos_consulta.png)
-- **Qué aspectos priorizan a la hora de escoger fisioterapeuta**:
-  ![Prioridades pacientes](.img/prioridades_pacientes.png)
-
-Por último, indicar que para los usuarios piloto técnicos tenemos a **6 alumnos de la asignatura ISPP** inscritos para las pruebas.
-
-## 2.2. ESTRATEGIAS DE CAPTACIÓN Y CANALES UTILIZADOS
- 
-La estrategia empleada para captar usuarios piloto ha sido el **envío de un formulario de inscripción**, diferente para fisioterapeutas y pacientes, mediante **WhatsApp**. 
-
-Estos dos formularios se hicieron empleando la herramienta ***Google Forms***. En ambos casos, el formulario indicaba de forma explícita qué implica ser usuario piloto de una plataforma, en qué fechas deben estar disponibles (con cierta flexibilidad), a qué se comprometen aceptando los términos de participación y nuestro compromiso como equipo a no compartir los datos recogidos durante el periodo de pruebas con terceros. En el caso de los fisioterapeutas, se les explicó que su participación sería recompensada con una suscripción gratuita permanente a la plataforma, como agradecimiento por su colaboración. 
-
-En el caso de los **fisioterapeutas**, se envió un **primer correo** con un formulario adjunto de inscripción desde la dirección de *email corporativa* **info@fisiodind.com** a las 12 personas que mostraron un interés inicial en participar como usuarios piloto de la plataforma en el primer sonseo de viabilidad del proyecto. Este formulario, a parte de lo expuesto en el párrafo anterior, pretendía recoger también información sobre sus perfiles profesionales.
-De los 12 fisioterapeutas que recibieron el correo, solo 5 se inscribieron a través del formulario adjunto. Ante la falta de usuarios piloto, pedimos a nuestros conocidos fisioterapeutas que **compartieran el formulario por WhatsApp con sus compañeros de profesión**. El formulario llegó hasta el "Grupo de Fisioterapeutas de Extremadura", desde donde hemos recibido más participación y nos ha permitido alcanzar la cifra de 16 usuarios piloto fisioterapeutas.
-
-Para la captación de pacientes, se siguió una estrategia similar. Todos nuestros **conocidos** que, de manera informal habían mostrado interés en participar en las pruebas, recibieron un **mensaje de WhatsApp con el formulario** de inscripción. Además de los términos de participación ya expuestos, se hicieron algunas preguntas para elaborar un perfil demográfico de los pacientes inscritos y sobre su relación y experiencia con la fisioterapia como pacientes.
-
-Todos los usuarios piloto inscritos, incluidos los técnicos, recibieron un **correo de confirmación de participación** desde nuestra cuenta de email oficial info@fisiofind.com.
-
-# 3. DETALLES DEL ACUERDO CON LOS USUARIOS PILOTO
-
-Para establecer una relación clara y beneficiosa con los usuarios piloto, se definieron los términos del acuerdo, incluyendo el alcance de la colaboración, derechos y responsabilidades, así como la duración y condiciones de participación.  
-
-## 3.1. ALCANCE DEL ACUERDO  
-
-El [Acuerdo de usuarios piloto](../../01_organization/pilot_user_agreement.md) estableció los límites de su participación en el proyecto, asegurando una colaboración estructurada que permitiera obtener *feedback* constuctivo y completo sin generar compromisos excesivos para los participantes.  
-
-En este sentido, los usuarios piloto se comprometieron a probar la plataforma en distintas fases de su desarrollo y proporcionar retroalimentación detallada para mejorar su funcionamiento y usabilidad. La participación en las pruebas es de carácter voluntario y no vinculante, pero esencial para la evolución del producto.  
-
-El alcance de su colaboración se limitará a la evaluación de funcionalidades, experiencia de usuario y detección de posibles errores, (o incoherencias y sugerencias de mejora en el caso de los fisioterapeutas), sin requerir conocimientos técnicos avanzados.  
-
-## 3.2. DERECHOS Y RESPONSABILIDADES DE LOS USUARIOS PILOTO
-
-Los usuarios piloto contaban con derechos y responsabilidades específicos que garantizaban una participación efectiva en el proceso de validación de Fisio Find:  
-
-### Derechos 
-- Acceder a la plataforma en fase de pruebas antes de su lanzamiento.  
-- Proporcionar sugerencias y reportar incidencias en la usabilidad y funcionalidad.  
-- Obtener una suscripción gratuita de por vida como reconocimiento a su apoyo (solo fisioterapeutas). 
-- Ser informados sobre cualquier cambio relevante en el proceso de prueba.  
-- Retirarse del programa de usuarios piloto en cualquier momento, si así lo desean.
-
-### Responsabilidades 
-- Probar la aplicación siguiendo las instrucciones proporcionadas.  
-- Ofrecer feedback sincero y detallado en los formularios de evaluación.  
-- No compartir información confidencial sobre la plataforma con terceros.  
-- Entender que están interactuando con una versión en desarrollo, por lo que podrían encontrarse errores o limitaciones.  
-
-## 3.3. DURACIÓN Y CONDICIONES DE PARTICIPACIÓN
-
-El programa de usuarios piloto se ha estructurado en tres fases de prueba, con fechas establecidas y condiciones específicas para asegurar una evaluación progresiva de la plataforma.  
-
-### Fechas de prueba 
-Los usuarios piloto podrán acceder a la plataforma y brindar su *feedback* en diferentes iteraciones:  
-
-- **22 de marzo de 2025**  
-- **12 de abril de 2025**  
-- **3 de mayo de 2025**  
-
->[!NOTE]
-Las fechas son estimadas y flexibles, por lo que no era imprescindible estar disponible exactamente en esos días.
-
-### Estructura de las pruebas
-Cada sesión de prueba inclurá los siguientes pasos:  
-
-- Acceso a la plataforma a través de un enlace con instrucciones detalladas.  
-- Realización de una serie de interacciones dentro de la app.  
-- Completar un breve formulario sobre la experiencia de uso, sugerencias de mejora y errores observados.
-
-Se estima que el tiempo de cada prueba estará en torno a los 15-20 minutos. 
-
-*ANTONIO: Especificar como será para los técnicos*
-
-# 4. LISTA DE USUARIOS PILOTO
+# 2. LISTA DE USUARIOS PILOTO
 
 Se presenta un listado de los usuarios piloto que participarán en las pruebas de FISIO FIND, detallando sus perfiles y *la relevancia de su participación en la evaluación de la plataforma*:
 
@@ -273,50 +152,46 @@ Se presenta un listado de los usuarios piloto que participarán en las pruebas d
 <br>
 
 
-# 5. GESTIÓN DE LAS COMUNICACIONES CON LOS USUARIOS PILOTO
 
-*Una comunicación efectiva con los usuarios piloto fue esencial para recoger su feedback y garantizar su participación activa. En este apartado se describen los canales utilizados, la frecuencia de interacciones y el soporte proporcionado:*
-
-## 5.1. CANALES DE COMUNICACIÓN
-
-*Se establecieron distintos canales de comunicación para mantener el contacto con los usuarios piloto, asegurando una interacción fluida y efectiva durante el proceso de prueba*
-
-## 5.2. FRECUENCIA DE INTERACCIONES
-
-*Se definió una periodicidad específica para las interacciones con los usuarios piloto, permitiendo obtener feedback continuo sin resultar invasivo*
-
-## 5.3. DOCUMENTACIÓN Y SOPORTE
-
-*Se proporcionó documentación clara y soporte técnico para facilitar el uso de la plataforma y resolver dudas o problemas encontrados por los usuarios piloto*
-
-# 6. FEEDBACK OBTENIDO
+# 3. FEEDBACK OBTENIDO
 
 *El feedback de los usuarios piloto fue clave para evaluar la plataforma y determinar las mejoras necesarias. En este apartado se presentan las principales observaciones, problemas detectados y funcionalidades mejor valoradas.*
 
-# 6.1. PRINCIPALES OBSERVACIONES Y SUGERENCIAS
+## 3.1. PRINCIPALES OBSERVACIONES Y SUGERENCIAS
 
 *Se recogen los comentarios y sugerencias más relevantes de los usuarios piloto, destacando aspectos positivos y áreas de mejora.*
 
-# 6.2. PROBLEMAS DETECTADOS
+# 3.2. PROBLEMAS DETECTADOS
 
 *Se identifican los principales problemas encontrados por los usuarios piloto durante la prueba de la plataforma, junto con su impacto y posibles soluciones.*
 
-# 6.3. FUNCIONALIDADES VALORADAS POSITIVAMENTE
+# 3.3. FUNCIONALIDADES VALORADAS POSITIVAMENTE
 
 *Se detallan las características y funcionalidades de FISIO FIND que recibieron comentarios positivos por parte de los usuarios piloto, identificando fortalezas clave del producto.*
 
-# 7. CONCLUSIONES, LECCIONES APRENDIDAS Y PROCESADO DEL FEEDBACK
+# 4. CONCLUSIONES, LECCIONES APRENDIDAS Y PROCESADO DEL FEEDBACK
 
 *En este apartado se presentan las conclusiones generales del informe, las lecciones aprendidas y las acciones tomadas en base al feedback de los usuarios piloto.*
 
-## 7.1. AJUSTES REALIZADOS EN BASE AL FEEDBACK
+## 4.1. AJUSTES REALIZADOS EN BASE AL FEEDBACK
 
-*Se describen los cambios y mejoras implementadas en la plataforma tras analizar las opiniones y sugerencias de los usuarios piloto.
-*
-## 7.2. ESTRATEGIAS DE MEJORA FUTURA
+*Se describen los cambios y mejoras implementadas en la plataforma tras analizar las opiniones y sugerencias de los usuarios piloto.*
+
+## 4.2. ESTRATEGIAS DE MEJORA FUTURA
 
 *Se establecen estrategias y planes de acción para continuar mejorando FISIO FIND en futuros sprints, basándose en la experiencia obtenida en esta fase piloto.*
 
-## 7.3. EVALUACIÓN DE LA EXPERIENCIA PILOTO
+
+
+# 5. EVALUACIÓN DE LA EXPERIENCIA PILOTO
 
 *Se realiza una evaluación general de la fase piloto, analizando su impacto en el desarrollo del proyecto y extrayendo conclusiones clave para su continuidad y optimización.*
+
+| Usuario(s) piloto               | Fecha de acceso al sistema | Fecha de envío del feedback | Enlace Clockify (solo estudiantes) | Fallos encontrados | Recomendaciones de mejora | Otros comentarios |
+|---------------------------------|---------------------------|----------------------------|------------------------------------|--------------------|-------------------------|------------------|
+| Antonio Daniel Porcar Aragón (antporara@alum.us.es)   |                           |                            |                                    |                    |                         |                  |
+| Antonio Jiménez Ortega (antjimort@alum.us.es)         |                           |                            |                                    |                    |                         |                  |
+| David Guillén Fernández (davguifer@alum.us.es)        |                           |                            |                                    |                    |                         |                  |
+| Jaime Linares Barrera (jailinbar@alum.us.es)          |                           |                            |                                    |                    |                         |                  |
+| Javier Ulecia García (javulegar@alum.us.es)           |                           |                            |                                    |                    |                         |                  |
+| José Manuel Miret Martín (josmirmar2@alum.us.es)       |                           |                            |                                    |                    |                         |                  |

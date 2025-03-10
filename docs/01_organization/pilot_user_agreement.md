@@ -56,7 +56,6 @@ classoption: "table"
 **Ficha del documento**
 
 - **Nombre del Proyecto:** FISIO FIND
-
 - **Número de Grupo:** Grupo 6
 
 - **Entregable:** #SPRINT 1
