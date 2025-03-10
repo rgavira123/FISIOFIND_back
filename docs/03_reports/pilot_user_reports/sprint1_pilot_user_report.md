@@ -65,7 +65,7 @@ classoption: "table"
 
 - **Fecha de Creación:** 26/02/2025  
 
-- **Versión:** v1.0
+- **Versión:** v1.2
 
 <br>
 
@@ -78,6 +78,7 @@ classoption: "table"
 |------------|---------|--------------|----------------------------|
 | 26/02/2025 | v1.0    | Guadalupe Ridruejo Pineda | Versión inicial del documento |
 | 27/02/2025 | v1.1    | Guadalupe Ridruejo Pineda | Redacción de secciones |
+| 10/03/2025 | v1.2    | Antonio Macías Ferrera | Adición de participantes técnicos, rúbrica de evaluación de participantes técnicos, adecuación para entrega del #SPRINT 1  |
 
 <br>
 

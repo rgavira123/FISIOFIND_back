@@ -66,7 +66,7 @@ classoption: "table"
 
 - **Fecha de Creación:** 10/02/2025  
 
-- **Versión:** v1.4
+- **Versión:** v1.5
 
 <br>
 
@@ -81,6 +81,7 @@ classoption: "table"
 | 18/02/2025 | v1.2    | Delfín Santana Rubio  | Cambio en los beneficios para los usuarios  (se puede ver en el apartado 2.1.2) |
 | 20/02/2025 | v1.3    | Guadalupe Ridruejo Pineda  | Firmas de los primeros usuarios piloto |
 | 26/02/2025 | v1.4    | Guadalupe Ridruejo Pineda  | Últimas firmas de usuarios piloto |
+| 10/03/2025 | v1.5    | Antonio Macías Ferrera | Gestión de las comunicaciones y la evaluación de usuarios alumnos de ISPP  |
 
 <br>
 

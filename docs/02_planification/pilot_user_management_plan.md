@@ -77,7 +77,7 @@ classoption: "table"
 
 - **Fecha de Creación:** 10/02/2025  
 
-- **Versión:** v1.4
+- **Versión:** v1.5
 
 <br>
 
@@ -87,11 +87,13 @@ classoption: "table"
 
 | Fecha      | Versión | Realizada por             | Descripción de los cambios                                                      |
 | ---------- | ------- | ------------------------- | ------------------------------------------------------------------------------- |
-| 10/02/2025 | v1.0    | Delfín Santana Rubio      | Versión inicial del documento                                                   |
+| 10/02/2025 | v1.0    | Delfín Santana Rubio      | Versión inicial del documento    |
 | 15/02/2025 | v1.1    | Antonio Macías Ferrera    | Adaptación a usuarios piloto externos y alumnos de la asignatura ISPP           |
 | 18/02/2025 | v1.2    | Delfín Santana Rubio      | Cambio en los beneficios para los usuarios  (se puede ver en el apartado 2.1.2) |
-| 20/02/2025 | v1.3    | Guadalupe Ridruejo Pineda | Firmas de los primeros usuarios piloto                                          |
-| 26/02/2025 | v1.4    | Guadalupe Ridruejo Pineda | Últimas firmas de usuarios piloto                                               |
+| 20/02/2025 | v1.3    | Guadalupe Ridruejo Pineda | Firmas de los primeros usuarios piloto     |
+| 26/02/2025 | v1.4    | Guadalupe Ridruejo Pineda | Últimas firmas de usuarios piloto    |
+| 10/03/2025 | v1.5    | Antonio Macías Ferrera | Correcciones finales para la entrega del #SPRINT 1  |
+
 
 <br>
 
