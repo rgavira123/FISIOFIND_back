@@ -205,7 +205,6 @@ class AddUnavailableDay(APIView):
 
     def post(self, request):
         try:
-            # Obtener el Physiotherapist asociado al usuario autenticado
             physiotherapist = request.user.physio
             print(f"Physiotherapist autenticado: {physiotherapist.id} para usuario {request.user.id}")
 
@@ -243,10 +242,17 @@ class AddUnavailableDay(APIView):
                 if not self._is_valid_time_range(start, end):
                     raise ValidationError(f"El rango {start}-{end} no es válido. La hora de inicio debe ser anterior a la de fin.")
 
-            # Añadir o actualizar la fecha en exceptions
+            # Añadir o actualizar la fecha en exceptions con deduplicación
             if date_str not in current_schedule['exceptions']:
                 current_schedule['exceptions'][date_str] = []
-            current_schedule['exceptions'][date_str].extend(time_ranges)
+
+            existing_ranges = current_schedule['exceptions'][date_str]
+            new_ranges = []
+            for time_range in time_ranges:
+                range_key = (time_range['start'], time_range['end'])
+                if not any((existing['start'], existing['end']) == range_key for existing in existing_ranges):
+                    new_ranges.append(time_range)
+            current_schedule['exceptions'][date_str].extend(new_ranges)
 
             # Obtener las citas actualizadas
             appointments = Appointment.objects.filter(physiotherapist=physiotherapist)
@@ -271,26 +277,8 @@ class AddUnavailableDay(APIView):
         except Exception as e:
             print(f"Error en AddUnavailableDay: {str(e)}")
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-    # Métodos _is_valid_time y _is_valid_time_range (reutilizados)
-    def _is_valid_time(self, time_str):
-        try:
-            datetime.strptime(time_str, '%H:%M')
-            hour, minute = map(int, time_str.split(':'))
-            return 0 <= hour <= 23 and 0 <= minute <= 59
-        except ValueError:
-            return False
-
-    def _is_valid_time_range(self, start, end):
-        try:
-            start_hour, start_min = map(int, start.split(':'))
-            end_hour, end_min = map(int, end.split(':'))
-            start_minutes = start_hour * 60 + start_min
-            end_minutes = end_hour * 60 + end_min
-            return start_minutes < end_minutes
-        except ValueError:
-            return False
-
+        
+    #Reutilizados en EditWeeklySchedule
     def _is_valid_time(self, time_str):
         """Validar que un horario esté en formato 'HH:MM'."""
         try:
@@ -310,7 +298,7 @@ class AddUnavailableDay(APIView):
             return start_minutes < end_minutes
         except ValueError:
             return False
-
+        
 class AppointmentDetail(generics.RetrieveUpdateDestroyAPIView):
     # permission_classes = [IsAuthenticated, IsOwner]
     queryset = Appointment.objects.all()
