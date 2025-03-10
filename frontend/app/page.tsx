@@ -5,10 +5,12 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import Modal from "@/components/ui/Modal";
+import Link from "next/link";
+import axios from "axios";
 
 interface Physiotherapist {
   name: string;
-  specialty: string;
+  speciality: string;
   rating: number;
   image: string;
   location: string;
@@ -18,7 +20,6 @@ interface Physiotherapist {
 const Home = () => {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [searchResults, setSearchResults] = useState<Physiotherapist[]>([]);
   const [isPhysioModalOpen, setIsPhysioModalOpen] = useState(false);
 
   const openPhysioModal = () => setIsPhysioModalOpen(true);
@@ -58,7 +59,7 @@ const Home = () => {
   const topPhysiotherapists: Physiotherapist[] = [
     {
       name: "Dr. Ana García",
-      specialty: "Fisioterapia Deportiva",
+      speciality: "Fisioterapia Deportiva",
       rating: 4.9,
       image:
         "https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=3328&auto=format&fit=crop",
@@ -67,7 +68,7 @@ const Home = () => {
     },
     {
       name: "Dr. Carlos Rodríguez",
-      specialty: "Rehabilitación Neurológica",
+      speciality: "Rehabilitación Neurológica",
       rating: 4.8,
       image:
         "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=3270&auto=format&fit=crop",
@@ -76,7 +77,7 @@ const Home = () => {
     },
     {
       name: "Dra. Laura Martínez",
-      specialty: "Fisioterapia Pediátrica",
+      speciality: "Fisioterapia Pediátrica",
       rating: 4.8,
       image:
         "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=3270&auto=format&fit=crop",
@@ -85,31 +86,117 @@ const Home = () => {
     },
   ];
 
-  // Simula una búsqueda de fisioterapeutas
-  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const mockResults: Physiotherapist[] = [
-      {
-        name: "Dr. Ana García",
-        specialty: "Fisioterapia Deportiva",
-        rating: 4.9,
-        image:
-          "https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=3328&auto=format&fit=crop",
-        location: "Madrid",
-        reviews: 128,
-      },
-      {
-        name: "Dr. Carlos Rodríguez",
-        specialty: "Rehabilitación Neurológica",
-        rating: 4.8,
-        image:
-          "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=3270&auto=format&fit=crop",
-        location: "Barcelona",
-        reviews: 96,
-      },
-    ];
-    setSearchResults(mockResults);
-  };
+  const SearchPhysiotherapists = () => {
+    const [searchResults, setSearchResults] = useState<Physiotherapist[]>([]);
+    const [physioName, setPhysioName] = useState("");
+    const [specialization, setSpecialization] = useState("");
+
+    const handleSearch = async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      try {
+        const searchUrl = `/api/physiotherapists?name=${physioName}&specialization=${specialization}`;
+        const response = await axios.get(searchUrl);
+
+        if (response.status === 200) {
+          const results = response.data.map((physio: { user: { username: string }; speciality: string; rating: number; image: string; reviews: number }) => ({ 
+            name: physio.user.username,
+            speciality: physio.speciality,
+            rating: physio.rating,
+            image: physio.image,
+            reviews: physio.reviews
+          }));
+
+          setSearchResults(results);
+        } else {
+          alert(response.data.detail || "No se encontraron resultados.");
+          setSearchResults([]);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setSearchResults([]);
+      }
+    }
+
+    return (
+      <div className="min-h-screen w-full">
+        <section className="w-full py-16 relative overflow-hidden">
+          <div className="max-w-6xl mx-auto px-4">
+            <form onSubmit={handleSearch} className="max-w-4xl mx-auto">
+              <div className="flex bg-white rounded-full overflow-hidden shadow-lg">
+                <div className="flex-1 flex items-center pl-6">
+                  <input
+                    type="text"
+                    placeholder="Buscar fisioterapeutas..."
+                    value={physioName}
+                    onChange={(e) => setPhysioName(e.target.value)}
+                    className="w-full py-4 text-lg focus:outline-none"
+                  />
+                </div>
+                <div className="h-10 w-px bg-gray-200 self-center mx-4"></div>
+                <div className="px-4 w-64">
+                  <select
+                    className="w-full py-4 text-lg focus:outline-none text-gray-600 bg-white appearance-none pr-8"
+                    value={specialization}
+                    onChange={(e) => setSpecialization(e.target.value)} // Controlamos la especialidad
+                  >
+                    <option value="">Seleccionar Especialidad</option>
+                    <option value="deportiva">Deportiva</option>
+                    <option value="neurologica">Neurológica</option>
+                    <option value="pediatrica">Pediátrica</option>
+                    <option value="muscular">Muscular</option>
+                  </select>
+                </div>
+                <button
+                  type="submit"
+                  className="hover:bg-gray-300 text-gray-700 w-14 flex items-center justify-center rounded-full transition-all"
+                  id="search-button"
+                >
+                  <div className="h-14 flex items-center justify-center">
+                    <Image src="./static/search.svg" alt="Search Icon" width={24} height={24} />
+                  </div>
+                </button>
+              </div>
+            </form>
+  
+            {/* Mostrar los resultados de la búsqueda */}
+            {searchResults.length > 0 && (
+              <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {searchResults.map((physio, index) => (
+                  <CardContainer key={index}>
+                    <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-blue-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-full h-auto rounded-xl p-6 border">
+                      <CardItem translateZ="50" className="text-xl font-bold text-neutral-600 dark:text-white">
+                        {physio.name}
+                      </CardItem>
+                      <CardItem as="p" translateZ="40" className="text-neutral-500 text-sm mt-2 dark:text-neutral-300">
+                        {physio.speciality}
+                      </CardItem>
+                      <CardItem translateZ="60" className="w-full mt-4">
+                        <Image src={physio.image} className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl" alt={physio.name} width={1920} height={1080} />
+                      </CardItem>
+                      <div className="flex justify-between items-center mt-6">
+                        <CardItem translateZ="20" className="flex items-center gap-1">
+                          <span className="text-yellow-500">★</span>
+                          <span className="font-semibold">{physio.rating}</span>
+                          <span className="text-sm text-neutral-500">({physio.reviews} reviews)</span>
+                        </CardItem>
+                        <CardItem
+                          translateZ="20"
+                          as="button"
+                          className="px-4 py-2 rounded-xl bg-[#1E5ACD] text-white text-sm font-bold hover:bg-[#1848A3] transition-colors"
+                        >
+                          Ver perfil
+                        </CardItem>
+                      </div>
+                    </CardBody>
+                  </CardContainer>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen w-full">
@@ -128,8 +215,8 @@ const Home = () => {
         </div>
         <Image src="/static/fisio_find_logo.webp" alt="Fisio Find Logo" width={256} height={256} className="mb-8" />
         <h1 className="text-6xl font-bold mb-4 font-alfa-slab-one">
-          <span className="text-[#1E5ACD]">Fisio </span>
-          <span className="text-[#253240]">Find</span>
+          <span className="text-[#05668d]">Fisio </span>
+          <span className="text-[#018b89]">Find</span>
         </h1>
         <p className="text-xl mb-8 max-w-2xl">
           La plataforma especializada en fisioterapia online donde te conectamos con el profesional que mejor se ajusta a tus necesidades.
@@ -137,118 +224,8 @@ const Home = () => {
       </section>
 
       {/* Search Section */}
-      <section className="w-full py-16 relative overflow-hidden">
-        <div className="max-w-6xl mx-auto px-4">
           {/* Unified Search Bar */}
-          <form onSubmit={handleSearch} className="max-w-4xl mx-auto">
-            <div className="flex bg-white rounded-full overflow-hidden shadow-lg">
-              {/* Search Input */}
-              <div className="flex-1 flex items-center pl-6">
-                <input
-                  type="text"
-                  placeholder="Buscar fisioterapeutas..."
-                  className="w-full py-4 text-lg focus:outline-none"
-                />
-              </div>
-
-              {/* Vertical Divider */}
-              <div className="h-10 w-px bg-gray-200 self-center mx-2"></div>
-
-              {/* Specialty Select */}
-              <div className="px-4 w-64">
-                <select
-                  className="w-full py-4 text-lg focus:outline-none text-gray-600 bg-white appearance-none pr-8"
-                  style={{ backgroundImage: "none", color: "#6B7280" }}
-                >
-                  <option
-                    value=""
-                    className="text-gray-600"
-                    style={{ color: "#6B7280" }}
-                  >
-                    Seleccionar Especialidad
-                  </option>
-                  <option
-                    value="deportiva"
-                    className="px-4"
-                    style={{ paddingLeft: "1rem", paddingRight: "1rem" }}
-                  >
-                    Deportiva
-                  </option>
-                  <option
-                    value="neurologica"
-                    className="px-4"
-                    style={{ paddingLeft: "1rem", paddingRight: "1rem" }}
-                  >
-                    Neurológica
-                  </option>
-                  <option
-                    value="pediatrica"
-                    className="px-4"
-                    style={{ paddingLeft: "1rem", paddingRight: "1rem" }}
-                  >
-                    Pediátrica
-                  </option>
-                  <option
-                    value="muscular"
-                    className="px-4"
-                    style={{ paddingLeft: "1rem", paddingRight: "1rem" }}
-                  >
-                    Muscular
-                  </option>
-                </select>
-              </div>
-              {/* Simple Search Button */}
-              <button
-                type="submit"
-                className="hover:bg-gray-300 text-gray-700 w-14 flex items-center justify-center rounded-full transition-all"
-                id="search-button"
-              >
-                <div className="h-14 flex items-center justify-center">
-                  <Image
-                    src="./static/search.svg"
-                    alt="Search Icon"
-                    width={24}
-                    height={24}
-                  />
-                </div>
-              </button>
-            </div>
-          </form>
-        </div>
-        {searchResults.length > 0 && (
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {searchResults.map((physio, index) => (
-              <CardContainer key={index}>
-                <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-blue-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-full h-auto rounded-xl p-6 border">
-                  <CardItem translateZ="50" className="text-xl font-bold text-neutral-600 dark:text-white">
-                    {physio.name}
-                  </CardItem>
-                  <CardItem as="p" translateZ="40" className="text-neutral-500 text-sm mt-2 dark:text-neutral-300">
-                    {physio.specialty}
-                  </CardItem>
-                  <CardItem translateZ="60" className="w-full mt-4">
-                    <img src={physio.image} className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl" alt={physio.name} />
-                  </CardItem>
-                  <div className="flex justify-between items-center mt-6">
-                    <CardItem translateZ="20" className="flex items-center gap-1">
-                      <span className="text-yellow-500">★</span>
-                      <span className="font-semibold">{physio.rating}</span>
-                      <span className="text-sm text-neutral-500">({physio.reviews} reviews)</span>
-                    </CardItem>
-                    <CardItem
-                      translateZ="20"
-                      as="button"
-                      className="px-4 py-2 rounded-xl bg-[#1E5ACD] text-white text-sm font-bold hover:bg-[#1848A3] transition-colors"
-                    >
-                      Ver perfil
-                    </CardItem>
-                  </div>
-                </CardBody>
-              </CardContainer>
-            ))}
-          </div>
-        )}
-      </section>
+          <SearchPhysiotherapists />
 
       {/* Focus Cards Section: solo se muestra si NO está autenticado */}
       {!isAuthenticated && (
@@ -298,7 +275,7 @@ const Home = () => {
                   translateZ="40"
                   className="text-neutral-500 text-sm mt-2 dark:text-neutral-300"
                 >
-                  {physio.specialty}
+                  {physio.speciality}
                 </CardItem>
                 <CardItem translateZ="60" className="w-full mt-4">
                   <img src={physio.image} className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl" alt={physio.name} />
@@ -351,7 +328,7 @@ const Home = () => {
                 <a href="https://fisiofind.vercel.app">Documentación</a>
               </li>
               <li>
-                <a href="/">Términos de Servicio</a>
+                <Link href="/">Términos de Servicio</Link>
               </li>
             </ul>
           </div>
