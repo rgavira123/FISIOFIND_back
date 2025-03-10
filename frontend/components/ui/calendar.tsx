@@ -6,10 +6,12 @@ import listPlugin from "@fullcalendar/list";
 import { CalendarProps } from "@/lib/definitions";
 import "@/app/mis-citas/mis-citas.css";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import axios from "axios";
 import DynamicFormModal from "./dinamic-form-modal";
+import AlternativeSelector from "./alternative-selector";
 
-const Calendar = ({ events, hoveredEventId }: { events: any; hoveredEventId: string | null }) => {
+const Calendar = ({ events, currentRole, hoveredEventId }: { events: any; currentRole: string; hoveredEventId: string | null }) => {
   const [selectedEvent, setSelectedEvent] = useState<CalendarProps | null>(
     null
   );
@@ -17,27 +19,13 @@ const Calendar = ({ events, hoveredEventId }: { events: any; hoveredEventId: str
   const [editionMode, setEditionMode] = useState(false);
 
 
-  // useEffect(() => {
-  //   axios.get("http://localhost:8000/api/appointment?physiotherapist=2")
-  //     .then(response => {
-  //       const transformedEvents = response.data.map((event: any) => ({
-  //         id: event.id,
-  //         title: event.title,
-  //         start: event.start_time,  // Cambio de start_time a start
-  //         end: event.end_time,      // Cambio de end_time a end
-  //         description: event.description,
-  //         allDay: event.allDay || false,
-  //       }));
-  //       setEvents(transformedEvents);
-  //     })
-  //     .catch(error => {
-  //       console.error("Error fetching data:", error);
-  //     });
-  // }, []);
-
   // Función para recibir las alternativas del modal
-  const handleAlternativesSubmit = (alternatives: Record<string, { start: string; end: string }[]>) => {
+  const handleAlternativesSubmit = (
+    alternatives: Record<string, { start: string; end: string }[]>
+  ) => {
     console.log("Fechas alternativas enviadas:", alternatives);
+    const token = localStorage.getItem("token"); // Obtén el JWT desde localStorage (o desde donde lo tengas almacenado)
+
     // Aquí podrías hacer una petición al backend para actualizar la cita,
     // por ejemplo, usando axios.post con el array de alternativas
     axios.patch(`http://localhost:8000/api/appointment/${selectedEvent?.id}/`, {
@@ -45,32 +33,37 @@ const Calendar = ({ events, hoveredEventId }: { events: any; hoveredEventId: str
       "description": selectedEvent?.description,
       "start_time": selectedEvent?.start,
       "end_time": selectedEvent?.end,
-      // "is_online": false,
-      // "service": {
-      //   "type": "Fisioterapia",
-      //   "duration": 30
-      // },
       "status": "pending",
       "alternatives": alternatives
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Envía el JWT en la cabecera de la petición
+      },
     })
       .then((response) => {
         // Si la respuesta fue exitosa
         alert("La cita se actualizó correctamente.");
         console.log("Cita actualizada correctamente", response);
+        setEditionMode(false);
+        setSelectedEvent(null);
+        window.location.reload();
       })
       .catch((error) => {
         // Si hubo un error en la solicitud
         console.error("Error en la actualización de la cita:", error);
         alert("Hubo un problema con la conexión. Intenta nuevamente.");
-      })
+      });
   };
 
   const deleteEvent = () => {
-    axios.delete(`http://localhost:8000/api/appointment/${selectedEvent?.id}/`)
+    axios
+      .delete(`http://localhost:8000/api/appointment/${selectedEvent?.id}/`)
       .then((response) => {
         // Si la respuesta fue exitosa
         alert("La cita se eliminó correctamente.");
         console.log("Cita eliminada correctamente", response);
+        setSelectedEvent(null);
+        window.location.reload();
       })
       .catch((error) => {
         // Si hubo un error en la solicitud
@@ -78,6 +71,41 @@ const Calendar = ({ events, hoveredEventId }: { events: any; hoveredEventId: str
         alert("Hubo un problema con la conexión. Intenta nuevamente.");
       })
   }
+
+  const handleSelection = (date: string, startTime: string) => {
+
+    const [startTimeSplit, endTimeSplit] = startTime.split(" - "); // Tomamos solo la hora de inicio
+    const startDateTime = new Date(`${date}T${startTimeSplit}:00Z`).toISOString(); // Generamos la fecha completa en formato UTC
+    const endDateTime = new Date(`${date}T${endTimeSplit}:00Z`).toISOString(); // Generamos la fecha completa en formato UTC
+
+    console.log("Seleccion confirmada:", { startDateTime, endDateTime });
+    alert(`Seleccionaste: ${startDateTime} - ${endDateTime}`);
+
+    const token = localStorage.getItem("token"); // Obtén el JWT desde localStorage (o desde donde lo tengas almacenado)
+
+    axios.patch(`http://localhost:8000/api/appointment/${selectedEvent?.id}/`, {
+      "start_time": startDateTime,
+      "end_time": endDateTime,
+      "status": "confirmed",
+      "alternatives": ""
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Envía el JWT en la cabecera de la petición
+      },
+    })
+      .then((response) => {
+        // Si la respuesta fue exitosa
+        alert("La cita se actualizó correctamente.");
+        console.log("Cita actualizada correctamente", response);
+        setSelectedEvent(null);
+        window.location.reload();
+      })
+      .catch((error) => {
+        // Si hubo un error en la solicitud
+        console.error("Error en la actualización de la cita:", error);
+        alert("Hubo un problema con la conexión. Intenta nuevamente.");
+      })
+  };
 
   return (
     <div className="justify-items-center w-2/3 pt-16 hidden lg:block">
@@ -98,7 +126,8 @@ const Calendar = ({ events, hoveredEventId }: { events: any; hoveredEventId: str
         events={events}
         handleWindowResize={true}
         eventContent={(eventInfo) => (
-          <div className={`w-full h-full whitespace-nowrap overflow-hidden overflow-ellipsis`}
+          <div
+            className={`w-full h-full whitespace-nowrap overflow-hidden overflow-ellipsis`}
           >
             {eventInfo.event.title}
           </div>
@@ -123,47 +152,53 @@ const Calendar = ({ events, hoveredEventId }: { events: any; hoveredEventId: str
               type: info.event.extendedProps.service.type || "Sin servicio",
               duration: info.event.extendedProps.service.duration || 0,
             },
+            alternatives: info.event.extendedProps.alternatives || null,
           });
         }}
       />
       {/* MODAL */}
       {selectedEvent && (
-        <div className="z-50 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-[400px]">
-            <h2 className="text-xl font-bold">{selectedEvent.title}</h2>
-            <p className="text-gray-600 mt-2">
-              <strong>Inicio:</strong>{" "}
-              {new Date(selectedEvent.start).toLocaleString()}
-            </p>
-            {selectedEvent.end && (
-              <p className="text-gray-600">
-                <strong>Fin:</strong>{" "}
-                {new Date(selectedEvent.end).toLocaleString()}
+        <div className="z-10 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center" onClick={() => setSelectedEvent(null)}>
+          <div className="bg-gray-300 p-1 rounded-2xl shadow-2xl w-[400px] relative z-50" onClick={(event) => event.stopPropagation()}>
+            <h2 className="text-white text-xl font-bold text-center py-5 rounded-t-xl bg-[#05668D]">
+              {selectedEvent.title}
+            </h2>
+            <div className="bg-gray-100 p-4 rounded-b-xl">
+              <p className="text-gray-600 mt-2">
+                <strong>Inicio:</strong>{" "}
+                {new Date(selectedEvent.start).toLocaleString()}
               </p>
-            )}
-            <p className="mt-2">{selectedEvent.description}</p>
-            <button
-              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-              onClick={() => setSelectedEvent(null)}
-            >
-              Cerrar
-            </button>
-            {selectedEvent.status == "booked" &&
-              <div>
-                <button
-                  className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-                  onClick={() => setEditionMode(true)}
-                >
-                  Modificar
-                </button>
-                <button
-                  className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-                  onClick={() => deleteEvent()}
-                >
-                  Cancelar
-                </button>
-              </div>
-            }
+              {selectedEvent.end && (
+                <p className="text-gray-600">
+                  <strong>Fin:</strong>{" "}
+                  {new Date(selectedEvent.end).toLocaleString()}
+                </p>
+              )}
+              <p className="mt-2">{selectedEvent.description}</p>
+              {selectedEvent.alternatives && currentRole == "patient" && (
+                <div className="flex justify-center items-center">
+                  <AlternativeSelector alternatives={selectedEvent.alternatives} onConfirmSelection={handleSelection} />
+                </div>
+              )}
+              {selectedEvent.status == "booked" && (
+                <div className="flex flex-row mt-4" style={{ justifyContent: "space-between" }}>
+                  {currentRole == "physiotherapist" && (
+                    <button
+                      className="mt-4 bg-[#05668D] text-white px-4 py-2 rounded-xl hover:bg-blue-600"
+                      onClick={() => setEditionMode(true)}
+                    >
+                      Modificar
+                    </button>
+                  )}
+                  <button
+                    className="mt-4 bg-[#05668D] text-white px-4 py-2 rounded-xl hover:bg-blue-600"
+                    onClick={() => deleteEvent()}
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
