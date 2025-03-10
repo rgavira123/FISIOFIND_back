@@ -17,7 +17,7 @@ class AppointmentSerializer(serializers.Serializer):
     alternatives = serializers.JSONField()
     class Meta:
         model = Appointment
-        fields = ['id', 'title', 'description', 'start_time', 'end_time', 'is_online', 'service', 'patient', 'physiotherapist', 'status', 'alternatives']
+        fields = ['id', 'start_time', 'end_time', 'is_online', 'service', 'patient', 'physiotherapist', 'status', 'alternatives']
         
     def validate(self, data):
         """

@@ -41,11 +41,17 @@ export default function Home() {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/app_appointment/appointment/physio/list")
+    const token = localStorage.getItem("token"); // Obtén el JWT desde localStorage (o desde donde lo tengas almacenado)
+
+    axios.get("http://localhost:8000/api/app_appointment/appointment/patient/list", {
+      headers: {
+        Authorization: `Bearer ${token}`, // Envía el JWT en la cabecera de la petición
+      },
+    })
       .then(response => {
         const transformedEvents = response.data.map((event: any) => ({
           id: event.id,
-          title: event.title,
+          title: event.service.type + "-" + event.patient || "Sin título",
           start: event.start_time,  // Cambio de start_time a start
           end: event.end_time,      // Cambio de end_time a end
           description: event.description,

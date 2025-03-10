@@ -39,4 +39,4 @@ class Appointment(models.Model):
         verbose_name_plural = "Appointment"
 
     def __str__(self):
-        return f"Appointment {self.id} - {self.start_time} ({self.patient.username} with {self.physiotherapist.username})"
+        return f"Appointment {self.id} - {self.start_time} ({self.patient.user.username} with {self.physiotherapist.user.username})"
