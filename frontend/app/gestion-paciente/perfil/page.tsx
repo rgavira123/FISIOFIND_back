@@ -33,8 +33,8 @@ const PatientProfile = () => {
 
   const fetchPatientProfile = async () => {
     setLoading(true);
-    setErrors({});  // Resetear errores cada vez que se hace una nueva petición
-    setSuccess("");  // Resetear mensaje de éxito
+    setErrors({});
+    setSuccess("");
     try {
       const token = getAuthToken();
       if (!token) {
@@ -76,7 +76,9 @@ const PatientProfile = () => {
     setSelectedFile(e.target.files[0]);
   };
 
-
+  const handleImageClick = () => {
+    document.getElementById('file-input').click();  // Abrir el input oculto para cargar una nueva foto
+  };
 
   const validateForm = () => {
     const newErrors = {};
@@ -136,7 +138,11 @@ const PatientProfile = () => {
         formData.append("birth_date", profile.birth_date);
 
         // Agregar la foto si hay una seleccionada
-        if (selectedFile && typeof selectedFile === "object") formData.append("user.photo", selectedFile);
+        if (selectedFile && typeof selectedFile === "object"){
+            formData.append("user.photo", selectedFile);
+        } else {
+            formData.append("user.photo", profile.user.photo)
+        }
 
         const response = await axios.patch(`${BASE_URL}/api/app_user/profile/`, formData, {
             headers: {
@@ -171,10 +177,6 @@ const PatientProfile = () => {
                     errorMessages.dni = data.user.dni[0]; 
                 }
             }
-            // Otros errores generales
-            if (!errorMessages.phone_number && !errorMessages.photo) {
-                errorMessages.general = data.detail || "Error al actualizar el perfil.";
-            }
 
             setErrors(errorMessages);
         } else {
@@ -186,95 +188,119 @@ const PatientProfile = () => {
   if (loading) return <p>Cargando perfil...</p>;
 
   return (
-    <div>
-      <h2>Perfil del Paciente</h2>
-      {errors.general && <p style={{ color: "red" }}>{errors.general}</p>}
-
-      {success && <p style={{ color: "green" }}>{success}</p>} 
-
-
-      <form onSubmit={handleSubmit}>
-        <div>
-            <h3>Foto de perfil:</h3>
-            <img 
-                    src={profile.user.photo ? `${BASE_URL}${profile.user.photo}` : `${BASE_URL}/media/default.png`}
-                    alt="Foto de perfil"
-                    width={150}
-                                    height={150}
-            />
-            <input type="file" accept="image/*" onChange={handleFileChange} />
+    <div className="flex items-center justify-center min-h-screen bg-[#f3f3f3]">
+      <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-xl">
+        <h2 className="text-3xl font-bold mb-6 text-center text-[#253240]">Perfil del Paciente</h2>
+        {success && (
+        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-md text-center mb-4">
+            {success}
         </div>
+        )}
 
-        <label>Nombre de usuario:</label>
-        <input 
-          type="text" 
-          name="username" 
-          value={profile?.user?.username || ""} 
-          onChange={handleChange} 
-        />
-        {errors.username && <p style={{ color: "red" }}>{errors.username}</p>}
+        {errors.general && <p className="text-red-500 text-center mb-4">{errors.general}</p>}
+        {success && <p className="text-green-500 text-center mb-4">{success}</p>}
 
-        <label>Email:</label>
-        <input 
-          type="email" 
-          name="email" 
-          value={profile?.user?.email || ""} 
-          onChange={handleChange} 
-        />
-        {errors.email && <p style={{ color: "red" }}>{errors.email}</p>} 
+        <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="flex justify-center mb-4" onClick={handleImageClick}>
+            <img 
+              src={profile.user.photo ? `${BASE_URL}${profile.user.photo}` : `${BASE_URL}/media/default.png`}
+              alt="Foto de perfil"
+              className="rounded-full border-4 border-[#05668D] shadow-md"
+              width={150}
+              height={150}
+            />
+            <input 
+              id="file-input"
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleFileChange}
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="font-semibold text-[#253240]">Nombre de usuario:</label>
+            <input
+              type="text"
+              name="username"
+              value={profile?.user?.username || ""}
+              onChange={handleChange}
+              className="w-full p-3 border border-[#05668D] rounded-md focus:outline-none focus:ring-2 focus:ring-[#41b8d5] text-gray-700"
+            />
+            {errors.username && <p className="text-red-500">{errors.username}</p>}
 
-        <label>Teléfono:</label>
-        <input 
-          type="text" 
-          name="phone_number" 
-          value={profile?.user?.phone_number || ""} 
-          onChange={handleChange} 
-        />
-        {errors.phone_number && <p style={{ color: "red" }}>{errors.phone_number}</p>} 
+            <label className="font-semibold text-[#253240]">Email:</label>
+            <input
+              type="email"
+              name="email"
+              value={profile?.user?.email || ""}
+              onChange={handleChange}
+              className="w-full p-3 border border-[#05668D] rounded-md focus:outline-none focus:ring-2 focus:ring-[#41b8d5] text-gray-700"
+            />
+            {errors.email && <p className="text-red-500">{errors.email}</p>}
 
-        <label>Código Postal:</label>
-        <input 
-          type="text" 
-          name="postal_code" 
-          value={profile?.user?.postal_code || ""} 
-          onChange={handleChange} 
-        />
-        {errors.postal_code && <p style={{ color: "red" }}>{errors.postal_code}</p>}
+            <label className="font-semibold text-[#253240]">Teléfono:</label>
+            <input
+              type="text"
+              name="phone_number"
+              value={profile?.user?.phone_number || ""}
+              onChange={handleChange}
+              className="w-full p-3 border border-[#05668D] rounded-md focus:outline-none focus:ring-2 focus:ring-[#41b8d5] text-gray-700"
+            />
+            {errors.phone_number && <p className="text-red-500">{errors.phone_number}</p>}
 
-        <label>DNI:</label>
-        <input 
-          type="text" 
-          name="dni" 
-          value={profile?.user?.dni || ""} 
-          onChange={handleChange} 
-        />
-        {errors.dni && <p style={{ color: "red" }}>{errors.dni}</p>} 
-        
-        <label>Género:</label>
-        <select 
-          name="gender" 
-          value={profile?.gender || ""} 
-          onChange={handleChange}
-        >
-          <option value="">Selecciona una opción</option>
-          <option value="M">Masculino</option>
-          <option value="F">Femenino</option>
-          <option value="O">Otro</option>
-        </select>
-        {errors.gender && <p style={{ color: "red" }}>{errors.gender}</p>}
+            <label className="font-semibold text-[#253240]">Código Postal:</label>
+            <input
+              type="text"
+              name="postal_code"
+              value={profile?.user?.postal_code || ""}
+              onChange={handleChange}
+              className="w-full p-3 border border-[#05668D] rounded-md focus:outline-none focus:ring-2 focus:ring-[#41b8d5] text-gray-700"
+            />
+            {errors.postal_code && <p className="text-red-500">{errors.postal_code}</p>}
 
-        <label>Fecha de Nacimiento:</label>
-        <input 
-          type="date" 
-          name="birth_date" 
-          value={profile?.birth_date || ""} 
-          onChange={handleChange} 
-        />
-        {errors.birth_date && <p style={{ color: "red" }}>{errors.birth_date}</p>} 
+            <label className="font-semibold text-[#253240]">DNI:</label>
+            <input
+              type="text"
+              name="dni"
+              value={profile?.user?.dni || ""}
+              onChange={handleChange}
+              className="w-full p-3 border border-[#05668D] rounded-md focus:outline-none focus:ring-2 focus:ring-[#41b8d5] text-gray-700"
+            />
+            {errors.dni && <p className="text-red-500">{errors.dni}</p>}
 
-        <button type="submit">Actualizar Perfil</button>
-        <button type="button" onClick={fetchPatientProfile}>Cancelar</button>
-      </form>
+            <label className="font-semibold text-[#253240]">Género:</label>
+            <select
+              name="gender"
+              value={profile?.gender || ""}
+              onChange={handleChange}
+              className="w-full p-3 border border-[#05668D] rounded-md focus:outline-none focus:ring-2 focus:ring-[#41b8d5] text-gray-700"
+            >
+              <option value="">Selecciona una opción</option>
+              <option value="M">Masculino</option>
+              <option value="F">Femenino</option>
+              <option value="O">Otro</option>
+            </select>
+            {errors.gender && <p className="text-red-500">{errors.gender}</p>}
+
+            <label className="font-semibold text-[#253240]">Fecha de Nacimiento:</label>
+            <input
+              type="date"
+              name="birth_date"
+              value={profile?.birth_date || ""}
+              onChange={handleChange}
+              className="w-full p-3 border border-[#05668D] rounded-md focus:outline-none focus:ring-2 focus:ring-[#41b8d5] text-gray-700"
+            />
+            {errors.birth_date && <p className="text-red-500">{errors.birth_date}</p>}
+          <button
+              type="submit"
+              className="w-full bg-[#05668D] text-white py-3 rounded-md hover:bg-[#41b8d5] transition"
+            >
+              Actualizar Perfil
+            </button>
+            
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
