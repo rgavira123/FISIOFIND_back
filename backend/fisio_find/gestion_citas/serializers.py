@@ -26,6 +26,7 @@ class AppointmentSerializer(serializers.Serializer):
         start_time = data.get('start_time')
         end_time = data.get('end_time')
         physiotherapist = data.get('physiotherapist')
+        patient = data.get('patient')
 
 
         # verify that the appointment starts and ends on the same day
@@ -37,15 +38,25 @@ class AppointmentSerializer(serializers.Serializer):
             raise serializers.ValidationError("End time must be after start time.")
 
         # verify that the physiotherapist is available
-        overlapping_appointments = Appointment.objects.filter(
+        overlapping_appointments_physio = Appointment.objects.filter(
             physiotherapist=physiotherapist,
             status__in=['booked', 'confirmed'],  
             start_time__lt=end_time,
             end_time__gt=start_time
         ).exclude(id=self.instance.id if self.instance else None)
 
-        if overlapping_appointments.exists():
+        #verify that the patient is available
+        overlapping_appointments_patient = Appointment.objects.filter(
+            patient=patient,
+            status__in=['booked', 'confirmed'],  
+            start_time__lt=end_time,
+            end_time__gt=start_time
+        ).exclude(id=self.instance.id if self.instance else None)
+
+        if overlapping_appointments_physio.exists():
             raise serializers.ValidationError("The physiotherapist is already booked at this time.")
+        if overlapping_appointments_patient.exists():
+            raise serializers.ValidationError("The patient is already booked at this time.")
 
         return data
 
