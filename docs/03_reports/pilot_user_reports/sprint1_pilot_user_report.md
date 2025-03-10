@@ -261,7 +261,17 @@ Se presenta un listado de los usuarios piloto que participarán en las pruebas d
 
 ### USUARIOS PILOTO TÉCNICOS
 
-*ANTONIO*
+| Nombre Completo                  | Edad       | ¿Ha acudido al fisioterapeuta? | Frecuencia           | Motivo de consulta                                      | ¿Busca fisioterapeutas por internet? | Preferencias de selección|
+| --------------------------------- | ---------- | ---------------------------- | -------------------- | ------------------------------------------------------- | ----------------------------------- | ------------------------- |
+| Antonio Daniel Porcar Aragón      | [Edad]     | [Sí/No]                      | [Frecuencia]         | [Motivo de consulta]                                    | [Sí/No]                            | [Preferencias de selección] |
+| Antonio Jiménez Ortega            | [Edad]     | [Sí/No]                      | [Frecuencia]         | [Motivo de consulta]                                    | [Sí/No]                            | [Preferencias de selección] |
+| David Guillén Fernández           | [Edad]     | [Sí/No]                      | [Frecuencia]         | [Motivo de consulta]                                    | [Sí/No]                            | [Preferencias de selección] |
+| Jaime Linares Barrera             | [Edad]     | [Sí/No]                      | [Frecuencia]         | [Motivo de consulta]                                    | [Sí/No]                            | [Preferencias de selección] |
+| Javier Ulecia García              | [Edad]     | [Sí/No]                      | [Frecuencia]         | [Motivo de consulta]                                    | [Sí/No]                            | [Preferencias de selección] |
+| José Manuel Miret Martín          | [Edad]     | [Sí/No]                      | [Frecuencia]         | [Motivo de consulta]                                    | [Sí/No]                            | [Preferencias de selección] |
+
+<br>
+
 
 # 5. GESTIÓN DE LAS COMUNICACIONES CON LOS USUARIOS PILOTO
 
