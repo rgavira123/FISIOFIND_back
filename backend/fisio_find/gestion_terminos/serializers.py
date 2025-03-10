@@ -13,7 +13,7 @@ class AppTerminosSerializer(serializers.ModelSerializer):
     version = serializers.CharField(
         required=True, 
         max_length=100,
-        error_messages={'required': 'El campo versión es obligatorio y mas pequeño que 100 caracteres.'}
+        error_messages={'required': 'El campo versión es obligatorio y más pequeño que 100 caracteres.'}
     )
 
     class Meta:

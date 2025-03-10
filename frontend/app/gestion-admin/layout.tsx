@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   
   return (
-    <section className="flex flex-col items-center justify-center text-center relative absolute top-0 left-0 h-full">
+    <section className="flex flex-col items-center justify-center text-center relative absolute top-0 left-0 w-full h-full">
       {children}
     </section>
   );
