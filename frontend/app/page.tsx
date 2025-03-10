@@ -93,13 +93,13 @@ const Home = () => {
     const [physioName, setPhysioName] = useState("");
     const [specialization, setSpecialization] = useState("");
     const [specializations, setSpecializations] = useState<string[]>([]);
-
+  
     // Obtener las especialidades disponibles desde la API
     useEffect(() => {
       const fetchSpecializations = async () => {
         try {
           const response = await axios.get(
-            "/api/sesion_invitado/specializations/"
+            "http://localhost:8000/api/sesion_invitado/specializations"
           );
           if (response.status === 200) {
             setSpecializations(response.data);
@@ -110,16 +110,15 @@ const Home = () => {
       };
       fetchSpecializations();
     }, []);
-
-    const handleSearch = async (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
+  
+    const handleSearch = async () => {
       try {
-        let searchUrl = `/api/sesion_invitado/search-physios?q=${physioName}`;
+        let searchUrl = `http://localhost:8000/api/sesion_invitado/search-physios/q=${physioName}`;
         if (specialization) {
-          searchUrl = `/api/sesion_invitado/physios-with-specializations/?specialization=${specialization}`;
+          searchUrl = `http://localhost:8000/api/sesion_invitado/physios-with-specializations/?specialization=${specialization}`;
         }
         const response = await axios.get(searchUrl);
-
+  
         if (response.status === 200) {
           const results = response.data.map(
             (physio: {
@@ -127,10 +126,10 @@ const Home = () => {
               speciality: string;
             }) => ({
               name: physio.user.username,
-              speciality: physio.speciality
+              speciality: physio.speciality,
             })
           );
-
+  
           setSearchResults(results);
         } else {
           alert(response.data.detail || "No se encontraron resultados.");
@@ -141,12 +140,12 @@ const Home = () => {
         setSearchResults([]);
       }
     };
-
+  
     return (
       <div className="min-h-screen w-full">
         <section className="w-full py-16 relative overflow-hidden">
           <div className="max-w-6xl mx-auto px-4">
-            <form onSubmit={handleSearch} className="max-w-4xl mx-auto">
+            <form className="max-w-4xl mx-auto">
               <div className="flex bg-white rounded-full overflow-hidden shadow-lg">
                 <div className="flex-1 flex items-center pl-6">
                   <input
@@ -173,9 +172,10 @@ const Home = () => {
                   </select>
                 </div>
                 <button
-                  type="submit"
+                  type="button" // Cambié el tipo del botón a "button"
                   className="hover:bg-gray-300 text-gray-700 w-14 flex items-center justify-center rounded-full transition-all"
                   id="search-button"
+                  onClick={handleSearch} // Llamamos a handleSearch al hacer clic
                 >
                   <div className="h-14 flex items-center justify-center">
                     <Image
@@ -188,7 +188,7 @@ const Home = () => {
                 </button>
               </div>
             </form>
-
+  
             {/* Mostrar los resultados de la búsqueda */}
             {searchResults.length > 0 && (
               <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -218,7 +218,7 @@ const Home = () => {
         </section>
       </div>
     );
-  };
+  };  
 
   return (
     <div className="min-h-screen w-full">
