@@ -24,18 +24,25 @@ class AppTerminosCreate(generics.CreateAPIView):
             return Response({"message": "No estás autenticado"}, status=status.HTTP_403_FORBIDDEN)
         
         admin_instance = Admin.objects.get(user=modifier)
-        content = request.data.get('content')
-        version = request.data.get('version')
-        if content == '' or content == None:
-            return Response({'required': 'El campo contenido es obligatorio.'}, status=status.HTTP_400_BAD_REQUEST)
-        
+
+        errormsg = ""
         version = request.data.get('version')
         if version == '' or version == None:
-            return Response({'required': 'El campo versión es obligatorio.'}, status=status.HTTP_400_BAD_REQUEST)
+            errormsg += "El campo versión es obligatorio. "
+        
+        content = request.data.get('content')
+        if content == '' or content == None:
+            if errormsg == "":
+                errormsg += "El campo contenido es obligatorio. "
+            else:
+                errormsg = "Los campos contenido y versión son obligatorios. "
         
         if len(version) >= 100:
-            return Response({'required': 'El campo versión es demasiado largo.'}, status=status.HTTP_400_BAD_REQUEST)
-        
+            errormsg += "Versión debe de ser menor de 100 caracteres."
+
+        if errormsg:
+            return Response({'required': errormsg}, status=status.HTTP_400_BAD_REQUEST)
+
         created_at = datetime.now()
         updated_at = datetime.now()
 
@@ -86,17 +93,24 @@ class AppTerminosUpdate(generics.RetrieveUpdateAPIView):
             return Response({"error": "Esta configuración no existe"}, status=status.HTTP_404_NOT_FOUND)
 
         admin_instance = Admin.objects.get(user=modifier)
-        content = request.data.get('content')
-        if content == '' or content == None:
-            return Response({'required': 'El campo contenido es obligatorio.'}, status=status.HTTP_400_BAD_REQUEST)
-        
+        errormsg = ""
         version = request.data.get('version')
         if version == '' or version == None:
-            return Response({'required': 'El campo versión es obligatorio.'}, status=status.HTTP_400_BAD_REQUEST)
+            errormsg += "El campo versión es obligatorio. "
+        
+        content = request.data.get('content')
+        if content == '' or content == None:
+            if errormsg == "":
+                errormsg += "El campo contenido es obligatorio. "
+            else:
+                errormsg = "Los campos contenido y versión son obligatorios. "
         
         if len(version) >= 100:
-            return Response({'required': 'El campo versión es demasiado largo.'}, status=status.HTTP_400_BAD_REQUEST)
-        
+            errormsg += "Versión debe de ser menor de 100 caracteres."
+
+        if errormsg:
+            return Response({'required': errormsg}, status=status.HTTP_400_BAD_REQUEST)
+
         updated_at = datetime.now()
 
         terminos.update(
@@ -120,16 +134,24 @@ class AppTerminosUpdate(generics.RetrieveUpdateAPIView):
             return Response({"error": "Esta configuración no existe"}, status=status.HTTP_404_NOT_FOUND)
 
         admin_instance = Admin.objects.get(user=modifier)
-        content = request.data.get('content')
-        if content == '' or content == None:
-            return Response({'required': 'El campo contenido es obligatorio.'}, status=status.HTTP_400_BAD_REQUEST)
-        
+        errormsg = ""
         version = request.data.get('version')
         if version == '' or version == None:
-            return Response({'required': 'El campo versión es obligatorio.'}, status=status.HTTP_400_BAD_REQUEST)
+            errormsg += "El campo versión es obligatorio. "
+        
+        content = request.data.get('content')
+        if content == '' or content == None:
+            if errormsg == "":
+                errormsg += "El campo contenido es obligatorio. "
+            else:
+                errormsg = "Los campos contenido y versión son obligatorios. "
         
         if len(version) >= 100:
-            return Response({'required': 'El campo versión es demasiado largo.'}, status=status.HTTP_400_BAD_REQUEST)
+            errormsg += "Versión debe de ser menor de 100 caracteres."
+
+        if errormsg:
+            return Response({'required': errormsg}, status=status.HTTP_400_BAD_REQUEST)
+
         
         updated_at = datetime.now()
 
