@@ -116,7 +116,9 @@ Esta sección recoge el coste del desarrollo inicial de la aplicación, incluyen
 El equipo de desarrollo de FisioFind está compuesto por **17 personas**, distribuidas de la siguiente manera:
 
 - **5 Analistas**
+
 - **1 Project Manager (PM)**
+
 - **11 Desarrolladores Fullstack**
 
 La distribución de horas de trabajo varía según el mes del proyecto:
