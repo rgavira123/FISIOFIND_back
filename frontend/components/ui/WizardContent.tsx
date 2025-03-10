@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { Service } from "@/lib/definitions";
 import PaymentSelector from "./PaymentSelector";
 import { useAppointment } from "@/context/appointmentContext";
+import AppointmentCalendar from "./AppointmentCalendar"; // Importamos el calendario
 
 interface WizardContentProps {
   currentStep: number;
@@ -15,6 +16,7 @@ const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services }) 
   const { state, dispatch } = useAppointment();
   const appointmentData = state.appointmentData;
   console.log(appointmentData);
+
   const handleSelectService = (service: Service) => {
     if (service.id === appointmentData.serviceId) {
       dispatch({ type: "DESELECT_SERVICE" });
@@ -47,7 +49,7 @@ const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services }) 
               className={clsx(
                 "cursor-pointer p-4 border rounded-md shadow-sm transition-colors w-full",
                 appointmentData.serviceId === svc.id
-                  ? "border-blue-500 bg-blue-50 "
+                  ? "border-blue-500 bg-blue-50"
                   : "border-gray-300 bg-white"
               )}
             >
@@ -63,7 +65,17 @@ const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services }) 
       </div>
     );
   } else if (currentStep === 2) {
-    return <p className="text-gray-800">Contenido: Agenda tu cita y hora.</p>;
+    // Si no se ha seleccionado un servicio, se indica al usuario que lo haga primero.
+    if (!appointmentData.serviceId) {
+      return <p className="text-gray-800">Por favor selecciona un servicio primero.</p>;
+    }
+    return (
+      <div>
+        <h3 className="text-lg font-bold mb-4">Agenda tu cita</h3>
+        {/* Se pasa la duración del servicio al componente del calendario */}
+        <AppointmentCalendar serviceDuration={appointmentData.duration} />
+      </div>
+    );
   } else if (currentStep === 3) {
     return (
       <div>
