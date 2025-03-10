@@ -47,7 +47,6 @@ export default function crearTerminos() {
         if (error.response.data.required) {
           setErrorMessage(error.response.data.required)
         } else {
-
           console.error("Error fetching data:", error);
         }
     });

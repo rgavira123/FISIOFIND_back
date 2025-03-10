@@ -71,17 +71,11 @@ export default function EditarTermino() {
       headers : {
         "Authorization": "Bearer "+token
       }
-    }).then((response) => {
-        if (response) {
-          response = JSON.parse(response)
-          if (response.required) {
-            setErrorMessage(response.required)
-          }
-        }
+    }).then(() => {
         location.href="/gestion-admin/terminos/"
       })
       .catch(error => {
-        if (error.response.data.required) {
+        if (error.response && error.response.data.required) {
           setErrorMessage(error.response.data.required)
         } else {
 
