@@ -5,7 +5,6 @@ const GestionAdmin = () => {
 
   const token = localStorage.getItem("token")
   if (token) {
-    console.log(token)
     axios.get("http://127.0.0.1:8000/api/app_user/check-role/", {
       headers : {
         "Authorization": "Bearer "+token

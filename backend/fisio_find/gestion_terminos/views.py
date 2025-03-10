@@ -8,7 +8,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import generics
 from datetime import datetime
 
-from .models import AppTerminos
+from .models import AppTerminos, Admin
 from .serializers import AppTerminosSerializer
 
 # Create your views here.
@@ -21,17 +21,28 @@ class AppTerminosCreate(generics.CreateAPIView):
         try:
             modifier = request.user
         except Exception:
-            modifier = None
-        modifier = None
+            return Response({"message": "No estás autenticado"}, status=status.HTTP_403_FORBIDDEN)
+        
+        admin_instance = Admin.objects.get(user=modifier)
         content = request.data.get('content')
         version = request.data.get('version')
+        if content == '' or content == None:
+            return Response({'required': 'El campo contenido es obligatorio.'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        version = request.data.get('version')
+        if version == '' or version == None:
+            return Response({'required': 'El campo versión es obligatorio.'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if len(version) >= 100:
+            return Response({'required': 'El campo versión es demasiado largo.'}, status=status.HTTP_400_BAD_REQUEST)
+        
         created_at = datetime.now()
         updated_at = datetime.now()
 
         AppTerminos.objects.create(
             content=content,
             version=version,
-            modifier=modifier,
+            modifier=admin_instance,
             created_at=created_at,
             updated_at=updated_at,
         )
@@ -67,22 +78,31 @@ class AppTerminosUpdate(generics.RetrieveUpdateAPIView):
         try:
             modifier = request.user
         except Exception:
-            modifier = None
+            return Response({"message": "No estás autenticado"}, status=status.HTTP_403_FORBIDDEN)
         pk = kwargs['pk']
         terminos = AppTerminos.objects.filter(pk=pk)
 
         if not terminos.exists():
             return Response({"error": "Esta configuración no existe"}, status=status.HTTP_404_NOT_FOUND)
 
-        modifier = None
+        admin_instance = Admin.objects.get(user=modifier)
         content = request.data.get('content')
+        if content == '' or content == None:
+            return Response({'required': 'El campo contenido es obligatorio.'}, status=status.HTTP_400_BAD_REQUEST)
+        
         version = request.data.get('version')
+        if version == '' or version == None:
+            return Response({'required': 'El campo versión es obligatorio.'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if len(version) >= 100:
+            return Response({'required': 'El campo versión es demasiado largo.'}, status=status.HTTP_400_BAD_REQUEST)
+        
         updated_at = datetime.now()
 
         terminos.update(
             content=content,
             version=version,
-            modifier=modifier,
+            modifier=admin_instance,
             updated_at=updated_at,
         )
 
@@ -92,26 +112,31 @@ class AppTerminosUpdate(generics.RetrieveUpdateAPIView):
         try:
             modifier = request.user
         except Exception:
-            modifier = None
+            return Response({"message": "No estás autenticado"}, status=status.HTTP_403_FORBIDDEN)
         pk = kwargs['pk']
         terminos = AppTerminos.objects.filter(pk=pk)
 
         if not terminos.exists():
             return Response({"error": "Esta configuración no existe"}, status=status.HTTP_404_NOT_FOUND)
 
-        modifier = None
+        admin_instance = Admin.objects.get(user=modifier)
         content = request.data.get('content')
-        if content != terminos.get().content:
-            if AppTerminos.objects.filter(content=content).exists():
-                return Response({"error": "A configuration with this content already exists"}, status=status.HTTP_400_BAD_REQUEST)
-
+        if content == '' or content == None:
+            return Response({'required': 'El campo contenido es obligatorio.'}, status=status.HTTP_400_BAD_REQUEST)
+        
         version = request.data.get('version')
+        if version == '' or version == None:
+            return Response({'required': 'El campo versión es obligatorio.'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if len(version) >= 100:
+            return Response({'required': 'El campo versión es demasiado largo.'}, status=status.HTTP_400_BAD_REQUEST)
+        
         updated_at = datetime.now()
 
         terminos.update(
             content=content,
             version=version,
-            modifier=modifier,
+            modifier=admin_instance,
             updated_at=updated_at,
         )
 
