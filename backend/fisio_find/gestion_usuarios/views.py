@@ -2,11 +2,11 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny
-from .serializers import PatientRegisterSerializer, PatientAdminViewSerializer, PhysioRegisterSerializer, PhysioSerializer, PatientSerializer, AppUserSerializer
+from .serializers import PatientRegisterSerializer, PatientAdminViewSerializer, PhysioRegisterSerializer, PhysioSerializer, PatientSerializer, AppUserSerializer, AppUserAdminViewSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics
 #from permissions import IsAdmin
-from gestion_usuarios.models import Patient
+from gestion_usuarios.models import Patient, AppUser
 
 
 @api_view(['POST'])
@@ -72,6 +72,14 @@ def physio_register_view(request):
         return Response({"message": "Fisioterapeuta registrado correctamente"}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+class AdminAppUserDetail(generics.RetrieveAPIView):
+    '''
+    API endpoint que retorna un solo user por su id para admin.
+    '''
+    permission_classes = [AllowAny]
+    queryset = AppUser.objects.all()
+    serializer_class = AppUserAdminViewSerializer
 
 class AdminPatientCreate(generics.CreateAPIView):
     '''
