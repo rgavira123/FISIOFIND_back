@@ -47,7 +47,9 @@ const Home = () => {
       const floatingImages = document.querySelectorAll(".floating-image");
       floatingImages.forEach((image, index) => {
         const offset = (index + 1) * 50;
-        (image as HTMLElement).style.transform = `translateX(${scrollY / offset}px)`;
+        (image as HTMLElement).style.transform = `translateX(${
+          scrollY / offset
+        }px)`;
       });
     };
 
@@ -96,34 +98,38 @@ const Home = () => {
     useEffect(() => {
       const fetchSpecializations = async () => {
         try {
-          const response = await axios.get("/api/sesion_invitado/specializations/");
+          const response = await axios.get(
+            "/api/sesion_invitado/specializations/"
+          );
           if (response.status === 200) {
             setSpecializations(response.data);
           }
         } catch (error) {
           console.error("Error fetching data:", error);
         }
-      } 
-      fetchSpecializations()
+      };
+      fetchSpecializations();
     }, []);
 
     const handleSearch = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       try {
-        let searchUrl = `/api/sesion_invitado/search-physios/?q=${physioName}`;
+        let searchUrl = `/api/sesion_invitado/search-physios?q=${physioName}`;
         if (specialization) {
           searchUrl = `/api/sesion_invitado/physios-with-specializations/?specialization=${specialization}`;
         }
         const response = await axios.get(searchUrl);
 
         if (response.status === 200) {
-          const results = response.data.map((physio: { user: { username: string }; speciality: string; rating: number; image: string; reviews: number }) => ({ 
-            name: physio.user.username,
-            speciality: physio.speciality,
-            rating: physio.rating,
-            image: physio.image,
-            reviews: physio.reviews
-          }));
+          const results = response.data.map(
+            (physio: {
+              user: { username: string };
+              speciality: string;
+            }) => ({
+              name: physio.user.username,
+              speciality: physio.speciality
+            })
+          );
 
           setSearchResults(results);
         } else {
@@ -134,7 +140,7 @@ const Home = () => {
         console.error("Error fetching data:", error);
         setSearchResults([]);
       }
-    }
+    };
 
     return (
       <div className="min-h-screen w-full">
@@ -172,41 +178,37 @@ const Home = () => {
                   id="search-button"
                 >
                   <div className="h-14 flex items-center justify-center">
-                    <Image src="./static/search.svg" alt="Search Icon" width={24} height={24} />
+                    <Image
+                      src="./static/search.svg"
+                      alt="Search Icon"
+                      width={24}
+                      height={24}
+                    />
                   </div>
                 </button>
               </div>
             </form>
-  
+
             {/* Mostrar los resultados de la búsqueda */}
             {searchResults.length > 0 && (
               <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {searchResults.map((physio, index) => (
                   <CardContainer key={index}>
                     <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-blue-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-full h-auto rounded-xl p-6 border">
-                      <CardItem translateZ="50" className="text-xl font-bold text-neutral-600 dark:text-white">
-                        {physio.name}
+                      {/* Solo mostramos el nombre y especialidad */}
+                      <CardItem
+                        translateZ="50"
+                        className="text-xl font-bold text-neutral-600 dark:text-white"
+                      >
+                        {physio.name} {/* El nombre ya incluye los apellidos */}
                       </CardItem>
-                      <CardItem as="p" translateZ="40" className="text-neutral-500 text-sm mt-2 dark:text-neutral-300">
-                        {physio.speciality}
+                      <CardItem
+                        as="p"
+                        translateZ="40"
+                        className="text-neutral-500 text-sm mt-2 dark:text-neutral-300"
+                      >
+                        {physio.speciality} {/* Especialidad */}
                       </CardItem>
-                      <CardItem translateZ="60" className="w-full mt-4">
-                        <Image src={physio.image} className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl" alt={physio.name} width={1920} height={1080} />
-                      </CardItem>
-                      <div className="flex justify-between items-center mt-6">
-                        <CardItem translateZ="20" className="flex items-center gap-1">
-                          <span className="text-yellow-500">★</span>
-                          <span className="font-semibold">{physio.rating}</span>
-                          <span className="text-sm text-neutral-500">({physio.reviews} reviews)</span>
-                        </CardItem>
-                        <CardItem
-                          translateZ="20"
-                          as="button"
-                          className="px-4 py-2 rounded-xl bg-[#1E5ACD] text-white text-sm font-bold hover:bg-[#1848A3] transition-colors"
-                        >
-                          Ver perfil
-                        </CardItem>
-                      </div>
                     </CardBody>
                   </CardContainer>
                 ))}
@@ -216,7 +218,7 @@ const Home = () => {
         </section>
       </div>
     );
-  }
+  };
 
   return (
     <div className="min-h-screen w-full">
@@ -224,36 +226,64 @@ const Home = () => {
       <section className="flex flex-col items-center justify-center text-center relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full">
           <div className="floating-image" style={{ left: "10%", top: "20%" }}>
-            <Image src="/static/1_heart.webp" alt="Floating Image 1" width={100} height={100} />
+            <Image
+              src="/static/1_heart.webp"
+              alt="Floating Image 1"
+              width={100}
+              height={100}
+            />
           </div>
-          <div className="floating-image" style={{ right: "12%", bottom: "30%" }}>
-            <Image src="/static/4_shine.webp" alt="Floating Image 2" width={100} height={100} />
+          <div
+            className="floating-image"
+            style={{ right: "12%", bottom: "30%" }}
+          >
+            <Image
+              src="/static/4_shine.webp"
+              alt="Floating Image 2"
+              width={100}
+              height={100}
+            />
           </div>
           <div className="floating-image" style={{ right: "5%", top: "10%" }}>
-            <Image src="/static/7_treatment.webp" alt="Floating Image 3" width={100} height={100} />
+            <Image
+              src="/static/7_treatment.webp"
+              alt="Floating Image 3"
+              width={100}
+              height={100}
+            />
           </div>
         </div>
-        <Image src="/static/fisio_find_logo.webp" alt="Fisio Find Logo" width={256} height={256} className="mb-8" />
+        <Image
+          src="/static/fisio_find_logo.webp"
+          alt="Fisio Find Logo"
+          width={256}
+          height={256}
+          className="mb-8"
+        />
         <h1 className="text-6xl font-bold mb-4 font-alfa-slab-one">
           <span className="text-[#05668d]">Fisio </span>
           <span className="text-[#018b89]">Find</span>
         </h1>
         <p className="text-xl mb-8 max-w-2xl">
-          La plataforma especializada en fisioterapia online donde te conectamos con el profesional que mejor se ajusta a tus necesidades.
+          La plataforma especializada en fisioterapia online donde te conectamos
+          con el profesional que mejor se ajusta a tus necesidades.
         </p>
       </section>
 
       {/* Search Section */}
-          {/* Unified Search Bar */}
-          <SearchPhysiotherapists />
+      {/* Unified Search Bar */}
+      <SearchPhysiotherapists />
 
       {/* Focus Cards Section: solo se muestra si NO está autenticado */}
       {!isAuthenticated && (
         <section className="flex flex-col items-center justify-center text-center py-12 dark:bg-neutral-900">
           <br />
-          <h2 className="text-3xl text-[#253240] font-bold mb-4">Únete a Fisio Find</h2>
+          <h2 className="text-3xl text-[#253240] font-bold mb-4">
+            Únete a Fisio Find
+          </h2>
           <p className="text-lg mb-8">
-            Crea una cuenta o inicia sesión para disfrutar de todas nuestras posibilidades.
+            Crea una cuenta o inicia sesión para disfrutar de todas nuestras
+            posibilidades.
           </p>
           <div className="flex flex-col gap-4">
             <button
@@ -298,7 +328,11 @@ const Home = () => {
                   {physio.speciality}
                 </CardItem>
                 <CardItem translateZ="60" className="w-full mt-4">
-                  <img src={physio.image} className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl" alt={physio.name} />
+                  <img
+                    src={physio.image}
+                    className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl"
+                    alt={physio.name}
+                  />
                 </CardItem>
                 <div className="flex justify-between items-center mt-6">
                   <CardItem translateZ="20" className="flex items-center gap-1">
@@ -328,19 +362,28 @@ const Home = () => {
           <div>
             <h3 className="text-lg font-bold mb-4">Sobre Fisio Find</h3>
             <p>
-              Una plataforma innovadora diseñada para conectar pacientes con los mejores fisioterapeutas.
+              Una plataforma innovadora diseñada para conectar pacientes con los
+              mejores fisioterapeutas.
             </p>
           </div>
           <div>
             <h3 className="text-lg font-bold mb-4">Enlaces Útiles</h3>
             <ul>
               <li>
-                <a href="https://fisiofind.netlify.app" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://fisiofind.netlify.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Conoce Fisio Find
                 </a>
               </li>
               <li>
-                <a href="https://github.com/Proyecto-ISPP/FISIOFIND" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://github.com/Proyecto-ISPP/FISIOFIND"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Repositorio GitHub
                 </a>
               </li>
@@ -369,16 +412,26 @@ const Home = () => {
           <div className="p-6 bg-white rounded-lg shadow-lg">
             <h2 className="text-2xl font-bold mb-4">Acceso requerido</h2>
             <p className="mb-4">
-              Por favor, inicia sesión o crea una cuenta para ver el perfil del fisioterapeuta.
+              Por favor, inicia sesión o crea una cuenta para ver el perfil del
+              fisioterapeuta.
             </p>
             <div className="flex justify-end gap-4">
-              <button className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300" onClick={closePhysioModal}>
+              <button
+                className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
+                onClick={closePhysioModal}
+              >
                 Cancelar
               </button>
-              <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" onClick={() => router.push("/profile/login")}>
+              <button
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                onClick={() => router.push("/profile/login")}
+              >
                 Iniciar sesión
               </button>
-              <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700" onClick={() => router.push("/profile/signup")}>
+              <button
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                onClick={() => router.push("/profile/signup")}
+              >
                 Crear cuenta
               </button>
             </div>
