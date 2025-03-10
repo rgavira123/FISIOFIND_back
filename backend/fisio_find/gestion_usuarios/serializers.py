@@ -3,7 +3,7 @@ from rest_framework.validators import UniqueValidator  # Importación correcta
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.password_validation import validate_password
 from django.db.utils import IntegrityError
-from .models import AppUser, Patient
+from .models import AppUser, Patient, Physiotherapist, Admin
 import re
 
 class PatientRegisterSerializer(serializers.ModelSerializer):
@@ -81,8 +81,17 @@ class PatientRegisterSerializer(serializers.ModelSerializer):
         except IntegrityError as e:
             raise serializers.ValidationError({"error": "Error de integridad en la base de datos. Posible duplicado de datos."})
 
-        
-        
-        
 
+class AppUserAdminViewSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = AppUser
+        fields = '__all__'
 
+class PatientAdminViewSerializer(serializers.ModelSerializer):
+    
+    user = AppUserAdminViewSerializer()
+    
+    class Meta:
+        model = Patient
+        fields = '__all__'
