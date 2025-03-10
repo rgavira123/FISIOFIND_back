@@ -5,7 +5,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.db.utils import IntegrityError
 from django.db import transaction
 from gestion_usuarios.validacionFisios import validar_colegiacion
-from .models import AppUser, Patient, Physiotherapist
+from .models import AppUser, Patient, Physiotherapist, Specialization
 import re
 from datetime import date  # Importar para obtener la fecha de hoy
 
@@ -20,6 +20,11 @@ class AppUserSerializer(serializers.ModelSerializer):
         ]
 
 class PhysioSerializer(serializers.ModelSerializer):
+    specializations = serializers.SlugRelatedField(
+        queryset=Specialization.objects.all(),
+        slug_field='name',
+        many=True
+    )
     class Meta:
         model = Physiotherapist
         exclude = ['user']

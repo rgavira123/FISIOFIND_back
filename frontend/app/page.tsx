@@ -15,6 +15,7 @@ interface Physiotherapist {
   image: string;
   location: string;
   reviews: number;
+  specializations?: string; // Add this line
 }
 
 const Home = () => {
@@ -113,22 +114,21 @@ const Home = () => {
   
     const handleSearch = async () => {
       try {
-        let searchUrl = `http://localhost:8000/api/sesion_invitado/search-physios/q=${physioName}`;
+        let searchUrl = `http://localhost:8000/api/sesion_invitado/search-physios/?q=${physioName}`;
         if (specialization) {
           searchUrl = `http://localhost:8000/api/sesion_invitado/physios-with-specializations/?specialization=${specialization}`;
         }
         const response = await axios.get(searchUrl);
   
         if (response.status === 200) {
-          const results = response.data.map(
-            (physio: {
-              user: { username: string };
-              speciality: string;
-            }) => ({
-              name: physio.user.username,
-              speciality: physio.speciality,
-            })
-          );
+          const results = response.data.map((physio: {
+            first_name: string;
+            last_name: string;
+            specializations: string[];
+          }) => ({
+            name: `${physio.first_name} ${physio.last_name}`, // Combina nombre y apellidos
+            specializations: physio.specializations.join(", "), // Junta las especialidades
+          }));
   
           setSearchResults(results);
         } else {
@@ -195,19 +195,19 @@ const Home = () => {
                 {searchResults.map((physio, index) => (
                   <CardContainer key={index}>
                     <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-blue-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-full h-auto rounded-xl p-6 border">
-                      {/* Solo mostramos el nombre y especialidad */}
+                      {/* Mostramos el nombre completo y especialidades */}
                       <CardItem
                         translateZ="50"
                         className="text-xl font-bold text-neutral-600 dark:text-white"
                       >
-                        {physio.name} {/* El nombre ya incluye los apellidos */}
+                        {physio.name} {/* El nombre completo */}
                       </CardItem>
                       <CardItem
                         as="p"
                         translateZ="40"
                         className="text-neutral-500 text-sm mt-2 dark:text-neutral-300"
                       >
-                        {physio.speciality} {/* Especialidad */}
+                        {physio.specializations} {/* Especialidades concatenadas */}
                       </CardItem>
                     </CardBody>
                   </CardContainer>
@@ -218,7 +218,8 @@ const Home = () => {
         </section>
       </div>
     );
-  };  
+  };
+  
 
   return (
     <div className="min-h-screen w-full">
