@@ -90,11 +90,30 @@ const Home = () => {
     const [searchResults, setSearchResults] = useState<Physiotherapist[]>([]);
     const [physioName, setPhysioName] = useState("");
     const [specialization, setSpecialization] = useState("");
+    const [specializations, setSpecializations] = useState<string[]>([]);
+
+    // Obtener las especialidades disponibles desde la API
+    useEffect(() => {
+      const fetchSpecializations = async () => {
+        try {
+          const response = await axios.get("/api/sesion_invitado/specializations/");
+          if (response.status === 200) {
+            setSpecializations(response.data);
+          }
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      } 
+      fetchSpecializations()
+    }, []);
 
     const handleSearch = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       try {
-        const searchUrl = `/api/physiotherapists?name=${physioName}&specialization=${specialization}`;
+        let searchUrl = `/api/sesion_invitado/search-physios/?q=${physioName}`;
+        if (specialization) {
+          searchUrl = `/api/sesion_invitado/physios-with-specializations/?specialization=${specialization}`;
+        }
         const response = await axios.get(searchUrl);
 
         if (response.status === 200) {
@@ -140,10 +159,11 @@ const Home = () => {
                     onChange={(e) => setSpecialization(e.target.value)} // Controlamos la especialidad
                   >
                     <option value="">Seleccionar Especialidad</option>
-                    <option value="deportiva">Deportiva</option>
-                    <option value="neurologica">Neurológica</option>
-                    <option value="pediatrica">Pediátrica</option>
-                    <option value="muscular">Muscular</option>
+                    {specializations.map((speciality, index) => (
+                      <option key={index} value={speciality}>
+                        {speciality}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <button
