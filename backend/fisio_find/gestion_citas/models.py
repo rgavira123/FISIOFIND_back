@@ -1,5 +1,5 @@
 from django.db import models
-from gestion_usuarios.models import AppUser
+from gestion_usuarios.models import AppUser, Physiotherapist, Patient
 
 class StatusChoices(models.TextChoices):
     FINISHED = "finished", "Finished"
@@ -10,21 +10,19 @@ class StatusChoices(models.TextChoices):
 
 class Appointment(models.Model):
     id = models.AutoField(primary_key=True) 
-    title = models.CharField(max_length=100, verbose_name="title", default="Sin título")
-    description = models.TextField(verbose_name="description", null=True, blank=True)
     start_time = models.DateTimeField(verbose_name="start_time")
     end_time = models.DateTimeField(verbose_name="end_time")
     is_online = models.BooleanField(verbose_name="is_online")
     service = models.JSONField(verbose_name="service")
     patient = models.ForeignKey(
-        AppUser, 
-        on_delete=models.CASCADE, 
+        Patient,
+        on_delete=models.CASCADE,
         related_name="patient_appointments", 
         verbose_name="Patient"
     )
     physiotherapist = models.ForeignKey(
-        AppUser, 
-        on_delete=models.CASCADE, 
+        Physiotherapist,
+        on_delete=models.CASCADE,
         related_name="physio_appointments", 
         verbose_name="Physiotherapist"
     )
