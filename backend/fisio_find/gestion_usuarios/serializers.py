@@ -19,6 +19,8 @@ class AppUserSerializer(serializers.ModelSerializer):
         validators=[RegexValidator(regex=r'^\d{9}$', message="El número de teléfono debe tener exactamente 9 dígitos.")]
     )
 
+    photo = serializers.ImageField(required=False)
+
     class Meta:
         model = AppUser
         fields = ['id', 'username', 'email', 'phone_number', 'postal_code', 'dni', 'photo', 'account_status']

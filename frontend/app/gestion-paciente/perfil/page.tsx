@@ -72,6 +72,11 @@ const PatientProfile = () => {
     });
   };
 
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
+
+
 
   const validateForm = () => {
     const newErrors = {};
@@ -189,6 +194,17 @@ const PatientProfile = () => {
 
 
       <form onSubmit={handleSubmit}>
+        <div>
+            <h3>Foto de perfil:</h3>
+            <img 
+                    src={profile.user.photo ? `${BASE_URL}${profile.user.photo}` : `${BASE_URL}/media/default.png`}
+                    alt="Foto de perfil"
+                    width={150}
+                                    height={150}
+            />
+            <input type="file" accept="image/*" onChange={handleFileChange} />
+        </div>
+
         <label>Nombre de usuario:</label>
         <input 
           type="text" 
