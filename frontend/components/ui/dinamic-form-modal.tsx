@@ -56,8 +56,19 @@ const DynamicFormModal = ({ event, onClose, onSubmit }: DynamicFormModalProps) =
                 onChange={(e) => {
                   const newDate = e.target.value;
                   setAlternatives((prev) => {
-                    const updated = { ...prev, [newDate]: [...(prev[date] || [])] };
-                    delete updated[date]; // Eliminar la fecha antigua si ya no tiene datos
+                    const updated = { ...prev };
+                    // Obtener la alternativa que se está moviendo
+                    const movingSlot = updated[date]?.[index];
+                    if (!movingSlot) return prev; // Si no hay nada que mover, salir
+                    // Eliminar del array original
+                    updated[date] = updated[date].filter((_, i) => i !== index);
+                    // Si la fecha original queda vacía, eliminarla
+                    if (updated[date].length === 0) {
+                      delete updated[date];
+                    }
+                    // Agregar el slot a la nueva fecha
+                    updated[newDate] = [...(updated[newDate] || []), movingSlot];
+
                     return updated;
                   });
                 }}
