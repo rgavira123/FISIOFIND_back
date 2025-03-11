@@ -1,6 +1,6 @@
 // Wizard.tsx
 "use client";
-import React, { useState } from "react";
+import React, {useState } from "react";
 import WizardHeader from "./WizardHeader";
 import WizardContent from "./WizardContent";
 import WizardNavigation from "./WizardNavigation";
@@ -10,7 +10,6 @@ import { AppointmentProvider } from "@/context/appointmentContext"; // Asegúrat
 const Wizard: React.FC<{ steps: Step[] }> = ({ steps }) => {
   const [currentStep, setCurrentStep] = useState<number>(1);
 
-  // Ejemplo de servicios (normalmente vendrían de una API)
   const services: Service[] = [
     {
       id: "1",

@@ -1,16 +1,25 @@
-// WizardContent.tsx
 "use client";
 import React from "react";
 import clsx from "clsx";
 import { Service } from "@/lib/definitions";
-import PaymentSelector from "./PaymentSelector";
 import { useAppointment } from "@/context/appointmentContext";
-import AppointmentCalendar from "./AppointmentCalendar"; // Importamos el calendario
+import AppointmentCalendar from "./AppointmentCalendar";
+import { formatAppointment } from "@/lib/utils"; // Se importa la función de formateo
 
 interface WizardContentProps {
   currentStep: number;
   services: Service[];
 }
+
+// Función para calcular el máximo común divisor de dos números
+const gcd = (a: number, b: number): number => {
+  return b === 0 ? a : gcd(b, a % b);
+};
+
+// Calcula el GCD de un arreglo de números
+const computeGCD = (arr: number[]): number => {
+  return arr.reduce((prev, curr) => gcd(prev, curr));
+};
 
 const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services }) => {
   const { state, dispatch } = useAppointment();
@@ -18,23 +27,21 @@ const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services }) 
   console.log(appointmentData);
 
   const handleSelectService = (service: Service) => {
-    if (service.id === appointmentData.serviceId) {
+    if (appointmentData.service.type === service.title) {
       dispatch({ type: "DESELECT_SERVICE" });
     } else {
       dispatch({
         type: "SELECT_SERVICE",
         payload: {
-          serviceId: service.id,
-          serviceTitle: service.title,
-          price: service.price,
-          duration: parseInt(service.duration),
+          service: {
+            type: service.title,
+            price: service.price,
+            duration: parseInt(service.duration),
+          },
+          physiotherapist: 2,
         },
       });
     }
-  };
-
-  const handleSelectPaymentMethod = (methodId: string) => {
-    dispatch({ type: "SELECT_PAYMENT_METHOD", payload: methodId });
   };
 
   if (currentStep === 1) {
@@ -48,7 +55,7 @@ const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services }) 
               onClick={() => handleSelectService(svc)}
               className={clsx(
                 "cursor-pointer p-4 border rounded-md shadow-sm transition-colors w-full",
-                appointmentData.serviceId === svc.id
+                appointmentData.service.type === svc.title
                   ? "border-blue-500 bg-blue-50"
                   : "border-gray-300 bg-white"
               )}
@@ -65,57 +72,67 @@ const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services }) 
       </div>
     );
   } else if (currentStep === 2) {
-    // Si no se ha seleccionado un servicio, se indica al usuario que lo haga primero.
-    if (!appointmentData.serviceId) {
+    if (!appointmentData.service.type) {
       return <p className="text-gray-800">Por favor selecciona un servicio primero.</p>;
     }
+    // Calcula el GCD de las duraciones de todos los servicios para definir el slotInterval
+    const serviceDurations = services.map((svc) => parseInt(svc.duration));
+    const slotInterval = computeGCD(serviceDurations);
     return (
       <div>
         <h3 className="text-lg font-bold mb-4">Agenda tu cita</h3>
-        {/* Se pasa la duración del servicio al componente del calendario */}
-        <AppointmentCalendar serviceDuration={appointmentData.duration} />
+        <AppointmentCalendar
+          serviceDuration={appointmentData.service.duration}
+          slotInterval={slotInterval}
+        />
       </div>
     );
   } else if (currentStep === 3) {
     return (
       <div>
         <h3 className="text-lg font-bold mb-4">Elige tu método de pago</h3>
-        <PaymentSelector
-          methods={[
-            {
-              id: "Credit Card",
-              name: "Tarjeta de Crédito",
-              imageUrl: "/images/mastercard-logo.svg",
-            },
-            {
-              id: "PayPal",
-              name: "PayPal",
-              imageUrl: "/images/paypal_logo.png",
-              description: "Pago seguro con PayPal",
-            },
-          ]}
-          selectedMethodId={appointmentData.paymentMethod}
-          onSelect={(method) => handleSelectPaymentMethod(method.id)}
-        />
+        {/* Aquí se podría agregar el selector de pago */}
       </div>
     );
   } else if (currentStep === 4) {
+    // Se formatean las fechas de inicio y fin de forma separada
+    const inicio = appointmentData.start_time ? formatAppointment(appointmentData.start_time) : { date: "", time: "" };
+    const fin = appointmentData.end_time ? formatAppointment(appointmentData.end_time) : { time: "" };
     return (
       <div>
         <h3 className="font-bold mb-2">Resumen final de tu cita</h3>
         <p>
-          <strong>Servicio:</strong> {appointmentData.serviceTitle}
+          <strong>Servicio:</strong> {appointmentData.service.type}
         </p>
         <p>
-          <strong>Precio:</strong> ${appointmentData.price}
+          <strong>Precio:</strong> ${appointmentData.service.price}
         </p>
         <p>
-          <strong>Duración:</strong> {appointmentData.duration} min
+          <strong>Duración:</strong> {appointmentData.service.duration} min
         </p>
-        <p>
-          <strong>Método de Pago:</strong>{" "}
-          {appointmentData.paymentMethod || "No seleccionado"}
-        </p>
+        {appointmentData.start_time ? (
+          <>
+            <p>
+              <strong>Fecha:</strong> {inicio.date}
+            </p>
+            <p>
+              <strong>Hora de inicio:</strong> {inicio.time}
+            </p>
+          </>
+        ) : (
+          <p>
+            <strong>Inicio:</strong> No seleccionado
+          </p>
+        )}
+        {appointmentData.end_time ? (
+          <p>
+            <strong>Hora de fin:</strong> {fin.time}
+          </p>
+        ) : (
+          <p>
+            <strong>Fin:</strong> No seleccionado
+          </p>
+        )}
       </div>
     );
   }

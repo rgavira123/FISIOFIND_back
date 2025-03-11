@@ -14,8 +14,8 @@ const steps: Step[] = [
 ];
 
 
-export default function WizardPage() {
 
+export default function WizardPage() {
   return (
     <AppointmentProvider>
       <Wizard steps={steps} />

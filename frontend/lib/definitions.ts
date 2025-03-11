@@ -26,13 +26,24 @@ export interface Service {
   duration: string;
 }
 
+// definitions.ts
+// definitions.ts
+// definitions.ts
 export interface AppointmentData {
-  serviceId: string | null;
-  serviceTitle: string;
-  price: number;
-  duration: number;
-  paymentMethod: string | null;
+  start_time: string;
+  end_time: string;
+  is_online: boolean;
+  service: {
+    type: string;
+    price: number;
+    duration: number;
+  };
+  physiotherapist: number;
+  status: string;
+  alternatives: string;
 }
+
+
 
 export interface PaymentMethod {
   id: string;
