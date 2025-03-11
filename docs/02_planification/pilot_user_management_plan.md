@@ -294,7 +294,7 @@ Se presenta un listado de los usuarios piloto que participarán en las pruebas d
 
 # 5. GESTIÓN DE LAS COMUNICACIONES CON LOS USUARIOS PILOTO
 
-*Una comunicación efectiva con los usuarios piloto fue esencial para recoger su feedback y garantizar su participación activa. En este apartado se describen los canales utilizados, la frecuencia de interacciones y el soporte proporcionado:*
+Una comunicación efectiva con los usuarios piloto es esencial para recoger su feedback y garantizar su participación activa. En este apartado se describen los canales utilizados, la frecuencia de interacciones y el soporte proporcionado:
 
 ## 5.1. CANALES DE COMUNICACIÓN
 
@@ -308,7 +308,7 @@ Se ha definido una periodicidad específica para las interacciones con los usuar
 - **12 de abril de 2025**  
 - **3 de mayo de 2025**  
 
-En estas fechas, TODOS los usuarios piloto recibirán un correo electrónico en el que recibirán instrucciones y se les proporcionará un formulario que deberán cumplimentar tras haber realizado las pruebas. Se establecerá de forma provisional una **fecha límite de una semana para completar el formulario**. Si no se completa el formulario en ese plazo, se le enviará un correo electrónico de recordatorio para que lo complete.
+En estas fechas, TODOS los usuarios piloto recibirán un correo electrónico en el que recibirán instrucciones y se les proporcionará un formulario que deberán cumplimentar tras haber realizado las pruebas. Se establecerá de forma provisional una **fecha límite de cinco días para completar el formulario**. Si no se completa el formulario en ese plazo, se le enviará un correo electrónico de recordatorio para que lo complete.
 
 >[!NOTE]
 Recalcamos que los Usuarios Piloto ***Técnicos*** deberán completar el formulario en tiempo para ser evaluados de forma positiva en la asignatura. Se penalizará con una pequeña bajada de nota el alumno por no completar el formulario en el plazo establecido, y se evaluará con calificación suspensa a los Usuarios Piloto que no completen el formulario.
@@ -318,8 +318,6 @@ Recalcamos que los Usuarios Piloto ***Técnicos*** deberán completar el formula
 Se proporcionó documentación clara y soporte técnico para facilitar el uso de la plataforma y resolver dudas o problemas encontrados por los usuarios piloto, fomentando por parte del equipo de desarrollo la **elaboración de vídeos** explicativos en el que se detallen los casos de uso que el usuario debe probar.
 
 # 6. FEEDBACK OBTENIDO
-
-El feedback de los usuarios piloto fue clave para evaluar la plataforma y determinar las mejoras necesarias. En este apartado se presentan las principales observaciones, problemas detectados y funcionalidades mejor valoradas.
 
 Una vez completados los formularios, el equipo encargado de la gestión del feedback procesará los datos y elaborará un informe detallado sobre el feedback obtenido. El feedback de cada sesión de evaluación de los usuarios piloto será registrado en su informe pertinente ubicado en `/docs/03_reports/pilot_user_reports`. Se realizará un informe por Sprint.
 
