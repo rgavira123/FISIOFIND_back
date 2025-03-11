@@ -27,9 +27,32 @@ const PatientProfile = () => {
   const [success, setSuccess] = useState("");  
   const [selectedFile, setSelectedFile] = useState(null);
 
-  useEffect(() => {
-    fetchPatientProfile();
-  }, []);
+  useEffect(() => {    
+    const token = getAuthToken(); // Obtiene el token de autenticación
+
+    if (token) {
+      axios.get("http://127.0.0.1:8000/api/app_user/check-role/", {
+        headers: {
+          "Authorization": "Bearer " + token
+        }
+      })
+      .then(response => {
+        const role = response.data.user_role;
+        if (role !== "patient") {
+          location.href = "/error-permisos";
+        } else {
+          fetchPatientProfile(); 
+        }
+      })
+      .catch(error => {
+        console.error("Error al obtener el rol del usuario:", error);
+        location.href = "/error-permisos"; 
+      });
+    } else {
+      location.href = "/error-permisos"; 
+    }
+}, []);
+
 
   const fetchPatientProfile = async () => {
     setLoading(true);
@@ -111,12 +134,12 @@ const PatientProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSuccess("");
-    setErrors({});  
+    setErrors({});
 
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;  
+        setErrors(validationErrors);
+        return;
     }
 
     try {
@@ -130,18 +153,16 @@ const PatientProfile = () => {
 
         // Agregar los campos del usuario
         Object.entries(profile.user).forEach(([key, value]) => {
-            if (value) formData.append(`user.${key}`, value);
+            if (value && key !== "photo") formData.append(`user.${key}`, value);
         });
 
         // Agregar los campos del paciente
         formData.append("gender", profile.gender);
         formData.append("birth_date", profile.birth_date);
 
-        // Agregar la foto si hay una seleccionada
-        if (selectedFile && typeof selectedFile === "object"){
+        // Solo agregar la foto si se ha seleccionado un archivo
+        if (selectedFile) {
             formData.append("user.photo", selectedFile);
-        } else {
-            formData.append("user.photo", profile.user.photo)
         }
 
         const response = await axios.patch(`${BASE_URL}/api/app_user/profile/`, formData, {
@@ -165,16 +186,16 @@ const PatientProfile = () => {
                     errorMessages.phone_number = data.user.phone_number[0];
                 }
                 if (data.user.photo) {
-                    errorMessages.photo = data.user.photo[0]; 
+                    errorMessages.photo = data.user.photo[0];
                 }
                 if (data.user.username) {
                     errorMessages.username = data.user.username[0];
                 }
                 if (data.user.email) {
-                    errorMessages.email = data.user.email[0]; 
+                    errorMessages.email = data.user.email[0];
                 }
                 if (data.user.dni) {
-                    errorMessages.dni = data.user.dni[0]; 
+                    errorMessages.dni = data.user.dni[0];
                 }
             }
 
@@ -184,6 +205,7 @@ const PatientProfile = () => {
         }
     }
 };
+
 
   if (loading) return <p>Cargando perfil...</p>;
 
@@ -201,14 +223,20 @@ const PatientProfile = () => {
         {success && <p className="text-green-500 text-center mb-4">{success}</p>}
 
         <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="flex justify-center mb-4" onClick={handleImageClick}>
+          <div className="relative flex justify-center mb-4">
             <img 
               src={profile.user.photo ? `${BASE_URL}${profile.user.photo}` : `${BASE_URL}/media/default.png`}
               alt="Foto de perfil"
-              className="rounded-full border-4 border-[#05668D] shadow-md"
+              className="rounded-full border-4 border-[#05668D] shadow-md cursor-pointer"
               width={150}
               height={150}
+              onClick={handleImageClick}
+              onMouseEnter={(e) => e.target.nextSibling.classList.remove("hidden")}
+              onMouseLeave={(e) => e.target.nextSibling.classList.add("hidden")}
             />
+            <span className="absolute bottom-2 bg-[#05668D] text-white text-xs px-2 py-1 rounded hidden">
+              Seleccionar archivo como imagen de perfil
+            </span>
             <input 
               id="file-input"
               type="file"
@@ -217,6 +245,7 @@ const PatientProfile = () => {
               onChange={handleFileChange}
             />
           </div>
+
           <div className="space-y-2">
             <label className="font-semibold text-[#253240]">Nombre de usuario:</label>
             <input
