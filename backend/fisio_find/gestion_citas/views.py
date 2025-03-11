@@ -298,7 +298,110 @@ class AddUnavailableDay(APIView):
             return start_minutes < end_minutes
         except ValueError:
             return False
-        
+
+
+from datetime import datetime, timedelta
+from collections import defaultdict
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated, IsPhysiotherapist, IsPatient])
+def update_appointment(request, appointment_id):
+    try:
+        appointment = Appointment.objects.get(id=appointment_id)
+    except Appointment.DoesNotExist:
+        return Response({"error": "Cita no encontrada"}, status=status.HTTP_404_NOT_FOUND)
+
+    user = request.user
+    data = request.data.copy()
+
+    # Obtener la fecha y hora actual
+    now = datetime.now()
+
+    # Si el usuario es fisioterapeuta
+    if hasattr(user, 'physio'):
+        if appointment.status != "booked":
+            return Response({"error": "Solo puedes modificar citas con estado 'booked'"}, status=status.HTTP_403_FORBIDDEN)
+
+        # Verificar que la cita tenga al menos 48 horas de margen
+        if appointment.start_time - now < timedelta(hours=48):
+            return Response({"error": "Solo puedes modificar citas con al menos 48 horas de antelación"}, status=status.HTTP_403_FORBIDDEN)
+
+        alternatives = data.get("alternatives", {})
+
+        # Validar que haya al menos dos fechas diferentes
+        if not isinstance(alternatives, dict) or len(alternatives.keys()) < 2:
+            return Response({"error": "Debes proporcionar al menos dos fechas diferentes en 'alternatives'"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Validar que las fechas y horas sean únicas y que no incluyan la fecha actual de la cita
+        appointment_start_time = appointment.start_time.strftime("%Y-%m-%dT%H:%M:%SZ")  # Convertir a string
+        validated_alternatives = defaultdict(set)
+
+        for date, slots in alternatives.items():
+            for slot in slots:
+                slot_start = slot["start"]
+                slot_end = slot["end"]
+
+                if slot_start == appointment_start_time:
+                    return Response({"error": f"No puedes agregar la fecha actual de la cita ({appointment_start_time}) en 'alternatives'"}, status=status.HTTP_400_BAD_REQUEST)
+
+                if slot_start >= slot_end:
+                    return Response({"error": f"En {date}, la hora de inicio debe ser menor que la de fin"}, status=status.HTTP_400_BAD_REQUEST)
+
+                # Garantizar que cada combinación start-end sea única
+                if (slot_start, slot_end) in validated_alternatives[date]:
+                    return Response({"error": f"La combinación {slot_start} - {slot_end} en {date} ya existe en 'alternatives'"}, status=status.HTTP_400_BAD_REQUEST)
+
+                validated_alternatives[date].add((slot_start, slot_end))
+
+        # Convertir los sets de vuelta a listas de diccionarios
+        data["alternatives"] = {
+            date: [{"start": start, "end": end} for start, end in slots]
+            for date, slots in validated_alternatives.items()
+        }
+
+        data["status"] = "pending"
+
+    # Si el usuario es paciente
+    elif hasattr(user, 'patient'):
+        if appointment.status != "pending":
+            return Response({"error": "Solo puedes modificar citas con estado 'pending'"}, status=status.HTTP_403_FORBIDDEN)
+
+        selected_start_time = data.get("start_time")
+        selected_end_time = data.get("end_time")
+
+        if not selected_start_time or not selected_end_time:
+            return Response({"error": "Debes proporcionar un 'start_time' y un 'end_time' válidos"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Validar que la selección coincida con una alternativa exacta
+        valid_selection = False
+        for slots in appointment.alternatives.values():
+            for slot in slots:
+                if slot["start"] == selected_start_time and slot["end"] == selected_end_time:
+                    valid_selection = True
+                    break
+            if valid_selection:
+                break
+
+        if not valid_selection:
+            return Response({"error": "El rango horario seleccionado no coincide con las alternativas disponibles"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Actualizar la cita con la nueva fecha y hora seleccionada
+        data["alternatives"] = {}  # Eliminar todas las alternativas
+        data["status"] = "confirmed"
+
+    else:
+        return Response({"error": "No tienes permisos para modificar esta cita"}, status=status.HTTP_403_FORBIDDEN)
+
+    serializer = AppointmentSerializer(appointment, data=data, partial=True)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
 class AppointmentDetail(generics.RetrieveUpdateDestroyAPIView):
     # permission_classes = [IsAuthenticated, IsOwner]
     queryset = Appointment.objects.all()

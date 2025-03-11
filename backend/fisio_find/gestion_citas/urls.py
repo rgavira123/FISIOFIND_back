@@ -15,6 +15,9 @@ urlpatterns = [
     #Physiotherapists
     path('physio/', views.create_appointment_physio),
     path('physio/list/', views.list_appointments_physio),
+
+    #Update and delete
+    path('update/<int:appointment_id>/', views.update_appointment, name='update_appointment'),
     #Admin 
     path('admin/create/', views.AdminAppointmenCreate.as_view()),
     path('admin/list/', views.AdminAppointmenList.as_view()),
