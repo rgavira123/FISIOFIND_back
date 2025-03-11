@@ -9,5 +9,5 @@ urlpatterns = [
     path('physio/register/', physio_register_view, name='physio_register'),
     path('current-user/', return_user, name='current_user')
 ]
-    
+
 

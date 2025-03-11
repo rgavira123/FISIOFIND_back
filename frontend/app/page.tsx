@@ -147,7 +147,7 @@ const Home = () => {
           <div className="flex flex-col gap-4">
             <button
               className="shadow__btn bg-[#1E5ACD] text-white px-4 py-3 rounded font-bold hover:bg-[#1848A3] transition-colors"
-              onClick={() => router.push("/gestion-usuario/login")}
+              onClick={() => router.push("/register")}
             >
               Crea una cuenta
             </button>
