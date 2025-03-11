@@ -1,6 +1,6 @@
 ---
-title: "DESGLOSE DE LOS COSTES"                         # CHANGE IF NEEDED
-subtitle: "FISIO FIND - Grupo 6 - #DP"
+title: "DESGLOSE DE LOS COSTES"                           # CHANGE IF NEEDED
+subtitle: "FISIO FIND - Grupo 6 - #SPRINT 1"
 author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
 date: "19/02/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
@@ -35,13 +35,31 @@ classoption: "table"
 - [**1. INTRODUCCIÓN**](#1-introducción)
 - [**2. COSTES DE DESARROLLO (CapEx)**](#2-costes-de-desarrollo-capex)
   - [**2.1. COSTES DE PERSONAL Y HORAS DE TRABAJO**](#21-costes-de-personal-y-horas-de-trabajo)
+    - [**Coste por hora según perfil:**](#coste-por-hora-según-perfil)
+    - [**Línea base (156 horas)**](#línea-base-156-horas)
+    - [**Cálculo del coste mensual con horas variables (X horas)**](#cálculo-del-coste-mensual-con-horas-variables-x-horas)
   - [**2.2. COSTES DE REEMPLAZO DE HARDWARE Y LICENCIAS**](#22-costes-de-reemplazo-de-hardware-y-licencias)
 - [**3. COSTES DE PRODUCCIÓN Y DESPLIEGUE (OpEx)**](#3-costes-de-producción-y-despliegue-opex)
 - [**4. COSTES DE MANTENIMIENTO Y SOPORTE**](#4-costes-de-mantenimiento-y-soporte)
 - [**5. COSTES DE MARKETING**](#5-costes-de-marketing)
-- [**6. ESTIMACIÓN DE RETORNO DE INVERSIÓN (ROI)**](#6-estimación-de-retorno-de-inversión-roi)
-- [**7. ANEXO Y EJEMPLO DE CÁLCULO**](#7-anexo-y-ejemplo-de-cálculo)
-- [**8. CONCLUSIONES**](#8-conclusiones)
+- [**6. SITUACIÓN DE COSTES POR SPRINTS**](#6-situación-de-costes-por-sprints)
+  - [**6.1. SPRINT 1**](#61-sprint-1)
+    - [**Costes estimados**](#costes-estimados)
+    - [**Gastos reales**](#gastos-reales)
+    - [**Comparativa**](#comparativa)
+    - [**Análisis**](#análisis)
+  - [**6.2. SPRINT 2**](#62-sprint-2)
+  - [6.3. SPRINT 3](#63-sprint-3)
+- [**7. ESTIMACIÓN DE RETORNO DE INVERSIÓN (ROI)**](#7-estimación-de-retorno-de-inversión-roi)
+- [**8. ESTIMACIONES Y EJEMPLO DE CÁLCULO**](#8-estimaciones-y-ejemplo-de-cálculo)
+  - [**8.1. Escenario Optimista**](#81-escenario-optimista)
+  - [**Gráfica de evolución del ROI**](#gráfica-de-evolución-del-roi)
+  - [**Factores Clave**](#factores-clave)
+  - [**8.2. Escenario Esperado**](#82-escenario-esperado)
+  - [**Gráfica de evolución del ROI**](#gráfica-de-evolución-del-roi-1)
+  - [**8.3. Escenario Pesimista**](#83-escenario-pesimista)
+    - [**Análisis del caso pesimista**](#análisis-del-caso-pesimista)
+  - [**Gráfica de evolución del ROI**](#gráfica-de-evolución-del-roi-2)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
@@ -55,7 +73,7 @@ classoption: "table"
 
 - **Número de Grupo:** Grupo 6
 
-- **Entregable:** #DP
+- **Entregable:** #SPRINT 1
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
@@ -63,7 +81,7 @@ classoption: "table"
 
 - **Fecha de Creación:** 19/02/2025  
 
-- **Versión:** v1.2
+- **Versión:** v1.4
 
 <br>
 
@@ -76,6 +94,9 @@ classoption: "table"
 | 19/02/2025    | v1.0    | Ramón Gavira Sánchez, Pablo Fernández Pérez | Elaboración de la primera versión del documento. |
 | 19/02/2025    | v1.1    | Antonio Macías Ferrera                      | Adición del resto de puntos del documento de acuerdo con el *Sprint Planning* general. |
 | 24/02/2025    | v1.2    | Antonio Macías Ferrera                      | Modificación del documento para añadir desglose detallado de costes de acuerdo con el *feedback* de la clase del pasado 21/02. |
+| 10/03/2025    | v1.3    | Ramón Gavira Sánchez, Pablo Fernández Pérez | Se actualiza el documento de costes de acuerdo a lo solicitado en el #S1 y las condiciones de fallo. |
+| 11/03/2025    | v1.4    | Antonio Macías Ferrera                      | Correcciones menores de formato. |
+
 
 
 <br>
@@ -88,7 +109,7 @@ classoption: "table"
 
 Este documento detalla el desglose de los costes asociados al desarrollo, producción y despliegue del proyecto **FisioFind**. Se incluyen cálculos basados en horas de trabajo, tarifas por perfil, costes de hardware, licencias, producción, mantenimiento, marketing y soporte. Además, se incorpora una estimación del retorno de inversión (ROI) y se detallan ejemplos de cálculo para ciertos conceptos (por ejemplo, alojamiento de videos).
 
-Trabjaremos con las siguientes variables para el cálculo de costes:
+Trabajaremos con las siguientes variables para el cálculo de costes:
 
 - **Coste de Desarrollo - CapEx** (personal + hardware + licencias + margen 10%)
 
@@ -292,9 +313,9 @@ Nos encontramos en la primera fase de desarrollo, por tanto los gastos que incur
 
 A fecha de 11/03/2025 las horas estimadas son **56 horas**, tomando el 100% del mes de Febrero y un 30% de Marzo. Por lo que el coste total del equipo sería:
 
-\[ \text{Coste personal} = 56 \times [(5 \times 30,82) + (1 \times 37,25) + (11 \times 27)] \]
+**Coste personal** = 56 × [(5 × 30,82) + (1 × 37,25) + (11 × 27)]
 
-\[ \text{Coste total (con contigencia)} = Coste personal \times 1.10 \]
+**Coste total (con contingencia)** = Coste personal × 1.10
 
 **Cálculo detallado:**
 
@@ -333,9 +354,9 @@ En este momento los costes adicionales son únicamente:
 
 A fecha de 11/03/2025 las horas trabajadas por todo el equipo según el seguimiento en **Clockify** son aproximadamente 1.127 horas, siendo las horas por persona *(1.127/17)* aproximadamente 66 horas.
 
-\[ \text{Coste personal} = 66 \times [(5 \times 30,82) + (1 \times 37,25) + (11 \times 27)] \]
+**Coste personal** = 66 × [(5 × 30,82) + (1 × 37,25) + (11 × 27)]
 
-\[ \text{Coste total (con contigencia)} = Coste personal \times 1.10 \]
+**Coste total (con contingencia)** = Coste personal × 1.10
 
 **Cálculo detallado:**
 | Concepto                | Cantidad | Tarifa €/hora | Total €/hora |
@@ -381,6 +402,12 @@ El coste real del Sprint 1 ha sido superior al estimado, principalmente por un m
 
 ## **6.2. SPRINT 2**
 
+[Pendiente de completar a fecha de finalización del Sprint 2]
+
+## 6.3. SPRINT 3
+
+[Pendiente de completar a fecha de finalización del Sprint 3]
+
 
 
 # **7. ESTIMACIÓN DE RETORNO DE INVERSIÓN (ROI)**
@@ -421,7 +448,7 @@ A continuación mostraremos tres (3) escenarios diferentes para el retorno de la
 
 Estos valores son los más optimistas, ya que partiríamos con un lanzamiento muy exitoso, partiendo de los 17 fisioterapeutas piloto que se han registrado en nuestro formulario y que cada uno de ellos ha invitado a 5 colegas a unirse a la plataforma.
 
-En cuanto a la estimación final, comparándonos con nuestro mayor competido [TuFisio](https://tufisio.com), vemos que actualmente tiene +1389 fisioterapeutas registrados en su plataforma, por lo que nuestra aspiración más optimista sería alcanzar el 72% de sus clientes.
+En cuanto a la estimación final, comparándonos con nuestro mayor competido [TuFisio](https://tufisio.com), que actualmente cuenta con más de 1.389 fisioterapeutas registrados en su plataforma, nuestra aspiración más optimista sería alcanzar el 72% de su base de usuarios.
 
 - **Registro Inicial:** 100 fisioterapeutas el primer mes.
 - **Registros finales de la estimación:** 1000 fisioterapeutas el último mes.
