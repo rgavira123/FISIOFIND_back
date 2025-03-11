@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import './css/custom-select.css';
 import { ChevronDown } from 'lucide-react';
 
 interface CustomDropdownProps {

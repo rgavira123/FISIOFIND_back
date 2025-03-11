@@ -96,8 +96,8 @@ const Home = () => {
     const [specialization, setSpecialization] = useState("");
     const [specializations, setSpecializations] = useState<string[]>([]);
     const [iconLoaded, setIconLoaded] = useState(false);
+    const [searchAttempted, setSearchAttempted] = useState(false);
 
-    // Check if the script has loaded
     useEffect(() => {
       const checkScriptLoaded = () => {
         if (
@@ -107,19 +107,13 @@ const Home = () => {
         ) {
           setIconLoaded(true);
         } else {
-          // Check again after a short delay
           setTimeout(checkScriptLoaded, 200);
         }
       };
 
       checkScriptLoaded();
-
-      return () => {
-        // Cleanup if needed
-      };
     }, []);
 
-    // Obtener las especialidades disponibles desde la API
     useEffect(() => {
       const fetchSpecializations = async () => {
         try {
@@ -137,12 +131,13 @@ const Home = () => {
     }, []);
 
     const handleSearch = async () => {
-      try {
-        if (!specialization) {
-          alert("Por favor, selecciona una especialidad.");
-          return;
-        }
+      setSearchAttempted(true); // Marca que el usuario ha intentado buscar
 
+      if (!specialization) {
+        return;
+      }
+
+      try {
         const searchUrl = `http://localhost:8000/api/sesion_invitado/physios-with-specializations/?specialization=${specialization}`;
         const response = await axios.get(searchUrl);
 
@@ -157,7 +152,6 @@ const Home = () => {
               specializations: physio.specializations.join(", "),
             })
           );
-
           setSearchResults(results);
         } else {
           alert(response.data.detail || "No se encontraron resultados.");
@@ -170,8 +164,8 @@ const Home = () => {
     };
 
     return (
-      <div className="min-h-screen w-full">
-        <section className="w-full py-8 relative overflow-hidden">
+      <div className="w-full flex items-center relative">
+        <section className="w-full py-4 relative overflow-hidden">
           <h2 className="text-3xl text-[#253240] font-bold mb-2 text-center">
             Encuentra a tu fisioterapeuta ideal
           </h2>
@@ -181,9 +175,9 @@ const Home = () => {
           <div className="max-w-6xl mx-auto px-4">
             <form className="max-w-2xl mx-auto">
               {/* Contenedor flex para el dropdown de especialidades y el botón de búsqueda */}
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-4 mx-auto">
                 {/* Dropdown para especialidad */}
-                <div className="w-64">
+                <div className="w-64 mx-auto">
                   <CustomDropdown
                     value={specialization}
                     onChange={setSpecialization}
@@ -220,6 +214,24 @@ const Home = () => {
                 </button>
               </div>
             </form>
+
+            {/* Mostrar la alerta si no se selecciona una especialidad */}
+            {searchAttempted && !specialization && (
+              <div className="error flex justify-center items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-xs z-10">
+                <div className="error__icon">
+                  {/* Aquí puede ir un icono de advertencia */}
+                </div>
+                <div className="error__title">
+                  Por favor, selecciona una especialidad
+                </div>
+                <div
+                  className="error__close"
+                  onClick={() => setSpecialization("")}
+                >
+                  {/* Icono de cerrar */}
+                </div>
+              </div>
+            )}
 
             {/* Mostrar los resultados de la búsqueda */}
             {searchResults.length > 0 && (
