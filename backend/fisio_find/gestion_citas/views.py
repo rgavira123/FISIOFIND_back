@@ -402,6 +402,37 @@ def update_appointment(request, appointment_id):
 
 
 
+from datetime import datetime, timezone, timedelta
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_appointment(request, appointment_id):
+    try:
+        appointment = Appointment.objects.get(id=appointment_id)
+    except Appointment.DoesNotExist:
+        return Response({"error": "Cita no encontrada"}, status=status.HTTP_404_NOT_FOUND)
+
+    user = request.user
+    now = datetime.now(timezone.utc)  # Fecha y hora actual en UTC
+
+    # Verificar si el usuario es el fisioterapeuta o el paciente de la cita
+    if not (hasattr(user, 'physio') or hasattr(user, 'patient')):
+        return Response({"error": "No tienes permisos para borrar esta cita"}, status=status.HTTP_403_FORBIDDEN)
+
+    # Verificar si la cita tiene un estado permitido para eliminación
+    if appointment.status not in ["booked", "pending"]:
+        return Response({"error": "Solo se pueden borrar citas con estado 'booked' o 'pending'"}, status=status.HTTP_403_FORBIDDEN)
+
+    # Verificar si quedan menos de 48 horas para el inicio de la cita
+    if appointment.start_time - now < timedelta(hours=48):
+        return Response({"error": "No puedes borrar una cita con menos de 48 horas de antelación"}, status=status.HTTP_403_FORBIDDEN)
+
+    appointment.delete()
+    return Response({"message": "Cita eliminada correctamente"}, status=status.HTTP_204_NO_CONTENT)
+
+
+
+
 class AppointmentDetail(generics.RetrieveUpdateDestroyAPIView):
     # permission_classes = [IsAuthenticated, IsOwner]
     queryset = Appointment.objects.all()

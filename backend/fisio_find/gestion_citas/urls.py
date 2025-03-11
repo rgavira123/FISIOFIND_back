@@ -18,6 +18,7 @@ urlpatterns = [
 
     #Update and delete
     path('update/<int:appointment_id>/', views.update_appointment, name='update_appointment'),
+    path('delete/<int:appointment_id>/', views.delete_appointment, name='delete_appointment'),
     #Admin 
     path('admin/create/', views.AdminAppointmenCreate.as_view()),
     path('admin/list/', views.AdminAppointmenList.as_view()),
