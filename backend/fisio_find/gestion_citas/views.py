@@ -3,7 +3,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from gestion_citas.models import Appointment,Physiotherapist
 from gestion_citas.serializers import AppointmentSerializer
 from rest_framework.permissions import IsAuthenticated
-from gestion_usuarios.permissions import IsPhysiotherapist, IsPatient
+from gestion_usuarios.permissions import IsPhysiotherapist, IsPatient, IsPhysioOrPatient
 from gestion_usuarios.permissions import IsAdmin
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -303,8 +303,8 @@ class AddUnavailableDay(APIView):
 from datetime import datetime, timedelta
 from collections import defaultdict
 
-@api_view(['PATCH'])
-@permission_classes([IsAuthenticated, IsPhysiotherapist, IsPatient])
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated, IsPhysioOrPatient])
 def update_appointment(request, appointment_id):
     try:
         appointment = Appointment.objects.get(id=appointment_id)
