@@ -46,6 +46,7 @@ classoption: "table"
   - [4.1. AJUSTES REALIZADOS EN BASE AL FEEDBACK](#41-ajustes-realizados-en-base-al-feedback)
   - [4.2. ESTRATEGIAS DE MEJORA FUTURA](#42-estrategias-de-mejora-futura)
 - [5. EVALUACIÓN DE LA EXPERIENCIA PILOTO](#5-evaluación-de-la-experiencia-piloto)
+<!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 
 <br>
 
@@ -118,8 +119,8 @@ Se presenta un listado de los usuarios piloto que participarán en las pruebas d
 
 ### PACIENTES
 
-| Nombre Completo                  | Edad       | ¿Ha acudido al fisioterapeuta? | Frecuencia           | Motivo de consulta                                      | ¿Busca fisioterapeutas por internet? | Preferencias de selección|
-|----------------------------------|-----------|------------------------------|----------------------|--------------------------------------------------------|---------------------------------|---------------------------|
+| Nombre Completo | Edad   | ¿Ha acudido al fisioterapeuta? | Frecuencia| Motivo de consulta | ¿Busca fisioterapeutas por internet? | Preferencias de selección |
+|-----------------------------|--------|-----------------------|-----------------|-----------------------------------------|---------------------------------|-------------------|
 | Pedro Pablo Gallego Mendoza     | Más de 60  | Sí                           | Ocasionalmente      | Tendinitis, dolor muscular                             | No                              | Recomendaciones          |
 | Marta García Maldonado          | 18-25      | Sí                           | Ocasionalmente      | Dolor de espalda                                      | No                              | Ubicación, Precio, Recomendaciones, Disponibilidad |
 | Francisco Muñoz Sánchez         | 18-25      | Sí                           | Una vez al año      | Recuperación para oposiciones de bombero             | No                              | Ubicación, Precio, Recomendaciones |
@@ -141,8 +142,8 @@ Se presenta un listado de los usuarios piloto que participarán en las pruebas d
 
 ### USUARIOS PILOTO TÉCNICOS
 
-| Nombre Completo                  | Edad       | ¿Ha acudido al fisioterapeuta? | Frecuencia           | Motivo de consulta                                      | ¿Busca fisioterapeutas por internet? | Preferencias de selección|
-| --------------------------------- | ---------- | ---------------------------- | -------------------- | ------------------------------------------------------- | ----------------------------------- | ------------------------- |
+| Nombre Completo | Edad  | ¿Ha acudido al fisioterapeuta? | Frecuencia | Motivo de consulta  | ¿Busca fisioterapeutas por internet? | Preferencias de selección|
+| --------------------------- | ---- | ------------------ | ---------- | ----------------------------------------------| ------------------------------ | ------------------- |
 | Antonio Daniel Porcar Aragón      | [Edad]     | [Sí/No]                      | [Frecuencia]         | [Motivo de consulta]                                    | [Sí/No]                            | [Preferencias de selección] |
 | Antonio Jiménez Ortega            | [Edad]     | [Sí/No]                      | [Frecuencia]         | [Motivo de consulta]                                    | [Sí/No]                            | [Preferencias de selección] |
 | David Guillén Fernández           | [Edad]     | [Sí/No]                      | [Frecuencia]         | [Motivo de consulta]                                    | [Sí/No]                            | [Preferencias de selección] |
@@ -189,7 +190,7 @@ Se presenta un listado de los usuarios piloto que participarán en las pruebas d
 *Se realiza una evaluación general de la fase piloto, analizando su impacto en el desarrollo del proyecto y extrayendo conclusiones clave para su continuidad y optimización.*
 
 | Usuario(s) piloto               | Fecha de acceso al sistema | Fecha de envío del feedback | Enlace Clockify (solo estudiantes) | Fallos encontrados | Recomendaciones de mejora | Otros comentarios |
-|---------------------------------|---------------------------|----------------------------|------------------------------------|--------------------|-------------------------|------------------|
+|---------------------------|---------------------|----------------------|---------------------------|--------------|--------------------|-----------|
 | Antonio Daniel Porcar Aragón (antporara@alum.us.es)   |                           |                            |                                    |                    |                         |                  |
 | Antonio Jiménez Ortega (antjimort@alum.us.es)         |                           |                            |                                    |                    |                         |                  |
 | David Guillén Fernández (davguifer@alum.us.es)        |                           |                            |                                    |                    |                         |                  |
