@@ -279,9 +279,9 @@ const Home = () => {
   return (
     <div className="min-h-screen w-full">
       {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center text-center relative overflow-hidden bg-[#ebfaf8] py-8">
+      <section className="flex flex-col items-center justify-center text-center relative overflow-hidden mb-8 py-12">
         <div className="absolute top-0 left-0 w-full h-full">
-          <div className="floating-image" style={{ right: "80%", top: "35%" }}>
+          <div className="floating-image" style={{ right: "70%", top: "35%" }}>
             <Image
               src="/static/9_girl.webp"
               alt="Floating Image 3"
@@ -289,17 +289,17 @@ const Home = () => {
               height={250}
             />
           </div>
-          <div className="floating-image" style={{ left: "20%", top: "10%" }}>
+          <div className="floating-image" style={{ left: "30%", top: "10%" }}>
             <Image
               src="/static/1_heart.webp"
               alt="Floating Image 1"
-              width={85}
-              height={85}
+              width={70}
+              height={70}
             />
           </div>
           <div
             className="floating-image"
-            style={{ right: "38%", bottom: "26%" }}
+            style={{ right: "38%", bottom: "29%" }}
           >
             <Image
               src="/static/4_shine.webp"
@@ -319,12 +319,12 @@ const Home = () => {
               height={40}
             />
           </div>
-          <div className="floating-image" style={{ right: "5%", top: "10%" }}>
+          <div className="floating-image" style={{ right: "30%", top: "10%" }}>
             <Image
               src="/static/7_treatment.webp"
               alt="Floating Image 3"
-              width={100}
-              height={100}
+              width={80}
+              height={80}
             />
           </div>
           <div className="floating-image" style={{ right: "10%", top: "55%" }}>
