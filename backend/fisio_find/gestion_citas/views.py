@@ -22,7 +22,7 @@ class StandardResultsSetPagination(PageNumberPagination):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated, IsPatient])
 def create_appointment_patient(request):
-    patient = request.user
+    patient = request.user.patient
     if hasattr(request.user, 'physio'):
         return Response({"error": "Los fisioterapeutas no pueden crear citas como pacientes"}, status=status.HTTP_403_FORBIDDEN)
     
