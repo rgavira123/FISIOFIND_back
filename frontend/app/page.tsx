@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import CustomDropdown from "@/components/ui/custom-select";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
+import AnimatedIcons from "@/components/ui/AnimatedIcons";
 import Modal from "@/components/ui/Modal";
 import Link from "next/link";
 import axios from "axios";
@@ -15,7 +17,7 @@ interface Physiotherapist {
   image: string;
   location: string;
   reviews: number;
-  specializations?: string; // Add this line
+  specializations?: string;
 }
 
 const Home = () => {
@@ -91,10 +93,32 @@ const Home = () => {
 
   const SearchPhysiotherapists = () => {
     const [searchResults, setSearchResults] = useState<Physiotherapist[]>([]);
-    const [physioName, setPhysioName] = useState("");
     const [specialization, setSpecialization] = useState("");
     const [specializations, setSpecializations] = useState<string[]>([]);
-  
+    const [iconLoaded, setIconLoaded] = useState(false);
+
+    // Check if the script has loaded
+    useEffect(() => {
+      const checkScriptLoaded = () => {
+        if (
+          typeof window !== "undefined" &&
+          typeof window.customElements !== "undefined" &&
+          window.customElements.get("animated-icons")
+        ) {
+          setIconLoaded(true);
+        } else {
+          // Check again after a short delay
+          setTimeout(checkScriptLoaded, 200);
+        }
+      };
+
+      checkScriptLoaded();
+
+      return () => {
+        // Cleanup if needed
+      };
+    }, []);
+
     // Obtener las especialidades disponibles desde la API
     useEffect(() => {
       const fetchSpecializations = async () => {
@@ -103,7 +127,7 @@ const Home = () => {
             "http://localhost:8000/api/sesion_invitado/specializations"
           );
           if (response.status === 200) {
-            setSpecializations(response.data);
+            setSpecializations(["", ...response.data]);
           }
         } catch (error) {
           console.error("Error fetching data:", error);
@@ -111,25 +135,29 @@ const Home = () => {
       };
       fetchSpecializations();
     }, []);
-  
+
     const handleSearch = async () => {
       try {
-        let searchUrl = `http://localhost:8000/api/sesion_invitado/search-physios/?q=${physioName}`;
-        if (specialization) {
-          searchUrl = `http://localhost:8000/api/sesion_invitado/physios-with-specializations/?specialization=${specialization}`;
+        if (!specialization) {
+          alert("Por favor, selecciona una especialidad.");
+          return;
         }
+
+        const searchUrl = `http://localhost:8000/api/sesion_invitado/physios-with-specializations/?specialization=${specialization}`;
         const response = await axios.get(searchUrl);
-  
+
         if (response.status === 200) {
-          const results = response.data.map((physio: {
-            first_name: string;
-            last_name: string;
-            specializations: string[];
-          }) => ({
-            name: `${physio.first_name} ${physio.last_name}`, // Combina nombre y apellidos
-            specializations: physio.specializations.join(", "), // Junta las especialidades
-          }));
-  
+          const results = response.data.map(
+            (physio: {
+              first_name: string;
+              last_name: string;
+              specializations: string[];
+            }) => ({
+              name: `${physio.first_name} ${physio.last_name}`,
+              specializations: physio.specializations.join(", "),
+            })
+          );
+
           setSearchResults(results);
         } else {
           alert(response.data.detail || "No se encontraron resultados.");
@@ -140,74 +168,90 @@ const Home = () => {
         setSearchResults([]);
       }
     };
-  
+
     return (
       <div className="min-h-screen w-full">
-        <section className="w-full py-16 relative overflow-hidden">
+        <section className="w-full py-8 relative overflow-hidden">
+          <h2 className="text-3xl text-[#253240] font-bold mb-2 text-center">
+            Encuentra a tu fisioterapeuta ideal
+          </h2>
+          <p className="text-lg mx-auto text-center mb-4 max-w-2xl">
+            Busca por especialidad
+          </p>
           <div className="max-w-6xl mx-auto px-4">
-            <form className="max-w-4xl mx-auto">
-              <div className="flex bg-white rounded-full overflow-hidden shadow-lg">
-                <div className="flex-1 flex items-center pl-6">
-                  <input
-                    type="text"
-                    placeholder="Buscar fisioterapeutas..."
-                    value={physioName}
-                    onChange={(e) => setPhysioName(e.target.value)}
-                    className="w-full py-4 text-lg focus:outline-none"
+            <form className="max-w-2xl mx-auto">
+              {/* Contenedor flex para el dropdown de especialidades y el botón de búsqueda */}
+              <div className="flex items-center space-x-4">
+                {/* Dropdown para especialidad */}
+                <div className="w-64">
+                  <CustomDropdown
+                    value={specialization}
+                    onChange={setSpecialization}
+                    options={specializations}
+                    placeholder="Especialidad"
                   />
                 </div>
-                <div className="h-10 w-px bg-gray-200 self-center mx-4"></div>
-                <div className="px-4 w-64">
-                  <select
-                    className="w-full py-4 text-lg focus:outline-none text-gray-600 bg-white appearance-none pr-8"
-                    value={specialization}
-                    onChange={(e) => setSpecialization(e.target.value)} // Controlamos la especialidad
-                  >
-                    <option value="">Seleccionar Especialidad</option>
-                    {specializations.map((speciality, index) => (
-                      <option key={index} value={speciality}>
-                        {speciality}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+
+                {/* Botón de búsqueda */}
                 <button
-                  type="button" // Cambié el tipo del botón a "button"
-                  className="hover:bg-gray-300 text-gray-700 w-14 flex items-center justify-center rounded-full transition-all"
+                  type="button"
+                  className="hover:bg-gray-300 text-gray-700 w-16 flex items-center justify-center rounded-full transition-all"
                   id="search-button"
-                  onClick={handleSearch} // Llamamos a handleSearch al hacer clic
+                  onClick={handleSearch}
                 >
-                  <div className="h-14 flex items-center justify-center">
-                    <Image
-                      src="./static/search.svg"
-                      alt="Search Icon"
-                      width={24}
-                      height={24}
-                    />
+                  <div className="flex items-center justify-center">
+                    {iconLoaded ? (
+                      <AnimatedIcons
+                        src="https://animatedicons.co/get-icon?name=search&style=minimalistic&token=12e9ffab-e7da-417f-a9d9-d7f67b64d808"
+                        trigger="click"
+                        attributes='{"variationThumbColour":"#A4A7A9","variationName":"Gray Tone","variationNumber":3,"numberOfGroups":1,"strokeWidth":1.5,"backgroundIsGroup":true,"defaultColours":{"group-1":"#253240FF","background":"#65C2C947"}}'
+                        height="35"
+                        width="35"
+                      ></AnimatedIcons>
+                    ) : (
+                      <Image
+                        src="./static/search.svg"
+                        alt="Search Icon"
+                        width={24}
+                        height={24}
+                      />
+                    )}
                   </div>
                 </button>
               </div>
             </form>
-  
+
             {/* Mostrar los resultados de la búsqueda */}
             {searchResults.length > 0 && (
               <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {searchResults.map((physio, index) => (
                   <CardContainer key={index}>
-                    <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-blue-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-full h-auto rounded-xl p-6 border">
-                      {/* Mostramos el nombre completo y especialidades */}
+                    <CardBody className="bg-gradient-to-bl from-white to-[#65C2C9]/50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-blue-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-full min-h-[400px] rounded-xl p-6 border flex flex-col">
+                      {/* Nombre */}
                       <CardItem
                         translateZ="50"
                         className="text-xl font-bold text-neutral-600 dark:text-white"
                       >
-                        {physio.name} {/* El nombre completo */}
+                        {physio.name}
                       </CardItem>
+                      {/* Especialidades */}
                       <CardItem
                         as="p"
                         translateZ="40"
                         className="text-neutral-500 text-sm mt-2 dark:text-neutral-300"
                       >
-                        {physio.specializations} {/* Especialidades concatenadas */}
+                        {physio.specializations}
+                      </CardItem>
+
+                      {/* Imagen estática del fisioterapeuta */}
+                      <CardItem translateZ="60" className="w-full mt-4">
+                        <Image
+                          src="/static/fisioterapeuta_sample.jpeg"
+                          className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl"
+                          alt="Fisioterapeuta"
+                          width={500}
+                          height={500}
+                        />
                       </CardItem>
                     </CardBody>
                   </CardContainer>
@@ -219,30 +263,48 @@ const Home = () => {
       </div>
     );
   };
-  
 
   return (
     <div className="min-h-screen w-full">
       {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center text-center relative overflow-hidden">
+      <section className="flex flex-col items-center justify-center text-center relative overflow-hidden bg-[#ebfaf8] py-8">
         <div className="absolute top-0 left-0 w-full h-full">
-          <div className="floating-image" style={{ left: "10%", top: "20%" }}>
+          <div className="floating-image" style={{ right: "80%", top: "35%" }}>
+            <Image
+              src="/static/9_girl.webp"
+              alt="Floating Image 3"
+              width={250}
+              height={250}
+            />
+          </div>
+          <div className="floating-image" style={{ left: "20%", top: "10%" }}>
             <Image
               src="/static/1_heart.webp"
               alt="Floating Image 1"
-              width={100}
-              height={100}
+              width={85}
+              height={85}
             />
           </div>
           <div
             className="floating-image"
-            style={{ right: "12%", bottom: "30%" }}
+            style={{ right: "38%", bottom: "26%" }}
           >
             <Image
               src="/static/4_shine.webp"
               alt="Floating Image 2"
-              width={100}
-              height={100}
+              width={40}
+              height={40}
+            />
+          </div>
+          <div
+            className="floating-image"
+            style={{ left: "37%", bottom: "41%" }}
+          >
+            <Image
+              src="/static/4_shine.webp"
+              alt="Floating Image 2"
+              width={40}
+              height={40}
             />
           </div>
           <div className="floating-image" style={{ right: "5%", top: "10%" }}>
@@ -253,19 +315,27 @@ const Home = () => {
               height={100}
             />
           </div>
+          <div className="floating-image" style={{ right: "10%", top: "55%" }}>
+            <Image
+              src="/static/2_liftweights.webp"
+              alt="Floating Image 3"
+              width={150}
+              height={150}
+            />
+          </div>
         </div>
         <Image
-          src="/static/fisio_find_logo.webp"
+          src="/static/logo_fisio_find_smaller.png"
           alt="Fisio Find Logo"
-          width={256}
-          height={256}
-          className="mb-8"
+          width={150}
+          height={150}
+          className="mb-4"
         />
-        <h1 className="text-6xl font-bold mb-4 font-alfa-slab-one">
+        <h1 className="text-5xl font-bold mb-2 font-alfa-slab-one">
           <span className="text-[#05668d]">Fisio </span>
           <span className="text-[#018b89]">Find</span>
         </h1>
-        <p className="text-xl mb-8 max-w-2xl">
+        <p className="text-lg mb-4 max-w-2xl">
           La plataforma especializada en fisioterapia online donde te conectamos
           con el profesional que mejor se ajusta a tus necesidades.
         </p>
@@ -308,7 +378,7 @@ const Home = () => {
 
       {/* Top Physiotherapists Section */}
       <section className="max-w-7xl mx-auto px-4 mb-12">
-        <h2 className="text-3xl font-bold mb-8 text-center">
+        <h2 className="text-3xl text-[#253240] font-bold mb-8 text-center">
           Top Fisioterapeutas
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
