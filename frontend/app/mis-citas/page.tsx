@@ -148,59 +148,6 @@ export default function Home() {
         <Calendar events={events} currentRole={currentRole} hoveredEventId={hoveredEventId} />
       </div>
 
-      {/* Botón para cambiar entre FullCalendar y vista en Cards */}
-      {/* <div className="flex justify-center my-4">
-        <button
-          onClick={() => setView(view === "calendar" ? "cards" : "calendar")}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700 transition"
-        >
-          {view === "calendar" ? "Ver en Tarjetas" : "Ver Calendario"}
-        </button>
-      </div> */}
-
-      {/* Formulario para agregar eventos */}
-      {/* <div className="max-w-lg mx-auto bg-white shadow-md p-4 rounded-md">
-        <h2 className="text-lg font-semibold mb-3">Añadir Evento</h2>
-        <form onSubmit={addEvent} className="space-y-2">
-          <input 
-            type="text" 
-            placeholder="Título del evento" 
-            value={newEvent.title} 
-            onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })} 
-            className="w-full p-2 border rounded-md"
-            required
-          />
-          <input 
-            type="datetime-local" 
-            value={newEvent.start} 
-            onChange={(e) => setNewEvent({ ...newEvent, start: e.target.value })} 
-            className="w-full p-2 border rounded-md"
-            required
-          />
-          <input 
-            type="datetime-local" 
-            value={newEvent.end} 
-            onChange={(e) => setNewEvent({ ...newEvent, end: e.target.value })} 
-            className="w-full p-2 border rounded-md"
-          />
-          <label className="flex items-center space-x-2">
-            <input 
-              type="checkbox" 
-              checked={newEvent.allDay} 
-              onChange={(e) => setNewEvent({ ...newEvent, allDay: e.target.checked, end: "" })} 
-            />
-            <span>Evento de todo el día</span>
-          </label>
-          <button 
-            type="submit" 
-            className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600"
-          >
-            Añadir Evento
-          </button>
-        </form>
-      </div> */}
-
-      {/* Mostrar datos de API si existen */}
       {data && (
         <div className="mt-4 text-center">
           <p className="text-lg font-semibold">Mensaje: {data.message}</p>
