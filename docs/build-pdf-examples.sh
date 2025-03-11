@@ -32,7 +32,7 @@ readmeai \
     --output readmeai-gemini.md \
     --repository https://github.com/Proyecto-ISPP/FISIOFIND
 
-### if he repository is private
+### if the repository is private
 readmeai \
     --api gemini \
     --model gemini-1.5-flash \
