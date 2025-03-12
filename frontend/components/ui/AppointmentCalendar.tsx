@@ -17,8 +17,8 @@ const scheduleData = {
     },
     appointments: [
       {
-        start_time: "2025-06-15T10:00:00Z",
-        end_time: "2025-06-15T10:45:00Z",
+        start_time: "2025-03-22T10:00:00Z",
+        end_time: "2025-03-22T10:45:00Z",
         status: "booked",
       },
     ],
@@ -29,7 +29,7 @@ const scheduleData = {
       ],
       tuesday: [{ start: "10:00", end: "15:00" }],
       wednesday: [],
-      thursday: [],
+      thursday: [{ start: "10:00", end: "15:00" }],
       friday: [],
       saturday: [{ start: "09:00", end: "15:00" }],
       sunday: [],
@@ -96,21 +96,22 @@ export const getAvailableSlots = (
     .toLocaleDateString("en-US", { weekday: "long" })
     .toLowerCase();
 
-  const intervals =
-    scheduleData.schedule.exceptions[dateStr] ||
-    scheduleData.schedule.weekly_schedule[dayOfWeek] ||
-    [];
+  const intervals = scheduleData.schedule.weekly_schedule[dayOfWeek] || [];
+  const exceptions = scheduleData.schedule.exceptions[dateStr] || [];
 
   // Aplanamos en caso de que sea un array de arrays
   const flatIntervals = Array.isArray(intervals[0]) ? intervals.flat() : intervals;
 
   const appointmentsForDate = scheduleData.schedule.appointments
-    .filter((app) => app.start_time.startsWith(dateStr))
-    .map((app) => {
-      const startTime = new Date(app.start_time).toTimeString().slice(0, 5);
-      const endTime = new Date(app.end_time).toTimeString().slice(0, 5);
-      return { start: startTime, end: endTime };
-    });
+  .filter((app) => app.start_time.startsWith(dateStr))
+  .map((app) => {    
+    const startDate = new Date(app.start_time);
+    const endDate = new Date(app.end_time);
+    // Obtener la hora en formato HH:mm en UTC
+    const startTime = `${startDate.getUTCHours().toString().padStart(2, "0")}:${startDate.getUTCMinutes().toString().padStart(2, "0")}`;
+    const endTime = `${endDate.getUTCHours().toString().padStart(2, "0")}:${endDate.getUTCMinutes().toString().padStart(2, "0")}`;
+    return { start: startTime, end: endTime };
+  });
 
   let freeIntervals: { start: string; end: string }[] = [];
   flatIntervals.forEach((interval) => {
@@ -118,8 +119,14 @@ export const getAvailableSlots = (
     freeIntervals = freeIntervals.concat(free);
   });
 
-  const availableSlots: string[] = [];
+  let exceptionIntervals: { start: string; end: string }[] = [];
   freeIntervals.forEach((interval) => {
+    const exception = subtractInterval(interval, exceptions);
+    exceptionIntervals = exceptionIntervals.concat(exception);
+  });
+
+  const availableSlots: string[] = [];
+  exceptionIntervals.forEach((interval) => {
     let startMin = timeStrToMinutes(interval.start);
     const endMin = timeStrToMinutes(interval.end);
 
@@ -181,15 +188,23 @@ const AppointmentCalendar: React.FC<AppointmentCalendarProps> = ({
     return "#333333";
   };
 
-  // Cuando se hace clic en un día
   const handleDateClick = (arg: any) => {
     const dateStr = arg.dateStr;
+    const today = new Date()
+    today.setDate(today.getDate() + 2);
+    const twoDaysLater = today.toLocaleDateString("en-CA"); // Formato YYYY-MM-DD
+  
     setSelectedDate(dateStr);
     setClickedDate(dateStr); // guardamos la fecha clicada
+    if (dateStr < twoDaysLater) {
+      setSlots([]); // No mostrar horarios en fechas pasadas
+      return;
+    }
     const available = getAvailableSlots(dateStr, serviceDuration, slotInterval);
     setSlots(available);
     setSelectedSlot(null); // resetea la selección de hora al cambiar de día
   };
+  
 
   // Al hacer clic en un slot
   const handleSlotClick = (slot: string) => {
@@ -213,7 +228,7 @@ const AppointmentCalendar: React.FC<AppointmentCalendarProps> = ({
     const events = [];
     const today = new Date();
     console.log("today", today);
-    today.setHours(0, 0, 0, 0);
+    // today.setHours(1, 0, 0, 0);
 
 
     const currentDate = new Date(arg.start);
@@ -254,7 +269,6 @@ const AppointmentCalendar: React.FC<AppointmentCalendarProps> = ({
         initialView="dayGridMonth"
         dateClick={handleDateClick}
         events={backgroundEvents}
-        // validRange={{ start: today2 }}
         locale={esLocale}
         datesSet={handleDatesSet}
       />
