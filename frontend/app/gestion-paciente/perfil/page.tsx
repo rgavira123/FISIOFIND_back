@@ -66,11 +66,24 @@ const PatientProfile = () => {
         return;
       }
 
-      const response = await axios.get(`${BASE_URL}/api/app_user/profile/`, {
+      const response = await axios.get(`${BASE_URL}/api/app_user/current-user/`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      console.log(response.data);
 
-      setProfile(response.data || { user: {} }); 
+      setProfile({
+        user: {
+            dni: response.data.patient.user_data.dni,
+            email: response.data.patient.user_data.email,
+            phone_number: response.data.patient.user_data.phone_number,
+            photo: response.data.patient.user_data.photo, // Si la foto está disponible en la respuesta
+            postal_code: response.data.patient.user_data.postal_code,
+            username: response.data.patient.user_data.username,
+            account_status: response.data.patient.user_data.account_status,
+        },
+        birth_date: response.data.patient.birth_date,
+        gender: response.data.patient.gender
+      });
     } catch (error) {
       setErrors({ general: "Error obteniendo el perfil." });
     } finally {
@@ -225,7 +238,7 @@ const PatientProfile = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="relative flex justify-center mb-4">
             <img 
-              src={profile.user.photo ? `${BASE_URL}${profile.user.photo}` : `${BASE_URL}/media/default.png`}
+              src={profile?.user?.photo ? `${BASE_URL}${profile.user.photo}` : `/default_avatar.png`}
               alt="Foto de perfil"
               className="rounded-full border-4 border-[#05668D] shadow-md cursor-pointer"
               width={150}
