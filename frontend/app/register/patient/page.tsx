@@ -103,6 +103,11 @@ const PatientRegistrationForm = () => {
   });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // Memorizar la función para evitar recrearla en cada render
   const handleChange = useCallback(
@@ -124,7 +129,7 @@ const PatientRegistrationForm = () => {
   );
 
   const validateStep = (step: number) => {
-    let newErrors: { [key: string]: string } = {};
+    const newErrors: { [key: string]: string } = {};
     let isValid = true;
 
     if (step === 1) {
@@ -200,10 +205,11 @@ const PatientRegistrationForm = () => {
     setCurrentStep((prev) => prev - 1);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateStep(currentStep)) return;
     setIsSubmitting(true);
+    setErrors({});
+
     try {
       const response = await axios.post(
         "http://localhost:8000/api/app_user/patient/register/",
@@ -220,7 +226,11 @@ const PatientRegistrationForm = () => {
           { headers: { "Content-Type": "application/json" } }
         );
         if (loginResponse.status === 200) {
-          localStorage.setItem("token", loginResponse.data.access);
+            if (isClient) {
+              localStorage.setItem(
+                "token",
+                loginResponse.data.access
+              );
           router.push("/");
         } else {
           console.error("Error al iniciar sesión", loginResponse.data);
@@ -228,6 +238,7 @@ const PatientRegistrationForm = () => {
       } else {
         console.error("Error al registrar usuario", response.data);
         setErrors(response.data);
+      }
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -248,10 +259,10 @@ const PatientRegistrationForm = () => {
           }
         }
       } else {
-        console.error("Error en el registro", error);
+        console.error("Error inesperado:", error);
+        setErrors({ general: "Ocurrió un error inesperado" });
       }
-    }
-     finally {
+    } finally {
       setIsSubmitting(false);
     }
   };

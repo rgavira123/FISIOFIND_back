@@ -10,6 +10,12 @@ export default function LoginPaciente() {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
+
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,21 +25,24 @@ export default function LoginPaciente() {
     []
   );
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setMessage("");
     setIsSubmitting(true);
+    setMessage("");
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/app_user/login/",
-        formData,
-        { headers: { "Content-Type": "application/json" } }
+        `${process.env.NEXT_PUBLIC_API_URL}/api/app_user/login/`,
+        { email, password }
       );
 
       if (response.status === 200) {
-        localStorage.setItem("token", response.data.access);
         setMessage("Inicio de sesión exitoso");
+        if (isClient) {
+          localStorage.setItem("token", response.data.access);
+          localStorage.setItem("refresh", response.data.refresh);
+        }
+        
         setTimeout(() => {
           router.push("/");
         }, 500);

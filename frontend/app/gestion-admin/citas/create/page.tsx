@@ -13,28 +13,41 @@ export default function editarCitas() {
   const [estado, setEstado] = useState("finished")
   
   const [errorMessage, setErrorMessage] = useState("");
-  const token = localStorage.getItem("token")
+
+  const [isClient, setIsClient] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+
   useEffect(() => {    
-    if (token) {
-      axios.get("http://127.0.0.1:8000/api/app_user/check-role/", {
-        headers : {
-          "Authorization": "Bearer "+token
+      if (isClient) {
+        const storedToken = localStorage.getItem("token");
+        setToken(storedToken);
+        if (storedToken) {
+          axios
+            .get("http://127.0.0.1:8000/api/app_user/check-role/", {
+              headers: {
+                Authorization: "Bearer " + storedToken,
+              },
+            })
+            .then((response) => {
+              const role = response.data.user_role;
+              if (role != "admin") {
+                location.href = "..";
+              }
+            })
+            .catch((error) => {
+              console.error("Error fetching data:", error);
+              location.href = "..";
+            });
+        } else {
+          location.href = "..";
         }
       }
-      ).then(response => {
-          const role = response.data.user_role;
-          if (role != "admin") {
-            location.href = ".."
-          }
-        })
-        .catch(error => {
-          console.error("Error fetching data:", error);
-          location.href = ".."
-        });
-    } else {
-      location.href = ".."
-    }
-  },[])
+  },[isClient, token])
 
   function handleSubmit(event) {
     event.preventDefault();

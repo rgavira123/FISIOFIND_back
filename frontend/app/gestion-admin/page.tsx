@@ -1,18 +1,28 @@
 'use client';
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-const GestionAdmin = () => {
 
-  const token = localStorage.getItem("token")
-  useEffect(() => {    
-    if (token) {
-      axios.get("http://127.0.0.1:8000/api/app_user/check-role/", {
-        headers : {
-          "Authorization": "Bearer "+token
-        }
-      }
-      ).then(response => {
+const GestionAdmin = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  // Set isClient to true once the component is mounted
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    // Only run this effect on the client side
+    if (isClient) {
+      const storedToken = localStorage.getItem("token");
+      
+      if (storedToken) {
+        axios.get("http://127.0.0.1:8000/api/app_user/check-role/", {
+          headers: {
+            "Authorization": "Bearer " + storedToken
+          }
+        })
+        .then(response => {
           const role = response.data.user_role;
           if (role != "admin") {
             location.href = ".."
@@ -22,10 +32,11 @@ const GestionAdmin = () => {
           console.error("Error fetching data:", error);
           location.href = ".."
         });
-    } else {
-      location.href = ".."
+      } else {
+        location.href = ".."
+      }
     }
-  },[])
+  }, [isClient]);
 
   return (
     <>

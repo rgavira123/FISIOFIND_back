@@ -26,6 +26,12 @@ const Home = () => {
 
   const openPhysioModal = () => setIsPhysioModalOpen(true);
   const closePhysioModal = () => setIsPhysioModalOpen(false);
+  const [isClient, setIsClient] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // Si el usuario está autenticado se abre el modal, si no, redirige al perfil público
   const handleViewPhysio = (physioName: string) => {
@@ -38,9 +44,12 @@ const Home = () => {
 
   // Solo comprueba la existencia del token en localStorage
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsAuthenticated(!!token);
-  }, []);
+    if (isClient) {
+      const storedToken = localStorage.getItem("token");
+      setToken(storedToken);
+      setIsAuthenticated(!!token);
+    }
+  }, [isClient, token]);
 
   // Efecto para mover imágenes flotantes al hacer scroll
   useEffect(() => {

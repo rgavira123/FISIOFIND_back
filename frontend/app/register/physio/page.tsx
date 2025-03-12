@@ -126,6 +126,11 @@ const PhysioSignUpForm = () => {
   });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // Use useCallback to prevent the function from being recreated on each render
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -146,7 +151,7 @@ const PhysioSignUpForm = () => {
   }, [errors]);
 
   const validateStep = (step: number) => {
-    let newErrors: { [key: string]: string } = {};
+    const newErrors: { [key: string]: string } = {};
     let isValid = true;
     
     if (step === 1) {
@@ -224,7 +229,8 @@ const PhysioSignUpForm = () => {
         );
 
         if (loginResponse.status === 200) {
-          localStorage.setItem("token", loginResponse.data.access);
+          if (isClient) {
+            localStorage.setItem("token", loginResponse.data.access);
           router.push("/");
         } else {
           console.error("Error al iniciar sesión", loginResponse.data);
@@ -232,6 +238,7 @@ const PhysioSignUpForm = () => {
       } else {
         console.error("Error al registrar usuario", response.data);
         setErrors(response.data);
+      }
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
