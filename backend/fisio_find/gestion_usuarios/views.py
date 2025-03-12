@@ -3,9 +3,48 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.views import APIView
 from .serializers import PatientRegisterSerializer, PhysioRegisterSerializer, PhysioSerializer, PatientSerializer, AppUserSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import Physiotherapist
+from .permissions import IsPatient
+from .models import Patient, Physiotherapist
+from rest_framework.permissions import IsAuthenticated
+
+class PatientProfileView(APIView):
+    permission_classes = [IsPatient]
+
+    def get(self, request):
+        try:
+            patient = Patient.objects.get(user=request.user)
+            serializer = PatientSerializer(patient)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Patient.DoesNotExist:
+            return Response({"error": "Perfil de paciente no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+
+    def patch(self, request, *args, **kwargs):
+        try:
+            patient = Patient.objects.get(user=request.user)  
+
+            request_data = request.data.copy()
+
+            user_data = request_data.get('user', {})  
+            user_data['id'] = request.user.id  
+
+            request_data['user'] = user_data  
+
+            serializer = PatientSerializer(patient, data=request_data, partial=True, context={'request': request})
+
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+
+            print("Errores en PatientSerializer:", serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        except Patient.DoesNotExist:
+            return Response({"error": "Perfil de paciente no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
 
 
 @api_view(['POST'])
