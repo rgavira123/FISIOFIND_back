@@ -34,7 +34,7 @@ AUTONOMIC_COMMUNITY_CHOICES = [
 ]
 
 class AppUser(AbstractUser):
-    photo = models.ImageField(null=True, blank=True)
+    photo = models.ImageField(upload_to='profile_photos/',null=True, blank=True)
     dni = models.CharField(max_length=9, unique=True)
     phone_number = models.CharField(max_length=9)
     postal_code = models.CharField(max_length=5)

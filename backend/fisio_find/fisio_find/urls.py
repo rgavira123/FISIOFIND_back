@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -8,3 +10,5 @@ urlpatterns = [
     path('api/terminos/', include('gestion_terminos.urls')),
     path('api/sesion_invitado/', include('sesion_invitado.urls'))   
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
