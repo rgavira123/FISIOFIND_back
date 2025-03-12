@@ -49,7 +49,8 @@ INSTALLED_APPS += [
 INSTALLED_APPS += [
     'gestion_usuarios',
     'gestion_citas',
-    'gestion_terminos'
+    'gestion_terminos',
+    'sesion_invitado'
 ]
 
 

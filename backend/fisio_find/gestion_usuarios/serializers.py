@@ -5,10 +5,9 @@ from django.contrib.auth.password_validation import validate_password
 from django.db.utils import IntegrityError
 from django.db import transaction
 from gestion_usuarios.validacionFisios import validar_colegiacion
-from .models import AppUser, Patient, Physiotherapist
+from .models import AppUser, Patient, Physiotherapist, PhysiotherapistSpecialization, Specialization
 import re
 from datetime import date  # Importar para obtener la fecha de hoy
-
 
 class AppUserSerializer(serializers.ModelSerializer):
     user_id = serializers.IntegerField(source='id', read_only=True)
@@ -21,6 +20,11 @@ class AppUserSerializer(serializers.ModelSerializer):
         ]
 
 class PhysioSerializer(serializers.ModelSerializer):
+    specializations = serializers.SlugRelatedField(
+        queryset=Specialization.objects.all(),
+        slug_field='name',
+        many=True
+    )
     class Meta:
         model = Physiotherapist
         exclude = ['user']
@@ -149,12 +153,16 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
     last_name = serializers.CharField(required=True)
     phone_number = serializers.CharField(required=True)
     postal_code = serializers.CharField(required=True)
+    specializations = serializers.ListField(
+        child=serializers.CharField(), required=False  # Lista de nombres de especializaciones
+    )
     
     class Meta:
         model = Physiotherapist
         fields = [
             'username', 'email', 'password', 'dni', 'gender', 'first_name', 'last_name', 
-            'birth_date', 'collegiate_number', 'autonomic_community', 'phone_number', 'postal_code'
+            'birth_date', 'collegiate_number', 'autonomic_community', 'phone_number', 'postal_code',
+            'specializations'
         ]
         
     def validate_password(self, value):
@@ -186,6 +194,9 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
     
     def create(self, validated_data):
         """Manejo de IntegrityError con transactions para asegurar rollback en caso de fallo."""
+        
+        specializations_data = validated_data.pop('specializations', [])
+        
         try:
             with transaction.atomic():
                 first_name = validated_data.pop('first_name')
@@ -223,7 +234,26 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
                     gender=gender
                 )
                 
+                # Manejar especializaciones
+                for spec_name in specializations_data:
+                    specialization, created = Specialization.objects.get_or_create(name=spec_name)
+                    PhysiotherapistSpecialization.objects.create(physiotherapist=physio, specialization=specialization)
+                
                 return physio
 
         except IntegrityError as e:
             raise serializers.ValidationError({"error": "Error de integridad en la base de datos. Posible duplicado de datos."})
+
+class AppUserAdminViewSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = AppUser
+        fields = '__all__'
+
+class PatientAdminViewSerializer(serializers.ModelSerializer):
+    
+    user = AppUserAdminViewSerializer()
+    
+    class Meta:
+        model = Patient
+        fields = '__all__'
