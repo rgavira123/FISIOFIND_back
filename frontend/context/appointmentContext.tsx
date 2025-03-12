@@ -8,16 +8,17 @@ type State = {
 };
 
 type Action =
-  | { 
-      type: "SELECT_SERVICE"; 
-      payload: { 
-        service: { type: string; price: number; duration: number };
-        physiotherapist: number;
-      } 
+  | {
+    type: "SELECT_SERVICE";
+    payload: {
+      service: { type: string; price: number; duration: number };
+      physiotherapist: number;
     }
+  }
   | { type: "DESELECT_SERVICE" }
   | { type: "SELECT_PAYMENT_METHOD"; payload: string }
-  | { type: "SELECT_SLOT"; payload: { start_time: string; end_time: string; is_online: boolean } };
+  | { type: "SELECT_SLOT"; payload: { start_time: string; end_time: string; is_online: boolean } }
+  | { type: "SELECT_PHYSIOTHERAPIST"; payload: number };
 
 const initialState: State = {
   appointmentData: {
@@ -80,6 +81,14 @@ const appointmentReducer = (state: State, action: Action): State => {
           end_time: action.payload.end_time,
           is_online: action.payload.is_online,
           status: "pending",
+        },
+      };
+    case "SELECT_PHYSIOTHERAPIST":
+      return {
+        ...state,
+        appointmentData: {
+          ...state.appointmentData,
+          physiotherapist: action.payload,
         },
       };
     default:
