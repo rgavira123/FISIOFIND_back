@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import CustomDropdown from "@/components/ui/custom-select";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import AnimatedIcons from "@/components/ui/AnimatedIcons";
 import Modal from "@/components/ui/Modal";
@@ -177,13 +176,21 @@ const Home = () => {
               {/* Contenedor flex para el dropdown de especialidades y el botón de búsqueda */}
               <div className="flex items-center space-x-4 mx-auto">
                 {/* Dropdown para especialidad */}
-                <div className="w-64 mx-auto">
-                  <CustomDropdown
+                <div className="w-3/4 mx-auto">
+                  <select
                     value={specialization}
-                    onChange={setSpecialization}
-                    options={specializations}
-                    placeholder="Especialidad"
-                  />
+                    onChange={(e) => setSpecialization(e.target.value)}
+                    className="border border-gray-300 rounded-md px-4 py-2 w-full"
+                  >
+                    <option value="" disabled>
+                      Especialidad
+                    </option>
+                    {specializations.map((spec, index) => (
+                      <option key={index} value={spec}>
+                        {spec}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 {/* Botón de búsqueda */}
@@ -277,7 +284,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen w-full">
+    <div className="min-h-screen w-full z=90">
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center text-center relative overflow-hidden mb-8 py-12">
         <div className="absolute top-0 left-0 w-full h-full">
