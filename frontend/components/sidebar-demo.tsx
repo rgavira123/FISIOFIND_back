@@ -47,7 +47,7 @@ export function SidebarDemo() {
     },
     {
       label: "Mi perfil",
-      href: isAuthenticated ? "#" : "/gestion-paciente/registro",
+      href: isAuthenticated ? "/gestion-paciente/perfil" : "/login",
       icon: (
         <IconUser className="text-[#253240] h-5 w-5 flex-shrink-0 mx-auto" />
       ),
