@@ -142,7 +142,7 @@ export default function Home() {
         {/* Vista en Cards */}
         <Cards events={events} onCardHover={handleCardHover} />
 
-        <div style={{ borderLeft: "1px solid #000", minHeight: "100vh" }}></div>
+        <div style={{ borderLeft: "1px solid #000", minHeight: "100%" }}></div>
 
         {/* Vista del Calendario */}
         <Calendar events={events} currentRole={currentRole} hoveredEventId={hoveredEventId} />

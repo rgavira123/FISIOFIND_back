@@ -11,7 +11,10 @@ from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 from django.core.exceptions import ValidationError
 from rest_framework.views import APIView
-from datetime import datetime
+from django.utils.timezone import make_aware, is_aware
+from datetime import datetime, timezone, timedelta
+
+
 
 
 class StandardResultsSetPagination(PageNumberPagination):
@@ -285,8 +288,19 @@ def update_appointment(request, appointment_id):
     user = request.user
     data = request.data.copy()
 
-    # Obtener la fecha y hora actual
-    now = datetime.now()
+    now = datetime.now(timezone.utc)  # Aseguramos que 'now' es timezone-aware
+    start_time = appointment.start_time
+
+    # Convertimos start_time a timezone-aware si no lo es
+    if not is_aware(start_time):
+        start_time = make_aware(start_time, timezone.utc)
+
+    # Restricción de 48 horas
+    if start_time - now < timedelta(hours=48):
+        return Response(
+            {"error": "Solo puedes modificar citas con al menos 48 horas de antelación"},
+            status=status.HTTP_403_FORBIDDEN
+        )
 
     # Si el usuario es fisioterapeuta
     if hasattr(user, 'physio'):
@@ -372,11 +386,8 @@ def update_appointment(request, appointment_id):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-from datetime import datetime, timezone, timedelta
-
 @api_view(['DELETE'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated, IsPhysioOrPatient])
 def delete_appointment(request, appointment_id):
     try:
         appointment = Appointment.objects.get(id=appointment_id)

@@ -17,11 +17,11 @@ const Cards = ({
 
   return (
     <>
-      <div className="bg-slate-100 flex flex-col h-screen w-full lg:w-1/3 gap-4 p-4 pt-16">
+      <div className="bg-slate-100 flex flex-col h-auto w-full lg:w-1/3 gap-4 p-4 pt-4">
         {events.map((event, index) => (
           <div
             key={index}
-            className="bg-blue shadow-lg rounded-lg p-4 mb-4 border-l-4 border-blue-500"
+            className="bg-blue shadow-lg rounded-lg p-4 mb-4 border-l-4 border-blue-500 cursor-pointer overflow-y-auto"
             onMouseEnter={() => onCardHover(event.title)} // Aquí detectamos el hover
             onMouseLeave={() => onCardHover(null)} // Limpiamos el hover cuando el mouse sale
             onClick={() => setSelectedEvent(event)} // Seleccionamos el evento al hacer clic

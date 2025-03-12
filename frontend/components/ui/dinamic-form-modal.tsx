@@ -43,18 +43,39 @@ const DynamicFormModal = ({
 
   const addAlternative = () => {
     const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
-    setAlternatives((prev) => ({
-      ...prev,
-      [today]: [
-        ...(prev[today] || []),
-        {
-          start: "09:00",
-          end: addMinutesToTime("09:00", event.service.duration),
-        },
-      ],
-    }));
+    setAlternatives((prev) => {
+      const lastSlot = prev[today]?.[prev[today].length - 1];
+      let start = lastSlot ? lastSlot.end : "09:00";
+  
+      // Redondear el tiempo de inicio al siguiente múltiplo de 30 minutos
+      const [hours, minutes] = start.split(":").map(Number);
+      const date = new Date();
+      date.setHours(hours);
+      date.setMinutes(minutes);
+  
+      if (date.getMinutes() > 0 && date.getMinutes() <= 30) {
+        date.setMinutes(30);
+      } else if (date.getMinutes() > 30) {
+        date.setHours(date.getHours() + 1);
+        date.setMinutes(0);
+      }
+  
+      start = date.toTimeString().slice(0, 5);
+      const end = addMinutesToTime(start, event.service.duration);
+  
+      return {
+        ...prev,
+        [today]: [
+          ...(prev[today] || []),
+          {
+            start,
+            end,
+          },
+        ],
+      };
+    });
   };
-
+  
   const updateAlternative = (date: string, index: number, start: string) => {
     const updated = [...(alternatives[date] || [])];
     updated[index] = {
@@ -82,12 +103,6 @@ const DynamicFormModal = ({
         className="bg-gray-300 p-1 rounded-2xl shadow-2xl w-[400px] relative z-50"
         onClick={(event) => event.stopPropagation()}
       >
-        <button
-          className="absolute top-4 right-4 bg-gray-300 p-1 rounded-full"
-          onClick={onClose}
-        >
-          <Image src="/static/close.svg" alt="Cerrar" width={18} height={18} />
-        </button>{" "}
         <h2 className="text-white text-xl font-bold text-center py-5 rounded-t-xl bg-[#d88c02]">
           Modificar fechas de la cita{" "}
         </h2>
@@ -147,11 +162,11 @@ const DynamicFormModal = ({
                     ))}
                   </select>
 
-                  <span className="ml-2 text-gray-600">{slot.end}</span>
+                  <span className="ml-2 text-gray-600 font-medium"> - &nbsp;{slot.end}</span>
 
                   {index>0 && <button
                     onClick={() => removeAlternative(date, index)}
-                    className="ml-5 text-red-500 text-[25px]"
+                    className="ml-3 text-red-500 text-[20px] absolute right-6"
                   >
                     X
                   </button>}
@@ -178,7 +193,7 @@ const DynamicFormModal = ({
               onClick={onClose}
               className="mt-4 bg-[#05668D] text-white px-4 py-2 rounded-xl hover:bg-blue-600"
             >
-              Cancelar
+              Atrás
             </button>
           </div>
         </div>
