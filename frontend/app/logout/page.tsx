@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation"; // Importar desde next/navigation
 import axios from "axios";
 import { clearCachedRole } from "@/services/check-role";
+import { getApiBaseUrl } from "@/utils/api";
 
 const Logout = () => {
   const router = useRouter();
@@ -22,7 +23,7 @@ const Logout = () => {
           try {
             // Llama al endpoint /logout solo si hay token
             await axios.post(
-              "http://localhost:8000/api/app_user/logout/",
+              "http://${getApiBaseUrl()}/api/app_user/logout/",
               {},
               {
                 headers: { Authorization: `Bearer ${token}` },

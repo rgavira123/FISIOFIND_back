@@ -4,6 +4,7 @@ import React, { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import Image from "next/image";
+import { getApiBaseUrl } from "@/utils/api";
 
 interface FormData {
   username: string;
@@ -41,7 +42,9 @@ const FormField = ({
   options?: { value: string; label: string }[];
   required?: boolean;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
   error?: string;
 }) => (
   <div className="mb-4">
@@ -212,13 +215,13 @@ const PatientRegistrationForm = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/app_user/patient/register/",
+        "http://${getApiBaseUrl()}/api/app_user/patient/register/",
         formData,
         { headers: { "Content-Type": "application/json" } }
       );
       if (response.status === 201) {
         const loginResponse = await axios.post(
-          "http://localhost:8000/api/app_user/login/",
+          "http://${getApiBaseUrl()}/api/app_user/login/",
           {
             username: formData.username,
             password: formData.password,
@@ -226,19 +229,16 @@ const PatientRegistrationForm = () => {
           { headers: { "Content-Type": "application/json" } }
         );
         if (loginResponse.status === 200) {
-            if (isClient) {
-              localStorage.setItem(
-                "token",
-                loginResponse.data.access
-              );
-          router.push("/");
+          if (isClient) {
+            localStorage.setItem("token", loginResponse.data.access);
+            router.push("/");
+          } else {
+            console.error("Error al iniciar sesión", loginResponse.data);
+          }
         } else {
-          console.error("Error al iniciar sesión", loginResponse.data);
+          console.error("Error al registrar usuario", response.data);
+          setErrors(response.data);
         }
-      } else {
-        console.error("Error al registrar usuario", response.data);
-        setErrors(response.data);
-      }
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -246,7 +246,7 @@ const PatientRegistrationForm = () => {
         if (responseData) {
           console.error("Error en el registro", responseData);
           setErrors(responseData);
-    
+
           // Verificar si hay errores en campos del paso 1 y redirigir a ese paso
           if (currentStep > 1) {
             const step1Fields = ["username", "email", "password"];
@@ -266,7 +266,6 @@ const PatientRegistrationForm = () => {
       setIsSubmitting(false);
     }
   };
-  
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white dark:from-neutral-900 dark:to-black py-8">
@@ -279,7 +278,9 @@ const PatientRegistrationForm = () => {
             height={120}
             className="mx-auto mb-4"
           />
-          <h1 className="text-3xl font-bold text-[#1E5ACD]">Registro de Paciente</h1>
+          <h1 className="text-3xl font-bold text-[#1E5ACD]">
+            Registro de Paciente
+          </h1>
           <p className="text-gray-600 dark:text-gray-400 mt-2">
             Completa el formulario para encontrar fisioterapeutas cerca de ti
           </p>
@@ -299,7 +300,11 @@ const PatientRegistrationForm = () => {
                 >
                   1
                 </div>
-                <div className={`h-1 flex-1 mx-2 ${currentStep >= 2 ? "bg-[#1E5ACD]" : "bg-gray-200"}`}></div>
+                <div
+                  className={`h-1 flex-1 mx-2 ${
+                    currentStep >= 2 ? "bg-[#1E5ACD]" : "bg-gray-200"
+                  }`}
+                ></div>
                 <div
                   className={`flex items-center justify-center w-10 h-10 rounded-full ${
                     currentStep >= 2
@@ -316,7 +321,9 @@ const PatientRegistrationForm = () => {
           <form onSubmit={handleSubmit} className="p-6">
             {currentStep === 1 && (
               <div className="space-y-4">
-                <h2 className="text-xl font-semibold mb-4">Información de Cuenta</h2>
+                <h2 className="text-xl font-semibold mb-4">
+                  Información de Cuenta
+                </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="md:col-span-2">
                     <FormField
@@ -349,7 +356,9 @@ const PatientRegistrationForm = () => {
 
             {currentStep === 2 && (
               <div className="space-y-4">
-                <h2 className="text-xl font-semibold mb-4">Información Personal</h2>
+                <h2 className="text-xl font-semibold mb-4">
+                  Información Personal
+                </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <FormField
                     name="first_name"

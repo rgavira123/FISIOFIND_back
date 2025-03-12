@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { print_time } from "../util";
+import { getApiBaseUrl } from "@/utils/api";
 
 interface terminoInterface {
   id: string;
@@ -22,43 +23,44 @@ export default function GestionarTerminos() {
     setIsClient(true);
   }, []);
 
-  useEffect(() => { 
+  useEffect(() => {
     if (isClient) {
       const storedToken = localStorage.getItem("token");
-      setToken(storedToken);   
+      setToken(storedToken);
       if (token) {
-        axios.get("http://127.0.0.1:8000/api/app_user/check-role/", {
-          headers : {
-            "Authorization": "Bearer "+token
-          }
-        }
-        ).then(response => {
+        axios
+          .get("http://${getApiBaseUrl()}/api/app_user/check-role/", {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          })
+          .then((response) => {
             const role = response.data.user_role;
             if (role != "admin") {
-              location.href = ".."
+              location.href = "..";
             }
           })
-          .catch(error => {
+          .catch((error) => {
             console.error("Error fetching data:", error);
-            location.href = ".."
+            location.href = "..";
           });
       } else {
-        location.href = ".."
+        location.href = "..";
       }
     }
-  },[isClient, token])
-
+  }, [isClient, token]);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/terminos/list/', {
-      headers : {
-        "Authorization": "Bearer "+token
-      }
-    }
-    ).then(response => {
+    axios
+      .get("http://${getApiBaseUrl()}/api/terminos/list/", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((response) => {
         setTerminos(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error fetching data:", error);
       });
   }, []);
@@ -66,25 +68,36 @@ export default function GestionarTerminos() {
   return (
     <>
       <div className="admin-header">
-        <a href="/gestion-admin/"><button className="btn-admin">Volver</button></a>
+        <a href="/gestion-admin/">
+          <button className="btn-admin">Volver</button>
+        </a>
         <h1>Página de administración de términos</h1>
       </div>
       <div className="terminos-container">
-        <a href="/gestion-admin/terminos/create"><button className="btn-admin">Crear</button></a>
+        <a href="/gestion-admin/terminos/create">
+          <button className="btn-admin">Crear</button>
+        </a>
         <div>
-          {terminos && 
-            terminos.map(function(termino,key) {
-              return <div key={key} className="termino-list-view">
-                <h3>{termino.content.substring(0,10)}</h3>
-                <p>Versión: {termino.version} </p>
-                <p>Editado en: {print_time(termino.updated_at)}</p>
-                <p>Creado en: {print_time(termino.created_at)}</p>
-                <a href={"/gestion-admin/terminos/view/"+termino.id}><button className="btn-admin-green">Ver</button></a>
-                <a href={"/gestion-admin/terminos/edit/"+termino.id}><button className="btn-admin-yellow">Editar</button></a>
-                <a href={"/gestion-admin/terminos/delete/"+termino.id}><button className="btn-admin-red">Eliminar</button></a>
-              </div>
-            })
-          }
+          {terminos &&
+            terminos.map(function (termino, key) {
+              return (
+                <div key={key} className="termino-list-view">
+                  <h3>{termino.content.substring(0, 10)}</h3>
+                  <p>Versión: {termino.version} </p>
+                  <p>Editado en: {print_time(termino.updated_at)}</p>
+                  <p>Creado en: {print_time(termino.created_at)}</p>
+                  <a href={"/gestion-admin/terminos/view/" + termino.id}>
+                    <button className="btn-admin-green">Ver</button>
+                  </a>
+                  <a href={"/gestion-admin/terminos/edit/" + termino.id}>
+                    <button className="btn-admin-yellow">Editar</button>
+                  </a>
+                  <a href={"/gestion-admin/terminos/delete/" + termino.id}>
+                    <button className="btn-admin-red">Eliminar</button>
+                  </a>
+                </div>
+              );
+            })}
         </div>
       </div>
     </>

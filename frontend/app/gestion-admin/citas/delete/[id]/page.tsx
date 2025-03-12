@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { get_id_from_url } from "@/app/gestion-admin/util";
+import { getApiBaseUrl } from "@/utils/api";
 
 interface citaInterface {
   id: string;
@@ -15,7 +16,7 @@ interface citaInterface {
   status: string;
 }
 export default function EliminarCitas() {
-  const id = get_id_from_url()
+  const id = get_id_from_url();
 
   const [cita, setCita] = useState<citaInterface | null>(null);
 
@@ -26,13 +27,13 @@ export default function EliminarCitas() {
     setIsClient(true);
   }, []);
 
-  useEffect(() => {    
+  useEffect(() => {
     if (isClient) {
       const storedToken = localStorage.getItem("token");
       setToken(storedToken);
       if (storedToken) {
         axios
-          .get("http://127.0.0.1:8000/api/app_user/check-role/", {
+          .get("http://${getApiBaseUrl()}/api/app_user/check-role/", {
             headers: {
               Authorization: "Bearer " + storedToken,
             },
@@ -51,32 +52,44 @@ export default function EliminarCitas() {
         location.href = "..";
       }
     }
-  },[isClient, token])
+  }, [isClient, token]);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/app_appointment/appointment/admin/list/'+id+'/', {
-      headers : {
-        "Authorization": "Bearer "+token
-      }
-    }
-    ).then(response => {
+    axios
+      .get(
+        "http://${getApiBaseUrl()}/api/app_appointment/appointment/admin/list/" +
+          id +
+          "/",
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
+      .then((response) => {
         setCita(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error fetching data:", error);
       });
   }, []);
 
   function deleteCita() {
-    axios.delete('http://localhost:8000/api/app_appointment/appointment/admin/delete/'+id+'/', {
-      headers : {
-        "Authorization": "Bearer "+token
-      }
-    }
-    ).then(() => {
-        location.href="/gestion-admin/citas/"
+    axios
+      .delete(
+        "http://${getApiBaseUrl()}/api/app_appointment/appointment/admin/delete/" +
+          id +
+          "/",
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
+      .then(() => {
+        location.href = "/gestion-admin/citas/";
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error fetching data:", error);
       });
   }
@@ -84,22 +97,32 @@ export default function EliminarCitas() {
   return (
     <>
       <div className="admin-header">
-        <a href="/gestion-admin/citas/"><button className="btn-admin">Volver</button></a>
+        <a href="/gestion-admin/citas/">
+          <button className="btn-admin">Volver</button>
+        </a>
         <h1>Eliminar cita</h1>
       </div>
       <div className="terminos-container">
-        {cita && <>
-          <p style={{fontSize:"1.5rem"}}>¿Quieres borrar la cita {cita.id}?</p>
-          <div>
-            <button className="btn-admin-red" onClick={deleteCita}>Sí</button>
-            <button className="btn-admin-green" onClick={() => location.href="/gestion-admin/citas/"}>No</button>
-          </div>
+        {cita && (
+          <>
+            <p style={{ fontSize: "1.5rem" }}>
+              ¿Quieres borrar la cita {cita.id}?
+            </p>
+            <div>
+              <button className="btn-admin-red" onClick={deleteCita}>
+                Sí
+              </button>
+              <button
+                className="btn-admin-green"
+                onClick={() => (location.href = "/gestion-admin/citas/")}
+              >
+                No
+              </button>
+            </div>
           </>
-        }
-        {!cita && <h1>Cita no encontrada</h1>
-        }    
+        )}
+        {!cita && <h1>Cita no encontrada</h1>}
       </div>
-
     </>
   );
 }

@@ -8,6 +8,7 @@ import AnimatedIcons from "@/components/ui/AnimatedIcons";
 import Modal from "@/components/ui/Modal";
 import Link from "next/link";
 import axios from "axios";
+import { getApiBaseUrl } from "@/utils/api";
 
 interface Physiotherapist {
   name: string;
@@ -126,7 +127,7 @@ const Home = () => {
       const fetchSpecializations = async () => {
         try {
           const response = await axios.get(
-            "http://localhost:8000/api/sesion_invitado/specializations"
+            "http://${getApiBaseUrl()}/api/sesion_invitado/specializations"
           );
           if (response.status === 200) {
             setSpecializations(["", ...response.data]);
@@ -146,7 +147,7 @@ const Home = () => {
       }
 
       try {
-        const searchUrl = `http://localhost:8000/api/sesion_invitado/physios-with-specializations/?specialization=${specialization}`;
+        const searchUrl = `http://${getApiBaseUrl()}/api/sesion_invitado/physios-with-specializations/?specialization=${specialization}`;
         const response = await axios.get(searchUrl);
 
         if (response.status === 200) {
