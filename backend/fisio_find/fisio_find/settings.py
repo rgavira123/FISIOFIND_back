@@ -98,7 +98,7 @@ SIMPLE_JWT = {
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",  # Add your frontend URL here
     "http://localhost:3000",  # Add your frontend URL here
-    "https://fisiofind-backend.azurewebsites.net"
+    "https://fisiofind-backend.azurewebsites.net",
     "https://fisiofind.netlify.app"
 ]
 
