@@ -15,5 +15,5 @@ urlpatterns = [
     path('admin/patient/delete/<int:pk>/', AdminPatientDelete.as_view(), name='admin_patient_delete'),
     path('admin/user/list/<int:pk>/', AdminAppUserDetail.as_view(), name='admin_app_user_detail'),
 ]
-    
+
 

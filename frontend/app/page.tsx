@@ -126,7 +126,13 @@ const Home = () => {
             <Image src="/static/7_treatment.webp" alt="Floating Image 3" width={100} height={100} />
           </div>
         </div>
-        <Image src="/static/fisio_find_logo.webp" alt="Fisio Find Logo" width={256} height={256} className="mb-8" />
+        <Image
+          src="/static/fisio_find_logo.webp"
+          alt="Fisio Find Logo"
+          width={256}
+          height={256}
+          className="mb-8"
+        />
         <h1 className="text-6xl font-bold mb-4 font-alfa-slab-one">
           <span className="text-[#1E5ACD]">Fisio </span>
           <span className="text-[#253240]">Find</span>
@@ -134,6 +140,21 @@ const Home = () => {
         <p className="text-xl mb-8 max-w-2xl">
           Una plataforma innovadora diseñada para conectar pacientes con los mejores fisioterapeutas.
         </p>
+      </section>
+
+      {/* Sección “¿Eres fisioterapeuta?” */}
+      <section className="w-full bg-teal-500 py-2 text-center text-white rounded-lg mx-auto mt-4 max-w-4xl">
+        <div className="px-4 flex items-center justify-center">
+          <p className="font-bold text-sm sm:text-base">
+            ¿Eres fisioterapeuta? 
+            <button
+              className="ml-3 px-3 py-1 bg-white text-teal-600 rounded-md font-semibold hover:bg-gray-100 transition-all"
+              onClick={() => window.open("https://fisiofind.netlify.app", "_blank")}
+            >
+              Para más información, accede aquí
+            </button>
+          </p>
+        </div>
       </section>
 
       {/* Focus Cards Section: solo se muestra si NO está autenticado */}
@@ -147,7 +168,7 @@ const Home = () => {
           <div className="flex flex-col gap-4">
             <button
               className="shadow__btn bg-[#1E5ACD] text-white px-4 py-3 rounded font-bold hover:bg-[#1848A3] transition-colors"
-              onClick={() => router.push("/gestion-usuario/login")}
+              onClick={() => router.push("/register")}
             >
               Crea una cuenta
             </button>
@@ -174,11 +195,19 @@ const Home = () => {
                 <CardItem translateZ="50" className="text-xl font-bold text-neutral-600 dark:text-white">
                   {physio.name}
                 </CardItem>
-                <CardItem as="p" translateZ="40" className="text-neutral-500 text-sm mt-2 dark:text-neutral-300">
+                <CardItem
+                  as="p"
+                  translateZ="40"
+                  className="text-neutral-500 text-sm mt-2 dark:text-neutral-300"
+                >
                   {physio.specialty}
                 </CardItem>
                 <CardItem translateZ="60" className="w-full mt-4">
-                  <img src={physio.image} className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl" alt={physio.name} />
+                  <img
+                    src={physio.image}
+                    className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl"
+                    alt={physio.name}
+                  />
                 </CardItem>
                 <div className="flex justify-between items-center mt-6">
                   <CardItem translateZ="20" className="flex items-center gap-1">
@@ -227,11 +256,19 @@ const Home = () => {
                   <CardItem translateZ="50" className="text-xl font-bold text-neutral-600 dark:text-white">
                     {physio.name}
                   </CardItem>
-                  <CardItem as="p" translateZ="40" className="text-neutral-500 text-sm mt-2 dark:text-neutral-300">
+                  <CardItem
+                    as="p"
+                    translateZ="40"
+                    className="text-neutral-500 text-sm mt-2 dark:text-neutral-300"
+                  >
                     {physio.specialty}
                   </CardItem>
                   <CardItem translateZ="60" className="w-full mt-4">
-                    <img src={physio.image} className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl" alt={physio.name} />
+                    <img
+                      src={physio.image}
+                      className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl"
+                      alt={physio.name}
+                    />
                   </CardItem>
                   <div className="flex justify-between items-center mt-6">
                     <CardItem translateZ="20" className="flex items-center gap-1">
@@ -272,7 +309,11 @@ const Home = () => {
                 </a>
               </li>
               <li>
-                <a href="https://github.com/Proyecto-ISPP/FISIOFIND" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://github.com/Proyecto-ISPP/FISIOFIND"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Repositorio GitHub
                 </a>
               </li>
@@ -304,13 +345,22 @@ const Home = () => {
               Por favor, inicia sesión o crea una cuenta para ver el perfil del fisioterapeuta.
             </p>
             <div className="flex justify-end gap-4">
-              <button className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300" onClick={closePhysioModal}>
+              <button
+                className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
+                onClick={closePhysioModal}
+              >
                 Cancelar
               </button>
-              <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" onClick={() => router.push("/profile/login")}>
+              <button
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                onClick={() => router.push("/profile/login")}
+              >
                 Iniciar sesión
               </button>
-              <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700" onClick={() => router.push("/profile/signup")}>
+              <button
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                onClick={() => router.push("/profile/signup")}
+              >
                 Crear cuenta
               </button>
             </div>
