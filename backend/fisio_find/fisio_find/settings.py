@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'fisiofind-backend.azurewebsites.net']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'fisiofind-backend.azurewebsites.net', 'fisiofind.netlify.app']
 
 
 # Application definition
@@ -96,9 +96,9 @@ SIMPLE_JWT = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:3000",  # Add your frontend URL here
-    "http://localhost:3000",  # Add your frontend URL here
-    "https://fisiofind-backend.azurewebsites.net",
+    "http://127.0.0.1:3000",
+    "http://localhost:3000",
+    "https://fisiofind-backend.azurewebsites.net",  # Note the comma here
     "https://fisiofind.netlify.app"
 ]
 
