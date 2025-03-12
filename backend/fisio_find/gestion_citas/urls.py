@@ -1,13 +1,12 @@
 from django.urls import path
 from gestion_citas import views
 from rest_framework.urlpatterns import format_suffix_patterns
-from gestion_citas.views import EditWeeklySchedule , AddUnavailableDay
 
 urlpatterns = [
     path('<int:pk>/', views.AppointmentDetail.as_view()),
     path('schedule/<int:pk>/', views.get_physio_schedule_by_id),
-    path('physio/schedule/weekly/', EditWeeklySchedule.as_view(), name='edit_weekly_schedule'),
-    path('physio/schedule/add-unavailable/', AddUnavailableDay.as_view(), name='add_unavailable_day'),
+    path('physio/schedule/weekly/', views.edit_weekly_schedule ),
+    path('physio/schedule/add-unavailable/', views.add_unavailable_day),
 
     #Patients
     path('patient/', views.create_appointment_patient),
