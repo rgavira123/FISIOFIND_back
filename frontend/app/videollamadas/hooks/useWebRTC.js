@@ -159,7 +159,7 @@ const useWebRTC = ({
         });
         console.log('Oferta enviada a:', remoteChannel);
       } else {
-        console.error('No hay canal de destino para enviar la oferta');
+        console.log('No hay canal de destino para enviar la oferta');
         // Fallback: send without receiver_channel_name (broadcast)
         sendWebSocketMessage({
           action: 'new-offer',
