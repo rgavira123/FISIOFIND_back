@@ -1,9 +1,11 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from .serializers import PatientRegisterSerializer, PhysioRegisterSerializer, PhysioSerializer, PatientSerializer, AppUserSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from .models import Physiotherapist
 
 
 @api_view(['POST'])
@@ -69,4 +71,21 @@ def physio_register_view(request):
         return Response({"message": "Fisioterapeuta registrado correctamente"}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def physio_update_view(request):
+    """Actualiza los datos del fisioterapeuta autenticado"""
+    
+    # Obtener el fisioterapeuta asociado al usuario autenticado
+    physio = get_object_or_404(Physiotherapist, user=request.user)
+    print("Fisio", physio)
+    
+    # Serializar y validar los datos enviados
+    serializer = PhysioRegisterSerializer(physio, data=request.data['user'], partial=True)
+    
+    if serializer.is_valid():
+        serializer.update(physio, request.data)
+        return Response({"message": "Fisioterapeuta actualizado correctamente"}, status=status.HTTP_200_OK)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

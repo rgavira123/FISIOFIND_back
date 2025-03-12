@@ -154,7 +154,7 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
         model = Physiotherapist
         fields = [
             'username', 'email', 'password', 'dni', 'gender', 'first_name', 'last_name', 
-            'birth_date', 'collegiate_number', 'autonomic_community', 'phone_number', 'postal_code'
+            'birth_date', 'collegiate_number', 'autonomic_community', 'phone_number', 'postal_code', 'bio'
         ]
         
     def validate_password(self, value):
@@ -227,3 +227,28 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
 
         except IntegrityError as e:
             raise serializers.ValidationError({"error": "Error de integridad en la base de datos. Posible duplicado de datos."})
+        
+    def update(self, instance, validated_data):
+        """Actualiza los datos de un fisioterapeuta y su usuario asociado."""
+        try:
+            with transaction.atomic():
+                # Actualizar datos del usuario (AppUser)
+                
+                user = instance.user
+                user.email = validated_data.get("email", user.email)
+                user.phone_number = validated_data.get("phone_number", user.phone_number)  # mobile_phone en tu petición
+                user.postal_code = validated_data.get("postal_code", user.postal_code)
+                user.photo = validated_data.get("photo", user.photo)
+                print("user photo", user.photo)
+
+                user.save()
+
+                # Actualizar datos del fisioterapeuta (Physiotherapist)
+                instance.bio = validated_data.get("bio", instance.bio)
+                instance.save()
+
+                return instance
+
+        except IntegrityError:
+            raise serializers.ValidationError({"error": "Error de integridad en la base de datos. Posible duplicado de datos."})
+

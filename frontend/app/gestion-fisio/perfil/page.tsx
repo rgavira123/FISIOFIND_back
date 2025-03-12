@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
+import "./photo.scss";
 
 const getAuthToken = () => {
     return localStorage.getItem("token"); // Obtiene el token JWT
@@ -33,6 +34,7 @@ const PatientProfile = () => {
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [selectedFile, setSelectedFile] = useState(null);
 
     useEffect(() => {
         fetchPatientProfile();
@@ -86,15 +88,21 @@ const PatientProfile = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
 
-        // Actualiza el estado correctamente, asegurándose de que los campos `user` se mantengan dentro de su objeto
-        setProfile((prevProfile) => ({
-            ...prevProfile,
-            user: {
-                ...prevProfile.user,
-                [name]: value,
-            },
-        }));
-        console.log(profile); // Debug
+        if (name === "bio"){
+            setProfile((prevProfile) => ({
+                ...prevProfile,
+                bio: value,
+            }));
+        } else {
+            // Actualiza el estado correctamente, asegurándose de que los campos `user` se mantengan dentro de su objeto
+            setProfile((prevProfile) => ({
+                ...prevProfile,
+                user: {
+                    ...prevProfile.user,
+                    [name]: value,
+                },
+            }));
+        }
     };
 
 
@@ -107,14 +115,17 @@ const PatientProfile = () => {
                 return;
             }
 
+            if (selectedFile && typeof selectedFile === "object") profile.user.photo = selectedFile;
+
             console.log("Datos enviados al backend:", JSON.stringify(profile)); // Debug
 
-            const response = await axios.patch("http://localhost:8000/api/app_user/profile/", profile, {
+            const response = await axios.post("http://localhost:8000/api/app_user/physio/update/", profile, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
                 },
             });
+            console.log(response)
 
             if (response.status === 200) {
                 alert("Perfil actualizado correctamente");
@@ -123,6 +134,11 @@ const PatientProfile = () => {
         } catch (error) {
             setError("Error actualizando el perfil.");
         }
+    };
+
+    const handleFileChange = (e) => {
+        setSelectedFile(e.target.files[0]);
+        console.log(e.target.files[0]);
     };
 
 
@@ -135,21 +151,20 @@ const PatientProfile = () => {
         <div className="user-profile-container">
             {/* Sección izquierda con la foto y datos principales */}
             <div className="user-profile-left">
-                <label className="-label" htmlFor="file">
-                    <span className="glyphicon glyphicon-camera"></span>
-                    <span>Change Image</span>
-                </label>
-                <img src={profile?.user?.photo || "/default_avatar.png"} alt="Foto de perfil" />
+                <div className="profile-pic">
+                    <label className="-label" htmlFor="file">
+                        <span className="glyphicon glyphicon-camera"></span>
+                        <span>Change Image</span>
+                    </label>
+                    <input id="file" type="file" accept="image/*" onChange={handleFileChange} />
+                    <img src={profile?.user?.photo || "/default_avatar.png"} id="output" width="200" />
+                </div>
                 <div className="user-info">
                     <p>{profile?.user?.username || "Nombre de usuario"}</p>
                     <p>{profile?.user?.first_name + " " + profile?.user?.last_name || "Nombre"}</p>
                     <p>DNI: {profile?.user?.dni || "No disponible"}</p>
                     <p>Número de colegiado: {profile?.collegiate_number || "No disponible"}</p>
                 </div>
-                <input type="file" id="file-upload" name="photo" hidden onChange={handleChange} />
-                <button className="upload-btn" onClick={() => document.getElementById('file-upload').click()}>
-                    Cambiar Foto
-                </button>
             </div>
 
             {/* Sección derecha con el formulario */}
