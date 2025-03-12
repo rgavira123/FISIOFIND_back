@@ -95,7 +95,7 @@ classoption: "table"
 
 - **Fecha de Creación:** 11/03/2025
 
-- **Versión:** v1.2
+- **Versión:** v1.3
 
 <br>
 
@@ -109,6 +109,7 @@ classoption: "table"
 | 11/03/2025 | v1.0    | Alberto Carmona Sicre | Creación del informe de base de conocimiento. |
 | 12/03/2025 | v1.1    | Alberto Carmona Sicre | Estructuración de los puntos 3 y 4 |
 | 12/03/2025 | v1.2    | Alberto Carmona Sicre | Estructuración de los puntos 4 y 5 |
+| 12/03/2025 | v1.3    | Alberto Carmona Sicre | Añadir volcado de feedback |
 
 
 
@@ -245,6 +246,230 @@ No se han añadido nuevos documentos.
 
 A continuación, se muestra tanto el feedback grupal como las anotaciones generales:
 
+# **1. RESUMEN DEL FEEDBACK POR GRUPO**
+
+## **Primer grupo (Holos):** 
+
+Los compañeros felicitaron (solo dio tiempo al feedback de una persona):
+
+- La actitud en la presentación.
+
+El equipo de FISIO FIND destaca también el hilo de la presentación y la forma en la que han captado la atención del público.
+
+**Feedback recibido (resumen de los comentarios de los profesores)**
+
+- Se recomendó centrarse en las comisiones en vez de en las suscripciones y dar la opción a que los primeros envios sean gratuitos.
+
+- Mejorar la claridad en el apartado de los usuarios pilotos.
+
+**Puntos positivos destacados**
+
+- Intencionalmente en blanco.
+
+**Áreas de mejora sugeridas**
+
+- Modelo de negocio
+- Usuarios piloto
+
+<br>
+
+## **Segundo grupo (Gastrostock):** 
+
+Los compañeros han felicitado:
+
+- Las transiciones en la presentación.
+
+- La fuerza de la exposición.
+
+- Los colores utilizados.
+
+- El elevator pitch.
+
+- Los datos públicos de la gestión de bares.
+
+Un aspecto positivo que no se nombró pero que el equipo de FISIO FIND quiere anotar, fue el zoom que se utilizó en las diapositivas de los mockups.
+
+**Feedback recibido (resumen de los comentarios de los profesores)**
+
+- Se debería haber controlado mejor el tiempo de la presentación. Esto se puede conseguir con más práctica.
+
+- No se menciona la gestión de usuarios pilotos.
+
+- Las fotos estaban distorsionadas, lo que puede hacer que la presentación pierda seriedad.
+
+- Falta el número de página.
+
+- Se comentó que hubo un cambio en la organización del equipo. Se recomendó controlar cuando se hacen este tipo de cambios en la estructura ya que si se hace antes de una evaluación puede causar problemas.
+
+- No apareció la landing page en las diapositivas y no estaba desplegada.
+
+- Se deberían haber mostrado los competidores mediante una tabla.
+
+- Tienen muchas casos de uso core, lo que puede causar problemas.
+
+**Puntos positivos destacados**
+
+- Intencionalmente en blanco.
+
+**Áreas de mejora sugeridas**
+
+- Mejora en la presentación (específicamente en el tiempo de presentación, fotos de grupo y en cómo se muestran los competidores).
+
+- Usabilidad de la aplicación para los bares.
+
+- Landing page.  
+
+<br>
+
+## **Tercer grupo (Eventbride):** 
+
+Los compañeros de clase felicitamos:
+
+- El formato y los colores de la presentación son acorde a la temática de la aplicación.
+
+- El apartado de costes está completo.
+
+- La mejora de las diapositivas respecto a los días anteriores.
+
+- La gestión de usuarios piloto por recompensa.
+
+- La gestión del uso de la IA.
+
+- Análisis de riesgo acertado.
+
+Por otro lado, un aspecto que no se nombró en el feedback de los compañeros es lo bien detallado que están tanto su commitment agreement como el análisis cuantitativo de la calidad.
+
+**Feedback recibido (resumen de los comentarios de los profesores)**
+
+- Se debería de haber practicado más la presentación.
+
+- Mejorar el elevator pitch.
+
+- Mejora en la gestión del tiempo en la presentación. Además, algunas diapositivas se han saltado demasiado rápido.
+
+- No han puesto la planificación de los sprints.
+
+- Se recomienda no poner los mockups al final y no explicar los casos de uso en una diapositiva específica si ya se hace con los mockups.
+
+**Puntos positivos destacados**
+
+- Buen commitment agreement.
+
+**Áreas de mejora sugeridas**
+
+- Mejora en la gestión del tiempo en la presentación.
+
+- Mejora en la organización de las diapositivas.
+
+- Mejorar el elevator pitch.
+
+- Dedicar más tiempo a prácticar la presentación.
+
+<br>
+
+## **Cuarto grupo (Borroo):** 
+
+Los compañeros de clase felicitamos:
+
+- Las animaciones en la presentación.
+
+- La tabla de competidores.
+
+- La gama de colores y el formato de la presentación.
+
+- Los ejemplos visuales.
+
+- La interacción con el público.
+
+El equipo de FISIO FIND, además de lo anterior, ha encontrado muy interesante el cómo utilizan los **términos de cancelación**.
+
+**Feedback recibido (resumen de los comentarios de los profesores)**
+
+- Mejorar en el inicio efectivo.
+
+- Poner la landing page al final de la presentación.
+
+- La organización de los sprints puede mejorarse. No está claro si aparecen los casos de uso core y si se planea implementar la funcionalidad que les diferencia de sus competidores en el último sprint, puede existe el riesgo de que al final no se implemente por problemas.
+
+- Hubo un pequeño error en el precio de los mockups.
+
+- Indicar si los costes son mensuales o anuales.
+
+- Indicar ratio de respuesta en encuestas de usuarios piloto.
+
+- Las políticas de cancelación podrían mostrarse de manera más clara.
+
+**Puntos positivos destacados**
+
+- Intencionalmente en blanco.
+
+**Áreas de mejora sugeridas**
+
+- Mejorar en el inicio efectivo.
+
+- Mejorar en la organización de los sprints.
+
+- Mejorar en cómo se muestran los costes.
+
+- Mejorar los mockups.
+
+- Poner la landing page al final de la presentación.
+
+<br>
+
+## **Quinto grupo (CAMYO):** 
+
+Los compañeros de clase felicitamos al equipo por la claridad de la exposición y su inicio efectivo. El equipo de FISIO FIND piensa que su gestión de usuarios piloto y su exposición de la rentabilidad es algo de lo que podrían aprender. 
+
+**Feedback recibido (resumen de los comentarios de los profesores)**
+
+- Mejorar en la gestión del tiempo de la presentación.
+
+- Practicar más la presentación para mejorar en la dicción y otros aspectos generales.
+
+- Se debe de mostrar cómo los usuarios piloto son solo para feedback. Es decir, no se pueden aprovechar para nada más.
+
+- Reducir el tiempo dedicado al elevator pitch.
+
+- En cuanto a los riesgos, mostrar el plan de contingencia como las medidas que se están tomando para que no suceda (el qué hacer si suceden se dará más adelante).
+
+- Planificar que en el primer sprint van a hacer todo el MVP puede ser peligroso.
+
+- En vez de poner los números con todas las cifras, ponerlo con Ks.
+
+**Puntos positivos destacados**
+
+- Intencionalmente en blanco.
+
+
+**Áreas de mejora sugeridas**
+
+- Mejorar en la gestión del tiempo de la presentación.
+
+- Mejorar el elevator pitch.
+
+- Mejorar la gestión de usuarios pilotos.
+
+- Planificar el reparto de funcionalidades en los sprints.
+
+- Mejorar el registro de riesgos.
+
+- En vez de poner los números con todas las cifras, ponerlo con Ks.
+
+<br>
+
+## **Sexto grupo (FISIO FIND):** 
+
+En general muy buena presentación. Los compañeros nos felicitaron:
+
+- El uso de los mockups para presentar la aplicación.
+
+- La herramienta interna que tenemos para calcular los costes.
+
+- La presentación en general.
+
+- El inicio efectivo.
+
 **Feedback recibido (resumen de los comentarios de los profesores)**
 
 - Aumentar el número de usuarios piloto.
@@ -263,6 +488,35 @@ A continuación, se muestra tanto el feedback grupal como las anotaciones genera
 
 - La organización de la presentación no es la que indicaron los profesores.
 
+**Puntos positivos destacados**
+
+-  Se  han destacado los mockups.
+
+**Áreas de mejora sugeridas**
+
+- Aumentar el número de usuarios piloto.
+
+- Mejorar la tabla de competidores.
+
+- Mejorar las diapositivas de riesgos.
+
+- Mejorar las diapositivas de competidores.
+
+- Mejorar el inicio efectivo.
+
+- Seguir la organización de la presentación indicada por los profesores.
+
+- Indicar las responsabilidades por persona. Se pueden poner las responsabilidades de las tareas por sprint.
+
+- No hacer referencia a la semana pasada.
+
+<br>
+
+<br>
+
+# **2. ANÁLISIS DEL FEEDBACK**
+
+## **2.1. TENDENCIAS GENERALES**
 **Factores comunes en los comentarios de los profesores**
 
 - Mejorar en el inicio efectivo.
@@ -287,11 +541,411 @@ A continuación, se muestra tanto el feedback grupal como las anotaciones genera
 
 - Registro de riesgos.
 
+<br>
+
+## **2.2. COMPARACIÓN DEL FEEDBACK DE NUESTRO GRUPO VS LOS OTROS**
+
+**¿Qué estamos haciendo bien en comparación con otros?**
+
+- Nuestros mockups son más visuales.
+
+- Hemos sabido hacer una gestión del tiempo mejor en comparación con el resto.
+
+- Nuestro análisis de costes.
+
+**¿Qué aspectos debemos mejorar respecto a los demás?**
+
+- Añadir la landing page al final de la presentación.
+
+- Presentar mejor los riesgos.
+
+- Indicar las responsabilidades de los miembros del equipo.
+
+- Conseguir más usuarios piloto.
+
+<br>
+
+<br>
+
+
+# **3. CONCLUSIONES Y OBSERVACIONES**
+
+- Nuestra presentación parece estar a la altura de la fecha del curso. Faltaría esperar a la nota de los profesores para verificar esto.
+
+- Debemos mejorar en algunos aspectos de la presentación.
+
+<br>
+
+<br>
+
+# **4. TRABAJO PARA LA SIGUIENTE SEMANA**
+
+- A partir de ahora las presentaciones durarán 15 minutos.
+
+- Todo lo relacionado con la evaluación del rendimiento debe ser cuantitativo.
+
+- Los despliegues suelen dar problemas. **Se debería de hacer despliegue continuo**.
+
+- Las presentaciones a partir de ahora (los porcentajes pueden no sumar 100%):
+
+  - Deben empezar con un 15% de introducción:
+
+    - Killer opener.
+
+    - Elevator pitch corto.
+
+    -  Resumen análisis de competidores.
+
+      - Con tabla diciendo lo que nos diferencia.
+
+    - Análisis de costes.
+
+    - Equipo.
+
+      - Si alguien no ha cumplido con sus tareas diciendo el porcentaje.
+
+      - Puede ser anónimo.
+
+      - Estructura de responsabilidades.
+
+  - 15% de prototipo:
+
+    - Mostrar lo que se tenga mediante capturas y vídeos.
+
+    - Deben de ser concisas e ir al grano, mostrando lo importante.
+
+  - 50% de retrospectiva:
+
+    - Análisis de la calidad y productividad:
+
+      - Análisis del rendimiento, plan de la calidad (se puede anonimizar), etc.
+
+      - Puede ser más de una trasparencia.
+
+    - Problemas encontrados.
+
+    - Trazabilidad de los riesgos:
+
+      - No se deben de repetir riesgos.
+
+      - Lecciones aprendidas del riesgo.
+
+    - Reloj de avance del proyecto:
+
+      - Tiempo dedicado según lo esperado.
+
+      - Diferencia entre tiempo dedicado y esperado.
+
+      - Ratio de horas respecto al total.
+
+    - Reestimación del sprint 1:
+
+      - Objetivos finales para el sprint 1.
+
+    - Reestimación de siguientes sprints.
+
+  - 10% de gestión de usuarios pilotos:
+
+    - Agenda para trabajar con ellos (días y cuándo).
+
+    - La responsabilidad del feedback es del equipo.
+
+    - La gestión de los usuarios pilotos es crítica.
+
+  - Planificación para el siguiente sprint.
+
+  - Cómo hemos usado la IA.
+
+  - Lo que no se menciona no se pide (se puede poner pero tiene que tener una razón).
+    
+
 
 
 #### Feedback de la clase del día 7 de marzo de 2025.
 
 A continuación, se muestra tanto el feedback grupal como las anotaciones generales:
+
+# **1. RESUMEN DEL FEEDBACK POR GRUPO**
+
+## **Primer grupo (Holos):**
+**Feedback alumnos**
+- No se entiende la parte de que se limite para siempre sobre el plan de negocio.  
+    - Al final parece que sí se había explicado.  
+ 
+**Feedback recibido (resumen de los comentarios de los profesores)**
+
+- La demo no se ve bien.
+
+- En la diapositiva 8, para ver mejor los costes, se deberían desglosar más tanto el CapEx como el OpEx.  
+
+- Son necesarios los gastos e ingresos para poder ver cuándo la app es rentable.  
+
+- Se debe mejorar y entender que se necesita tiempo para hacer un buen vídeo de la demo.  
+
+- Empezar por las lecciones aprendidas es como empezar por el final, quizás sería más apropiado comentar el desarrollo del sprint.  
+
+- Ya no hace falta hablar de riesgos, sino de problemas.  
+
+- Habría que poner un punto más específico sobre el uso de la IA (prompts).  
+
+- Habría que poner el cumplimiento del Acuerdo de compromiso.    
+
+- Hay que hacer ejercicios de vocalización.  
+
+- Quizás se podría integrar una IA generativa para que ayude en el proceso creativo, pero hay que preguntar a los usuarios pilotos.   
+
+- La rentabilidad debería ser mencionada mediante análisis exhaustivo del volumen de mercado.  
+
+- El chat no parece que sea una funcionalidad core.  
+
+- El burn-up parece que está mal por cómo aparece.  
+
+- El Product Backlog debería estar casi completo desde el comienzo.  
+
+
+**Puntos positivos destacados**
+
+- La presentación ha ido mejorando semana a semana.   
+
+- Tienen una diapositiva específica sobre lecciones aprendidas.  
+
+- Muy bien el niko niko.  
+
+**Áreas de mejora sugeridas**
+
+- Dedicar más tiempo a la demo.  
+
+- Realizar ejercicios de vocalización.  
+
+- Posible integración de IA regenerativa.  
+
+<br>
+
+## **Segundo grupo (Gastrostock):** 
+
+- Han mejorado en los usuarios piloto respecto a la última presentación.
+
+- Quizás en la tabla de competidores los iconos no se entienden.
+
+- Los mockups y explicar el MVP quizás sobra.
+
+- Los precios no están con Ks o Ms.
+
+- No han inlcuido información sobre demos.
+
+**Feedback alumnos**:
+- Pregunta sobre proveedores en los mockups.
+
+- Lo del TPV.   
+    - Según los usuarios piloto, no parece útil una aplicación que no esté en un TPV.
+
+**Feedback recibido (resumen de los comentarios de los profesores)**
+
+- No ha habido por falta de tiempo.
+
+**Puntos positivos destacados**
+
+- Intencionalmente en blanco.  
+
+**Áreas de mejora sugeridas**
+
+- Intencionalmente en blanco.  
+
+<br>
+
+## **Tercer grupo (Eventbride):** 
+**Feedback alumnos**
+
+- Felicitar el vídeo inicial.  
+
+**Feedback recibido (resumen de los comentarios de los profesores)**
+
+- El inicio efectivo es bueno y malo: es actual, llama la atencion y es fácil de relacionar con la app, pero se termina de forma poco profesional. Hay que intentar aproximar la formalidad con la coloquialidad.  
+
+- Se han abordado todos los puntos. Sin embargo, han hablado muy rápido.  
+
+- Muy bueno que han dicho si se ha cumplido el Acuerdo de Compromiso. **HAY QUE DECIRLO AUNQUE ESTÉ ANONIMIZADO (PCTR, etc)**.  
+
+- La demo hay que revisarla (zoom).  
+
+- No incluyen información sobre el seguimiento de los problemas.
+
+- En algunas diapositivas, no se ve bien la letra (quizás es un problema de fuente).
+
+- La diapositiva con los calendarios, en vez de poner varios calendarios quizás poner solo la fecha porque no se ven bien los calendarios.
+
+- Hay que tener en cuenta los aspectos legales de la aplicación.
+
+- Los usuarios piloto deberían ser potenciales compradores.
+
+- La presentación debería potenciar el discurso, no ser notas para el presentador. Se debe poner menos texto.
+
+- Si se usa la IA, debe trabajar más en otras cosas.
+
+- En caso de haber un cambio en una pull request y esté por añadirse, es importante que se comente que ya se ha creado una pull request.
+
+- Reforzar el uso de las metáforas visuales.
+
+**Puntos positivos destacados**
+
+- Han dicho cuándo alguien ha sido clave para una entrega.  
+
+- Comentar el cumplimiento del CA.
+
+**Áreas de mejora sugeridas**
+
+- Quizás algunas diapositivas tienen demasiado código.  
+
+- Tener en cuenta los aspectos legales.
+
+- Mencionar pull requests.
+
+<br>
+
+## **Cuarto grupo (BORROO):** 
+**Feedback alumnos**
+- Muy buen inicio efectivo.
+
+- Hay veces que han ido muy acelerados.
+
+- Se debería haber hecho zoom a la demo.
+
+**Feedback recibido (resumen de los comentarios de los profesores)**
+
+- Han hablado muy rápido.
+
+- Inicio efectivo muy bueno pero un poco largo. Con las mascotas puede haber problemas de copyright.
+
+- Cuidado con las preguntas al público (por el tema de la mascota de Doraemon).
+
+- En los competidores, hay algunos que no parecen competidores directos. No están bien puestas las diferencias. No se ve claramente lo que se diferencia.
+
+- En los costes deberían meter un plan de contigencia.
+
+- En los costes no se deben poner todas las cifras (en vez de 1000, 1k o 1M).
+
+- Cuando hay un errorcillo, se debe explicar lo que ha pasado. 
+
+- Modelo de evaluación, la diapositiva se debería mejorar el cómo se muestra.
+
+- No está puesto quién evalua.
+
+- No se sabe si se miden code smells y demás. 
+
+- Se debería poner cómo evaluan a quienes organizan.
+
+- Hay diapositivas sin número de página.
+
+- Se debería poner la gestión de los problemas (cómo va, si está solucionado...).
+
+- Se deberían poner medidas para reducir lo que tardan las reuniones. La medida debería de verse "Se quiere reducir el tiempo de las reuniones en 10%".
+
+- Deberían de haber dedicado más tiempo a la retrospectiva y haberlo explicado mejor.
+
+- Poner PCTR de cuando la IA alucina.
+
+**Puntos positivos destacados**
+
+- Inicio efectivo muy bueno, conociendo al público. Relacionado con el feedback de la presentación anterior podría haber dicho lo que les diferencia en el inicio efectivo.
+
+- Explican cómo se hace la evaluación interna correctamente.
+
+- Los problemas que han tenido se han presentado bien.
+
+**Áreas de mejora sugeridas**
+
+- Plan de contingencia para costes.
+
+- Poner cómo evaluan a quienes organizan.
+
+- Dedicar más tiempo a la retrospectiva y explicarla mejor.
+
+<br>
+
+## **Quinto grupo (CAMYO):** 
+**Feedback alumnos**:
+
+- A un alumno le ha gustado el inicio efectivo intentando vender un bolígrafo.
+
+- Buen cambio de presentadores.
+
+- Han puesto muestras de la aplicación que no parecen core(login).
+
+- Riesgos con los que han hecho trazabilidad: dependencia backend y frontend, hay gente que no ha sido activa, adelanto en el planning, cuellos de botella.
+
+**Feedback recibido (resumen de los comentarios de los profesores)**
+
+- No han dicho sus nombres al inicio de la presentación.
+
+- Lo que les diferencia de los competidores en la tabla de competidores parece haber cambiado. 
+
+- La tabla de competidores parece no resaltar claramente en qué se diferencian de los competidores. 
+
+- Muy buen inicio efectivo, pero se debe buscar un inicio efectivo relacionado con el tema del producto y que esté relacionado con lo que les diferencia de los competidores.
+
+- Usuarios piloto: han puesto el procedimiento pero necesitan las fechas (o relativo). 
+
+- La diapositiva del equipo puede resumirse. 
+
+- En la demo no es relevante lo que han mostrado porque han mostrado un registro y cosas por el estilo que son genéricas.
+
+- La tipografía no se ve desde atrás. No se ve la demo. 
+
+- Si hay pull request de mejora se debe decir en la presentación.
+
+- Retrospectiva, muy bien el cómo se han mostrado las horas.
+
+- Se debe cambiar la forma en la que se mide la calidad. Por ejemplo, cómo miden los commits: se pueden hacer muchos commits para parecer que se trabaja mucho.
+
+- La gestión de la calidad puede hacerse por puntos.
+
+- En la retrospectiva no se mustra cómo de solucionados están los casos/problemas.
+
+- Hay leyendas que no se ven.
+
+- Diapositiva 25 (mostrar planificación): muy bien el cómo se ha mostrado.
+
+- Diapositiva 22 (retrospectiva): no hay suficiente apoyo visual.
+
+- No se ve la replanificación en la diapositiva de los sprints. 
+
+**Puntos positivos destacados**
+
+- Buen inicio efectivo interactuando con el grupo para intentar captar la atención, lo une con el elevator spitch.
+
+- Han tomado la anterior presentación para mejorar en las cosas que les comentaron. Por ejemplo, la diapositiva de gestión de usuarios piloto, ahora es muy buena y clara.
+
+- Las gráficas de productividad son muy buenas(commits, horas,etc.). 
+
+- Diapositiva 25 (mostrar planificación): muy bien el cómo se ha mostrado.
+
+
+**Áreas de mejora sugeridas**
+
+- La diapositiva del equipo puede resumirse.
+
+- La tipografía no se ve desde atrás.
+
+- La gestión de la calidad puede hacerse por puntos.
+
+- Si hay pull request de mejora se debe decir en la presentación.
+
+<br>
+
+## **Sexto grupo (FISIO FIND):** 
+**Feedback alumnos**
+
+- Demasiadas diapositivas.
+
+- Aumentar tamaño de algunas cosas.
+
+- Reducir el killer opener.
+
+- Felicidades por las videollamadas.
+
+- Pregunta si las horas son solo una persona.
+
+- Muy bueno el foro.
 
 **Feedback recibido (resumen de los comentarios de los profesores)**
 
@@ -299,7 +953,8 @@ A continuación, se muestra tanto el feedback grupal como las anotaciones genera
 
 - Los tres presentan muy bien. Antonio debería mirar a todo el mundo.
 
-- Se debería comentar en qué nos diferenciamos de otros. Los competidores podrian ser marcados que es DyCare/Trak de manera visual para referenciar cuando hay muchos elementos en la presentacioón.
+- Se debería comentar en qué nos diferenciamos de otros. Los competidores podrian ser marcados que es DyCare/Trak de manera
+visual para referenciar cuando hay muchos elementos en la presentacioón.
 
 - Presentación autocontenida. Animaciones y elementos visuales muy buenos. Revisar el tema del color cálido de la pantalla.
 
@@ -319,8 +974,40 @@ A continuación, se muestra tanto el feedback grupal como las anotaciones genera
 
 - No hay una trasparencia de IA en específico que contenga cómo se ha usado, entre otras cosas.
 
-- No parece algo positivo que se tengan solo usuarios pilotos jóvenes, con poca experiencia.
+- No parece algo positivo que se tengan solo usuarios pilotos jóvenes, con poca experiencia. 
 
+**Puntos positivos destacados**
+
+- Muy bueno el foro.
+
+- Muy bien los presentadores.
+
+- Presentación extremadamente buena.
+
+- Bien los costes.
+
+- Buen uso del burn up. Buen análisis de rendimiento.
+
+**Áreas de mejora sugeridas**
+
+- Comentar en qué nos diferenciamos de otros.
+
+- Resumir costes y usar €.
+
+- Ensayar más los costes.
+
+- Información del equipomás resumida.
+
+- Diferenciar entre problemas y riesgos.
+
+- Tener en cuenta la falta de usuarios pilotos más experimentados.
+
+<br>
+
+
+# **2. ANÁLISIS DEL FEEDBACK**
+
+## **2.1. TENDENCIAS GENERALES**
 **Factores comunes en los comentarios de los profesores**
 
 - Muchas presentaciones tienen problemas con el inicio efectivo, ya sea porque es demasiado largo, no está bien relacionado con el producto o no genera suficiente impacto.
@@ -355,6 +1042,110 @@ A continuación, se muestra tanto el feedback grupal como las anotaciones genera
 
 - Elegir bien los usuarios piloto para que la validación del producto sea más representativa.
 
+<br>
+
+## **2.2. COMPARACIÓN DEL FEEDBACK DE NUESTRO GRUPO VS LOS OTROS**
+
+**¿Qué estamos haciendo bien en comparación con otros?**
+
+- Presentación visualmente atractiva y bien estructurada, con buenas animaciones y gráficos claros.
+
+- Muy buenos presentadores, con un desempeño sólido en la exposición.
+
+- Análisis de rendimiento y burn-up bien utilizados, lo que indica una buena gestión del progreso.
+
+- El foro ha sido una funcionalidad destacada, recibiendo felicitaciones específicas.
+
+- Costes bien estructurados, aunque se pueden resumir más.
+
+**¿Qué aspectos debemos mejorar respecto a los demás?**
+
+- Reducir el killer opener para que sea más directo y relevante al producto.
+
+- Diferenciarnos mejor de la competencia de manera visual y clara.
+
+- Resumir la información del equipo y los costes, para evitar diapositivas innecesarias.
+
+- Mejorar la presentación de los riesgos vs. problemas, aplicando probabilidad x impacto.
+
+- Ampliar la variedad de usuarios piloto, incluyendo personas con más experiencia en el sector.
+
+<br>
+
+<br>
+
+
+## Discusión para la siguiente clase (evaluación).
+- 15 minutos de presentación.  
+- Asistencia obligatoria.  
+- Habrá test (con nueva píldora teorica).  
+
+Lo que se espera ver (no va a cambiar mucho):  
+
+- Killer oppener (1 min).  
+
+- Elevator pitch(30-45s).  
+
+- Resumen de análisis de competidores (ir al grano).  
+
+- Resumen de costes: TCO, CapEx y OpEx (como nosotros).  
+
+- Retrospectiva:  
+
+    - Gastos respecto gastos esperados.  
+
+    - Estimación corto (4-6 meses) y medio plazo (1-2 año) de gastos e ingresosn (gráficos) desde ya.  
+
+    - Ingresos: justificar de dónde van a venir esos ingresos.  
+
+    - Estimaciones de tres escenarios: pesimista, optimista y esperado.
+
+    - Análisis del rendimiento (horas trabajadas y productividad). 
+
+    - Resultados de la evaluación de calidad del software.
+
+    - Problemas encontrados, estado, lecciones aprendidas (o global) y medición para ver si sirve el mecanismo para reducir el problema.  
+
+    - Reloj del avance del proyeco (tiempo invertido respecto del total).  
+
+- Equipo (máximo 2 min).  
+
+- Demo (15%): se tiene que ver con los casos de uso core.  
+
+- Gestión usuarios piloto:  
+
+    - No hace falta decir cómo se han captado (se puede seguir captando pero no decir cómo).    
+
+    - El número y roles.  
+
+    - Importa la gestion con ellos, tiempo de respuesta, gestión de su feedback, etc.  
+
+    - Gestión de usuarios piloto respecto al sprint 2.  
+
+- Planificacion y replanificacion para el sprint 2 y como afecta al sptrint 3.  
+
+- Uso de IA: alucinaciones tambión, por ejemplo.  
+
+- Última diapositiva landing page.  
+
+En cuando a documentación, guia de revisión del software. Se aumentarán las condiciones de fallo.  
+
+
+# **3. CONCLUSIONES Y OBSERVACIONES**
+- Nuestra presentación es muy sólida en términos visuales y estructurales, lo que nos ha permitido transmitir la información de manera clara y atractiva. Sin embargo, debemos reducir la cantidad de diapositivas y resumir mejor ciertos apartados, como el equipo y los costes.
+
+- El inicio efectivo necesita ser más conciso y estar mejor alineado con el producto para generar un impacto más directo y relevante. Otros grupos han logrado este equilibrio de manera más efectiva.
+
+- La diferenciación con los competidores debe ser más clara y visual. Aunque se menciona en la presentación, es importante que sea evidente y fácil de identificar para el público.
+
+- Nuestra demo ha sido valorada positivamente, pero se sugiere hacerla más grande para facilitar la visualización. Este es un problema común en casi todos los grupos, por lo que debemos asegurarnos de corregirlo.
+
+- El análisis de rendimiento con el burn-up ha sido bien recibido, lo que indica que estamos haciendo un buen seguimiento del progreso y la productividad del equipo.
+
+- El problema con la falta de respuesta de los usuarios debe ser tratado de manera más clara. Podríamos implementar métricas o mecanismos para evaluar el grado de satisfacción y compromiso de los usuarios piloto.
+
+- Se sugiere ampliar la diversidad de usuarios piloto, ya que actualmente contamos con un perfil mayormente joven y con poca experiencia. Incluir perfiles más experimentados podría aportar una validación más realista del producto.
+
 #### 4.1.5.2. Píldoras teóricas
 
 No se han añadido nuevos documentos.
@@ -365,9 +1156,169 @@ La información detallada de estos documentos se pueden encontrar en el segundo 
 
 ## 4.2 CONTRIBUCIONES A LA BASE DE CONOCIMIENTO GENERAL
 
-Las únicas aportaciones realizadas a la base de conocimiento general han sido incluir el feedback recogido para cada grupo, de modo que la información se pueda encontrar en la sección correspondiente a nuestro grupo.
+A continuación se muestran las contribuciones a la base de conocimiento general. Cabe destacar que, para los demás grupos, el feedback es igual que el que se añade en el feedback de la base de conocimiento grupal, por lo que solo se va a añadir el feedback del grupo 6.
+
+## Semana 3
+#### Feedback relacionado con la presentación
+
+- Los compañeros nos felicitaron por los siguientes aspectos:
+
+  - El uso de los mockups para presentar la aplicación.
+
+  - La herramienta interna que tenemos para calcular los costes.
+
+  - La presentación en general.
+
+  - El inicio afectivo.
+
+- En la tabla de competidores, los iconos no se entendían.
+
+- No se debe hacer referencia a la semana pasada.
+
+- En los riesgos, explicar cómo se van a mitigar (en vez de poner mitigar o evitar).
+
+- Poner las asignaciones de tareas y responsabilidades a los miembros del equipo.
+
+- Los costes no se expusieron correctamente.
+
+- El inicio efectivo debe ser más innovador.
+
+La organización de la presentación no es la que indicaron los profesores.
+
+- Añadir la landing page al final de la presentación.
+
+#### Feedback relacionado con el desarrollo del proyecto
+
+- Aumentar el número de usuarios piloto.
+
+#### Tareas a realizar para la siguiente semana
+
+- A partir de ahora las presentaciones durarán 15 minutos.
+- Todo lo relacionado con la evaluación del rendimiento debe ser cuantitativo.
+
+- Los despliegues suelen dar problemas. **Se debería de hacer despliegue continuo**.
+
+- Las presentaciones a partir de ahora (los porcentajes pueden no sumar 100%):
+
+  - Deben empezar con un 15% de introducción:
+
+    - Killer opener.
+
+    - Elevator pitch corto.
+
+    -  Resumen análisis de competidores.
+
+      - Con tabla diciendo lo que nos diferencia.
+
+    - Análisis de costes.
+
+    - Equipo.
+
+      - Si alguien no ha cumplido con sus tareas diciendo el porcentaje.
+
+      - Puede ser anónimo.
+
+      - Estructura de responsabilidades.
+
+  - 15% de prototipo:
+
+    - Mostrar lo que se tenga mediante capturas y vídeos.
+
+    - Deben de ser concisas e ir al grano, mostrando lo importante.
+
+  - 50% de retrospectiva:
+
+    - Análisis de la calidad y productividad:
+
+      - Análisis del rendimiento, plan de la calidad (se puede anonimizar), etc.
+
+      - Puede ser más de una trasparencia.
+
+    - Problemas encontrados.
+
+    - Trazabilidad de los riesgos:
+
+      - No se deben de repetir riesgos.
+
+      - Lecciones aprendidas del riesgo.
+
+    - Reloj de avance del proyecto:
+
+      - Tiempo dedicado según lo esperado.
+
+      - Diferencia entre tiempo dedicado y esperado.
+
+      - Ratio de horas respecto al total.
+
+    - Reestimación del sprint 1:
+
+      - Objetivos finales para el sprint 1.
+
+    - Reestimación de siguientes sprints.
+
+  - 10% de gestión de usuarios pilotos:
+
+    - Agenda para trabajar con ellos (días y cuándo).
+
+    - La responsabilidad del feedback es del equipo.
+
+    - La gestión de los usuarios pilotos es crítica.
+
+  - Planificación para el siguiente sprint.
+
+  - Cómo hemos usado la IA.
+
+  - Lo que no se menciona no se pide (se puede poner pero tiene que tener una razón).
+
+## Semana 5
+#### Feedback relacionado con la presentación
+
+- Demasiadas diapositivas.
+
+- Se debería comentar en qué nos diferenciamos de otros. Los competidores podrian ser marcados que es DyCare/Trak de manera visual para referenciar cuando hay muchos elementos en la presentación.
+
+- Aumentar tamaño de algunas cosas.
+
+- Inicio efectivo muy largo y no está relacionado con lo que vamos a ofrecer.
+
+- Los tres presentan muy bien. Antonio debería mirar a todo el mundo.
+
+- Presentación autocontenida. Animaciones y elementos visuales muy buenos. Revisar el tema del color cálido de la pantalla.
+
+- Los costes están bien, pero deberían resumirse más y especificar la moneda (no usar 'K' si no está todo en inglés).
+
+- Ensayar más los costes para que queden más claro.
+
+- Las fotos del equipo más pequeñas. Además, menos diapositivas de los equipos porque ya se pasan de manera rápida. Aglutinar más la información.
+
+- La demo debe de ser más grande.
+
+- No hay una trasparencia de IA en específico que contenga cómo se ha usado, entre otras cosas.
+
+- Hay que diferenciar entre problemas y riesgos. PROBABILIDAD X IMPACTO: hemos de mencionar que los problemas encontrados provienen de un determinado riesgo o no. Mejorar la manera de presentar los riesgos para que sea más cómodo.
+
+#### Feedback relacionado con el desarrollo del proyecto
+
+- Buen uso del burn up. Estamos realizando de manera correcta el análisis de rendimiento.
+
+- Existe un problema con la falta de respuesta de la gente; no se sabe si está solucionado o no.
+
+- No parece algo positivo que se tengan solo usuarios pilotos jóvenes, con poca experiencia. 
+
+#### Tareas a realizar para la siguiente semana
+
+- Reducir la cantidad de diapositivas.
+
+- Mejorar el inicio efectivo.
+
+- Mejorar el contenido de la presentación de la IA.
+
+- Diferenciar entre problemas y riesgos.
+
+- Mejorar la visualización de la demo.
 
 # 5. ACCIONES TOMADAS A PARTIR DEL FEEDBACK
+
 En esta sección se muestra un resumen de las acciones que se han tomado a partir del feedback dado. Se muestra un resumen ya que se entiende que existe un proceso de interiorización del feedback que hace que se tomen acciones de forma inconsciente. Es decir, si por ejemplo se valora mucho una presentación en concreto, lógicamente se va a intentar mejorar dicha presentación en los puntos en los que se haya dado feedback positivo. Se puede obtener un análisis mucho más detallado del feedback y de las presentaciones en los documentos de feedback de nuestra base de conocimiento.
 
 ## 5.1. Resumen de mejoras tras el feedback del 21/02/2025
