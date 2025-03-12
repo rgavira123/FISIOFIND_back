@@ -1,8 +1,8 @@
 ---
-title: "INFORME DE TIEMPO - SEMANA 3 (14/02-20/02)"       # CHANGE IF NEEDED
-subtitle: "FISIO FIND - Grupo 6 - #DP"
+title: "INFORME DE TIEMPO - SEMANA 4 (21/02-27/02)"       # CHANGE IF NEEDED
+subtitle: "FISIO FIND - Grupo 6 - #SPRINT 1"
 author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
-date: "10/02/2025"                                        # CHANGE IF NEEDED
+date: "06/03/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -14,19 +14,19 @@ colorlinks: true
 linkcolor: blue
 titlepage-background: "../../.backgrounds/background4V.pdf"  # CHANGE IF NEEDED
 header-left: "CLOCKIFY REPORT"                            # CHANGE IF NEEDED
-header-right: "20/02/2025"                                # CHANGE IF NEEDED
+header-right: "06/03/2025"                                # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<!-- <p align="center">
-  <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
+<p align="center">
+  <img src="../../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
 <h1 align="center" style="font-size: 30px; font-weight: bold;">
-  FISIO FIND  -  INFORME DE TIEMPO dd-mm-aa
+  FISIO FIND  -  INFORME DE TIEMPO 21/02-27/02
 </h1>
 
 <br>
@@ -35,13 +35,13 @@ classoption: "table"
 **ÍNDICE**
 1. [PROYECTOS](#1-proyectos)  
     1.1 [DEFINICIÓN DE CADA PROYECTO](#11-definición-de-cada-proyecto)  
-    1.2 [PROYECTOS REALIZADOS EN LA SEMANA](#12-proyectos-realizados-en-la-semana)
-    1.3 [PROYECTOS DESTACADOS](#13-proyectos-destacados)
+    1.2 [PROYECTOS REALIZADOS EN LA SEMANA](#12-proyectos-realizados-en-la-semana)  
+    1.3 [PROYECTOS DESTACADOS](#13-proyectos-destacados)  
 2. [HORAS TOTALES](#2-horas-totales)
 3. [DESGLOSE](#3-desglose)  
     3.1 [DESGLOSE POR DÍAS](#31-desglose-por-días)  
     3.2 [DESGLOSE POR PROYECTOS](#32-desglose-por-proyectos)  
-    3.3 [DESGLOSE POR INTEGRANTES](#33-desglose-por-integrantes) -->
+    3.3 [DESGLOSE POR INTEGRANTES](#33-desglose-por-integrantes)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
@@ -55,15 +55,15 @@ classoption: "table"
 
 - **Número de Grupo:** Grupo 6
 
-- **Entregable:** #DP
+- **Entregable:** #SPRINT 1
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
 - **Autores:** Alberto Carmona Sicre
 
-- **Fecha de Creación:** 10/02/2025  
+- **Fecha de Creación:** 02/03/2025  
 
-- **Versión:** v1.0
+- **Versión:** v1.2
 
 <br>
 
@@ -76,7 +76,10 @@ classoption: "table"
 
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
-| 20/02/2025 | v1.0    | Rafael Pulido Cifuentes            | Elaboración de la primera versión del documento de la semana 3 |
+| 02/03/2025 | v1.0    | Alberto Carmona Sicre            | Elaboración de la primera versión del documento de informe de tiempo de la semana 4 |
+| 02/03/2025 | v1.1    | Antonio Macías Ferrera           | Correcciones de título e información adicional |
+| 06/03/2025 | v1.2    | Alberto Carmona Sicre            | Correción en las horas. Añadidas gráficas en los apartados: Desglose por proyectos y Desglose por integrantes |
+
 
 <br>
 
@@ -98,16 +101,15 @@ A continuación, se muestran los posibles tipos de tareas en las que pueden trab
 
 - **fix / refactor / style:** en este apartado entra: corrección de código erróneo, refactorización del código y estilos de visualización de la aplicación.
 
-- **test:** tipo de tarea para realizar las pruebas correspondientes tras la integración de nuevas funcionalidades que se crean terminadas.
+- **test:** tipo de tarea para realizar las pruebas correspondientes tras la integración de nuevas funcionalidades que se crean terminadas.  
 
-- **Presentaciones / Diseños:** todo lo relacionado con preparar las presentaciones semanales de la asignatura o elaborar los diseños de la aplicación tales como logos, portadas, etc.
+- **Planificación:** todo lo relacionado con la planificación del proyecto.  
 
-- **Redes sociales:** para aquellas tareas relacionadas con la gestión de las redes sociales, posicionamiento y publicidad del proyecto.
+- **Presentaciones / Diseños:** todo lo relacionado con preparar las presentaciones semanales de la asignatura o elaborar los diseños de la aplicación tales como logos, portadas, etc.  
 
-- **Reuniones:** como su nombre indica, son aquellas tareas en las que se invierte el tiempo en reuniones del equipo de carácter general.
+- **Redes sociales:** para aquellas tareas relacionadas con la gestión de las redes sociales, posicionamiento y publicidad del proyecto.  
 
-- **Organización:** todo lo relacionado con la organización inicial del proyecto.
-
+- **Reuniones:** como su nombre indica, son aquellas tareas en las que se invierte el tiempo en reuniones del equipo de carácter general.  
 
 ## 1.2. Proyectos realizados en la semana
 En esta semana de trabajo se ha trabajado en los siguientes proyectos:  
@@ -122,31 +124,29 @@ En esta semana de trabajo se ha trabajado en los siguientes proyectos:
 
 5. Clases presenciales
 
-6. Organización
+6. Planificación
 
-7. Planificación
+7. Documentación
 
-8. Documentación
-
-9. feat
+8. feat
 
 
-
-<br>
 
 ## 1.3. Proyectos destacados
 Entre los proyectos destacados de la semana, aquellos en los que se ha invertido más tiempo, encontramos los siguientes:  
 
-- **docs:** 74:46:16	
+- **feat:** 72:11:49	
 
-- **proyecto:** 51:32:15	
+- **Clases / Vídeos:** 63:42:17  
+
+- **Reuniones:** 24:08:12  
+
+<br>
 
 
 # 2. HORAS TOTALES
-Para esta semana de trabajo, el tiempo total dedicado al proyecto ha sido de 215 horas y 33 minutos
+Para esta semana de trabajo, el tiempo total dedicado al proyecto ha sido de 205 horas y 4 minutos.
   
-
-<br>
 
 <br>
 
@@ -157,19 +157,19 @@ Para una mejor visualización del tiempo dedicado, se realiza un desglose por d�
 ## 3.1 Desglose por días  
 Ordenado de manera cronológica:
 
-- **Viernes 14/02:** 55:52:15
+- **Viernes 21/02:** 66:21:50  
 
-- **Sábado 15/02:** 05:31:10
+- **Sábado 22/02:** 23:30:11  
 
-- **Domingo 16/02:** 23:00:05
+- **Domingo 23/02:** 17:33:46  
 
-- **Lunes 17/02:** 44:33:38
+- **Lunes 24/02:** 49:17:23  
 
-- **Martes 18/02:** 32:13:58
+- **Martes 25/02:** 19:24:56  
 
-- **Miércoles 19/02:** 29:26:42
+- **Miércoles 26/02:** 12:44:04  
 
-- **Jueves 20/02:** 24:55:12
+- **Jueves 27/02:** 16:12:07  
 
 
 <br>
@@ -177,23 +177,27 @@ Ordenado de manera cronológica:
 ## 3.2 Desglose por proyectos  
 Ordenado de mayor a menor tiempo dedicado en cada proyecto: 
 
-**1. docs:** 74:46:16	
+**1. feat:** 72:11:49    	
 
-**2. Presentaciones / Diseños:** 32:59:15
+**2. Clases / Vídeos:** 63:42:17  
 
-**3. Reuniones:** 08:55:15	
+**3. Reuniones:** 24:08:12  
 
-**4. Clases / Vídeos:** 51:32:15	
+**4. docs:** 23:13:40  
 
-**5. Redes sociales:** 03:29:59	
+**5. Planificación:** 18:31:47    
 
-**6. test:** hh:mm
+**6. Redes sociales:** 02:19:39	  
 
-**7. Planificación:** 28:41:31	
+**7. Presentaciones / Diseños:** 00:46:07  
 
-**8. fix / refactor / style:** 00:15:25	
+**8. fix / refactor / style:** 00:10:46  
 
-**9. feat:** 14:53:04	
+**9. test:** hh:mm  	 
+
+Diagrama de sectores para una mejor visualización de la división:
+
+![Diagrama de proyectos](../../.img/projects_diagram_week_4.png)
 
 
 <br>
@@ -202,40 +206,43 @@ Ordenado de mayor a menor tiempo dedicado en cada proyecto:
 
 Ordenado por orden alfabético:
 
-**1. Alberto Carmona Sicre** - 00:00:00
+**1. Alberto Carmona Sicre** - 10:42:02
 
-**2. Antonio Macías Ferrera** -  25:03:45
+**2. Antonio Macías Ferrera** -  09:40:21
 
-**3. Benjamín Ignacio Maureira Flores** -  10:01:52
+**3. Benjamín Ignacio Maureira Flores** -  11:18:54
 
-**4. Daniel Alors Romero** - 10:03:46
+**4. Daniel Alors Romero** - 10:33:48
 
-**5. Daniel Fernández Caballero** - 08:34:29
+**5. Daniel Fernández Caballero** - 09:45:51
 
-**6. Daniel Ruiz López**  -  17:54:39
+**6. Daniel Ruiz López**  -  11:55:07
 
-**7. Daniel Tortorici Bartús** - 11:56:00
+**7. Daniel Tortorici Bartús** - 12:12:00
 
-**8. Daniel Vela Camacho** - 15:59:53
+**8. Daniel Vela Camacho** - 17:14:27
 
-**9. Delfín Santana Rubio** - 11:55:04
+**9. Delfín Santana Rubio** - 09:54:21
 
-**10. Francisco Capote García** -  10:02:02
+**10. Francisco Capote García** -  12:40:35
 
-**11. Francisco Mateos Villarejo** -  10:35:03
+**11. Francisco Mateos Villarejo** -  10:36:38
 
-**12. Guadalupe Ridruejo Pineda** - 26:34:20
+**12. Guadalupe Ridruejo Pineda** - 16:25:11
 
-**13. Julen Redondo Pacheco** -  04:47:49
+**13. Julen Redondo Pacheco** -  08:56:53
 
-**14. Miguel Encina Martínez** -  12:09:21
+**14. Miguel Encina Martínez** -  13:17:23
 
-**15. Pablo Fernández Pérez** -  10:42:46
+**15. Pablo Fernández Pérez** -  09:58:18
 
-**16. Ramón Gavira Sánchez**  -  11:06:08
+**16. Ramón Gavira Sánchez**  -  10:24:00
 
-**17. Rafael Pulido Cifuentes** -  18:06:03
+**17. Rafael Pulido Cifuentes** -  19:28:28
 
+Diagrama de sectores para una mejor visualización:
+
+![Diagrama de integrantes](../../.img/users_diagram_week_4.png)  
 
 <br>
 
