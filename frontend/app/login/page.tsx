@@ -11,7 +11,6 @@ export default function LoginPaciente() {
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isClient, setIsClient] = useState(false);
-  const [token, setToken] = useState<string | null>(null);
 
   React.useEffect(() => {
     setIsClient(true);

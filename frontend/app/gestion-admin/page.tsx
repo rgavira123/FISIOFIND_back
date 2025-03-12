@@ -19,7 +19,7 @@ const GestionAdmin = () => {
 
       if (storedToken) {
         axios
-          .get("http://${getApiBaseUrl()}/api/app_user/check-role/", {
+          .get(`${getApiBaseUrl()}/api/app_user/check-role/`, {
             headers: {
               Authorization: "Bearer " + storedToken,
             },

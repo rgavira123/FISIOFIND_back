@@ -29,7 +29,7 @@ export default function GestionarTerminos() {
       setToken(storedToken);
       if (token) {
         axios
-          .get("http://${getApiBaseUrl()}/api/app_user/check-role/", {
+          .get(`${getApiBaseUrl()}/api/app_user/check-role/`, {
             headers: {
               Authorization: "Bearer " + token,
             },
@@ -52,7 +52,7 @@ export default function GestionarTerminos() {
 
   useEffect(() => {
     axios
-      .get("http://${getApiBaseUrl()}/api/terminos/list/", {
+      .get(`${getApiBaseUrl()}/api/terminos/list/`, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -63,7 +63,7 @@ export default function GestionarTerminos() {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, []);
+  }, [token]);
 
   return (
     <>

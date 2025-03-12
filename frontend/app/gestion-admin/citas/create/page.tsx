@@ -123,7 +123,7 @@ export default function editarCitas() {
   function searcFisio(id) {
     axios
       .get(
-        "http://${getApiBaseUrl()}/api/app_user/admin/user/list/" + id + "/",
+        `${getApiBaseUrl()}/api/app_user/admin/user/list/` + id + "/",
         {
           headers: {
             Authorization: "Bearer " + token,

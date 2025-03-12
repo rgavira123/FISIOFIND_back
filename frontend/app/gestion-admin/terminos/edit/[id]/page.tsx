@@ -33,7 +33,7 @@ export default function EditarTermino() {
       setToken(storedToken);
       if (token) {
         axios
-          .get("http://${getApiBaseUrl()}/api/app_user/check-role/", {
+          .get(`${getApiBaseUrl()}/api/app_user/check-role/`, {
             headers: {
               Authorization: "Bearer " + token,
             },
@@ -56,7 +56,7 @@ export default function EditarTermino() {
 
   useEffect(() => {
     axios
-      .get("http://${getApiBaseUrl()}/api/terminos/list/" + id + "/", {
+      .get(`${getApiBaseUrl()}/api/terminos/list/` + id + "/", {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -69,14 +69,14 @@ export default function EditarTermino() {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, []);
+  }, [id, token]);
 
   function handleSubmit(event) {
     event.preventDefault();
 
     axios
       .put(
-        "http://${getApiBaseUrl()}/api/terminos/update/" + id + "/",
+        `${getApiBaseUrl()}/api/terminos/update/` + id + "/",
         {
           id,
           content,

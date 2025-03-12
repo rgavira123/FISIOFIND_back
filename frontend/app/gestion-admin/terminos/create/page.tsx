@@ -21,7 +21,7 @@ export default function crearTerminos() {
       setToken(storedToken);
       if (token) {
         axios
-          .get("http://${getApiBaseUrl()}/api/app_user/check-role/", {
+          .get(`${getApiBaseUrl()}/api/app_user/check-role/`, {
             headers: {
               Authorization: "Bearer " + token,
             },
@@ -48,7 +48,7 @@ export default function crearTerminos() {
 
     axios
       .post(
-        "http://${getApiBaseUrl()}/api/terminos/create/",
+        `${getApiBaseUrl()}/api/terminos/create/`,
         {
           content,
           version,

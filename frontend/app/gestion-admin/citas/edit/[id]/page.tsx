@@ -35,7 +35,7 @@ export default function EditarCitas() {
       // Rest of your code
       if (storedToken) {
         axios
-          .get("http://${getApiBaseUrl()}/api/app_user/check-role/", {
+          .get("${getApiBaseUrl()}/api/app_user/check-role/", {
             headers: {
               Authorization: "Bearer " + storedToken,
             },
@@ -69,7 +69,7 @@ export default function EditarCitas() {
   useEffect(() => {
     axios
       .get(
-        "http://${getApiBaseUrl()}/api/app_appointment/appointment/admin/list/" +
+        `${getApiBaseUrl()}/api/app_appointment/appointment/admin/list/` +
           id +
           "/",
         {
@@ -113,7 +113,7 @@ export default function EditarCitas() {
 
     axios
       .put(
-        "http://${getApiBaseUrl()}/api/app_appointment/appointment/admin/edit/" +
+        `${getApiBaseUrl()}/api/app_appointment/appointment/admin/edit/` +
           id +
           "/",
         {
@@ -155,7 +155,7 @@ export default function EditarCitas() {
   function searchPaciente(id) {
     axios
       .get(
-        "http://${getApiBaseUrl()}/api/app_user/admin/user/list/" + id + "/",
+        `${getApiBaseUrl()}/api/app_user/admin/user/list/` + id + "/",
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -178,7 +178,7 @@ export default function EditarCitas() {
   function searcFisio(id) {
     axios
       .get(
-        "http://${getApiBaseUrl()}/api/app_user/admin/user/list/" + id + "/",
+        `${getApiBaseUrl()}/api/app_user/admin/user/list/` + id + "/",
         {
           headers: {
             Authorization: "Bearer " + token,

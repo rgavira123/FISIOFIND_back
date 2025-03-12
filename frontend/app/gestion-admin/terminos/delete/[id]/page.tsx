@@ -30,7 +30,7 @@ export default function EliminarTermino() {
       setToken(storedToken);
       if (token) {
         axios
-          .get("http://${getApiBaseUrl()}/api/app_user/check-role/", {
+          .get(`${getApiBaseUrl()}/api/app_user/check-role/`, {
             headers: {
               Authorization: "Bearer " + token,
             },
@@ -53,7 +53,7 @@ export default function EliminarTermino() {
 
   useEffect(() => {
     axios
-      .get("http://${getApiBaseUrl()}/api/terminos/list/" + id + "/", {
+      .get(`${getApiBaseUrl()}/api/terminos/list/` + id + "/", {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -64,11 +64,11 @@ export default function EliminarTermino() {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, []);
+  }, [id, token]);
 
   function deleteTermino() {
     axios
-      .delete("http://${getApiBaseUrl()}/api/terminos/delete/" + id + "/", {
+      .delete(`${getApiBaseUrl()}/api/terminos/delete/` + id + "/", {
         headers: {
           Authorization: "Bearer " + token,
         },

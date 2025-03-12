@@ -43,7 +43,7 @@ export default function GestionarCitas() {
       setToken(storedToken);
       if (storedToken) {
         axios
-          .get("http://${getApiBaseUrl()}/api/app_user/check-role/", {
+          .get(`${getApiBaseUrl()}/api/app_user/check-role/`, {
             headers: {
               Authorization: "Bearer " + storedToken,
             },
@@ -67,7 +67,7 @@ export default function GestionarCitas() {
   useEffect(() => {
     axios
       .get(
-        "http://${getApiBaseUrl()}/api/app_appointment/appointment/admin/list/",
+        `${getApiBaseUrl()}/api/app_appointment/appointment/admin/list/`,
         {
           headers: {
             Authorization: "Bearer " + token,

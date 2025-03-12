@@ -33,7 +33,7 @@ export default function EliminarCitas() {
       setToken(storedToken);
       if (storedToken) {
         axios
-          .get("http://${getApiBaseUrl()}/api/app_user/check-role/", {
+          .get(`${getApiBaseUrl()}/api/app_user/check-role/`, {
             headers: {
               Authorization: "Bearer " + storedToken,
             },
@@ -57,7 +57,7 @@ export default function EliminarCitas() {
   useEffect(() => {
     axios
       .get(
-        "http://${getApiBaseUrl()}/api/app_appointment/appointment/admin/list/" +
+        `${getApiBaseUrl()}/api/app_appointment/appointment/admin/list/` +
           id +
           "/",
         {
@@ -72,12 +72,12 @@ export default function EliminarCitas() {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, []);
+  }, [isClient, id, token]);
 
   function deleteCita() {
     axios
       .delete(
-        "http://${getApiBaseUrl()}/api/app_appointment/appointment/admin/delete/" +
+        `${getApiBaseUrl()}/api/app_appointment/appointment/admin/delete/` +
           id +
           "/",
         {

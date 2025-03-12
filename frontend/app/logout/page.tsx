@@ -23,7 +23,7 @@ const Logout = () => {
           try {
             // Llama al endpoint /logout solo si hay token
             await axios.post(
-              "http://${getApiBaseUrl()}/api/app_user/logout/",
+              `${getApiBaseUrl()}/api/app_user/logout/`,
               {},
               {
                 headers: { Authorization: `Bearer ${token}` },
