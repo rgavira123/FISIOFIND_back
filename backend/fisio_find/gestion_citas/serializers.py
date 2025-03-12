@@ -70,11 +70,12 @@ class AppointmentSerializer(serializers.Serializer):
         """
         Update and return an existing `Appointment` instance, given the validated data.
         """
-        if not "patient_id" in validated_data:
-            validated_data["patient_id"] = validated_data["patient"].id
-        
-        if not "physiotherapist_id" in validated_data:
-            validated_data["physiotherapist_id"] = validated_data["physiotherapist"].id   
+        # Manejar el caso en que solo se envía el ID y no el objeto completo
+        if "patient" in validated_data:
+            validated_data["patient_id"] = validated_data["patient"]  # Es un ID, no un objeto
+
+        if "physiotherapist" in validated_data:
+            validated_data["physiotherapist_id"] = validated_data["physiotherapist"]  # También es un ID
 
         instance.start_time = validated_data.get('start_time', instance.start_time)
         instance.end_time = validated_data.get('end_time', instance.end_time)
