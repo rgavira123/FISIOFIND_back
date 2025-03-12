@@ -1,13 +1,11 @@
 // Wizard.tsx
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import WizardHeader from "./WizardHeader";
 import WizardContent from "./WizardContent";
 import WizardNavigation from "./WizardNavigation";
 import { Service, Step } from "@/lib/definitions";
-import { AppointmentProvider, useAppointment } from "@/context/appointmentContext"; // Asegúrate de ajustar la ruta
-import { useRouter } from "next/router";
-import { useParams } from "next/navigation";
+import { AppointmentProvider } from "@/context/appointmentContext"; // Asegúrate de ajustar la ruta
 
 const Wizard: React.FC<{ steps: Step[] }> = ({ steps }) => {
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -36,18 +34,6 @@ const Wizard: React.FC<{ steps: Step[] }> = ({ steps }) => {
   const goToPreviousStep = () =>
     setCurrentStep((prev) => Math.max(prev - 1, 1));
 
-  const params = useParams();
-  console.log(params);
-  const { id } = useParams();
-  const { dispatch } = useAppointment();
-
-  useEffect(() => {
-    if (id) {
-      // Si id es un string, conviértelo a número si es necesario
-      const physioId = Array.isArray(id) ? parseInt(id[0]) : parseInt(id as string);
-      dispatch({ type: "SELECT_PHYSIOTHERAPIST", payload: physioId });
-    }
-  }, [id, dispatch]);
 
   return (
     <AppointmentProvider>

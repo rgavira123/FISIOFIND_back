@@ -5,6 +5,7 @@ import { Service } from "@/lib/definitions";
 import { useAppointment } from "@/context/appointmentContext";
 import AppointmentCalendar from "./AppointmentCalendar";
 import { formatAppointment } from "@/lib/utils"; // Se importa la función de formateo
+import { useParams } from "next/navigation";
 
 interface WizardContentProps {
   currentStep: number;
@@ -25,6 +26,9 @@ const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services }) 
   const { state, dispatch } = useAppointment();
   const appointmentData = state.appointmentData;
   console.log(appointmentData);
+  const { id } = useParams();
+  const physioId = parseInt(id as string);
+
 
   const handleSelectService = (service: Service) => {
     if (appointmentData.service.type === service.title) {
@@ -38,7 +42,7 @@ const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services }) 
             price: service.price,
             duration: parseInt(service.duration),
           },
-          physiotherapist: 2,
+          physiotherapist: physioId,
         },
       });
     }
