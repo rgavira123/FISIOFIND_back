@@ -174,9 +174,9 @@ const PatientProfile = () => {
         formData.append("birth_date", profile.birth_date);
 
         // Solo agregar la foto si se ha seleccionado un archivo
-        if (selectedFile) {
-            formData.append("user.photo", selectedFile);
-        }
+        if (profile.user.photoFile) {
+                formData.append("user.photo", profile.user.photoFile);
+            }
 
         const response = await axios.patch(`${BASE_URL}/api/app_user/profile/`, formData, {
             headers: {
@@ -218,132 +218,165 @@ const PatientProfile = () => {
         }
     }
 };
+  
+  const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            // Crear URL para vista previa
+            const previewUrl = URL.createObjectURL(file);
+            console.log(previewUrl);
+            console.log(file);
+
+            // Actualizar el estado con el archivo y la URL de vista previa
+            setProfile((prevProfile) => ({
+                ...prevProfile,
+                user: {
+                    ...prevProfile.user,
+                    photo: previewUrl, // Para mostrar en la interfaz
+                    photoFile: file,    // Para enviar al backend
+                    preview: previewUrl
+                },
+            }));
+        }
+    };
+
+    const getImageSrc = () => {
+        // Verifica si hay un previewUrl (es decir, si el usuario ha subido una imagen)
+        if (profile.user.preview) {
+            return profile.user.photo; // Si existe una foto en el estado, usarla
+        }
+
+        // Si no existe un previewUrl, entonces usar la imagen del backend si está disponible
+        if (profile?.user?.photo) {
+            return `http://localhost:8000/api/app_user${profile.user.photo}`;
+        }
+
+        // Si no hay foto, usar la imagen por defecto
+        return "/default_avatar.png";
+    };
 
 
   if (loading) return <p>Cargando perfil...</p>;
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[#f3f3f3]">
-      <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-xl">
-        <h2 className="text-3xl font-bold mb-6 text-center text-[#253240]">Perfil del Paciente</h2>
-        {success && (
-        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-md text-center mb-4">
-            {success}
-        </div>
-        )}
-
-        {errors.general && <p className="text-red-500 text-center mb-4">{errors.general}</p>}
-        {success && <p className="text-green-500 text-center mb-4">{success}</p>}
-
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="relative flex justify-center mb-4">
-            <img 
-              src={profile?.user?.photo ? `${BASE_URL}${profile.user.photo}` : `/default_avatar.png`}
-              alt="Foto de perfil"
-              className="rounded-full border-4 border-[#05668D] shadow-md cursor-pointer"
-              width={150}
-              height={150}
-              onClick={handleImageClick}
-              onMouseEnter={(e) => e.target.nextSibling.classList.remove("hidden")}
-              onMouseLeave={(e) => e.target.nextSibling.classList.add("hidden")}
-            />
-            <span className="absolute bottom-2 bg-[#05668D] text-white text-xs px-2 py-1 rounded hidden">
-              Seleccionar archivo como imagen de perfil
-            </span>
-            <input 
-              id="file-input"
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={handleFileChange}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <label className="font-semibold text-[#253240]">Nombre de usuario:</label>
-            <input
-              type="text"
-              name="username"
-              value={profile?.user?.username || ""}
-              onChange={handleChange}
-              className="w-full p-3 border border-[#05668D] rounded-md focus:outline-none focus:ring-2 focus:ring-[#41b8d5] text-gray-700"
-            />
-            {errors.username && <p className="text-red-500">{errors.username}</p>}
-
-            <label className="font-semibold text-[#253240]">Email:</label>
-            <input
-              type="email"
-              name="email"
-              value={profile?.user?.email || ""}
-              onChange={handleChange}
-              className="w-full p-3 border border-[#05668D] rounded-md focus:outline-none focus:ring-2 focus:ring-[#41b8d5] text-gray-700"
-            />
-            {errors.email && <p className="text-red-500">{errors.email}</p>}
-
-            <label className="font-semibold text-[#253240]">Teléfono:</label>
-            <input
-              type="text"
-              name="phone_number"
-              value={profile?.user?.phone_number || ""}
-              onChange={handleChange}
-              className="w-full p-3 border border-[#05668D] rounded-md focus:outline-none focus:ring-2 focus:ring-[#41b8d5] text-gray-700"
-            />
-            {errors.phone_number && <p className="text-red-500">{errors.phone_number}</p>}
-
-            <label className="font-semibold text-[#253240]">Código Postal:</label>
-            <input
-              type="text"
-              name="postal_code"
-              value={profile?.user?.postal_code || ""}
-              onChange={handleChange}
-              className="w-full p-3 border border-[#05668D] rounded-md focus:outline-none focus:ring-2 focus:ring-[#41b8d5] text-gray-700"
-            />
-            {errors.postal_code && <p className="text-red-500">{errors.postal_code}</p>}
-
-            <label className="font-semibold text-[#253240]">DNI:</label>
-            <input
-              type="text"
-              name="dni"
-              value={profile?.user?.dni || ""}
-              onChange={handleChange}
-              className="w-full p-3 border border-[#05668D] rounded-md focus:outline-none focus:ring-2 focus:ring-[#41b8d5] text-gray-700"
-            />
-            {errors.dni && <p className="text-red-500">{errors.dni}</p>}
-
-            <label className="font-semibold text-[#253240]">Género:</label>
-            <select
-              name="gender"
-              value={profile?.gender || ""}
-              onChange={handleChange}
-              className="w-full p-3 border border-[#05668D] rounded-md focus:outline-none focus:ring-2 focus:ring-[#41b8d5] text-gray-700"
-            >
-              <option value="">Selecciona una opción</option>
-              <option value="M">Masculino</option>
-              <option value="F">Femenino</option>
-              <option value="O">Otro</option>
-            </select>
-            {errors.gender && <p className="text-red-500">{errors.gender}</p>}
-
-            <label className="font-semibold text-[#253240]">Fecha de Nacimiento:</label>
-            <input
-              type="date"
-              name="birth_date"
-              value={profile?.birth_date || ""}
-              onChange={handleChange}
-              className="w-full p-3 border border-[#05668D] rounded-md focus:outline-none focus:ring-2 focus:ring-[#41b8d5] text-gray-700"
-            />
-            {errors.birth_date && <p className="text-red-500">{errors.birth_date}</p>}
-          <button
-              type="submit"
-              className="w-full bg-[#05668D] text-white py-3 rounded-md hover:bg-[#41b8d5] transition"
-            >
-              Actualizar Perfil
-            </button>
-            
-          </div>
-        </form>
-      </div>
+    <div className="user-profile-container">
+  {/* Sección izquierda con la foto y datos principales */}
+  <div className="user-profile-left">
+    <div className="profile-pic">
+                    <label className="-label" htmlFor="file">
+                        <span className="glyphicon glyphicon-camera"></span>
+                        <span>Change Image</span>
+                    </label>
+                    <input id="file" type="file" accept="image/*" onChange={handleFileChange} />
+                    <img
+                        src={getImageSrc()}
+                        alt="Profile"
+                        width="200"
+                    />
+                </div>
+    <div className="user-info">
+      <p>{profile?.user?.username || "Nombre de usuario"}</p>
+      <p>{profile?.user?.first_name + " " + profile?.user?.last_name || "Nombre"}</p>
+      
     </div>
+  </div>
+
+  {/* Sección derecha con el formulario */}
+  <div className="user-profile-right">
+    <form onSubmit={handleSubmit}>
+      {errors.general && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded-md text-center mb-4">
+          {errors.general}
+        </div>
+      )}
+
+      <div>
+        <label>Email:</label>
+        <input
+          type="email"
+          name="email"
+          value={profile?.user?.email || ""}
+          onChange={handleChange}
+          className="w-full p-3 border border-[#05668D] rounded-md focus:outline-none focus:ring-2 focus:ring-[#41b8d5] text-gray-700"
+        />
+        {errors.email && <p className="text-red-500">{errors.email}</p>}
+      </div>
+
+      <div>
+        <label>Teléfono:</label>
+        <input
+          type="text"
+          name="phone_number"
+          value={profile?.user?.phone_number || ""}
+          onChange={handleChange}
+          className="w-full p-3 border border-[#05668D] rounded-md focus:outline-none focus:ring-2 focus:ring-[#41b8d5] text-gray-700"
+        />
+        {errors.phone_number && <p className="text-red-500">{errors.phone_number}</p>}
+      </div>
+
+      <div>
+        <label>Código Postal:</label>
+        <input
+          type="text"
+          name="postal_code"
+          value={profile?.user?.postal_code || ""}
+          onChange={handleChange}
+          className="w-full p-3 border border-[#05668D] rounded-md focus:outline-none focus:ring-2 focus:ring-[#41b8d5] text-gray-700"
+        />
+        {errors.postal_code && <p className="text-red-500">{errors.postal_code}</p>}
+      </div>
+
+      <div>
+        <label>Fecha de Nacimiento:</label>
+        <input
+          type="date"
+          name="birth_date"
+          value={profile?.birth_date || ""}
+          disabled={true}
+          className="w-full p-3 border border-[#05668D] rounded-md focus:outline-none focus:ring-2 focus:ring-[#41b8d5] text-gray-700"
+        />
+        {errors.birth_date && <p className="text-red-500">{errors.birth_date}</p>}
+      </div>
+
+      <div>
+        <label>DNI:</label>
+        <input
+          type="text"
+          name="dni"
+          value={profile?.user?.dni || ""}
+          disabled={true}
+          className="w-full p-3 border border-[#05668D] rounded-md focus:outline-none focus:ring-2 focus:ring-[#41b8d5] text-gray-700"
+        />
+        {errors.dni && <p className="text-red-500">{errors.dni}</p>}
+      </div>
+
+      <div>
+        <label>Género:</label>
+        <select
+          name="gender"
+          value={profile?.gender || ""}
+          onChange={handleChange}
+          className="w-full p-3 border border-[#05668D] rounded-md focus:outline-none focus:ring-2 focus:ring-[#41b8d5] text-gray-700"
+        >
+          <option value="">Selecciona una opción</option>
+          <option value="M">Masculino</option>
+          <option value="F">Femenino</option>
+          <option value="O">Otro</option>
+        </select>
+        {errors.gender && <p className="text-red-500">{errors.gender}</p>}
+      </div>
+
+      <button
+        type="submit"
+        className="w-full mt-8 bg-[#05668D] text-white py-3 rounded-md hover:bg-[#41b8d5] transition"
+      >
+        Actualizar Perfil
+      </button>
+    </form>
+  </div>
+</div>
+
+  
   );
 };
 
