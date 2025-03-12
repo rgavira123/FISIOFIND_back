@@ -60,20 +60,20 @@ classoption: "table"
       - [4.1.5.2. Píldoras teóricas](#4152-píldoras-teóricas)
   - [4.2. CONTRIBUCIONES A LA BASE DE CONOCIMIENTO GENERAL](#42-contribuciones-a-la-base-de-conocimiento-general)
 - [5. ACCIONES TOMADAS A PARTIR DEL FEEDBACK](#5-acciones-tomadas-a-partir-del-feedback)
-  - [5.1. Análisis y Decisiones tomadas tras el Feedback del 07/02/2025](#51-análisis-y-decisiones-tomadas-tras-el-feedback-del-07022025)
-    - [5.1.1. Evaluación de viabilidad del proyecto](#511-evaluación-de-viabilidad-del-proyecto)
-    - [5.1.2. Redirección del proyecto](#512-redirección-del-proyecto)
-    - [5.1.3. Estrategia de validación con usuarios piloto](#415-estrategia-de-validación-con-usuarios-piloto)
-- [Resumen de Mejoras Tras el Feedback (14/02/2025)](#resumen-de-mejoras-tras-el-feedback-14022025)
-  - [5.2.1. Visión clara de las herramientas especializadas](#521-visión-clara-de-las-herramientas-especializadas)
-  - [5.2.2. Respuesta efectiva al feedback recibido y cambio de idea anterior](#522-respuesta-efectiva-al-feedback-recibido-y-cambio-de-idea-anterior)
-  - [5.2.3. Calidad visual de la presentación y de los mockups y otro feedback positivo](#523-calidad-visual-de-la-presentación-y-de-los-mockups-y-otro-feedback-positivo)
-  - [5.2.4. Costos](#524-costos)
-  - [5.2.5. Riesgos](#525-riesgos)
-  - [5.2.6. Inicio efectivo](#526-inicio-efectivo)
-  - [5.2.7. Mejora en la visión corporativa y listado del equipo y habilidades](#527-mejora-en-la-visión-corporativa-y-listado-del-equipo-y-habilidades)
-  - [5.2.8. Actualización del CA](#528-actualización-del-ca)
-  - [5.2.9. Tiempo y número de diapositivas en presentaciones](#529-tiempo-y-número-de-diapositivas-en-presentaciones)
+  - [5.1. Resumen de mejoras tras el feedback del 21/02/2025](#51-resumen-de-mejoras-tras-el-feedback-del-21022025)
+    - [5.1.1. Aumento de usuarios piloto](#511-aumento-de-usuarios-piloto)
+    - [5.1.2. Tabla de competidores](#512-tabla-de-competidores)
+    - [5.1.3. Asignaciones de tareas y responsabilidades](#513-asignaciones-de-tareas-y-responsabilidades)
+    - [5.1.4. Costos](#514-costos)
+    - [5.1.5. Inicio efectivo](#515-inicio-efectivo)
+    - [5.1.6. Organización de la presentación](#516-organización-de-la-presentación)
+  - [5.2. Resumen de mejoras tras el feedback del 07/03/2025](#52-resumen-de-mejoras-tras-el-feedback-del-07032025)
+    - [5.2.1. Inicio efectivo](#521-inicio-efectivo)
+    - [5.2.2. Diapositivas](#522-diapositivas)
+    - [5.2.3. Costos](#523-costos)
+    - [5.2.4. Equipo](#524-equipo)
+    - [5.2.5. Demo](#525-demo)
+    - [5.2.6. Transparencia de IA](#526-transparencia-de-ia)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
@@ -95,7 +95,7 @@ classoption: "table"
 
 - **Fecha de Creación:** 11/03/2025
 
-- **Versión:** v1.0
+- **Versión:** v1.2
 
 <br>
 
@@ -108,6 +108,7 @@ classoption: "table"
 |------------|---------|----------------------------------|----------------------------|
 | 11/03/2025 | v1.0    | Alberto Carmona Sicre | Creación del informe de base de conocimiento. |
 | 12/03/2025 | v1.1    | Alberto Carmona Sicre | Estructuración de los puntos 3 y 4 |
+| 12/03/2025 | v1.2    | Alberto Carmona Sicre | Estructuración de los puntos 4 y 5 |
 
 
 
@@ -240,9 +241,119 @@ No se han añadido nuevos documentos.
 
 #### 4.1.5.1. Feedbacks
 
-- Feedback de la clase del día 21 de febrero de 2025.
+#### Feedback de la clase del día 21 de febrero de 2025. 
 
-- Feedback de la clase del día 7 de marzo de 2025.
+A continuación, se muestra tanto el feedback grupal como las anotaciones generales:
+
+**Feedback recibido (resumen de los comentarios de los profesores)**
+
+- Aumentar el número de usuarios piloto.
+
+- En la tabla de competidores los iconos pueden no entenderse.
+
+- No se debe hacer referencia a la semana pasada.
+
+- En los riesgos explicar claramente cómo se van a mitigar (en vez de poner evitar o mitigar).
+
+- Poner las asignaciones de tareas y responsabilidades a los miembros del equipo.
+
+- No se han expuesto los costes correctamente.
+
+- Se debe de innovar en el inicio efectivo.
+
+- La organización de la presentación no es la que indicaron los profesores.
+
+**Factores comunes en los comentarios de los profesores**
+
+- Mejorar en el inicio efectivo.
+
+- Mejorar en la gestión del tiempo de las presentaciones.
+
+**Puntos de fortaleza general en los equipos**
+
+- Toda la presentación es visible.
+
+- La tabla de competidores.
+
+**Áreas de mejora recurrentes**
+
+- Mejorar en el inicio efectivo.
+
+- Mejorar en la gestión del tiempo de las presentaciones.
+
+- Gestión de usuarios piloto.
+
+- Mejorar el cómo se presenta.
+
+- Registro de riesgos.
+
+
+
+#### Feedback de la clase del día 7 de marzo de 2025.
+
+A continuación, se muestra tanto el feedback grupal como las anotaciones generales:
+
+**Feedback recibido (resumen de los comentarios de los profesores)**
+
+- Inicio efectivo muy largo y no está relacionado con lo que vamos a ofrecer.
+
+- Los tres presentan muy bien. Antonio debería mirar a todo el mundo.
+
+- Se debería comentar en qué nos diferenciamos de otros. Los competidores podrian ser marcados que es DyCare/Trak de manera visual para referenciar cuando hay muchos elementos en la presentacioón.
+
+- Presentación autocontenida. Animaciones y elementos visuales muy buenos. Revisar el tema del color cálido de la pantalla.
+
+- Los costes están bien, pero deberían resumirse más y especificar la moneda (no usar 'K' si no está todo en inglés).
+
+- Ensayar más los costes para que queden más claro.
+
+- Las fotos del equipo más pequeñas. Además, menos diapositivas de los equipos porque ya se pasan de manera rápida. Aglutinar más la información.
+
+- Buen uso del burn up. Estamos realizando de manera correcta el análisis de rendimiento.
+
+- La demo debe de ser más grande.
+
+- Existe un problema con la falta de respuesta de la gente; no se sabe si está solucionado o no.
+
+- Hay que diferenciar entre problemas y riesgos. PROBABILIDAD X IMPACTO: hemos de mencionar que los problemas encontrados provienen de un determinado riesgo o no. Mejorar la manera de presentar los riesgos para que sea más cómodo.
+
+- No hay una trasparencia de IA en específico que contenga cómo se ha usado, entre otras cosas.
+
+- No parece algo positivo que se tengan solo usuarios pilotos jóvenes, con poca experiencia.
+
+**Factores comunes en los comentarios de los profesores**
+
+- Muchas presentaciones tienen problemas con el inicio efectivo, ya sea porque es demasiado largo, no está bien relacionado con el producto o no genera suficiente impacto.
+
+- La visualización de la demo es un problema recurrente (tamaño, zoom, claridad).
+
+- Hay comentarios sobre la falta de diferenciación con los competidores en varias presentaciones. Se recomienda marcar bien las diferencias.
+
+- La explicación de costes debe ser más clara y resumida, asegurándose de que se use la moneda correctamente.
+
+- En muchos casos, los usuarios piloto podrían no ser los adecuados para validar realmente el producto.
+
+**Puntos de fortaleza general en los equipos**
+
+- En general, las presentaciones han ido mejorando semana a semana con base en el feedback recibido.
+
+- Algunos grupos han hecho un buen uso de herramientas como el burn-up y gráficos de productividad.
+
+- El uso de la IA se está considerando en varias presentaciones, aunque aún se debe mejorar su implementación y justificación.
+
+- Algunos grupos han logrado destacar con un inicio efectivo bien ejecutado.
+
+**Áreas de mejora recurrentes**
+
+- Zoom en la demo para que se vea mejor lo que se está mostrando.
+
+- Reducir el texto en diapositivas y hacerlas más visuales.
+
+- Diferenciar mejor los problemas de los riesgos, aplicando probabilidad x impacto.
+
+- Mejorar la vocalización y el ritmo de la presentación para que sea más clara y efectiva.
+
+- Elegir bien los usuarios piloto para que la validación del producto sea más representativa.
 
 #### 4.1.5.2. Píldoras teóricas
 
@@ -254,90 +365,69 @@ La información detallada de estos documentos se pueden encontrar en el segundo 
 
 ## 4.2 CONTRIBUCIONES A LA BASE DE CONOCIMIENTO GENERAL
 
+Las únicas aportaciones realizadas a la base de conocimiento general han sido incluir el feedback recogido para cada grupo, de modo que la información se pueda encontrar en la sección correspondiente a nuestro grupo.
+
 # 5. ACCIONES TOMADAS A PARTIR DEL FEEDBACK
-En esta sección se muestra un resumen de las acciones que se han tomado a partir del feedback dado. Se muestra un resumen ya que se entiende que existe un proceso de interiorización del feedback que hace que se tomen acciones de forma inconsciente. Es decir, si por ejemplo se valora mucho una presentación en concreto, lógicamente se va a intentar mejorar dicha presentación en los puntos en los que se haya dado feedback positivo. Se puede obtener un análisis mucho más detallado del feedback y de las presentaciones en los documentos [Feedback_07-02-2025](https://fisiofind.vercel.app/docs/Recursos/5.1.%20Feedbacks/5.1.1.%20Feedback_07-02-2025) y [Feedback_14-02-2025](https://fisiofind.vercel.app/docs/Recursos/5.1.%20Feedbacks/5.1.2.%20Feedback_14-02-2025) de nuestra base de conocimiento.
+En esta sección se muestra un resumen de las acciones que se han tomado a partir del feedback dado. Se muestra un resumen ya que se entiende que existe un proceso de interiorización del feedback que hace que se tomen acciones de forma inconsciente. Es decir, si por ejemplo se valora mucho una presentación en concreto, lógicamente se va a intentar mejorar dicha presentación en los puntos en los que se haya dado feedback positivo. Se puede obtener un análisis mucho más detallado del feedback y de las presentaciones en los documentos de feedback de nuestra base de conocimiento.
 
-## 5.1. Análisis y Decisiones tomadas tras el Feedback del 07/02/2025
+## 5.1. Resumen de mejoras tras el feedback del 21/02/2025
 
-Tras el _feedback_ recibido en la sesión del 07/02/2025, se identificó como una de las tareas más relevantes el análisis de competidores de **Gallery Guide**, propuesto por el profesorado. En particular, se evaluó con mayor profundidad a **Bloomberg Connects**, un competidor que no había sido considerado inicialmente.
+Tras el _feedback_ recibido en la sesión del 21/02/2025, se tomaron medidas para mejorar aquellos aspectos de la presentación que presentaban fallos, al mismo tiempo que se reforzaron los puntos que fueron elogiados.
 
-### 5.1.1. Evaluación de viabilidad del proyecto
+### 5.1.1. Aumento de usuarios piloto
 
-Se realizó un análisis exhaustivo de la viabilidad del proyecto teniendo en cuenta la presencia de este nuevo competidor. Finalmente, la organización concluyó que no era viable posicionarse en este mercado debido a:
+- Ante la clara falta de usuarios piloto, se destinó cierto tiempo a una búsqueda más exhaustiva que permitiese tener una base mucho mayor de feedback por parte de posibles usuarios de la aplicación. Esto tuvo como resultado un aumento de fisioterapeutas de 5 a 16 con distinta experiencia, así como un aumento en pacientes de 3 a 18.
 
-- La presencia de **Bloomberg Connects**, un competidor fuerte que ofrece una solución _software_ gratuita tanto para museos como para usuarios.
-- Aunque **Bloomberg Connects** no resolvía el problema identificado por la organización en la visita a los museos, su propuesta representaba un obstáculo importante para la adopción de una nueva aplicación.
-- La situación económica de los museos, que carecen de fondos adicionales para invertir en la adquisición y mantenimiento de una nueva aplicación.
+### 5.1.2. Tabla de competidores
 
-Debido a estos factores, se determinó que el proyecto tenía una viabilidad limitada, lo que llevó a la organización a reconsiderar su enfoque y optar por un cambio de rumbo.
+- En el feedback del 21/02 se indicó que la tabla de competidores principales no llegaba a entenderse puesto que era demasiado abstracta. Por ello, para la siguiente presentación se actualizó la tabla para que fuese más sencillo diferenciar lo que hacíamos distinto a los demás.
 
-### 5.1.2. Redirección del proyecto
+### 5.1.3. Asignaciones de tareas y responsabilidades
 
-Tras esta decisión, la organización se reunió para explorar y desarrollar un nuevo proyecto, esta vez priorizando la corrección y mejora de aspectos que no se ejecutaron de manera óptima en la fase anterior. Entre estos aspectos se incluyen:
+- Aunque se expusieron los equipos y diapositivas con las distintas responsabilidades existentes, no se dejó claro quién hacía qué mediante representaciones visuales, por lo que se corrigió para la siguiente presentación con diapositivas que juntasen a los miembros con sus responsabilidades.
 
-- **Análisis de competidores:** Implementando una estrategia basada en _keywords_ y un análisis detallado de los competidores más directos, así como la identificación de aquellos con impacto indirecto.
-- **Evaluación de costes:** Estimación precisa de costos de desarrollo, mantenimiento y escalabilidad del proyecto.
-- **Gestión de usuarios piloto:** Implementación de un primer sondeo mediante encuestas para recopilar información relevante sobre los usuarios pilotos.
-- **Desarrollo del MVP:** Creación de una versión inicial funcional del producto para pruebas con usuarios piloto.
+### 5.1.4. Costos
 
-### 5.1.3. Estrategia de validación con usuarios piloto
+Se nos indicó la necesidad de mejorar en la presentación de los costos. Entre las mejoras realizadas se encuentran:
 
-Para la gestión de los usuarios piloto, se realizó una encuesta dirigida a fisioterapeutas con el objetivo de recopilar información clave sobre:
+- **Desglose del CapEx**.
+- **Desglose del OpEx**.
+- Gráfica con Ingresos Acumulados, Costes Acumulados y ROI.
 
-- Su interés en el desarrollo de una aplicación como **Fisio Find**.
-- Su disposición a participar como usuarios piloto.
-- Las aplicaciones que utilizan actualmente para prestar sus servicios de manera _online_.
+### 5.1.5. Inicio efectivo
 
-Con esta información, se busca optimizar el desarrollo del nuevo proyecto y asegurar una mayor viabilidad en el mercado.
+- Se destacó la necesidad de innovar en el inicio efectivo, por lo que los presentadores dedicaron un tiempo mayor a idear un inicio mucho más potente.
 
-# Resumen de Mejoras Tras el Feedback (14/02/2025)
+### 5.1.6. Organización de la presentación
 
-Tras el _feedback_ recibido en la sesión del 14/02/2025, se tomaron medidas para mejorar aquellos aspectos de la presentación que presentaban fallos, al mismo tiempo que se reforzaron los puntos que fueron elogiados.
+- Los docentes indicaron que la organización de la presentación no era la acordada, por lo que se anotaron bien los puntos para tener bien en cuenta la distribución en la siguiente presentación.
 
-## 5.2.1. Visión clara de las herramientas especializadas
+## 5.2. Resumen de mejoras tras el feedback del 07/03/2025
 
-- Se tuvo en cuenta la recomendación de mostrar en la presentación las herramientas que implementará FISIO FIND.
+Tras el _feedback_ recibido en la sesión del 07/03/2025, se tomaron medidas para mejorar aquellos aspectos de la presentación que presentaban fallos, al mismo tiempo que se reforzaron los puntos que fueron elogiados.
 
-## 5.2.2. Respuesta efectiva al feedback recibido y cambio de idea anterior
+### 5.2.1. Inicio efectivo
 
-- En el feedback del 14/02 se indicó que no era necesario mencionar que habíamos cambiado de idea, por lo que en la siguiente presentación no lo haremos.
-- Aunque se nos felicitó por la claridad de nuestra respuesta al feedback, se ha decidido no dedicar una presentación exclusiva a este tema en la evaluación.
+- se comentó que el inicio efectivo fue demasiado largo y no estaba relacionado con lo que vamos a ofrecer, por lo que se ha destinado todavía más tiempo a preparar esta parte de la presentación.
 
-## 5.2.3. Calidad visual de la presentación y de los mockups y otro feedback positivo
+### 5.2.2. Diapositivas
 
-- Se nos felicitó por la calidad de la presentación y de los mockups, y se decidió utilizar el material realizado como referencia para futuras presentaciones.
-- También se destacó el análisis de costos y de competidores. Se usará el trabajo previo en estas áreas como referencia para futuras mejoras, considerando que cualquier actualización en costos se entiende como un incremento, y no como un trabajo desde cero.
+- El número de diapositivas era superior a lo esperado, por lo que se tuvo en cuenta a la hora de realizar la siguiente presentación.
 
-## 5.2.4. Costos
+- Como feedback positivo, se felicitó la presentación autocontenida, los elementos visuales y las animaciones, por lo que se seguirán utilizando en presentaciones futuras.
 
-Se nos indicó la necesidad de mejorar en el área de costos, por lo que, en la semana previa a la evaluación, se dedicaron recursos a optimizarla. Entre las mejoras realizadas se encuentran:
+### 5.2.3. Costos
 
-- **Desglose por meses:** Se ha detallado mejor.
-- **Especificación de coste por recurso:** Se ha mejorado la precisión.
-- **Soporte posterior:** Se ha incluido la consideración de la versión de Github Enterprise.
+- Aunque los costos estaban bien expuestos, se necesitaban resumir un poco más, por lo que se tuvo en cuenta para futuras presentaciones.
 
-_Todo lo anterior ha quedado registrado en un documento._
+### 5.2.4. Equipo
 
-## 5.2.5. Riesgos
+- La presentación del equipo era demasiado extensa, por lo que se tuvo en cuenta para futuras presentaciones, aglutinando la información relevante.
 
-- Se destacó la necesidad de un análisis más profundo de riesgos. En consecuencia, se han asignado mayores recursos para desarrollar tanto el **Plan de Gestión de Riesgos** como el **Registro de Riesgos**.
+### 5.2.5. Demo
 
-## 5.2.6. Inicio efectivo
+- La mala visualización de la demo fue una constante en todos los grupos, por lo que se realizaron zooms en la demo para que se vea mejor lo que se estaba mostrando.
 
-- A partir del feedback de otros grupos, se ha decidido iniciar la siguiente presentación utilizando la técnica de contar una historia. Esta técnica también se aplicará para la presentación de los mockups.
+### 5.2.6. Transparencia de IA
 
-## 5.2.7. Mejora en la visión corporativa y listado del equipo y habilidades
-
-- Se asignó la tarea de tomar una foto grupal en la que todos vistamos la misma ropa y utilicemos el mismo fondo, con el fin de presentarla.
-- Se creó un nuevo documento de recursos humanos para listar al equipo y sus habilidades.
-
-## 5.2.8. Actualización del CA
-
-- Se revisó el CA para verificar las penalizaciones relacionadas con el compromiso de las tareas y las responsabilidades, siguiendo las recomendaciones generales impartidas en clase. Se concluyó que no era necesaria ninguna modificación.
-
-## 5.2.9. Tiempo y número de diapositivas en presentaciones
-
-- Se tomó nota para que la próxima presentación cumpla con los siguientes requisitos:
-  - Menos de 40 diapositivas.
-  - Conclusión en el último minuto.
-
+- Faltó una diapositiva dedicada a la IA, por lo que se incluyó en la siguiente presentación para comentar la manera en la que se usaba.
