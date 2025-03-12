@@ -1,5 +1,19 @@
 [
-  {
+    {
+        "model": "gestion_usuarios.specialization",
+        "pk": 1,
+        "fields": {
+            "name": "Deportiva"
+        }
+    },
+    {
+        "model": "gestion_usuarios.specialization",
+        "pk": 2,
+        "fields": {
+            "name": "Ortopédica y Traumatológica"
+        }
+    },
+    {
       "model": "gestion_usuarios.appuser",
       "pk": 1,
       "fields": {
@@ -85,7 +99,11 @@
               "duration": 60
             }
           },
-          "gender": "M"
+          "gender": "M",
+          "specializations": [
+            1,
+            2
+          ]
       }
   },
   {
