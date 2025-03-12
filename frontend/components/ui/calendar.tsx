@@ -75,9 +75,9 @@ const Calendar = ({
   };
 
   return (
-    <div className="justify-items-center w-2/3 pt-16 hidden lg:block">
+    <div className="justify-items-center w-2/3 py-4 hidden lg:block">
       <FullCalendar
-        height={"85vh"}
+        height={"80vh"}
         plugins={[dayGridPlugin, timeGridPlugin, listPlugin]}
         locale={esLocale}
         headerToolbar={{

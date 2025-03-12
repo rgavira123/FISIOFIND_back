@@ -91,13 +91,13 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
                 className="mt-4 bg-[#05668D] text-white px-4 py-2 rounded-xl hover:bg-blue-600"
                 onClick={() => setEditionMode(true)}
               >
-                Modificar
+                Modificar cita
               </button>
               <button
                 className="mt-4 bg-[#05668D] text-white px-4 py-2 rounded-xl hover:bg-blue-600"
                 onClick={() => deleteEvent(selectedEvent)}
               >
-                Cancelar
+                Cancelar cita
               </button>
             </div>
           )}
