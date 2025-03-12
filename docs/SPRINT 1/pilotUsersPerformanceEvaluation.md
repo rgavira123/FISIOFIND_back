@@ -42,7 +42,6 @@ classoption: "table"
   - [3.1. PRINCIPALES OBSERVACIONES Y SUGERENCIAS](#31-principales-observaciones-y-sugerencias)
 - [3.2. PROBLEMAS DETECTADOS](#32-problemas-detectados)
 - [3.3. FUNCIONALIDADES VALORADAS POSITIVAMENTE](#33-funcionalidades-valoradas-positivamente)
-- [4. CONCLUSIONES, LECCIONES APRENDIDAS Y PROCESADO DEL FEEDBACK](#4-conclusiones-lecciones-aprendidas-y-procesado-del-feedback)
   - [4.1. AJUSTES REALIZADOS EN BASE AL FEEDBACK](#41-ajustes-realizados-en-base-al-feedback)
   - [4.2. ESTRATEGIAS DE MEJORA FUTURA](#42-estrategias-de-mejora-futura)
 - [5. EVALUACIÓN DE LA EXPERIENCIA PILOTO](#5-evaluación-de-la-experiencia-piloto)
@@ -161,28 +160,87 @@ Se presenta un listado de los usuarios piloto que participarán en las pruebas d
 
 ## 3.1. PRINCIPALES OBSERVACIONES Y SUGERENCIAS
 
-*Se recogen los comentarios y sugerencias más relevantes de los usuarios piloto, destacando aspectos positivos y áreas de mejora.*
+Los usuarios piloto técnicos han proporcionado las siguientes observaciones principales:
+
+1. **Diseño y Usabilidad**
+   - La landing page es intuitiva, atractiva y fácil de usar
+   - La información es fácilmente accesible
+   - El diseño general es completo y bien estructurado
+
+2. **Contenido**
+   - El contenido en redes sociales es de buena calidad
+   - La información proporcionada es relevante y útil
+
+3. **Sugerencias de Mejora**
+   - Añadir información de contacto y dirección de fisioterapeutas para atención presencial
+   - Optimizar el rendimiento y tiempos de carga de la aplicación
+   - Mejorar la visualización del calendario de citas
 
 # 3.2. PROBLEMAS DETECTADOS
 
-*Se identifican los principales problemas encontrados por los usuarios piloto durante la prueba de la plataforma, junto con su impacto y posibles soluciones.*
+Se han identificado los siguientes problemas técnicos:
+
+1. **Problemas de Interfaz**
+   - Duplicación de la sección "Acerca de" en la página de inicio
+   - Términos en inglés en el footer de la demo
+   - Desaparición de opciones del header al navegar a inicio
+   - Inconsistencia en los iconos de redes sociales entre demo e inicio
+
+2. **Problemas Funcionales**
+   - Videos de ejercicios no se visualizan correctamente
+   - Posibilidad de registrar procesos sin información completa (series o dolor)
+   - Sistema permite reservas en fechas pasadas
+   - Enlaces rotos en la vista de detalles de pacientes
+   - Problemas de rendimiento y tiempos de carga
 
 # 3.3. FUNCIONALIDADES VALORADAS POSITIVAMENTE
 
-*Se detallan las características y funcionalidades de FISIO FIND que recibieron comentarios positivos por parte de los usuarios piloto, identificando fortalezas clave del producto.*
+Los usuarios han destacado positivamente:
 
-# 4. CONCLUSIONES, LECCIONES APRENDIDAS Y PROCESADO DEL FEEDBACK
+1. **Diseño de la Interfaz**
+   - Landing page atractiva y bien estructurada
+   - Navegación intuitiva
+   - Diseño limpio y profesional
 
-*En este apartado se presentan las conclusiones generales del informe, las lecciones aprendidas y las acciones tomadas en base al feedback de los usuarios piloto.*
+2. **Funcionalidades Principales**
+   - Sistema de gestión de citas
+   - Funcionalidades básicas bien implementadas
+   - Interfaz de usuario intuitiva
 
 ## 4.1. AJUSTES REALIZADOS EN BASE AL FEEDBACK
 
-*Se describen los cambios y mejoras implementadas en la plataforma tras analizar las opiniones y sugerencias de los usuarios piloto.*
+Se proponen los siguientes ajustes inmediatos:
+
+1. **Correcciones Técnicas**
+   - Eliminar duplicación de sección "Acerca de"
+   - Traducir términos en inglés del footer
+   - Corregir la navegación del header
+   - Solucionar la visualización de videos de ejercicios
+
+2. **Mejoras de Usabilidad**
+   - Implementar validación en el registro de procesos
+   - Prevenir reservas en fechas pasadas
+   - Corregir enlaces rotos en vista de pacientes
 
 ## 4.2. ESTRATEGIAS DE MEJORA FUTURA
 
-*Se establecen estrategias y planes de acción para continuar mejorando FISIO FIND en futuros sprints, basándose en la experiencia obtenida en esta fase piloto.*
+Para futuros sprints, se plantean las siguientes estrategias:
 
+1. **Optimización de Rendimiento**
+   - Mejorar tiempos de carga
+   - Optimizar tamaño de imágenes
+   - Evaluar opciones de hosting más eficientes
+
+2. **Mejoras de Funcionalidad**
+   - Añadir información de contacto y dirección de fisioterapeutas
+   - Mejorar la visualización del calendario
+   - Implementar gestión completa de citas
+   - Optimizar el sistema de búsqueda y filtros
+
+3. **Mejoras de Contenido**
+   - Expandir la información disponible sobre fisioterapeutas
+   - Mejorar la documentación de ejercicios
+   - Mantener la calidad del contenido en redes sociales
 
 
 # 5. EVALUACIÓN DE LA EXPERIENCIA PILOTO
