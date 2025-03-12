@@ -230,18 +230,6 @@ En este documento se detallan cada uno de los riesgos contemplados en el proyect
 | **Contramedidas actuales** | Conseguir muchos usuarilos piloto para que sea improbable que nos fallen todos. |
 | **Plan de contingencia** | Buscar nuevos usuarios piloto y cambiar la forma en la que se gestionan los usuarios piloto. |
 
-| **RIG-012** | **Usuarios piloto**  |  
-| --- | --- |
-| **Versión** | V1.0 |
-| **Descripción** | Puede suceder que algunos de nuestros usuarios piloto que se han comprometido a probar la aplicación, no terminen cumpliendo con esto. Si el número de usuarios piloto que nos fallan es muy alto, podría desencadenar que se cumpla el riesgo **RIG-005**, haciendo que perdamos o no tengamos clientes.  |
-| **Clasificación** | Externos |
-| **Probabilidad** | 3 |
-| **Impacto** | 8 |
-| **Factor** | 24 |
-| **Prioridad** | 7 |
-| **Contramedidas actuales** | Conseguir muchos usuarilos piloto para que sea improbable que nos fallen todos. |
-| **Plan de contingencia** | Buscar nuevos usuarios piloto y cambiar la forma en la que se gestionan los usuarios piloto. |
-
 | **RIG-013** | **Nuevas tecnologías de desarrollo**  |  
 | --- | --- |
 | **Versión** | V1.0 |
