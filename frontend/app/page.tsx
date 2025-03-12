@@ -267,7 +267,7 @@ const Home = () => {
             <h3 className="text-lg font-bold mb-4">Enlaces Útiles</h3>
             <ul>
               <li>
-                <a href="https://fisiofind.netlify.app" target="_blank" rel="noopener noreferrer">
+                <a href="https://fisiofind-landing-page.netlify.app/" target="_blank" rel="noopener noreferrer">
                   Conoce Fisio Find
                 </a>
               </li>

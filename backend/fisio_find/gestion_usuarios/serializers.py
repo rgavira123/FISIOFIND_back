@@ -150,12 +150,13 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
     phone_number = serializers.CharField(required=True)
     postal_code = serializers.CharField(required=True)
     photo = serializers.ImageField(required=False)
+    services = serializers.JSONField(required=False)
     
     class Meta:
         model = Physiotherapist
         fields = [
             'username', 'email', 'password', 'dni', 'gender', 'first_name', 'last_name', 
-            'birth_date', 'collegiate_number', 'autonomic_community', 'phone_number', 'postal_code', 'bio', 'photo'
+            'birth_date', 'collegiate_number', 'autonomic_community', 'phone_number', 'postal_code', 'bio', 'photo', 'services'
         ]
         
     def validate_password(self, value):
@@ -243,6 +244,7 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
 
                 # Actualizar datos del fisioterapeuta (Physiotherapist)
                 instance.bio = validated_data.get("bio", instance.bio)
+                instance.services = validated_data.get("services", instance.services)
                 instance.save()
 
                 return instance
