@@ -9,6 +9,45 @@ from rest_framework import generics
 from gestion_usuarios.models import Patient, AppUser
 
 
+from .permissions import IsPatient
+from .models import Patient
+from rest_framework.permissions import IsAuthenticated
+
+class PatientProfileView(generics.RetrieveAPIView):
+    permission_classes = [IsPatient]
+
+    def get(self, request):
+        try:
+            patient = Patient.objects.get(user=request.user)
+            serializer = PatientSerializer(patient)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Patient.DoesNotExist:
+            return Response({"error": "Perfil de paciente no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+
+    def patch(self, request, *args, **kwargs):
+        try:
+            patient = Patient.objects.get(user=request.user)  
+
+            request_data = request.data.copy()
+
+            user_data = request_data.get('user', {})  
+            user_data['id'] = request.user.id  
+
+            request_data['user'] = user_data  
+
+            serializer = PatientSerializer(patient, data=request_data, partial=True, context={'request': request})
+
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+
+            print("Errores en PatientSerializer:", serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        except Patient.DoesNotExist:
+            return Response({"error": "Perfil de paciente no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+        
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def patient_register_view(request):
@@ -68,7 +107,7 @@ def physio_register_view(request):
         return Response({"message": "Fisioterapeuta registrado correctamente"}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
+"""
 class AdminAppUserDetail(generics.RetrieveAPIView):
     '''
     API endpoint que retorna un solo user por su id para admin.
@@ -117,3 +156,4 @@ class AdminPatientDelete(generics.DestroyAPIView):
     permission_classes = [AllowAny]
     queryset = Patient.objects.all()
     serializer_class = PatientRegisterSerializer
+"""
