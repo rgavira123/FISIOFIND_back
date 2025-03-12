@@ -1,5 +1,7 @@
 from django.urls import path
 from .views import patient_register_view, custom_token_obtain_view, logout_view, check_role_view, physio_register_view, return_user, physio_update_view
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('patient/register/', patient_register_view, name='patient_register'),
@@ -11,6 +13,7 @@ urlpatterns = [
     path('current-user/', return_user, name='current_user')
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     
 

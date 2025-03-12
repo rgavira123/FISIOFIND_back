@@ -88,9 +88,7 @@ def physio_update_view(request):
             request_data[key[5:]] = value  # Quita el prefijo "user."
         else:
             request_data[key] = value
-            
-    print(request_data)
-    
+                
     # Serializar y validar los datos enviados
     serializer = PhysioRegisterSerializer(physio, data=request_data, partial=True)
     

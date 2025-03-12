@@ -234,15 +234,11 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
         try:
             with transaction.atomic():
                 # Actualizar datos del usuario (AppUser)
-                print("validated_data", validated_data)
-                print("instance", instance)
                 user = instance.user
                 user.email = validated_data.get("email", user.email)
-                user.phone_number = validated_data.get("phone_number", user.phone_number)  # mobile_phone en tu petición
+                user.phone_number = validated_data.get("phone_number", user.phone_number)
                 user.postal_code = validated_data.get("postal_code", user.postal_code)
                 user.photo = validated_data.get("photo", user.photo)
-                print("user photo", user.photo)
-
                 user.save()
 
                 # Actualizar datos del fisioterapeuta (Physiotherapist)

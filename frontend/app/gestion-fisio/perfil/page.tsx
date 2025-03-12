@@ -8,7 +8,7 @@ const getAuthToken = () => {
     return localStorage.getItem("token"); // Obtiene el token JWT
 };
 
-const PatientProfile = () => {
+const FisioProfile = () => {
     // Inicializa el estado de la forma adecuada
     const [profile, setProfile] = useState({
         user: {
@@ -34,13 +34,19 @@ const PatientProfile = () => {
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-    const [selectedFile, setSelectedFile] = useState(null);
 
     useEffect(() => {
-        fetchPatientProfile();
+        fetchFisioProfile();
+
+        return () => {
+            // Limpiar URLs de objeto cuando el componente se desmonte
+            if (profile.user.photo && profile.user.photo.startsWith('blob:')) {
+                URL.revokeObjectURL(profile.user.photo);
+            }
+        };
     }, []);
 
-    const fetchPatientProfile = async () => {
+    const fetchFisioProfile = async () => {
         try {
             const token = getAuthToken();
             if (!token) {
@@ -77,7 +83,7 @@ const PatientProfile = () => {
                 schedule: response.data.physio.schedule,
                 services: response.data.physio.services
             });
-            console.log(response.data); // Debug
+            console.log(response.data);
         } catch (error: any) {
             setError("Error obteniendo el perfil.");
         } finally {
@@ -88,7 +94,7 @@ const PatientProfile = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
 
-        if (name === "bio"){
+        if (name === "bio") {
             setProfile((prevProfile) => ({
                 ...prevProfile,
                 bio: value,
@@ -119,8 +125,14 @@ const PatientProfile = () => {
 
             // Agregar los campos del usuario
             Object.entries(profile.user).forEach(([key, value]) => {
-                if (value) formData.append(`user.${key}`, value);
+                if (key !== 'photo' && key !== 'photoFile' && value)
+                    formData.append(`user.${key}`, value);
             });
+
+            // Agregar la foto si existe
+            if (profile.user.photoFile) {
+                formData.append('user.photo', profile.user.photoFile);
+            }
 
             // Agregar los campos del paciente
             formData.append("gender", profile.gender);
@@ -132,22 +144,16 @@ const PatientProfile = () => {
             formData.append("schedule", profile.schedule);
             formData.append("services", profile.services);
 
-            // Imprimir el FormData en la consola
-            for (let [key, value] of formData.entries()) {
-                console.log(`${key}: ${value}`);
-            }
-
             const response = await axios.post("http://localhost:8000/api/app_user/physio/update/", formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "multipart/form-data",
                 },
             });
-            console.log(response)
 
             if (response.status === 200) {
                 alert("Perfil actualizado correctamente");
-                fetchPatientProfile(); // Recargar datos
+                fetchFisioProfile(); // Recargar datos
             }
         } catch (error) {
             setError("Error actualizando el perfil.");
@@ -155,15 +161,39 @@ const PatientProfile = () => {
     };
 
     const handleFileChange = (e) => {
-        setProfile((prevProfile) => ({
-            ...prevProfile,
-            user: {
-                ...prevProfile.user,
-                photo: e.target.files[0],
-            },
-        }));
-        console.log(e.target.files[0]);
-        console.log(profile);
+        const file = e.target.files[0];
+        if (file) {
+            // Crear URL para vista previa
+            const previewUrl = URL.createObjectURL(file);
+            console.log(previewUrl);
+            console.log(file);
+
+            // Actualizar el estado con el archivo y la URL de vista previa
+            setProfile((prevProfile) => ({
+                ...prevProfile,
+                user: {
+                    ...prevProfile.user,
+                    photo: previewUrl, // Para mostrar en la interfaz
+                    photoFile: file,    // Para enviar al backend
+                    preview: previewUrl
+                },
+            }));
+        }
+    };
+
+    const getImageSrc = () => {
+        // Verifica si hay un previewUrl (es decir, si el usuario ha subido una imagen)
+        if (profile.user.preview) {
+            return profile.user.photo; // Si existe una foto en el estado, usarla
+        } 
+        
+        // Si no existe un previewUrl, entonces usar la imagen del backend si está disponible
+        if (profile?.user?.photo) {
+            return `http://localhost:8000/api/app_user${profile.user.photo}`;
+        }
+        
+        // Si no hay foto, usar la imagen por defecto
+        return "/default_avatar.png";
     };
 
 
@@ -182,7 +212,11 @@ const PatientProfile = () => {
                         <span>Change Image</span>
                     </label>
                     <input id="file" type="file" accept="image/*" onChange={handleFileChange} />
-                    <img src={profile?.user?.photo || "/default_avatar.png"} id="output" width="200" />
+                    <img
+                        src={getImageSrc()}
+                        alt="Profile"
+                        width="200"
+                    />
                 </div>
                 <div className="user-info">
                     <p>{profile?.user?.username || "Nombre de usuario"}</p>
@@ -243,4 +277,4 @@ const PatientProfile = () => {
     );
 };
 
-export default PatientProfile;
+export default FisioProfile;
