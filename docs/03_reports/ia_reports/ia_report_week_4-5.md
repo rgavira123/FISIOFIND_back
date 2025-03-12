@@ -1,6 +1,6 @@
 ---
 title: "REPORTE DE IA DE LA SEMANA 4 y 5 (21/02/25 - 06/03/25)"
-subtitle: "FISIO FIND - Grupo 6 - #DP"
+subtitle: "FISIO FIND - Grupo 6 - #SPRINT 1"
 author: ["Daniel Ruiz López", "Daniel Fernández Caballero"]
 date: "06/03/2025"
 subject: "ISPP"
@@ -36,7 +36,7 @@ classoption: "table"
 
 - **Nombre del Proyecto:** FISIO FIND  
 - **Número de Grupo:** Grupo 6  
-- **Entregable:** #DP  
+- **Entregable:** #SPRINT 1
 - **Miembros del grupo:**  
   Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García,  
   Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús,  

@@ -1,6 +1,6 @@
 ---
 title: "REPORTE ANÁLISIS CUANTITATIVO DE LA CALIDAD SEMANAS 1 Y 2 SPRINT 1" # CHANGE IF NEEDED
-subtitle: "FISIO FIND - Grupo 6 - #DP"
+subtitle: "FISIO FIND - Grupo 6 - #SPRINT 1"
 author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]                                                # CHANGE IF NEEDED
 date: "06/03/2025"
 subject: "ISPP"
@@ -30,16 +30,20 @@ classoption: "table"
 </h1>
 
 **ÍNDICE**
-- [**1. INTRODUCCIÓN**](#1-introducción)
-- [**2. MÉTRICAS DE DESARROLLO**](#2-métricas-de-desarrollo)
-  - [2.1 Número de commits](#21-número-de-commits)
-  - [2.2 Número de Pull Request](#22-número-de-pull-requests)
-- [**3. INFORME DE TIEMPO**](#3-informe-de-tiempo)
-- [**4. ANÁLISIS DE TAREAS REALIZADAS**](#4-análisis-de-tareas-realizadas)
-  - [4.1. Gráfica de Burn Down](#41-gráfica-burn-down)
-- [**5. ANÁLISIS DE COMUNICACIONES**](#5-análisis-de-comunicaciones)
-- [**6. USO DE INTELIGENCIA ARTIFICIAL**](#6-uso-de-inteligencia-artificial)
-- [**7. CONCLUSIONES**](#7-conclusiones)
+- [1. INTRODUCCIÓN](#1-introducción)
+- [2. MÉTRICAS DE DESARROLLO](#2-métricas-de-desarrollo)
+  - [2.1. NÚMERO DE COMMITS](#21-número-de-commits)
+    - [2.1.1. NÚMERO DE COMMITS POR PERSONA](#211-número-de-commits-por-persona)
+  - [2.2. NÚMERO DE PULL REQUESTS](#22-número-de-pull-requests)
+- [3. INFORME DE TIEMPO](#3-informe-de-tiempo)
+- [4. ANÁLISIS DE TAREAS REALIZADAS](#4-análisis-de-tareas-realizadas)
+  - [4.1. GRÁFICA BURN UP](#41-gráfica-burn-up)
+- [5. ANÁLISIS DE COMUNICACIONES](#5-análisis-de-comunicaciones)
+    - [Respeto de horarios de comunicación](#respeto-de-horarios-de-comunicación)
+    - [Uso de canales/grupos adecuados](#uso-de-canalesgrupos-adecuados)
+    - [Ratio de respuestas en canales oficiales](#ratio-de-respuestas-en-canales-oficiales)
+    - [Observaciones generales](#observaciones-generales)
+- [6. USO DE INTELIGENCIA ARTIFICIAL](#6-uso-de-inteligencia-artificial)
 
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
@@ -51,7 +55,7 @@ classoption: "table"
 
 - **Número de Grupo:** Grupo 6
 
-- **Entregable:** #DP
+- **Entregable:** #SPRINT 1
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
