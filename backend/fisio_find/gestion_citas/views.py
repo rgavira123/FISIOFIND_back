@@ -99,7 +99,6 @@ def list_appointments_patient(request):
 def get_physio_schedule_by_id(request, pk):
     try:
         physiotherapist = Physiotherapist.objects.get(id=pk)
-        print(f"Physiotherapist encontrado por ID {pk}: {physiotherapist.id}")
 
         schedule = physiotherapist.schedule
         if schedule is None:
@@ -107,10 +106,8 @@ def get_physio_schedule_by_id(request, pk):
 
         return Response({"schedule": schedule}, status=status.HTTP_200_OK)
     except Physiotherapist.DoesNotExist:
-        print(f"Physiotherapist con ID {pk} no encontrado")
         return Response({"error": "Fisioterapeuta no encontrado"}, status=status.HTTP_404_NOT_FOUND)
     except Exception as e:
-        print(f"Error en get_physio_schedule_by_id: {str(e)}")
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 
@@ -120,7 +117,6 @@ def edit_weekly_schedule(request):
     try:
         # Obtener el Physiotherapist asociado al usuario autenticado
         physiotherapist = request.user.physio
-        print(f"Physiotherapist autenticado: {physiotherapist.id} para usuario {request.user.id}")
 
         # Obtener el schedule existente
         current_schedule = physiotherapist.schedule or {
@@ -171,14 +167,11 @@ def edit_weekly_schedule(request):
         # Guardar el schedule actualizado
         physiotherapist.schedule = current_schedule
         physiotherapist.save()
-        print(f"Weekly schedule actualizado para Physiotherapist ID {physiotherapist.id}")
 
         return Response({"message": "Horario semanal actualizado con éxito", "schedule": physiotherapist.schedule}, status=status.HTTP_200_OK)
     except ValidationError as ve:
-        print(f"Validación fallida: {str(ve)}")
         return Response({"error": str(ve)}, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
-        print(f"Error en edit_weekly_schedule: {str(e)}")
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 @api_view(['PUT'])
@@ -249,16 +242,14 @@ def add_unavailable_day(request):
         # Guardar el schedule actualizado
         physiotherapist.schedule = current_schedule
         physiotherapist.save()
-        print(f"Día no disponible {date_str} añadido para Physiotherapist ID {physiotherapist.id}")
 
         return Response({"message": f"Día no disponible {date_str} añadido con éxito", "schedule": physiotherapist.schedule}, status=status.HTTP_200_OK)
     except ValidationError as ve:
-        print(f"Validación fallida: {str(ve)}")
         return Response({"error": str(ve)}, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
-        print(f"Error en add_unavailable_day: {str(e)}")
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
+#funciones auxiliares para la validacion para schedule   
 def _is_valid_time(time_str):
     """Validar que un horario esté en formato 'HH:MM'."""
     try:
