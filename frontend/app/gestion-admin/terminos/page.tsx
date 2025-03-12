@@ -47,6 +47,7 @@ export default function GestionarTerminos() {
     }
     ).then(response => {
         setTerminos(response.data);
+
       })
       .catch(error => {
         console.error("Error fetching data:", error);
@@ -65,10 +66,21 @@ export default function GestionarTerminos() {
           {terminos && 
             terminos.map(function(termino,key) {
               return <div key={key} className="termino-list-view">
-                <h3>{termino.content.substring(0,10)}</h3>
-                <p>Versión: {termino.version} </p>
-                <p>Editado en: {print_time(termino.updated_at)}</p>
-                <p>Creado en: {print_time(termino.created_at)}</p>
+                {
+                  termino.content && 
+                  <h3>{termino.content.substring(0,10)}</h3>
+                }
+                {termino.version && 
+                  <p>Versión: {termino.version.substring(0,10)} </p>
+                }
+                {
+                  termino.updated_at && 
+                  <p>Editado en: {print_time(termino.updated_at)}</p>
+                }
+                {
+                  termino.created_at && 
+                  <p>Creado en: {print_time(termino.created_at)}</p>
+                }
                 <a href={"/gestion-admin/terminos/view/"+termino.id}><button className="btn-admin-green">Ver</button></a>
                 <a href={"/gestion-admin/terminos/edit/"+termino.id}><button className="btn-admin-yellow">Editar</button></a>
                 <a href={"/gestion-admin/terminos/delete/"+termino.id}><button className="btn-admin-red">Eliminar</button></a>
