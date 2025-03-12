@@ -190,3 +190,7 @@ form input:disabled, form select:disabled {
   color: #6B7280; 
   cursor: not-allowed; 
 }
+
+.error__close path {
+  fill: #fff;
+}
