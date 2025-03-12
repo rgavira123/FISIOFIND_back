@@ -8,17 +8,26 @@ type State = {
 };
 
 type Action =
-  | { type: "SELECT_SERVICE"; payload: { serviceId: string; serviceTitle: string; price: number; duration: number } }
+  | { 
+      type: "SELECT_SERVICE"; 
+      payload: { 
+        service: { type: string; price: number; duration: number };
+        physiotherapist: number;
+      } 
+    }
   | { type: "DESELECT_SERVICE" }
-  | { type: "SELECT_PAYMENT_METHOD"; payload: string };
+  | { type: "SELECT_PAYMENT_METHOD"; payload: string }
+  | { type: "SELECT_SLOT"; payload: { start_time: string; end_time: string; is_online: boolean } };
 
 const initialState: State = {
   appointmentData: {
-    serviceId: null,
-    serviceTitle: "",
-    price: 0,
-    duration: 0,
-    paymentMethod: null,
+    start_time: "",
+    end_time: "",
+    is_online: false,
+    service: { type: "", price: 0, duration: 0 },
+    physiotherapist: 0,
+    status: "",
+    alternatives: "",
   },
 };
 
@@ -34,21 +43,24 @@ const appointmentReducer = (state: State, action: Action): State => {
         ...state,
         appointmentData: {
           ...state.appointmentData,
-          serviceId: action.payload.serviceId,
-          serviceTitle: action.payload.serviceTitle,
-          price: action.payload.price,
-          duration: action.payload.duration,
+          service: action.payload.service,
+          physiotherapist: action.payload.physiotherapist,
+          // Se limpian los valores de slot si se selecciona un nuevo servicio
+          start_time: "",
+          end_time: "",
         },
       };
     case "DESELECT_SERVICE":
       return {
         ...state,
         appointmentData: {
-          ...state.appointmentData,
-          serviceId: null,
-          serviceTitle: "",
-          price: 0,
-          duration: 0,
+          start_time: "",
+          end_time: "",
+          is_online: false,
+          service: { type: "", price: 0, duration: 0 },
+          physiotherapist: 0,
+          status: "",
+          alternatives: "",
         },
       };
     case "SELECT_PAYMENT_METHOD":
@@ -56,7 +68,18 @@ const appointmentReducer = (state: State, action: Action): State => {
         ...state,
         appointmentData: {
           ...state.appointmentData,
-          paymentMethod: action.payload,
+          alternatives: action.payload,
+        },
+      };
+    case "SELECT_SLOT":
+      return {
+        ...state,
+        appointmentData: {
+          ...state.appointmentData,
+          start_time: action.payload.start_time,
+          end_time: action.payload.end_time,
+          is_online: action.payload.is_online,
+          status: "pending",
         },
       };
     default:
