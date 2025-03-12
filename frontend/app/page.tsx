@@ -127,7 +127,7 @@ const Home = () => {
       const fetchSpecializations = async () => {
         try {
           const response = await axios.get(
-            "http://${getApiBaseUrl()}/api/sesion_invitado/specializations"
+            `${getApiBaseUrl()}/api/sesion_invitado/specializations`
           );
           if (response.status === 200) {
             setSpecializations(["", ...response.data]);
@@ -147,7 +147,7 @@ const Home = () => {
       }
 
       try {
-        const searchUrl = `http://${getApiBaseUrl()}/api/sesion_invitado/physios-with-specializations/?specialization=${specialization}`;
+        const searchUrl = `${getApiBaseUrl()}/api/sesion_invitado/physios-with-specializations/?specialization=${specialization}`;
         const response = await axios.get(searchUrl);
 
         if (response.status === 200) {
