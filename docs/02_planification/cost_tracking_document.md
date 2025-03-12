@@ -94,7 +94,7 @@ classoption: "table"
 | 19/02/2025    | v1.0    | Ramón Gavira Sánchez, Pablo Fernández Pérez | Elaboración de la primera versión del documento. |
 | 19/02/2025    | v1.1    | Antonio Macías Ferrera                      | Adición del resto de puntos del documento de acuerdo con el *Sprint Planning* general. |
 | 24/02/2025    | v1.2    | Antonio Macías Ferrera                      | Modificación del documento para añadir desglose detallado de costes de acuerdo con el *feedback* de la clase del pasado 21/02. |
-| 10/03/2025    | v1.3    | Ramón Gavira Sánchez, Pablo Fernández Pérez | Se actualiza el documento de costes de acuerdo a lo solicitado en el #S1 y las condiciones de fallo. |
+| 10/03/2025    | v1.3    | Ramón Gavira Sánchez, Pablo Fernández Pérez | Se actualiza el documento de costes de acuerdo a lo solicitado en el #SPRINT 1 y las condiciones de fallo. |
 | 11/03/2025    | v1.4    | Antonio Macías Ferrera                      | Correcciones menores de formato. |
 
 
