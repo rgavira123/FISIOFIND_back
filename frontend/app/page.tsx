@@ -49,9 +49,8 @@ const Home = () => {
       const floatingImages = document.querySelectorAll(".floating-image");
       floatingImages.forEach((image, index) => {
         const offset = (index + 1) * 50;
-        (image as HTMLElement).style.transform = `translateX(${
-          scrollY / offset
-        }px)`;
+        (image as HTMLElement).style.transform = `translateX(${scrollY / offset
+          }px)`;
       });
     };
 
@@ -202,13 +201,19 @@ const Home = () => {
                 >
                   <div className="flex items-center justify-center">
                     {iconLoaded ? (
-                      <AnimatedIcons
-                        src="https://animatedicons.co/get-icon?name=search&style=minimalistic&token=12e9ffab-e7da-417f-a9d9-d7f67b64d808"
-                        trigger="click"
-                        attributes='{"variationThumbColour":"#A4A7A9","variationName":"Gray Tone","variationNumber":3,"numberOfGroups":1,"strokeWidth":1.5,"backgroundIsGroup":true,"defaultColours":{"group-1":"#253240FF","background":"#65C2C947"}}'
-                        height="35"
-                        width="35"
-                      ></AnimatedIcons>
+                      <Image
+                        src="./static/search.svg"
+                        alt="Search Icon"
+                        width={24}
+                        height={24}
+                      />
+                      // <AnimatedIcons
+                      //   src="https://animatedicons.co/get-icon?name=search&style=minimalistic&token=12e9ffab-e7da-417f-a9d9-d7f67b64d808"
+                      //   trigger="click"
+                      //   attributes='{"variationThumbColour":"#A4A7A9","variationName":"Gray Tone","variationNumber":3,"numberOfGroups":1,"strokeWidth":1.5,"backgroundIsGroup":true,"defaultColours":{"group-1":"#253240FF","background":"#65C2C947"}}'
+                      //   height="35"
+                      //   width="35"
+                      // ></AnimatedIcons>
                     ) : (
                       <Image
                         src="./static/search.svg"
