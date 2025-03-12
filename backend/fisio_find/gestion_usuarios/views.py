@@ -68,7 +68,7 @@ def physio_register_view(request):
         return Response({"message": "Fisioterapeuta registrado correctamente"}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
+"""
 class AdminAppUserDetail(generics.RetrieveAPIView):
     '''
     API endpoint que retorna un solo user por su id para admin.
@@ -117,3 +117,4 @@ class AdminPatientDelete(generics.DestroyAPIView):
     permission_classes = [AllowAny]
     queryset = Patient.objects.all()
     serializer_class = PatientRegisterSerializer
+"""
