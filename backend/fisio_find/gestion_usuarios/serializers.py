@@ -243,3 +243,17 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
 
         except IntegrityError as e:
             raise serializers.ValidationError({"error": "Error de integridad en la base de datos. Posible duplicado de datos."})
+
+class AppUserAdminViewSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = AppUser
+        fields = '__all__'
+
+class PatientAdminViewSerializer(serializers.ModelSerializer):
+    
+    user = AppUserAdminViewSerializer()
+    
+    class Meta:
+        model = Patient
+        fields = '__all__'

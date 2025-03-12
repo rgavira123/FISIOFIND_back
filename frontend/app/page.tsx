@@ -378,7 +378,7 @@ const Home = () => {
           <div className="flex flex-col gap-4">
             <button
               className="shadow__btn bg-[#1E5ACD] text-white px-4 py-3 rounded font-bold hover:bg-[#1848A3] transition-colors"
-              onClick={() => router.push("/gestion-usuario/login")}
+              onClick={() => router.push("/register")}
             >
               Crea una cuenta
             </button>
@@ -446,6 +446,7 @@ const Home = () => {
           ))}
         </div>
       </section>
+
       {/* Footer */}
       <footer className="py-12 px-4">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 pt-8 gap-8 border-t border-gray-700">
