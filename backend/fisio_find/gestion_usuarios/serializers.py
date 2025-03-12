@@ -263,12 +263,13 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
     last_name = serializers.CharField(required=True)
     phone_number = serializers.CharField(required=True)
     postal_code = serializers.CharField(required=True)
+    photo = serializers.ImageField(required=False)
     
     class Meta:
         model = Physiotherapist
         fields = [
             'username', 'email', 'password', 'dni', 'gender', 'first_name', 'last_name', 
-            'birth_date', 'collegiate_number', 'autonomic_community', 'phone_number', 'postal_code', 'bio'
+            'birth_date', 'collegiate_number', 'autonomic_community', 'phone_number', 'postal_code', 'bio', 'photo'
         ]
         
     def validate_password(self, value):
@@ -347,7 +348,8 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
         try:
             with transaction.atomic():
                 # Actualizar datos del usuario (AppUser)
-                
+                print("validated_data", validated_data)
+                print("instance", instance)
                 user = instance.user
                 user.email = validated_data.get("email", user.email)
                 user.phone_number = validated_data.get("phone_number", user.phone_number)  # mobile_phone en tu petición

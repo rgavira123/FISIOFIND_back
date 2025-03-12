@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+import re
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
@@ -117,14 +118,25 @@ def physio_update_view(request):
     
     # Obtener el fisioterapeuta asociado al usuario autenticado
     physio = get_object_or_404(Physiotherapist, user=request.user)
-    print("Fisio", physio)
+
+    
+    # Aplanar las claves 'user.*' para que coincidan con lo que espera el serializer
+    request_data = {}
+    for key, value in request.data.items():
+        if key.startswith("user."):
+            request_data[key[5:]] = value  # Quita el prefijo "user."
+        else:
+            request_data[key] = value
+            
+    print(request_data)
     
     # Serializar y validar los datos enviados
-    serializer = PhysioRegisterSerializer(physio, data=request.data['user'], partial=True)
+    serializer = PhysioRegisterSerializer(physio, data=request_data, partial=True)
     
     if serializer.is_valid():
-        serializer.update(physio, request.data)
+        serializer.update(physio, serializer.validated_data)
         return Response({"message": "Fisioterapeuta actualizado correctamente"}, status=status.HTTP_200_OK)
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 

@@ -22,7 +22,7 @@ const PatientProfile = () => {
             user_id: "",
             username: "",
         },
-        authonomic_community: "",
+        autonomic_community: "",
         bio: "",
         birth_date: "",
         collegiate_number: "",
@@ -68,7 +68,7 @@ const PatientProfile = () => {
                     user_id: response.data.physio.user_data.user_id,
                     username: response.data.physio.user_data.username,
                 },
-                authonomic_community: response.data.physio.authonomic_community,
+                autonomic_community: response.data.physio.autonomic_community,
                 bio: response.data.physio.bio,
                 birth_date: response.data.physio.birth_date,
                 collegiate_number: response.data.physio.collegiate_number,
@@ -115,14 +115,32 @@ const PatientProfile = () => {
                 return;
             }
 
-            if (selectedFile && typeof selectedFile === "object") profile.user.photo = selectedFile;
+            const formData = new FormData();
 
-            console.log("Datos enviados al backend:", JSON.stringify(profile)); // Debug
+            // Agregar los campos del usuario
+            Object.entries(profile.user).forEach(([key, value]) => {
+                if (value) formData.append(`user.${key}`, value);
+            });
 
-            const response = await axios.post("http://localhost:8000/api/app_user/physio/update/", profile, {
+            // Agregar los campos del paciente
+            formData.append("gender", profile.gender);
+            formData.append("birth_date", profile.birth_date);
+            formData.append("autonomic_community", profile.autonomic_community);
+            formData.append("collegiate_number", profile.collegiate_number);
+            formData.append("bio", profile.bio);
+            formData.append("rating_avg", profile.rating_avg);
+            formData.append("schedule", profile.schedule);
+            formData.append("services", profile.services);
+
+            // Imprimir el FormData en la consola
+            for (let [key, value] of formData.entries()) {
+                console.log(`${key}: ${value}`);
+            }
+
+            const response = await axios.post("http://localhost:8000/api/app_user/physio/update/", formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
+                    "Content-Type": "multipart/form-data",
                 },
             });
             console.log(response)
@@ -137,8 +155,15 @@ const PatientProfile = () => {
     };
 
     const handleFileChange = (e) => {
-        setSelectedFile(e.target.files[0]);
+        setProfile((prevProfile) => ({
+            ...prevProfile,
+            user: {
+                ...prevProfile.user,
+                photo: e.target.files[0],
+            },
+        }));
         console.log(e.target.files[0]);
+        console.log(profile);
     };
 
 
