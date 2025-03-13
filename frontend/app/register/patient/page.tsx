@@ -231,7 +231,7 @@ const PatientRegistrationForm = () => {
         if (loginResponse.status === 200) {
           if (isClient) {
             localStorage.setItem("token", loginResponse.data.access);
-            router.push("/");
+            router.push("/gestion-paciente/perfil");
           } else {
             console.error("Error al iniciar sesión", loginResponse.data);
           }
