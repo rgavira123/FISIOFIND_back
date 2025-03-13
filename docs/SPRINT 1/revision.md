@@ -197,7 +197,7 @@ Caso de uso 4:
 4. Si el paciente acepta el cambio, la cita estará confimada.
 
 # 4.4. **Realización de una videollamada**
-Actualmente esta funcionalidad no está integrada con la funcionalidad de los usuarios. Igualmente, hay muchas herramientas de la página de videollamada que no están todavía construidas, como son el modelo 3D y todas las que pertenecen a esa sección de la pantalla.
+Actualmente esta funcionalidad no está integrada con la funcionalidad de los usuarios y solo funciona en el entorno de desarrollo local. Igualmente, hay muchas herramientas de la página de videollamada que no están todavía construidas, como son el modelo 3D y todas las que pertenecen a esa sección de la pantalla.
 
 Caso de uso 5:
 1. Un fisioterapeuta abre la sección de videollamadas.
