@@ -54,9 +54,10 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** Miguel Encina Martínez
 
-- **Fecha de Creación:** 20/02/2025  
+- **Autores:** Miguel Encina Martínez (revisor), Benjamín Ignacio Maureira Flores (autor), Francisco Mateos Villarejo (autor), Daniel Alors Romero (autor)
+
+- **Fecha de Creación:** 13/03/2025  
 
 - **Versión:** v1.0
 
@@ -68,7 +69,8 @@ classoption: "table"
 
 | Fecha        | Versión | Realizada por   | Descripción de los cambios                |
 | ------------ | ------- | --------------- | ----------------------------------------- |
-| 20/02/2025   | v1.0    | Miguel Encina Martínez, Benjamín Ignacio Maureira Flores, Francisco Mateos Villarejo, Daniel Alors Romero | Realización de la evaluación para el entregable #DP |
+| 13/03/2025   | v1.0    | Miguel Encina Martínez, Benjamín Ignacio Maureira Flores, Francisco Mateos Villarejo, Daniel Alors Romero | Realización de la evaluación para el entregable #DP |
+
 
 
 <br>
