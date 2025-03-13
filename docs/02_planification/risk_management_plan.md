@@ -1,6 +1,6 @@
 ---
 title: "PLAN DE GESTIÓN DE RIESGOS"                       # CHANGE IF NEEDED
-subtitle: "FISIO FIND - Grupo 6 - #S1"
+subtitle: "FISIO FIND - Grupo 6 - #SPRINT 1"
 author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
 date: "09/03/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
@@ -36,7 +36,7 @@ classoption: "table"
 - [2. REGISTRO DE RIESGOS](#2-registro-de-riesgos)
 - [3. CLASIFICACIÓN DE RIESGOS](#3-clasificación-de-riesgos)
 - [4. EVALUACIÓN DE RIESGOS](#4-evaluación-de-riesgos)
-- [5. PLANES DE CONTINGENCIA Y CONTRAMEDIDAS](#5-planes-de-contigencia-y-contramedidas)
+- [5. PLANES DE CONTINGENCIA Y CONTRAMEDIDAS](#5-planes-de-contingencia-y-contramedidas)
 - [6. SEGUIMIENTO DE RIESGOS](#6-seguimiento-de-riesgos)
 - [7. MATRIZ DE RIESGOS](#7-matriz-de-riesgos)
 
@@ -50,7 +50,7 @@ classoption: "table"
 
 - **Número de Grupo:** Grupo 6
 
-- **Entregable:** #S1
+- **Entregable:** #SPRINT 1
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
