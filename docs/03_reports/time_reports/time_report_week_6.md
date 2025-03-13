@@ -1,5 +1,5 @@
 ---
-title: "INFORME DE TIEMPO - SEMANA 5 (28/02-06/03)"       # CHANGE IF NEEDED
+title: "INFORME DE TIEMPO - SPRINT 1 (21/02 - 13/03)"       # CHANGE IF NEEDED
 subtitle: "FISIO FIND - Grupo 6 - #SPRINT 1"
 author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
 date: "06/03/2025"                                        # CHANGE IF NEEDED
@@ -14,7 +14,7 @@ colorlinks: true
 linkcolor: blue
 titlepage-background: "../../.backgrounds/background4V.pdf"  # CHANGE IF NEEDED
 header-left: "CLOCKIFY REPORT"                            # CHANGE IF NEEDED
-header-right: "06/03/2025"                                # CHANGE IF NEEDED
+header-right: "13/03/2025"                                # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"
@@ -26,7 +26,7 @@ classoption: "table"
 </p>
 
 <h1 align="center" style="font-size: 30px; font-weight: bold;">
-  FISIO FIND  -  INFORME DE TIEMPO 28/02-06/03
+  FISIO FIND  -  INFORME DE TIEMPO SPRINT 1 (21/02 - 13/03)
 </h1>
 
 <br>
@@ -59,9 +59,9 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** Alberto Carmona Sicre
+- **Autores:** Alberto Carmona Sicre, Rafael Pulido Cifuentes
 
-- **Fecha de Creación:** 06/03/2025  
+- **Fecha de Creación:** 13/03/2025  
 
 - **Versión:** v1.0
 
@@ -76,8 +76,7 @@ classoption: "table"
 
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
-| 06/03/2025 | v1.0    | Alberto Carmona Sicre            | Elaboración de la primera versión del documento de informe de tiempo de la semana 5 |
-| 13/03/2025 | v1.1    | Alberto Carmona Sicre            | Actualización de los apartados con las horas faltantes del día 06/03/2025 |
+| 13/03/2025 | v1.0    | Alberto Carmona Sicre            | Elaboración de la primera versión del documento de informe de tiempo del sprint 1 |
 
 
 <br>
@@ -88,6 +87,8 @@ classoption: "table"
 
 
 # 1. PROYECTOS
+
+**IMPORTANTE: LAS HORAS SE HAN CALCULADO HASTA LAS 14:30 DEL DÍA 06/03/2025**  
 
 ## 1.1. Definición de cada proyecto
 A continuación, se muestran los posibles tipos de tareas en las que pueden trabajar los integrantes del equipo, junto con una breve definición de estas:
@@ -110,43 +111,74 @@ A continuación, se muestran los posibles tipos de tareas en las que pueden trab
 
 - **Reuniones:** como su nombre indica, son aquellas tareas en las que se invierte el tiempo en reuniones del equipo de carácter general.  
 
-## 1.2. Proyectos realizados en la semana
-En esta semana de trabajo se ha trabajado en los siguientes proyectos:  
+- **Usuarios Piloto:** tareas relacionadas con hacer de usuario piloto de los otros grupos de la asignatura.
 
-1. docs  
+## 1.2. Proyectos realizados durante el sprint
+Durante estas semanas de trabajo se ha trabajado en los siguientes proyectos:  
 
-2. Presentaciones / Diseños  
+1. feat  
 
-3. Reuniones  
+2. Clases/Vídeos  
 
-4. Clases / Vídeos   
+3. docs  
 
-5. feat  
+4. Reuniones   
 
-6. fix/refactor/style  
+5. Presentaciones/Diseños  
 
-7. Redes sociales  
+6. Planificación
+
+7. fix/refactor/style
+
+8. Redes sociales 
+
+9. test
+
+10. Usuarios Piloto
 
 ## 1.3. Proyectos destacados
-Entre los proyectos destacados de la semana, aquellos en los que se ha invertido más tiempo, encontramos el siguiente, que cuenta con hasta 10 veces más horas que el segundo:  
 
-- **feat:** 118:38:59	
+Entre los proyectos más destacados, auqellos en los que se ha invertido más tiempo, encontramos los siguientes:  
+
+- **feat:** 304:47:03
+
+- **Clases/Vídeos:** 127:09:47
+
+-**docs:** 67:28:40
+
+Es bastante apreciable que el primer sprint ha tenido muchas horas de desarrollo de código.
 
 <br>
 
 
 # 2. HORAS TOTALES
-Para esta semana de trabajo, el tiempo total dedicado al proyecto ha sido de 168 horas y 47 minutos.
+Para esta semana de trabajo, el tiempo total dedicado al proyecto ha sido de 6399 horas y 38 minutos.
   
 
 <br>
 
 
 # 3. DESGLOSE
+
 Para una mejor visualización del tiempo dedicado, se realiza un desglose por días, proyectos e integrantes. 
 
 ## 3.1 Desglose por días  
+
 Ordenado de manera cronológica:
+
+- **Viernes 21/02:** 66:39:00  
+
+- **Sábado 22/02:** 23:30:11  
+
+- **Domingo 23/02:** 17:33:46  
+
+- **Lunes 24/02:** 49:17:23  
+
+- **Martes 25/02:** 19:24:56  
+
+- **Miércoles 26/02:** 12:44:04  
+
+- **Jueves 27/02:** 16:12:07
 
 - **Viernes 28/02:** 13:35:09  
 
@@ -162,33 +194,50 @@ Ordenado de manera cronológica:
 
 - **Jueves 06/03:** 31:30:36    
 
+- **Viernes 07/03:** 71:16:33
+
+- **Sábado 08/03:** 29:25:08
+
+- **Domingo 09/03:** 28:02:34
+
+- **Lunes 10/03:** 43:39:48
+
+- **Martes 11/03:** 35:17:16
+
+- **Miércoles 12/03:** 48:49:04
+
+- **Jueves 13/03:** 08:59:00 (Incompleto)
+
 
 <br>
 
 ## 3.2 Desglose por proyectos  
+
 Ordenado de mayor a menor tiempo dedicado en cada proyecto: 
 
-**1. feat:** 118:38:59    	
+**1. feat:** 304:47:03
 
-**2. fix / refactor / style:** 11:58:43   
+**2. Clases/Vídeos:** 127:09:47
 
-**3. Presentaciones / Diseños:** 11:28:20  
+**3. docs:** 67:28:40
 
-**4. docs:** 11:03:29 
+**4. Reuniones:** 47:22:45  
 
-**5. Redes sociales:** 09:35:38
+**5. Presentaciones / Diseños:** 29:40:03
 
-**6. Reuniones:** 03:56:57 
+**6. Planificación:** 27:12:49  
 
-**7. Clases / Vídeos:** 02:05:20    
+**7. fix / refactor / style:** 16:27:16   
 
-**8. Planificación:** hh:mm    
+**8. Redes sociales:** 13:02:17
 
-**9. test:** hh:mm  	 
+**9. test:** 05:44:13
+
+**10. Usuarios Piloto:** 00:43:23
 
 Diagrama de sectores para una mejor visualización de la división:
 
-![Diagrama de proyectos](../../.img/projects_diagram_week_5.png)
+![Diagrama de proyectos](../../.img/projects_diagram_week_6.png)
 
 
 <br>
@@ -197,44 +246,44 @@ Diagrama de sectores para una mejor visualización de la división:
 
 Ordenado por orden alfabético:
 
-**1. Alberto Carmona Sicre** - 10:46:39
+**1. Alberto Carmona Sicre** - 32:33:30
 
-**2. Antonio Macías Ferrera** -  11:51:25
+**2. Antonio Macías Ferrera** -  46:46:35
 
-**3. Benjamín Ignacio Maureira Flores** -  14:27:52
+**3. Benjamín Ignacio Maureira Flores** -  44:46:36
 
-**4. Daniel Alors Romero** - 10:34:25
+**4. Daniel Alors Romero** - 32:08:16
 
-**5. Daniel Fernández Caballero** - 10:24:00
+**5. Daniel Fernández Caballero** - 30:29:56
 
-**6. Daniel Ruiz López**  -  09:20:44
+**6. Daniel Ruiz López**  -  33:16:48
 
-**7. Daniel Tortorici Bartús** - 10:35:55
+**7. Daniel Tortorici Bartús** - 37:44:44
 
-**8. Daniel Vela Camacho** - 06:08:55
+**8. Daniel Vela Camacho** - 43:06:43
 
-**9. Delfín Santana Rubio** - 10:37:01
+**9. Delfín Santana Rubio** - 36:50:56
 
-**10. Francisco Capote García** -  09:26:29
+**10. Francisco Capote García** -  34:34:16
 
-**11. Francisco Mateos Villarejo** -  10:40:35
+**11. Francisco Mateos Villarejo** -  31:11:42
 
-**12. Guadalupe Ridruejo Pineda** - 07:47:59
+**12. Guadalupe Ridruejo Pineda** - 54:04:10
 
-**13. Julen Redondo Pacheco** -  09:20:38
+**13. Julen Redondo Pacheco** -  29:56:43
 
-**14. Miguel Encina Martínez** -  09:34:16
+**14. Miguel Encina Martínez** -  42:16:00
 
-**15. Pablo Fernández Pérez** -  10:08:21
+**15. Pablo Fernández Pérez** -  30:23:27
 
-**16. Ramón Gavira Sánchez**  -  10:18:02
+**16. Ramón Gavira Sánchez**  -  35:24:46
 
-**17. Rafael Pulido Cifuentes** -  06:44:10
+**17. Rafael Pulido Cifuentes** -  44:03:18
 
 Diagrama de sectores para una mejor visualización:
 
-![Diagrama de integrantes](../../.img/users_diagram_week_5_1.png)  
-![Diagrama de integrantes](../../.img/users_diagram_week_5_2.png)  
+![Diagrama de integrantes](../../.img/users_diagram_week_6_1.png)  
+![Diagrama de integrantes](../../.img/users_diagram_week_6_2.png)  
 
 <br>
 
