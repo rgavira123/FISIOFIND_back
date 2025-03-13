@@ -11,7 +11,7 @@ interface AppointmentModalProps {
   setEditionMode: (mode: boolean) => void;
 }
 
-const deleteEvent = (selectedEvent: CalendarProps | null) => {
+export const deleteEvent = (selectedEvent: CalendarProps | null) => {
   if (!selectedEvent) return;
 
   axios
@@ -130,4 +130,4 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
   );
 };
 
-export { AppointmentModal, deleteEvent };
+export { AppointmentModal };
