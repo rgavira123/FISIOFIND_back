@@ -14,6 +14,7 @@ const handleAlternativesSubmit = (
   alternatives: Record<string, { start: string; end: string }[]>
 ) => {
   if (!selectedEvent) return;
+  const token = localStorage.getItem("token")
 
   axios
     .patch(`http://localhost:8000/api/appointment/${selectedEvent.id}/`, {
@@ -23,6 +24,10 @@ const handleAlternativesSubmit = (
       end_time: selectedEvent.end,
       status: "pending",
       alternatives: alternatives,
+    }, {
+      headers : {
+        "Authorization": "Bearer "+token
+      }
     })
     .then((response) => {
       alert("La cita se actualizó correctamente.");

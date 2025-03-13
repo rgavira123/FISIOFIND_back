@@ -57,7 +57,7 @@ export default function Home() {
       });
 
     if (currentRole == "physiotherapist") {
-      axios.get("http://localhost:8000/api/appointment/physio/list", {
+      axios.get("http://localhost:8000/api/appointment/physio/list/", {
         headers: {
           Authorization: `Bearer ${token}`, // Envía el JWT en la cabecera de la petición
         },
@@ -84,7 +84,7 @@ export default function Home() {
           console.log("Error fetching data:", error);
         });
     } else if (currentRole == "patient") {
-      axios.get("http://localhost:8000/api/appointment/patient/list", {
+      axios.get("http://localhost:8000/api/appointment/patient/list/", {
         headers: {
           Authorization: `Bearer ${token}`, // Envía el JWT en la cabecera de la petición
         },
