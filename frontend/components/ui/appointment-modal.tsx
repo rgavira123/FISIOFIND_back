@@ -2,40 +2,14 @@ import React from "react";
 import axios from "axios";
 import { CalendarProps } from "@/lib/definitions";
 import Image from "next/image";
+import AlternativeSelector from "./alternative-selector";
 
 interface AppointmentModalProps {
   selectedEvent: CalendarProps | null;
+  currentRole: string;
   setSelectedEvent: (event: CalendarProps | null) => void;
   setEditionMode: (mode: boolean) => void;
 }
-
-const handleAlternativesSubmit = (
-  selectedEvent: CalendarProps | null,
-  alternatives: Record<string, { start: string; end: string }[]>
-) => {
-  if (!selectedEvent) return;
-  const token = localStorage.getItem("token")
-
-  axios
-    .patch(`http://localhost:8000/api/appointment/${selectedEvent.id}/`, {
-      title: selectedEvent.title,
-      description: selectedEvent.description,
-      start_time: selectedEvent.start,
-      end_time: selectedEvent.end,
-      status: "pending",
-      alternatives: alternatives,
-    }, {
-      headers : {
-        "Authorization": "Bearer "+token
-      }
-    })
-    .then((response) => {
-      alert("La cita se actualizó correctamente.");
-    })
-    .catch((error) => {
-      alert("Hubo un problema con la conexión. Intenta nuevamente.");
-    });
-};
 
 const deleteEvent = (selectedEvent: CalendarProps | null) => {
   if (!selectedEvent) return;
@@ -52,10 +26,46 @@ const deleteEvent = (selectedEvent: CalendarProps | null) => {
 
 const AppointmentModal: React.FC<AppointmentModalProps> = ({
   selectedEvent,
+  currentRole,
   setSelectedEvent,
   setEditionMode,
 }) => {
   if (!selectedEvent) return null;
+
+  const handleSelection = (date: string, startTime: string) => {
+ 
+    const [startTimeSplit, endTimeSplit] = startTime.split(" - "); // Tomamos solo la hora de inicio
+    const startDateTime = new Date(`${date}T${startTimeSplit}:00Z`).toISOString(); // Generamos la fecha completa en formato UTC
+    const endDateTime = new Date(`${date}T${endTimeSplit}:00Z`).toISOString(); // Generamos la fecha completa en formato UTC
+    
+    console.log("Seleccion confirmada:", { startDateTime, endDateTime });
+    alert(`Seleccionaste: ${startDateTime} - ${endDateTime}`);
+
+    const token = localStorage.getItem("token"); // Obtén el JWT desde localStorage (o desde donde lo tengas almacenado)
+    
+    axios.patch(`http://localhost:8000/api/appointment/${selectedEvent?.id}/`, {
+      "start_time": startDateTime,
+      "end_time": endDateTime,
+      "status": "confirmed",
+      "alternatives": ""
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Envía el JWT en la cabecera de la petición
+      },
+    })
+      .then((response) => {
+        // Si la respuesta fue exitosa
+        alert("La cita se actualizó correctamente.");
+        console.log("Cita actualizada correctamente", response);
+        setSelectedEvent(null);
+        window.location.reload();
+      })
+      .catch((error) => {
+        // Si hubo un error en la solicitud
+        console.error("Error en la actualización de la cita:", error);
+        alert("Hubo un problema con la conexión. Intenta nuevamente.");
+      })
+  };
 
   return (
     <div
@@ -87,17 +97,25 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
             </p>
           )}
           <p className="mt-2">{selectedEvent.description}</p>
-          {selectedEvent.status == "booked" && (
+          {selectedEvent.alternatives && currentRole == "patient" && (
+            <div className="flex justify-center items-center">
+              <AlternativeSelector alternatives={selectedEvent.alternatives} onConfirmSelection={handleSelection} />
+            </div>
+          )}
+          {selectedEvent.status != "finished" && (
             <div
               className="flex flex-row mt-4"
               style={{ justifyContent: "space-between" }}
             >
-              <button
-                className="mt-4 bg-[#05668D] text-white px-4 py-2 rounded-xl hover:bg-blue-600"
-                onClick={() => setEditionMode(true)}
-              >
-                Modificar cita
-              </button>
+              {currentRole == "physiotherapist" && (
+                <button
+                  className="mt-4 bg-[#05668D] text-white px-4 py-2 rounded-xl hover:bg-blue-600"
+                  onClick={() => setEditionMode(true)}
+                >
+                  Modificar cita
+                </button>
+              )}
+
               <button
                 className="mt-4 bg-[#05668D] text-white px-4 py-2 rounded-xl hover:bg-blue-600"
                 onClick={() => deleteEvent(selectedEvent)}
@@ -112,4 +130,4 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
   );
 };
 
-export { AppointmentModal, handleAlternativesSubmit, deleteEvent };
+export { AppointmentModal, deleteEvent };

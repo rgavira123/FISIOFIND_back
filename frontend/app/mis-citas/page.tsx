@@ -28,18 +28,9 @@ const initialEvents = [
 
 export default function Home() {
   const [data, setData] = useState<APIResponse | null>(null);
-  const [view, setView] = useState<"calendar" | "cards">("calendar"); // Estado para cambiar vista
   const [events, setEvents] = useState([]);
   const [hoveredEventId, setHoveredEventId] = useState<string | null>(null); // Estado para el hover de tarjetas
   const [currentRole, setCurrentRole] = useState("");
-
-  // Estado para el nuevo evento
-  const [newEvent, setNewEvent] = useState({
-    title: "",
-    start: "",
-    end: "",
-    allDay: false,
-  });
 
   useEffect(() => {
     const token = localStorage.getItem("token"); // Obtén el JWT desde localStorage (o desde donde lo tengas almacenado)
@@ -82,6 +73,7 @@ export default function Home() {
         })
         .catch(error => {
           console.log("Error fetching data:", error);
+          setData({ message: "Error al cargar las citas", status: "error" });
         });
     } else if (currentRole == "patient") {
       axios.get("http://localhost:8000/api/appointment/patient/list/", {
@@ -92,7 +84,7 @@ export default function Home() {
         .then(response => {
           const transformedEvents = response.data.map((event: any) => ({
             id: event.id,
-            title: event.service.type + "-" + event.patient || "Sin título",
+            title: event.service.type + "-" + event.physiotherapist || "Sin título",
             start: event.start_time,  // Cambio de start_time a start
             end: event.end_time,      // Cambio de end_time a end
             description: event.description,
@@ -109,28 +101,10 @@ export default function Home() {
         })
         .catch(error => {
           console.log("Error fetching data:", error);
+          setData({ message: "Error al cargar las citas", status: "error" });
         });
     }
   }, [currentRole]);
-
-  // Función para añadir eventos
-  const addEvent = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newEvent.title || !newEvent.start) {
-      alert("El título y la fecha de inicio son obligatorios.");
-      return;
-    }
-
-    const formattedEvent = {
-      title: newEvent.title,
-      start: newEvent.start,
-      end: newEvent.end || null,
-      allDay: newEvent.allDay,
-    };
-
-    setEvents([...events, formattedEvent]);
-    setNewEvent({ title: "", start: "", end: "", allDay: false }); // Reset form
-  };
 
   const handleCardHover = (eventId: string | null) => {
     setHoveredEventId(eventId);
