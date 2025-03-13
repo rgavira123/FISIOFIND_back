@@ -78,6 +78,8 @@ classoption: "table"
     - [5.2.4. Equipo](#524-equipo)
     - [5.2.5. Demo](#525-demo)
     - [5.2.6. Transparencia de IA](#526-transparencia-de-ia)
+    - [5.2.7. Riesgos y problemas](#527-riesgos-y-problemas)
+    - [5.2.8. Usuarios piloto](#528-usuarios-piloto)
 - [**6. ANEXO - RESUMEN DEL FEEDBACK POR GRUPO**](#6-anexo---resumen-del-feedback-por-grupo)
   - [6.1. Clase del día 21/02/2025](#61-clase-del-día-21022025)
     - [**Primer grupo (Holos):**](#primer-grupo-holos)
@@ -117,7 +119,7 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** Alberto Carmona Sicre, Antonio Macías Ferrera
+- **Autores:** Alberto Carmona Sicre, Antonio Macías Ferrera, Delfín Santana Rubio
 
 - **Fecha de Creación:** 11/03/2025
 
@@ -137,6 +139,7 @@ classoption: "table"
 | 12/03/2025 | v1.2    | Alberto Carmona Sicre | Estructuración de los puntos 4 y 5 |
 | 12/03/2025 | v1.3    | Alberto Carmona Sicre | Añadir volcado de feedback |
 | 13/03/2025 | v1.3    | Antonio Macías Ferrera | Adecuación para la entrega |
+| 13/03/2025 | v1.4    | Delfín Santana Rubio | Últimos cambios para entrega |
 
 
 
@@ -507,6 +510,14 @@ Tras el _feedback_ recibido en la sesión del 07/03/2025, se tomaron medidas par
 ### 5.2.6. Transparencia de IA
 
 - Faltó una diapositiva dedicada a la IA, por lo que se incluyó en la siguiente presentación para comentar la manera en la que se usaba.
+
+### 5.2.7. Riesgos y problemas
+
+- Mejorar en la sección de riesgos y problemas según lo dicho en el feedback(diferenciar entre riesgo y problema, mejorar la trazabilidad, solo poner riesgos que han surgido, etc.).
+
+### 5.2.8. Usuarios piloto
+
+- A partir del feedback recibido hemos terminado el Plan de Gestión de Usuarios Piloto, en el que entre otras cosas se determinan las encuestas que se van a pasar a cada tipo de usuario. Los comentarios de los profesores nos han hecho mejorar en gestión de usuarios piloto y en cómo lo presentamos.
 
 <br>
 
@@ -1354,8 +1365,18 @@ visual para referenciar cuando hay muchos elementos en la presentacioón.
 
 ### Trabajo para la siguiente semana (evaluación)
 
+- Todos los documentos deben de estar en markdown(**ya estamos haciendo esto**)
+
+- En el knowledge base report debe de aparecer todo el contenido que se contribuye.
+
+- La base de conocimiento debe de tener buscador.
+
+- No pueden haber demasiada disparidad en las horas que dedica cada miembro del equipo.
+
 - 15 minutos de presentación.  
+
 - Asistencia obligatoria.  
+
 - Habrá test (con nueva píldora teorica).  
 
 Lo que se espera ver (no va a cambiar mucho):  
