@@ -80,7 +80,8 @@ classoption: "table"
 
 | Fecha          | Versión  | Realizada por            | Descripción de los cambios                |
 | -------------- | -------- | ------------------------ | ----------------------------------------- |
-|  10/02/2025    | v1.0     | Antonio Macías Ferrera   | Versión inicial del documento             |
+|  10/03/2025    | v1.0     | Antonio Macías Ferrera   | Versión inicial del documento             |
+|  13/03/2025    | v1.2     | Delfín Santana Rubio   | Documento completado         |
 
 <br>
 
@@ -140,26 +141,76 @@ Una vez en nuestra aplicación, se podrá acceder sin necesidad de iniciar sesi�
 <br>
 
 
-# 3. DESCRIPCIÓN DE LOS CASOS DE USO PRINCIPALES
+# 3. DESCRIPCIÓN DE FUNCIONALIDADES NO TERMINADAS
 
-/TODO DelfinSR
+No se han terminado las páginas de perfil de los usuarios ni la funcionalidad de administrador ya que se entiende que no son casos de uso core. Por esta razón, no se pretende que se revisen en esta entrega.
 
-# 3.1. **Búsqueda de fisioterapeuta (como anónimo)**
+La URL de acceso a administrador es *DOMINIO DE ACCESO***/gestión-admin**, a esta URL se puede entrar solamente siendo administrador. Sin embargo, no está terminada.
+
+Del mismo modo, algunas funcionalidades no están del todo integradas con los usuarios, por lo que pueden funcionar independientemente del rol que se tenga dando la sensación de que no se han aplicado medidas de seguridad. Sin embargo, si se han aplicado, pero algunas funcionalidades no están del todo integradas porque la funcionalidad de usuarios no es core.
+
+# 4. DESCRIPCIÓN DE LOS CASOS DE USO PRINCIPALES(CORE)
+
+En esta sección se explican los casos de uso que se entregan para el Sprint 1. 
+
+# 4.1. **Búsqueda de fisioterapeuta (como anónimo)**
+
+Historia 1:
+1. Un usuario que no ha iniciado sesión entra en la página principal de la aplicación.
+2. Hace click en un elemento de la pantalla que le muestra las especialidades por las que buscar.
+3. Hace click para buscar por la especialidad seleccionada.
+4. Aparecen en pantalla fisioterapeutas que tienen la especialidad seleccionada.
+
+# 4.2. **Solicitud de una cita (como paciente)**
+
+Historia 2:
+1. Un usuario con rol paciente hace click en un fisioterapeuta
+2. Le lleva a una pantalla que muestra los servicios disponibles(**actualmente mockup** no son los servicios reales del fisioterapeuta) y las fechas y rangos horarios disponibles para la cita.
+3. El usuario puede pagar la cita(**la pasarela de pago no está todavía integrada**).
+4. Al final de la reserva sale un resumen de la cita seleccionada antes de que el usuario la acepte.
+5. El paciente finalmente la acepta.
+
+Historia 
+1. Si el fisioterapeuta propone un cambio, el usuario puede aceptar o cancelar el cambio en la pantalla de su calendario.
+2. Si acepta el cambio, la cita estará confirmada.
+
+# 4.3. **Gestión del calendario (como fisioterapeuta)**
+
+Historia 
+1. Un fisioterapeuta entra en la sección de sus citas
+2. Puede visualizar las citas que han seleccionado los pacientes.
+3. El fisioterapeuta puede aceptar la cita, cancelarla o proponer un cambio. No puede modificarla sin el consentimiento del paciente.
+4. Si el paciente acepta el cambio, la cita estará confimada.
+
+# 4.4. **Realización de una videollamada**
+Actualmente esta funcionalidad no está integrada con la funcionalidad de los usuarios. Igualmente, hay muchas herramientas de la página de videollamada que no están todavía construidas, como son el modelo 3D y todas las que pertenecen a esa sección de la pantalla.
+
+Historia :
+1. Un fisioterapeuta abre la sección de videollamadas.
+2. Crea una sala.
+3. Al crear la sala se crea un código de sala(necesario para acceder).
+4. El fisioterapeuta envía el código al paciente por un método fuera de la plataforma.
+5. El fisioterapeuta puede ver al paciente y hablar con él cuando este se conecte.
+
+Historia :
+1. Un paciente abre la sección de videollamadas.
+2. Se une a la sala con el código que le ha pasado el fisioterapeuta.
+3. El paciente puede ver al fisioterapeuta y hablar con él cuando este se conecta.
+
+Historia :
+1. Un fisioterapeuta se conecta con un paciente a una videollamada
+2. El fisioterapeuta comparte su pantalla para compartir lo que necesite de su dispositivo.
+3. El paciente lo visualiza correctamente.
+4. El fisioterapeuta deja de compartir pantalla y vuelve a verse su cámara.
+
+Historia
+1. Un fisioterapeuta se conecta con un paciente a una videollamada
+2. El fisioterapeuta y el paciente tienen funcionalidades generales de videollamadas(silenciar audio, dejar de compartir cámara, etc.) y un chat para poder hablar.
+3. Estas funcionalidades pueden activarse y desactivarse y no causan problemas con la videollamada.
+
+# 4.3. **Aceptación de una cita (como fisioterapeuta)**
 
 
-# 3.2. **Solicitud de una cita (como paciente)**
-
-
-# 3.3. **Aceptación de una cita (como fisioterapeuta)**
-
-
-# 3.4. **Realización de una videollamada**
-
-
-# 3.5. **Gestión del calendario (como fisioterapeuta)**
-
-
-# 3.6. **Seguimiento de un paciente (como fisioterapeuta)**
 
 
 
@@ -171,7 +222,7 @@ Una vez en nuestra aplicación, se podrá acceder sin necesidad de iniciar sesi�
 <br>
 
 
-# 4. DESPLIEGUE LOCAL
+# 5. DESPLIEGUE LOCAL
 
 Por último, en este epígrade se muestran las instrucciones para la puesta en funcionamiento del proyecto en un entorno local. También se pueden consular estas instrucciones en el archivo README del proyecto: https://github.com/Proyecto-ISPP/FISIOFIND/blob/main/README.md 
 
