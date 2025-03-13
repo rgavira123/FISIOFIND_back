@@ -23,7 +23,7 @@ export default function crearTerminos() {
           }
         })
         .catch(error => {
-          console.error("Error fetching data:", error);
+          console.log("Error fetching data:", error);
           location.href = ".."
         });
     } else {
@@ -50,7 +50,7 @@ export default function crearTerminos() {
         if (error.response.data.required) {
           setErrorMessage(error.response.data.required)
         } else {
-          console.error("Error fetching data:", error);
+          console.log("Error fetching data:", error);
         }
     });
   }

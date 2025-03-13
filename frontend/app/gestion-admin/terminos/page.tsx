@@ -30,7 +30,7 @@ export default function GestionarTerminos() {
           }
         })
         .catch(error => {
-          console.error("Error fetching data:", error);
+          console.log("Error fetching data:", error);
           location.href = ".."
         });
     } else {
@@ -50,7 +50,7 @@ export default function GestionarTerminos() {
 
       })
       .catch(error => {
-        console.error("Error fetching data:", error);
+        console.log("Error fetching data:", error);
       });
   }, []);
 

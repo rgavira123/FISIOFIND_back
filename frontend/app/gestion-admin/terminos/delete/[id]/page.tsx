@@ -31,7 +31,7 @@ export default function EliminarTermino() {
           }
         })
         .catch(error => {
-          console.error("Error fetching data:", error);
+          console.log("Error fetching data:", error);
           location.href = ".."
         });
     } else {
@@ -49,7 +49,7 @@ export default function EliminarTermino() {
         setTermino(response.data);
       })
       .catch(error => {
-        console.error("Error fetching data:", error);
+        console.log("Error fetching data:", error);
       });
   }, []);
 
@@ -63,7 +63,7 @@ export default function EliminarTermino() {
         location.href="/gestion-admin/terminos/"
       })
       .catch(error => {
-        console.error("Error fetching data:", error);
+        console.log("Error fetching data:", error);
       });
   }
 

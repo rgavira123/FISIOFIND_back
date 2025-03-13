@@ -18,11 +18,13 @@ urlpatterns = [
     #Update and delete
     path('update/<int:appointment_id>/', views.update_appointment, name='update_appointment'),
     path('delete/<int:appointment_id>/', views.delete_appointment, name='delete_appointment'),
+]
+urlpatterns = format_suffix_patterns(urlpatterns)
+"""
     #Admin 
     path('admin/create/', views.AdminAppointmenCreate.as_view()),
     path('admin/list/', views.AdminAppointmenList.as_view()),
     path('admin/list/<int:pk>/', views.AdminAppointmennDetail.as_view()),
     path('admin/edit/<int:pk>/', views.AdminAppointmenUpdate.as_view()),
     path('admin/delete/<int:pk>/', views.AdminAppointmenDelete.as_view()),
-]
-urlpatterns = format_suffix_patterns(urlpatterns)
+"""

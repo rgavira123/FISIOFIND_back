@@ -420,7 +420,7 @@ class AppointmentDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializer
 
-
+"""
 class AdminAppointmenCreate(generics.CreateAPIView):
     '''
     API endpoint para crear un término para admin.
@@ -461,3 +461,4 @@ class AdminAppointmenDelete(generics.DestroyAPIView):
     permission_classes = [IsAdmin]
     queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializer
+"""
