@@ -14,6 +14,8 @@ from datetime import timedelta
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import os
+import dj_database_url  # Para parsear la URL de la base de datos
 
 load_dotenv()
 
@@ -149,15 +151,22 @@ WSGI_APPLICATION = 'fisio_find.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('DATABASE_NAME'),
+#         'USER': os.getenv('DATABASE_USER'),
+#         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+#         'HOST': os.getenv('DATABASE_HOST'),
+#         'PORT': os.getenv('DATABASE_PORT'),
+#     }
+# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DATABASE_NAME'),
-        'USER': os.getenv('DATABASE_USER'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
-        'HOST': os.getenv('DATABASE_HOST'),
-        'PORT': os.getenv('DATABASE_PORT'),
-    }
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL', 'postgresql://postgres:1234@localhost:5432/fisiofind'),
+        conn_max_age=600,
+        ssl_require=True if 'DATABASE_URL' in os.environ else False,
+    )
 }
 
 AUTH_USER_MODEL = 'gestion_usuarios.AppUser'
