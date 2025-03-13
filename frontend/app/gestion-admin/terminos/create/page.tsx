@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { getApiBaseUrl } from "@/utils/api";
 
-export default function crearTerminos() {
+export default function CrearTerminos() {
   const [content, setContent] = useState("");
   const [version, setVersion] = useState("");
 
@@ -66,7 +66,7 @@ export default function crearTerminos() {
         if (error.response.data.required) {
           setErrorMessage(error.response.data.required);
         } else {
-          console.error("Error fetching data:", error);
+          console.log("Error fetching data:", error);
         }
       });
   }

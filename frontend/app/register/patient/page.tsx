@@ -244,7 +244,7 @@ const PatientRegistrationForm = () => {
       if (axios.isAxiosError(error)) {
         const responseData = error.response?.data;
         if (responseData) {
-          console.error("Error en el registro", responseData);
+          console.log("Error en el registro", responseData);
           setErrors(responseData);
 
           // Verificar si hay errores en campos del paso 1 y redirigir a ese paso

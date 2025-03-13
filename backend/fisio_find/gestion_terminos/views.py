@@ -27,6 +27,7 @@ class AppTerminosCreate(generics.CreateAPIView):
 
         errormsg = ""
         version = request.data.get('version')
+        
         if version == '' or version == None:
             errormsg += "El campo versión es obligatorio. "
         
@@ -37,7 +38,7 @@ class AppTerminosCreate(generics.CreateAPIView):
             else:
                 errormsg = "Los campos contenido y versión son obligatorios. "
         
-        if len(version) >= 100:
+        if version != '' and version != None and len(version) >= 100:
             errormsg += "Versión debe de ser menor de 100 caracteres."
 
         if errormsg:
@@ -105,7 +106,7 @@ class AppTerminosUpdate(generics.RetrieveUpdateAPIView):
             else:
                 errormsg = "Los campos contenido y versión son obligatorios. "
         
-        if len(version) >= 100:
+        if version != '' and version != None and len(version) >= 100:
             errormsg += "Versión debe de ser menor de 100 caracteres."
 
         if errormsg:
@@ -146,13 +147,12 @@ class AppTerminosUpdate(generics.RetrieveUpdateAPIView):
             else:
                 errormsg = "Los campos contenido y versión son obligatorios. "
         
-        if len(version) >= 100:
+        if version != '' and version != None and len(version) >= 100:
             errormsg += "Versión debe de ser menor de 100 caracteres."
 
         if errormsg:
             return Response({'required': errormsg}, status=status.HTTP_400_BAD_REQUEST)
 
-        
         updated_at = datetime.now()
 
         terminos.update(

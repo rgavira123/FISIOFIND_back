@@ -6,6 +6,13 @@ class IsPatient(BasePermission):
     """
     def has_permission(self, request, view):
         return hasattr(request.user, 'patient')
+    
+class IsPhysiotherapist(BasePermission):
+    """
+    Permite el acceso a usuarios que sean fisioterapeutas.
+    """
+    def has_permission(self, request, view):
+        return hasattr(request.user, 'physio')
 
 class IsPhysioOrPatient(BasePermission):
     """

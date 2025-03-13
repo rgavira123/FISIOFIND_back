@@ -66,8 +66,8 @@ export default function EditarTermino() {
         setContent(response.data.content);
         setVersion(response.data.version);
       })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
+      .catch(error => {
+        console.log("Error fetching data:", error);
       });
   }, [id, token]);
 
@@ -95,7 +95,8 @@ export default function EditarTermino() {
         if (error.response && error.response.data.required) {
           setErrorMessage(error.response.data.required);
         } else {
-          console.error("Error fetching data:", error);
+
+          console.log("Error fetching data:", error);
         }
       });
   }

@@ -76,8 +76,8 @@ export default function EliminarTermino() {
       .then(() => {
         location.href = "/gestion-admin/terminos/";
       })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
+      .catch(error => {
+        console.log("Error fetching data:", error);
       });
   }
 

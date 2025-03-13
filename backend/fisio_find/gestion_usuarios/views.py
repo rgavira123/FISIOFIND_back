@@ -1,14 +1,56 @@
+from django.shortcuts import get_object_or_404
+import re
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from .serializers import PatientRegisterSerializer, PatientAdminViewSerializer, PhysioRegisterSerializer, PhysioSerializer, PatientSerializer, AppUserSerializer, AppUserAdminViewSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .models import Physiotherapist, Patient, AppUser
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics
 #from permissions import IsAdmin
-from gestion_usuarios.models import Patient, AppUser
 
 
+from .permissions import IsPatient
+from .models import Patient
+from rest_framework.permissions import IsAuthenticated
+
+class PatientProfileView(generics.RetrieveAPIView):
+    permission_classes = [IsPatient]
+
+    def get(self, request):
+        try:
+            patient = Patient.objects.get(user=request.user)
+            serializer = PatientSerializer(patient)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Patient.DoesNotExist:
+            return Response({"error": "Perfil de paciente no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+
+    def patch(self, request, *args, **kwargs):
+        try:
+            patient = Patient.objects.get(user=request.user)  
+
+            request_data = request.data.copy()
+
+            user_data = request_data.get('user', {})  
+            user_data['id'] = request.user.id  
+
+            request_data['user'] = user_data  
+
+            serializer = PatientSerializer(patient, data=request_data, partial=True, context={'request': request})
+
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+
+            print("Errores en PatientSerializer:", serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        except Patient.DoesNotExist:
+            return Response({"error": "Perfil de paciente no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+        
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def patient_register_view(request):
@@ -68,7 +110,33 @@ def physio_register_view(request):
         return Response({"message": "Fisioterapeuta registrado correctamente"}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def physio_update_view(request):
+    """Actualiza los datos del fisioterapeuta autenticado"""
+    
+    # Obtener el fisioterapeuta asociado al usuario autenticado
+    physio = get_object_or_404(Physiotherapist, user=request.user)
 
+    
+    # Aplanar las claves 'user.*' para que coincidan con lo que espera el serializer
+    request_data = {}
+    for key, value in request.data.items():
+        if key.startswith("user."):
+            request_data[key[5:]] = value  # Quita el prefijo "user."
+        else:
+            request_data[key] = value
+                
+    # Serializar y validar los datos enviados
+    serializer = PhysioRegisterSerializer(physio, data=request_data, partial=True)
+    
+    if serializer.is_valid():
+        serializer.update(physio, serializer.validated_data)
+        return Response({"message": "Fisioterapeuta actualizado correctamente"}, status=status.HTTP_200_OK)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+"""
 class AdminAppUserDetail(generics.RetrieveAPIView):
     '''
     API endpoint que retorna un solo user por su id para admin.
@@ -117,3 +185,4 @@ class AdminPatientDelete(generics.DestroyAPIView):
     permission_classes = [AllowAny]
     queryset = Patient.objects.all()
     serializer_class = PatientRegisterSerializer
+"""

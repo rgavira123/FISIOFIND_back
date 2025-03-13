@@ -67,6 +67,7 @@ class PhysiotherapistsWithSpecializationView(APIView):
                 
                 # Creamos el diccionario con los datos
                 physio_data = {
+                    'id': physio.id,
                     'first_name': physio.user.first_name,
                     'last_name': physio.user.last_name,
                     'specializations': specialization_names
