@@ -1,7 +1,7 @@
 // app/page.tsx
 "use client";
 import React from "react";
-import Wizard from "@/components/ui/wizard";
+import Wizard from "@/components/ui/Wizard";
 import { Step } from "@/lib/definitions";
 import { AppointmentProvider } from "@/context/appointmentContext";
 
