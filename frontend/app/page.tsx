@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
-import AnimatedIcons from "@/components/ui/AnimatedIcons";
 import Modal from "@/components/ui/Modal";
 import Link from "next/link";
 import axios from "axios";
+import { getApiBaseUrl } from "@/utils/api";
 
 interface Physiotherapist {
   id: string;
@@ -27,6 +27,12 @@ const Home = () => {
 
   const openPhysioModal = () => setIsPhysioModalOpen(true);
   const closePhysioModal = () => setIsPhysioModalOpen(false);
+  const [isClient, setIsClient] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // Si el usuario está autenticado se abre el modal, si no, redirige al perfil público
   const handleViewPhysio = (physioName: string) => {
@@ -39,9 +45,12 @@ const Home = () => {
 
   // Solo comprueba la existencia del token en localStorage
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsAuthenticated(!!token);
-  }, []);
+    if (isClient) {
+      const storedToken = localStorage.getItem("token");
+      setToken(storedToken);
+      setIsAuthenticated(!!token);
+    }
+  }, [isClient, token]);
 
   // Efecto para mover imágenes flotantes al hacer scroll
   useEffect(() => {
@@ -94,7 +103,6 @@ const Home = () => {
     const [searchResults, setSearchResults] = useState<Physiotherapist[]>([]);
     const [specialization, setSpecialization] = useState("");
     const [specializations, setSpecializations] = useState<string[]>([]);
-    const [iconLoaded, setIconLoaded] = useState(false);
     const [searchAttempted, setSearchAttempted] = useState(false);
 
     useEffect(() => {
@@ -104,7 +112,6 @@ const Home = () => {
           typeof window.customElements !== "undefined" &&
           window.customElements.get("animated-icons")
         ) {
-          setIconLoaded(true);
         } else {
           setTimeout(checkScriptLoaded, 200);
         }
@@ -117,7 +124,7 @@ const Home = () => {
       const fetchSpecializations = async () => {
         try {
           const response = await axios.get(
-            "http://localhost:8000/api/sesion_invitado/specializations"
+            `${getApiBaseUrl()}/api/sesion_invitado/specializations`
           );
           if (response.status === 200) {
             setSpecializations(["", ...response.data]);
@@ -137,7 +144,7 @@ const Home = () => {
       }
 
       try {
-        const searchUrl = `http://localhost:8000/api/sesion_invitado/physios-with-specializations/?specialization=${specialization}`;
+        const searchUrl = `${getApiBaseUrl()}/api/sesion_invitado/physios-with-specializations/?specialization=${specialization}`;
         const response = await axios.get(searchUrl);
 
         if (response.status === 200) {
@@ -204,12 +211,12 @@ const Home = () => {
                   onClick={handleSearch}
                 >
                   <div className="flex items-center justify-center">
-                      <Image
-                        src="./static/search.svg"
-                        alt="Search Icon"
-                        width={24}
-                        height={24}
-                      />
+                    <Image
+                      src="./static/search.svg"
+                      alt="Search Icon"
+                      width={24}
+                      height={24}
+                    />
                   </div>
                 </button>
               </div>
