@@ -1,5 +1,5 @@
-// pages/calendar.js
-import { useState } from "react";
+// components/ui/ScheduleCalendar.js
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -20,6 +20,7 @@ const dayNames = [
   "friday",
   "saturday",
 ];
+
 // Para eventos recurrentes en FullCalendar se requiere el índice del día (domingo = 0, lunes = 1, ...)
 const dayIndices = {
   sunday: 0,
@@ -31,9 +32,8 @@ const dayIndices = {
   saturday: 6,
 };
 
-export default function ScheduleCalendar() {
+export default function ScheduleCalendar({ initialSchedule = null, onScheduleChange }) {
   // Estado de la agenda siguiendo la estructura deseada
-
   const [schedule, setSchedule] = useState({
     exceptions: {},
     appointments: [],
@@ -46,8 +46,29 @@ export default function ScheduleCalendar() {
       saturday: [],
       sunday: [],
     },
+    initialized: false,
   });
-  console.log(schedule);
+
+  // Inicializar el schedule con los datos recibidos del backend
+  useEffect(() => {
+    if (initialSchedule && !schedule.initialized) {
+      try {
+        const parsedSchedule = typeof initialSchedule === 'string' 
+          ? JSON.parse(initialSchedule) 
+          : initialSchedule;
+        setSchedule({ ...parsedSchedule, initialized: true });
+      } catch (error) {
+        console.error("Error parsing initial schedule:", error);
+      }
+    }
+  }, [initialSchedule]);
+
+  // Notificar cambios en el schedule al componente padre
+  useEffect(() => {
+    if (onScheduleChange && schedule.initialized) {
+      onScheduleChange(schedule);
+    }
+  }, [schedule, onScheduleChange]);
 
   // Tipo de evento a crear: "generic" para horario recurrente o "exception"
   const [selectedEventType, setSelectedEventType] = useState("generic");
@@ -73,26 +94,32 @@ export default function ScheduleCalendar() {
       // Para el horario recurrente se determina el día de la semana
       const eventDate = new Date(selectionInfo.startStr);
       const dayName = dayNames[eventDate.getDay()];
-      setSchedule((prev) => ({
-        ...prev,
-        weekly_schedule: {
-          ...prev.weekly_schedule,
-          // Se agrega el nuevo bloque (como un array con un único intervalo)
-          [dayName]: [...prev.weekly_schedule[dayName], [interval]],
-        },
-      }));
+      setSchedule((prev) => {
+        const newSchedule = {
+          ...prev,
+          weekly_schedule: {
+            ...prev.weekly_schedule,
+            // Se agrega el nuevo bloque (como un array con un único intervalo)
+            [dayName]: [...prev.weekly_schedule[dayName], [interval]],
+          },
+        };
+        return newSchedule;
+      });
     } else {
       // Para excepciones se utiliza la fecha completa (YYYY-MM-DD)
       const dateKey = selectionInfo.startStr.split("T")[0];
-      setSchedule((prev) => ({
-        ...prev,
-        exceptions: {
-          ...prev.exceptions,
-          [dateKey]: prev.exceptions[dateKey]
-            ? [...prev.exceptions[dateKey], interval]
-            : [interval],
-        },
-      }));
+      setSchedule((prev) => {
+        const newSchedule = {
+          ...prev,
+          exceptions: {
+            ...prev.exceptions,
+            [dateKey]: prev.exceptions[dateKey]
+              ? [...prev.exceptions[dateKey], interval]
+              : [interval],
+          },
+        };
+        return newSchedule;
+      });
     }
   };
 
@@ -155,29 +182,35 @@ export default function ScheduleCalendar() {
       if (source === "weekly") {
         const day = selectedCalendarEvent.extendedProps.day;
         // Se actualiza el array del día removiendo el bloque que contenga el intervalo con el id seleccionado
-        setSchedule((prev) => ({
-          ...prev,
-          weekly_schedule: {
-            ...prev.weekly_schedule,
-            [day]: prev.weekly_schedule[day].filter(
-              (block) =>
-                !block.some(
-                  (interval) => interval.id === selectedCalendarEvent.id
-                )
-            ),
-          },
-        }));
+        setSchedule((prev) => {
+          const newSchedule = {
+            ...prev,
+            weekly_schedule: {
+              ...prev.weekly_schedule,
+              [day]: prev.weekly_schedule[day].filter(
+                (block) =>
+                  !block.some(
+                    (interval) => interval.id === selectedCalendarEvent.id
+                  )
+              ),
+            },
+          };
+          return newSchedule;
+        });
       } else if (source === "exception") {
         const dateKey = selectedCalendarEvent.extendedProps.date;
-        setSchedule((prev) => ({
-          ...prev,
-          exceptions: {
-            ...prev.exceptions,
-            [dateKey]: prev.exceptions[dateKey].filter(
-              (interval) => interval.id !== selectedCalendarEvent.id
-            ),
-          },
-        }));
+        setSchedule((prev) => {
+          const newSchedule = {
+            ...prev,
+            exceptions: {
+              ...prev.exceptions,
+              [dateKey]: prev.exceptions[dateKey].filter(
+                (interval) => interval.id !== selectedCalendarEvent.id
+              ),
+            },
+          };
+          return newSchedule;
+        });
       }
       setModalOpen(false);
       setSelectedCalendarEvent(null);
@@ -211,8 +244,8 @@ export default function ScheduleCalendar() {
           onChange={(e) => setSelectedEventType(e.target.value)}
           className="border border-gray-300 p-2 rounded"
         >
-          <option value="generic">Horas Genéricas</option>
-          <option value="exception">Excepción</option>
+          <option value="generic">Horas Laborables</option>
+          <option value="exception">Excepciones</option>
         </select>
       </div>
 
