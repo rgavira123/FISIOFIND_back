@@ -219,26 +219,26 @@ const PatientProfile = () => {
     }
 };
   
-  const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            // Crear URL para vista previa
-            const previewUrl = URL.createObjectURL(file);
-            console.log(previewUrl);
-            console.log(file);
+  // const handleFileChange = (e) => {
+  //       const file = e.target.files[0];
+  //       if (file) {
+  //           // Crear URL para vista previa
+  //           const previewUrl = URL.createObjectURL(file);
+  //           console.log(previewUrl);
+  //           console.log(file);
 
-            // Actualizar el estado con el archivo y la URL de vista previa
-            setProfile((prevProfile) => ({
-                ...prevProfile,
-                user: {
-                    ...prevProfile.user,
-                    photo: previewUrl, // Para mostrar en la interfaz
-                    photoFile: file,    // Para enviar al backend
-                    preview: previewUrl
-                },
-            }));
-        }
-    };
+  //           // Actualizar el estado con el archivo y la URL de vista previa
+  //           setProfile((prevProfile) => ({
+  //               ...prevProfile,
+  //               user: {
+  //                   ...prevProfile.user,
+  //                   photo: previewUrl, // Para mostrar en la interfaz
+  //                   photoFile: file,    // Para enviar al backend
+  //                   preview: previewUrl
+  //               },
+  //           }));
+  //       }
+  //   };
 
     const getImageSrc = () => {
         // Verifica si hay un previewUrl (es decir, si el usuario ha subido una imagen)
