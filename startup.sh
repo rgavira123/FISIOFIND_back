@@ -6,4 +6,4 @@ source venv/bin/activate
 python manage.py migrate
 
 # Start Gunicorn WSGI server
-gunicorn --workers=3 --bind=0.0.0.0:8000 myproject.wsgi
+gunicorn --workers=3 --bind=0.0.0.0:8000 fisio_find.wsgi
