@@ -362,9 +362,16 @@ const Home = () => {
         </p>
       </section>
 
+      
+
+      
+
       {/* Search Section */}
       {/* Unified Search Bar */}
       <SearchPhysiotherapists />
+
+
+
 
       {/* Focus Cards Section: solo se muestra si NO está autenticado */}
       {!isAuthenticated && (
@@ -393,9 +400,24 @@ const Home = () => {
               Inicia sesión
             </button>
           </div>
+            <section className="w-full bg-[#1E5ACD] py-4 text-center text-white rounded-lg mx-auto mt-8 max-w-4xl shadow-lg">
+            <div className="px-4 flex flex-col sm:flex-row items-center justify-center">
+              <p className="font-bold text-lg sm:text-xl mb-2 sm:mb-0">
+              ¿Eres fisioterapeuta?
+              </p>
+              <button
+              className="ml-0 sm:ml-3 px-4 py-2 bg-white text-[#1E5ACD] rounded-md font-semibold hover:bg-gray-100 transition-all"
+              onClick={() => window.open("https://fisiofind-landing-page.netlify.app/", "_blank")}
+              >
+              Para más información, accede aquí
+              </button>
+            </div>
+            </section>
           <br />
         </section>
       )}
+      {/* Sección “¿Eres fisioterapeuta?” */}
+
 
       {/* Top Physiotherapists Section */}
       <section className="max-w-7xl mx-auto px-4 mb-12">
