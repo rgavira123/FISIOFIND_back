@@ -43,7 +43,7 @@ classoption: "table"
   Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco,  
   Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez,  
   Rafael Pulido Cifuentes.  
-- **Autores:** Daniel Fernández Caballero 
+- **Autores:** Daniel Fernández Caballero (autor), Antonio Macías Ferrera (revisor)
 - **Fecha de Creación:** 12/03/2025  
 - **Versión:** v1.1  
 
@@ -54,6 +54,7 @@ classoption: "table"
 | Fecha      | Versión | Realizada por                                         | Descripción de los cambios                  |
 |-----------|---------|-------------------------------------------------------|---------------------------------------------|
 | 12/03/2025 | v1.0   | Daniel Fernández Caballero                            | Elaboración de la primera versión del documento. |
+| 13/03/2025 | v1.1   | Antonio Macías Ferrera                             | Revisión y correcciones ortográficas |
 
 
 ---
