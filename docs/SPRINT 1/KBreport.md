@@ -517,7 +517,7 @@ Tras el _feedback_ recibido en la sesión del 07/03/2025, se tomaron medidas par
 
 ### 5.2.8. Usuarios piloto
 
-- A partir del feedback recibido hemos terminado el Plan de Gestión de Usuarios Piloto, en el que entre otras cosas se determian las encuestas que se van a pasar a cada tipo de usuario. Los comentarios de los profesores nos han hecho mejorar en gestión de usuarios piloto y en cómo lo presentamos.
+- A partir del feedback recibido hemos terminado el Plan de Gestión de Usuarios Piloto, en el que entre otras cosas se determinan las encuestas que se van a pasar a cada tipo de usuario. Los comentarios de los profesores nos han hecho mejorar en gestión de usuarios piloto y en cómo lo presentamos.
 
 <br>
 
