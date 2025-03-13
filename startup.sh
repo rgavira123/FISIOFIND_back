@@ -2,6 +2,8 @@
 # Activate the virtual environment
 source venv/bin/activate
 
+cd backend/fisio_find  # Moverse al directorio correcto
+
 # Apply migrations (optional)
 python manage.py migrate
 
