@@ -37,7 +37,7 @@ export default function EditarTermino() {
           }
         })
         .catch(error => {
-          console.error("Error fetching data:", error);
+          console.log("Error fetching data:", error);
           location.href = ".."
         });
     } else {
@@ -58,7 +58,7 @@ export default function EditarTermino() {
         setVersion(response.data.version)
       })
       .catch(error => {
-        console.error("Error fetching data:", error);
+        console.log("Error fetching data:", error);
       });
   }, []);
 
@@ -81,7 +81,7 @@ export default function EditarTermino() {
           setErrorMessage(error.response.data.required)
         } else {
 
-          console.error("Error fetching data:", error);
+          console.log("Error fetching data:", error);
         }
     });
   }

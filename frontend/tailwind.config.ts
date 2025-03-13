@@ -5,10 +5,20 @@ const {
   default: flattenColorPalette,
 } = require("tailwindcss/lib/util/flattenColorPalette");
 
+function addVariablesForColors({ addBase, theme }) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+  addBase({
+    ":root": newVars,
+  });
+}
+
 module.exports = {
   content: [
-    "./src/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}"
+    "./app/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
   ],
   darkMode: "class",
   theme: {
@@ -22,6 +32,7 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
+        // Colores definidos en la primera configuración
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
@@ -62,6 +73,17 @@ module.exports = {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
+        // Colores adicionales de la segunda configuración
+        texto: "#253240",
+        azulOscuroTitulos: "#05668D",
+        azul: "#0A7487",
+        logo1: "#05918F",
+        logo2: "#05AC9C",
+        logo3: "#6BC9BE",
+        navBar1: "#65C2C9",
+        navBar2: "#41B8D5",
+        azulTitulos: "#1E5ACD",
+        blanco: "#FFFFFF",
       },
     },
   },

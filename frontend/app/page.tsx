@@ -10,6 +10,7 @@ import Link from "next/link";
 import axios from "axios";
 
 interface Physiotherapist {
+  id: string;
   name: string;
   speciality: string;
   rating: number;
@@ -49,9 +50,8 @@ const Home = () => {
       const floatingImages = document.querySelectorAll(".floating-image");
       floatingImages.forEach((image, index) => {
         const offset = (index + 1) * 50;
-        (image as HTMLElement).style.transform = `translateX(${
-          scrollY / offset
-        }px)`;
+        (image as HTMLElement).style.transform = `translateX(${scrollY / offset
+          }px)`;
       });
     };
 
@@ -60,35 +60,35 @@ const Home = () => {
   }, []);
 
   // Datos de ejemplo para los fisioterapeutas destacados
-  const topPhysiotherapists: Physiotherapist[] = [
-    {
-      name: "Dr. Ana García",
-      speciality: "Fisioterapia Deportiva",
-      rating: 4.9,
-      image:
-        "https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=3328&auto=format&fit=crop",
-      location: "Madrid",
-      reviews: 128,
-    },
-    {
-      name: "Dr. Carlos Rodríguez",
-      speciality: "Rehabilitación Neurológica",
-      rating: 4.8,
-      image:
-        "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=3270&auto=format&fit=crop",
-      location: "Barcelona",
-      reviews: 96,
-    },
-    {
-      name: "Dra. Laura Martínez",
-      speciality: "Fisioterapia Pediátrica",
-      rating: 4.8,
-      image:
-        "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=3270&auto=format&fit=crop",
-      location: "Valencia",
-      reviews: 112,
-    },
-  ];
+  // const topPhysiotherapists: Physiotherapist[] = [
+  //   {
+  //     name: "Dr. Ana García",
+  //     speciality: "Fisioterapia Deportiva",
+  //     rating: 4.9,
+  //     image:
+  //       "https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=3328&auto=format&fit=crop",
+  //     location: "Madrid",
+  //     reviews: 128,
+  //   },
+  //   {
+  //     name: "Dr. Carlos Rodríguez",
+  //     speciality: "Rehabilitación Neurológica",
+  //     rating: 4.8,
+  //     image:
+  //       "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=3270&auto=format&fit=crop",
+  //     location: "Barcelona",
+  //     reviews: 96,
+  //   },
+  //   {
+  //     name: "Dra. Laura Martínez",
+  //     speciality: "Fisioterapia Pediátrica",
+  //     rating: 4.8,
+  //     image:
+  //       "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=3270&auto=format&fit=crop",
+  //     location: "Valencia",
+  //     reviews: 112,
+  //   },
+  // ];
 
   const SearchPhysiotherapists = () => {
     const [searchResults, setSearchResults] = useState<Physiotherapist[]>([]);
@@ -143,14 +143,17 @@ const Home = () => {
         if (response.status === 200) {
           const results = response.data.map(
             (physio: {
+              id: string;
               first_name: string;
               last_name: string;
               specializations: string[];
             }) => ({
+              id: physio.id,
               name: `${physio.first_name} ${physio.last_name}`,
               specializations: physio.specializations.join(", "),
             })
           );
+          console.log(results);
           setSearchResults(results);
         } else {
           alert(response.data.detail || "No se encontraron resultados.");
@@ -251,7 +254,6 @@ const Home = () => {
                       >
                         {physio.specializations}
                       </CardItem>
-
                       {/* Imagen estática del fisioterapeuta */}
                       <CardItem translateZ="60" className="w-full mt-4 z-20">
                         <Image
@@ -262,6 +264,16 @@ const Home = () => {
                           height={500}
                         />
                       </CardItem>
+                      {/* Botón para ver el perfil del fisioterapeuta */}
+                      <button>
+                        <CardItem
+                          translateZ="20"
+                          className="px-4 py-2 rounded-xl bg-[#1E5ACD] text-white text-sm font-bold hover:bg-[#1848A3] transition-colors"
+                          onClick={() => router.push(`/citas/crear/${physio.id}`)}
+                        >
+                          Reservar cita
+                        </CardItem>
+                      </button>
                     </CardBody>
                   </CardContainer>
                 ))}
@@ -390,7 +402,7 @@ const Home = () => {
         <h2 className="text-3xl text-[#253240] font-bold mb-8 text-center">
           Top Fisioterapeutas
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {topPhysiotherapists.map((physio, index) => (
             <CardContainer key={index}>
               <CardBody className="bg-gradient-to-bl from-white to-[#65C2C9]/50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-blue-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-full h-auto rounded-xl p-6 border">
@@ -434,7 +446,7 @@ const Home = () => {
               </CardBody>
             </CardContainer>
           ))}
-        </div>
+        </div> */}
       </section>
 
       {/* Footer */}

@@ -1,11 +1,12 @@
 from django.db import models
-from gestion_usuarios.models import AppUser
+from gestion_usuarios.models import AppUser, Physiotherapist, Patient
 
 class StatusChoices(models.TextChoices):
     FINISHED = "finished", "Finished"
     CONFIRMED = "confirmed", "Confirmed"
     CANCELED = "canceled", "Canceled"
     BOOKED = "booked", "Booked"
+    PENDING = "pending", "Pending"
 
 class Appointment(models.Model):
     id = models.AutoField(primary_key=True) 
@@ -14,14 +15,14 @@ class Appointment(models.Model):
     is_online = models.BooleanField(verbose_name="is_online")
     service = models.JSONField(verbose_name="service")
     patient = models.ForeignKey(
-        AppUser, 
-        on_delete=models.CASCADE, 
+        Patient,
+        on_delete=models.CASCADE,
         related_name="patient_appointments", 
         verbose_name="Patient"
     )
     physiotherapist = models.ForeignKey(
-        AppUser, 
-        on_delete=models.CASCADE, 
+        Physiotherapist,
+        on_delete=models.CASCADE,
         related_name="physio_appointments", 
         verbose_name="Physiotherapist"
     )
@@ -31,10 +32,11 @@ class Appointment(models.Model):
         default=StatusChoices.BOOKED,
         verbose_name="status"
     )
+    alternatives = models.JSONField(verbose_name="alternatives", null=True, blank=True)
 
     class Meta:
         verbose_name = "Appointment"
         verbose_name_plural = "Appointment"
 
     def __str__(self):
-        return f"Appointment {self.id} - {self.start_time} ({self.patient.name} with {self.physiotherapist.name})"
+        return f"Appointment {self.id} - {self.start_time} ({self.patient.user.username} with {self.physiotherapist.user.username})"
