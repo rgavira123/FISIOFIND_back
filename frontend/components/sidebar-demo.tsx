@@ -11,16 +11,33 @@ import {
 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import axios from "axios";
 
 export function SidebarDemo() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   const pathname = usePathname();
+  const [urlPerfil, setUrlPerfil] = useState<string>("");
 
   // Cada vez que cambia la ruta, revalidamos la existencia del token en localStorage
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsAuthenticated(!!token);
+    if (token) {
+      axios.get("http://127.0.0.1:8000/api/app_user/check-role/", {
+        headers: {
+          "Authorization": "Bearer " + token
+        }
+      })
+      .then(response => {
+        const role = response.data.user_role;
+        if (role === "patient") {
+          setUrlPerfil("/gestion-paciente/perfil");
+        } else if (role === "physiotherapist") {
+          setUrlPerfil("/gestion-fisio/perfil");
+        }
+      })
+    }
   }, [pathname]);
 
   const links = [
@@ -47,7 +64,7 @@ export function SidebarDemo() {
     },
     {
       label: "Mi perfil",
-      href: isAuthenticated ? "/gestion-paciente/perfil" : "/login",
+      href: urlPerfil ? urlPerfil : "/",
       icon: (
         <IconUser className="text-[#253240] h-5 w-5 flex-shrink-0 mx-auto" />
       ),

@@ -66,11 +66,24 @@ const PatientProfile = () => {
         return;
       }
 
-      const response = await axios.get(`${BASE_URL}/api/app_user/profile/`, {
+      const response = await axios.get(`${BASE_URL}/api/app_user/current-user/`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      console.log(response.data);
 
-      setProfile(response.data || { user: {} }); 
+      setProfile({
+        user: {
+            dni: response.data.patient.user_data.dni,
+            email: response.data.patient.user_data.email,
+            phone_number: response.data.patient.user_data.phone_number,
+            photo: response.data.patient.user_data.photo, // Si la foto está disponible en la respuesta
+            postal_code: response.data.patient.user_data.postal_code,
+            username: response.data.patient.user_data.username,
+            account_status: response.data.patient.user_data.account_status,
+        },
+        birth_date: response.data.patient.birth_date,
+        gender: response.data.patient.gender
+      });
     } catch (error) {
       setErrors({ general: "Error obteniendo el perfil." });
     } finally {
@@ -161,9 +174,9 @@ const PatientProfile = () => {
         formData.append("birth_date", profile.birth_date);
 
         // Solo agregar la foto si se ha seleccionado un archivo
-        if (selectedFile) {
-            formData.append("user.photo", selectedFile);
-        }
+        if (profile.user.photoFile) {
+                formData.append("user.photo", profile.user.photoFile);
+            }
 
         const response = await axios.patch(`${BASE_URL}/api/app_user/profile/`, formData, {
             headers: {
@@ -205,6 +218,42 @@ const PatientProfile = () => {
         }
     }
 };
+  
+  const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            // Crear URL para vista previa
+            const previewUrl = URL.createObjectURL(file);
+            console.log(previewUrl);
+            console.log(file);
+
+            // Actualizar el estado con el archivo y la URL de vista previa
+            setProfile((prevProfile) => ({
+                ...prevProfile,
+                user: {
+                    ...prevProfile.user,
+                    photo: previewUrl, // Para mostrar en la interfaz
+                    photoFile: file,    // Para enviar al backend
+                    preview: previewUrl
+                },
+            }));
+        }
+    };
+
+    const getImageSrc = () => {
+        // Verifica si hay un previewUrl (es decir, si el usuario ha subido una imagen)
+        if (profile.user.preview) {
+            return profile.user.photo; // Si existe una foto en el estado, usarla
+        }
+
+        // Si no existe un previewUrl, entonces usar la imagen del backend si está disponible
+        if (profile?.user?.photo) {
+            return `http://localhost:8000/api/app_user${profile.user.photo}`;
+        }
+
+        // Si no hay foto, usar la imagen por defecto
+        return "/default_avatar.png";
+    };
 
 
   if (loading) return <p>Cargando perfil...</p>;
@@ -214,21 +263,17 @@ const PatientProfile = () => {
   {/* Sección izquierda con la foto y datos principales */}
   <div className="user-profile-left">
     <div className="profile-pic">
-
-      <input
-        id="file-input"
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        className="hidden"
-      />
-      <img
-        src={profile?.user?.photo ? `${BASE_URL}${profile?.user?.photo}` : `${BASE_URL}/media/default.png`}
-        alt="Foto de perfil"
-        className="rounded-full border-4 border-[#05668D] shadow-md cursor-pointer w-36 h-36"
-        onClick={handleImageClick}
-      />
-    </div>
+                    <label className="-label" htmlFor="file">
+                        <span className="glyphicon glyphicon-camera"></span>
+                        <span>Change Image</span>
+                    </label>
+                    <input id="file" type="file" accept="image/*" onChange={handleFileChange} />
+                    <img
+                        src={getImageSrc()}
+                        alt="Profile"
+                        width="200"
+                    />
+                </div>
     <div className="user-info">
       <p>{profile?.user?.username || "Nombre de usuario"}</p>
       <p>{profile?.user?.first_name + " " + profile?.user?.last_name || "Nombre"}</p>

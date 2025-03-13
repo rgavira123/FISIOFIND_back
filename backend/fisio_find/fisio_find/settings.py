@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from datetime import timedelta
 from pathlib import Path
 import os
+from django.conf.global_settings import MEDIA_URL
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -153,5 +154,5 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL = '/media/imagenes_perfil/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
