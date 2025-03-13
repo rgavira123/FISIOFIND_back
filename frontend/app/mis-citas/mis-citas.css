@@ -36,6 +36,10 @@
     padding: 10px;
     color: #ffffff; /* Texto en blanco */
   }
+
+  .fc-toolbar-chunk{
+    font-size: small;
+  }
   
   /* ======= ESTILOS DEL HEADER ======= */
   .fc-toolbar {
@@ -107,6 +111,13 @@
     margin-block: 0.15rem;
   }
 
+  .fc-event-hovered {
+    background-color: #41B8D5 !important; /* Ejemplo: Color de fondo cuando se pasa el ratón */
+  }
+  
+  .fc-popover.fc-more-popover.fc-day.fc-day-wed.fc-day-future{
+    z-index: 1;
+  }
   
   /* ======= EVENTO HOVER ======= */
   .fc-event:hover {

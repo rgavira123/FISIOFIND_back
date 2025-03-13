@@ -261,6 +261,8 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
     last_name = serializers.CharField(required=True)
     phone_number = serializers.CharField(required=True)
     postal_code = serializers.CharField(required=True)
+    photo = serializers.ImageField(required=False)
+    services = serializers.JSONField(required=False)
     specializations = serializers.ListField(
         child=serializers.CharField(), required=False  # Lista de nombres de especializaciones
     )
@@ -269,8 +271,7 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
         model = Physiotherapist
         fields = [
             'username', 'email', 'password', 'dni', 'gender', 'first_name', 'last_name', 
-            'birth_date', 'collegiate_number', 'autonomic_community', 'phone_number', 'postal_code',
-            'specializations'
+            'birth_date', 'collegiate_number', 'autonomic_community', 'phone_number', 'postal_code', 'bio', 'photo', 'services', 'specializations'
         ]
         
     def validate_password(self, value):
@@ -351,6 +352,29 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
 
         except IntegrityError as e:
             raise serializers.ValidationError({"error": "Error de integridad en la base de datos. Posible duplicado de datos."})
+        
+    def update(self, instance, validated_data):
+        """Actualiza los datos de un fisioterapeuta y su usuario asociado."""
+        try:
+            with transaction.atomic():
+                # Actualizar datos del usuario (AppUser)
+                user = instance.user
+                user.email = validated_data.get("email", user.email)
+                user.phone_number = validated_data.get("phone_number", user.phone_number)
+                user.postal_code = validated_data.get("postal_code", user.postal_code)
+                user.photo = validated_data.get("photo", user.photo)
+                user.save()
+
+                # Actualizar datos del fisioterapeuta (Physiotherapist)
+                instance.bio = validated_data.get("bio", instance.bio)
+                instance.services = validated_data.get("services", instance.services)
+                instance.save()
+
+                return instance
+
+        except IntegrityError:
+            raise serializers.ValidationError({"error": "Error de integridad en la base de datos. Posible duplicado de datos."})
+
 
 class AppUserAdminViewSerializer(serializers.ModelSerializer):
     

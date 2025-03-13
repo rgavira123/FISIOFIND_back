@@ -32,7 +32,7 @@ export default function VerTermino() {
           }
         })
         .catch(error => {
-          console.error("Error fetching data:", error);
+          console.log("Error fetching data:", error);
           location.href = ".."
         });
     } else {
@@ -51,7 +51,7 @@ export default function VerTermino() {
         setTermino(response.data);
       })
       .catch(error => {
-        console.error("Error fetching data:", error);
+        console.log("Error fetching data:", error);
       });
   }, []);
 

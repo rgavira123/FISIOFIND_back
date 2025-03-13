@@ -19,7 +19,7 @@ const GestionAdmin = () => {
           }
         })
         .catch(error => {
-          console.error("Error fetching data:", error);
+          console.log("Error fetching data:", error);
           location.href = ".."
         });
     } else {
@@ -39,11 +39,11 @@ const GestionAdmin = () => {
           </div>
           <div className="flex flex-wrap items-center justify-center mb-8">
               <p className="text-xl max-w-2xl">Panel de gestión de usuarios</p>
-              <a href="/gestion-admin/usuarios"><button className="btn-admin-green ml-4">Acceder</button></a>
+              <a href="#"><button className="btn-admin-green ml-4">Proximamente</button></a>
           </div>
           <div className="flex flex-wrap items-center justify-center mb-8">
               <p className="text-xl max-w-2xl">Panel de gestión de citas</p>
-              <a href="/gestion-admin/citas"><button className="btn-admin-green ml-4">Acceder</button></a>
+              <a href="#"><button className="btn-admin-green ml-4">Proximamente</button></a>
           </div>
         </div>
     </>

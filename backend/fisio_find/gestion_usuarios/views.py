@@ -1,12 +1,15 @@
+from django.shortcuts import get_object_or_404
+import re
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from .serializers import PatientRegisterSerializer, PatientAdminViewSerializer, PhysioRegisterSerializer, PhysioSerializer, PatientSerializer, AppUserSerializer, AppUserAdminViewSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .models import Physiotherapist, Patient, AppUser
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics
 #from permissions import IsAdmin
-from gestion_usuarios.models import Patient, AppUser
 
 
 from .permissions import IsPatient
@@ -105,6 +108,32 @@ def physio_register_view(request):
     if serializer.is_valid():
         serializer.save()
         return Response({"message": "Fisioterapeuta registrado correctamente"}, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def physio_update_view(request):
+    """Actualiza los datos del fisioterapeuta autenticado"""
+    
+    # Obtener el fisioterapeuta asociado al usuario autenticado
+    physio = get_object_or_404(Physiotherapist, user=request.user)
+
+    
+    # Aplanar las claves 'user.*' para que coincidan con lo que espera el serializer
+    request_data = {}
+    for key, value in request.data.items():
+        if key.startswith("user."):
+            request_data[key[5:]] = value  # Quita el prefijo "user."
+        else:
+            request_data[key] = value
+                
+    # Serializar y validar los datos enviados
+    serializer = PhysioRegisterSerializer(physio, data=request_data, partial=True)
+    
+    if serializer.is_valid():
+        serializer.update(physio, serializer.validated_data)
+        return Response({"message": "Fisioterapeuta actualizado correctamente"}, status=status.HTTP_200_OK)
+    
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 """
