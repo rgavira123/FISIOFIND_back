@@ -16,6 +16,7 @@ import os
 from dotenv import load_dotenv
 import os
 import dj_database_url  # Para parsear la URL de la base de datos
+import environ
 
 load_dotenv()
 
@@ -161,13 +162,29 @@ WSGI_APPLICATION = 'fisio_find.wsgi.application'
 #         'PORT': os.getenv('DATABASE_PORT'),
 #     }
 # }
+
+env = environ.Env()
+environ.Env.read_env()
+
+IS_PRODUCTION = os.getenv('DJANGO_PRODUCTION', env.bool('DJANGO_PRODUCTION', default=False))
+
+DEBUG = not IS_PRODUCTION
+
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL', 'postgresql://postgres:1234@localhost:5432/fisiofind'),
-        conn_max_age=600,
-        ssl_require=True if 'DATABASE_URL' in os.environ else False,
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DATABASE_NAME', env('DATABASE_NAME', default='postgres')),
+        'USER': os.getenv('DATABASE_USER', env('DATABASE_USER', default='postgres')),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', env('DATABASE_PASSWORD', default='')),
+        'HOST': os.getenv('DATABASE_HOST', env('DATABASE_HOST', default='localhosts')),
+        'PORT': os.getenv('DATABASE_PORT', env('DATABASE_PORT', default='5432')),
+        'OPTIONS': {
+            'sslmode': 'require' if IS_PRODUCTION else 'prefer',
+        },
+    }
 }
+
+ALLOWED_HOSTS = ['*'] if DEBUG else ['fisiofind-backend.azurewebsites.net']
 
 AUTH_USER_MODEL = 'gestion_usuarios.AppUser'
 
