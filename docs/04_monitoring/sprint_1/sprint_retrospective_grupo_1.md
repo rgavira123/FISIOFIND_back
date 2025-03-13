@@ -1,8 +1,8 @@
 ---
-title: "SPRINT RETROSPECTIVE SPRINT X"                    # CHANGE IF NEEDED
-subtitle: "FISIO FIND - Grupo 6 - #X"
-author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
-date: "04/02/2025"                                        # CHANGE IF NEEDED
+title: "SPRINT RETROSPECTIVE SPRINT 1 - T1"                    # CHANGE IF NEEDED
+subtitle: "FISIO FIND - Grupo 6: T1 - #1"
+author: [Alberto Carmona Sicre, Daniel Alors Romero, Daniel Fernández Caballero, Rafael Pulido Cifuentes, Daniel Ruiz López, Pablo Fernández Pérez]
+date: "13/02/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -13,8 +13,8 @@ titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
 titlepage-background: "../.backgrounds/background4V.pdf"  # CHANGE IF NEEDED
-header-left: "SPRINT RETROSPECTIVE SPRINT X"              # CHANGE IF NEEDED
-header-right: "04/02/2025"                                # CHANGE IF NEEDED
+header-left: "SPRINT RETROSPECTIVE SPRINT 1 - T1"              # CHANGE IF NEEDED
+header-right: "13/02/2025"                                # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"
@@ -26,7 +26,7 @@ classoption: "table"
 </p>
 
 <h1 align="center" style="font-size: 30px; font-weight: bold;">
-  FISIO FIND  -  SPRINT RETROSPECTIVE SPRINT 1
+  FISIO FIND  -  SPRINT RETROSPECTIVE SPRINT 1 - T1
 </h1>
 
 <br>
@@ -60,9 +60,9 @@ classoption: "table"
 
 - **Autores:** Antonio Macías Ferrera
 
-- **Fecha de Creación:** dd/mm/aaaa  
+- **Fecha de Creación:** 13/03/2025  
 
-- **Versión:** v1.0
+- **Versión:** v1.1
 
 <br>
 
@@ -76,8 +76,7 @@ classoption: "table"
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
 | 04/02/2025 | v1.0    | Antonio Macías Ferrera           | Elaboración de la plantilla del documento. |
-| 11/03/2025 | v1.1    | Julen Redondo Pacheco           | Elaboración sprint retrospective grupo 2 |
-
+| 13/02/2025 | v1.1    | Pablo Fernández Pérez y Daniel Fernández Caballero           | Elaboración de la plantilla del documento. |
 
 <br>
 
@@ -88,12 +87,12 @@ classoption: "table"
 
 | Nombre completo | Rol | Contacto |
 |----------------|-----|----------|
-| Antonio Macías Ferrera | -- | antmacfer1@alum.us.es |
-| Benjamín Ignacio Maureira Flores | -- | benmauflo@alum.us.es |
-| Delfín Santana Rubio | -- | delsanrub@alum.us.es |
-| Francisco Capote García | -- | fracapgar1@alum.us.es |
-| Guadalupe Ridruejo Pineda | -- | guaridpin@alum.us.es |
-| Ramón Gavira Sánchez | -- | ramgavsan@alum.us.es |
+| Alberto Carmona Sicre | -- | albcarsic@alum.us.es |
+| Daniel Alors Romero | -- | danalorom1@alum.us.es |
+| Daniel Fernández Caballero | -- | danfercab@alum.us.es |
+| Daniel Ruiz López | -- | danruilop1@alum.us.es |
+| Pablo Fernández Pérez | -- | pablofp.33@gmail.com |
+| Rafael Pulido Cifuentes | -- | rafpulcif@alum.us.es |
 
 <br>
 
@@ -103,8 +102,14 @@ classoption: "table"
 
 
 # **1. OBJETIVOS DE LA RETROSPECTIVA**
-En la Sprint Retrospective tratamos de evaluar de forma grupal el desempeño durante el Sprint, reconocer las áreas en las que hemos tenido éxito, así como identificar y abordar los problemas encontrados, y evaluar los márgenes de mejora para el próximo Sprint.
+La **Sprint Retrospective** es una oportunidad para reflexionar en equipo sobre el desempeño durante el Sprint. En esta reunión, buscamos:
 
+- Evaluar el trabajo realizado y los resultados obtenidos.
+- Reconocer los logros y buenas prácticas implementadas.
+- Identificar los desafíos y problemas enfrentados.
+- Analizar oportunidades de mejora para optimizar el próximo Sprint.
+
+Nuestro objetivo es fomentar un proceso de mejora continua, fortaleciendo la colaboración y eficiencia del equipo.
 <br>
 
 <br>
@@ -133,21 +138,20 @@ Este tipo de retrospectiva permite que el equipo reflexione de manera estructura
 # **3. DISCUSIÓN Y FEEDBACK**
 
 ## **GOOD: ¿Qué salió bien?**
-- ✅ Ambiente y comunicación: el grupo al completo está satisfecho con el ambiente y la comunicación fluida que se ha generado entre los compañeros.
-- ✅ Trabajo en equipo: estamos muy orgullosos de que si un compañero necesitaba ayuda, sin pensarlo, algún otro compañero le ayudaba a resolverla.
-- ✅ Reparto de tareas: hemos hecho un buen reparto de tareas, equilibrado en mayor o menor medida y esperamos que siga siendo así durante todo el desarrollo del proyecto.
-- ✅ Compromiso: Todos los miembros del equipo mostraron una actitud proactiva y se mantuvieron enfocados en cumplir con las metas establecidas, aunque a veces de forma tardía.
+- ✅ El reparto de tareas se hizo desde el primer momento y todos los miembros trabajaron de forma equilibrada.
+- ✅ Pudimos resolver con facilidad el problema que suponía inicialmente la funcionalidad de las videollamadas.
+- ✅ Aprendimos en poco tiempo a usar el stack de frontend propuesto.
 
 ## **BAD: ¿Qué NO salió bien?**
-- 🔴 Organización: algunos compañeros del equipo no sabían cómo empezar ciertas tareas sin pisar la funcionalidad de otros compañeros, lo que generó retrasos y complicó el avance en algunos momentos.
-- 🔴 Desigualdad en la carga de trabajo: Aunque hubo un intento de equilibrio, debido a la organizaión mejorable, algunos miembros asumieron más responsabilidades de las previstas.
+- 🔴 El bajo número de commits y pull requests ralentizó el progreso, dificultando que todos los miembros asignados a cada tarea pudieran trabajar de manera simultánea sobre el mismo código.
 
 ## **START: ¿Qué debemos empezar a hacer?**
-- 🟡 Distribuir mejor las responsabilidades: Hacer revisiones semanales de la carga de trabajo para ver si alguien está sobrepasado y redistribuir tareas de forma más equitativa.
+- 🟡 Integración más frecuente del código a las ramas principales.
+- 🟡 Añadir tests para la funcionalidades críticas como las videollamadas para garantizar que funcionan independientemente de cambios futuros.
 
 ## **STOP: ¿Qué debemos dejar de hacer?**
-- 🟠 Dejar los mensajes sin leer: Asegurarnos de que todos los miembros del equipo estén al tanto de la información compartida para evitar malentendidos.
-- 🟠 Posponer tareas importantes: dejar de retrasar tareas críticas que pueden impactar negativamente en el avance general del proyecto.
+- 🟠 Evitar la integración tardía del código, ya que genera conflictos difíciles de resolver.
+- 🟠 No postergar las revisiones de código, para asegurar la calidad y coherencia proyecto.
 
 <br>
 
@@ -159,9 +163,8 @@ Detalle de las acciones acordadas para el próximo Sprint. Se deberá incluir el
 
 | Acción | Responsable | Fecha límite |
 |--------|------------|--------------|
-| 🔵 Crear un plan de inicio de tareas para evitar bloqueos entre funcionalidades | Todo el equipo | Al inicio del sprint |
-| 🔵 Destacar los mensajes para asegurar la lectura del mismo por los integrantes del equipo | Todo el equipo | Diariamente |
-| 🔵 Realizar una revisión al final de cada sprint sobre la distribución de la carga de trabajo y proponer mejoras si es necesario| Todo el equipo | Final de sprint |
+| 🔵 Aumentar la frecuencia de commits e integraciones en las ramas principales para mejorar la colaboración. | Todo el grupo | Cada tres días durante el Sprint (Si se ha trabajado) |
+| 🔵 Implementar revisiones intermedias en las tareas de desarrollo | Daniel Ruiz López, Rafael Pulido Cifuentes | Cada semana |
 
 <br>
 

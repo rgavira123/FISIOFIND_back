@@ -185,6 +185,7 @@ Asignación de tareas transversales, Reunión del 25/02/2025, Elaboración del d
 Reunión Equipo 3 Piruleta, Modificación de requisitos (cancelación y modificación de citas), HF-003, HF-004, Seeders, Trabajo de QA, Reunión grupo completo 08-03-2025, Realización de los seeders del modelo Appointment, HF-004: Aceptación, rechazo y modificación de citas (refactorización), Sprint Retrospective G3, Trabajo QA.
 
 ### Maureira Flores, Benjamín Ignacio
+Trabajo de QA, Formacion y configuracion del entorno, HF-001: Registro como fisioterapeuta #77, Diseño del UML, Presentación, HF-002: Personalización del perfil del fisioterapeuta #78, Arreglos en validacion.
 
 ### Pulido Cifuentes, Rafael
 Creador del buscador y añadir imágenes en el docusaurus, Despliegue de la app y Release, Landing Page, Docusaurus, Organización de tareas
