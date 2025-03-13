@@ -12,9 +12,11 @@ import { AppointmentModal } from "./appointment-modal";
 
 const Calendar = ({
   events,
+  currentRole,
   hoveredEventId,
 }: {
   events: any;
+  currentRole: string;
   hoveredEventId: string | null;
 }) => {
   const [selectedEvent, setSelectedEvent] = useState<CalendarProps | null>(
@@ -50,22 +52,22 @@ const Calendar = ({
     // por ejemplo, usando axios.post con el array de alternativas
     axios
       .patch(`http://localhost:8000/api/appointment/${selectedEvent?.id}/`, {
-        title: selectedEvent?.title,
-        description: selectedEvent?.description,
         start_time: selectedEvent?.start,
         end_time: selectedEvent?.end,
-        // "is_online": false,
-        // "service": {
-        //   "type": "Fisioterapia",
-        //   "duration": 30
-        // },
         status: "pending",
         alternatives: alternatives,
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
       })
       .then((response) => {
         // Si la respuesta fue exitosa
         alert("La cita se actualizó correctamente.");
         console.log("Cita actualizada correctamente", response);
+        setEditionMode(false);
+        setSelectedEvent(null);
+        window.location.reload();
       })
       .catch((error) => {
         // Si hubo un error en la solicitud
@@ -119,13 +121,15 @@ const Calendar = ({
               type: info.event.extendedProps.service.type || "Sin servicio",
               duration: info.event.extendedProps.service.duration || 0,
             },
+            alternatives: info.event.extendedProps.alternatives || null,
           });
         }}
       />
-            {/* MODAL */}
-            {selectedEvent && (
+      {/* MODAL */}
+      {selectedEvent && (
         <AppointmentModal
           selectedEvent={selectedEvent}
+          currentRole={currentRole}
           setSelectedEvent={setSelectedEvent}
           setEditionMode={setEditionMode}
         />
