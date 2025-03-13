@@ -57,6 +57,12 @@ const VideoCallPage = () => {
       return;
     }
 
+    // Add validation to ensure code is not empty
+    if (!code || code.trim() === '') {
+      alert("Por favor, ingresa un código de sala válido.");
+      return;
+    }
+
     try {
       const response = await axios.get(`${getApiBaseUrl()}/api/videocall/join-room/${code}/`);
       setRoomDetails(response.data);
