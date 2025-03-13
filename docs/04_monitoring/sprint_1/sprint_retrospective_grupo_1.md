@@ -62,7 +62,7 @@ classoption: "table"
 
 - **Fecha de Creación:** 13/03/2025  
 
-- **Versión:** v1.0
+- **Versión:** v1.1
 
 <br>
 
@@ -76,7 +76,7 @@ classoption: "table"
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
 | 04/02/2025 | v1.0    | Antonio Macías Ferrera           | Elaboración de la plantilla del documento. |
-| 13/02/2025 | v2.0    | Pablo Fernández Pérez y Daniel Fernández Caballero           | Elaboración de la plantilla del documento. |
+| 13/02/2025 | v1.1    | Pablo Fernández Pérez y Daniel Fernández Caballero           | Elaboración de la plantilla del documento. |
 
 <br>
 
@@ -87,19 +87,11 @@ classoption: "table"
 
 | Nombre completo | Rol | Contacto |
 |----------------|-----|----------|
-| Antonio Macías Ferrera | -- | antmacfer1@alum.us.es |
-| Benjamín Ignacio Maureira Flores | -- | benmauflo@alum.us.es |
-| Francisco Capote García | -- | fracapgar1@alum.us.es |
+| Alberto Carmona Sicre | -- | albcarsic@alum.us.es |
 | Daniel Alors Romero | -- | danalorom1@alum.us.es |
 | Daniel Fernández Caballero | -- | danfercab@alum.us.es |
 | Daniel Ruiz López | -- | danruilop1@alum.us.es |
-| Daniel Tortorici Bartús | -- | dantorbar1@alum.us.es |
-| Daniel Vela Camacho | -- | danvelcam@alum.us.es |
-| Delfín Santana Rubio | -- | delsanrub@alum.us.es |
-| Guadalupe Ridruejo Pineda | -- | guaridpin@alum.us.es |
-| Julen Redondo Pacheco | -- | julredpac@alum.us.es |
 | Pablo Fernández Pérez | -- | pablofp.33@gmail.com |
-| Ramón Gavira Sánchez | -- | ramgavsan@alum.us.es |
 | Rafael Pulido Cifuentes | -- | rafpulcif@alum.us.es |
 
 <br>
@@ -183,5 +175,3 @@ Detalle de las acciones acordadas para el próximo Sprint. Se deberá incluir el
 
 **Aprobado por:**  
 **Scrum Master:** Antonio Macías Ferrera  
-**Rol:** [Nombre y Apellidos]
-
