@@ -111,7 +111,7 @@ def get_physio_schedule_by_id(request, pk):
     except Physiotherapist.DoesNotExist:
         return Response({"error": "Fisioterapeuta no encontrado"}, status=status.HTTP_404_NOT_FOUND)
     except Exception as e:
-        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({"error": "Bad request"}, status=status.HTTP_400_BAD_REQUEST)
     
 
 @api_view(['PUT'])
@@ -175,7 +175,7 @@ def edit_weekly_schedule(request):
     except ValidationError as ve:
         return Response({"error": str(ve)}, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
-        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({"error": "Bad request"}, status=status.HTTP_400_BAD_REQUEST)
         
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated, IsPhysiotherapist])
@@ -250,7 +250,7 @@ def add_unavailable_day(request):
     except ValidationError as ve:
         return Response({"error": str(ve)}, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
-        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({"error": "Bad request"}, status=status.HTTP_400_BAD_REQUEST)
     
 #funciones auxiliares para la validacion para schedule   
 def _is_valid_time(time_str):

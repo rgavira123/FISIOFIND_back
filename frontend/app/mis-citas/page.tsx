@@ -53,7 +53,7 @@ export default function Home() {
         setCurrentRole(response.data.user_role);
       })
       .catch(error => {
-        console.error("Error fetching data:", error);
+        console.log("Error fetching data:", error);
       });
 
     if (currentRole == "physiotherapist") {
@@ -81,7 +81,7 @@ export default function Home() {
           setEvents(transformedEvents);
         })
         .catch(error => {
-          console.error("Error fetching data:", error);
+          console.log("Error fetching data:", error);
         });
     } else if (currentRole == "patient") {
       axios.get("http://localhost:8000/api/appointment/patient/list", {
@@ -108,7 +108,7 @@ export default function Home() {
           setEvents(transformedEvents);
         })
         .catch(error => {
-          console.error("Error fetching data:", error);
+          console.log("Error fetching data:", error);
         });
     }
   }, [currentRole]);
