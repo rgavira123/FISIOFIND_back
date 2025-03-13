@@ -35,6 +35,13 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'fisiofind-backend.azurewebsites.net', 'fisiofind.netlify.app']
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://fisiofind-backend.azurewebsites.net"
+]
+SECURE_PROXY_SSL_HEADER = ("X-Forwarded-Proto", "https")
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+CSRF_USE_SESSIONS = True
 
 # Application definition
 
