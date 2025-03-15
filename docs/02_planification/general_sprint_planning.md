@@ -63,7 +63,7 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** [Antonio Macías Ferrera](https://github.com/antoniommff) (autor), [Delfín Santana Rubio](https://github.com/DelfinSR) (revisor)
+- **Contribuidores:** [Antonio Macías Ferrera](https://github.com/antoniommff) (autor), [Delfín Santana Rubio](https://github.com/DelfinSR) (revisor)
 
 - **Fecha de Creación:** 15/02/2025  
 

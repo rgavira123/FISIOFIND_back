@@ -85,7 +85,7 @@ FISIO FIND  - COMPETITOR ANALYSIS
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** [Daniel Vela Camacho](https://github.com/danvelcam) (autor), [Francisco Mateos Villarejo](https://github.com/pacomateos10) (autor)
+- **Contribuidores:** [Daniel Vela Camacho](https://github.com/danvelcam) (autor), [Francisco Mateos Villarejo](https://github.com/pacomateos10) (autor)
 
 - **Fecha de Creación:** 12/02/2025
 
