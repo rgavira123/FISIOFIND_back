@@ -118,19 +118,19 @@ El propósito de este informe es definir los objetivos a lograr durante el Sprin
 
 Los siguientes **objetivos** del *Sprint* harán referencia a las épicas desglosadas en la plataforma *GitHub Project*.
 
-- ✅ **Objetivo 1:** Formar al equipo
+- ✅ **Objetivo 1:** Formación
 - ✅ **Objetivo 2:** Implementar una gestión de usuarios básica
 - ✅ **Objetivo 3:** Implementar las funcionalidades correspondientes a los casos de uso *'core'*.
 - ✅ **Objetivo 4:** Desplegar una '*landing page*' estética y accesible para posicionar y mostrar al público nuestra aplicación.
 
 
-| Historia Épica   | Historias de Usuario                                                   |
-| ---------------- | ---------------------------------------------------------------------- |
-| Formación        | HA-002                                                                 |
-| Gestión usuarios | HA-001, HF-001, HF-002, HI-001, HI-002, HP-001, HP-002, HP-006         |
-| Videollamada     | HF-010, HF-019                                                         |
-| Landing page     | HA-003                                                                 |
-| Cita/Calendario  | HF-003, HF-004, HP-003, HP-005                                         |
+| Obj | Historia Épica        | Historias de Usuario |
+| --- | --------------------- | -------------------- |
+| 1 | E-001: Formación        | HA-002 |
+| 2 | E-002: Gestión usuarios | HA-001, HF-001, HF-002, HI-001, HI-002, HP-001, HP-002, HP-006 |
+| 3 | E-003: Videollamada     | HF-010, HF-019 |
+| 4 | E-004: Landing page     | HA-003 |
+| 3 | E-005: Cita/Calendario  | HF-003, HF-004, HP-003, HP-005 |
 
 <br>
 
