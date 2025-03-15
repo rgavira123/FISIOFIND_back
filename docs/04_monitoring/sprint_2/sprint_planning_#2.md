@@ -68,7 +68,7 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** Antonio Macías Ferrera (autor)
+- **Contribuidores:** [Antonio Macías Ferrera](https://github.com/antoniommff) (autor)
 
 - **Fecha de Creación:** 15/03/2025
 
@@ -103,6 +103,8 @@ classoption: "table"
 | Miguel Encina Martínez    | Representante grupo 3, analista, programador, QA | migencmar@alum.us.es  |
 | Ramón Gavira Sánchez      | Representante grupo 2, analista, programador     | ramgavsan@alum.us.es  |
 | Rafael Pulido Cifuentes   | Representante grupo 1, analista, programador     | rafpulcif@alum.us.es  |
+| Pablo Fernández Pérez | Representante grupo 1, analista, programador |
+
 
 <br>
 
