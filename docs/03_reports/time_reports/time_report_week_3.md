@@ -21,12 +21,12 @@ classoption: "table"
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<!-- <p align="center">
-  <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
+<p align="center">
+  <img src="../../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
 <h1 align="center" style="font-size: 30px; font-weight: bold;">
-  FISIO FIND  -  INFORME DE TIEMPO dd-mm-aa
+  FISIO FIND  -  INFORME DE TIEMPO 14/02 - 20/02
 </h1>
 
 <br>
@@ -41,7 +41,7 @@ classoption: "table"
 3. [DESGLOSE](#3-desglose)  
     3.1 [DESGLOSE POR DÍAS](#31-desglose-por-días)  
     3.2 [DESGLOSE POR PROYECTOS](#32-desglose-por-proyectos)  
-    3.3 [DESGLOSE POR INTEGRANTES](#33-desglose-por-integrantes) -->
+    3.3 [DESGLOSE POR INTEGRANTES](#33-desglose-por-integrantes)
 <!-- COMMENT WHEN EXPORTING TO PDF -->
 
 <br>
@@ -59,11 +59,11 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** Alberto Carmona Sicre
+- **Contribuidores:** Alberto Carmona Sicre (autor)
 
 - **Fecha de Creación:** 10/02/2025  
 
-- **Versión:** v1.0
+- **Versión:** v1.1
 
 <br>
 
@@ -77,6 +77,8 @@ classoption: "table"
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
 | 20/02/2025 | v1.0    | Rafael Pulido Cifuentes            | Elaboración de la primera versión del documento de la semana 3 |
+| 15/05/2025 | v1.1    | Antonio Macías Ferrera           | Correcciones para adecuarse a las condiciones de fallo. |
+
 
 <br>
 

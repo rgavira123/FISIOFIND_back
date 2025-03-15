@@ -1,7 +1,7 @@
 ---
 title: "REPORTE DE IA DEL SPRINT 1"
 subtitle: "FISIO FIND - Grupo 6 - #SPRINT 1"
-author: ["Daniel Ruiz López", "Daniel Fernández Caballero"]
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
 date: "12/03/2025"
 subject: "ISPP"
 lang: "es"
@@ -35,16 +35,21 @@ classoption: "table"
 ## **Ficha del documento**
 
 - **Nombre del Proyecto:** FISIO FIND  
+
 - **Número de Grupo:** Grupo 6  
+
 - **Entregable:** #SPRINT 1
+
 - **Miembros del grupo:**  
-  Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García,  
-  Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús,  
+  Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús,  
   Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco,  
   Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez,  
   Rafael Pulido Cifuentes.  
-- **Autores:** Daniel Fernández Caballero (autor), Antonio Macías Ferrera (revisor)
+
+- **Contribuidores:** Daniel Fernández Caballero (autor), Antonio Macías Ferrera (revisor)
+
 - **Fecha de Creación:** 12/03/2025  
+
 - **Versión:** v1.1  
 
 ---

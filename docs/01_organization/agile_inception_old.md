@@ -69,7 +69,7 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** Ramón Gavira Sánchez, Daniel Vela Camacho, Delfín Santana Rubio
+- **Contribuidores:** Ramón Gavira Sánchez (autor), Daniel Vela Camacho (autor), Delfín Santana Rubio (revisor)
 
 - **Fecha de Creación:** 04/02/2025  
 

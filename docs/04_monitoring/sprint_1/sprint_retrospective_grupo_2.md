@@ -1,8 +1,8 @@
 ---
-title: "SPRINT RETROSPECTIVE SPRINT X"                    # CHANGE IF NEEDED
-subtitle: "FISIO FIND - Grupo 6 - #X"
-author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
-date: "04/02/2025"                                        # CHANGE IF NEEDED
+title: "SPRINT RETROSPECTIVE #SPRINT 1 - GRUPO 2"                    # CHANGE IF NEEDED
+subtitle: "FISIO FIND - Grupo 6 - #SPRINT 1"
+author: [Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Ramón Gavira Sánchez]
+date: "10/03/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -14,7 +14,7 @@ colorlinks: true
 linkcolor: blue
 titlepage-background: "../.backgrounds/background4V.pdf"  # CHANGE IF NEEDED
 header-left: "SPRINT RETROSPECTIVE SPRINT X"              # CHANGE IF NEEDED
-header-right: "04/02/2025"                                # CHANGE IF NEEDED
+header-right: "10/03/2025"                                # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"
@@ -26,7 +26,7 @@ classoption: "table"
 </p>
 
 <h1 align="center" style="font-size: 30px; font-weight: bold;">
-  FISIO FIND  -  SPRINT RETROSPECTIVE SPRINT 1
+  FISIO FIND  -  SPRINT RETROSPECTIVE #SPRINT 1 - GRUPO 2
 </h1>
 
 <br>
@@ -54,15 +54,15 @@ classoption: "table"
 
 - **Número de Grupo:** Grupo 6
 
-- **Entregable:** #DP
+- **Entregable:** #SPRINT 1
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** Antonio Macías Ferrera
+- **Contribuidores:** Julen Redondo Pacheco (autor), Antonio Macías Ferrera (revisor)
 
-- **Fecha de Creación:** dd/mm/aaaa  
+- **Fecha de Creación:** 10/03/2025 
 
-- **Versión:** v1.0
+- **Versión:** v1.2
 
 <br>
 
@@ -75,8 +75,9 @@ classoption: "table"
 
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
-| 04/02/2025 | v1.0    | Antonio Macías Ferrera           | Elaboración de la plantilla del documento. |
+| 10/02/2025 | v1.0    | Antonio Macías Ferrera           | Elaboración de la plantilla del documento. |
 | 11/03/2025 | v1.1    | Julen Redondo Pacheco           | Elaboración sprint retrospective grupo 2 |
+| 15/05/2025 | v1.2    | Antonio Macías Ferrera           | Correcciones para adecuarse a las condiciones de fallo. |
 
 
 <br>

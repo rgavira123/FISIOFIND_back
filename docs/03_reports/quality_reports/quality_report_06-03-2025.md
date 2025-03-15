@@ -59,11 +59,11 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** Daniel Alors Romero, Benjamín Ignacio Maureira Flores, Miguel Encina Martínez y Francisco Mateos Villarejo
+- **Contribuidores:** Daniel Alors Romero (autor), Benjamín Ignacio Maureira Flores (autor), Miguel Encina Martínez (revisor) y Francisco Mateos Villarejo (autor)
 
 - **Fecha de Creación:** 04/03/2025  
 
-- **Versión:** v1.0
+- **Versión:** v1.1
 
 <br>
 

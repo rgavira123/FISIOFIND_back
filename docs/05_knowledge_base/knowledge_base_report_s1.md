@@ -119,7 +119,7 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** Alberto Carmona Sicre, Antonio Macías Ferrera, Delfín Santana Rubio
+- **Contribuidores:** Alberto Carmona Sicre (autor), Antonio Macías Ferrera (autor), Delfín Santana Rubio (revisor)
 
 - **Fecha de Creación:** 11/03/2025
 

@@ -1,5 +1,5 @@
 ---
-title: "REPORTE ANÁLISIS CUANTITATIVO DE LA CALIDAD SEMANAS 1 Y 2 SPRINT 1" # CHANGE IF NEEDED
+title: "REPORTE ANÁLISIS CUANTITATIVO DE LA CALIDAD SEMANAS 1 Y 2 #SPRINT 1" # CHANGE IF NEEDED
 subtitle: "FISIO FIND - Grupo 6 - #SPRINT 1"
 author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]                                                # CHANGE IF NEEDED
 date: "06/03/2025"
@@ -26,7 +26,7 @@ classoption: "table"
 </p>
 
 <h1 align="center" style="font-size: 30px; font-weight: bold;">
-  REPORTE ANÁLISIS CUANTITATIVO DE LA CALIDAD SPRINT 1 (21/02/25) - (06/03/25)
+  REPORTE ANÁLISIS CUANTITATIVO DE LA CALIDAD #SPRINT 1 (21/02/25) - (06/03/25)
 </h1>
 
 **ÍNDICE**
@@ -59,11 +59,11 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** Daniel Alors Romero, Benjamín Ignacio Maureira Flores, Miguel Encina Martínez y Francisco Mateos Villarejo
+- **Contribuidores:** Daniel Alors Romero (autor), Benjamín Ignacio Maureira Flores (autor), Miguel Encina Martínez (revisor) y Francisco Mateos Villarejo (autor)
 
 - **Fecha de Creación:** 04/03/2025  
 
-- **Versión:** v1.0
+- **Versión:** v2.0
 
 <br>
 

@@ -62,7 +62,7 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** Guadalupe Ridruejo Pineda, Antonio Macías Ferrera
+- **Contribuidores:** Guadalupe Ridruejo Pineda (autor), Antonio Macías Ferrera (revisor)
 
 - **Fecha de Creación:** 26/02/2025  
 
