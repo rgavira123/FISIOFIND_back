@@ -7,7 +7,9 @@ export function cn(...inputs: ClassValue[]) {
 
 export function formatAppointment(isoString: string): { date: string; time: string } {
   if (!isoString) return { date: "", time: "" };
+  
   const date = new Date(isoString);
+
   return {
     date: date.toLocaleDateString("es-ES", {
       weekday: "long",
@@ -15,12 +17,10 @@ export function formatAppointment(isoString: string): { date: string; time: stri
       month: "long",
       year: "numeric",
     }),
-    time: date.toLocaleTimeString("es-ES", {
-      hour: "2-digit",
-      minute: "2-digit",
-    }),
+    time: date.toISOString().split("T")[1].slice(0, 5), // Extrae la hora en formato HH:MM UTC
   };
 }
+
 
 export function prepareScheduleForBackend(schedule) {
   // Transformar weekly_schedule
