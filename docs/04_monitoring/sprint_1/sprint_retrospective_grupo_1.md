@@ -58,7 +58,7 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Contribuidores:** Pablo Fernández Pérez  (autor), Daniel Fernández Caballero  (autor), Antonio Macías Ferrera (revisor)
+- **Contribuidores:** [Pablo Fernández Pérez](https://github.com/Letee2) (autor), [Daniel Fernández Caballero](https://github.com/DaniFdezCab) (autor), [Antonio Macías Ferrera](https://github.com/antoniommff) (revisor)
 
 - **Fecha de Creación:** 13/03/2025  
 

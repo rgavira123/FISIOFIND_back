@@ -46,7 +46,7 @@ classoption: "table"
   Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez,  
   Rafael Pulido Cifuentes.  
 
-- **Contribuidores:** Daniel Fernández Caballero (autor), Antonio Macías Ferrera (revisor)
+- **Contribuidores:** [Daniel Fernández](https://github.com/DaniFdezCab) (autor), [Antonio Macías](https://github.com/antoniommff) (revisor)
 
 - **Fecha de Creación:** 12/03/2025  
 

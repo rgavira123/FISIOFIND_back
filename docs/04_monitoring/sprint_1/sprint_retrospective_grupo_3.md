@@ -58,7 +58,7 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Contribuidores:** Francisco Capote García (autor), Miguel Encina Martíneez (revisor), Francisco Mateos Villarejo (autor), Daniel Tortorici Bartús (autor), Daniel Vela Camacho (autor)
+- **Contribuidores:** [Francisco Capote García](https://github.com/franciiscocg) (autor), [Miguel Encina Martínez](https://github.com/MiguelEncina) (revisor), [Francisco Mateos Villarejo](https://github.com/pacomateos10) (autor), [Daniel Tortorici Bartús](https://github.com/dantorbar) (autor), [Daniel Vela Camacho](https://github.com/danvelcam) (autor)
 
 - **Fecha de Creación:** 12/03/2003 
 

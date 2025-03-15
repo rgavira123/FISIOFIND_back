@@ -510,8 +510,8 @@ We would like to express our gratitude to the three great teams that have made t
 
 <table>
         <td align="center">
-            <a href="https://github.com/albertocs7">
-                <img src="https://avatars.githubusercontent.com/u/91947046?s=96&v=4" width="100px;" alt="Alberto Carmona"/>
+            <a href="https://github.com/albcarsic">
+                <img src="https://avatars.githubusercontent.com/u/91947046?s=60&v=4" width="100px;" alt="Alberto Carmona"/>
                 <br />
                 <sub><b>Alberto Carmona</b></sub>
             </a>
@@ -531,14 +531,14 @@ We would like to express our gratitude to the three great teams that have made t
             </a>
         </td>
         <td align="center">
-            <a href="https://github.com/danruiiz">
+            <a href="https://github.com/Danielruizlopezcc">
                 <img src="https://avatars.githubusercontent.com/u/91948447?s=96&v=4" width="100px;" alt="Daniel Ruiz"/>
                 <br />
                 <sub><b>Daniel Ruiz</b></sub>
             </a>
         </td>
         <td align="center">
-            <a href="https://github.com/pabferper">
+            <a href="https://github.com/Letee2">
                 <img src="https://avatars.githubusercontent.com/u/91889823?s=96&v=4" width="100px;" alt="Pablo Fernández"/>
                 <br />
                 <sub><b>Pablo Fernández</b></sub>
@@ -562,28 +562,28 @@ We would like to express our gratitude to the three great teams that have made t
             </a>
         </td>
         <td align="center">
-            <a href="https://github.com/benjamaurera">
+            <a href="https://github.com/benjimrfl">
                 <img src="https://avatars.githubusercontent.com/u/91946757?s=96&v=4" width="100px;" alt="Benjamín Maureira"/>
                 <br />
                 <sub><b>Benjamín Maureira</b></sub>
             </a>
         </td>
         <td align="center">
-            <a href="https://github.com/delsanrub">
-                <img src="https://avatars.githubusercontent.com/u/91948384?s=96&v=4" width="100px;" alt="Delfín Santana"/>
+            <a href="https://github.com/DelfinSR">
+                <img src="https://avatars.githubusercontent.com/u/91948384?v=4" width="100px;" alt="Delfín Santana"/>
                 <br />
                 <sub><b>Delfín Santana</b></sub>
             </a>
         </td>
         <td align="center">
-            <a href="https://github.com/guadalupe">
+            <a href="https://github.com/guaridpin">
                 <img src="https://avatars.githubusercontent.com/u/114622587?s=96&v=4" width="100px;" alt="Guadalupe Ridruejo"/>
                 <br />
                 <sub><b>Guadalupe Ridruejo</b></sub>
             </a>
         </td>
         <td align="center">
-            <a href="https://github.com/julenredondo">
+            <a href="https://github.com/Julenrp">
                 <img src="https://avatars.githubusercontent.com/u/83759055?s=96&v=4" width="100px;" alt="Julen Redondo"/>
                 <br />
                 <sub><b>Julen Redondo</b></sub>
@@ -615,8 +615,8 @@ We would like to express our gratitude to the three great teams that have made t
             </a>
         </td>
         <td align="center">
-            <a href="https://github.com/miguelencinaj">
-                <img src="https://avatars.githubusercontent.com/u/92793834?s=96&v=4" width="100px;" alt="Miguel Encina"/>
+            <a href="https://github.com/MiguelEncina">
+                <img src="https://avatars.githubusercontent.com/u/92793834?v=4" width="100px;" alt="Miguel Encina"/>
                 <br />
                 <sub><b>Miguel Encina</b></sub>
             </a>

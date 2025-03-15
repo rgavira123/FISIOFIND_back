@@ -43,7 +43,7 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Contribuidores:** Guadalupe Ridruejo Pineda (autor), Delfín Santana Rubio (revisor), Daniel Ruiz López (autor), Daniel Fernández Caballero (autor), Daniel Alors Romero, (autor) Alberto Carmona Sicre (autor), Francisco Mateos Villarjo (autor), Daniel Tortorici Bartús (autor), Daniel Vela Camacho (autor), Ramón Gavira Sánchez (revisor)
+- **Autores:** [Guadalupe Ridruejo Pineda](https://github.com/guaridpin) (autor), [Delfín Santana Rubio](https://github.com/DelfinSR) (revisor), [Daniel Ruiz López](https://github.com/Danielruizlopezcc) (autor), [Daniel Fernández Caballero](https://github.com/DaniFdezCab) (autor), [Daniel Alors Romero](https://github.com/DanielAlors) (autor), [Alberto Carmona Sicre](https://github.com/albcarsic) (autor), [Francisco Mateos Villarejo](https://github.com/pacomateos10) (autor), [Daniel Tortorici Bartús](https://github.com/dantorbar) (autor), [Daniel Vela Camacho](https://github.com/danvelcam) (autor), [Ramón Gavira Sánchez](https://github.com/rgavira123) (revisor)
 
 - **Fecha de Creación:** 13/02/2025  
 
