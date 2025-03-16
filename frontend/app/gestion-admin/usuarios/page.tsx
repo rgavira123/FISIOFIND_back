@@ -1,10 +1,9 @@
 'use client';
-
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import { getApiBaseUrl } from "@/utils/api";
 
-const GestionAdmin = () => {
+const GestionUsuarios = () => {
 
   const [isClient, setIsClient] = useState(false);
   const [token, setToken] = useState<string | null>(null);
@@ -43,20 +42,16 @@ const GestionAdmin = () => {
   return (
     <>
         <div className="admin-header">
-          <h1 className="text-3xl font-bold text-center">Panel de administración</h1>
+          <h1 className="text-3xl font-bold text-center">Panel de gestión de usuarios</h1>
         </div>
-        <div className="terminos-container flex flex-col items-center justify-center text-center">
-          <div className="flex flex-wrap items-center justify-center mb-8">
-              <p className="text-xl max-w-2xl">Panel de gestión de términos y condiciones</p>
-              <a href="/gestion-admin/terminos"><button className="btn-admin-green ml-4">Acceder</button></a>
+        <div className="flex flex-col items-center justify-center text-center">
+          <div className="flex flex-wrap text-wrap items-center justify-center mb-8">
+              <p className="text-xl max-w-2xl">Panel de gestión pacientes</p>
+              <a href="/gestion-admin/usuarios/pacientes"><button className="btn-admin-green">Acceder</button></a>
           </div>
           <div className="flex flex-wrap items-center justify-center mb-8">
-              <p className="text-xl max-w-2xl">Panel de gestión de usuarios</p>
-              <a href="/gestion-admin/usuarios"><button className="btn-admin-green ml-4">Acceder</button></a>
-          </div>
-          <div className="flex flex-wrap items-center justify-center mb-8">
-              <p className="text-xl max-w-2xl">Panel de gestión de citas</p>
-              <a href="/gestion-admin/citas"><button className="btn-admin-green ml-4">Acceder</button></a>
+              <p className="text-xl max-w-2xl">Panel de gestión de fisioterapeutas</p>
+              <a href="/gestion-admin/usuarios/fisioterapeutas"><button className="btn-admin-green">Acceder</button></a>
           </div>
         </div>
     </>
@@ -64,5 +59,5 @@ const GestionAdmin = () => {
 }
 
 export default function Main() {
-  return <GestionAdmin />;
+  return <GestionUsuarios />;
 }
