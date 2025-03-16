@@ -1,7 +1,7 @@
 ---
-title: "SPRINT RETROSPECTIVE SPRINT 1"                    # CHANGE IF NEEDED
-subtitle: "FISIO FIND - Grupo 6: #1"
-author: [Alberto Carmona Sicre, Daniel Alors Romero, Daniel Fernández Caballero, Rafael Pulido Cifuentes, Daniel Ruiz López, Pablo Fernández Pérez]
+title: "SPRINT RETROSPECTIVE #SPRINT 1"                    # CHANGE IF NEEDED
+subtitle: "FISIO FIND - Grupo 6 - #SPRINT 1"
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
 date: "13/02/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
@@ -13,7 +13,7 @@ titlepage-rule-height: 0
 colorlinks: true
 linkcolor: blue
 titlepage-background: "../.backgrounds/background4V.pdf"  # CHANGE IF NEEDED
-header-left: "SPRINT RETROSPECTIVE SPRINT 1"              # CHANGE IF NEEDED
+header-left: "SPRINT RETROSPECTIVE #SPRINT 1"              # CHANGE IF NEEDED
 header-right: "13/02/2025"                                # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
@@ -22,11 +22,11 @@ classoption: "table"
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 <p align="center">
-  <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
+  <img src="../../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
 <h1 align="center" style="font-size: 30px; font-weight: bold;">
-  FISIO FIND  -  SPRINT RETROSPECTIVE SPRINT 1
+  FISIO FIND  -  SPRINT RETROSPECTIVE #SPRINT 1
 </h1>
 
 <br>
@@ -54,11 +54,11 @@ classoption: "table"
 
 - **Número de Grupo:** Grupo 6
 
-- **Entregable:** #DP
+- **Entregable:** #SPRINT 1
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** Antonio Macías Ferrera
+- **Contribuidores:** [Benjamín Ignacio Maureira Flores](https://github.com/benjimrfl) (autor), [Daniel Alors Romero](https://github.com/DanielAlors) (autor), [Antonio Macías Ferrera](https://github.com/antoniommff) (revisor)
 
 - **Fecha de Creación:** 13/03/2025  
 

@@ -1,7 +1,7 @@
 ---
-title: "REPORTE DE IA DEL SPRINT 1"
+title: "REPORTE DE IA DEL #SPRINT 1"
 subtitle: "FISIO FIND - Grupo 6 - #SPRINT 1"
-author: ["Daniel Ruiz López", "Daniel Fernández Caballero"]
+author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
 date: "12/03/2025"
 subject: "ISPP"
 lang: "es"
@@ -27,29 +27,35 @@ classoption: "table"
 
 <!-- Título centrado -->
 <h1 align="center" style="font-size: 30px; font-weight: bold;">
-  FISIO FIND - REPORTE DE IA DEL SPRINT 1
+  FISIO FIND - REPORTE DE IA DEL #SPRINT 1
 </h1>
 
 <br>
 
-## **Ficha del documento**
+**Ficha del documento**
 
 - **Nombre del Proyecto:** FISIO FIND  
+
 - **Número de Grupo:** Grupo 6  
+
 - **Entregable:** #SPRINT 1
+
 - **Miembros del grupo:**  
   Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García,  
   Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús,  
   Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco,  
   Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez,  
   Rafael Pulido Cifuentes.  
-- **Autores:** Daniel Fernández Caballero 
+
+- **Contribuidores:** [Daniel Fernández Caballero](https://github.com/DaniFdezCab) (autor)
+
 - **Fecha de Creación:** 12/03/2025  
-- **Versión:** v1.1  
+
+- **Versión:** v1.0  
 
 ---
 
-## Histórico de Modificaciones
+**Histórico de Modificaciones**
 
 | Fecha      | Versión | Realizada por                                         | Descripción de los cambios                  |
 |-----------|---------|-------------------------------------------------------|---------------------------------------------|

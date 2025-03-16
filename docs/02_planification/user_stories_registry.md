@@ -1,5 +1,5 @@
 ---
-title: "USER STORIES"                                     # CHANGE IF NEEDED
+title: "REGISTRO DE HISTORIAS DE USUARIO"                                     # CHANGE IF NEEDED
 subtitle: "FISIO FIND - Grupo 6 - #SPRINT 1"
 author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
 date: "13/02/2025"                                        # CHANGE IF NEEDED
@@ -21,8 +21,12 @@ classoption: "table"
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
+<p align="center">
+  <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
+</p>
+
 <p align="center" style="font-size: 30px; font-weight: bold;">
-  FISIOFIND  -  USER STORIES
+  FISIOFIND  -  REGISTRO DE HISTORIAS DE USUARIO
 </p>
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 
@@ -39,7 +43,7 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** Guadalupe Ridruejo Pineda, Delfín Santana Rubio, Daniel Ruiz López, Daniel Fernández Caballero, Daniel Alors Romero, Alberto Carmona Sicre, Francisco Mateos Villarjo, Daniel Tortorici Bartús, Daniel Vela Camacho, Ramón Gavira Sánchez
+- **Contribuidores:** [Guadalupe Ridruejo Pineda](https://github.com/guaridpin) (autor), [Delfín Santana Rubio](https://github.com/DelfinSR) (revisor), [Daniel Ruiz López](https://github.com/Danielruizlopezcc) (autor), [Daniel Fernández Caballero](https://github.com/DaniFdezCab) (autor), [Daniel Alors Romero](https://github.com/DanielAlors) (autor), [Alberto Carmona Sicre](https://github.com/albcarsic) (autor), [Francisco Mateos Villarejo](https://github.com/pacomateos10) (autor), [Daniel Tortorici Bartús](https://github.com/dantorbar) (autor), [Daniel Vela Camacho](https://github.com/danvelcam) (autor), [Ramón Gavira Sánchez](https://github.com/rgavira123) (revisor)
 
 - **Fecha de Creación:** 13/02/2025  
 
