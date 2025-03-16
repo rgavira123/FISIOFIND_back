@@ -1,6 +1,6 @@
 ---
-title: "SPRINT RETROSPECTIVE SPRINT 1"                    # CHANGE IF NEEDED
-subtitle: "FISIO FIND - Grupo 6 - #1"
+title: "SPRINT RETROSPECTIVE #SPRINT 1 - GRUPO 3"                    # CHANGE IF NEEDED
+subtitle: "FISIO FIND - Grupo 6 - #SPRINT 1"
 author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
 date: "04/02/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
@@ -22,11 +22,11 @@ classoption: "table"
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 <p align="center">
-  <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
+  <img src="../../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
 <h1 align="center" style="font-size: 30px; font-weight: bold;">
-  FISIO FIND  -  SPRINT RETROSPECTIVE SPRINT 1
+  FISIO FIND  -  SPRINT RETROSPECTIVE #SPRINT 1 - GRUPO 3
 </h1>
 
 <br>
@@ -54,11 +54,11 @@ classoption: "table"
 
 - **Número de Grupo:** Grupo 6
 
-- **Entregable:** #DP
+- **Entregable:** #SPRINT 1
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** Francisco Capote García, Miguel Encina Martíneez, Francisco Mateos Villarejo, Daniel Tortorici Bartús, Daniel Vela Camacho
+- **Contribuidores:** [Francisco Capote García](https://github.com/franciiscocg) (autor), [Miguel Encina Martínez](https://github.com/MiguelEncina) (revisor), [Francisco Mateos Villarejo](https://github.com/pacomateos10) (autor), [Daniel Tortorici Bartús](https://github.com/dantorbar) (autor), [Daniel Vela Camacho](https://github.com/danvelcam) (autor)
 
 - **Fecha de Creación:** 12/03/2003 
 
@@ -88,11 +88,11 @@ classoption: "table"
 
 | Nombre completo | Rol | Contacto |
 |----------------|-----|----------|
-| Francisco Capote García | Backend | fracapgar1@alum.us.es |
-| Francisco Mateos Villarejo | Backend | framatvil@alum.us.es |
-| Daniel Tortorici Bartús | Frontend | dantorbar1@alum.us.es |
-| Daniel Vela Camacho | Frontend | danvelcam@alum.us.es |
-| Miguel Encina Martínez | Fullstack | migencmar@alum.us.es |
+| Francisco Capote García | -- | fracapgar1@alum.us.es |
+| Francisco Mateos Villarejo | -- | framatvil@alum.us.es |
+| Daniel Tortorici Bartús | -- | dantorbar1@alum.us.es |
+| Daniel Vela Camacho | -- | danvelcam@alum.us.es |
+| Miguel Encina Martínez | -- | migencmar@alum.us.es |
 
 
 

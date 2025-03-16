@@ -1,27 +1,27 @@
-"use client";
+'use client';
 
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getApiBaseUrl } from "@/utils/api";
 
 const GestionAdmin = () => {
-  const [isClient, setIsClient] = useState(false);
 
-  // Set isClient to true once the component is mounted
+  const [isClient, setIsClient] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
+
   useEffect(() => {
     setIsClient(true);
   }, []);
 
   useEffect(() => {
-    // Only run this effect on the client side
     if (isClient) {
       const storedToken = localStorage.getItem("token");
-
-      if (storedToken) {
+      setToken(storedToken);
+      if (token) {
         axios
           .get(`${getApiBaseUrl()}/api/app_user/check-role/`, {
             headers: {
-              Authorization: "Bearer " + storedToken,
+              Authorization: "Bearer " + token,
             },
           })
           .then((response) => {
@@ -38,23 +38,12 @@ const GestionAdmin = () => {
         location.href = "..";
       }
     }
-  }, [isClient]);
+  }, [isClient, token]);
 
   return (
     <>
-      <div className="admin-header">
-        <h1 className="text-3xl font-bold text-center">
-          Panel de administración
-        </h1>
-      </div>
-      <div className="terminos-container flex flex-col items-center justify-center text-center">
-        <div className="flex flex-wrap items-center justify-center mb-8">
-          <p className="text-xl max-w-2xl">
-            Panel de gestión de términos y condiciones
-          </p>
-          <a href="/gestion-admin/terminos">
-            <button className="btn-admin-green ml-4">Acceder</button>
-          </a>
+        <div className="admin-header">
+          <h1 className="text-3xl font-bold text-center">Panel de administración</h1>
         </div>
         <div className="terminos-container flex flex-col items-center justify-center text-center">
           <div className="flex flex-wrap items-center justify-center mb-8">
@@ -63,23 +52,16 @@ const GestionAdmin = () => {
           </div>
           <div className="flex flex-wrap items-center justify-center mb-8">
               <p className="text-xl max-w-2xl">Panel de gestión de usuarios</p>
-              <a href="#"><button className="btn-admin-green ml-4">Proximamente</button></a>
+              <a href="/gestion-admin/usuarios"><button className="btn-admin-green ml-4">Acceder</button></a>
           </div>
           <div className="flex flex-wrap items-center justify-center mb-8">
               <p className="text-xl max-w-2xl">Panel de gestión de citas</p>
-              <a href="#"><button className="btn-admin-green ml-4">Proximamente</button></a>
+              <a href="/gestion-admin/citas"><button className="btn-admin-green ml-4">Acceder</button></a>
           </div>
         </div>
-        <div className="flex flex-wrap items-center justify-center mb-8">
-          <p className="text-xl max-w-2xl">Panel de gestión de citas</p>
-          <a href="/gestion-admin/citas">
-            <button className="btn-admin-green ml-4">Acceder</button>
-          </a>
-        </div>
-      </div>
     </>
   );
-};
+}
 
 export default function Main() {
   return <GestionAdmin />;

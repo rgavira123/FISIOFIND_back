@@ -1,5 +1,5 @@
 ---
-title: "MID TERM RETROSPECTIVE - SPRINT 1 (21/02-06/03)"  # CHANGE IF NEEDED
+title: "MID TERM RETROSPECTIVE - #SPRINT 1 (21/02-06/03)"  # CHANGE IF NEEDED
 subtitle: "FISIO FIND - Grupo 6 - #SPRINT 1"
 author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
 date: "06/03/2025"                                        # CHANGE IF NEEDED
@@ -26,7 +26,7 @@ classoption: "table"
 </p>
 
 <h1 align="center" style="font-size: 30px; font-weight: bold;">
-  FISIO FIND  -  MID TERM RETROSPECTIVE SPRINT 1
+  FISIO FIND  -  MID-TERM RETROSPECTIVE #SPRINT 1
 </h1>
 
 <br>
@@ -58,7 +58,7 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** Benjamín Ignacio Maureira Flores, Daniel Alors Romero
+- **Contribuidores:** [Benjamín Ignacio Maureira Flores](https://github.com/benjimrfl) (autor), [Daniel Alors Romero](https://github.com/DanielAlors) (autor), [Antonio Macías Ferrera](https://github.com/antoniommff) (revisor)
 
 - **Fecha de Creación:** 06/03/2025  
 
@@ -76,7 +76,7 @@ classoption: "table"
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
 | 06/03/2025 | v1.0    | Benjamín Ignacio Maureira Flores, Daniel Alors Romero, Miguel Encina Martínez, Francisco Mateos Villarejo | Elaboración de la primera versión del documento |
-| 09/03/2025 | v1.0    | Antonio Macías Ferrera | Correcciones ortográficas, elaboración en más detalle de algunos puntos (como los problemas encontrados), adición imagen *"reloj del proyecto"*. |
+| 09/03/2025 | v1.1    | Antonio Macías Ferrera | Correcciones ortográficas, elaboración en más detalle de algunos puntos (como los problemas encontrados), adición imagen *"reloj del proyecto"*. |
 
 <br>
 
@@ -138,7 +138,7 @@ El gráfico muestra el progreso actual del proyecto en relación con la planific
 - **Impacto:** A pesar del esfuerzo adicional, se han alcanzado los objetivos planificados
 - **Medidas futuras:** Se realizará un ajuste en la planificación para evitar situaciones similares en próximos sprints
 
-![Reloj de avance del proyecto](../../.img/rejo_proyecto_06_03.png)
+![Reloj de avance del proyecto](../../.img/reloj_de_avance_proyecto_06-03-2025.png)
 
 ---
 

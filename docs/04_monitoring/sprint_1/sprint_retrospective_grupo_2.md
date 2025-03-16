@@ -1,8 +1,8 @@
 ---
-title: "SPRINT RETROSPECTIVE SPRINT X"                    # CHANGE IF NEEDED
-subtitle: "FISIO FIND - Grupo 6 - #X"
-author: [Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes]
-date: "04/02/2025"                                        # CHANGE IF NEEDED
+title: "SPRINT RETROSPECTIVE #SPRINT 1 - GRUPO 2"                    # CHANGE IF NEEDED
+subtitle: "FISIO FIND - Grupo 6 - #SPRINT 1"
+author: [Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Ramón Gavira Sánchez]
+date: "10/03/2025"                                        # CHANGE IF NEEDED
 subject: "ISPP"
 lang: "es"
 toc: true
@@ -14,7 +14,7 @@ colorlinks: true
 linkcolor: blue
 titlepage-background: "../.backgrounds/background4V.pdf"  # CHANGE IF NEEDED
 header-left: "SPRINT RETROSPECTIVE SPRINT X"              # CHANGE IF NEEDED
-header-right: "04/02/2025"                                # CHANGE IF NEEDED
+header-right: "10/03/2025"                                # CHANGE IF NEEDED
 footer-left: "FISIO FIND"
 documentclass: scrartcl
 classoption: "table"
@@ -22,11 +22,11 @@ classoption: "table"
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 <p align="center">
-  <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
+  <img src="../../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
 <h1 align="center" style="font-size: 30px; font-weight: bold;">
-  FISIO FIND  -  SPRINT RETROSPECTIVE SPRINT 1
+  FISIO FIND  -  SPRINT RETROSPECTIVE #SPRINT 1 - GRUPO 2
 </h1>
 
 <br>
@@ -54,15 +54,15 @@ classoption: "table"
 
 - **Número de Grupo:** Grupo 6
 
-- **Entregable:** #DP
+- **Entregable:** #SPRINT 1
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Autores:** Antonio Macías Ferrera
+- **Contribuidores:** [Julen Redondo Pacheco](https://github.com/Julenrp) (autor), [Antonio Macías Ferrera](https://github.com/antoniommff) (revisor)
 
-- **Fecha de Creación:** dd/mm/aaaa  
+- **Fecha de Creación:** 10/03/2025 
 
-- **Versión:** v1.0
+- **Versión:** v1.2
 
 <br>
 
@@ -75,8 +75,9 @@ classoption: "table"
 
 | Fecha      | Versión | Realizada por                    | Descripción de los cambios |
 |------------|---------|----------------------------------|----------------------------|
-| 04/02/2025 | v1.0    | Antonio Macías Ferrera           | Elaboración de la plantilla del documento. |
+| 10/02/2025 | v1.0    | Antonio Macías Ferrera           | Elaboración de la plantilla del documento. |
 | 11/03/2025 | v1.1    | Julen Redondo Pacheco           | Elaboración sprint retrospective grupo 2 |
+| 15/05/2025 | v1.2    | Antonio Macías Ferrera           | Correcciones para adecuarse a las condiciones de fallo. |
 
 
 <br>
@@ -90,18 +91,10 @@ classoption: "table"
 |----------------|-----|----------|
 | Antonio Macías Ferrera | -- | antmacfer1@alum.us.es |
 | Benjamín Ignacio Maureira Flores | -- | benmauflo@alum.us.es |
-| Francisco Capote García | -- | fracapgar1@alum.us.es |
-| Daniel Alors Romero | -- | danalorom1@alum.us.es |
-| Daniel Fernández Caballero | -- | danfercab@alum.us.es |
-| Daniel Ruiz López | -- | danruilop1@alum.us.es |
-| Daniel Tortorici Bartús | -- | dantorbar1@alum.us.es |
-| Daniel Vela Camacho | -- | danvelcam@alum.us.es |
 | Delfín Santana Rubio | -- | delsanrub@alum.us.es |
+| Francisco Capote García | -- | fracapgar1@alum.us.es |
 | Guadalupe Ridruejo Pineda | -- | guaridpin@alum.us.es |
-| Julen Redondo Pacheco | -- | julredpac@alum.us.es |
-| Pablo Fernández Pérez | -- | pablofp.33@gmail.com |
 | Ramón Gavira Sánchez | -- | ramgavsan@alum.us.es |
-| Rafael Pulido Cifuentes | -- | rafpulcif@alum.us.es |
 
 <br>
 
@@ -167,9 +160,9 @@ Detalle de las acciones acordadas para el próximo Sprint. Se deberá incluir el
 
 | Acción | Responsable | Fecha límite |
 |--------|------------|--------------|
-| 🔵 Crear un plan de inicio de tareas para evitar bloqueos entre funcionalidades | Todo el equipo | [Fecha] |
-| 🔵 Destacar los mensajes para asegurar la lectura del mismo por los integrantes del equipo | Todo el equipo | [Fecha] |
-| 🔵 Realizar una revisión al final de cada sprint sobre la distribución de la carga de trabajo y proponer mejoras si es necesario| Todo el equipo| [Fecha] |
+| 🔵 Crear un plan de inicio de tareas para evitar bloqueos entre funcionalidades | Todo el equipo | Al inicio del sprint |
+| 🔵 Destacar los mensajes para asegurar la lectura del mismo por los integrantes del equipo | Todo el equipo | Diariamente |
+| 🔵 Realizar una revisión al final de cada sprint sobre la distribución de la carga de trabajo y proponer mejoras si es necesario| Todo el equipo | Final de sprint |
 
 <br>
 
@@ -180,5 +173,3 @@ Detalle de las acciones acordadas para el próximo Sprint. Se deberá incluir el
 
 **Aprobado por:**  
 **Scrum Master:** Antonio Macías Ferrera  
-**Rol:** [Nombre y Apellidos]
-

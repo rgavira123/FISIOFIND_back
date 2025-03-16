@@ -6,7 +6,6 @@
 	<em><code>The specialized online consultation platform for physiotherapists</code></em>
 </p>
 <p align="center">
-	<img src="https://img.shields.io/github/license/Proyecto-ISPP/FISIOFIND?style=default&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
 	<img src="https://img.shields.io/github/last-commit/Proyecto-ISPP/FISIOFIND?style=default&logo=git&logoColor=white&color=0080ff" alt="last-commit">
 	<img src="https://img.shields.io/github/languages/top/Proyecto-ISPP/FISIOFIND?style=default&color=0080ff" alt="repo-top-language">
 	<img src="https://img.shields.io/github/languages/count/Proyecto-ISPP/FISIOFIND?style=default&color=0080ff" alt="repo-language-count">
@@ -27,6 +26,7 @@
 - [Local Deployment](#local-deployment)
 	- [Prerequisites](#prerequisites)
 	- [Installation](#installation)
+	- [Database Setup](#database-setup)
 	- [Usage](#usage)
 - [Project Roadmap](#project-roadmap)
 	- [Sprint 1: Core Use Cases](#sprint-1-core-use-cases)
@@ -317,19 +317,17 @@ Before getting started with FISIOFIND, ensure your runtime environment meets the
 
 Install FISIOFIND using one of the following methods:
 
-**Build from source:**
-
 1. Clone the FISIOFIND repository:
 ```sh
 ❯ git clone https://github.com/Proyecto-ISPP/FISIOFIND
 ```
 
-2. Navigate to the project directory:
+1. Navigate to the project directory:
 ```sh
 ❯ cd FISIOFIND
 ```
 
-3. Install the project dependencies:
+1. Install the project dependencies:
 
 **Using `pip`** &nbsp; [<img align="center" src="https://img.shields.io/badge/Pip-3776AB.svg?style={badge_style}&logo=pypi&logoColor=white" />](https://pypi.org/project/pip/)
 
@@ -345,7 +343,8 @@ Then we proceed to install the dependencies:
 ```sh
 ❯ pip install -r requirements.txt
 ```
-**Using `npm`** &nbsp; [<img align="center" src="" />]()
+**Using `npm`** &nbsp; [<img align="center" src="https://img.shields.io/badge/npm-CB3837.svg?style=flat&logo=npm&logoColor=white" />](https://www.npmjs.com/)
+
 
 We now install the frontend framework dependencies in the `frontend` directory:
 
@@ -353,6 +352,63 @@ We now install the frontend framework dependencies in the `frontend` directory:
 ❯ cd ../fronend
 ❯ npm install
 ```
+
+### Database Setup
+
+To set up the database for FISIOFIND, follow these steps:
+
+1. **Create the Database:**
+
+	Ensure you have PostgreSQL installed and running. Then, create a new database named `fisiofind`:
+
+	```sh
+	❯ psql -U postgres
+	postgres=# CREATE DATABASE fisiofind;
+	postgres=# \q
+	```
+
+2. **Configure Environment Variables:**
+
+	Copy the `.env.example` file to create a new `.env` file in the `backend` directory:
+
+	```sh
+	❯ cd backend
+	❯ cp .env.example .env
+	```
+
+	Open the `.env` file and update the database configuration with your PostgreSQL credentials:
+
+	```env
+	DATABASE_NAME=fisiofind
+	DATABASE_USER=your_postgres_user
+	DATABASE_PASSWORD=your_postgres_password
+	DATABASE_HOST=localhost
+	DATABASE_PORT=5432
+	```
+
+	Replace `your_postgres_user` and `your_postgres_password` with your actual PostgreSQL username and password.
+
+3. **Apply Migrations:**
+
+	With the virtual environment activated, apply the database migrations to set up the initial schema:
+
+	```sh
+	❯ python manage.py makemigrations
+	❯ python manage.py migrate
+	```
+
+4. **Create a Superuser:**
+
+	Create a superuser account to access the Django admin panel:
+
+	```sh
+	❯ python manage.py createsuperuser
+	```
+
+	Follow the prompts to set up the superuser credentials.
+
+Once these steps are completed, your database should be set up and ready for use with FISIOFIND.
+
 
 ###  Usage
 
@@ -374,7 +430,7 @@ Additionaly, the first time the project is locally deployed, we need to create a
 
 After the local backend server is running, we can run the frontend server **in a new terminal window**:
 
-**Using `npm`** &nbsp; [<img align="center" src="" />]()
+**Using `npm`** &nbsp; [<img align="center" src="https://img.shields.io/badge/npm-CB3837.svg?style=flat&logo=npm&logoColor=white" />](https://www.npmjs.com/)
 
 ```sh
 ❯ cd ../../fronted
@@ -450,12 +506,12 @@ For the **techniacal pilot users** or any other interested contributor:
 
 ##  Acknowledgments
 
-We would like to express our sincere gratitude to the following individuals for their invaluable contributions to the project:
+We would like to express our gratitude to the three great teams that have made this project possible:
 
 <table>
         <td align="center">
-            <a href="https://github.com/albertocs7">
-                <img src="https://avatars.githubusercontent.com/u/91947046?s=96&v=4" width="100px;" alt="Alberto Carmona"/>
+            <a href="https://github.com/albcarsic">
+                <img src="https://avatars.githubusercontent.com/u/91947046?s=60&v=4" width="100px;" alt="Alberto Carmona"/>
                 <br />
                 <sub><b>Alberto Carmona</b></sub>
             </a>
@@ -475,14 +531,14 @@ We would like to express our sincere gratitude to the following individuals for 
             </a>
         </td>
         <td align="center">
-            <a href="https://github.com/danruiiz">
+            <a href="https://github.com/Danielruizlopezcc">
                 <img src="https://avatars.githubusercontent.com/u/91948447?s=96&v=4" width="100px;" alt="Daniel Ruiz"/>
                 <br />
                 <sub><b>Daniel Ruiz</b></sub>
             </a>
         </td>
         <td align="center">
-            <a href="https://github.com/pabferper">
+            <a href="https://github.com/Letee2">
                 <img src="https://avatars.githubusercontent.com/u/91889823?s=96&v=4" width="100px;" alt="Pablo Fernández"/>
                 <br />
                 <sub><b>Pablo Fernández</b></sub>
@@ -506,28 +562,28 @@ We would like to express our sincere gratitude to the following individuals for 
             </a>
         </td>
         <td align="center">
-            <a href="https://github.com/benjamaurera">
+            <a href="https://github.com/benjimrfl">
                 <img src="https://avatars.githubusercontent.com/u/91946757?s=96&v=4" width="100px;" alt="Benjamín Maureira"/>
                 <br />
                 <sub><b>Benjamín Maureira</b></sub>
             </a>
         </td>
         <td align="center">
-            <a href="https://github.com/delsanrub">
-                <img src="https://avatars.githubusercontent.com/u/91948384?s=96&v=4" width="100px;" alt="Delfín Santana"/>
+            <a href="https://github.com/DelfinSR">
+                <img src="https://avatars.githubusercontent.com/u/91948384?v=4" width="100px;" alt="Delfín Santana"/>
                 <br />
                 <sub><b>Delfín Santana</b></sub>
             </a>
         </td>
         <td align="center">
-            <a href="https://github.com/guadalupe">
+            <a href="https://github.com/guaridpin">
                 <img src="https://avatars.githubusercontent.com/u/114622587?s=96&v=4" width="100px;" alt="Guadalupe Ridruejo"/>
                 <br />
                 <sub><b>Guadalupe Ridruejo</b></sub>
             </a>
         </td>
         <td align="center">
-            <a href="https://github.com/julenredondo">
+            <a href="https://github.com/Julenrp">
                 <img src="https://avatars.githubusercontent.com/u/83759055?s=96&v=4" width="100px;" alt="Julen Redondo"/>
                 <br />
                 <sub><b>Julen Redondo</b></sub>
@@ -559,8 +615,8 @@ We would like to express our sincere gratitude to the following individuals for 
             </a>
         </td>
         <td align="center">
-            <a href="https://github.com/miguelencinaj">
-                <img src="https://avatars.githubusercontent.com/u/92793834?s=96&v=4" width="100px;" alt="Miguel Encina"/>
+            <a href="https://github.com/MiguelEncina">
+                <img src="https://avatars.githubusercontent.com/u/92793834?v=4" width="100px;" alt="Miguel Encina"/>
                 <br />
                 <sub><b>Miguel Encina</b></sub>
             </a>
