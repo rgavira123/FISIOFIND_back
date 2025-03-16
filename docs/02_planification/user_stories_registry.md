@@ -938,7 +938,7 @@ Se explica el índice de las historias de usuario:
 **Comentarios**:
 - Las herramientas de test y cuestionarios deberían concebirse como Google Forms, es decir, cuestionarios personalizables. Nosotros tendremos digitalizados en el sistema los mapas de dolor, las escalas de evaluación, etc., y estas podrán ser insertadas en los cuestionarios y tests. 
 
-## Criterios de aceptación
+**Criterios de aceptación**
 
 - **Acceso al historial clínico**:
   - El fisioterapeuta debe poder acceder al historial clínico del paciente durante la videollamada desde la plataforma.
