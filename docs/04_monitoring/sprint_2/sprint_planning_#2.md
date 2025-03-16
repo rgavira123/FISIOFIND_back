@@ -68,7 +68,7 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Contribuidores:** [Antonio Macías Ferrera](https://github.com/antoniommff) (autor)
+- **Contribuidores:** [Antonio Macías Ferrera](https://github.com/antoniommff) (autor) [Delfín Santana Rubio](https://github.com/DelfinSR) (revisor)
 
 - **Fecha de Creación:** 15/03/2025
 
@@ -86,6 +86,7 @@ classoption: "table"
 | Fecha      | Versión | Realizada por          | Descripción de los cambios                       |
 | ---------- | ------- | ---------------------- | ------------------------------------------------ |
 | 20/02/2025 | v1.0    | Antonio Macías Ferrera | Elaboración de la primera versión del documento. |
+| 16/03/2025 | v1.1    | Delfín Santana Rubio | Corrección de fallos menores. |
 
 
 <br>
@@ -380,7 +381,7 @@ Implementación de un sistema de gestión de cookies y consulta de documentos le
 **Instrucciones:**  
 1. Implementar banner/pop-up de cookies con opciones de aceptar/rechazar
 2. Crear centro de privacidad (integrando docs md)
-3. Implementar sistema de gestión de incidencias (enviar correo a denuncias@fisiofind.com)
+3. Implementar un canal de denuncias anónimas (enviar correo a denuncias@fisiofind.com)
 
 <br>
 
