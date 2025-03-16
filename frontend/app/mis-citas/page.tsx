@@ -129,7 +129,7 @@ export default function Home() {
     <>
       <div className="flex flex-row justify-between">
         {/* Vista en Cards */}
-        <Cards events={events} onCardHover={handleCardHover} />
+        <Cards events={events} currentRole={currentRole} onCardHover={handleCardHover} token={token} isClient={isClient} />
 
         <div style={{ borderLeft: "1px solid #000", minHeight: "100%" }}></div>
 

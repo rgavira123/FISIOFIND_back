@@ -321,10 +321,14 @@ def update_appointment(request, appointment_id):
         appointment_start_time = appointment.start_time.strftime("%Y-%m-%dT%H:%M:%SZ")  # Convertir a string
         validated_alternatives = defaultdict(set)
 
+        now = now.strftime("%Y-%m-%dT%H:%M:%SZ")
         for date, slots in alternatives.items():
+            if date < now:
+                return Response({"error": f"No puedes agregar una fecha en el pasado en 'alternatives'"}, status=status.HTTP_400_BAD_REQUEST)
             for slot in slots:
                 slot_start = slot["start"]
                 slot_end = slot["end"]
+
 
                 if slot_start == appointment_start_time:
                     return Response({"error": f"No puedes agregar la fecha actual de la cita ({appointment_start_time}) en 'alternatives'"}, status=status.HTTP_400_BAD_REQUEST)
@@ -406,14 +410,14 @@ def delete_appointment(request, appointment_id):
         return Response({"error": "Solo se pueden borrar citas con estado 'booked' o 'pending'"}, status=status.HTTP_403_FORBIDDEN)
 
     if (hasattr(user, 'physio')):
-        if appointment.physiotherapist != user.physio.id:
+        if appointment.physiotherapist != user.physio:
             return Response({"error": "No tienes permisos para borrar esta cita"}, status=status.HTTP_403_FORBIDDEN)
     elif (hasattr(user, 'patient')):
         if appointment.patient != user.patient:
             return Response({"error": "No tienes permisos para borrar esta cita"}, status=status.HTTP_403_FORBIDDEN)
         
     # Verificar si quedan menos de 48 horas para el inicio de la cita
-    if appointment.start_time - now < timedelta(hours=48):
+    if (appointment.start_time - now) < timedelta(hours=48):
         return Response({"error": "No puedes borrar una cita con menos de 48 horas de antelación"}, status=status.HTTP_403_FORBIDDEN)
 
     appointment.delete()

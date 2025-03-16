@@ -22,7 +22,6 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
   token
 }) => {
   if (!selectedEvent) return null;
-
   const deleteEvent = (selectedEvent: CalendarProps | null) => {
     if (!selectedEvent) return;
     if (isClient) {
@@ -117,7 +116,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
               className="flex flex-row mt-4"
               style={{ justifyContent: "space-between" }}
             >
-              {currentRole == "physiotherapist" && (
+              {currentRole == "physiotherapist" && selectedEvent.status === "booked" && (
                 <button
                   className="mt-4 bg-[#05668D] text-white px-4 py-2 rounded-xl hover:bg-blue-600"
                   onClick={() => setEditionMode(true)}
@@ -125,13 +124,16 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
                   Modificar cita
                 </button>
               )}
-
-              <button
-                className="mt-4 bg-[#05668D] text-white px-4 py-2 rounded-xl hover:bg-blue-600"
-                onClick={() => deleteEvent(selectedEvent)}
-              >
-                Cancelar cita
-              </button>
+              {
+                selectedEvent && (selectedEvent.status === "pending" || selectedEvent.status === "booked") &&
+              
+                <button
+                  className="mt-4 bg-[#05668D] text-white px-4 py-2 rounded-xl hover:bg-blue-600"
+                  onClick={() => deleteEvent(selectedEvent)}
+                >
+                  Cancelar cita
+                </button>
+              }
             </div>
           )}
         </div>
