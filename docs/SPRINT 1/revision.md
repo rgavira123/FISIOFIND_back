@@ -35,19 +35,13 @@ classoption: "table"
 **ÍNDICE**
 - [1. INTRODUCCIÓN](#1-introducción)
 - [2. ACCESO A LA APLICACIÓN](#2-acceso-a-la-aplicación)
-- [3. DESCRIPCIÓN DE FUNCIONALIDADES NO TERMINADAS](#3-descripción-de-funcionalidades-no-terminadas)
-- [4. DESCRIPCIÓN DE LOS CASOS DE USO PRINCIPALES(CORE)](#4-descripción-de-los-casos-de-uso-principalescore)
-- [4.1. **Búsqueda de fisioterapeuta (como anónimo)**](#41-búsqueda-de-fisioterapeuta-como-anónimo)
-- [4.2. **Solicitud de una cita (como paciente)**](#42-solicitud-de-una-cita-como-paciente)
-- [4.3. **Gestión del calendario (como fisioterapeuta)**](#43-gestión-del-calendario-como-fisioterapeuta)
-- [4.4. **Realización de una videollamada**](#44-realización-de-una-videollamada)
+- [3. DESCRIPCIÓN DE FUNCIONALIDADES NO TERMINADAS](#3-descripción-de-las-funcionalidades-no-terminadas)
+- [4. DESCRIPCIÓN DE LOS CASOS DE USO PRINCIPALES(CORE)](#4-descripcion-de-los-casos-de-uso-principales-(core))
+  - [4.1. Búsqueda de fisioterapeuta (como anónimo)](#4-búsqueda-de-fisioterapeuta(como-anónimo))
+  - [4.2. Solicitud de una cita (como paciente)](#4-solicitud-de-una-cita(como-paciente))
+  - [4.3. Gestión del calendario (como fisioterapeuta)](#4-gestión-del-calendario(como-fisioterapeuta))
+  - [4.4. Realización de una videollamada](#4-realización-de-una-videollamada)
 - [5. DESPLIEGUE LOCAL](#5-despliegue-local)
-  - [Despliegue Local](#despliegue-local)
-    - [Prerrequisitos](#prerrequisitos)
-    - [Instalación](#instalación)
-    - [Configuración de la Base de Datos](#configuración-de-la-base-de-datos)
-    - [Uso](#uso)
-    - [Ejecución de la Aplicación](#ejecución-de-la-aplicación)
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 
 
@@ -64,7 +58,7 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Contribuidores:** [Delfín Santana](https://github.com/DelfinSR) (autor), [Antonio Macías](https://github.com/antoniommff) (revisor)
+- **Autores:** Delfín Santana Rubio, Antonio Macías Ferrera
 
 - **Fecha de Creación:** 11/03/2025  
 
