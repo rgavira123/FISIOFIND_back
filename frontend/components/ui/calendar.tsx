@@ -48,6 +48,7 @@ const Calendar = ({
     // por ejemplo, usando axios.post con el array de alternativas
     if (isClient) {
       if (token) {
+        console.log("token:", token);
         axios
           .put(`${getApiBaseUrl()}/api/appointment/update/${selectedEvent?.id}/`, {
             start_time: selectedEvent?.start,
@@ -105,6 +106,13 @@ const Calendar = ({
           // Si el evento tiene el ID que está siendo hoverado, añade la clase
           if (eventInfo.event.title === hoveredEventId) {
             return ["fc-event-hovered"]; // Aquí estamos añadiendo la clase .fc-event-hovered
+          }
+          if (eventInfo.event.extendedProps.status === "pending") {
+            return ["fc-event-pending"]; // Añadimos la clase .fc-event-pending si el evento está pendiente
+          } else if (eventInfo.event.extendedProps.status === "confirmed") {
+            return ["fc-event-confirmed"]; // Añadimos la clase .fc-event-confirmed si el evento está confirmado
+          } else if (eventInfo.event.extendedProps.status === "booked") {
+            return ["fc-event-booked"]; // Añadimos la clase .fc-event-booked si el evento está reservado
           }
           return []; // No añadimos ninguna clase si no coincide
         }}
