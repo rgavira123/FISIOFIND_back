@@ -39,7 +39,20 @@ const FisioProfile = () => {
     const [formErrors, setFormErrors] = useState({});
     const [showServiceModal, setShowServiceModal] = useState(false);
     const [services, setServices] = useState([]);
-    const [schedule, setSchedule] = useState<string[] | null>(null);
+    const [schedule, setSchedule] = useState({
+        exceptions: {},
+        appointments: [],
+        weekly_schedule: {
+          monday: [],
+          tuesday: [],
+          wednesday: [],
+          thursday: [],
+          friday: [],
+          saturday: [],
+          sunday: [],
+        },
+        initialized: false,
+      });
     const [isClient, setIsClient] = useState(false);
     const [token, setToken] = useState<string | null>(null);
 
@@ -66,14 +79,14 @@ const FisioProfile = () => {
             try {
                 const storedToken = getAuthToken();
                 setToken(storedToken)
-                if (!token) {
+                if (!storedToken) {
                     setError("No hay token disponible.");
                     setLoading(false);
                     return;
                 }
 
                 const response = await axios.get(`${getApiBaseUrl()}/api/app_user/current-user/`, {
-                    headers: { Authorization: `Bearer ${token}` },
+                    headers: { Authorization: `Bearer ${storedToken}` },
                 });
 
                 setProfile({
@@ -99,6 +112,9 @@ const FisioProfile = () => {
                 });
                 if (response.data.physio.services) {
                     setServices(JSON.parse(response.data.physio.services));
+                }
+                if (response.data.physio.schedule) {
+                    setSchedule(JSON.parse(response.data.physio.schedule));
                 }
             } catch {
                 setError("Error obteniendo el perfil.");
@@ -220,8 +236,6 @@ const FisioProfile = () => {
         if (file) {
             // Crear URL para vista previa
             const previewUrl = URL.createObjectURL(file);
-            console.log(previewUrl);
-            console.log(file);
 
             // Actualizar el estado con el archivo y la URL de vista previa
             setProfile((prevProfile) => ({
