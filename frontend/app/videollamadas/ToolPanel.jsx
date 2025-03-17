@@ -3,7 +3,7 @@ import styles from './Room.module.css';
 
 // Subcomponentes de cada herramienta
 import Historial from './tools/Historial';
-import Modelo3D from './tools/Modelo3D';
+import AnatomicalModel from './hooks/AnatomicalModel'; // Ajusta la ruta
 import Plantillas from './tools/Plantillas';
 import Cuestionarios from './tools/Cuestionarios';
 
@@ -11,14 +11,17 @@ const ToolPanel = ({
   selectedTool,
   activePainMap,
   handlePainMapSelect,
-  sendPainMapToPatient
+  sendPainMapToPatient,
+  userRole // Añadido para pasarlo a AnatomicalModel
 }) => {
   if (!selectedTool) return null;
 
   return (
     <div className={styles.toolContent}>
       {selectedTool === 'historial' && <Historial />}
-      {selectedTool === 'modelo3d' && <Modelo3D />}
+      {selectedTool === 'modelo3d' && (
+        <AnatomicalModel isVisible={true} userRole={userRole} />
+      )}
       {selectedTool === 'plantillas' && (
         <Plantillas
           activePainMap={activePainMap}

@@ -87,11 +87,17 @@ const Room = ({ roomCode }) => {
     sendWebSocketMessage: webSocket.sendWebSocketMessage,
     addChatMessage: chat.addChatMessage
   });
+
+  const [modelState, setModelState] = useState({
+    selectedPart: null,
+    wireframe: false,
+    isSharing: false,
+    modelId: 1 // ID del modelo por defecto
+  });
   
   // Now we can update the WebSocket message handler after all hooks are initialized
   useEffect(() => {
     const handleWebSocketMessage = (data) => {
-      // Route messages to appropriate handlers
       if (data.action && data.message) {
         switch (data.action) {
           case 'chat-message':
@@ -100,14 +106,36 @@ const Room = ({ roomCode }) => {
           case 'call-ended':
             roomManagement.handleCallEnded();
             break;
+          case 'anatomical-model-interaction':
+            if (data.message.type === 'select-part') {
+              setModelState(prev => ({ ...prev, selectedPart: data.message.partName }));
+              chat.addChatMessage('Sistema', `Parte seleccionada: ${data.message.partName}`);
+            } else if (data.message.type === 'toggle-wireframe') {
+              setModelState(prev => ({ ...prev, wireframe: data.message.wireframe }));
+              chat.addChatMessage('Sistema', `Wireframe: ${data.message.wireframe ? 'activado' : 'desactivado'}`);
+            } else if (data.message.type === 'start-sharing') {
+              setModelState(prev => ({
+                ...prev,
+                isSharing: true,
+                modelId: data.message.modelId,
+                selectedPart: data.message.selectedPart,
+                wireframe: data.message.wireframe
+              }));
+              chat.addChatMessage('Sistema', 'Modelo anatómico compartido.');
+            } else if (data.message.type === 'stop-sharing') {
+              setModelState(prev => ({ ...prev, isSharing: false }));
+              chat.addChatMessage('Sistema', 'Compartir modelo detenido.');
+            } else if (data.message.type === 'change-model') {
+              setModelState(prev => ({ ...prev, modelId: data.message.modelId }));
+              chat.addChatMessage('Sistema', `Modelo cambiado a ID: ${data.message.modelId}`);
+            }
+            break;
           default:
-            // WebRTC related messages
             webRTC.handleWebSocketMessage(data);
         }
       }
     };
     
-    // Update the handler
     webSocket.setMessageHandler(handleWebSocketMessage);
   }, [chat, webRTC, webSocket, roomManagement]);
 
@@ -226,22 +254,23 @@ const Room = ({ roomCode }) => {
 
       {/* Tools (physio only) */}
       {showTools && (
-        <>
-          <ToolsContainer 
-            selectedTool={selectedTool}
-            setSelectedTool={setSelectedTool}
-            toggleScreenShare={mediaControls.toggleScreenShare} 
-          />
-          {selectedTool && (
-            <ToolPanel 
-              selectedTool={selectedTool}
-              activePainMap={activePainMap}
-              handlePainMapSelect={handlePainMapSelect}
-              sendPainMapToPatient={sendPainMapToPatient}
-            />
-          )}
-        </>
-      )}
+  <>
+    <ToolsContainer 
+      selectedTool={selectedTool}
+      setSelectedTool={setSelectedTool}
+      toggleScreenShare={mediaControls.toggleScreenShare} 
+    />
+    {selectedTool && (
+      <ToolPanel 
+        selectedTool={selectedTool}
+        activePainMap={activePainMap}
+        handlePainMapSelect={handlePainMapSelect}
+        sendPainMapToPatient={sendPainMapToPatient}
+        userRole={userRole} // Pasamos solo userRole
+      />
+    )}
+  </>
+)}
       
       {/* Reconnect button */}
       {!webRTC.connected && !webRTC.connecting && (
