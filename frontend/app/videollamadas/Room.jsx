@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import styles from './Room.module.css';
+import AnatomicalModel from './hooks/AnatomicalModel';
 
 // Components
 import RoomHeader from './RoomHeader';
@@ -193,101 +194,107 @@ const Room = ({ roomCode }) => {
   const showTools = (userRole === 'physio');
 
   return (
-    <div className={styles.roomContainer}>
-      <RoomHeader 
-        roomCode={roomCode} 
-        errorMessage={webRTC.errorMessage || webSocket.errorMessage}
-      />
-      
-      {/* Modal for notifications and confirmations */}
-      <RoomModal
-        show={roomManagement.showModal}
-        message={roomManagement.modalMessage}
-        showButtons={roomManagement.showDeleteButtons}
-        userRole={userRole}
-        onConfirm={roomManagement.confirmDeleteRoom}
-        onCancel={roomManagement.cancelDelete}
-        onClose={() => window.location.href = '/videollamadas'}
-      />
-
-      {/* Video grid */}
-      <VideoGrid 
-        localVideoRef={localVideoRef}
-        remoteVideoRef={remoteVideoRef}
-        cameraActive={mediaControls.cameraActive}
-        connected={webRTC.connected}
-        isSharing={mediaControls.isSharing}
-        userRole={userRole}
-      />
-
-      {/* Call controls */}
-      <Controls 
-        micActive={mediaControls.micActive}
-        cameraActive={mediaControls.cameraActive}
-        toggleMic={mediaControls.toggleMic}
-        toggleCamera={mediaControls.toggleCamera}
-        toggleScreenShare={mediaControls.toggleScreenShare}
-        showChat={chat.showChat}
-        setShowChat={chat.setShowChat}
-        showSettings={showSettings}
-        setShowSettings={setShowSettings}
-        endCall={roomManagement.endCall}
-      />
-
-      {/* Chat panel */}
-      <ChatPanel 
-        showChat={chat.showChat}
-        chatMessages={chat.chatMessages}
-        chatMessagesRef={chat.chatMessagesRef}
-        messageInput={chat.messageInput}
-        setMessageInput={chat.setMessageInput}
-        handleKeyPress={chat.handleKeyPress}
-        sendChatMessage={chat.sendChatMessage}
-        messageInputRef={chat.messageInputRef}
-      />
-
-      {/* Settings panel */}
-      <SettingsPanel
-        showSettings={showSettings}
-        setShowSettings={setShowSettings}
-      />
-
-      {/* Tools (physio only) */}
-      {showTools && (
-  <>
-    <ToolsContainer 
-      selectedTool={selectedTool}
-      setSelectedTool={setSelectedTool}
-      toggleScreenShare={mediaControls.toggleScreenShare} 
-    />
-    {selectedTool && (
-      <ToolPanel 
-        selectedTool={selectedTool}
-        activePainMap={activePainMap}
-        handlePainMapSelect={handlePainMapSelect}
-        sendPainMapToPatient={sendPainMapToPatient}
-        userRole={userRole} // Pasamos solo userRole
-      />
-    )}
-  </>
-)}
-      
-      {/* Reconnect button */}
-      {!webRTC.connected && !webRTC.connecting && (
-        <div className={styles.reconnectContainer}>
-          <button 
-            className={styles.reconnectButton}
-            onClick={() => {
-              if (userRole === 'physio') {
-                webRTC.initConnection(webRTC.remoteUserChannelRef.current);
-              }
-            }}
-          >
-            Reconectar
-          </button>
-        </div>
+    <div className={styles.roomWrapper}>
+      <div className={styles.roomContainer}>
+        <RoomHeader 
+          roomCode={roomCode} 
+          errorMessage={webRTC.errorMessage || webSocket.errorMessage}
+        />
+        
+        {/* Modal for notifications and confirmations */}
+        <RoomModal
+          show={roomManagement.showModal}
+          message={roomManagement.modalMessage}
+          showButtons={roomManagement.showDeleteButtons}
+          userRole={userRole}
+          onConfirm={roomManagement.confirmDeleteRoom}
+          onCancel={roomManagement.cancelDelete}
+          onClose={() => window.location.href = '/videollamadas'}
+        />
+  
+        {/* Video grid */}
+        <VideoGrid 
+          localVideoRef={localVideoRef}
+          remoteVideoRef={remoteVideoRef}
+          cameraActive={mediaControls.cameraActive}
+          connected={webRTC.connected}
+          isSharing={mediaControls.isSharing}
+          userRole={userRole}
+        />
+  
+        {/* Call controls */}
+        <Controls 
+          micActive={mediaControls.micActive}
+          cameraActive={mediaControls.cameraActive}
+          toggleMic={mediaControls.toggleMic}
+          toggleCamera={mediaControls.toggleCamera}
+          toggleScreenShare={mediaControls.toggleScreenShare}
+          showChat={chat.showChat}
+          setShowChat={chat.setShowChat}
+          showSettings={showSettings}
+          setShowSettings={setShowSettings}
+          endCall={roomManagement.endCall}
+        />
+  
+        {/* Chat panel */}
+        <ChatPanel 
+          showChat={chat.showChat}
+          chatMessages={chat.chatMessages}
+          chatMessagesRef={chat.chatMessagesRef}
+          messageInput={chat.messageInput}
+          setMessageInput={chat.setMessageInput}
+          handleKeyPress={chat.handleKeyPress}
+          sendChatMessage={chat.sendChatMessage}
+          messageInputRef={chat.messageInputRef}
+        />
+  
+        {/* Settings panel */}
+        <SettingsPanel
+          showSettings={showSettings}
+          setShowSettings={setShowSettings}
+        />
+  
+        {/* Tools (physio only) */}
+        {showTools && (
+          <>
+            <ToolsContainer 
+              selectedTool={selectedTool}
+              setSelectedTool={setSelectedTool}
+              toggleScreenShare={mediaControls.toggleScreenShare} 
+            />
+            {selectedTool && (
+              <ToolPanel 
+                selectedTool={selectedTool}
+                activePainMap={activePainMap}
+                handlePainMapSelect={handlePainMapSelect}
+                sendPainMapToPatient={sendPainMapToPatient}
+                userRole={userRole} // Pasamos solo userRole
+              />
+            )}
+          </>
+        )}
+        
+        {/* Reconnect button */}
+        {!webRTC.connected && !webRTC.connecting && (
+          <div className={styles.reconnectContainer}>
+            <button 
+              className={styles.reconnectButton}
+              onClick={() => {
+                if (userRole === 'physio') {
+                  webRTC.initConnection(webRTC.remoteUserChannelRef.current);
+                }
+              }}
+            >
+              Reconectar
+            </button>
+          </div>
+        )}
+      </div>
+      {/* Anatomical model view */}
+      {modelState.isSharing && (
+        <AnatomicalModel isVisible={modelState.isSharing} />
       )}
-    </div>
+      </div>
   );
 };
 
