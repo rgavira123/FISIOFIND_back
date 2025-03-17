@@ -286,7 +286,7 @@ const FisioProfile = () => {
                     <input type="text" value={titulo} onChange={(e) => setTitulo(e.target.value)} />
 
                     <label>Descripción:</label>
-                    <textarea value={descripcion} onChange={(e) => setDescripcion(e.target.value)} />
+                    <textarea value={descripcion ? descripcion : ""} onChange={(e) => setDescripcion(e.target.value)} />
 
                     <label>Precio:</label>
                     <input type="text" value={precio} placeholder="€ / consulta" onChange={(e) => setPrecio(e.target.value)} />
@@ -377,7 +377,7 @@ const FisioProfile = () => {
                     <label>Biografía:</label>
                     <textarea
                         name="bio"
-                        value={profile.bio}
+                        value={profile.bio ? profile.bio : ""}
                         onChange={handleChange}
                         rows={4}
                     />
