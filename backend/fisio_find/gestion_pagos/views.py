@@ -14,7 +14,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 def _check_deadline(appointment):
     """Check if the payment deadline has passed and cancel the appointment if needed."""
     now = timezone.now()
-    if now > appointment.appointment_time - timezone.timedelta(hours=48) and appointment.payment.status == 'Not Paid':
+    if now > appointment.start_time - timezone.timedelta(hours=48) and appointment.payment.status == 'Not Paid':
         appointment.status = 'Canceled'
         appointment.save()
         return True
@@ -113,7 +113,7 @@ def cancel_payment(request, payment_id):
         appointment = payment.appointment
         now = timezone.now()
 
-        if now > appointment.appointment_time:
+        if now > appointment.start_time:
             return Response({'error': 'The appointment has already passed'}, 
                             status=status.HTTP_400_BAD_REQUEST)
 
@@ -123,7 +123,7 @@ def cancel_payment(request, payment_id):
             return Response({'message': 'Appointment canceled without charge'}, 
                             status=status.HTTP_200_OK)
 
-        if payment.status == 'Paid' and now >= appointment.appointment_time - timezone.timedelta(hours=48):
+        if payment.status == 'Paid' and now >= appointment.start_time - timezone.timedelta(hours=48):
             # Issue refund
             stripe.Refund.create(payment_intent=payment.stripe_payment_intent_id)
             payment.status = 'Refunded'

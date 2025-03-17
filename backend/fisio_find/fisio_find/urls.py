@@ -15,6 +15,7 @@ urlpatterns = [
     path('api/terminos/', include('gestion_terminos.urls')),
     path('api/videocall/', include('videocall.urls')),
     path('api/sesion_invitado/', include('sesion_invitado.urls')),
+    path('api/payments/', include('gestion_pagos.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
