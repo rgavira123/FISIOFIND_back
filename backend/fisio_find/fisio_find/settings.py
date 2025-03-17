@@ -19,6 +19,7 @@ import os
 import dj_database_url  # Para parsear la URL de la base de datos
 import environ
 
+
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -69,7 +70,8 @@ INSTALLED_APPS += [
     'gestion_usuarios',
     'gestion_citas',
     'gestion_terminos',
-    'sesion_invitado'
+    'sesion_invitado',
+    'gestion_pagos',
 ]
 
 
@@ -224,3 +226,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+#Stripe payment
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
