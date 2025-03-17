@@ -116,7 +116,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
               className="flex flex-row mt-4"
               style={{ justifyContent: "space-between" }}
             >
-              {currentRole == "physiotherapist" && selectedEvent.status === "booked" && (
+              {currentRole == "physiotherapist" && (
                 <button
                   className="mt-4 bg-[#05668D] text-white px-4 py-2 rounded-xl hover:bg-blue-600"
                   onClick={() => setEditionMode(true)}
@@ -125,7 +125,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
                 </button>
               )}
               {
-                selectedEvent && (selectedEvent.status === "pending" || selectedEvent.status === "booked") &&
+                selectedEvent &&
               
                 <button
                   className="mt-4 bg-[#05668D] text-white px-4 py-2 rounded-xl hover:bg-blue-600"

@@ -14,6 +14,9 @@ const Cards = ({
 }: {
   events: CalendarProps[];
   onCardHover: (eventId: string | null) => void;
+  isClient: boolean;
+  token: string | null;
+  currentRole: string;
 }) => {
   const [selectedEvent, setSelectedEvent] = useState<CalendarProps | null>(
     null
