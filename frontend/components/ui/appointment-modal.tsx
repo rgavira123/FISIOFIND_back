@@ -22,15 +22,19 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
   token
 }) => {
   if (!selectedEvent) return null;
-
   const deleteEvent = (selectedEvent: CalendarProps | null) => {
     if (!selectedEvent) return;
     if (isClient) {
       if (token) {
         axios
-          .delete(`${getApiBaseUrl()}/api/appointment/${selectedEvent.id}/`)
+          .delete(`${getApiBaseUrl()}/api/appointment/delete/${selectedEvent.id}/`, {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          })
           .then((response) => {
             alert("La cita se eliminó correctamente.");
+            window.location.reload();
           })
           .catch((error) => {
             alert("Hubo un problema con la conexión. Intenta nuevamente.");
@@ -48,11 +52,11 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
     console.log("Seleccion confirmada:", { startDateTime, endDateTime });
     alert(`Seleccionaste: ${startDateTime} - ${endDateTime}`);
 
-    axios.patch(`${getApiBaseUrl()}/api/appointment/${selectedEvent?.id}/`, {
+    axios.put(`${getApiBaseUrl()}/api/appointment/update/${selectedEvent?.id}/`, {
       "start_time": startDateTime,
       "end_time": endDateTime,
       "status": "confirmed",
-      "alternatives": ""
+      "alternatives": selectedEvent?.alternatives,
     }, {
       headers: {
         Authorization: "Bearer " + token, // Envía el JWT en la cabecera de la petición
@@ -120,13 +124,16 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
                   Modificar cita
                 </button>
               )}
-
-              <button
-                className="mt-4 bg-[#05668D] text-white px-4 py-2 rounded-xl hover:bg-blue-600"
-                onClick={() => deleteEvent(selectedEvent)}
-              >
-                Cancelar cita
-              </button>
+              {
+                selectedEvent &&
+              
+                <button
+                  className="mt-4 bg-[#05668D] text-white px-4 py-2 rounded-xl hover:bg-blue-600"
+                  onClick={() => deleteEvent(selectedEvent)}
+                >
+                  Cancelar cita
+                </button>
+              }
             </div>
           )}
         </div>

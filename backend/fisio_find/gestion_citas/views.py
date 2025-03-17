@@ -304,8 +304,8 @@ def update_appointment(request, appointment_id):
 
     # Si el usuario es fisioterapeuta
     if hasattr(user, 'physio'):
-        if appointment.status != "booked":
-            return Response({"error": "Solo puedes modificar citas con estado 'booked'"}, status=status.HTTP_403_FORBIDDEN)
+        # if appointment.status != "booked":
+        #     return Response({"error": "Solo puedes modificar citas con estado 'booked'"}, status=status.HTTP_403_FORBIDDEN)
 
         # Verificar que la cita tenga al menos 48 horas de margen
         if appointment.start_time - now < timedelta(hours=48):
@@ -314,8 +314,8 @@ def update_appointment(request, appointment_id):
         alternatives = data.get("alternatives", {})
 
         # Validar que haya al menos dos fechas diferentes
-        if not isinstance(alternatives, dict) or len(alternatives.keys()) < 2:
-            return Response({"error": "Debes proporcionar al menos dos fechas diferentes en 'alternatives'"}, status=status.HTTP_400_BAD_REQUEST)
+        # if not isinstance(alternatives, dict) or len(alternatives.keys()) < 2:
+        #     return Response({"error": "Debes proporcionar al menos dos fechas diferentes en 'alternatives'"}, status=status.HTTP_400_BAD_REQUEST)
 
         # Validar que las fechas y horas sean únicas y que no incluyan la fecha actual de la cita
         appointment_start_time = appointment.start_time.strftime("%Y-%m-%dT%H:%M:%SZ")  # Convertir a string
@@ -348,8 +348,8 @@ def update_appointment(request, appointment_id):
 
     # Si el usuario es paciente
     elif hasattr(user, 'patient'):
-        if appointment.status != "pending":
-            return Response({"error": "Solo puedes modificar citas con estado 'pending'"}, status=status.HTTP_403_FORBIDDEN)
+        # if appointment.status != "pending":
+        #     return Response({"error": "Solo puedes modificar citas con estado 'pending'"}, status=status.HTTP_403_FORBIDDEN)
 
         selected_start_time = data.get("start_time")
         selected_end_time = data.get("end_time")
@@ -367,11 +367,11 @@ def update_appointment(request, appointment_id):
             if valid_selection:
                 break
 
-        if not valid_selection:
-            return Response({"error": "El rango horario seleccionado no coincide con las alternativas disponibles"}, status=status.HTTP_400_BAD_REQUEST)
+        # if not valid_selection:
+        #     return Response({"error": "El rango horario seleccionado no coincide con las alternativas disponibles"}, status=status.HTTP_400_BAD_REQUEST)
 
         # Actualizar la cita con la nueva fecha y hora seleccionada
-        data["alternatives"] = {}  # Eliminar todas las alternativas
+        data["alternatives"] = ""  # Eliminar todas las alternativas
         data["status"] = "confirmed"
 
     else:
@@ -402,23 +402,22 @@ def delete_appointment(request, appointment_id):
         return Response({"error": "No tienes permisos para borrar esta cita"}, status=status.HTTP_403_FORBIDDEN)
 
     # Verificar si la cita tiene un estado permitido para eliminación
-    if appointment.status not in ["booked", "pending"]:
-        return Response({"error": "Solo se pueden borrar citas con estado 'booked' o 'pending'"}, status=status.HTTP_403_FORBIDDEN)
+    # if appointment.status not in ["booked", "pending"]:
+    #     return Response({"error": "Solo se pueden borrar citas con estado 'booked' o 'pending'"}, status=status.HTTP_403_FORBIDDEN)
 
+    if (hasattr(user, 'physio')):
+        if appointment.physiotherapist != user.physio.id:
+            return Response({"error": "No tienes permisos para borrar esta cita"}, status=status.HTTP_403_FORBIDDEN)
+    elif (hasattr(user, 'patient')):
+        if appointment.patient != user.patient:
+            return Response({"error": "No tienes permisos para borrar esta cita"}, status=status.HTTP_403_FORBIDDEN)
+        
     # Verificar si quedan menos de 48 horas para el inicio de la cita
     if appointment.start_time - now < timedelta(hours=48):
         return Response({"error": "No puedes borrar una cita con menos de 48 horas de antelación"}, status=status.HTTP_403_FORBIDDEN)
 
     appointment.delete()
     return Response({"message": "Cita eliminada correctamente"}, status=status.HTTP_204_NO_CONTENT)
-
-
-
-
-class AppointmentDetail(generics.RetrieveUpdateDestroyAPIView):
-    # permission_classes = [IsAuthenticated, IsOwner]
-    queryset = Appointment.objects.all()
-    serializer_class = AppointmentSerializer
 
 """
 class AdminAppointmenCreate(generics.CreateAPIView):

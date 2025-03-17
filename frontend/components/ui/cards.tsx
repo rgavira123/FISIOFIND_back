@@ -1,20 +1,63 @@
 import { useState } from "react";
 import { CalendarProps } from "@/lib/definitions";
-import { AppointmentModal, handleAlternativesSubmit } from "./appointment-modal";
+import { AppointmentModal} from "./appointment-modal";
 import DynamicFormModal from "./dinamic-form-modal";
+import axios from "axios";
+import { getApiBaseUrl } from "@/utils/api";
 
 const Cards = ({
   events,
   onCardHover,
+  isClient,
+  token,
+  currentRole
 }: {
   events: CalendarProps[];
   onCardHover: (eventId: string | null) => void;
+  isClient: boolean;
+  token: string | null;
+  currentRole: string;
 }) => {
   const [selectedEvent, setSelectedEvent] = useState<CalendarProps | null>(
     null
   );
-  const [editionMode, setEditionMode] = useState(false);
 
+  const handleAlternativesSubmit = (
+    alternatives: Record<string, { start: string; end: string }[]>
+  ) => {
+    console.log("Fechas alternativas enviadas:", alternatives);
+    // Aquí podrías hacer una petición al backend para actualizar la cita,
+    // por ejemplo, usando axios.post con el array de alternativas
+    if (isClient) {
+      if (token) {
+        axios
+          .put(`${getApiBaseUrl()}/api/appointment/update/${selectedEvent?.id}/`, {
+            start_time: selectedEvent?.start,
+            end_time: selectedEvent?.end,
+            status: "pending",
+            alternatives: alternatives,
+          }, {
+            headers: {
+              Authorization: "Bearer " + token,
+            }
+          })
+          .then((response) => {
+            // Si la respuesta fue exitosa
+            alert("La cita se actualizó correctamente.");
+            console.log("Cita actualizada correctamente", response);
+            setEditionMode(false);
+            setSelectedEvent(null);
+            window.location.reload();
+          })
+          .catch((error) => {
+            // Si hubo un error en la solicitud
+            console.error("Error en la actualización de la cita:", error);
+            alert("Hubo un problema con la conexión. Intenta nuevamente.");
+          });
+      }
+    }
+  };
+  const [editionMode, setEditionMode] = useState(false);
   return (
     <>
       <div className="bg-slate-100 flex flex-col h-auto w-full lg:w-1/3 gap-4 p-4 pt-4">
@@ -47,6 +90,9 @@ const Cards = ({
           selectedEvent={selectedEvent}
           setSelectedEvent={setSelectedEvent}
           setEditionMode={setEditionMode}
+          token={token}
+          isClient={isClient}
+          currentRole={currentRole}
         />
       )}
       {/* MODAL */}
@@ -54,9 +100,7 @@ const Cards = ({
         <DynamicFormModal
           event={selectedEvent}
           onClose={() => setEditionMode(false)}
-          onSubmit={(alternatives) =>
-            handleAlternativesSubmit(selectedEvent, alternatives)
-          }
+          onSubmit={handleAlternativesSubmit}
         />
       )}
     </>
