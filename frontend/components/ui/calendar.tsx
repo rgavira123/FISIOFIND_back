@@ -39,30 +39,6 @@ const Calendar = ({
     }
   }, [isClient, token]);
 
-  // useEffect(() => {
-  //   if (isClient) {
-  //     const storedToken = localStorage.getItem("token");
-  //     setToken(storedToken);
-  //     if (token) {
-  //       axios.get(`${getApiBaseUrl()}/api/appointment?physiotherapist=2`)
-  //         .then(response => {
-  //           const transformedEvents = response.data.map((event: any) => ({
-  //             id: event.id,
-  //             title: event.title,
-  //             start: event.start_time,  // Cambio de start_time a start
-  //             end: event.end_time,      // Cambio de end_time a end
-  //             description: event.description,
-  //             allDay: event.allDay || false,
-  //           }));
-  //           setEvents(transformedEvents);
-  //         })
-  //         .catch(error => {
-  //           console.error("Error fetching data:", error);
-  //         });
-  //     }
-  //   }
-  // }, [token, isClient]);
-
   // Función para recibir las alternativas del modal
   const handleAlternativesSubmit = (
     alternatives: Record<string, { start: string; end: string }[]>
@@ -73,7 +49,7 @@ const Calendar = ({
     if (isClient) {
       if (token) {
         axios
-          .patch(`${getApiBaseUrl()}/api/appointment/${selectedEvent?.id}/`, {
+          .put(`${getApiBaseUrl()}/api/appointment/update/${selectedEvent?.id}/`, {
             start_time: selectedEvent?.start,
             end_time: selectedEvent?.end,
             status: "pending",

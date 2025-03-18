@@ -42,80 +42,84 @@ export default function Home() {
   useEffect(() => {
     if (isClient) {
       const storedToken = localStorage.getItem("token"); // Obtén el JWT desde localStorage (o desde donde lo tengas almacenado)
+      console.log("storedToken", storedToken);
       setToken(storedToken);
-      if (token) {
-        axios.get(`${getApiBaseUrl()}/api/app_user/check-role/`, {
+    }
+  }, [isClient]);
+
+  useEffect(() => {
+    if (token) {
+      axios.get(`${getApiBaseUrl()}/api/app_user/check-role/`, {
+        headers: {
+          Authorization: "Bearer " + token, // Envía el JWT en la cabecera de la petición
+        },
+      })
+        .then(response => {
+          setCurrentRole(response.data.user_role);
+        })
+        .catch(error => {
+          console.log("Error fetching data:", error);
+        });
+
+      if (currentRole == "physiotherapist") {
+        axios.get(`${getApiBaseUrl()}/api/appointment/physio/list/`, {
           headers: {
             Authorization: "Bearer " + token, // Envía el JWT en la cabecera de la petición
           },
         })
           .then(response => {
-            setCurrentRole(response.data.user_role);
+            const transformedEvents = response.data.results.map((event: any) => ({
+              id: event.id,
+              title: event.service.type + "-" + event.patient || "Sin título",
+              start: event.start_time,  // Cambio de start_time a start
+              end: event.end_time,      // Cambio de end_time a end
+              description: event.description,
+              allDay: event.allDay || false,
+              status: event.status,
+              service: {
+                type: event.service.type,
+                duration: event.service.duration,
+              },
+              alternatives: event.alternatives,
+            }));
+            console.log("citas", response.data);
+            setEvents(transformedEvents);
           })
           .catch(error => {
             console.log("Error fetching data:", error);
+            setData({ message: "Error al cargar las citas", status: "error" });
           });
-
-        if (currentRole == "physiotherapist") {
-          axios.get(`${getApiBaseUrl()}/api/appointment/physio/list/`, {
-            headers: {
-              Authorization: "Bearer " + token, // Envía el JWT en la cabecera de la petición
-            },
+      } else if (currentRole == "patient") {
+        axios.get(`${getApiBaseUrl()}/api/appointment/patient/list/`, {
+          headers: {
+            Authorization: "Bearer " + token, // Envía el JWT en la cabecera de la petición
+          },
+        })
+          .then(response => {
+            const transformedEvents = response.data.map((event: any) => ({
+              id: event.id,
+              title: event.service.type + "-" + event.physiotherapist || "Sin título",
+              start: event.start_time,  // Cambio de start_time a start
+              end: event.end_time,      // Cambio de end_time a end
+              description: event.description,
+              allDay: event.allDay || false,
+              status: event.status,
+              service: {
+                type: event.service.type,
+                duration: event.service.duration,
+              },
+              alternatives: event.alternatives,
+            }));
+            console.log("citas", response.data);
+            setEvents(transformedEvents);
           })
-            .then(response => {
-              const transformedEvents = response.data.results.map((event: any) => ({
-                id: event.id,
-                title: event.service.type + "-" + event.patient || "Sin título",
-                start: event.start_time,  // Cambio de start_time a start
-                end: event.end_time,      // Cambio de end_time a end
-                description: event.description,
-                allDay: event.allDay || false,
-                status: event.status,
-                service: {
-                  type: event.service.type,
-                  duration: event.service.duration,
-                },
-                alternatives: event.alternatives,
-              }));
-              console.log("citas", response.data);
-              setEvents(transformedEvents);
-            })
-            .catch(error => {
-              console.log("Error fetching data:", error);
-              setData({ message: "Error al cargar las citas", status: "error" });
-            });
-        } else if (currentRole == "patient") {
-          axios.get(`${getApiBaseUrl()}/api/appointment/patient/list/`, {
-            headers: {
-              Authorization: "Bearer " + token, // Envía el JWT en la cabecera de la petición
-            },
-          })
-            .then(response => {
-              const transformedEvents = response.data.map((event: any) => ({
-                id: event.id,
-                title: event.service.type + "-" + event.physiotherapist || "Sin título",
-                start: event.start_time,  // Cambio de start_time a start
-                end: event.end_time,      // Cambio de end_time a end
-                description: event.description,
-                allDay: event.allDay || false,
-                status: event.status,
-                service: {
-                  type: event.service.type,
-                  duration: event.service.duration,
-                },
-                alternatives: event.alternatives,
-              }));
-              console.log("citas", response.data);
-              setEvents(transformedEvents);
-            })
-            .catch(error => {
-              console.log("Error fetching data:", error);
-              setData({ message: "Error al cargar las citas", status: "error" });
-            });
-        }
+          .catch(error => {
+            console.log("Error fetching data:", error);
+            setData({ message: "Error al cargar las citas", status: "error" });
+          });
       }
     }
-  }, [currentRole, isClient]);
+  }, [currentRole, token]);
 
   const handleCardHover = (eventId: string | null) => {
     setHoveredEventId(eventId);
@@ -125,7 +129,7 @@ export default function Home() {
     <>
       <div className="flex flex-row justify-between">
         {/* Vista en Cards */}
-        <Cards events={events} onCardHover={handleCardHover} />
+        <Cards events={events} currentRole={currentRole} onCardHover={handleCardHover} token={token} isClient={isClient} />
 
         <div style={{ borderLeft: "1px solid #000", minHeight: "100%" }}></div>
 
