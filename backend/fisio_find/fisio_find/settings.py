@@ -38,9 +38,9 @@ CSRF_TRUSTED_ORIGINS = [
     "https://fisiofind-backend.azurewebsites.net",
     "http://138.68.80.34"
 ]
-SECURE_PROXY_SSL_HEADER = ("X-Forwarded-Proto", "https")
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+SECURE_PROXY_SSL_HEADER = None
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
 CSRF_USE_SESSIONS = True
 
 # Application definition
