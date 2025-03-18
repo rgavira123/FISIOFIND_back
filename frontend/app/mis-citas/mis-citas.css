@@ -1,33 +1,3 @@
-/* 
-.fc{
-}
-.fc-button{
-    background-color: #05668D;
-}
-.fc-button-active{
-
-}
-.fc-day-today{
-    background-color: #41b8d58f;
-}
-.fc-day-sat, .fc-day-sun{
-
-}
-.fc-event{
-
-
-}
-.fc-list-event{
-
-}
-.fc-button.fc-today-button{
-
-}
-.fc-day-disabled{
-
-} */
-
-
 /* ======= FONDO GENERAL DEL CALENDARIO ======= */
 .fc {
     width: 75%;
