@@ -38,8 +38,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
           .then((response) => {
             const status = response.status;
             if (status == 204) {
-              const message = response.data.message;
-              alert(message);
+              alert("La cita fue cancelada correctamente.");
               setSelectedEvent(null);
               window.location.reload();
             }
@@ -93,6 +92,45 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
       });
   };
 
+  const confirmAppointment = () => {
+    if (!selectedEvent || !token) return;
+
+    axios
+      .put(
+        `${getApiBaseUrl()}/api/appointment/update/${
+          selectedEvent.id
+        }/confirm/`,
+        {
+          status: "confirmed",
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
+      .then((response) => {
+        const message = response.data.message;
+        alert(message);
+        setSelectedEvent(null);
+        window.location.reload();
+      })
+      .catch((error) => {
+        if (error.response) {
+          const msg = error.response.data.error;
+          alert(msg);
+        }
+      });
+  };
+
+  const isFutureAndTwoDaysAhead = () => {
+    const eventStart = new Date(selectedEvent?.start);
+    const now = new Date();
+    const diffInMs = eventStart.getTime() - now.getTime();
+    const diffInDays = diffInMs / (1000 * 3600 * 24);
+    return diffInDays >= 2;
+  };
+
   return (
     <div
       className="z-10 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
@@ -136,6 +174,16 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
               className="flex flex-row mt-4"
               style={{ justifyContent: "space-between" }}
             >
+              {currentRole == "physiotherapist" &&
+                selectedEvent.status === "booked" &&
+                isFutureAndTwoDaysAhead() && (
+                  <button
+                    className="mt-4 bg-[#05668D] text-white px-4 py-2 rounded-xl hover:bg-blue-600"
+                    onClick={confirmAppointment}
+                  >
+                    Confirmar cita
+                  </button>
+                )}
               {currentRole == "physiotherapist" && (
                 <button
                   className="mt-4 bg-[#05668D] text-white px-4 py-2 rounded-xl hover:bg-blue-600"
