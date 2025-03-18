@@ -19,7 +19,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
   setSelectedEvent,
   setEditionMode,
   isClient,
-  token
+  token,
 }) => {
   if (!selectedEvent) return null;
   const deleteEvent = (selectedEvent: CalendarProps | null) => {
@@ -27,41 +27,58 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
     if (isClient) {
       if (token) {
         axios
-          .delete(`${getApiBaseUrl()}/api/appointment/delete/${selectedEvent.id}/`, {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          })
+          .delete(
+            `${getApiBaseUrl()}/api/appointment/delete/${selectedEvent.id}/`,
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          )
           .then((response) => {
-            alert("La cita se eliminó correctamente.");
-            window.location.reload();
+            const status = response.status;
+            if (status == 204) {
+              const message = response.data.message;
+              alert(message);
+              setSelectedEvent(null);
+              window.location.reload();
+            }
           })
           .catch((error) => {
-            alert("Hubo un problema con la conexión. Intenta nuevamente.");
+            if (error.response) {
+              const msg = error.response.data.error;
+              alert(msg);
+            }
           });
       }
     }
   };
 
   const handleSelection = (date: string, startTime: string) => {
-
     const [startTimeSplit, endTimeSplit] = startTime.split(" - "); // Tomamos solo la hora de inicio
-    const startDateTime = new Date(`${date}T${startTimeSplit}:00Z`).toISOString(); // Generamos la fecha completa en formato UTC
+    const startDateTime = new Date(
+      `${date}T${startTimeSplit}:00Z`
+    ).toISOString(); // Generamos la fecha completa en formato UTC
     const endDateTime = new Date(`${date}T${endTimeSplit}:00Z`).toISOString(); // Generamos la fecha completa en formato UTC
 
     console.log("Seleccion confirmada:", { startDateTime, endDateTime });
     alert(`Seleccionaste: ${startDateTime} - ${endDateTime}`);
 
-    axios.put(`${getApiBaseUrl()}/api/appointment/update/${selectedEvent?.id}/`, {
-      "start_time": startDateTime,
-      "end_time": endDateTime,
-      "status": "confirmed",
-      "alternatives": selectedEvent?.alternatives,
-    }, {
-      headers: {
-        Authorization: "Bearer " + token, // Envía el JWT en la cabecera de la petición
-      },
-    })
+    axios
+      .put(
+        `${getApiBaseUrl()}/api/appointment/update/${selectedEvent?.id}/`,
+        {
+          start_time: startDateTime,
+          end_time: endDateTime,
+          status: "confirmed",
+          alternatives: selectedEvent?.alternatives,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + token, // Envía el JWT en la cabecera de la petición
+          },
+        }
+      )
       .then((response) => {
         // Si la respuesta fue exitosa
         alert("La cita se actualizó correctamente.");
@@ -73,7 +90,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
         // Si hubo un error en la solicitud
         console.error("Error en la actualización de la cita:", error);
         alert("Hubo un problema con la conexión. Intenta nuevamente.");
-      })
+      });
   };
 
   return (
@@ -108,7 +125,10 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
           <p className="mt-2">{selectedEvent.description}</p>
           {selectedEvent.alternatives && currentRole == "patient" && (
             <div className="flex justify-center items-center">
-              <AlternativeSelector alternatives={selectedEvent.alternatives} onConfirmSelection={handleSelection} />
+              <AlternativeSelector
+                alternatives={selectedEvent.alternatives}
+                onConfirmSelection={handleSelection}
+              />
             </div>
           )}
           {selectedEvent.status != "finished" && (
@@ -124,16 +144,14 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
                   Modificar cita
                 </button>
               )}
-              {
-                selectedEvent &&
-              
+              {selectedEvent && new Date(selectedEvent.start) > new Date() && (
                 <button
                   className="mt-4 bg-[#05668D] text-white px-4 py-2 rounded-xl hover:bg-blue-600"
                   onClick={() => deleteEvent(selectedEvent)}
                 >
                   Cancelar cita
                 </button>
-              }
+              )}
             </div>
           )}
         </div>
