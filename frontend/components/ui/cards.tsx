@@ -1,6 +1,7 @@
 import { CalendarProps } from "@/lib/definitions";
 import { AppointmentModal} from "./appointment-modal";
 import DynamicFormModal from "./dinamic-form-modal";
+import { formatDateFromIso } from "@/lib/utils";
 
 const Cards = ({
   events,
@@ -41,11 +42,11 @@ const Cards = ({
               {event.title}
             </h3>
             <p className="text-gray-600">
-              {new Date(event.start).toLocaleString()}
+              {formatDateFromIso(event.start)}
             </p>
             {event.end && (
               <p className="text-gray-500">
-                Hasta {new Date(event.end).toLocaleString()}
+                Hasta {formatDateFromIso(event.end).split(" ")[1]}
               </p>
             )}
           </div>
