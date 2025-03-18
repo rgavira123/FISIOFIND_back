@@ -13,29 +13,30 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from datetime import timedelta
 from pathlib import Path
 import os
-from django.conf.global_settings import MEDIA_URL
 from dotenv import load_dotenv
-import os
 import dj_database_url  # Para parsear la URL de la base de datos
-import environ
 
+# Cargar variables de entorno desde el archivo .env
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
+# Configuración básica
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-temporary-key-for-deployment')
-
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'fisiofind-backend.azurewebsites.net', 'fisiofind.netlify.app']
+# Define ALLOWED_HOSTS de forma fija (actualízalos manualmente según tus dominios)
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'fisiofind-backend.azurewebsites.net',
+    'fisiofind.netlify.app',
+    '138.68.80.34'
+]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://fisiofind-backend.azurewebsites.net"
+    "https://fisiofind-backend.azurewebsites.net",
+    "http://138.68.80.34"
 ]
 SECURE_PROXY_SSL_HEADER = ("X-Forwarded-Proto", "https")
 SESSION_COOKIE_SECURE = True
@@ -43,7 +44,6 @@ CSRF_COOKIE_SECURE = True
 CSRF_USE_SESSIONS = True
 
 # Application definition
-
 INSTALLED_APPS = [
     'daphne',
     'django.contrib.admin',
@@ -56,15 +56,14 @@ INSTALLED_APPS = [
     'videocall',
 ]
 
-# DJANGO REST FRAMEWORK
+# Django REST Framework
 INSTALLED_APPS += [
-    'rest_framework',               # API REST principal
-    'rest_framework.authtoken',     # Autenticación por tokens (opcional)
-    'rest_framework_simplejwt',     # Autenticación JWT (recomendada)
-]   
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+]
 
-# APPS PROPIAS
-
+# Apps propias
 INSTALLED_APPS += [
     'gestion_usuarios',
     'gestion_citas',
@@ -72,27 +71,28 @@ INSTALLED_APPS += [
     'sesion_invitado'
 ]
 
-
-
-INSTALLED_APPS += [ 'corsheaders', 'django_extensions',
-    'django_filters']
-
+# Otras apps
+INSTALLED_APPS += [
+    'corsheaders',
+    'django_extensions',
+    'django_filters',
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'corsheaders.middleware.CorsMiddleware',  # Move this up
+    'corsheaders.middleware.CorsMiddleware',  # Moverlo al inicio
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # Remove the duplicate corsheaders.middleware.CorsMiddleware from here
+    # Se vuelve a incluir CommonMiddleware y CorsMiddleware para compatibilidad
     'django.middleware.common.CommonMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-# Add additional CORS settings
+# Configuración adicional de CORS
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = [
     'DELETE',
@@ -124,8 +124,8 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),  # El token dura 1 día
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),   # No lo vamos a usar, pero se requiere
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': False,
     'AUTH_HEADER_TYPES': ("Bearer",),
@@ -134,8 +134,9 @@ SIMPLE_JWT = {
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
-    "https://fisiofind-backend.azurewebsites.net",  # Note the comma here
-    "https://fisiofind.netlify.app"
+    "https://fisiofind-backend.azurewebsites.net",
+    "https://fisiofind.netlify.app",
+    "http://138.68.80.34"
 ]
 
 ROOT_URLCONF = 'fisio_find.urls'
@@ -165,46 +166,24 @@ CHANNEL_LAYERS = {
     },
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.getenv('DATABASE_NAME'),
-#         'USER': os.getenv('DATABASE_USER'),
-#         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
-#         'HOST': os.getenv('DATABASE_HOST'),
-#         'PORT': os.getenv('DATABASE_PORT'),
-#     }
-# }
-
-env = environ.Env()
-environ.Env.read_env()
-
-IS_PRODUCTION = os.getenv('DJANGO_PRODUCTION', env.bool('DJANGO_PRODUCTION', default=False))
-
-DEBUG = not IS_PRODUCTION
-
+# Configuración de la base de datos usando load_dotenv
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DATABASE_NAME', env('DATABASE_NAME', default='postgres')),
-        'USER': os.getenv('DATABASE_USER', env('DATABASE_USER', default='postgres')),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', env('DATABASE_PASSWORD', default='')),
-        'HOST': os.getenv('DATABASE_HOST', env('DATABASE_HOST', default='localhosts')),
-        'PORT': os.getenv('DATABASE_PORT', env('DATABASE_PORT', default='5432')),
+        'NAME': os.getenv('DATABASE_NAME', 'postgres'),
+        'USER': os.getenv('DATABASE_USER', 'postgres'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', ''),
+        'HOST': os.getenv('DATABASE_HOST', 'localhost'),
+        'PORT': os.getenv('DATABASE_PORT', '5432'),
         'OPTIONS': {
-            'sslmode': 'require' if IS_PRODUCTION else 'prefer',
+            'sslmode': 'require' if not DEBUG else 'prefer',
         },
     }
 }
 
-ALLOWED_HOSTS = ['*'] if DEBUG else ['fisiofind-backend.azurewebsites.net']
-
 AUTH_USER_MODEL = 'gestion_usuarios.AppUser'
 
-
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
+# Validadores de contraseña
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
