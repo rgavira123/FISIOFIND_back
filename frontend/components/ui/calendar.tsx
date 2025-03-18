@@ -5,77 +5,32 @@ import esLocale from "@fullcalendar/core/locales/es";
 import listPlugin from "@fullcalendar/list";
 import { CalendarProps } from "@/lib/definitions";
 import "@/app/mis-citas/mis-citas.css";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import DynamicFormModal from "./dinamic-form-modal";
 import { AppointmentModal } from "./appointment-modal";
-import { getApiBaseUrl } from "@/utils/api";
 
 const Calendar = ({
   events,
   currentRole,
   hoveredEventId,
+  handleAlternativesSubmit,
+  setSelectedEvent,
+  selectedEvent,
+  setEditionMode,
+  editionMode,
+  isClient,
+  token,
 }: {
   events: any;
   currentRole: string;
   hoveredEventId: string | null;
+  handleAlternativesSubmit: (alternatives: Record<string, { start: string; end: string }[]>) => void;
+  setSelectedEvent: (event: CalendarProps | null) => void;
+  selectedEvent: CalendarProps | null;
+  setEditionMode: (mode: boolean) => void;
+  editionMode: boolean;
+  isClient: boolean;
+  token: string | null;
 }) => {
-  const [selectedEvent, setSelectedEvent] = useState<CalendarProps | null>(
-    null
-  );
-  // const [events, setEvents] = useState();
-  const [editionMode, setEditionMode] = useState(false);
-  const [isClient, setIsClient] = useState(false);
-  const [token, setToken] = useState<string | null>(null);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    if (isClient) {
-      const storedToken = localStorage.getItem("token");
-      setToken(storedToken);
-    }
-  }, [isClient, token]);
-
-  // Función para recibir las alternativas del modal
-  const handleAlternativesSubmit = (
-    alternatives: Record<string, { start: string; end: string }[]>
-  ) => {
-    console.log("Fechas alternativas enviadas:", alternatives);
-    // Aquí podrías hacer una petición al backend para actualizar la cita,
-    // por ejemplo, usando axios.post con el array de alternativas
-    if (isClient) {
-      if (token) {
-        console.log("token:", token);
-        axios
-          .put(`${getApiBaseUrl()}/api/appointment/update/${selectedEvent?.id}/`, {
-            start_time: selectedEvent?.start,
-            end_time: selectedEvent?.end,
-            status: "pending",
-            alternatives: alternatives,
-          }, {
-            headers: {
-              Authorization: "Bearer " + token,
-            }
-          })
-          .then((response) => {
-            // Si la respuesta fue exitosa
-            alert("La cita se actualizó correctamente.");
-            console.log("Cita actualizada correctamente", response);
-            setEditionMode(false);
-            setSelectedEvent(null);
-            window.location.reload();
-          })
-          .catch((error) => {
-            // Si hubo un error en la solicitud
-            console.error("Error en la actualización de la cita:", error);
-            alert("Hubo un problema con la conexión. Intenta nuevamente.");
-          });
-      }
-    }
-  };
 
   return (
     <div className="justify-items-center w-2/3 py-4 hidden lg:block">

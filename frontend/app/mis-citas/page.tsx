@@ -5,6 +5,7 @@ import axios from "axios";
 import Cards from "@/components/ui/cards";
 import Calendar from "@/components/ui/calendar";
 import { getApiBaseUrl } from "@/utils/api";
+import { CalendarProps } from "@/lib/definitions";
 
 interface APIResponse {
   message: string;
@@ -34,6 +35,8 @@ export default function Home() {
   const [currentRole, setCurrentRole] = useState("");
   const [isClient, setIsClient] = useState(false);
   const [token, setToken] = useState<string | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<CalendarProps | null>(null);
+  const [editionMode, setEditionMode] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -121,6 +124,42 @@ export default function Home() {
     }
   }, [currentRole, token]);
 
+  const handleAlternativesSubmit = (
+    alternatives: Record<string, { start: string; end: string }[]>
+  ) => {
+    console.log("Fechas alternativas enviadas:", alternatives);
+    // Aquí podrías hacer una petición al backend para actualizar la cita,
+    // por ejemplo, usando axios.post con el array de alternativas
+    if (isClient) {
+      if (token) {
+        axios
+          .put(`${getApiBaseUrl()}/api/appointment/update/${selectedEvent?.id}/`, {
+            start_time: selectedEvent?.start,
+            end_time: selectedEvent?.end,
+            status: "pending",
+            alternatives: alternatives,
+          }, {
+            headers: {
+              Authorization: "Bearer " + token,
+            }
+          })
+          .then((response) => {
+            // Si la respuesta fue exitosa
+            alert("La cita se actualizó correctamente.");
+            console.log("Cita actualizada correctamente", response);
+            setEditionMode(false);
+            setSelectedEvent(null);
+            window.location.reload();
+          })
+          .catch((error) => {
+            // Si hubo un error en la solicitud
+            console.error("Error en la actualización de la cita:", error);
+            alert("Hubo un problema con la conexión. Intenta nuevamente.");
+          });
+      }
+    }
+  };
+
   const handleCardHover = (eventId: string | null) => {
     setHoveredEventId(eventId);
   };
@@ -129,12 +168,12 @@ export default function Home() {
     <>
       <div className="flex flex-row justify-between">
         {/* Vista en Cards */}
-        <Cards events={events} currentRole={currentRole} onCardHover={handleCardHover} token={token} isClient={isClient} />
+        <Cards events={events} currentRole={currentRole} onCardHover={handleCardHover} token={token} isClient={isClient} handleAlternativesSubmit={handleAlternativesSubmit} setEditionMode={setEditionMode} editionMode={editionMode} setSelectedEvent={setSelectedEvent} selectedEvent={selectedEvent}/>
 
         <div style={{ borderLeft: "1px solid #000", minHeight: "100%" }}></div>
 
         {/* Vista del Calendario */}
-        <Calendar events={events} currentRole={currentRole} hoveredEventId={hoveredEventId} />
+        <Calendar events={events} currentRole={currentRole} hoveredEventId={hoveredEventId} handleAlternativesSubmit={handleAlternativesSubmit} setEditionMode={setEditionMode} editionMode={editionMode} setSelectedEvent={setSelectedEvent} selectedEvent={selectedEvent} isClient={isClient} token={token}/>
       </div>
 
       {data && (
