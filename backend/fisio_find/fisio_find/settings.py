@@ -31,12 +31,14 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'fisiofind-backend.azurewebsites.net',
     'fisiofind.netlify.app',
-    '138.68.80.34'
+    '138.68.80.34',
+    '167.99.246.186'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://fisiofind-backend.azurewebsites.net",
-    "http://138.68.80.34"
+    "http://138.68.80.34",
+    "http://167.99.246.186"
 ]
 SECURE_PROXY_SSL_HEADER = None
 SESSION_COOKIE_SECURE = False
@@ -136,7 +138,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://fisiofind-backend.azurewebsites.net",
     "https://fisiofind.netlify.app",
-    "http://138.68.80.34"
+    "http://138.68.80.34",
+    "http://167.99.246.186"
 ]
 
 ROOT_URLCONF = 'fisio_find.urls'
