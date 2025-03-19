@@ -30,6 +30,10 @@ export interface Questionary {
   elements: QuestionElement[];
 }
 
+export interface QuestionaryResponse {
+  [key: string]: string; // El key es el nombre de la propiedad (desde scope) y el valor es la respuesta
+}
+
 export interface Service {
   id: string;
   title: string;
@@ -52,6 +56,7 @@ export interface AppointmentData {
   physiotherapist: number;
   status: string;
   alternatives: string;
+  questionaryResponses?: QuestionaryResponse;
 }
 
 export interface PaymentMethod {

@@ -1,7 +1,7 @@
 // src/context/appointmentContext.tsx
 "use client";
 import React, { createContext, useReducer, useContext } from "react";
-import { AppointmentData } from "@/lib/definitions";
+import { AppointmentData, QuestionaryResponse } from "@/lib/definitions";
 import { QuestionElement } from "@/lib/definitions";
 
 type State = {
@@ -19,6 +19,7 @@ type Action =
   | { type: "DESELECT_SERVICE" }
   | { type: "SELECT_PAYMENT_METHOD"; payload: string }
   | { type: "SELECT_SLOT"; payload: { start_time: string; end_time: string; is_online: boolean } }
+  | { type: 'UPDATE_QUESTIONARY_RESPONSES'; payload: QuestionaryResponse }
 
 const initialState: State = {
   appointmentData: {
@@ -29,6 +30,8 @@ const initialState: State = {
     physiotherapist: 0,
     status: "",
     alternatives: "",
+    questionaryResponses: {} // Inicializar como objeto vacío
+
   },
 };
 
@@ -83,6 +86,14 @@ const appointmentReducer = (state: State, action: Action): State => {
           status: "pending",
         },
       };
+      case 'UPDATE_QUESTIONARY_RESPONSES':
+        return {
+          ...state,
+          appointmentData: {
+            ...state.appointmentData,
+            questionaryResponses: action.payload
+          }
+        };
     default:
       return state;
   }
@@ -104,3 +115,5 @@ export const useAppointment = () => {
   }
   return context;
 };
+
+

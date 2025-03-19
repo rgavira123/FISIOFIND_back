@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import clsx from "clsx";
-import { Service } from "@/lib/definitions";
+import { Service, QuestionaryResponse, Questionary } from "@/lib/definitions";
 import { useAppointment } from "@/context/appointmentContext";
 import AppointmentCalendar from "./AppointmentCalendar";
 import { formatAppointment } from "@/lib/utils"; // Se importa la función de formateo
@@ -26,7 +26,6 @@ const computeGCD = (arr: number[]): number => {
 const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services }) => {
   const { state, dispatch } = useAppointment();
   const appointmentData = state.appointmentData;
-  console.log(appointmentData);
   const { id } = useParams();
   const physioId = parseInt(id as string);
 
@@ -106,6 +105,11 @@ const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services }) 
     // Se formatean las fechas de inicio y fin de forma separada
     const inicio = appointmentData.start_time ? formatAppointment(appointmentData.start_time) : { date: "", time: "" };
     const fin = appointmentData.end_time ? formatAppointment(appointmentData.end_time) : { time: "" };
+    
+
+    const questionaryResponses: QuestionaryResponse = appointmentData.questionaryResponses || {};
+    const questionary: Questionary = appointmentData.service.questionary;
+  
     return (
       <div>
         <h3 className="font-bold mb-2">Resumen final de tu cita</h3>
@@ -141,10 +145,33 @@ const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services }) 
             <strong>Fin:</strong> No seleccionado
           </p>
         )}
+        
+        {/* Mostrar las respuestas del cuestionario */}
+        {questionaryResponses && Object.keys(questionaryResponses).length > 0 && (
+          <div className="mt-4">
+            <h4 className="font-bold mb-2">Respuestas del cuestionario:</h4>
+            <div className="bg-gray-50 p-3 rounded-md">
+              {Object.entries(questionaryResponses).map(([key, value]) => {
+                // Encontrar la pregunta correspondiente por su scope
+                const question = questionary?.elements?.find(
+                  (elem) => elem.scope.includes(key)
+                );
+                
+                return (
+                  <div key={key} className="mb-2">
+                    <p>
+                      <strong>{question?.label || key}:</strong> {String(value)}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
     );
   }
   return null;
-};
+}
 
 export default WizardContent;

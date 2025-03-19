@@ -1,23 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAppointment } from '@/context/appointmentContext';
+import { QuestionaryResponse } from '@/lib/definitions';
 
 const ServiceQuestionary: React.FC = () => {
   const { state, dispatch } = useAppointment();
   const appointmentData = state.appointmentData;
   const questionary = appointmentData.service.questionary;
-  const [formData, setFormData] = React.useState<Record<string, string>>({});
   
+  // Inicializar con las respuestas existentes o un objeto vacío
+  const [responses, setResponses] = useState<QuestionaryResponse>(
+    appointmentData.questionaryResponses || {}
+  );
+  
+  // Actualizar el contexto cuando cambien las respuestas
+  useEffect(() => {
+    dispatch({
+      type: 'UPDATE_QUESTIONARY_RESPONSES',
+      payload: responses
+    });
+  }, [responses, dispatch]);
+
   if (!questionary || !questionary.elements || questionary.elements.length === 0) {
     return <div className="text-gray-500">No hay cuestionario para este servicio.</div>;
   }
 
-  const handleInputChange = (name: string, value: string) => {
-    setFormData(prev => {
-      const newData = { ...prev, [name]: value };
-      // Actualizar el contexto con los datos del formulario
-      updateAppointment({ ...appointment, questionaryResponses: newData });
-      return newData;
-    });
+  const handleInputChange = (propertyName: string, value: string) => {
+    setResponses(prev => ({ ...prev, [propertyName]: value }));
   };
 
   // Función para extraer el nombre de propiedad desde el scope
@@ -27,7 +35,7 @@ const ServiceQuestionary: React.FC = () => {
     return parts[parts.length - 1];
   };
 
-  const renderElement = (element: any) => {
+  const renderElement = (element: { type: string; scope: string; label: string }) => {
     if (element.type === 'Control') {
       const propertyName = getPropertyNameFromScope(element.scope);
       
@@ -38,7 +46,7 @@ const ServiceQuestionary: React.FC = () => {
             type="text"
             name={propertyName}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={formData[propertyName] || ''}
+            value={responses[propertyName] || ''}
             onChange={(e) => handleInputChange(propertyName, e.target.value)}
           />
         </div>
