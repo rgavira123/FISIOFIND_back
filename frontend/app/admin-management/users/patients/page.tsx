@@ -80,7 +80,7 @@ export default function GestionarPacientes() {
                   
                   <a href={"/admin-management/users/patients/view/"+paciente.id}><button className="btn-admin-green">Ver</button></a>
                   <a href={"/admin-management/users/patients/edit/"+paciente.id}><button className="btn-admin-yellow">Editar</button></a>
-                  <a href={"/gestion-admin/usuarios/pacientes/delete/"+paciente.id}><button className="btn-admin-red">Eliminar</button></a>
+                  <a href={"/admin-management/users/patients/delete/"+paciente.id}><button className="btn-admin-red">Eliminar</button></a>
                 </div>
             )
             })

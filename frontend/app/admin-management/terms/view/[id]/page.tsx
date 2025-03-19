@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { print_time, get_id_from_url } from "@/app/gestion-admin/util";
+import { print_time, get_id_from_url } from "@/app/admin-management/util";
 import { getApiBaseUrl } from "@/utils/api";
 
 interface terminoInterface {
@@ -69,7 +69,7 @@ export default function VerTermino() {
   return (
     <>
       <div className="admin-header">
-        <a href="/gestion-admin/terminos">
+        <a href="/admin-management/terms">
           <button className="btn-admin">Volver</button>
         </a>
         <h1>Vista de término</h1>
