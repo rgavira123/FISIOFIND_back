@@ -179,7 +179,7 @@ const Room = ({ roomCode }) => {
         userRole={userRole}
         onConfirm={roomManagement.confirmDeleteRoom}
         onCancel={roomManagement.cancelDelete}
-        onClose={() => window.location.href = '/videollamadas'}
+        onClose={() => window.location.href = '/videocalls/'}
       />
 
       {/* Video grid */}

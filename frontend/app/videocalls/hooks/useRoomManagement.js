@@ -46,7 +46,7 @@ const useRoomManagement = ({
       setShowModal(true);
     } else {
       // If patient, wait for physio confirmation
-      window.location.href = '/videollamadas';
+      window.location.href = '/videocalls';
     }
   }, [userRole, closeConnection, cleanupMedia, addChatMessage]);
 
@@ -91,7 +91,7 @@ const useRoomManagement = ({
     setTimeout(() => {
       closeConnection();
       cleanupMedia();
-      window.location.href = '/videollamadas';
+      window.location.href = '/videocalls/';
     }, 5000);
   }, [closeConnection, cleanupMedia]);
 

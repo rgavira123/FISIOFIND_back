@@ -44,7 +44,7 @@ const VideoCallPage = () => {
       try {
         const response = await axios.post(`${getApiBaseUrl()}/api/videocall/create-room/`);
         setRoomCode(response.data.code);
-        window.location.href = `/videollamadas/${response.data.code}?role=${userRole}`;
+        window.location.href = `/videocalls/${response.data.code}?role=${userRole}`;
       } catch (error) {
         console.error("Error creating room:", error);
       }
@@ -66,7 +66,7 @@ const VideoCallPage = () => {
     try {
       const response = await axios.get(`${getApiBaseUrl()}/api/videocall/join-room/${code}/`);
       setRoomDetails(response.data);
-      window.location.href = `/videollamadas/${response.data.code}?role=${userRole}`;
+      window.location.href = `/videocalls/${response.data.code}?role=${userRole}`;
     } catch (error) {
       console.error("Error joining room:", error);
       setRoomDetails(null);

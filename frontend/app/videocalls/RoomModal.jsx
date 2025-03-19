@@ -45,7 +45,7 @@ const RoomModal = ({
           </div>
         ) : (
           <button
-            onClick={onClose || (() => window.location.href = '/videollamadas')}
+            onClick={onClose || (() => window.location.href = '/videocalls/')}
             className="bg-gray-600 hover:bg-gray-700 text-black py-2 px-4 rounded"
           >
             Cerrar
