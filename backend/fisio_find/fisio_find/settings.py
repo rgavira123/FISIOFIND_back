@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'channels',
     'videocall',
-    'gestion_survey'
+    'gestion_tratamientos',
 ]
 
 # DJANGO REST FRAMEWORK
