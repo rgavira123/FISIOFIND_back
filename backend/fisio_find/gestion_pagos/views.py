@@ -25,7 +25,8 @@ def _check_deadline(appointment):
 def create_payment(request):
     """Create a payment for an appointment."""
     appointment_id = request.data.get('appointment_id')
-    amount = request.data.get('amount', 1000)  # Amount in cents (e.g., 10.00 USD)
+    amount = request.data.get('amount', 1000)  # Amount in cents: 1000 centavos = 10 EUR
+    #payment_method = request.data.get('payment_method', 'card')
 
     try:
         appointment = Appointment.objects.get(id=appointment_id)
@@ -71,7 +72,7 @@ def confirm_payment(request, payment_id):
         payment = Payment.objects.get(id=payment_id)
 
         # Check if the user is the patient associated with the appointment
-        if request.user != payment.appointment.patient:
+        if request.user.patient != payment.appointment.patient:
             return Response({'error': 'You can only confirm payments for your own appointments'}, 
                             status=status.HTTP_403_FORBIDDEN)
 
@@ -82,12 +83,24 @@ def confirm_payment(request, payment_id):
 
         if payment.status == 'Paid':
             return Response({'error': 'Payment is already confirmed'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Obtener el PaymentIntent desde Stripe usando el ID almacenado
+        payment_intent = stripe.PaymentIntent.retrieve(payment.stripe_payment_intent_id) 
+        
+        if payment_intent['status'] == 'requires_payment_method':
+            return Response({'error': 'Payment method is required'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if payment_intent['status'] == 'canceled':
+            return Response({'error': 'Payment was canceled'}, status=status.HTTP_400_BAD_REQUEST)
 
-        payment.status = 'Paid'
-        payment.payment_date = timezone.now()
-        payment.save()
-        payment.appointment.status = 'Paid'
-        payment.appointment.save()
+        # Verificar el estado del PaymentIntent en Stripe
+        if payment_intent['status'] == 'succeeded':
+            # El pago fue exitoso en Stripe, actualizar el estado localmente
+            payment.status = 'Paid'
+            payment.payment_date = timezone.now()
+            payment.save()
+            payment.appointment.status = 'Paid'
+            payment.appointment.save()
 
         serializer = PaymentSerializer(payment)
         return Response({'message': 'Payment confirmed', 'payment': serializer.data}, 
@@ -105,7 +118,7 @@ def cancel_payment(request, payment_id):
     try:
         payment = Payment.objects.get(id=payment_id)
 
-        # Check if the user is the patient associated with the appointment
+        # Verificar que el usuario sea el paciente asociado
         if request.user.patient != payment.appointment.patient:
             return Response({'error': 'You can only cancel your own appointments'}, 
                             status=status.HTTP_403_FORBIDDEN)
@@ -113,26 +126,46 @@ def cancel_payment(request, payment_id):
         appointment = payment.appointment
         now = timezone.now()
 
+        # No se puede cancelar si la cita ya pasó
         if now > appointment.start_time:
             return Response({'error': 'The appointment has already passed'}, 
                             status=status.HTTP_400_BAD_REQUEST)
 
+        # Caso 1: Pago no realizado y dentro del plazo
         if payment.status == 'Not Paid' and now <= payment.payment_deadline:
+            # Cancelar el PaymentIntent en Stripe si existe
+            if payment.stripe_payment_intent_id:
+                stripe.PaymentIntent.cancel(payment.stripe_payment_intent_id)
             appointment.status = 'Canceled'
+            payment.status = 'Canceled'
+            payment.payment_date = now 
+            payment.save()
             appointment.save()
             return Response({'message': 'Appointment canceled without charge'}, 
                             status=status.HTTP_200_OK)
 
-        if payment.status == 'Paid' and now >= appointment.start_time - timezone.timedelta(hours=48):
-            # Issue refund
-            stripe.Refund.create(payment_intent=payment.stripe_payment_intent_id)
-            payment.status = 'Refunded'
-            payment.save()
-            appointment.status = 'Canceled'
-            appointment.save()
-            return Response({'message': 'Appointment canceled with refund'}, 
-                            status=status.HTTP_200_OK)
+        # Caso 2: Pago realizado y fuera de las 48 horas antes de la cita
+        if payment.status == 'Paid' and now <= appointment.start_time - timezone.timedelta(hours=48):
+            # Verificar el estado del PaymentIntent
+            payment_intent = stripe.PaymentIntent.retrieve(payment.stripe_payment_intent_id)
+            if payment_intent['status'] != 'succeeded':
+                return Response({'error': 'Payment cannot be refunded because it was not completed'}, 
+                                status=status.HTTP_400_BAD_REQUEST)
 
+            # Emitir reembolso
+            refund = stripe.Refund.create(payment_intent=payment.stripe_payment_intent_id)
+            if refund['status'] in ['succeeded', 'pending']:
+                payment.status = 'Refunded'
+                payment.save()
+                appointment.status = 'Canceled'
+                appointment.save()
+                return Response({'message': 'Appointment canceled with refund'}, 
+                                status=status.HTTP_200_OK)
+            else:
+                return Response({'error': f'Refund failed with status: {refund["status"]}'}, 
+                                status=status.HTTP_400_BAD_REQUEST)
+
+        # Caso 3: Pago realizado pero fuera del período de reembolso
         appointment.status = 'Canceled'
         appointment.save()
         return Response({'message': 'Appointment canceled without refund'}, 
@@ -140,6 +173,8 @@ def cancel_payment(request, payment_id):
 
     except Payment.DoesNotExist:
         return Response({'error': 'Payment not found'}, status=status.HTTP_404_NOT_FOUND)
+    except stripe.error.StripeError as e:
+        return Response({'error': f'Stripe error: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
         return Response({'error': f'Error canceling payment: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
 

@@ -10,6 +10,7 @@ class Payment(models.Model):
         ('Not Paid', 'Not Paid'),
         ('Paid', 'Paid'),
         ('Refunded', 'Refunded'),
+        ('Canceled', 'Canceled'), 
     )
     appointment = models.OneToOneField(Appointment, on_delete=models.CASCADE, related_name='payment')
     amount = models.DecimalField(max_digits=10, decimal_places=2)
@@ -20,7 +21,7 @@ class Payment(models.Model):
 
     @property
     def payment_deadline(self):
-        return self.appointment.appointment_time - timedelta(hours=48)
+        return self.appointment.start_time - timedelta(hours=48)
 
     def __str__(self):
         return f"Payment for appointment {self.appointment.id} - {self.status}"

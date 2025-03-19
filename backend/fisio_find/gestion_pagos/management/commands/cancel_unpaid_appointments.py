@@ -10,7 +10,7 @@ class Command(BaseCommand):
         now = timezone.now()
         unpaid_appointments = Payment.objects.filter(
             status='Not Paid',
-            appointment__appointment_time__gt=now,  # Only future appointments
+            appointment__appointment_start__gt=now, #comporbar que funciona 
             appointment__status='Reserved'
         ).filter(payment_deadline__lt=now)
 
