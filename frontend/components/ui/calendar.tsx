@@ -4,7 +4,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import esLocale from "@fullcalendar/core/locales/es";
 import listPlugin from "@fullcalendar/list";
 import { CalendarProps } from "@/lib/definitions";
-import "@/app/mis-citas/mis-citas.css";
+import "@/app/my-appointments/my-appointments.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import DynamicFormModal from "./dinamic-form-modal";
