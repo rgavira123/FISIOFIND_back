@@ -1,0 +1,136 @@
+from gestion_citas.models import Appointment
+from django.core.mail import EmailMessage
+
+
+def send_appointment_email(appointment_id, action_type):
+    """
+    Envía correos electrónicos según la acción realizada en una cita.
+
+    Parámetros:
+    - appointment_id: ID de la cita en la base de datos.
+    - action_type: Acción realizada en la cita ('booked', 'confirmed', 'canceled', 'modified').
+
+    Quién recibe el correo según la acción:
+    - booked  -> Paciente y Fisio
+    - confirmed -> Solo Paciente
+    - canceled -> Si cancela paciente, se notifica al fisio y viceversa.
+    - modified -> Notifica al paciente sobre la modificación.
+    """
+
+    try:
+        appointment = Appointment.objects.get(id=appointment_id)
+
+        patient_name = appointment.patient.user.first_name
+        physio_name = appointment.physiotherapist.user.first_name
+        appointment_date = appointment.start_time.strftime("%d/%m/%Y %H:%M")
+        patient_email = appointment.patient.user.email
+        physio_email = appointment.physiotherapist.user.email
+
+        recipient_email = None
+        subject = ""
+        message = ""
+
+        if action_type == "booked":
+            # Notificación al paciente
+            subject_patient = "📅 Cita Agendada – En Revisión"
+            message_patient = f"""
+                Hola <strong>{patient_name}</strong>,<br><br>
+                Hemos recibido tu solicitud de cita con el fisioterapeuta <strong>{physio_name}</strong> para el <strong>{appointment_date}</strong>.
+                <br><br>Tu cita aún no está confirmada. En breve recibirás una notificación con la confirmación o cualquier cambio necesario.
+                <br><br>Si tienes dudas o necesitas modificar la solicitud, contáctanos.
+            """
+            send_email(subject_patient, message_patient, patient_email)
+
+            # Notificación al fisioterapeuta
+            subject_physio = "📅 Nueva Cita Agendada – Pendiente de Aceptación"
+            message_physio = f"""
+                Hola <strong>{physio_name}</strong>,<br><br>
+                El paciente <strong>{patient_name}</strong> ha solicitado una cita para el <strong>{appointment_date}</strong>.
+                <br><br>Puedes aceptar, modificar o cancelar la cita desde la plataforma.
+            """
+            send_email(subject_physio, message_physio, physio_email)
+
+        elif action_type == "confirmed":
+            subject = "✅ Tu Cita ha sido Confirmada"
+            message = f"""
+                Hola <strong>{patient_name}</strong>,<br><br>
+                Tu cita con el fisioterapeuta <strong>{physio_name}</strong> ha sido confirmada para el <strong>{appointment_date}</strong>.
+                <br><br>Si tienes dudas, no dudes en contactarnos.
+            """
+            recipient_email = patient_email
+
+        elif action_type == "canceled":
+            if appointment.canceled_by == "patient":
+                subject = "❌ Cita Cancelada por el Paciente"
+                message = f"""
+                    Hola <strong>{physio_name}</strong>,<br><br>
+                    El paciente <strong>{patient_name}</strong> ha cancelado su cita programada para el <strong>{appointment_date}</strong>.
+                    <br><br>Por favor, revisa tu disponibilidad para reagendar si es necesario.
+                """
+                recipient_email = physio_email
+            else:
+                subject = "❌ Cita Cancelada por el Fisioterapeuta"
+                message = f"""
+                    Hola <strong>{patient_name}</strong>,<br><br>
+                    Lamentamos informarte que el fisioterapeuta <strong>{physio_name}</strong> ha cancelado la cita programada para el <strong>{appointment_date}</strong>.
+                    <br><br>Si deseas, puedes agendar una nueva cita en la plataforma.
+                """
+                recipient_email = patient_email
+
+        elif action_type == "modified":
+            subject = "🔄 Modificación en tu Cita"
+            message = f"""
+                Hola <strong>{patient_name}</strong>,<br><br>
+                Tu cita con el fisioterapeuta <strong>{physio_name}</strong> ha sido modificada y ahora está programada para el <strong>{appointment_date}</strong>.
+                <br><br>Por favor, revisa la nueva información en la plataforma.
+            """
+            recipient_email = patient_email
+
+        if recipient_email:
+            send_email(subject, message, recipient_email)
+
+    except Appointment.DoesNotExist:
+        print("Error: Cita no encontrada")
+
+
+def send_email(subject, message, recipient_email):
+    """
+    Envía un correo electrónico con el asunto y el mensaje proporcionados.
+    """
+    # URL del logo
+    image_url = "https://fisiofind-landing-page.netlify.app/_astro/logo.1fTJ_rhB.png"
+
+    email_body = f"""
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; background-color: #ffffff;">
+        
+        <!-- Encabezado -->
+        <div style="text-align: center; border-bottom: 2px solid #00a896; padding-bottom: 10px; margin-bottom: 20px;">
+            <img src="{image_url}" alt="FisioFind Logo" width="100" height="100" style="display: block; margin: auto;">
+            <h2 style="color: #0a2239; margin: 10px 0;">Fisio <span style="color: #00a896;">Find</span></h2>
+        </div>
+
+        <!-- Contenido del correo -->
+        <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; font-size: 16px; color: #555;">
+            {message}
+        </div>
+
+        <!-- Footer -->
+        <div style="margin-top: 20px; text-align: center; border-top: 1px solid #e0e0e0; padding-top: 10px;">
+            <p style="margin: 5px 0; font-weight: bold; color: #0a2239;">Gestión de consultas</p>
+            <p style="margin: 5px 0;">
+                ✉️ <a style="color: #0073e6; text-decoration: none;" href="mailto:info@fisiofind.com">info@fisiofind.com</a> <br>
+                🌐 <a style="color: #0073e6; text-decoration: none;" href="https://fisiofind.app.com/">fisiofind.app.com</a> <br>
+                📷 <a style="color: #0073e6; text-decoration: none;" href="https://www.instagram.com/fisiofindapp/">@fisiofindapp</a>
+            </p>
+        </div>
+    </div>
+    """
+
+    email = EmailMessage(
+        subject=subject,
+        body=email_body,
+        from_email="noreply-citas@fisiofind.com",
+        to=[recipient_email],
+    )
+    email.content_subtype = "html"  # Especificar que el contenido es HTML
+    email.send()
