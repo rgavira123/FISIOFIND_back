@@ -2,8 +2,8 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated,AllowAny
-from .models import Treatment
-from .serializers import TreatmentSerializer, TreatmentDetailSerializer
+from .models import ExerciseSession, Session, Treatment
+from .serializers import ExerciseLogSerializer, ExerciseSerializer, ExerciseSessionSerializer, SessionSerializer, TreatmentSerializer, TreatmentDetailSerializer
 from gestion_usuarios.models import Physiotherapist
 from gestion_usuarios.models import Patient
 
@@ -224,5 +224,170 @@ class SetTreatmentStatusView(APIView):
         except Treatment.DoesNotExist:
             return Response(
                 {'detail': 'Treatment not found'}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
+            
+
+# CREAR SESIONES
+class SessionCreateView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request):
+        serializer = SessionSerializer(data=request.data)
+        if serializer.is_valid():
+            session = serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+# LISTAR SESIONES
+class SessionListView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request, treatment_id):
+        try:
+            treatment = Treatment.objects.get(id=treatment_id)
+            # Verificar que el usuario sea fisioterapeuta o paciente
+            is_authorized = False
+            try:
+                physiotherapist = Physiotherapist.objects.get(user=request.user)
+                if treatment.physiotherapist == physiotherapist:
+                    is_authorized = True
+            except Physiotherapist.DoesNotExist:
+                try:
+                    patient = Patient.objects.get(user=request.user)
+                    if treatment.patient == patient:
+                        is_authorized = True
+                except Patient.DoesNotExist:
+                    pass
+            
+            if not is_authorized:
+                return Response(
+                    {'detail': 'You do not have permission to view sessions for this treatment'}, 
+                    status=status.HTTP_403_FORBIDDEN
+                )
+            
+            sessions = treatment.sessions.all()
+            serializer = SessionSerializer(sessions, many=True)
+            return Response(serializer.data)
+            
+        except Treatment.DoesNotExist:
+            return Response(
+                {'detail': 'Treatment not found'}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
+            
+
+# CREAR EJERCICIOS
+class ExerciseCreateView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request):
+        serializer = ExerciseSerializer(data=request.data)
+        if serializer.is_valid():
+            exercise = serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+# ASIGNAR EJERCICIOS A UNA SESIÓN
+class AssignExerciseToSessionView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request):
+        serializer = ExerciseSessionSerializer(data=request.data)
+        if serializer.is_valid():
+            exercise_session = serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+# LISTAR EJERCICIOS DE UNA SESIÓN
+class ExerciseListBySessionView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request, session_id):
+        try:
+            session = Session.objects.get(id=session_id)
+            treatment = session.treatment
+            
+            # Verificar que el usuario sea fisioterapeuta o paciente
+            is_authorized = False
+            try:
+                physiotherapist = Physiotherapist.objects.get(user=request.user)
+                if treatment.physiotherapist == physiotherapist:
+                    is_authorized = True
+            except Physiotherapist.DoesNotExist:
+                try:
+                    patient = Patient.objects.get(user=request.user)
+                    if treatment.patient == patient:
+                        is_authorized = True
+                except Patient.DoesNotExist:
+                    pass
+            
+            if not is_authorized:
+                return Response(
+                    {'detail': 'You do not have permission to view exercises for this session'}, 
+                    status=status.HTTP_403_FORBIDDEN
+                )
+            
+            exercises = session.exercise_sessions.all()
+            serializer = ExerciseSessionSerializer(exercises, many=True)
+            return Response(serializer.data)
+            
+        except Session.DoesNotExist:
+            return Response(
+                {'detail': 'Session not found'}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
+            
+
+# REGISTRAR PROGRESO DEL PACIENTE EN LOS EJERCICIOS
+class ExerciseLogCreateView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request):
+        serializer = ExerciseLogSerializer(data=request.data)
+        if serializer.is_valid():
+            exercise_log = serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+# OBTENER HISTORIAL DE REGISTROS DE UN EJERCICIO
+class ExerciseLogListView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request, exercise_session_id):
+        try:
+            exercise_session = ExerciseSession.objects.get(id=exercise_session_id)
+            session = exercise_session.session
+            treatment = session.treatment
+            
+            # Verificar que el usuario sea fisioterapeuta o paciente
+            is_authorized = False
+            try:
+                physiotherapist = Physiotherapist.objects.get(user=request.user)
+                if treatment.physiotherapist == physiotherapist:
+                    is_authorized = True
+            except Physiotherapist.DoesNotExist:
+                try:
+                    patient = Patient.objects.get(user=request.user)
+                    if treatment.patient == patient:
+                        is_authorized = True
+                except Patient.DoesNotExist:
+                    pass
+            
+            if not is_authorized:
+                return Response(
+                    {'detail': 'You do not have permission to view exercise logs for this exercise'}, 
+                    status=status.HTTP_403_FORBIDDEN
+                )
+            
+            exercise_logs = exercise_session.exercise_logs.all()
+            serializer = ExerciseLogSerializer(exercise_logs, many=True)
+            return Response(serializer.data)
+            
+        except ExerciseSession.DoesNotExist:
+            return Response(
+                {'detail': 'Exercise session not found'}, 
                 status=status.HTTP_404_NOT_FOUND
             )
