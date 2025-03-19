@@ -3,9 +3,9 @@ import styles from './Room.module.css';
 
 // Subcomponentes de cada herramienta
 import Historial from './tools/Historial';
-import Modelo3D from './tools/Modelo3D';
-import Plantillas from './tools/Plantillas';
-import Cuestionarios from './tools/Cuestionarios';
+import Modelo3D from './tools/3DModel';
+import Plantillas from './tools/Templates';
+import Cuestionarios from './tools/Questionnaires';
 
 const ToolPanel = ({
   selectedTool,
