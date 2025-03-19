@@ -82,11 +82,11 @@ export default function GestionarCitas() {
   return (
     <>
       <div className="admin-header">
-        <a href="/gestion-admin/"><button className="btn-admin">Volver</button></a>
+        <a href="/admin-management/"><button className="btn-admin">Volver</button></a>
         <h1>Página de administración de citas</h1>
       </div>
       <div className="terminos-container">
-        <a href="/gestion-admin/citas/create"><button className="btn-admin">Crear</button></a>
+        <a href="/admin-management/appointments/create"><button className="btn-admin">Crear</button></a>
         <div>
           {citas && 
             citas.map(function(cita,key) {
@@ -96,9 +96,9 @@ export default function GestionarCitas() {
                 <p>Es online: {cita.is_online ? "Sí" : "No"}</p>
                 <p>Estado: {estados_cita[cita.status]}</p>
                 
-                <a href={"/gestion-admin/citas/view/"+cita.id}><button className="btn-admin-green">Ver</button></a>
-                <a href={"/gestion-admin/citas/edit/"+cita.id}><button className="btn-admin-yellow">Editar</button></a>
-                <a href={"/gestion-admin/citas/delete/"+cita.id}><button className="btn-admin-red">Eliminar</button></a>
+                <a href={"/admin-management/appointments/view/"+cita.id}><button className="btn-admin-green">Ver</button></a>
+                <a href={"/admin-management/appointments/edit/"+cita.id}><button className="btn-admin-yellow">Editar</button></a>
+                <a href={"/admin-management/appointments/delete/"+cita.id}><button className="btn-admin-red">Eliminar</button></a>
               </div>
             })
           }

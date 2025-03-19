@@ -48,15 +48,15 @@ const GestionAdmin = () => {
         <div className="terminos-container flex flex-col items-center justify-center text-center">
           <div className="flex flex-wrap items-center justify-center mb-8">
               <p className="text-xl max-w-2xl">Panel de gestión de términos y condiciones</p>
-              <a href="/gestion-admin/terminos"><button className="btn-admin-green ml-4">Acceder</button></a>
+              <a href="/admin-management/terms"><button className="btn-admin-green ml-4">Acceder</button></a>
           </div>
           <div className="flex flex-wrap items-center justify-center mb-8">
               <p className="text-xl max-w-2xl">Panel de gestión de usuarios</p>
-              <a href="/gestion-admin/usuarios"><button className="btn-admin-green ml-4">Acceder</button></a>
+              <a href="/admin-management/users"><button className="btn-admin-green ml-4">Acceder</button></a>
           </div>
           <div className="flex flex-wrap items-center justify-center mb-8">
               <p className="text-xl max-w-2xl">Panel de gestión de citas</p>
-              <a href="/gestion-admin/citas"><button className="btn-admin-green ml-4">Acceder</button></a>
+              <a href="/admin-management/appointments"><button className="btn-admin-green ml-4">Acceder</button></a>
           </div>
         </div>
     </>

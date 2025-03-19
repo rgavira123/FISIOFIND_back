@@ -75,7 +75,7 @@ export default function EliminarCitas() {
       }
     }
     ).then(() => {
-        location.href="/gestion-admin/citas/"
+        location.href="/admin-management/appointments/"
       })
       .catch(error => {
         console.error("Error fetching data:", error);
@@ -85,7 +85,7 @@ export default function EliminarCitas() {
   return (
     <>
       <div className="admin-header">
-        <a href="/gestion-admin/citas/"><button className="btn-admin">Volver</button></a>
+        <a href="/admin-management/appointments/"><button className="btn-admin">Volver</button></a>
         <h1>Eliminar cita</h1>
       </div>
       <div className="terminos-container">
@@ -93,7 +93,7 @@ export default function EliminarCitas() {
           <p style={{fontSize:"1.5rem"}}>¿Quieres borrar la cita {cita.id}?</p>
           <div>
             <button className="btn-admin-red" onClick={deleteCita}>Sí</button>
-            <button className="btn-admin-green" onClick={() => location.href="/gestion-admin/citas/"}>No</button>
+            <button className="btn-admin-green" onClick={() => location.href="/admin-management/appointments/"}>No</button>
           </div>
           </>
         }

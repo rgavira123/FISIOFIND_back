@@ -129,7 +129,7 @@ export default function VerCita() {
   return (
     <>
       <div className="admin-header">
-        <a href="/gestion-admin/citas"><button className="btn-admin">Volver</button></a>
+        <a href="/admin-management/appointments/"><button className="btn-admin">Volver</button></a>
         <h1>Vista de cita</h1>
       </div>
       <div className="terminos-container">

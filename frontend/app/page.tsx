@@ -276,7 +276,7 @@ const Home = () => {
                         <CardItem
                           translateZ="20"
                           className="px-4 py-2 rounded-xl bg-[#1E5ACD] text-white text-sm font-bold hover:bg-[#1848A3] transition-colors"
-                          onClick={() => router.push(`/citas/crear/${physio.id}`)}
+                          onClick={() => router.push(`/appointments/create/${physio.id}`)}
                         >
                           Reservar cita
                         </CardItem>

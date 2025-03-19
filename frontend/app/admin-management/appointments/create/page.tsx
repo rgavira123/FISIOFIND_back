@@ -72,7 +72,7 @@ export default function editarCitas() {
         "Authorization": "Bearer "+token
       }
     }).then( () => {
-        location.href="/gestion-admin/citas/"
+        location.href="/admin-management/appointments/"
       })
       .catch(error => {
         if (error.response && error.response.data.non_field_errors) {
