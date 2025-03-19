@@ -9,7 +9,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import Physiotherapist, Patient, AppUser
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics
-#from permissions import IsAdmin
+from permissions import IsAdmin
+from .models import ACCOUNT_STATUS_CHOICES
 
 
 from .permissions import IsPatient
@@ -50,7 +51,7 @@ class PatientProfileView(generics.RetrieveAPIView):
 
         except Patient.DoesNotExist:
             return Response({"error": "Perfil de paciente no encontrado"}, status=status.HTTP_404_NOT_FOUND)
-        
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def patient_register_view(request):
@@ -136,6 +137,66 @@ def physio_update_view(request):
         return Response({"message": "Fisioterapeuta actualizado correctamente"}, status=status.HTTP_200_OK)
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAdmin])
+def admin_list_pacient_profiles(request):
+    user = request.user
+    if hasattr(user, 'admin'):
+        patients = Patient.objects.all()   
+        patient_data = [{
+            "patient": PatientSerializer(patient).data,
+            "user_data": AppUserSerializer(patient.user).data
+        } for patient in patients]
+        return Response({"patients": patient_data}, status=status.HTTP_200_OK)
+    return Response({"error": "No tienes permisos para ver esta información."}, status=status.HTTP_403_FORBIDDEN)
+
+
+@api_view(['GET'])
+@permission_classes([IsAdmin])
+def admin_list_physioterapist_profiles(request):
+    user = request.user
+    if hasattr(user, 'admin'):
+        physioterapists = Physiotherapist.objects.all()   
+        physioterapist_data = [{
+            "physioterapist": PhysioSerializer(physioterapist).data,
+            "user_data": AppUserSerializer(physioterapist.user).data
+        } for physioterapist in physioterapists]
+        return Response({"physioterapists": physioterapist_data}, status=status.HTTP_200_OK)
+
+    return Response({"error": "No tienes permisos para ver esta información."}, status=status.HTTP_403_FORBIDDEN)
+
+@api_view(['DELETE'])
+@permission_classes([IsAdmin]) 
+def admin_delete_user(request, user_id):
+    user_to_delete = get_object_or_404(AppUser, id=user_id)
+
+    if hasattr(user_to_delete, 'admin'):
+        return Response({"error": "No puedes eliminar a otro administrador."}, status=status.HTTP_403_FORBIDDEN)
+
+    user_to_delete.delete()
+    return Response({"message": "Usuario eliminado correctamente."}, status=status.HTTP_200_OK)
+
+
+@api_view(['PATCH'])
+@permission_classes([IsAdmin])
+def admin_update_account_status(request, user_id):
+    user_to_update = get_object_or_404(AppUser, id=user_id)
+
+    new_status = request.data.get('account_status')
+    if not new_status:
+        return Response({"error": "Debes proporcionar un nuevo estado de cuenta."}, status=status.HTTP_400_BAD_REQUEST)
+
+    valid_statuses = [choice[0] for choice in ACCOUNT_STATUS_CHOICES]
+    if new_status not in valid_statuses:
+        return Response({"error": "Estado de cuenta inválido."}, status=status.HTTP_400_BAD_REQUEST)
+
+    user_to_update.account_status = new_status
+    user_to_update.save()
+
+    return Response({"message": "Estado de cuenta actualizado correctamente.", "new_status": new_status}, status=status.HTTP_200_OK)
+
 
 """
 class AdminAppUserDetail(generics.RetrieveAPIView):
