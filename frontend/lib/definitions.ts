@@ -18,12 +18,25 @@ export interface Step {
   label: string;
 }
 
+export interface QuestionElement {
+  type: string;
+  label: string;
+  scope: string;
+}
+
+export interface Questionary {
+  type: string;
+  label: string;
+  elements: QuestionElement[];
+}
+
 export interface Service {
   id: string;
   title: string;
   price: number;
   description: string;
   duration: string;
+  questionary: Questionary;
 }
 
 export interface AppointmentData {
@@ -34,6 +47,7 @@ export interface AppointmentData {
     type: string;
     price: number;
     duration: number;
+    questionary: Questionary;
   };
   physiotherapist: number;
   status: string;

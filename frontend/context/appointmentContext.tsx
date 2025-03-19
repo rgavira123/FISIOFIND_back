@@ -2,6 +2,7 @@
 "use client";
 import React, { createContext, useReducer, useContext } from "react";
 import { AppointmentData } from "@/lib/definitions";
+import { QuestionElement } from "@/lib/definitions";
 
 type State = {
   appointmentData: AppointmentData;
@@ -11,7 +12,7 @@ type Action =
   | {
     type: "SELECT_SERVICE";
     payload: {
-      service: { type: string; price: number; duration: number };
+      service: { type: string; price: number; duration: number, questionary: { type: string; label: string; elements: QuestionElement[] } };
       physiotherapist: number;
     }
   }
@@ -24,7 +25,7 @@ const initialState: State = {
     start_time: "",
     end_time: "",
     is_online: false,
-    service: { type: "", price: 0, duration: 0 },
+    service: { type: "", price: 0, duration: 0, questionary: { type: "", label: "", elements: [] } },
     physiotherapist: 0,
     status: "",
     alternatives: "",
@@ -57,7 +58,7 @@ const appointmentReducer = (state: State, action: Action): State => {
           start_time: "",
           end_time: "",
           is_online: false,
-          service: { type: "", price: 0, duration: 0 },
+          service: { type: "", price: 0, duration: 0, questionary: { type: "", label: "", elements: [] } },
           physiotherapist: 0,
           status: "",
           alternatives: "",

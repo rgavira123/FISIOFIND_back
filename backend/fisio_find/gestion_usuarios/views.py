@@ -173,6 +173,25 @@ def physio_create_service_view(request):
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def physio_get_services_view(request, physio_id):
+    physio = get_object_or_404(Physiotherapist, id=physio_id)
+    return Response(physio.services)
+
+@api_view(['DELETE'])
+def physio_delete_service_view(request, service_id):
+    physio = get_object_or_404(Physiotherapist, user=request.user)
+    services = physio.services
+    if services is None:
+        return Response({"message": "No hay servicios para eliminar"}, status=status.HTTP_200_OK)
+    if service_id not in services:
+        return Response({"error": "El servicio no existe"}, status=status.HTTP_404_NOT_FOUND)
+    del services[service_id]
+    physio.services = services
+    physio.save()
+    return Response({"message": "Servicio eliminado correctamente"}, status=status.HTTP_200_OK)
+
 """
 class AdminAppUserDetail(generics.RetrieveAPIView):
     '''

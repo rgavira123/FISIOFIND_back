@@ -10,7 +10,8 @@ const steps: Step[] = [
   { step: 1, label: "Selecciona el servicio" },
   { step: 2, label: "Agenda tu cita y hora" },
   { step: 3, label: "Elige tu método de pago" },
-  { step: 4, label: "Resumen final" },
+  { step: 4, label: "Cuestionario" },
+  { step: 5, label: "Resumen final" },
 ];
 
 
