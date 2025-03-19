@@ -1,33 +1,3 @@
-/* 
-.fc{
-}
-.fc-button{
-    background-color: #05668D;
-}
-.fc-button-active{
-
-}
-.fc-day-today{
-    background-color: #41b8d58f;
-}
-.fc-day-sat, .fc-day-sun{
-
-}
-.fc-event{
-
-
-}
-.fc-list-event{
-
-}
-.fc-button.fc-today-button{
-
-}
-.fc-day-disabled{
-
-} */
-
-
 /* ======= FONDO GENERAL DEL CALENDARIO ======= */
 .fc {
     width: 75%;
@@ -113,6 +83,24 @@
 
   .fc-event-hovered {
     background-color: #41B8D5 !important; /* Ejemplo: Color de fondo cuando se pasa el ratón */
+  }
+
+  .fc-event-confirmed {
+    background-color: green !important;
+    border-color: #1F7A6C !important;
+    color: #ffffff !important;
+  }
+
+  .fc-event-pending {
+    background-color: darkolivegreen !important;
+    border-color: #4FA48F !important;
+    color: #ffffff !important;
+  }
+
+  .fc-event-booked {
+    background-color: olivedrab !important;
+    border-color: #8AC4B3 !important;
+    color: #ffffff !important;
   }
   
   .fc-popover.fc-more-popover.fc-day.fc-day-wed.fc-day-future{
