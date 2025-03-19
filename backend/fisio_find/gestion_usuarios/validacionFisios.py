@@ -14,25 +14,19 @@ class SeleniumScraper:
         # Configurar Selenium (se requiere que JS esté habilitado)
         options = webdriver.ChromeOptions()
         
-        # **✅ Evita detección de Selenium**
-        options.add_argument("--headless=new")  # Nueva versión de headless
-        options.add_argument("--no-sandbox")  # Necesario para servidores sin GUI
-        options.add_argument("--disable-dev-shm-usage")  # Previene errores de memoria en Linux
-        options.add_argument("--disable-gpu")  # Deshabilitar GPU (no se usa en servidores)
-        options.add_argument("--window-size=1920,1080")  # Simular una ventana real
-        options.add_argument("--disable-blink-features=AutomationControlled")  # Evitar detección de bots
-        
-        # **✅ Agregar un User-Agent aleatorio para evitar bloqueos**
-        user_agents = [
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36",
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
-            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-        ]
-        options.add_argument(f"user-agent={random.choice(user_agents)}")
+        options.add_argument("--headless")  # Modo sin interfaz gráfica
+        options.add_argument("--no-sandbox")  
+        options.add_argument("--disable-dev-shm-usage")  
+        options.add_argument("--disable-gpu")  
+        options.add_argument("--window-size=1920x1080")
+        options.binary_location = "/usr/bin/chromium-browser"
 
-        # **✅ Inicializar el WebDriver**
+        # Especificar ruta manual de ChromeDriver
+        chromedriver_path = "/usr/bin/chromedriver"
+
+        # Inicializar WebDriver con ruta manual
         self.driver = webdriver.Chrome(
-            service=Service(ChromeDriverManager().install()),
+            service=Service(executable_path=chromedriver_path),
             options=options
         )
 
