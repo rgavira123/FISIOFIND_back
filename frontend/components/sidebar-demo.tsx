@@ -60,14 +60,14 @@ export function SidebarDemo() {
     },
     {
       label: "Mis citas",
-      href: isAuthenticated ? "/my-appointments" : "/register",
+      href: "/my-appointments",  // Remove conditional
       icon: (
         <IconCalendar className="text-[#253240] h-5 w-5 flex-shrink-0 mx-auto" />
       ),
     },
     {
       label: "Tratamientos",
-      href: isAuthenticated ? "#" : "/register",
+      href: "#",  // Remove conditional and add actual route
       icon: (
         <IconStethoscope className="text-[#253240] h-5 w-5 flex-shrink-0 mx-auto" />
       ),
