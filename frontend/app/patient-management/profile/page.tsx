@@ -47,17 +47,17 @@ const PatientProfile = () => {
           .then(response => {
             const role = response.data.user_role;
             if (role !== "patient") {
-              location.href = "/error-permisos";
+              location.href = "/permissions-error/";
             } else {
               fetchPatientProfile();
             }
           })
           .catch(error => {
             console.error("Error al obtener el rol del usuario:", error);
-            location.href = "/error-permisos";
+            location.href = "/permissions-error/";
           });
       } else {
-        location.href = "/error-permisos";
+        location.href = "/permissions-error/";
       }
     }
   }, [token, isClient]);

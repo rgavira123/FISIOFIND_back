@@ -31,7 +31,7 @@ export default function verFisioterapeuta() {
   return (
     <>
       <div className="admin-header">
-        <a href="/admin-management/users/physiotherapists/"><button className="btn-admin">Volver</button></a>
+        <a href="/admin-management/users/physios/"><button className="btn-admin">Volver</button></a>
         <h1>Ver fisioterapeuta</h1>
       </div>
       <div className="terminos-container">
