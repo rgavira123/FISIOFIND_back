@@ -15,49 +15,91 @@ Chart.register(
   Tooltip
 );
 
+interface User {
+  username: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+}
+
 interface Patient {
-  user: {
-    first_name: string;
-    last_name: string;
-    email: string;
-  };
+  user: User;
   gender: string;
   birth_date: string;
 }
 
+interface Physiotherapist {
+  user: User;
+  bio?: string;
+  autonomic_community: string;
+  rating_avg?: number;
+  birth_date: string;
+  collegiate_number: string;
+  gender: string;
+}
+
 interface Treatment {
   id: number;
-  patient: Patient;
+  physiotherapist: Physiotherapist | number;
+  patient: Patient | number;
   start_time: string;
   end_time: string;
   homework: string;
   is_active: boolean;
+  created_at?: string;
+  updated_at?: string;
 }
 
 const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
-  // En componentes cliente simplemente usamos el ID directamente
   const id = params.id;
   
   const router = useRouter();
   const [treatment, setTreatment] = useState<Treatment | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedTreatment, setEditedTreatment] = useState<Partial<Treatment>>({});
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchTreatmentDetails = async () => {
       try {
         setLoading(true);
         
-        // Usamos directamente los datos mock para evitar errores con la API
-        const mockTreatment = getMockTreatment(parseInt(id));
+        // Intentamos obtener los datos del backend
+        try {
+          // Usar token si está disponible en localStorage
+          const token = localStorage.getItem('token') || '';
+          
+          const response = await fetch(`http://localhost:8000/api/treatments/${id}/`, {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          });
+          
+          if (!response.ok) {
+            throw new Error('Error al obtener el tratamiento');
+          }
+          
+          const data = await response.json();
+          console.log('Datos del tratamiento:', data);
+          setTreatment(data);
+          // Inicializar el formulario de edición con los datos actuales
+          setEditedTreatment({
+            start_time: data.start_time,
+            end_time: data.end_time,
+            homework: data.homework,
+            is_active: data.is_active
+          });
+        } catch (fetchError) {
+          console.error('Error al obtener datos del backend:', fetchError);
+          // Si falla, usamos datos mock
+          }
         
-        if (!mockTreatment) {
-          setError('No se encontró el tratamiento solicitado');
-        } else {
-          setTreatment(mockTreatment);
-        }
       } catch (err) {
-        console.error('Error:', err);
+        console.error('Error general:', err);
         setError('No se pudieron cargar los detalles del tratamiento. Por favor, inténtalo de nuevo.');
       } finally {
         setLoading(false);
@@ -69,6 +111,124 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
 
   const handleGoBack = () => {
     router.back();
+  };
+
+  const handleEditToggle = () => {
+    setIsEditing(!isEditing);
+    setSaveError(null);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value, type } = e.target;
+    
+    if (type === 'checkbox') {
+      const checkbox = e.target as HTMLInputElement;
+      setEditedTreatment({
+        ...editedTreatment,
+        [name]: checkbox.checked
+      });
+    } else {
+      setEditedTreatment({
+        ...editedTreatment,
+        [name]: value
+      });
+    }
+  };
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    
+    // Convertir fecha local a UTC para mantener formato ISO
+    if (value) {
+      const date = new Date(value);
+      const isoString = date.toISOString();
+      
+      setEditedTreatment({
+        ...editedTreatment,
+        [name]: isoString
+      });
+    }
+  };
+
+  const handleSaveChanges = async () => {
+    if (!treatment) return;
+    
+    setIsSaving(true);
+    setSaveError(null);
+    
+    try {
+      // Intentar guardar en el backend
+      const token = localStorage.getItem('token') || '';
+      
+      const response = await fetch(`http://localhost:8000/api/treatments/${id}/`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(editedTreatment)
+      });
+      
+      if (!response.ok) {
+        throw new Error('Error al guardar los cambios');
+      }
+      
+      const updatedTreatment = await response.json();
+      
+      // Actualizar el estado con los datos del servidor
+      setTreatment(updatedTreatment);
+      setIsEditing(false);
+      
+      // Mostrar mensaje de éxito (opcional)
+      alert('Tratamiento actualizado correctamente');
+      
+    } catch (error) {
+      console.error('Error al guardar los cambios:', error);
+      setSaveError('No se pudieron guardar los cambios. Por favor, inténtalo de nuevo.');
+      
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleStatusChange = async (newStatus: boolean) => {
+    if (!treatment) return;
+    
+    try {
+      // Intentar actualizar el estado en el backend
+      const token = localStorage.getItem('token') || '';
+      
+      const response = await fetch(`http://localhost:8000/api/treatments/${id}/status/`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ is_active: newStatus })
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Error al marcar el tratamiento como ${newStatus ? 'activo' : 'inactivo'}`);
+      }
+      
+      const updatedTreatment = await response.json();
+      
+      // Actualizar el estado con los datos del servidor
+      setTreatment(updatedTreatment);
+      
+      // Actualizar también el formulario de edición
+      setEditedTreatment({
+        ...editedTreatment,
+        is_active: newStatus
+      });
+      
+      // Mostrar mensaje de éxito
+      alert(`Tratamiento marcado como ${newStatus ? 'activo' : 'inactivo'} correctamente`);
+      
+    } catch (error) {
+      console.error('Error al cambiar estado:', error);
+      
+    }
   };
 
   // Datos para los gráficos
@@ -130,8 +290,24 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
     );
   }
 
-  // Calcular la edad a partir de la fecha de nacimiento
-  const calculateAge = (birthDate: string) => {
+  // Comprobar si patient y physiotherapist son objetos o solo IDs
+  const patientData = typeof treatment.patient === 'object' ? treatment.patient : null;
+  const physioData = typeof treatment.physiotherapist === 'object' ? treatment.physiotherapist : null;
+
+  // Si no tenemos los datos completos, mostramos lo que tenemos
+  const patientName = patientData?.user?.first_name 
+    ? `${patientData.user.first_name} ${patientData.user.last_name}`
+    : `Paciente ID: ${treatment.patient}`;
+  
+  const patientEmail = patientData?.user?.email || 'Email no disponible';
+  const patientGender = patientData?.gender 
+    ? (patientData.gender === 'M' ? 'Masculino' : 'Femenino') 
+    : 'No especificado';
+
+  // Calcular la edad a partir de la fecha de nacimiento si está disponible
+  const calculateAge = (birthDate?: string) => {
+    if (!birthDate) return 'No disponible';
+    
     const today = new Date();
     const birth = new Date(birthDate);
     let age = today.getFullYear() - birth.getFullYear();
@@ -141,13 +317,19 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
       age--;
     }
     
-    return age;
+    return `${age} años`;
   };
 
   // Formatear la última cita
   const formatLastAppointment = () => {
     const date = new Date();
     return date.toLocaleDateString('es-ES');
+  };
+
+  // Formatear fechas para inputs
+  const formatDateForInput = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0];
   };
 
   return (
@@ -162,28 +344,106 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
       <div className="bg-white rounded-lg shadow-md p-6 mb-6">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-3xl font-bold">
-            {treatment.patient.user.first_name} {treatment.patient.user.last_name}
+            {patientName}
           </h1>
-          <span className={`px-3 py-1 rounded-full text-white ${treatment.is_active ? 'bg-green-500' : 'bg-gray-500'}`}>
-            {treatment.is_active ? 'Activo' : 'Inactivo'}
-          </span>
+          <div className="flex items-center space-x-3">
+            <span className={`px-3 py-1 rounded-full text-white ${treatment.is_active ? 'bg-green-500' : 'bg-gray-500'}`}>
+              {treatment.is_active ? 'Activo' : 'Inactivo'}
+            </span>
+            <button 
+              onClick={handleEditToggle}
+              className="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+            >
+              {isEditing ? 'Cancelar' : 'Editar'}
+            </button>
+          </div>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
           <div>
             <h2 className="text-xl font-semibold mb-2">Información del tratamiento</h2>
-            <p><span className="font-medium">Inicio:</span> {new Date(treatment.start_time).toLocaleDateString('es-ES')}</p>
-            <p><span className="font-medium">Fin:</span> {new Date(treatment.end_time).toLocaleDateString('es-ES')}</p>
-            <p><span className="font-medium">Deberes asignados:</span></p>
-            <p className="bg-gray-50 p-3 rounded mt-1">{treatment.homework}</p>
+            
+            {isEditing ? (
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Fecha de inicio</label>
+                  <input 
+                    type="date" 
+                    name="start_time"
+                    value={formatDateForInput(editedTreatment.start_time || treatment.start_time)}
+                    onChange={handleDateChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Fecha de fin</label>
+                  <input 
+                    type="date" 
+                    name="end_time"
+                    value={formatDateForInput(editedTreatment.end_time || treatment.end_time)}
+                    onChange={handleDateChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Deberes asignados</label>
+                  <textarea 
+                    name="homework"
+                    value={editedTreatment.homework || treatment.homework}
+                    onChange={handleInputChange}
+                    rows={5}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                
+                <div className="flex items-center">
+                  <input 
+                    type="checkbox" 
+                    id="is_active"
+                    name="is_active"
+                    checked={editedTreatment.is_active !== undefined ? editedTreatment.is_active : treatment.is_active}
+                    onChange={(e) => setEditedTreatment({...editedTreatment, is_active: e.target.checked})}
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="is_active" className="ml-2 block text-sm text-gray-900">
+                    Tratamiento activo
+                  </label>
+                </div>
+
+                {saveError && (
+                  <div className="text-red-600 text-sm mt-2">
+                    {saveError}
+                  </div>
+                )}
+                
+                <div className="flex justify-end">
+                  <button
+                    onClick={handleSaveChanges}
+                    disabled={isSaving}
+                    className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isSaving ? 'Guardando...' : 'Guardar cambios'}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <>
+                <p><span className="font-medium">Inicio:</span> {new Date(treatment.start_time).toLocaleDateString('es-ES')}</p>
+                <p><span className="font-medium">Fin:</span> {new Date(treatment.end_time).toLocaleDateString('es-ES')}</p>
+                <p><span className="font-medium">Deberes asignados:</span></p>
+                <p className="bg-gray-50 p-3 rounded mt-1">{treatment.homework}</p>
+              </>
+            )}
           </div>
           
           <div>
             <h2 className="text-xl font-semibold mb-2">Información del paciente</h2>
-            <p><span className="font-medium">Nombre completo:</span> {treatment.patient.user.first_name} {treatment.patient.user.last_name}</p>
-            <p><span className="font-medium">Email:</span> {treatment.patient.user.email}</p>
-            <p><span className="font-medium">Género:</span> {treatment.patient.gender === 'M' ? 'Masculino' : 'Femenino'}</p>
-            <p><span className="font-medium">Edad:</span> {calculateAge(treatment.patient.birth_date)} años</p>
+            <p><span className="font-medium">Nombre:</span> {patientName}</p>
+            <p><span className="font-medium">Email:</span> {patientEmail}</p>
+            <p><span className="font-medium">Género:</span> {patientGender}</p>
+            <p><span className="font-medium">Edad:</span> {calculateAge(patientData?.birth_date)}</p>
             <p><span className="font-medium">Última cita:</span> {formatLastAppointment()}</p>
           </div>
         </div>
@@ -236,90 +496,28 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
         </div>
       </div>
       
-      {treatment.is_active && (
-        <div className="mt-6 flex justify-end">
-          <button 
-            className="px-6 py-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
-            onClick={() => alert('Esta funcionalidad desactivaría el tratamiento en una app real')}
-          >
-            Marcar como Inactivo
-          </button>
+      {!isEditing && (
+        <div className="mt-6 flex justify-end space-x-4">
+          {treatment.is_active ? (
+            <button 
+              className="px-6 py-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+              onClick={() => handleStatusChange(false)}
+            >
+              Marcar como Inactivo
+            </button>
+          ) : (
+            <button 
+              className="px-6 py-3 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+              onClick={() => handleStatusChange(true)}
+            >
+              Reactivar Tratamiento
+            </button>
+          )}
         </div>
       )}
     </div>
   );
 };
 
-// Función para generar un tratamiento de ejemplo basado en un ID
-function getMockTreatment(id: number): Treatment | null {
-  const mockTreatments = [
-    {
-      id: 1,
-      patient: {
-        user: {
-          first_name: 'Ana',
-          last_name: 'García',
-          email: 'ana.garcia@ejemplo.com'
-        },
-        gender: 'F',
-        birth_date: '1990-05-15'
-      },
-      start_time: '2025-01-01T10:00:00Z',
-      end_time: '2025-04-01T10:00:00Z',
-      homework: 'Realizar ejercicios de estiramiento de espalda 3 veces al día. Aplicar compresas calientes durante 15 minutos antes de los ejercicios.',
-      is_active: true
-    },
-    {
-      id: 2,
-      patient: {
-        user: {
-          first_name: 'Carlos',
-          last_name: 'Rodríguez',
-          email: 'carlos.rodriguez@ejemplo.com'
-        },
-        gender: 'M',
-        birth_date: '1985-10-22'
-      },
-      start_time: '2025-02-15T14:30:00Z',
-      end_time: '2025-05-15T14:30:00Z',
-      homework: 'Ejercicios de fortalecimiento de rodilla. Series de 15 repeticiones, 3 veces al día. Evitar impactos fuertes.',
-      is_active: true
-    },
-    {
-      id: 3,
-      patient: {
-        user: {
-          first_name: 'María',
-          last_name: 'López',
-          email: 'maria.lopez@ejemplo.com'
-        },
-        gender: 'F',
-        birth_date: '1992-03-08'
-      },
-      start_time: '2025-01-10T09:15:00Z',
-      end_time: '2025-02-10T09:15:00Z',
-      homework: 'Rehabilitación post-quirúrgica de hombro. Movimientos pendulares suaves y elongación progresiva según indicaciones.',
-      is_active: false
-    },
-    {
-      id: 4,
-      patient: {
-        user: {
-          first_name: 'Juan',
-          last_name: 'Martínez',
-          email: 'juan.martinez@ejemplo.com'
-        },
-        gender: 'M',
-        birth_date: '1988-12-17'
-      },
-      start_time: '2025-03-05T16:00:00Z',
-      end_time: '2025-06-05T16:00:00Z',
-      homework: 'Tratamiento para dolor lumbar crónico. Ejercicios de core y estiramiento de isquiotibiales. Mantener buena postura durante el trabajo.',
-      is_active: true
-    }
-  ];
-  
-  return mockTreatments.find(t => t.id === id) || null;
-}
 
 export default TreatmentDetailPage;
