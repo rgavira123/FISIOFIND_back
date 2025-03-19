@@ -41,9 +41,9 @@ export function SidebarDemo() {
           .then(response => {
             const role = response.data.user_role;
             if (role === "patient") {
-              setUrlPerfil("/gestion-paciente/perfil");
+              setUrlPerfil("/patient-management/profile/");
             } else if (role === "physiotherapist") {
-              setUrlPerfil("/gestion-fisio/perfil");
+              setUrlPerfil("/physio-management/profile/");
             }
           })
       }
@@ -60,14 +60,14 @@ export function SidebarDemo() {
     },
     {
       label: "Mis citas",
-      href: isAuthenticated ? "/mis-citas" : "/gestion-paciente/registro",
+      href: isAuthenticated ? "/my-appointments" : "/register",
       icon: (
         <IconCalendar className="text-[#253240] h-5 w-5 flex-shrink-0 mx-auto" />
       ),
     },
     {
       label: "Tratamientos",
-      href: isAuthenticated ? "#" : "/gestion-paciente/registro",
+      href: isAuthenticated ? "#" : "/register",
       icon: (
         <IconStethoscope className="text-[#253240] h-5 w-5 flex-shrink-0 mx-auto" />
       ),
@@ -81,7 +81,7 @@ export function SidebarDemo() {
     },
     {
       label: "Videollamadas",
-      href: "/videollamadas",
+      href: "/videocalls",
       icon: (
         <IconPhone className="text-[#253240] h-5 w-5 flex-shrink-0 mx-auto" />
       ),
