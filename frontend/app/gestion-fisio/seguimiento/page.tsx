@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 
 // Definir las interfaces para los datos
@@ -41,13 +41,13 @@ interface Treatment {
 }
 
 // Interface para formulario de creación
-interface NewTreatmentForm {
-  patient: number;
-  start_time: string;
-  end_time: string;
-  homework: string;
-  is_active: boolean;
-}
+// interface NewTreatmentForm {
+//   patient: number;
+//   start_time: string;
+//   end_time: string;
+//   homework: string;
+//   is_active: boolean;
+// }
 
 const SeguimientoPage = () => {
   const router = useRouter();
@@ -59,6 +59,41 @@ const SeguimientoPage = () => {
   const [activeFilter, setActiveFilter] = useState<boolean | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   
+
+  const extractActivePatients = useCallback((treatmentsData: Treatment[]) => {
+    const activePatientsMap = new Map<number, Patient>();
+
+    treatmentsData.forEach((treatment) => {
+      if (treatment.is_active && typeof treatment.patient === "object") {
+        const patientId = (treatment.patient as Patient).id;
+        if (patientId && !activePatientsMap.has(patientId)) {
+          activePatientsMap.set(patientId, {
+            ...(treatment.patient as Patient),
+            id: patientId,
+          });
+        }
+      }
+    });
+
+    // Para desarrollo, si no hay pacientes, usar datos de ejemplo
+    if (activePatientsMap.size === 0) {
+      // Agregar un paciente de ejemplo
+      activePatientsMap.set(1, {
+        id: 1,
+        user: {
+          first_name: "María",
+          last_name: "López Sánchez",
+          email: "paciente_test@ejemplo.com",
+          username: "paciente_test",
+        },
+        gender: "F",
+        birth_date: "1990-05-15",
+      });
+    }
+
+    setActivePatients(Array.from(activePatientsMap.values()));
+  }, []);
+  console.log(activePatients);
 
   // Cargar tratamientos desde la API
   useEffect(() => {
@@ -103,42 +138,7 @@ const SeguimientoPage = () => {
     };
 
     fetchTreatments();
-  }, []);
-  
-  // Extraer pacientes activos de los tratamientos
-  const extractActivePatients = (treatmentsData: Treatment[]) => {
-    const activePatientsMap = new Map<number, Patient>();
-    
-    treatmentsData.forEach(treatment => {
-      if (treatment.is_active && typeof treatment.patient === 'object') {
-        const patientId = (treatment.patient as any).id;
-        if (patientId && !activePatientsMap.has(patientId)) {
-          activePatientsMap.set(patientId, {
-            ...(treatment.patient as Patient),
-            id: patientId
-          });
-        }
-      }
-    });
-    
-    // Para desarrollo, si no hay pacientes, usar datos de ejemplo
-    if (activePatientsMap.size === 0) {
-      // Agregar un paciente de ejemplo
-      activePatientsMap.set(1, {
-        id: 1,
-        user: {
-          first_name: 'María',
-          last_name: 'López Sánchez',
-          email: 'paciente_test@ejemplo.com',
-          username: 'paciente_test'
-        },
-        gender: 'F',
-        birth_date: '1990-05-15'
-      });
-    }
-    
-    setActivePatients(Array.from(activePatientsMap.values()));
-  };
+  }, [extractActivePatients]);
 
   // Aplicar filtros cuando cambien
   useEffect(() => {
