@@ -47,11 +47,11 @@ const GestionUsuarios = () => {
         <div className="flex flex-col items-center justify-center text-center">
           <div className="flex flex-wrap text-wrap items-center justify-center mb-8">
               <p className="text-xl max-w-2xl">Panel de gestión pacientes</p>
-              <a href="/gestion-admin/usuarios/pacientes"><button className="btn-admin-green">Acceder</button></a>
+              <a href="/admin-management/users/patients/"><button className="btn-admin-green">Acceder</button></a>
           </div>
           <div className="flex flex-wrap items-center justify-center mb-8">
               <p className="text-xl max-w-2xl">Panel de gestión de fisioterapeutas</p>
-              <a href="/gestion-admin/usuarios/fisioterapeutas"><button className="btn-admin-green">Acceder</button></a>
+              <a href="/admin-management/users/physiotherapists/"><button className="btn-admin-green">Acceder</button></a>
           </div>
         </div>
     </>

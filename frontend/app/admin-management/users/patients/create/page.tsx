@@ -61,7 +61,7 @@ export default function crearPaciente() {
       gender: genero,
       birth_date: fechaNacimiento
     }).then( () => {
-        location.href="/gestion-admin/usuarios/"
+        location.href="/admin-management/users/"
       })
       .catch(error => {
         console.error("Error fetching data:", error);
@@ -71,7 +71,7 @@ export default function crearPaciente() {
   return (
     <>
       <div className="admin-header">
-        <a href="/gestion-admin/usuarios/paciente"><button className="btn-admin">Volver</button></a>
+        <a href="/admin-management/users/patients/"><button className="btn-admin">Volver</button></a>
         <h1>Crear término</h1>
       </div>
       <div className="terminos-container">

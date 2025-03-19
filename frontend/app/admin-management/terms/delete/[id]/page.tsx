@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { get_id_from_url } from "@/app/gestion-admin/util";
+import { get_id_from_url } from "@/app/admin-management/util";
 import { getApiBaseUrl } from "@/utils/api";
 
 interface terminoInterface {
@@ -74,7 +74,7 @@ export default function EliminarTermino() {
         },
       })
       .then(() => {
-        location.href = "/gestion-admin/terminos/";
+        location.href = "/admin-management/terms/";
       })
       .catch(error => {
         console.log("Error fetching data:", error);
@@ -84,7 +84,7 @@ export default function EliminarTermino() {
   return (
     <>
       <div className="admin-header">
-        <a href="/gestion-admin/terminos/">
+        <a href="/admin-management/terms/">
           <button className="btn-admin">Volver</button>
         </a>
         <h1>Eliminar término</h1>
@@ -101,7 +101,7 @@ export default function EliminarTermino() {
               </button>
               <button
                 className="btn-admin-green"
-                onClick={() => (location.href = "/gestion-admin/terminos/")}
+                onClick={() => (location.href = "/admin-management/terms/")}
               >
                 No
               </button>

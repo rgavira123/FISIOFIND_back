@@ -63,11 +63,11 @@ export default function GestionarPacientes() {
   return (
     <>
       <div className="admin-header">
-        <a href="/gestion-admin/"><button className="btn-admin">Volver</button></a>
+        <a href="/admin-management/"><button className="btn-admin">Volver</button></a>
         <h1>Página de administración de pacientes</h1>
       </div>
       <div className="terminos-container">
-        <a href="/gestion-admin/citas/create"><button className="btn-admin">Crear</button></a>
+        <a href="/admin-management/users/patients/create/"><button className="btn-admin">Crear</button></a>
         <div>
           {pacientes && 
             pacientes.map(function(paciente,key) {
@@ -78,8 +78,8 @@ export default function GestionarPacientes() {
                   <p>Apellidos: {paciente.user.last_name}</p>
                   <p>Genero paciente: {paciente.user.last_name}</p>
                   
-                  <a href={"/gestion-admin/usuarios/pacientes/view/"+paciente.id}><button className="btn-admin-green">Ver</button></a>
-                  <a href={"/gestion-admin/usuarios/pacientes/edit/"+paciente.id}><button className="btn-admin-yellow">Editar</button></a>
+                  <a href={"/admin-management/users/patients/view/"+paciente.id}><button className="btn-admin-green">Ver</button></a>
+                  <a href={"/admin-management/users/patients/edit/"+paciente.id}><button className="btn-admin-yellow">Editar</button></a>
                   <a href={"/gestion-admin/usuarios/pacientes/delete/"+paciente.id}><button className="btn-admin-red">Eliminar</button></a>
                 </div>
             )

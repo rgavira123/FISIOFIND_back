@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { print_time, get_id_from_url } from "@/app/gestion-admin/util";
+import { print_time, get_id_from_url } from "@/app/admin-management/util";
 import { p } from "framer-motion/client";
 import { getApiBaseUrl } from "@/utils/api";
 
@@ -89,7 +89,7 @@ export default function EditarTermino() {
         }
       )
       .then(() => {
-        location.href = "/gestion-admin/terminos/";
+        location.href = "/admin-management/terms/";
       })
       .catch((error) => {
         if (error.response && error.response.data.required) {
@@ -104,7 +104,7 @@ export default function EditarTermino() {
   return (
     <>
       <div className="admin-header">
-        <a href="/gestion-admin/terminos">
+        <a href="/admin-management/terms/">
           <button className="btn-admin">Volver</button>
         </a>
         <h1>Editar término</h1>

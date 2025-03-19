@@ -69,13 +69,13 @@ export default function GestionarTerminos() {
   return (
     <>
       <div className="admin-header">
-        <a href="/gestion-admin/">
+        <a href="/admin-management/">
           <button className="btn-admin">Volver</button>
         </a>
         <h1>Página de administración de términos</h1>
       </div>
       <div className="terminos-container">
-        <a href="/gestion-admin/terminos/create">
+        <a href="/admin-management/terms/create">
           <button className="btn-admin">Crear</button>
         </a>
         <div>
@@ -97,9 +97,9 @@ export default function GestionarTerminos() {
                   termino.created_at && 
                   <p>Creado en: {print_time(termino.created_at)}</p>
                 }
-                <a href={"/gestion-admin/terminos/view/"+termino.id}><button className="btn-admin-green">Ver</button></a>
-                <a href={"/gestion-admin/terminos/edit/"+termino.id}><button className="btn-admin-yellow">Editar</button></a>
-                <a href={"/gestion-admin/terminos/delete/"+termino.id}><button className="btn-admin-red">Eliminar</button></a>
+                <a href={"/admin-management/terms/view/"+termino.id}><button className="btn-admin-green">Ver</button></a>
+                <a href={"/admin-management/terms/edit/"+termino.id}><button className="btn-admin-yellow">Editar</button></a>
+                <a href={"/admin-management/terms/delete/"+termino.id}><button className="btn-admin-red">Eliminar</button></a>
               </div>
             })
           }

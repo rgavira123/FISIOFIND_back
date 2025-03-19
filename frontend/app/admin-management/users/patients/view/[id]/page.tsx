@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { print_time, get_id_from_url } from "@/app/gestion-admin/util";
+import { print_time, get_id_from_url } from "@/app/admin-management/util";
 import { getApiBaseUrl } from "@/utils/api";
 
 interface pacienteInterface {
@@ -64,7 +64,7 @@ export default function VerPaciente() {
   return (
     <>
       <div className="admin-header">
-        <a href="/gestion-admin/usuarios/paciente"><button className="btn-admin">Volver</button></a>
+        <a href="/admin-management/users/patients/"><button className="btn-admin">Volver</button></a>
         <h1>Ver paciente</h1>
       </div>
       <div className="terminos-container">

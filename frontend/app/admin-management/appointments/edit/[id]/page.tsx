@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import {get_id_from_url } from "@/app/gestion-admin/util";
+import {get_id_from_url } from "@/app/admin-management/util";
 import { getApiBaseUrl } from "@/utils/api";
 
 interface citaInterface {
@@ -178,7 +178,7 @@ export default function EditarCitas() {
   return (
     <>
       <div className="admin-header">
-        <a href="/gestion-admin/citas"><button className="btn-admin">Volver</button></a>
+        <a href="/admin-management/appointments/"><button className="btn-admin">Volver</button></a>
         <h1>Editar cita</h1>
       </div>
       <div className="terminos-container">

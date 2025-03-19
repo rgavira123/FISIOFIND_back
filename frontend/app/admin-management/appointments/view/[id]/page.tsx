@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { print_time, get_id_from_url } from "@/app/gestion-admin/util";
+import { print_time, get_id_from_url } from "@/app/admin-management/util";
 import { getApiBaseUrl } from "@/utils/api";
 
 interface citaInterface {

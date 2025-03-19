@@ -60,7 +60,7 @@ export default function CrearTerminos() {
         }
       )
       .then(() => {
-        location.href = "/gestion-admin/terminos/";
+        location.href = "/admin-management/terms/";
       })
       .catch((error) => {
         if (error.response.data.required) {
@@ -74,7 +74,7 @@ export default function CrearTerminos() {
   return (
     <>
       <div className="admin-header">
-        <a href="/gestion-admin/terminos">
+        <a href="/admin-management/terms/">
           <button className="btn-admin">Volver</button>
         </a>
         <h1>Crear término</h1>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { get_id_from_url } from "@/app/gestion-admin/util";
+import { get_id_from_url } from "@/app/admin-management/util";
 
 interface fisioterapeutaInterface {
   foto: string;
@@ -68,7 +68,7 @@ export default function EditarFisioterapeuta() {
       collegiate_number: numeroColegiado,
       autonomic_community: comunidadAutonoma,
     }).then( () => {
-        location.href="/gestion-admin/usuarios/"
+        location.href="/admin-management/users/"
       })
       .catch(error => {
         console.error("Error fetching data:", error);
@@ -78,7 +78,7 @@ export default function EditarFisioterapeuta() {
   return (
     <>
       <div className="admin-header">
-        <a href="/gestion-admin/usuarios/fisioterapeuta"><button className="btn-admin">Volver</button></a>
+        <a href="/admin-management/users/physiotherapists/"><button className="btn-admin">Volver</button></a>
         <h1>Editar fisioterapeuta</h1>
       </div>
       <div className="terminos-container">

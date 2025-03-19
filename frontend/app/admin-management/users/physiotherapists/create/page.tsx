@@ -31,7 +31,7 @@ export default function crearFisioterapeuta() {
       autonomic_community: comunidadAutonoma,
       collegiate_number: numeroColegiado,
     }).then( () => {
-        location.href="/gestion-admin/usuarios/"
+        location.href="/admin-management/users/"
       })
       .catch(error => {
         console.error("Error fetching data:", error);
@@ -41,7 +41,7 @@ export default function crearFisioterapeuta() {
   return (
     <>
       <div className="admin-header">
-        <a href="/gestion-admin/usuarios/fisioterapeuta"><button className="btn-admin">Volver</button></a>
+        <a href="/admin-management/users/physiotherapists/"><button className="btn-admin">Volver</button></a>
         <h1>Crear fisioterapeuta</h1>
       </div>
       <div className="terminos-container">
