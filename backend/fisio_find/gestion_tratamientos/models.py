@@ -16,6 +16,7 @@ class Treatment(models.Model):
         return f"Treatment for {self.patient.user.username} by {self.physiotherapist.user.username}"
     
 class Session(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True)
     treatment = models.ForeignKey(Treatment, on_delete=models.CASCADE, related_name='sessions')
     day_of_week = models.IntegerField(choices=[(i, day) for i, day in enumerate(["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"])])
     
@@ -79,7 +80,7 @@ class ExerciseSession(models.Model):
     
 class ExerciseLog(models.Model):
     exercise_session = models.ForeignKey(ExerciseSession, on_delete=models.CASCADE, related_name='exercise_logs')
-    Patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='exercise_logs')
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='exercise_logs')
     date = models.DateField(auto_now_add=True)
     repetitions_done = models.IntegerField(null=True, blank=True)
     weight_done = models.FloatField(blank=True, null=True)

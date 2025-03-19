@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Treatment
+from .models import Exercise, ExerciseLog, ExerciseSession, Session, Treatment
 from gestion_usuarios.serializers import PhysioSerializer
 from gestion_usuarios.serializers import PatientSerializer
 from django.utils import timezone
@@ -50,5 +50,45 @@ class TreatmentDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Treatment
         fields = ['id', 'physiotherapist', 'patient', 'start_time', 'end_time', 
-                 'homework', 'is_active', 'created_at', 'updated_at']
+                 'homework', 'is_active', 'created_at', 'updated_at', 'sessions']
         read_only_fields = ['id', 'created_at', 'updated_at']
+        
+class ExerciseSerializer(serializers.ModelSerializer):
+    """
+    Serializador para la creación y visualización de ejercicios.
+    """
+    class Meta:
+        model = Exercise
+        fields = ['id', 'title', 'description', 'area', 'material_required']
+        read_only_fields = ['id']
+        
+class ExerciseSessionSerializer(serializers.ModelSerializer):
+    """
+    Serializador para la creación y visualización de ejercicios asignados a una sesión.
+    """
+    exercise = ExerciseSerializer(read_only=True)
+
+    class Meta:
+        model = ExerciseSession
+        fields = ['id', 'exercise', 'session', 'series', 'repetitions', 'weight', 'time']
+        read_only_fields = ['id']
+        
+class SessionSerializer(serializers.ModelSerializer):
+    """
+    Serializador para la creación y visualización de sesiones.
+    """
+    class Meta:
+        model = Session
+        fields = ['id', 'treatment', 'day_of_week']
+        read_only_fields = ['id']
+        
+class ExerciseLogSerializer(serializers.ModelSerializer):
+    """
+    Serializador para la creación y visualización de registros de ejercicios.
+    """
+    exercise_session = ExerciseSessionSerializer(read_only=True)
+
+    class Meta:
+        model = ExerciseLog
+        fields = ['id', 'exercise_session', 'date', 'repetitions_done', 'weight_done', 'time_done', 'observations', 'patient']
+        read_only_fields = ['id', 'date', 'patient']
