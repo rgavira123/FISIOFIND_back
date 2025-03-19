@@ -5,7 +5,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.db.utils import IntegrityError
 from django.db import transaction
 from gestion_usuarios.validacionFisios import validar_colegiacion
-from .models import AppUser, Patient, Physiotherapist, PhysiotherapistSpecialization, Specialization
+from .models import AppUser, Patient, Physiotherapist, PhysiotherapistSpecialization, Specialization, File
 import re
 from datetime import *
 from django.core.exceptions import ValidationError
@@ -391,3 +391,16 @@ class PatientAdminViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Patient
         fields = '__all__'
+
+class FileSerializer(serializers.ModelSerializer):
+    patients = serializers.PrimaryKeyRelatedField(queryset=Patient.objects.all(), many=True, required=False)
+    
+    class Meta:
+        model = File
+        fields = ['id', 'physiotherapist', 'patients', 'title', 'description','uploaded_at', 'file_saved', 'type']
+    
+    def create(self, validated_data):
+        patients = validated_data.pop('patients', [])
+        file = File.objects.create(**validated_data)
+        file.patients.set(patients)
+        return file

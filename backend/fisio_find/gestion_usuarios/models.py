@@ -84,3 +84,21 @@ class Admin(models.Model):
     
     def __str__(self):
         return f"{self.user.username} - {self.user.email}"
+    
+
+class File(models.Model):
+    physiotherapist = models.ForeignKey(Physiotherapist, on_delete=models.CASCADE, related_name='files')
+    patients = models.ManyToManyField(Patient, related_name='files', blank=True)
+    title = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    file_saved = models.FileField(upload_to="archivos/")
+    type = models.CharField(
+        max_length=10,
+        choices=[("video", "Video"), ("pdf", "PDF"), ("word", "Word")],
+        blank=True
+    )
+
+    def __str__(self):
+        return self.title
+    

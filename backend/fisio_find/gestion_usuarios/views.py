@@ -4,15 +4,15 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from .serializers import PatientRegisterSerializer, PatientAdminViewSerializer, PhysioRegisterSerializer, PhysioSerializer, PatientSerializer, AppUserSerializer, AppUserAdminViewSerializer
+from .serializers import PatientRegisterSerializer, PatientAdminViewSerializer, PhysioRegisterSerializer,PhysioSerializer, PatientSerializer, AppUserSerializer, AppUserAdminViewSerializer, FileSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import Physiotherapist, Patient, AppUser
+from .models import Physiotherapist, Patient, AppUser, File
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics
 #from permissions import IsAdmin
 
 
-from .permissions import IsPatient
+from .permissions import IsPatient, IsPhysiotherapist
 from .models import Patient
 from rest_framework.permissions import IsAuthenticated
 
@@ -187,3 +187,15 @@ class AdminPatientDelete(generics.DestroyAPIView):
     queryset = Patient.objects.all()
     serializer_class = PatientRegisterSerializer
 """
+
+
+@api_view(['POST'])
+@permission_classes([IsPhysiotherapist])
+def create_file(request):
+    serializer = FileSerializer(data=request.data, context={'request': request})
+
+    if serializer.is_valid():
+        file = serializer.save(physiotherapist=request.user.physio)
+        return Response({"message": "Archivo creado correctamente", "file": FileSerializer(file).data}, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
