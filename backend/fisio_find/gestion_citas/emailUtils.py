@@ -1,52 +1,42 @@
 from gestion_citas.models import Appointment
 from django.core.mail import EmailMessage
+from django.core import signing
 
-
-def send_appointment_email(appointment_id, action_type):
+def send_appointment_email(appointment_id, action_type, role=None):
     """
     Envía correos electrónicos según la acción realizada en una cita.
-
-    Parámetros:
-    - appointment_id: ID de la cita en la base de datos.
-    - action_type: Acción realizada en la cita ('booked', 'confirmed', 'canceled', 'modified').
-
-    Quién recibe el correo según la acción:
-    - booked  -> Paciente y Fisio
-    - confirmed -> Solo Paciente
-    - canceled -> Si cancela paciente, se notifica al fisio y viceversa.
-    - modified -> Notifica al paciente sobre la modificación.
     """
-
     try:
         appointment = Appointment.objects.get(id=appointment_id)
 
         patient_name = appointment.patient.user.first_name
         physio_name = appointment.physiotherapist.user.first_name
+        physio_surname = appointment.physiotherapist.user.last_name
         appointment_date = appointment.start_time.strftime("%d/%m/%Y %H:%M")
         patient_email = appointment.patient.user.email
         physio_email = appointment.physiotherapist.user.email
-
+        frontend_domain = "http://localhost:3000"
+        
+        # Generamos un token firmado temporal (sin almacenarlo en la base de datos)
+        token = signing.dumps({'appointment_id': appointment.id})
+        link = f"{frontend_domain}/confirm-appointment/{token}"
+        
         recipient_email = None
         subject = ""
         message = ""
 
         if action_type == "booked":
-            # Notificación al paciente
-            subject_patient = "📅 Cita Agendada – En Revisión"
-            message_patient = f"""
-                Hola <strong>{patient_name}</strong>,<br><br>
-                Hemos recibido tu solicitud de cita con el fisioterapeuta <strong>{physio_name}</strong> para el <strong>{appointment_date}</strong>.
-                <br><br>Tu cita aún no está confirmada. En breve recibirás una notificación con la confirmación o cualquier cambio necesario.
-                <br><br>Si tienes dudas o necesitas modificar la solicitud, contáctanos.
-            """
-            send_email(subject_patient, message_patient, patient_email)
-
             # Notificación al fisioterapeuta
             subject_physio = "📅 Nueva Cita Agendada – Pendiente de Aceptación"
             message_physio = f"""
                 Hola <strong>{physio_name}</strong>,<br><br>
                 El paciente <strong>{patient_name}</strong> ha solicitado una cita para el <strong>{appointment_date}</strong>.
-                <br><br>Puedes aceptar, modificar o cancelar la cita desde la plataforma.
+                <br><br>Puedes aceptar o cancelar la cita haciendo clic en el siguiente botón:
+                <br><br>
+                <a href="{link}" style="display: inline-block; background-color: #00a896; color: white; text-align: center; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
+                    Confirmar Cita
+                </a>
+                <br><br>Si necesitas modificar o cancelar la cita, accede a la plataforma.
             """
             send_email(subject_physio, message_physio, physio_email)
 
@@ -54,13 +44,12 @@ def send_appointment_email(appointment_id, action_type):
             subject = "✅ Tu Cita ha sido Confirmada"
             message = f"""
                 Hola <strong>{patient_name}</strong>,<br><br>
-                Tu cita con el fisioterapeuta <strong>{physio_name}</strong> ha sido confirmada para el <strong>{appointment_date}</strong>.
-                <br><br>Si tienes dudas, no dudes en contactarnos.
+                Tu cita con el fisioterapeuta <strong>{physio_name} {physio_surname}</strong> ha sido confirmada para el <strong>{appointment_date}</strong>.<br><br>Si tienes dudas, no dudes en contactarnos.
             """
             recipient_email = patient_email
 
         elif action_type == "canceled":
-            if appointment.canceled_by == "patient":
+            if role == "patient":  # Si es el paciente quien cancela
                 subject = "❌ Cita Cancelada por el Paciente"
                 message = f"""
                     Hola <strong>{physio_name}</strong>,<br><br>
@@ -68,11 +57,11 @@ def send_appointment_email(appointment_id, action_type):
                     <br><br>Por favor, revisa tu disponibilidad para reagendar si es necesario.
                 """
                 recipient_email = physio_email
-            else:
+            elif role == "physio":  # Si es el fisioterapeuta quien cancela
                 subject = "❌ Cita Cancelada por el Fisioterapeuta"
                 message = f"""
                     Hola <strong>{patient_name}</strong>,<br><br>
-                    Lamentamos informarte que el fisioterapeuta <strong>{physio_name}</strong> ha cancelado la cita programada para el <strong>{appointment_date}</strong>.
+                    Lamentamos informarte que el fisioterapeuta <strong>{physio_name} {physio_surname}</strong> ha cancelado la cita programada para el <strong>{appointment_date}</strong>.
                     <br><br>Si deseas, puedes agendar una nueva cita en la plataforma.
                 """
                 recipient_email = patient_email
@@ -81,8 +70,7 @@ def send_appointment_email(appointment_id, action_type):
             subject = "🔄 Modificación en tu Cita"
             message = f"""
                 Hola <strong>{patient_name}</strong>,<br><br>
-                Tu cita con el fisioterapeuta <strong>{physio_name}</strong> ha sido modificada y ahora está programada para el <strong>{appointment_date}</strong>.
-                <br><br>Por favor, revisa la nueva información en la plataforma.
+                Tu cita con el fisioterapeuta <strong>{physio_name} {physio_surname}</strong> ha sido modificada y ahora está programada para el <strong>{appointment_date}</strong>.<br><br>Por favor, revisa la nueva información en la plataforma.
             """
             recipient_email = patient_email
 
