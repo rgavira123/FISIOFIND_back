@@ -15,10 +15,6 @@ class TreatmentCreateView(APIView):
         # Tomamos el ID del fisioterapeuta directamente del request para pruebas
         data = request.data.copy()
         
-        # Si no se proporciona el physiotherapist, usamos el ID 1 (Jorgito) por defecto
-        if 'physiotherapist' not in data:
-            data['physiotherapist'] = 1
-        
         serializer = TreatmentSerializer(data=data)
         if serializer.is_valid():
             treatment = serializer.save()
@@ -64,7 +60,7 @@ class TreatmentListView(APIView):
                 
             except Patient.DoesNotExist:
                 return Response(
-                    {'detail': 'User is neither a physiotherapist nor a patient'}, 
+                    {'detail': 'El usuario no es ni fisioterapeuta ni paciente'}, 
                     status=status.HTTP_403_FORBIDDEN
                 )
 
@@ -91,7 +87,7 @@ class TreatmentDetailView(APIView):
             
             if not is_authorized:
                 return Response(
-                    {'detail': 'You do not have permission to view this treatment'}, 
+                    {'detail': 'No tiene permiso para ver este tratamiento'}, 
                     status=status.HTTP_403_FORBIDDEN
                 )
             
@@ -100,7 +96,7 @@ class TreatmentDetailView(APIView):
             
         except Treatment.DoesNotExist:
             return Response(
-                {'detail': 'Treatment not found'}, 
+                {'detail': 'No se ha encontrado el tratamiento'}, 
                 status=status.HTTP_404_NOT_FOUND
             )
     
@@ -127,7 +123,7 @@ class TreatmentDetailView(APIView):
             
             if not (is_physio or is_patient):
                 return Response(
-                    {'detail': 'You do not have permission to update this treatment'}, 
+                    {'detail': 'No tiene permiso para actualizar este tratamiento'}, 
                     status=status.HTTP_403_FORBIDDEN
                 )
             
@@ -151,7 +147,7 @@ class TreatmentDetailView(APIView):
             
         except Treatment.DoesNotExist:
             return Response(
-                {'detail': 'Treatment not found'}, 
+                {'detail': 'No se ha encontrado el tratamiento'}, 
                 status=status.HTTP_404_NOT_FOUND
             )
     
@@ -164,12 +160,12 @@ class TreatmentDetailView(APIView):
                 physiotherapist = Physiotherapist.objects.get(user=request.user)
                 if treatment.physiotherapist != physiotherapist:
                     return Response(
-                        {'detail': 'You do not have permission to delete this treatment'}, 
+                        {'detail': 'No tiene permiso para eliminar este tratamiento'}, 
                         status=status.HTTP_403_FORBIDDEN
                     )
             except Physiotherapist.DoesNotExist:
                 return Response(
-                    {'detail': 'You must be a physiotherapist to delete treatments'}, 
+                    {'detail': 'Debe ser fisioterapeuta para eliminar tratamientos'}, 
                     status=status.HTTP_403_FORBIDDEN
                 )
             
@@ -178,7 +174,7 @@ class TreatmentDetailView(APIView):
             
         except Treatment.DoesNotExist:
             return Response(
-                {'detail': 'Treatment not found'}, 
+                {'detail': 'No se ha encontrado el tratamiento'}, 
                 status=status.HTTP_404_NOT_FOUND
             )
 
@@ -194,7 +190,7 @@ class SetTreatmentStatusView(APIView):
                 physiotherapist = Physiotherapist.objects.get(user=request.user)
             except Physiotherapist.DoesNotExist:
                 return Response(
-                    {'detail': 'You must be a physiotherapist to change treatment status'}, 
+                    {'detail': 'Debe ser fisioterapeuta para cambiar el estado del tratamiento'}, 
                     status=status.HTTP_403_FORBIDDEN
                 )
             
@@ -204,7 +200,7 @@ class SetTreatmentStatusView(APIView):
             # Verificar que el tratamiento pertenece a este fisioterapeuta
             if treatment.physiotherapist != physiotherapist:
                 return Response(
-                    {'detail': 'You do not have permission to modify this treatment'}, 
+                    {'detail': 'No tiene permiso para modificar este tratamiento'}, 
                     status=status.HTTP_403_FORBIDDEN
                 )
             
@@ -217,13 +213,13 @@ class SetTreatmentStatusView(APIView):
                 return Response(serializer.data)
             else:
                 return Response(
-                    {'detail': 'is_active field is required'}, 
+                    {'detail': 'Se debe indicar si el tratamiento está activo'}, 
                     status=status.HTTP_400_BAD_REQUEST
                 )
                 
         except Treatment.DoesNotExist:
             return Response(
-                {'detail': 'Treatment not found'}, 
+                {'detail': 'No se ha encontrado el tratamiento'}, 
                 status=status.HTTP_404_NOT_FOUND
             )
             
@@ -263,7 +259,7 @@ class SessionListView(APIView):
             
             if not is_authorized:
                 return Response(
-                    {'detail': 'You do not have permission to view sessions for this treatment'}, 
+                    {'detail': 'No tiene permiso para ver las sesiones de este tratamiento'}, 
                     status=status.HTTP_403_FORBIDDEN
                 )
             
@@ -273,7 +269,7 @@ class SessionListView(APIView):
             
         except Treatment.DoesNotExist:
             return Response(
-                {'detail': 'Treatment not found'}, 
+                {'detail': 'Tratamiento no encontrado'}, 
                 status=status.HTTP_404_NOT_FOUND
             )
             
@@ -326,7 +322,7 @@ class ExerciseListBySessionView(APIView):
             
             if not is_authorized:
                 return Response(
-                    {'detail': 'You do not have permission to view exercises for this session'}, 
+                    {'detail': 'No tiene permiso para ver los ejercicios de esta sesión'}, 
                     status=status.HTTP_403_FORBIDDEN
                 )
             
@@ -336,7 +332,7 @@ class ExerciseListBySessionView(APIView):
             
         except Session.DoesNotExist:
             return Response(
-                {'detail': 'Session not found'}, 
+                {'detail': 'No se ha encontrado la sesión de ejercicios'}, 
                 status=status.HTTP_404_NOT_FOUND
             )
             
@@ -380,7 +376,7 @@ class ExerciseLogListView(APIView):
             
             if not is_authorized:
                 return Response(
-                    {'detail': 'You do not have permission to view exercise logs for this exercise'}, 
+                    {'detail': 'No tiene permiso para ver los registros de este ejercicio'}, 
                     status=status.HTTP_403_FORBIDDEN
                 )
             
@@ -390,6 +386,6 @@ class ExerciseLogListView(APIView):
             
         except ExerciseSession.DoesNotExist:
             return Response(
-                {'detail': 'Exercise session not found'}, 
+                {'detail': 'No se ha encontrado la sesión de ejercicios'}, 
                 status=status.HTTP_404_NOT_FOUND
             )
