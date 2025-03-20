@@ -171,9 +171,13 @@ TEMPLATES = [
 WSGI_APPLICATION = 'fisio_find.wsgi.application'
 ASGI_APPLICATION = 'fisio_find.asgi.application'
 
+# Configurar Redis como backend de WebSockets
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],  # Redis local
+        },
     },
 }
 
