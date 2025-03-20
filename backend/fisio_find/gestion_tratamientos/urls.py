@@ -18,7 +18,7 @@ urlpatterns = [
     # Sesiones dentro de un tratamiento
     path('<int:treatment_id>/sessions/create/', SessionCreateView.as_view(), name='create_session'),
     path('<int:treatment_id>/sessions/', SessionListView.as_view(), name='session_list'),
-    path('<int:pk>/', SessionDetailView.as_view(), name='session_detail'),
+    path('sessions/<int:pk>/', SessionDetailView.as_view(), name='session_detail'),
 
     # Ejercicios
     path('exercises/create/', ExerciseCreateView.as_view(), name='create_exercise'),

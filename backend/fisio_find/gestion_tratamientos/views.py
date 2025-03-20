@@ -40,7 +40,7 @@ class TreatmentCreateView(APIView):
         
         # Verficar que la cita finalizada existe
         try:
-            appointment = Appointment.objects.get(id=appointment_id, status='FINISHED')
+            appointment = Appointment.objects.get(id=appointment_id, status='finished')
         except Appointment.DoesNotExist:
             return Response(
                 {'detail': 'No se ha encontrado la cita finalizada'}, 
