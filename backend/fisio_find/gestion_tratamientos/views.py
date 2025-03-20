@@ -23,7 +23,7 @@ class TreatmentCreateView(APIView):
         # data = request.data.copy()
         
         # Verificar si el usuario autenticado es fisioterapeuta
-        physiotherapist = getattr(request.user, 'physiotherapist', None)
+        physiotherapist = request.user.physio
         if physiotherapist is None:
             return Response(
                 {'detail': 'Debe ser fisioterapeuta para crear tratamientos'}, 
@@ -72,7 +72,7 @@ class PhysiotherapistTreatmentListView(APIView):
     permission_classes = [IsPhysiotherapist]
 
     def get(self, request):
-        physiotherapist = getattr(request.user, 'physiotherapist', None)
+        physiotherapist = request.user.physio
         if physiotherapist is None:
             return Response(
                 {'detail': 'Debe ser fisioterapeuta para ver los tratamientos'}, 
@@ -107,7 +107,7 @@ class PatientTreatmentListView(APIView):
 
     def get(self, request):
         # Verificar si el usuario autenticado es un paciente
-        patient = getattr(request.user, 'patient', None)
+        patient = request.user.patient
         if patient is None:
             return Response(
                 {'detail': 'Debe ser paciente para ver los tratamientos asignados'}, 
@@ -218,7 +218,7 @@ class SessionCreateView(APIView):
     permission_classes = [IsPhysiotherapist]
     
     def post(self, request, treatment_id):
-        physiotherapist = getattr(request.user, 'physiotherapist', None)
+        physiotherapist = request.user.physio
         if physiotherapist is None:
             return Response(
                 {'detail': 'Debe ser fisioterapeuta para crear sesiones'}, 
@@ -381,7 +381,7 @@ class ExerciseCreateView(APIView):
 
     def post(self, request):
         # Verificar si el usuario autenticado es un fisioterapeuta
-        physiotherapist = getattr(request.user, 'physiotherapist', None)
+        physiotherapist = request.user.physio
         if physiotherapist is None:
             return Response(
                 {'detail': 'Debe ser fisioterapeuta para crear ejercicios'},
@@ -409,7 +409,7 @@ class ExerciseListView(APIView):
 
     def get(self, request):
         # Verificar si el usuario autenticado es un fisioterapeuta
-        physiotherapist = getattr(request.user, 'physiotherapist', None)
+        physiotherapist = request.user.physio
         if physiotherapist is None:
             return Response(
                 {'detail': 'Debe ser fisioterapeuta para ver su biblioteca de ejercicios'},
@@ -513,7 +513,7 @@ class ExerciseSearchView(APIView):
 
     def get(self, request):
         # Verificar si el usuario autenticado es un fisioterapeuta
-        physiotherapist = getattr(request.user, 'physiotherapist', None)
+        physiotherapist = request.user.physio
         if physiotherapist is None:
             return Response(
                 {'detail': 'Debe ser fisioterapeuta para buscar ejercicios'},
@@ -548,7 +548,7 @@ class ExerciseByAreaView(APIView):
 
     def get(self, request):
         # Verificar si el usuario autenticado es un fisioterapeuta
-        physiotherapist = getattr(request.user, 'physiotherapist', None)
+        physiotherapist = request.user.physio
         if physiotherapist is None:
             return Response(
                 {'detail': 'Debe ser fisioterapeuta para ver los ejercicios organizados por área'},
@@ -586,7 +586,7 @@ class AssignExerciseToSessionView(APIView):
 
     def post(self, request, session_id):
         # Verificar si el usuario autenticado es un fisioterapeuta
-        physiotherapist = getattr(request.user, 'physiotherapist', None)
+        physiotherapist = request.user.physio
         if physiotherapist is None:
             return Response(
                 {'detail': 'Debe ser fisioterapeuta para asignar ejercicios a sesiones'},
@@ -643,7 +643,7 @@ class UnassignExerciseFromSessionView(APIView):
 
     def delete(self, request, exercise_session_id):
         # Verificar si el usuario autenticado es un fisioterapeuta
-        physiotherapist = getattr(request.user, 'physiotherapist', None)
+        physiotherapist = request.user.physio
         if physiotherapist is None:
             return Response(
                 {'detail': 'Debe ser fisioterapeuta para deshacer la asignación de ejercicios'},
@@ -685,7 +685,7 @@ class SeriesCreateView(APIView):
     MAX_SERIES_PER_EXERCISE = 10  # Establece el límite de series permitidas
 
     def post(self, request, exercise_session_id):
-        physiotherapist = getattr(request.user, 'physiotherapist', None)
+        physiotherapist = request.user.physio
         if physiotherapist is None:
             return Response(
                 {'detail': 'Debe ser fisioterapeuta para crear series'},
@@ -864,7 +864,7 @@ class ExerciseLogCreateView(APIView):
 
     def post(self, request):
         # Verificar si el usuario autenticado es un paciente
-        patient = getattr(request.user, 'patient', None)
+        patient = request.user.patient
         if patient is None:
             return Response(
                 {'detail': 'Debe ser paciente para registrar progreso en ejercicios'},
