@@ -66,7 +66,8 @@ class ExerciseSessionSerializer(serializers.ModelSerializer):
     """
     Serializador para la creación y visualización de ejercicios asignados a una sesión.
     """
-    exercise = ExerciseSerializer(read_only=True)
+    exercise = serializers.PrimaryKeyRelatedField(queryset=Exercise.objects.all())  # Se espera solo el ID
+    session = serializers.PrimaryKeyRelatedField(queryset=Session.objects.all())  # Se espera solo el ID
 
     class Meta:
         model = ExerciseSession
@@ -90,5 +91,5 @@ class ExerciseLogSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ExerciseLog
-        fields = ['id', 'exercise_session', 'date', 'repetitions_done', 'weight_done', 'time_done', 'observations', 'patient']
+        fields = ['id', 'exercise_session', 'date', 'repetitions_done', 'weight_done', 'time_done', 'notes', 'patient']
         read_only_fields = ['id', 'date', 'patient']

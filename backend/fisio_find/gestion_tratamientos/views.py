@@ -26,7 +26,7 @@ class TreatmentCreateView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class TreatmentListView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     
     def get(self, request):
         # Obtener el parámetro de filtro, si existe
@@ -69,7 +69,7 @@ class TreatmentListView(APIView):
                 )
 
 class TreatmentDetailView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     
     def get(self, request, pk):
         try:
@@ -185,7 +185,7 @@ class TreatmentDetailView(APIView):
 
 
 class SetTreatmentStatusView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     
     def put(self, request, pk):
         try:
@@ -230,7 +230,7 @@ class SetTreatmentStatusView(APIView):
 
 # CREAR SESIONES
 class SessionCreateView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     
     def post(self, request):
         serializer = SessionSerializer(data=request.data)
@@ -242,7 +242,7 @@ class SessionCreateView(APIView):
 
 # LISTAR SESIONES
 class SessionListView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     
     def get(self, request, treatment_id):
         try:
@@ -280,7 +280,7 @@ class SessionListView(APIView):
 
 # CREAR EJERCICIOS
 class ExerciseCreateView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     
     def post(self, request):
         serializer = ExerciseSerializer(data=request.data)
@@ -292,7 +292,7 @@ class ExerciseCreateView(APIView):
 
 # ASIGNAR EJERCICIOS A UNA SESIÓN
 class AssignExerciseToSessionView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     
     def post(self, request):
         serializer = ExerciseSessionSerializer(data=request.data)
@@ -303,7 +303,7 @@ class AssignExerciseToSessionView(APIView):
     
 # LISTAR EJERCICIOS DE UNA SESIÓN
 class ExerciseListBySessionView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     
     def get(self, request, session_id):
         try:
@@ -344,17 +344,19 @@ class ExerciseListBySessionView(APIView):
 # REGISTRAR PROGRESO DEL PACIENTE EN LOS EJERCICIOS
 class ExerciseLogCreateView(APIView):
     permission_classes = [IsAuthenticated]
-    
+
     def post(self, request):
         serializer = ExerciseLogSerializer(data=request.data)
         if serializer.is_valid():
-            exercise_log = serializer.save()
+            # Asignar automáticamente el paciente al usuario autenticado
+            patient = Patient.objects.get(user=request.user)
+            serializer.save(patient=patient)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 # OBTENER HISTORIAL DE REGISTROS DE UN EJERCICIO
 class ExerciseLogListView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     
     def get(self, request, exercise_session_id):
         try:
