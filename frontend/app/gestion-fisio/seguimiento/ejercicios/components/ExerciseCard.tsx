@@ -1,13 +1,11 @@
 interface Exercise {
   id: number;
-  name: string;
+  title: string;
   description: string;
-  repetitions: number;
-  sets: number;
-  duration: number;
-  treatment_id: number;
-  created_at: string;
-  updated_at: string;
+  area: string;
+  physiotherapist: number;
+  created_at?: string;
+  updated_at?: string;
 }
 
 interface ExerciseCardProps {
@@ -16,16 +14,42 @@ interface ExerciseCardProps {
 }
 
 const ExerciseCard = ({ exercise, onDelete }: ExerciseCardProps) => {
+  // Función para obtener la etiqueta del área a partir del valor
+  const getAreaLabel = (areaValue: string) => {
+    const areaMap: { [key: string]: string } = {
+      UPPER_BODY: "Parte Superior del Cuerpo",
+      LOWER_BODY: "Parte Inferior del Cuerpo",
+      CORE: "Zona Media/Core",
+      FULL_BODY: "Cuerpo Completo",
+      SHOULDER: "Hombros",
+      ARM: "Brazos (Bíceps, Tríceps)",
+      CHEST: "Pecho",
+      BACK: "Espalda",
+      QUADRICEPS: "Cuádriceps",
+      HAMSTRINGS: "Isquiotibiales",
+      GLUTES: "Glúteos",
+      CALVES: "Pantorrillas",
+      NECK: "Cuello",
+      LOWER_BACK: "Zona Lumbar",
+      HIP: "Caderas",
+      BALANCE: "Ejercicios de Equilibrio",
+      MOBILITY: "Movilidad",
+      STRETCHING: "Estiramientos",
+      PROPRIOCEPTION: "Propiocepción",
+    };
+    return areaMap[areaValue] || areaValue;
+  };
+
   return (
     <div className="bg-white shadow-md rounded-lg overflow-hidden">
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">{exercise.name}</div>
+        <div className="font-bold text-xl mb-2">{exercise.title}</div>
         <p className="text-gray-700 text-base mb-4">{exercise.description}</p>
 
-        <div className="flex justify-between text-sm text-gray-600 mb-4">
-          <span>{exercise.repetitions} repeticiones</span>
-          <span>{exercise.sets} series</span>
-          <span>{exercise.duration} segundos</span>
+        <div className="mb-4">
+          <span className="inline-block bg-blue-100 text-blue-800 text-sm px-2 py-1 rounded">
+            {getAreaLabel(exercise.area)}
+          </span>
         </div>
 
         <div className="flex justify-end space-x-2">

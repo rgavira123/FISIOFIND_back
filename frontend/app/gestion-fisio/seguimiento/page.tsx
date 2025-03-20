@@ -106,7 +106,7 @@ const SeguimientoPage = () => {
           // Usar token si está disponible en localStorage
           const token = localStorage.getItem('token') || '';
           
-          const response = await fetch('http://localhost:8000/api/treatments/', {
+          const response = await fetch('http://localhost:8000/api/treatments/physio/', {
             headers: {
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json'
