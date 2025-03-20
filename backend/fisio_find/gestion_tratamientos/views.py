@@ -682,8 +682,9 @@ class SeriesCreateView(APIView):
     """
     permission_classes = [IsPhysiotherapist]
 
+    MAX_SERIES_PER_EXERCISE = 10  # Establece el límite de series permitidas
+
     def post(self, request, exercise_session_id):
-        # Verificar si el usuario autenticado es un fisioterapeuta
         physiotherapist = getattr(request.user, 'physiotherapist', None)
         if physiotherapist is None:
             return Response(
@@ -691,36 +692,41 @@ class SeriesCreateView(APIView):
                 status=status.HTTP_403_FORBIDDEN
             )
 
-        # Verificar que la relación entre el ejercicio y la sesión existe
         try:
             exercise_session = ExerciseSession.objects.get(id=exercise_session_id)
             session = exercise_session.session
             treatment = session.treatment
 
-            # Verificar que el tratamiento pertenece al fisioterapeuta
             if treatment.physiotherapist != physiotherapist:
                 return Response(
                     {'detail': 'No tiene permiso para crear series en este ejercicio'},
                     status=status.HTTP_403_FORBIDDEN
                 )
+
+            # Verificar cuántas series ya existen para este ejercicio en la sesión
+            series_count = Series.objects.filter(exercise_session=exercise_session).count()
+            if series_count >= self.MAX_SERIES_PER_EXERCISE:
+                return Response(
+                    {'detail': f'No se pueden asignar más de {self.MAX_SERIES_PER_EXERCISE} series a un ejercicio en una sesión'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
         except ExerciseSession.DoesNotExist:
             return Response(
                 {'detail': 'No se ha encontrado la relación entre el ejercicio y la sesión'},
                 status=status.HTTP_404_NOT_FOUND
             )
 
-        # Preparar los datos para la serie
         data = request.data.copy()
         data['exercise_session'] = exercise_session.id
 
-        # Validar y guardar la serie
         serializer = SeriesSerializer(data=data)
         if serializer.is_valid():
             series = serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-        # Manejar errores de validación
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     
 
 class SeriesDetailView(APIView):
