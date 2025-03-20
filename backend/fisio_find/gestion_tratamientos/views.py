@@ -4,8 +4,9 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated,AllowAny
 
 from gestion_usuarios.permissions import IsPatient, IsPhysioOrPatient, IsPhysiotherapist
-from .models import Exercise, ExerciseLog, ExerciseSession, Series, Session, Treatment, Appointment
+from .models import Exercise, ExerciseLog, ExerciseSession, Series, Session, Treatment
 from .serializers import ExerciseLogSerializer, ExerciseSerializer, ExerciseSessionSerializer, SeriesSerializer, SessionSerializer, TreatmentSerializer, TreatmentDetailSerializer
+from gestion_citas.models import Appointment
 from gestion_usuarios.models import Physiotherapist
 from gestion_usuarios.models import Patient
 
