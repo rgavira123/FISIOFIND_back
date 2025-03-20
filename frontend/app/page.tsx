@@ -124,7 +124,7 @@ const Home = () => {
       const fetchSpecializations = async () => {
         try {
           const response = await axios.get(
-            `${getApiBaseUrl()}/api/sesion_invitado/specializations`
+            `${getApiBaseUrl()}/api/sesion_invitado/specializations/`
           );
           if (response.status === 200) {
             setSpecializations(["", ...response.data]);
@@ -276,7 +276,7 @@ const Home = () => {
                         <CardItem
                           translateZ="20"
                           className="px-4 py-2 rounded-xl bg-[#1E5ACD] text-white text-sm font-bold hover:bg-[#1848A3] transition-colors"
-                          onClick={() => router.push(`/citas/crear/${physio.id}`)}
+                          onClick={() => router.push(`/appointments/create/${physio.id}`)}
                         >
                           Reservar cita
                         </CardItem>
