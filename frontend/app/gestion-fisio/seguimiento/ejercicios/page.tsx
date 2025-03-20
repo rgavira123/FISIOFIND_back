@@ -331,21 +331,38 @@ const EjerciciosPage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-96 overflow-y-auto">
             {filteredExistingExercises.length > 0 ? (
-              filteredExistingExercises.map((exercise) => (
-                <div
-                  key={exercise.id}
-                  className="border rounded p-4 hover:bg-gray-50 cursor-pointer"
-                  onClick={() => handleSelectExistingExercise(exercise)}
-                >
-                  <h3 className="font-bold text-lg">{exercise.title}</h3>
-                  <p className="text-sm text-gray-600 mb-2">
-                    {exercise.description.substring(0, 100)}...
-                  </p>
-                  <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
-                    {exercise.area}
-                  </span>
-                </div>
-              ))
+              filteredExistingExercises.map((exercise) => {
+                // Verificar si el ejercicio ya está seleccionado
+                const isSelected = exercises.some(
+                  (ex) => ex.id === exercise.id
+                );
+                return (
+                  <div
+                    key={exercise.id}
+                    className={`border rounded p-4 ${
+                      isSelected ? "bg-gray-200 opacity-70" : "hover:bg-gray-50"
+                    } ${isSelected ? "cursor-not-allowed" : "cursor-pointer"}`}
+                    onClick={() =>
+                      !isSelected && handleSelectExistingExercise(exercise)
+                    }
+                  >
+                    <h3 className="font-bold text-lg">{exercise.title}</h3>
+                    <p className="text-sm text-gray-600 mb-2">
+                      {exercise.description.substring(0, 100)}...
+                    </p>
+                    <div className="flex justify-between items-center">
+                      <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
+                        {exercise.area}
+                      </span>
+                      {isSelected && (
+                        <span className="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded">
+                          Ya seleccionado
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                );
+              })
             ) : (
               <p className="col-span-2 text-center text-gray-500 py-4">
                 No se encontraron ejercicios. Intenta con otra búsqueda o crea
