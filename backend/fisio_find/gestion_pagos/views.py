@@ -211,9 +211,10 @@ def invoice_pdf_view(request):
                 {"error": "Se requiere el ID del pago"},
                 status=status.HTTP_400_BAD_REQUEST
             )
+        if request.user.patient != payment.appointment.patient:
+            return Response({"error": "No tienes permiso para ver esta factura"},status=status.HTTP_403_FORBIDDEN)
             
         payment = Payment.objects.get(id=payment_id)
-        # Opcional: verificar si el usuario tiene permiso para ver este pago
         
         pdf = generate_invoice_pdf(payment)
         
