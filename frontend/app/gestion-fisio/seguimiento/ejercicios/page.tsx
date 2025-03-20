@@ -4,18 +4,24 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ExerciseCard from "./components/ExerciseCard";
 import ExerciseForm from "./components/ExerciseForm";
+import {
+  Exercise,
+  fetchExercises,
+  createExercise,
+  deleteExercise,
+} from "./utils/exercise-api";
 
-interface Exercise {
-  id: number;
-  name: string;
-  description: string;
-  repetitions: number;
-  sets: number;
-  duration: number; // en segundos
-  treatment_id: number;
-  created_at: string;
-  updated_at: string;
-}
+// interface ExerciseSession {
+//   id: number;
+//   exercise: Exercise;
+//   session: number;
+//   repetitions?: number;
+//   sets?: number;
+//   duration?: number; // en segundos
+//   treatment_id?: number;
+//   created_at?: string;
+//   updated_at?: string;
+// }
 
 const EjerciciosPage = () => {
   const router = useRouter();
@@ -28,15 +34,27 @@ const EjerciciosPage = () => {
 
   // Formulario para nuevo ejercicio
   const [newExercise, setNewExercise] = useState({
-    name: "",
+    title: "",
     description: "",
-    repetitions: 10,
-    sets: 3,
-    duration: 30,
+    area: "",
   });
 
   // Estado para mostrar/ocultar el formulario
   const [showForm, setShowForm] = useState(false);
+
+  // Estado para mostrar/ocultar el selector de ejercicios existentes
+  const [showExistingExercises, setShowExistingExercises] = useState(false);
+
+  // Estado para almacenar los ejercicios existentes del fisioterapeuta
+  const [existingExercises, setExistingExercises] = useState<Exercise[]>([]);
+
+  // Estado para almacenar los ejercicios filtrados
+  const [filteredExistingExercises, setFilteredExistingExercises] = useState<
+    Exercise[]
+  >([]);
+
+  // Estado para el término de búsqueda
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     setIsClient(true);
@@ -55,50 +73,35 @@ const EjerciciosPage = () => {
 
       // Cargar ejercicios si tenemos un ID de tratamiento
       if (id) {
-        fetchExercises(id);
+        loadExercises(id);
       } else {
         setLoading(false);
         setError("No se ha especificado un tratamiento");
       }
     }
-  }, [isClient]);
+  }, [isClient, token]);
 
-  const fetchExercises = async (treatmentId: string) => {
+  const loadExercises = async (treatmentId: string) => {
     try {
       setLoading(true);
 
-      // En un entorno real, aquí haríamos la petición al backend
-      // Por ahora, usaremos datos de ejemplo
+      // Obtener el token de autenticación
+      const storedToken = localStorage.getItem("token");
 
-      // Simulación de datos de ejemplo
-      const mockExercises: Exercise[] = [
-        {
-          id: 1,
-          name: "Estiramiento de isquiotibiales",
-          description:
-            "Sentado con las piernas extendidas, intenta tocar los dedos de los pies",
-          repetitions: 10,
-          sets: 3,
-          duration: 30,
-          treatment_id: parseInt(treatmentId),
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        },
-        {
-          id: 2,
-          name: "Elevación de pierna",
-          description:
-            "Acostado boca arriba, eleva una pierna manteniendo la rodilla recta",
-          repetitions: 15,
-          sets: 2,
-          duration: 20,
-          treatment_id: parseInt(treatmentId),
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        },
-      ];
+      if (!storedToken) {
+        setError("No se ha encontrado el token de autenticación");
+        setLoading(false);
+        return;
+      }
 
-      setExercises(mockExercises);
+      // Obtener todos los ejercicios del fisioterapeuta para la biblioteca personal
+      const exercisesData = await fetchExercises(storedToken);
+      setExistingExercises(exercisesData);
+      setFilteredExistingExercises(exercisesData);
+
+      // Por ahora, no tenemos ejercicios asignados al tratamiento
+      // Cuando se implemente ese endpoint, se actualizará esta parte
+      setExercises([]);
     } catch (err) {
       console.error("Error al cargar ejercicios:", err);
       setError(
@@ -130,45 +133,131 @@ const EjerciciosPage = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Validación básica
-    if (!newExercise.name || !newExercise.description) {
+    if (!newExercise.title || !newExercise.description || !newExercise.area) {
       setError("Por favor, completa todos los campos obligatorios");
       return;
     }
 
-    // En un entorno real, aquí enviaríamos los datos al backend
-    // Por ahora, simularemos la creación
+    try {
+      // Obtener el token de autenticación
+      const storedToken = localStorage.getItem("token");
 
-    const newExerciseWithId: Exercise = {
-      ...newExercise,
-      id: exercises.length + 1,
-      treatment_id: treatmentId ? parseInt(treatmentId) : 0,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    };
+      if (!storedToken) {
+        setError("No se ha encontrado el token de autenticación");
+        return;
+      }
 
-    setExercises([...exercises, newExerciseWithId]);
+      // Crear un nuevo ejercicio utilizando la función de la API
+      const createdExercise = await createExercise(storedToken, newExercise);
 
-    // Resetear el formulario
-    setNewExercise({
-      name: "",
-      description: "",
-      repetitions: 10,
-      sets: 3,
-      duration: 30,
-    });
+      // Actualizar la lista de ejercicios existentes
+      setExistingExercises([...existingExercises, createdExercise]);
+      setFilteredExistingExercises([
+        ...filteredExistingExercises,
+        createdExercise,
+      ]);
 
-    setShowForm(false);
-    setError(null);
+      // Resetear el formulario
+      setNewExercise({
+        title: "",
+        description: "",
+        area: "",
+      });
+
+      setShowForm(false);
+      setError(null);
+    } catch (error) {
+      console.error("Error al crear el ejercicio:", error);
+      setError("Error al crear el ejercicio. Por favor, inténtalo de nuevo.");
+    }
   };
 
-  const handleDeleteExercise = (id: number) => {
-    // En un entorno real, aquí enviaríamos la petición de eliminación al backend
-    // Por ahora, simplemente filtramos el ejercicio del estado
-    setExercises(exercises.filter((exercise) => exercise.id !== id));
+  const handleDeleteExercise = async (id: number) => {
+    try {
+      // Obtener el token de autenticación
+      const storedToken = localStorage.getItem("token");
+
+      if (!storedToken) {
+        setError("No se ha encontrado el token de autenticación");
+        return;
+      }
+
+      // Eliminar el ejercicio utilizando la función de la API
+      await deleteExercise(storedToken, id);
+
+      // Actualizar la lista de ejercicios
+      setExercises(exercises.filter((exercise) => exercise.id !== id));
+      setExistingExercises(
+        existingExercises.filter((exercise) => exercise.id !== id)
+      );
+      setFilteredExistingExercises(
+        filteredExistingExercises.filter((exercise) => exercise.id !== id)
+      );
+    } catch (error) {
+      console.error("Error al eliminar el ejercicio:", error);
+      setError(
+        "Error al eliminar el ejercicio. Por favor, inténtalo de nuevo."
+      );
+    }
+  };
+
+  // Función para filtrar ejercicios existentes
+  const handleSearchExistingExercises = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const term = e.target.value.toLowerCase();
+    setSearchTerm(term);
+
+    if (term.trim() === "") {
+      setFilteredExistingExercises(existingExercises);
+    } else {
+      const filtered = existingExercises.filter(
+        (exercise) =>
+          exercise.title.toLowerCase().includes(term) ||
+          exercise.description.toLowerCase().includes(term)
+      );
+      setFilteredExistingExercises(filtered);
+    }
+  };
+
+  // Función para seleccionar un ejercicio existente
+  const handleSelectExistingExercise = async (exercise: Exercise) => {
+    try {
+      // Obtener el token de autenticación
+      const storedToken = localStorage.getItem("token");
+
+      if (!storedToken) {
+        setError("No se ha encontrado el token de autenticación");
+        return;
+      }
+
+      // Si tenemos un ID de tratamiento y una sesión, asignar el ejercicio a la sesión
+      if (treatmentId) {
+        // En un entorno real, aquí enviaríamos la petición al backend para asignar el ejercicio a la sesión
+        // Por ejemplo:
+        // const response = await axios.post(
+        //   `${getApiBaseUrl()}/api/treatments/${treatmentId}/sessions/${sessionId}/assign-exercise/`,
+        //   { exercise_id: exercise.id },
+        //   {
+        //     headers: {
+        //       Authorization: `Bearer ${storedToken}`,
+        //       "Content-Type": "application/json",
+        //     },
+        //   }
+        // );
+
+        // Por ahora, simplemente añadimos el ejercicio a la lista local
+        setExercises([...exercises, exercise]);
+        setShowExistingExercises(false);
+      }
+    } catch (error) {
+      console.error("Error al asignar el ejercicio:", error);
+      setError("Error al asignar el ejercicio. Por favor, inténtalo de nuevo.");
+    }
   };
 
   if (loading) {
@@ -189,12 +278,26 @@ const EjerciciosPage = () => {
           ← Volver
         </button>
         <h1 className="text-2xl font-bold">Gestión de Ejercicios</h1>
-        <button
-          onClick={() => setShowForm(!showForm)}
-          className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
-        >
-          {showForm ? "Cancelar" : "Nuevo Ejercicio"}
-        </button>
+        <div className="flex space-x-2">
+          <button
+            onClick={() => {
+              setShowExistingExercises(false);
+              setShowForm(!showForm);
+            }}
+            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
+          >
+            {showForm ? "Cancelar" : "Nuevo Ejercicio"}
+          </button>
+          <button
+            onClick={() => {
+              setShowForm(false);
+              setShowExistingExercises(!showExistingExercises);
+            }}
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
+          >
+            {showExistingExercises ? "Cancelar" : "Seleccionar Existente"}
+          </button>
+        </div>
       </div>
 
       {error && (
@@ -209,6 +312,48 @@ const EjerciciosPage = () => {
           onChange={handleInputChange}
           onSubmit={handleSubmit}
         />
+      )}
+
+      {showExistingExercises && (
+        <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-6">
+          <h2 className="text-xl font-semibold mb-4">
+            Seleccionar Ejercicio Existente
+          </h2>
+          <div className="mb-4">
+            <input
+              type="text"
+              placeholder="Buscar ejercicios..."
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={searchTerm}
+              onChange={handleSearchExistingExercises}
+            />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-96 overflow-y-auto">
+            {filteredExistingExercises.length > 0 ? (
+              filteredExistingExercises.map((exercise) => (
+                <div
+                  key={exercise.id}
+                  className="border rounded p-4 hover:bg-gray-50 cursor-pointer"
+                  onClick={() => handleSelectExistingExercise(exercise)}
+                >
+                  <h3 className="font-bold text-lg">{exercise.title}</h3>
+                  <p className="text-sm text-gray-600 mb-2">
+                    {exercise.description.substring(0, 100)}...
+                  </p>
+                  <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
+                    {exercise.area}
+                  </span>
+                </div>
+              ))
+            ) : (
+              <p className="col-span-2 text-center text-gray-500 py-4">
+                No se encontraron ejercicios. Intenta con otra búsqueda o crea
+                un nuevo ejercicio.
+              </p>
+            )}
+          </div>
+        </div>
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
