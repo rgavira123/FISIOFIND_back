@@ -385,6 +385,40 @@ def update_appointment(request, appointment_id):
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def confirm_appointment(request, appointment_id):
+    try:
+        appointment = Appointment.objects.get(id=appointment_id)
+    except Appointment.DoesNotExist:
+        return Response({"error": "Cita no encontrada"}, status=status.HTTP_404_NOT_FOUND)
+
+    user = request.user
+    # Verificar que el usuario es un fisioterapeuta
+    if not hasattr(user, 'physio'):
+        return Response({"error": "No tienes permisos para confirmar esta cita"}, status=status.HTTP_403_FORBIDDEN)
+
+    # Verificar que el fisioterapeuta que está intentando confirmar la cita es el responsable
+    if appointment.physiotherapist != user.physio:
+        return Response({"error": "No puedes confirmar citas de otros fisioterapeutas"}, status=status.HTTP_403_FORBIDDEN)
+
+    # Verificar que la cita esté en estado "booked"
+    if appointment.status != "booked":
+        return Response({"error": "Solo puedes confirmar citas con estado 'booked'"}, status=status.HTTP_403_FORBIDDEN)
+
+    # Cambiar el estado a "confirmed"
+    appointment.status = "confirmed"
+    appointment.save()
+
+    # Serializar la cita actualizada
+    serializer = AppointmentSerializer(appointment)
+
+    # Devolver el mensaje de confirmación y los detalles de la cita
+    return Response({
+        "message": "La cita fue aceptada correctamente",  # Mensaje de confirmación
+        "appointment": serializer.data  # Datos de la cita actualizada
+    }, status=status.HTTP_200_OK)
+
 
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated, IsPhysioOrPatient])
@@ -406,7 +440,7 @@ def delete_appointment(request, appointment_id):
     #     return Response({"error": "Solo se pueden borrar citas con estado 'booked' o 'pending'"}, status=status.HTTP_403_FORBIDDEN)
 
     if (hasattr(user, 'physio')):
-        if appointment.physiotherapist != user.physio.id:
+        if appointment.physiotherapist != user.physio:
             return Response({"error": "No tienes permisos para borrar esta cita"}, status=status.HTTP_403_FORBIDDEN)
     elif (hasattr(user, 'patient')):
         if appointment.patient != user.patient:
