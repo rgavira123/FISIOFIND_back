@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 const protectedRoutes = [
+  "/admin-management",
+  "/admin-management/appointments",
+  "/admin-management/terms",
+  "/admin-management/users",
   "/my-appointments",
   "/videocalls",
   "/treatments",
@@ -21,6 +25,7 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
+    "/admin-management/:path*",
     "/my-appointments/:path*",
     "/videocalls/:path*",
     "/treatments/:path*",
