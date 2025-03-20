@@ -1,4 +1,6 @@
-from rest_framework import serializers 
+from rest_framework import serializers
+
+from gestion_usuarios.models import Physiotherapist
 from .models import Exercise, ExerciseLog, ExerciseSession, Session, Treatment, Series
 from gestion_usuarios.serializers import PhysioSerializer
 from gestion_usuarios.serializers import PatientSerializer
@@ -46,7 +48,7 @@ class TreatmentDetailSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'created_at', 'updated_at']
         
 class ExerciseSerializer(serializers.ModelSerializer):
-    physiotherapist = serializers.PrimaryKeyRelatedField(read_only=True)
+    physiotherapist = serializers.PrimaryKeyRelatedField(queryset=Physiotherapist.objects.all())
     class Meta:
         model = Exercise
         fields = ['id', 'title', 'description', 'area', 'physiotherapist']
