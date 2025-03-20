@@ -2,6 +2,7 @@ from gestion_citas.models import Appointment
 from django.core.mail import EmailMessage
 from django.core import signing
 
+
 def send_appointment_email(appointment_id, action_type, role=None):
     """
     Envía correos electrónicos según la acción realizada en una cita.
@@ -16,11 +17,11 @@ def send_appointment_email(appointment_id, action_type, role=None):
         patient_email = appointment.patient.user.email
         physio_email = appointment.physiotherapist.user.email
         frontend_domain = "http://localhost:3000"
-        
+
         # Generamos un token firmado temporal (sin almacenarlo en la base de datos)
         token = signing.dumps({'appointment_id': appointment.id})
         link = f"{frontend_domain}/confirm-appointment/{token}"
-        
+
         recipient_email = None
         subject = ""
         message = ""
@@ -68,10 +69,41 @@ def send_appointment_email(appointment_id, action_type, role=None):
 
         elif action_type == "modified":
             subject = "🔄 Modificación en tu Cita"
+
+            # Construimos la lista de alternativas en HTML
+            alternatives_html = ""
+
+            for date, slots in appointment.alternatives.items():
+                alternatives_html += f"<h4>📅 {date}</h4>"
+                for slot in slots:
+                    start = slot["start"]
+                    end = slot["end"]
+                    alternatives_html += f"""
+                        <div style="border:1px solid #ddd; padding:10px; border-radius:8px; margin:10px 0; text-align: center;">
+                            ⏰ <strong>{start} - {end}</strong>  
+                            <br><br> 
+                            <a href="{frontend_domain}/mis-citas" 
+                            style="display:inline-block; padding:10px 15px; background-color:#1E5AAD; color:white; text-decoration:none; border-radius:5px;">
+                                Confirmar este horario
+                            </a>
+                        </div>
+                    """
+
             message = f"""
-                Hola <strong>{patient_name}</strong>,<br><br>
-                Tu cita con el fisioterapeuta <strong>{physio_name} {physio_surname}</strong> ha sido modificada y ahora está programada para el <strong>{appointment_date}</strong>.<br><br>Por favor, revisa la nueva información en la plataforma.
+                <p>Hola <strong>{patient_name}</strong>,</p>
+                <p>Tu cita con el fisioterapeuta <strong>{physio_name} {physio_surname}</strong> ha sido modificada.</p>
+                <p>Te ofrecemos las siguientes opciones de reprogramación:</p>
+                {alternatives_html}
+                <p>Por favor, accede a la plataforma para confirmar o proponer otro horario.</p>
+                <br>
+                <div style="text-align: center;">
+                    <a href="{frontend_domain}/mis-citas" 
+                    style="display:inline-block; padding:10px 15px; background-color:#00a896; color:white; text-decoration:none; border-radius:5px;">
+                        Ir a la plataforma
+                    </a>
+                </div>
             """
+
             recipient_email = patient_email
 
         if recipient_email:
