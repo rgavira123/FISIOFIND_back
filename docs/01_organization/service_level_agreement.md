@@ -21,7 +21,7 @@ classoption: "table"
 ---
 
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
-<p align="center">
+<!-- <p align="center">
   <img src="../.img/Logo_FisioFind_Verde_sin_fondo.PNG" alt="Logo FisioFind" width="300" />
 </p>
 
@@ -45,16 +45,17 @@ classoption: "table"
 - [6. POLÍTICA DE PRIVACIDAD Y PROTECCIÓN DE DATOS](#6-política-de-privacidad-y-protección-de-datos)
   - [6.1. ¿Qué información recopilamos y por qué?](#61-qué-información-recopilamos-y-por-qué)
   - [6.2. ¿Cómo utilizamos su información?](#62-cómo-utilizamos-su-información)
-  - [6.3. Protección de su información](#63-protección-de-su-información)
-  - [6.4. Sus derechos sobre sus datos](#64-sus-derechos-sobre-sus-datos)
-  - [6.5. Conservación de datos](#65-conservación-de-datos)
-  - [6.6. Compartición de datos](#66-compartición-de-datos)
-  - [6.7. Contacto para asuntos de privacidad](#67-contacto-para-asuntos-de-privacidad)
+  - [6.3. Sus derechos sobre sus datos](#63-sus-derechos-sobre-sus-datos)
+  - [6.4. Conservación de datos](#64-conservación-de-datos)
+  - [6.5. Compartición de datos](#65-compartición-de-datos)
+  - [6.6. Contacto para asuntos de privacidad](#66-contacto-para-asuntos-de-privacidad)
 - [7. MODIFICACIONES AL ACUERDO](#7-modificaciones-al-acuerdo)
 - [8. CONTACTO Y SOPORTE](#8-contacto-y-soporte)
 - [9. DISPOSICIONES FINALES](#9-disposiciones-finales)
 
-<br>
+<br> -->
+<!-- COMMENT THIS WHEN EXPORTING TO PDF -->
+
 
 ---
 
@@ -72,7 +73,7 @@ classoption: "table"
 
 - **Fecha de Creación:** 17/03/2025  
 
-- **Versión:** v1.0
+- **Versión:** v1.1
 
 <br>
 
@@ -84,11 +85,11 @@ classoption: "table"
 | Fecha        | Versión  | Realizada por               | Descripción de los cambios                                    |
 | ------------ | -------- | --------------------------- | ------------------------------------------------------------- |
 | 17/03/2025   | v1.0     | Antonio Macías Ferrera      | Elaboración de la primera versión del acuerdo con el usuario. |
-
+| 20/03/2025   | v1.1     | Antonio Macías Ferrera      | Adecuación del SLA a FISIO FIND |
 
 <br>
 
-<!-- \newpage -->
+\newpage
 
 <br>
 
@@ -101,141 +102,223 @@ El presente documento establece los términos y condiciones mediante los cuales 
 
 Este acuerdo tiene como finalidad:
 - Definir las condiciones de uso de la plataforma FisioFind.
+
 - Informar de manera clara y transparente sobre el tratamiento de datos personales.
+
 - Establecer el uso de cookies para optimizar la experiencia del usuario.
+
 - Garantizar el cumplimiento de la normativa de privacidad y protección de datos vigente.
 
 ## 3. ALCANCE Y APLICACIÓN
 
-El acuerdo es aplicable a todos los usuarios que accedan a la plataforma FisioFind, ya sea a través de navegadores web o aplicaciones móviles. Al utilizar nuestros servicios, el usuario acepta de forma expresa las condiciones aquí descritas.  
+El acuerdo es aplicable a todos los usuarios que accedan a la plataforma FisioFind, ya sea a través de navegadores web o aplicaciones móviles. Al utilizar nuestros servicios, el usuario debe aceptar de forma expresa las condiciones aquí descritas.  
+
 Para mayor transparencia, el código fuente y documentación técnica del proyecto se encuentran disponibles en el repositorio oficial: [https://github.com/Proyecto-ISPP/FISIOFIND](https://github.com/Proyecto-ISPP/FISIOFIND).
+
+<br>
+
+\newpage
+
+<hr>
+
 
 ## 4. USO DE COOKIES
 
-FisioFind utiliza cookies propias y de terceros con los siguientes objetivos:
-- **Mejorar la experiencia del usuario:** Recordar preferencias y personalizar contenidos.
-- **Analizar el tráfico:** Recopilación de datos estadísticos para optimizar el funcionamiento del sitio.
-- **Publicidad:** Ofrecer anuncios adaptados a los intereses del usuario, respetando siempre la normativa vigente.
+FisioFind utiliza únicamente cookies técnicas esenciales con los siguientes objetivos:
 
-El usuario podrá gestionar las cookies a través de la configuración de su navegador, aceptando o rechazando su uso, salvo aquellas estrictamente necesarias para el correcto funcionamiento de la plataforma.
+- **Gestión de sesión:** Cookies necesarias para mantener la sesión del usuario iniciada y garantizar el acceso seguro a su cuenta.
+
+- **Personalización:** Cookies que almacenan las preferencias básicas del usuario y datos de perfil para mejorar su experiencia en la plataforma.
+
+- **Funcionalidad:** Cookies que permiten el correcto funcionamiento de características específicas como la gestión de citas, acceso a historiales médicos, realización de videollamadas y visualización de tests e informes.
+
+Es importante destacar que NO utilizamos cookies de terceros ni cookies publicitarias. No compartimos ni vendemos información de usuarios con fines comerciales o publicitarios.
+
+Para poder acceder a las funcionalidades completas de **FisioFind** más allá de la búsqueda básica de fisioterapeutas (como solicitar citas, realizar videollamadas, acceder al historial médico o visualizar informes), es necesario aceptar el uso de estas cookies técnicas esenciales, ya que son imprescindibles para el funcionamiento de estos servicios.
+
+El usuario podrá gestionar las cookies a través de la configuración de su navegador, teniendo en cuenta que el rechazo de las cookies técnicas esenciales impedirá el acceso a la mayoría de las funcionalidades de la plataforma que requieren autenticación.
+
+<br>
+
+\newpage
+
+<hr>
+
 
 ## 5. TÉRMINOS Y CONDICIONES
 
 ### 5.1. Registro y Acceso
 - Los usuarios deberán proporcionar información veraz y actualizada durante el registro.
-- Para pacientes: nombre completo, correo electrónico, teléfono y datos de facturación.
-- Para fisioterapeutas: además de los datos personales, número de colegiado, especialidades, y documentación que acredite su formación.
+
+  - Para pacientes: nombre completo, correo electrónico, teléfono y datos de facturación.
+
+  - Para fisioterapeutas: además de los datos personales, número de colegiado, especialidades, y documentación que acredite su formación.
+
+- La información personal proporcionada por los usuarios fisioterapeutas será contrastada con la información oficial encontrada en los colegios de fisioterapeutas de España, en las páginas de los colegios oficiales de las respectivas comunidades autónomas.
+
+- La información proporcionada será confidencial y se utilizará únicamente para fines específicos.
+
 - La cuenta puede ser suspendida si se detecta información falsa o actividad fraudulenta.
 
 ### 5.2. Propiedad Intelectual
 
-- Todo el contenido, diseño, código fuente, logotipos y marcas pertenecen a FisioFind.
-- Queda prohibida la reproducción, distribución o modificación no autorizada de cualquier contenido alojado en la plataforma.
-- El usuario se compromete a respetar los derechos de propiedad intelectual de terceros.
+- Todo el contenido, diseño, código fuente, logotipos y marcas pertenecen a **FisioFind**.
+
+- Queda prohibida la reproducción, distribución o modificación no autorizada de cualquier contenido alojado en la plataforma que no haya sido proporcionado por los propios usuarios. Dicho esto, quedan exluidos de esta restricción los informes generados tras las consultas o el material multimedia alojado que pertenezca a un usuario fisioterapeuta (véase videos o documentos).
+
 
 ### 5.3. Limitación de Responsabilidad
 
 - FisioFind no se hace responsable por daños o perjuicios derivados del uso inadecuado de la plataforma.
-- La empresa no garantiza la continuidad y disponibilidad ininterrumpida de los servicios, pudiendo existir periodos de mantenimiento o contingencia.
-- En ningún caso, la responsabilidad de FisioFind excederá el valor de la tarifa abonada por el usuario (si aplicable).
+
+- En ningún caso, la responsabilidad de **FisioFind** excederá el valor de la tarifa abonada por el usuario (si aplicable).
+
 
 ### 5.4. Planes de Suscripción y Pagos
+
 - FisioFind ofrece dos planes de suscripción para fisioterapeutas:
+
   - Plan Fisio Blue: Plan básico con funcionalidades esenciales
+
   - Plan Fisio Gold: Plan premium con funcionalidades avanzadas y mayor visibilidad
+
 - Los pagos se procesarán de forma segura a través de pasarelas de pago autorizadas
+
 - Las tarifas se cobrarán según el ciclo de facturación elegido
-- La cancelación debe realizarse con al menos 7 días de antelación
+
+A continuación se detallan las funcionalidades que **Fisio Find** se compromete a ofrecer a cada usuario en función de su plan de precio:
+
+**Plan Fisio Blue**
+
+| Precio | Funcionalidades |
+|--------|----------------|
+| 17,99€ / mes | - Videoconsultas con todas las herramientas |
+|              | - Seguimiento del paciente |
+|              | - Chat integrado |
+|              | - Subir y compartir vídeos (más limitado) |
+|              | - Soporte técnico limitado |
+
+**Plan Fisio Gold**
+
+| Precio | Funcionalidades |
+|--------|----------------|
+| 24,99€ / mes | - Todas las ventajas de Fisio Blue |
+|              | - Mayor alcance y posicionamiento en las búsquedas |
+|              | - Tick de verificación |
+|              | - Subir y compartir vídeos |
+|              | - Soporte técnico personalizado |
+
 
 ### 5.5. Gestión de Citas
 - Los pacientes podrán reservar, modificar o cancelar citas con al menos 24 horas de antelación
+
 - Los fisioterapeutas deben mantener actualizada su disponibilidad horaria
-- El sistema enviará recordatorios automáticos de citas
+
+- El sistema enviará recordatorios automáticos de citas mediante el correo corporativo
+
 - Las cancelaciones fuera de plazo podrán estar sujetas a cargos según la política del fisioterapeuta
+
+<br>
+
+\newpage
+
+<hr>
+
 
 ## 6. POLÍTICA DE PRIVACIDAD Y PROTECCIÓN DE DATOS
 
-En FisioFind, la protección de sus datos personales es una prioridad. Nos comprometemos a procesar su información de manera transparente y segura, cumpliendo con el Reglamento General de Protección de Datos (GDPR), la Ley Orgánica de Protección de Datos (LOPD) y la normativa ePrivacy.
+En **FisioFind**, nos comprometemos a procesar su información de manera transparente y segura, cumpliendo con el Reglamento General de Protección de Datos (GDPR), la Ley Orgánica de Protección de Datos (LOPD) y la normativa ePrivacy.
 
 ### 6.1. ¿Qué información recopilamos y por qué?
 
 **Para todos los usuarios:**
-Recopilamos información básica necesaria para el funcionamiento de la plataforma, incluyendo su nombre, dirección de correo electrónico y número de teléfono. Esta información nos permite crear y gestionar su cuenta, así como comunicarnos con usted sobre aspectos importantes del servicio.
+Recopilamos información básica necesaria para el funcionamiento de la plataforma, incluyendo su nombre y dirección de correo electrónico. Esta información nos permite crear y gestionar su cuenta, así como comunicarnos con usted sobre aspectos importantes del servicio.
 
 **Para pacientes:**
-Si usted es paciente, recopilaremos información adicional relacionada con su salud que sea relevante para la prestación de servicios fisioterapéuticos. Esto incluye su historial médico básico y cualquier condición específica que pueda afectar su tratamiento. Esta información es especialmente sensible y recibe un nivel adicional de protección.
+Si usted es paciente, recopilaremos información adicional relacionada con su salud que sea relevante para la prestación de servicios fisioterapéuticos. Esto incluye su historial médico básico y cualquier condición específica que pueda afectar su tratamiento. Esta información será obtenida mediante los cuestionarios previos a la consulta rellenados por el propio paciente.
 
 **Para fisioterapeutas:**
 Los profesionales que se registran en nuestra plataforma deberán proporcionar información adicional que incluye:
-- Número de colegiado y documentación profesional
-- Certificaciones y especialidades
-- Experiencia profesional
+- Número de colegiado
+- Documento Nacional de Identidad (DNI)
 - Información sobre su consulta o centro
 
 ### 6.2. ¿Cómo utilizamos su información?
 
 Su información se utiliza exclusivamente para:
+
 - Facilitar la conexión entre pacientes y fisioterapeutas
+
 - Gestionar las reservas y recordatorios de citas
+
 - Procesar pagos y generar facturas
+
 - Verificar las credenciales profesionales de los fisioterapeutas
+
 - Mejorar nuestros servicios y su experiencia en la plataforma
+
 - Enviar comunicaciones relevantes sobre el servicio
 
-Para comunicaciones promocionales o marketing, siempre solicitaremos su consentimiento explícito previo.
+Para comunicaciones promocionales o marketing, siempre solicitaremos su consentimiento explícito previo. Véase, por ejemplo, el [Acuerdo de Compromiso con los Usuarios Piloto](https://github.com/Proyecto-ISPP/FISIOFIND/blob/main/docs/01_organization/pilot_user_agreement.md).
 
-### 6.3. Protección de su información
 
-Implementamos rigurosas medidas de seguridad para proteger sus datos:
-
-**Seguridad técnica:**
-- Cifrado de extremo a extremo para toda la información sensible
-- Sistemas de detección y prevención de intrusiones
-- Copias de seguridad regulares y redundantes
-- Monitorización continua de la seguridad
-
-**Acceso y control:**
-- Acceso restringido solo a personal autorizado
-- Sistemas de autenticación robustos
-- Registros de auditoría de todos los accesos a datos sensibles
-
-### 6.4. Sus derechos sobre sus datos
+### 6.3. Sus derechos sobre sus datos
 
 Como usuario de FisioFind, usted tiene derecho a:
 
 **Acceso y control:**
+
 - Consultar qué información tenemos sobre usted
+
 - Solicitar una copia de sus datos en formato digital
+
 - Actualizar o corregir su información en cualquier momento
+
 - Solicitar la eliminación de sus datos
 
 **Gestión de preferencias:**
+
 - Decidir qué comunicaciones desea recibir
+
 - Controlar la visibilidad de su información
+
 - Revocar consentimientos previamente otorgados
 
-### 6.5. Conservación de datos
+
+### 6.4. Conservación de datos
 
 Mantenemos sus datos solo durante el tiempo necesario:
+
 - Mientras mantenga una cuenta activa en FisioFind
-- Durante el período requerido por ley para documentación médica y fiscal
+
 - Hasta que solicite su eliminación (sujeto a obligaciones legales)
 
-### 6.6. Compartición de datos
+### 6.5. Compartición de datos
 
 Solo compartimos su información en las siguientes circunstancias:
+
 - Entre pacientes y fisioterapeutas para facilitar las citas
+
 - Con proveedores de servicios esenciales (como procesadores de pago)
+
 - Cuando sea requerido por ley o autoridades competentes
 
-### 6.7. Contacto para asuntos de privacidad
+### 6.6. Contacto para asuntos de privacidad
 
 Para cualquier consulta sobre privacidad o ejercer sus derechos, puede contactar con nuestro Delegado de Protección de Datos:
-- Email: privacidad@fisiofind.com
-- Teléfono: [Número de contacto]
-- Formulario web: [Enlace al formulario de privacidad]
 
-Nos comprometemos a responder a sus solicitudes en un plazo máximo de 30 días.
+- Delegado de Protección de Datos: Delfín Santana Rubio
+
+- **Correo Electrónico:**: denuncias@fisiofind.com
+
+Nos comprometemos a responder a sus solicitudes en un plazo máximo de 14 días.
+
+<br>
+
+\newpage
+
+<hr>
+
 
 ## 7. MODIFICACIONES AL ACUERDO
 
@@ -245,16 +328,15 @@ FisioFind se reserva el derecho de modificar el presente acuerdo en función de 
 
 Para cualquier duda o consulta relativa a este acuerdo, al uso de cookies o al tratamiento de datos personales, los usuarios podrán contactar con el equipo de FisioFind a través de:
 
-- **Correo Electrónico:** soporte@fisiofind.com
-- **Formulario de Contacto:** disponible en la sección "Contacto" de la plataforma.
-- **Dirección Postal:** Calle Ejemplo, 123, 28000 Madrid, España.
+- **Correo Electrónico:** info@fisiofind.com
 
 ## 9. DISPOSICIONES FINALES
 
 - El presente acuerdo se regirá e interpretará de acuerdo con la legislación española.
-- Cualquier controversia derivada del presente acuerdo se someterá a los Juzgados y Tribunales de la ciudad de Madrid.
+
 - Si alguna de las disposiciones de este acuerdo fuera considerada nula o inejecutable, el resto de las cláusulas mantendrán plena vigencia.
-- La utilización de la plataforma implica la aceptación íntegra y sin reservas de todas las condiciones aquí expuestas.
+
+- La utilización de la plataforma implica la aceptación íntegra de todas las condiciones aquí expuestas.
 
 ---
 
