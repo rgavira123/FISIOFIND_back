@@ -45,8 +45,8 @@ classoption: "table"
   - [2.9 AJUSTE DEL PORCENTAJE DE CALIFICACIÓN EN EVALUACIONES DE QA](#29-ajuste-del-porcentaje-de-calificación-en-evaluaciones-de-qa)
   - [2.10 CONDICIONES DEL ACUERDO](#210-condiciones-del-acuerdo)
   - [2.11 CASOS NO CONTEMPLADOS](#211-casos-no-contemplados)
-  - [3. RECOMPENSAS](#3-recompensas)
-    - [3.1. RECOMPENSAS Y BONIFICACIONES](#31-recompensas-y-bonificaciones)
+- [3. RECOMPENSAS](#3-recompensas)
+  - [3.1. RECOMPENSAS Y BONIFICACIONES](#31-recompensas-y-bonificaciones)
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 
 <br>
