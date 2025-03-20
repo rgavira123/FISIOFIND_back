@@ -10,15 +10,15 @@ from .views import (
 
 urlpatterns = [
     # Tratamientos
-    path('treatments/create/', TreatmentCreateView.as_view(), name='create_treatment'),
-    path('treatments/physio/', PhysiotherapistTreatmentListView.as_view(), name='physio_treatment_list'),
-    path('treatments/patient/', PatientTreatmentListView.as_view(), name='patient_treatment_list'),
-    path('treatments/<int:pk>/', TreatmentDetailView.as_view(), name='treatment_detail'),
+    path('create/', TreatmentCreateView.as_view(), name='create_treatment'),
+    path('physio/', PhysiotherapistTreatmentListView.as_view(), name='physio_treatment_list'),
+    path('patient/', PatientTreatmentListView.as_view(), name='patient_treatment_list'),
+    path('<int:pk>/', TreatmentDetailView.as_view(), name='treatment_detail'),
 
     # Sesiones dentro de un tratamiento
-    path('treatments/<int:treatment_id>/sessions/create/', SessionCreateView.as_view(), name='create_session'),
-    path('treatments/<int:treatment_id>/sessions/', SessionListView.as_view(), name='session_list'),
-    path('sessions/<int:pk>/', SessionDetailView.as_view(), name='session_detail'),
+    path('<int:treatment_id>/sessions/create/', SessionCreateView.as_view(), name='create_session'),
+    path('<int:treatment_id>/sessions/', SessionListView.as_view(), name='session_list'),
+    path('<int:pk>/', SessionDetailView.as_view(), name='session_detail'),
 
     # Ejercicios
     path('exercises/create/', ExerciseCreateView.as_view(), name='create_exercise'),
