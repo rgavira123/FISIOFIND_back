@@ -23,14 +23,23 @@ class Treatment(models.Model):
 
 class Session(models.Model):
     """ Sesión dentro de un tratamiento """
+    DAYS_OF_WEEK_CHOICES = [
+        ("Monday", "Lunes"),
+        ("Tuesday", "Martes"),
+        ("Wednesday", "Miércoles"),
+        ("Thursday", "Jueves"),
+        ("Friday", "Viernes"),
+        ("Saturday", "Sábado"),
+        ("Sunday", "Domingo"),
+    ]
+
     name = models.CharField(max_length=255, blank=True, null=True)
     treatment = models.ForeignKey(Treatment, on_delete=models.CASCADE, related_name='sessions')
-    day_of_week = models.IntegerField(choices=[(i, day) for i, day in enumerate([
-        "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"
-    ])])
+    day_of_week = models.CharField(max_length=10, choices=DAYS_OF_WEEK_CHOICES)
 
     def __str__(self):
         return f"Sesión para {self.treatment.patient.user.username} el {self.get_day_of_week_display()}"
+
 
 
 class Exercise(models.Model):
