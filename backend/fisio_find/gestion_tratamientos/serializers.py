@@ -83,7 +83,7 @@ class SessionSerializer(serializers.ModelSerializer):
         read_only_fields = ['id']
         
 class ExerciseLogSerializer(serializers.ModelSerializer):
-    series = SeriesSerializer(read_only=True)
+    series = serializers.PrimaryKeyRelatedField(queryset=Series.objects.all())
 
     class Meta:
         model = ExerciseLog
