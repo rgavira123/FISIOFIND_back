@@ -42,11 +42,12 @@ CSRF_TRUSTED_ORIGINS = [
     "http://138.68.80.34",
     "http://167.99.246.186",
     "https://s2.fisiofind.com",
-    "https://s2-api.fisiofind.com"
+    "https://s2-api.fisiofind.com",
+    "wss://s2-api.fisiofind.com"
 ]
-SECURE_PROXY_SSL_HEADER = None
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
+SECURE_PROXY_SSL_HEADER = ("X-Forwarded-Proto", "https")
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 CSRF_USE_SESSIONS = True
 
 # Application definition
@@ -145,7 +146,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://138.68.80.34",
     "http://167.99.246.186",
     "https://s2-api.fisiofind.com",
-    "https://s2.fisiofind.com"
+    "https://s2.fisiofind.com",
+    "wss://s2-api.fisiofind.com"
 ]
 
 ROOT_URLCONF = 'fisio_find.urls'
