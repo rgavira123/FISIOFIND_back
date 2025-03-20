@@ -7,7 +7,9 @@ from .models import Payment
 from .serializers import PaymentSerializer
 from gestion_citas.models import Appointment
 from django.utils import timezone
-from gestion_usuarios.permissions import IsPatient 
+from gestion_usuarios.permissions import IsPatient
+from .utils.pdf_generator import generate_invoice_pdf
+from django.http import HttpResponse
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -195,3 +197,39 @@ def get_payment_details(request, payment_id):
 
     except Payment.DoesNotExist:
         return Response({'error': 'Payment not found'}, status=status.HTTP_404_NOT_FOUND)
+    
+
+#facturas
+@api_view(['GET'])
+@permission_classes([IsPatient])
+def invoice_pdf_view(request):
+    try:
+        # Obtener el payment_id del cuerpo de la solicitud POST
+        payment_id = request.data.get('payment_id')
+        if not payment_id:
+            return Response(
+                {"error": "Se requiere el ID del pago"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+            
+        payment = Payment.objects.get(id=payment_id)
+        # Opcional: verificar si el usuario tiene permiso para ver este pago
+        
+        pdf = generate_invoice_pdf(payment)
+        
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="invoice_{payment_id}.pdf"'
+        response.write(pdf)
+        
+        return response
+        
+    except Payment.DoesNotExist:
+        return Response(
+            {"error": "Pago no encontrado"},
+            status=status.HTTP_404_NOT_FOUND
+        )
+    except Exception as e:
+        return Response(
+            {"error": str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
