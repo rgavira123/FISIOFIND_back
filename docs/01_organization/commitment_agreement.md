@@ -41,10 +41,13 @@ classoption: "table"
   - [2.5 PRÁCTICAS DE EQUIPO](#25-prácticas-de-equipo)
   - [2.6 CRITERIOS DE ÉXITO](#26-criterios-de-éxito)
   - [2.7 CUMPLIMIENTO DEL ACUERDO](#27-cumplimiento-del-acuerdo)
-  - [2.8 Proceso de Refutación de la Calificación en QA](#28-proceso-de-refutación-de-la-calificación-en-qa)
-  - [2.9 Ajuste del Porcentaje de Calificación en Evaluaciones de QA](#29-ajuste-del-porcentaje-de-calificación-en-evaluaciones-de-qa)
+  - [2.8 PROCESO DE REFUTACIÓN DE LA CALIFICACIÓN EN QA](#28-proceso-de-refutación-de-la-calificación-en-qa)
+  - [2.9 AJUSTE DEL PORCENTAJE DE CALIFICACIÓN EN EVALUACIONES DE QA](#29-ajuste-del-porcentaje-de-calificación-en-evaluaciones-de-qa)
   - [2.10 CONDICIONES DEL ACUERDO](#210-condiciones-del-acuerdo)
   - [2.11 CASOS NO CONTEMPLADOS](#211-casos-no-contemplados)
+  -[3. RECOMPENSAS Y TEAM BUILDING](#3-recompensas-y-team-building)
+    - [3.1. RECOMPENSAS Y BONIFICACIONES](#31-recompensas-y-bonificaciones)
+    - [## 3.2. TÉCNICAS DE TEAM BUILDING](#32-técnicas-de-team-building)
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 
 <br>
@@ -84,6 +87,7 @@ classoption: "table"
 | 07/02/2025 | v1.4    |  Alberto Carmona Sicre, Daniel Ruiz López | Modificación de los apartados: Horario de disponibilidad, Compromiso y realización de las tareas. Añadidas portada e Índice. |
 | 09/02/2025 | v1.5    |  Antonio Macías Ferrera | Pequeñas correcciones de formato. |
 | 08/03/2025 | v1.6    |  Daniel Alors Romero | Modificación y añadidos los apartados. |
+| 20/03/2025 | v1.7    |  Daniel Alors Romero | Recompensas y técnicas de team building. |
 
 <br>
 
@@ -203,6 +207,17 @@ En caso de que los miembros del equipo de QA determinen una reducción en el por
 - Si el equipo de QA detecta que se está dando una situación no contemplada en este acuerdo, pero que debería haberse contemplado, se hará saber a nivel de proyecto y se intentará resolver mediante reuniones y votaciones. Si no se consigue resolver, se hará saber a los profesores.
 
 <br>
+
+
+# 3. RECOMPENSAS Y TEAM BUILDING
+
+## 3.1. RECOMPENSAS Y BONIFICACIONES
+
+- Al finalizar cada Sprint se realizará una votación para elegir al ***"Contributor of the Month"***, siendo nombrado en las presentaciones como la persona más importante de dicha fase. Cuando el producto termine la fase de producción y para todos aquellos, dentro del equipo de desarrollo, que realicen de manera eficiente y en tiempo todas sus tareas el ***Project Management*** les invitará a una cena de empresa, para celebrar la finalización del desarrollo.
+
+## 3.2. TÉCNICAS DE TEAM BUILDING
+
+- Como técnicas de team building, todos los integrantes del equipo, cada viernes después de clase, se juntan y realizan unas partidas al ***Make It Meme***, siendo las 3 personas mejor puntuadas de la partida reflejadas en las diapositivas, junto a el ***meme*** mejor valorado.
 
 ---
 
