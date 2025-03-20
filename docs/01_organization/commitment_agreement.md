@@ -45,9 +45,8 @@ classoption: "table"
   - [2.9 AJUSTE DEL PORCENTAJE DE CALIFICACIÓN EN EVALUACIONES DE QA](#29-ajuste-del-porcentaje-de-calificación-en-evaluaciones-de-qa)
   - [2.10 CONDICIONES DEL ACUERDO](#210-condiciones-del-acuerdo)
   - [2.11 CASOS NO CONTEMPLADOS](#211-casos-no-contemplados)
-  -[3. RECOMPENSAS Y TEAM BUILDING](#3-recompensas-y-team-building)
+  - [3. RECOMPENSAS](#3-recompensas)
     - [3.1. RECOMPENSAS Y BONIFICACIONES](#31-recompensas-y-bonificaciones)
-    - [## 3.2. TÉCNICAS DE TEAM BUILDING](#32-técnicas-de-team-building)
 <!-- COMMENT THIS WHEN EXPORTING TO PDF -->
 
 <br>
@@ -209,15 +208,13 @@ En caso de que los miembros del equipo de QA determinen una reducción en el por
 <br>
 
 
-# 3. RECOMPENSAS Y TEAM BUILDING
+# 3. RECOMPENSAS
 
 ## 3.1. RECOMPENSAS Y BONIFICACIONES
 
-- Al finalizar cada Sprint se realizará una votación para elegir al ***"Contributor of the Month"***, siendo nombrado en las presentaciones como la persona más importante de dicha fase. Cuando el producto termine la fase de producción y para todos aquellos, dentro del equipo de desarrollo, que realicen de manera eficiente y en tiempo todas sus tareas el ***Project Management*** les invitará a una cena de empresa, para celebrar la finalización del desarrollo.
+- Al finalizar cada Sprint se realizará una votación para elegir a los tres ***"Contributors of the week"***, siendo nombrado en las presentaciones como la persona más importante de dicha fase. Cuando el producto termine la fase de producción y para todos aquellos, dentro del equipo de desarrollo, que realicen de manera eficiente y en tiempo todas sus tareas el ***Project Management*** les invitará a una cena de empresa, para celebrar la finalización del desarrollo.
 
-## 3.2. TÉCNICAS DE TEAM BUILDING
-
-- Como técnicas de team building, todos los integrantes del equipo, cada viernes después de clase, se juntan y realizan unas partidas al ***Make It Meme***, siendo las 3 personas mejor puntuadas de la partida reflejadas en las diapositivas, junto a el ***meme*** mejor valorado.
+- También aparecerán en la presentación las tres personas mejor puntuadas en ***Make it Meme***, junto al ***meme*** mejor valorado.
 
 ---
 
