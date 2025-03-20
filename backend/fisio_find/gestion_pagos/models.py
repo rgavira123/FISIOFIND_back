@@ -10,7 +10,8 @@ class Payment(models.Model):
         ('Not Paid', 'Not Paid'),
         ('Paid', 'Paid'),
         ('Refunded', 'Refunded'),
-        ('Canceled', 'Canceled'), 
+        ('Canceled', 'Canceled'),
+        ('redeemed', 'redeemed'), #Pago cobrado por el fisioterapeuta
     )
     appointment = models.OneToOneField(Appointment, on_delete=models.CASCADE, related_name='payment')
     amount = models.DecimalField(max_digits=10, decimal_places=2)

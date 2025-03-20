@@ -7,9 +7,10 @@ from .models import Payment
 from .serializers import PaymentSerializer
 from gestion_citas.models import Appointment
 from django.utils import timezone
-from gestion_usuarios.permissions import IsPatient
+from gestion_usuarios.permissions import IsPatient, IsPhysiotherapist
 from .utils.pdf_generator import generate_invoice_pdf
 from django.http import HttpResponse
+from django.db.models import Sum
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -215,7 +216,7 @@ def invoice_pdf_view(request):
             return Response({"error": "No tienes permiso para ver esta factura"},status=status.HTTP_403_FORBIDDEN)
             
         payment = Payment.objects.get(id=payment_id)
-        
+
         pdf = generate_invoice_pdf(payment)
         
         response = HttpResponse(content_type='application/pdf')
@@ -234,3 +235,18 @@ def invoice_pdf_view(request):
             {"error": str(e)},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
+    
+#obtener dinero acumulado de todas las payment pagadas por el fisioterapeuta
+@api_view(['GET'])
+@permission_classes([IsPhysiotherapist])
+def total_money(request):
+    physiotherapist = request.user.physio
+    
+    my_appointments = Appointment.objects.filter(physiotherapist=physiotherapist)
+    try:
+        total = Payment.objects.filter(appointment__in=my_appointments, status='Paid').aggregate(Sum('amount'))['amount__sum']
+        if total is None:
+            total = 0
+        return Response({'total': total}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
