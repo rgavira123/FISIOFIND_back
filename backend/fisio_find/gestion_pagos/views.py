@@ -205,31 +205,34 @@ def get_payment_details(request, payment_id):
 @permission_classes([IsPatient])
 def invoice_pdf_view(request):
     try:
-        # Obtener el payment_id del cuerpo de la solicitud POST
-        payment_id = request.data.get('payment_id')
+        payment_id = request.query_params.get('payment_id')
         if not payment_id:
             return Response(
                 {"error": "Se requiere el ID del pago"},
                 status=status.HTTP_400_BAD_REQUEST
             )
+
+        try:
+            payment = Payment.objects.get(id=payment_id)
+        except Payment.DoesNotExist:
+            return Response(
+                {"error": "Pago no encontrado"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
         if request.user.patient != payment.appointment.patient:
-            return Response({"error": "No tienes permiso para ver esta factura"},status=status.HTTP_403_FORBIDDEN)
-            
-        payment = Payment.objects.get(id=payment_id)
+            return Response(
+                {"error": "No tienes permiso para ver esta factura"},
+                status=status.HTTP_403_FORBIDDEN
+            )
 
         pdf = generate_invoice_pdf(payment)
         
-        response = HttpResponse(content_type='application/pdf')
+        response = HttpResponse(pdf, content_type='application/pdf')
         response['Content-Disposition'] = f'attachment; filename="invoice_{payment_id}.pdf"'
-        response.write(pdf)
         
         return response
-        
-    except Payment.DoesNotExist:
-        return Response(
-            {"error": "Pago no encontrado"},
-            status=status.HTTP_404_NOT_FOUND
-        )
+
     except Exception as e:
         return Response(
             {"error": str(e)},

@@ -6,6 +6,13 @@ import { useAppointment } from "@/context/appointmentContext";
 import AppointmentCalendar from "./AppointmentCalendar";
 import { formatAppointment } from "@/lib/utils"; // Se importa la función de formateo
 import { useParams } from "next/navigation";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import CheckoutForm from "@/components/CheckoutForm";
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+);
 
 interface WizardContentProps {
   currentStep: number;
@@ -22,13 +29,15 @@ const computeGCD = (arr: number[]): number => {
   return arr.reduce((prev, curr) => gcd(prev, curr));
 };
 
-const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services }) => {
+const WizardContent: React.FC<WizardContentProps> = ({
+  currentStep,
+  services,
+}) => {
   const { state, dispatch } = useAppointment();
   const appointmentData = state.appointmentData;
   console.log(appointmentData);
   const { id } = useParams();
   const physioId = parseInt(id as string);
-
 
   const handleSelectService = (service: Service) => {
     if (appointmentData.service.type === service.title) {
@@ -77,7 +86,11 @@ const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services }) 
     );
   } else if (currentStep === 2) {
     if (!appointmentData.service.type) {
-      return <p className="text-gray-800">Por favor selecciona un servicio primero.</p>;
+      return (
+        <p className="text-gray-800">
+          Por favor selecciona un servicio primero.
+        </p>
+      );
     }
     // Calcula el GCD de las duraciones de todos los servicios para definir el slotInterval
     const serviceDurations = services.map((svc) => parseInt(svc.duration));
@@ -92,16 +105,13 @@ const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services }) 
       </div>
     );
   } else if (currentStep === 3) {
-    return (
-      <div>
-        <h3 className="text-lg font-bold mb-4">Elige tu método de pago</h3>
-        {/* Aquí se podría agregar el selector de pago */}
-      </div>
-    );
-  } else if (currentStep === 4) {
     // Se formatean las fechas de inicio y fin de forma separada
-    const inicio = appointmentData.start_time ? formatAppointment(appointmentData.start_time) : { date: "", time: "" };
-    const fin = appointmentData.end_time ? formatAppointment(appointmentData.end_time) : { time: "" };
+    const inicio = appointmentData.start_time
+      ? formatAppointment(appointmentData.start_time)
+      : { date: "", time: "" };
+    const fin = appointmentData.end_time
+      ? formatAppointment(appointmentData.end_time)
+      : { time: "" };
     return (
       <div>
         <h3 className="font-bold mb-2">Resumen final de tu cita</h3>
@@ -137,6 +147,17 @@ const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services }) 
             <strong>Fin:</strong> No seleccionado
           </p>
         )}
+      </div>
+    );
+  } else if (currentStep === 4) {
+    return (
+      <div>
+        {/* <h3 className="text-lg font-bold mb-4">Elige tu método de pago</h3> */}
+        <Elements stripe={stripePromise}>
+          <React.StrictMode>
+            <CheckoutForm request={appointmentData} />
+          </React.StrictMode>
+        </Elements>
       </div>
     );
   }
