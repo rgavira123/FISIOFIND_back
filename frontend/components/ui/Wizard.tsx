@@ -7,7 +7,7 @@ import WizardNavigation from "./WizardNavigation";
 import { Service, Step } from "@/lib/definitions";
 import { AppointmentProvider } from "@/context/appointmentContext"; // Asegúrate de ajustar la ruta
 
-const Wizard: React.FC<{ steps: Step[], token: string, isClient: boolean}> = ({ steps }) => {
+const Wizard: React.FC<{ steps: Step[], token: string | null, isClient: boolean}> = ({ steps, token, isClient }) => {
   const [currentStep, setCurrentStep] = useState<number>(1);
 
   const services: Service[] = [
