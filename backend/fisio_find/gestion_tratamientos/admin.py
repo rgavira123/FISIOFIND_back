@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Treatment
+from .models import Exercise, ExerciseLog, ExerciseSession, Series, Session, Treatment
 
 @admin.register(Treatment)
 class TreatmentAdmin(admin.ModelAdmin):
@@ -18,3 +18,9 @@ class TreatmentAdmin(admin.ModelAdmin):
     
     get_patient_name.short_description = 'Patient'
     get_physiotherapist_name.short_description = 'Physiotherapist'
+    
+admin.site.register(Session)
+admin.site.register(Exercise)
+admin.site.register(ExerciseSession)
+admin.site.register(Series)
+admin.site.register(ExerciseLog)
