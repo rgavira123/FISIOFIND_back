@@ -98,6 +98,7 @@ const Room = ({ roomCode }) => {
             chat.handleChatMessage(data.message);
             break;
           case 'call-ended':
+
             console.log("🛑 Recibido call-ended en el paciente, ejecutando handleCallEnded...");
             roomManagement.handleCallEnded();
             break;

@@ -2,6 +2,17 @@ import { useState, useCallback, useEffect } from 'react';
 import axios from 'axios';
 import { getApiBaseUrl } from "@/utils/api";
 
+/**
+ * Custom hook for managing room lifecycle
+ * @param {Object} options - Configuration options
+ * @param {string} options.roomCode - Room ID/code
+ * @param {string} options.userRole - User role (physio or patient)
+ * @param {Function} options.closeConnection - Function to close WebRTC connection
+ * @param {Function} options.cleanupMedia - Function to clean up media resources
+ * @param {Function} options.sendWebSocketMessage - Function to send WebSocket messages
+ * @param {Function} options.addChatMessage - Function to add a chat message
+ * @returns {Object} Room management utilities and state
+ */
 const useRoomManagement = ({
   roomCode,
   userRole,
@@ -11,21 +22,26 @@ const useRoomManagement = ({
   addChatMessage,
   onCallEndedMessage // ✅ Este callback detectará si el paciente recibe la notificación de cierre
 }) => {
-  // Estados para manejar el modal y la eliminación
+  // Modal state
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [showDeleteButtons, setShowDeleteButtons] = useState(false);
+  const [waitingForDeletion, setWaitingForDeletion] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  const endCall = useCallback(() => {
+  // End call
+  const endCall = useCallback(async () => {
+    closeConnection();
+    cleanupMedia();
     addChatMessage('Sistema', 'Has finalizado la llamada');
-  
+
+    // If physio, show action buttons
     if (userRole === 'physio') {
-      // Mostrar el modal antes de cerrar la conexión
       setModalMessage("¿Deseas eliminar la sala de la videollamada?");
       setShowDeleteButtons(true);
       setShowModal(true);
@@ -127,7 +143,16 @@ const useRoomManagement = ({
     endCall,       
     confirmDeleteRoom,
     cancelDelete,
-    handleCallEnded      
+    handleCallEnded,      
+    waitingForDeletion,
+    setShowModal,
+    setModalMessage,
+    setShowDeleteButtons,
+    setWaitingForDeletion,
+    endCall,
+    confirmDeleteRoom,
+    cancelDelete,
+    handleCallEnded
   };
 };
 
