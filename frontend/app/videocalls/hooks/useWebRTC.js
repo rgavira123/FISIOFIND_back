@@ -387,6 +387,14 @@ const useWebRTC = ({
         console.log('ICE Candidate recibido:', message);
         handleNewICECandidate(message);
         break;
+      case 'call-ended':
+          console.log('Recibido mensaje de finalización de llamada:', message);
+          setTimeout(() => {
+            closeConnection();
+            window.location.href = '/videollamadas';
+          }, 1500);
+          break;
+        
       
       // Other actions are handled elsewhere
       
