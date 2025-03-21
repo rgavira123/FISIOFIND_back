@@ -16,7 +16,6 @@ import os
 from django.conf.global_settings import MEDIA_URL
 from dotenv import load_dotenv
 import os
-import dj_database_url  # Para parsear la URL de la base de datos
 import environ
 
 load_dotenv()
@@ -53,7 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
-    'videocall',
+    'videocall'
 ]
 
 # DJANGO REST FRAMEWORK
@@ -69,7 +68,7 @@ INSTALLED_APPS += [
     'gestion_usuarios',
     'gestion_citas',
     'gestion_terminos',
-    'sesion_invitado'
+    'sesion_invitado',
 ]
 
 
@@ -179,6 +178,7 @@ CHANNEL_LAYERS = {
 env = environ.Env()
 environ.Env.read_env()
 
+
 IS_PRODUCTION = os.getenv('DJANGO_PRODUCTION', env.bool('DJANGO_PRODUCTION', default=False))
 
 DEBUG = not IS_PRODUCTION
@@ -196,6 +196,24 @@ DATABASES = {
         },
     }
 }
+
+
+# Configuración del servicio de correos
+EMAIL_BACKEND  = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT') 
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
+
+
+
+
+
+# Default email para los correos enviados
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default=env('EMAIL_HOST_USER'))
+
 
 ALLOWED_HOSTS = ['*'] if DEBUG else ['fisiofind-backend.azurewebsites.net']
 
