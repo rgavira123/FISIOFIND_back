@@ -431,7 +431,7 @@ def process_due_payments_api(request):
 
         # Buscar todas las citas cuyo pago ha vencido y no se ha realizado
         appointments_due_for_payment = Appointment.objects.filter(
-            # start_time__lt=now,  # Citas pasadas
+            start_time__lt=now + timezone.timedelta(hours=48),
             payment__status='Not Paid'
         )
 
