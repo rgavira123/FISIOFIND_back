@@ -128,8 +128,8 @@ def physio_update_view(request):
             request_data[key] = value
                 
 
-    # Usar el serializador específico para actualización
-    serializer = PhysioUpdateSerializer(physio, data=request_data, partial=True)
+    # Serializar y validar los datos enviados
+    serializer = PhysioRegisterSerializer(physio, data=request_data, partial=True)
 
     
     if serializer.is_valid():
