@@ -59,7 +59,7 @@ const Modelo3D = ({ isVisible }) => {
           <option value="16">Flexor largo del pulgar</option>
           <option value="17">Braquiorradial</option>
           <option value="18">Flexor radial del carpo</option>
-          <option value="29">Flexor profundo de los dedos</option>
+          <option value="19">Flexor profundo de los dedos</option>
           <option value="20">Flexor superficial de los dedos</option>
           <option value="21">Extensor de los dedos</option>
           <option value="22">Supinador</option>
