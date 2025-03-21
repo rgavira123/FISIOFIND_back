@@ -13,14 +13,20 @@ class SeleniumScraper:
     def __init__(self):
         # Configurar Selenium (se requiere que JS esté habilitado)
         options = webdriver.ChromeOptions()
-        options.add_argument("--headless")  # Ejecutar en segundo plano
-        options.add_argument("--no-sandbox")  
-        options.add_argument("--enable-javascript")  # Asegurar que JS está habilitado
-        options.add_argument("--disable-dev-shm-usage")  
         
-        # Inicializar WebDriver
+        options.add_argument("--headless")  # Modo sin interfaz gráfica
+        options.add_argument("--no-sandbox")  
+        options.add_argument("--disable-dev-shm-usage")  
+        options.add_argument("--disable-gpu")  
+        options.add_argument("--window-size=1920x1080")
+        options.binary_location = "/usr/bin/chromium-browser"
+
+        # Especificar ruta manual de ChromeDriver
+        chromedriver_path = "/usr/bin/chromedriver"
+
+        # Inicializar WebDriver con ruta manual
         self.driver = webdriver.Chrome(
-            service=Service(executable_path=ChromeDriverManager().install()),
+            service=Service(executable_path=chromedriver_path),
             options=options
         )
 
