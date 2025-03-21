@@ -154,9 +154,7 @@ const WizardContent: React.FC<WizardContentProps> = ({
       <div>
         {/* <h3 className="text-lg font-bold mb-4">Elige tu método de pago</h3> */}
         <Elements stripe={stripePromise}>
-          <React.StrictMode>
             <CheckoutForm request={appointmentData} />
-          </React.StrictMode>
         </Elements>
       </div>
     );

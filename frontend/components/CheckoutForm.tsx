@@ -1,7 +1,7 @@
 // components/CheckoutForm.jsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { getApiBaseUrl } from "@/utils/api";
 
@@ -31,19 +31,26 @@ const CheckoutForm = ({ request }: CheckoutFormProps) => {
   const [message, setMessage] = useState("");
   const [token, setToken] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false); // Estado para el modal
+  const effectRan = useRef(false);
 
 
   // Puedes acceder al precio así:
   const price = request?.service?.price;
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    console.log("Token obtenido:", storedToken);
-    if (storedToken) {
-      setToken(storedToken);
-      createAppointment(storedToken); // ⚡ Solo creamos la cita primero
+    useEffect(() => {
+      if (effectRan.current === false) {
+
+      const storedToken = localStorage.getItem("token");
+      console.log("Token obtenido:", storedToken);
+      if (storedToken) {
+        setToken(storedToken);
+        createAppointment(storedToken); // ⚡ Solo creamos la cita primero
+      }
+      return () => {
+        effectRan.current = true;
+      };
     }
-  }, []);
+    }, []);
 
   async function createAppointment(tokenValue: string) {
     try {
@@ -72,8 +79,10 @@ const CheckoutForm = ({ request }: CheckoutFormProps) => {
   }
 
   async function createPayment(tokenValue: string, appointmentId: number) {
+    console.log(tokenValue);
+    
     try {
-      const res = await fetch(`${getApiBaseUrl()}/api/payments/create/`, {
+      const res = await fetch(`${getApiBaseUrl()}/api/payments/create-setup/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -102,13 +111,14 @@ const CheckoutForm = ({ request }: CheckoutFormProps) => {
     }
   }
 
-  const handleSubmit = async (e, tokenValue: string) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!stripe || !elements || !clientSecret) return;
-
+  
     setLoading(true);
-
-    const result = await stripe.confirmCardPayment(clientSecret, {
+  
+    // Confirmar el SetupIntent para almacenar el método de pago
+    const result = await stripe.confirmCardSetup(clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement),
         billing_details: {
@@ -116,47 +126,41 @@ const CheckoutForm = ({ request }: CheckoutFormProps) => {
         },
       },
     });
-
+  
     if (result.error) {
-      setMessage(result.error.message || "Error al confirmar el pago.");
+      setMessage(result.error.message || "Error al confirmar el método de pago.");
       console.error(result.error.message);
     } else {
-      if (result.paymentIntent.status === "succeeded") {
-        try {
-          const confirmRes = await fetch(
-            `${getApiBaseUrl()}/api/payments/${paymentId}/confirm/`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + token,
-              },
-            }
-          );
-          const confirmData = await confirmRes.json();
-          console.log("Confirmación del backend:", confirmData);
-          // setMessage("¡Pago realizado con éxito!");
-          setShowModal(true); // Mostrar el modal al completar el pago
-        } catch (error) {
-          console.error("Error al confirmar el pago en el backend:", error);
-          setMessage("Pago realizado, pero error al confirmar en el servidor.");
-        }
-      } else if (result.paymentIntent.status === "canceled") {
-        await fetch(
-          `${getApiBaseUrl()}/api/appointment/delete/${appointmentId}`,
+      console.log(token);
+
+      // result.setupIntent ahora contiene el payment_method configurado
+      // Puedes enviar este payment_method al backend para actualizar el registro del pago
+      try {
+        const updateRes = await fetch(
+          `${getApiBaseUrl()}/api/payments/update-payment-method/${paymentId}/`,
           {
-            method: "DELETE",
+            method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Authorization: "Bearer " + tokenValue,
+              Authorization: "Bearer " + token,
             },
+            body: JSON.stringify({
+              payment_method_id: result.setupIntent.payment_method,
+            }),
           }
         );
+        const updateData = await updateRes.json();
+        console.log("Método de pago actualizado:", updateData);
+        setMessage("Método de pago guardado. Se te cobrará 48h antes de la cita.");
+        setShowModal(true); // Mostrar el modal de éxito
+      } catch (error) {
+        console.error("Error al actualizar el método de pago en el backend:", error);
+        setMessage("Error al guardar el método de pago.");
       }
     }
     setLoading(false);
   };
-
+  
   // Opciones de estilo para CardElement
   const cardStyle = {
     style: {
@@ -197,8 +201,10 @@ const CheckoutForm = ({ request }: CheckoutFormProps) => {
       {showModal && (
         <div style={modalOverlay}>
           <div style={modalContent}>
-            <h2>¡Pago Exitoso! 🎉</h2>
-            <p>Tu cita ha sido confirmada.</p>
+            <h2 className="mb-4">¡Cita creada! 🎉</h2>
+            {/* <p>Tu cita ha sido creada.</p> */}
+            <p>Si el fisioterapeuta la acepta, se cobrará el importe</p>
+              <p>de la cita 48 horas antes de su comienzo.</p>
             <button
               style={modalButton}
               onClick={async () => {

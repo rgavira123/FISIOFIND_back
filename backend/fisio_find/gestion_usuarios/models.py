@@ -46,6 +46,7 @@ class AppUser(AbstractUser):
 class Patient(models.Model):
     user = models.OneToOneField(AppUser, on_delete=models.CASCADE, related_name='patient')
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    stripe_customer_id = models.CharField(max_length=255, blank=True, null=True)
     birth_date = models.DateField()
     
     def __str__(self):

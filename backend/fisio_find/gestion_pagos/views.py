@@ -9,7 +9,7 @@ from gestion_citas.models import Appointment
 from django.utils import timezone
 from gestion_usuarios.permissions import IsPatient, IsPhysiotherapist
 from .utils.pdf_generator import generate_invoice_pdf
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.db.models import Sum
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -48,6 +48,7 @@ def create_payment(request):
         payment_intent = stripe.PaymentIntent.create(
             amount=amount,
             currency='eur',
+            customer=request.user.patient.stripe_customer_id,  # Agrega el Customer
             payment_method_types=['card'],
         )
 
@@ -253,3 +254,243 @@ def total_money(request):
         return Response({'total': total}, status=status.HTTP_200_OK)
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+#generar un SetupIntent para almacenar el método de pago sin cobrarlo de inmediato
+
+@api_view(['POST'])
+@permission_classes([IsPatient])
+def create_payment_setup(request):
+    """Crea un SetupIntent para almacenar el método de pago sin cobrarlo de inmediato."""
+    appointment_id = request.data.get('appointment_id')
+    amount = request.data.get('amount', 1000)  # Monto en centavos
+    try:
+        appointment = Appointment.objects.get(id=appointment_id)
+        
+        # Verificar que el paciente sea el dueño de la cita
+        if request.user.patient != appointment.patient:
+            return Response({'error': 'Sólo puedes pagar tus propias citas'}, 
+                            status=status.HTTP_403_FORBIDDEN)
+        
+        # Verificar que la fecha de pago no haya expirado
+        if _check_deadline(appointment):
+            return Response({'error': 'El plazo para el pago ha expirado y la cita fue cancelada'}, 
+                            status=status.HTTP_400_BAD_REQUEST)
+        
+        # --- NUEVO: Crear o recuperar el Customer en Stripe ---
+        patient = request.user.patient
+        if not patient.stripe_customer_id:
+            # Se crea el Customer en Stripe con el email del usuario
+            customer = stripe.Customer.create(
+                email=request.user.email,
+                name=f"{request.user.first_name} {request.user.last_name}"
+            )
+            patient.stripe_customer_id = customer.id
+            patient.save()
+        else:
+            customer = stripe.Customer.retrieve(patient.stripe_customer_id)
+        
+        # Crear SetupIntent en Stripe, asociándolo al Customer
+        setup_intent = stripe.SetupIntent.create(
+            payment_method_types=['card'],
+            customer=customer.id
+        )
+        
+        # Crear (o actualizar) el registro de Payment. 
+        # Nota: si no tienes un campo para el setup intent, considera agregar uno (ej. stripe_setup_intent_id)
+        payment, created = Payment.objects.get_or_create(
+            appointment=appointment,
+            defaults={
+                'amount': amount / 100,  # Guardamos en euros
+                'stripe_setup_intent_id': setup_intent['id'],
+                'status': 'Not Paid'
+            }
+        )
+        serializer = PaymentSerializer(payment)
+        return Response({
+            'payment': serializer.data,
+            'client_secret': setup_intent['client_secret']  # Se envía al frontend para confirmar el SetupIntent
+        }, status=status.HTTP_201_CREATED)
+
+    except Appointment.DoesNotExist:
+        return Response({'error': 'Cita no encontrada'}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({'error': f'Error al procesar el pago: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@permission_classes([IsPatient])
+def update_payment_method(request, payment_id):
+    """Actualiza el registro de Payment con el payment_method obtenido tras confirmar el SetupIntent y lo asocia al Customer."""
+    try:
+        payment = Payment.objects.get(id=payment_id)
+
+        # Verifica que el paciente es el dueño de la cita
+        if request.user.patient != payment.appointment.patient:
+            return Response({'error': 'Sólo puedes actualizar tus propios pagos'}, 
+                            status=status.HTTP_403_FORBIDDEN)
+        
+        payment_method_id = request.data.get('payment_method_id')
+        if not payment_method_id:
+            return Response({'error': 'Falta el payment_method_id'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Guardar el payment_method en el registro de Payment
+        payment.stripe_payment_method_id = payment_method_id
+        payment.save()
+
+        # --- NUEVO: Adjuntar el PaymentMethod al Customer ---
+        # Se asume que el paciente ya tiene el stripe_customer_id configurado en create_payment_setup
+        customer_id = request.user.patient.stripe_customer_id
+        if not customer_id:
+            return Response({'error': 'No se encontró un Customer de Stripe para el usuario'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        stripe.PaymentMethod.attach(
+            payment_method_id,
+            customer=customer_id,
+        )
+        stripe.Customer.modify(
+            customer_id,
+            invoice_settings={'default_payment_method': payment_method_id},
+        )
+        
+        return Response({'message': 'Método de pago actualizado y asociado al Customer'}, status=status.HTTP_200_OK)
+    
+    except Payment.DoesNotExist:
+        return Response({'error': 'Pago no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({'error': f'Error al actualizar el método de pago: {str(e)}'}, 
+                        status=status.HTTP_400_BAD_REQUEST)
+
+
+#cobrar el pago utilizando el método almacenado previamente en el SetupIntent
+
+def charge_payment(payment_id):
+    """Cobra el pago utilizando el método almacenado previamente en el SetupIntent."""
+    try:
+        payment = Payment.objects.get(id=payment_id)
+
+
+        # Asegúrate de que el método de pago ya fue configurado (p. ej. que se haya guardado el payment_method)
+        if not payment.stripe_payment_method_id:
+            return Response({'error': 'No se ha configurado un método de pago'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Crear PaymentIntent utilizando el payment_method almacenado
+        payment_intent = stripe.PaymentIntent.create(
+            amount=int(payment.amount * 100),  # monto en centavos
+            currency='eur',
+            payment_method=payment.stripe_payment_method_id,
+            confirm=True,  # Se confirma de inmediato
+            off_session=True,  # Permite cobrar sin la acción del cliente
+        )
+
+        if payment_intent['status'] == 'succeeded':
+            payment.status = 'Paid'
+            payment.payment_date = timezone.now()
+            payment.stripe_payment_intent_id = payment_intent['id']
+            payment.save()
+            payment.appointment.status = 'Paid'
+            payment.appointment.save()
+
+        serializer = PaymentSerializer(payment)
+        return Response({'message': 'Pago cobrado', 'payment': serializer.data}, 
+                        status=status.HTTP_200_OK)
+        
+    except Payment.DoesNotExist:
+        return Response({'error': 'Pago no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        print(e)
+        return Response({'error': f'Error al cobrar el pago: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
+
+def process_due_payments():
+    """Busca y cobra pagos que han alcanzado el deadline."""
+    now = timezone.now()
+    due_payments = Payment.objects.filter(
+        status="Not Paid",
+        appointment__start_time__lte=now + timezone.timedelta(hours=150)
+    )
+
+    for payment in due_payments:
+        try:
+            response = charge_payment(payment.id)  # Llama a la función de cobro
+            print(f"Pago procesado correctamente: {payment.id} - {response}")
+        except Exception as e:
+            print(f"Error al procesar el pago {payment.id}: {str(e)}")
+
+    return Response({"message": "Pagos procesados correctamente"}, status=200)
+
+#endpoint para procesar los pagos vencidos (GitHub Actions)
+
+@api_view(['POST'])
+@permission_classes([])
+def process_due_payments_api(request):
+    """Procesar los pagos vencidos y no pagados."""
+    api_key = request.headers.get("X-API-KEY")
+    if api_key != settings.PAYMENT_API_KEY:
+        return JsonResponse({"error": "Unauthorized"}, status=403)
+    
+    try:
+        now = timezone.now()
+
+        # Buscar todas las citas cuyo pago ha vencido y no se ha realizado
+        appointments_due_for_payment = Appointment.objects.filter(
+            # start_time__lt=now,  # Citas pasadas
+            payment__status='Not Paid'
+        )
+
+        for appointment in appointments_due_for_payment:
+            # Verificar si el pago ya ha sido realizado o si la cita ha pasado de su fecha límite
+            if not appointment.payment:
+                continue
+
+            if appointment.payment.status == 'Paid':
+                continue
+
+            if now > appointment.start_time - timezone.timedelta(hours=48):
+                # Si han pasado más de 48 horas desde la cita, se cancela la cita
+                appointment.status = 'Canceled'
+                appointment.payment.status = 'Canceled'
+                appointment.payment.save()
+                appointment.save()
+                continue
+
+            # Si está dentro del plazo de 48 horas, cobramos el pago
+            payment = appointment.payment
+            
+            # Verificar que el PaymentIntent no ha sido creado
+            if not payment.stripe_payment_intent_id:
+                # Crear el PaymentIntent en Stripe
+                payment_intent = stripe.PaymentIntent.create(
+                    amount=int(payment.amount * 100),  # Monto en centavos
+                    currency='eur',
+                    customer=payment.appointment.patient.stripe_customer_id,  # Asegúrate de tener stripe_customer_id
+                    payment_method_types=['card'],
+                    payment_method=payment.stripe_payment_method_id,
+                    confirm=True,  # Se confirma de inmediato
+                    off_session=True,  # Permite cobrar sin la acción del cliente
+
+                )
+
+                payment.stripe_payment_intent_id = payment_intent['id']
+                payment.save()
+
+            # Intentar cobrar el pago
+            payment_intent = stripe.PaymentIntent.retrieve(payment.stripe_payment_intent_id)
+            
+            # Si el PaymentIntent está en estado 'requires_payment_method', significa que necesitamos un método de pago
+            if payment_intent['status'] == 'requires_payment_method':
+                print(f'Payment for appointment {appointment.id} requires a payment method.')
+                continue
+
+            # Confirmamos el pago si está listo
+            if payment_intent['status'] == 'succeeded':
+                payment.status = 'Paid'
+                payment.payment_date = timezone.now()
+                payment.save()
+
+                # Cambiar el estado de la cita
+                appointment.status = 'Paid'
+                appointment.save()
+
+        return HttpResponse("Payment processing completed.")
+
+    except Exception as e:
+        print(f"Error processing payments: {str(e)}")
+        return HttpResponse(f"Error processing payments: {str(e)}")

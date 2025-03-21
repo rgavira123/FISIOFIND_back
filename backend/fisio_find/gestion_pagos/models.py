@@ -19,6 +19,8 @@ class Payment(models.Model):
     status = models.CharField(max_length=20, choices=PAYMENT_STATUSES, default='Not Paid')
     payment_date = models.DateTimeField(null=True, blank=True)
     stripe_payment_intent_id = models.CharField(max_length=100, null=True, blank=True)
+    stripe_setup_intent_id = models.CharField(max_length=100, null=True, blank=True)
+    stripe_payment_method_id = models.CharField(max_length=100, null=True, blank=True)
 
     @property
     def payment_deadline(self):
