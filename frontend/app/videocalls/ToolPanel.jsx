@@ -3,7 +3,7 @@ import styles from './Room.module.css';
 
 // Subcomponentes de cada herramienta
 import Historial from './tools/Historial';
-import Modelo3D from './tools/3DModel';
+import Modelo3D from './hooks/3DModel';
 import Plantillas from './tools/Templates';
 import Cuestionarios from './tools/Questionnaires';
 

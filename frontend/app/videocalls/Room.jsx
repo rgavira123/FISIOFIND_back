@@ -238,6 +238,7 @@ const Room = ({ roomCode }) => {
               activePainMap={activePainMap}
               handlePainMapSelect={handlePainMapSelect}
               sendPainMapToPatient={sendPainMapToPatient}
+              userRole={userRole}
             />
           )}
         </>
