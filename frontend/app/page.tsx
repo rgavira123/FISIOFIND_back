@@ -53,15 +53,19 @@ const Home = () => {
   }, [isClient, token]);
 
   // Efecto para mover imágenes flotantes al hacer scroll
+  // Modify the floating images styles
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const floatingImages = document.querySelectorAll(".floating-image");
-      floatingImages.forEach((image, index) => {
-        const offset = (index + 1) * 50;
-        (image as HTMLElement).style.transform = `translateX(${scrollY / offset
-          }px)`;
-      });
+      
+      // Only apply floating effect if screen is large enough
+      if (window.innerWidth > 1240) {
+        floatingImages.forEach((image, index) => {
+          const offset = (index + 1) * 50;
+          (image as HTMLElement).style.transform = `translateX(${scrollY / offset}px)`;
+        });
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
