@@ -6,6 +6,8 @@ urlpatterns = [
     path('schedule/<int:pk>/', views.get_physio_schedule_by_id),
     path('physio/schedule/weekly/', views.edit_weekly_schedule ),
     path('physio/schedule/add-unavailable/', views.add_unavailable_day),
+    path('<int:appointmentId>/', views.get_appointment_by_id, name='get_appointment_by_id'),
+    path('confirm/<str:token>/', views.confirm_appointment_using_token, name='confirm_appointment'),
 
     #Patients
     path('patient/', views.create_appointment_patient),
@@ -17,6 +19,7 @@ urlpatterns = [
     #Update and delete
     path('update/<int:appointment_id>/', views.update_appointment, name='update_appointment'),
     path('delete/<int:appointment_id>/', views.delete_appointment, name='delete_appointment'),
+    path('update/<int:appointment_id>/confirm/', views.confirm_appointment, name='confirm_appointment'),
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)
 """
