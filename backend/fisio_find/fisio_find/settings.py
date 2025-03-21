@@ -13,37 +13,28 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from datetime import timedelta
 from pathlib import Path
 import os
+from django.conf.global_settings import MEDIA_URL
 from dotenv import load_dotenv
-import dj_database_url  # Para parsear la URL de la base de datos
+import os
+import environ
 
-# Cargar variables de entorno desde el archivo .env
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Configuración básica
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-temporary-key-for-deployment')
+
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-# Define ALLOWED_HOSTS de forma fija (actualízalos manualmente según tus dominios)
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    'fisiofind-backend.azurewebsites.net',
-    'fisiofind.netlify.app',
-    '138.68.80.34',
-    '167.99.246.186',
-    's2.fisiofind.com',
-    's2-api.fisiofind.com'
-]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'fisiofind-backend.azurewebsites.net', 'fisiofind.netlify.app']
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://fisiofind-backend.azurewebsites.net",
-    "http://138.68.80.34",
-    "http://167.99.246.186",
-    "https://s2.fisiofind.com",
-    "https://s2-api.fisiofind.com",
-    "wss://s2-api.fisiofind.com"
+    "https://fisiofind-backend.azurewebsites.net"
 ]
 SECURE_PROXY_SSL_HEADER = ("X-Forwarded-Proto", "https")
 SESSION_COOKIE_SECURE = True
@@ -51,6 +42,7 @@ CSRF_COOKIE_SECURE = True
 CSRF_USE_SESSIONS = True
 
 # Application definition
+
 INSTALLED_APPS = [
     'daphne',
     'django.contrib.admin',
@@ -60,46 +52,46 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
-    'videocall',
+    'videocall'
 ]
 
-# Django REST Framework
+# DJANGO REST FRAMEWORK
 INSTALLED_APPS += [
-    'rest_framework',
-    'rest_framework.authtoken',
-    'rest_framework_simplejwt',
-]
+    'rest_framework',               # API REST principal
+    'rest_framework.authtoken',     # Autenticación por tokens (opcional)
+    'rest_framework_simplejwt',     # Autenticación JWT (recomendada)
+]   
 
-# Apps propias
+# APPS PROPIAS
+
 INSTALLED_APPS += [
     'gestion_usuarios',
     'gestion_citas',
     'gestion_terminos',
-    'sesion_invitado'
+    'sesion_invitado',
 ]
 
-# Otras apps
-INSTALLED_APPS += [
-    'corsheaders',
-    'django_extensions',
-    'django_filters',
-]
+
+
+INSTALLED_APPS += [ 'corsheaders', 'django_extensions',
+    'django_filters']
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'corsheaders.middleware.CorsMiddleware',  # Moverlo al inicio
+    'corsheaders.middleware.CorsMiddleware',  # Move this up
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # Se vuelve a incluir CommonMiddleware y CorsMiddleware para compatibilidad
+    # Remove the duplicate corsheaders.middleware.CorsMiddleware from here
     'django.middleware.common.CommonMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-# Configuración adicional de CORS
+# Add additional CORS settings
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = [
     'DELETE',
@@ -131,8 +123,8 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),  # El token dura 1 día
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),   # No lo vamos a usar, pero se requiere
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': False,
     'AUTH_HEADER_TYPES': ("Bearer",),
@@ -141,13 +133,8 @@ SIMPLE_JWT = {
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
-    "https://fisiofind-backend.azurewebsites.net",
-    "https://fisiofind.netlify.app",
-    "http://138.68.80.34",
-    "http://167.99.246.186",
-    "https://s2-api.fisiofind.com",
-    "https://s2.fisiofind.com",
-    "wss://s2-api.fisiofind.com"
+    "https://fisiofind-backend.azurewebsites.net",  # Note the comma here
+    "https://fisiofind.netlify.app"
 ]
 
 ROOT_URLCONF = 'fisio_find.urls'
@@ -171,34 +158,71 @@ TEMPLATES = [
 WSGI_APPLICATION = 'fisio_find.wsgi.application'
 ASGI_APPLICATION = 'fisio_find.asgi.application'
 
-# Configurar Redis como backend de WebSockets
 CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],  # Redis local
-        },
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
     },
 }
 
-# Configuración de la base de datos usando load_dotenv
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('DATABASE_NAME'),
+#         'USER': os.getenv('DATABASE_USER'),
+#         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+#         'HOST': os.getenv('DATABASE_HOST'),
+#         'PORT': os.getenv('DATABASE_PORT'),
+#     }
+# }
+
+env = environ.Env()
+environ.Env.read_env()
+
+
+IS_PRODUCTION = os.getenv('DJANGO_PRODUCTION', env.bool('DJANGO_PRODUCTION', default=False))
+
+DEBUG = not IS_PRODUCTION
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DATABASE_NAME', 'postgres'),
-        'USER': os.getenv('DATABASE_USER', 'postgres'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', ''),
-        'HOST': os.getenv('DATABASE_HOST', 'localhost'),
-        'PORT': os.getenv('DATABASE_PORT', '5432'),
+        'NAME': os.getenv('DATABASE_NAME', env('DATABASE_NAME', default='postgres')),
+        'USER': os.getenv('DATABASE_USER', env('DATABASE_USER', default='postgres')),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', env('DATABASE_PASSWORD', default='')),
+        'HOST': os.getenv('DATABASE_HOST', env('DATABASE_HOST', default='localhosts')),
+        'PORT': os.getenv('DATABASE_PORT', env('DATABASE_PORT', default='5432')),
         'OPTIONS': {
-            'sslmode': 'require' if not DEBUG else 'prefer',
+            'sslmode': 'require' if IS_PRODUCTION else 'prefer',
         },
     }
 }
 
+
+# Configuración del servicio de correos
+EMAIL_BACKEND  = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT') 
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
+
+
+
+
+
+# Default email para los correos enviados
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default=env('EMAIL_HOST_USER'))
+
+
+ALLOWED_HOSTS = ['*'] if DEBUG else ['fisiofind-backend.azurewebsites.net']
+
 AUTH_USER_MODEL = 'gestion_usuarios.AppUser'
 
-# Validadores de contraseña
+
+# Password validation
+# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
+
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -212,7 +236,6 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
-STATIC_ROOT = "/root/FISIOFIND_back/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

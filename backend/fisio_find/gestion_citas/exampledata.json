@@ -276,6 +276,8 @@
         "pk": 6,
         "fields": {
             "username": "patient1",
+            "first_name": "patient",
+            "last_name": "sample ",
             "email": "patient1@example.com",
             "password": "pbkdf2_sha256$870000$3QqCfXSf9kmYHVoGHNxxiP$nQrFTWfdh8L2ap9wOVTulFJoqDrw2UD7wheiXkgJMXw=",
             "dni": "76543211B",
