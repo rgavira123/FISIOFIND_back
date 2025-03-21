@@ -80,8 +80,7 @@ class PhysiotherapistTreatmentListView(APIView):
                 )
                         
         # Obtener el parámetro de filtro, si existe
-        is_active_param = request.query_params.get('is_active', None)
-                        
+        is_active_param = request.query_params.get('is_active', None)                        
         # Filtrar tratamientos por fisioterapeuta
         treatments = Treatment.objects.filter(physiotherapist=physiotherapist)
                         

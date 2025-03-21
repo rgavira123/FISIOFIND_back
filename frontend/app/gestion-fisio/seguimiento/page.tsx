@@ -105,8 +105,13 @@ const SeguimientoPage = () => {
         try {
           // Usar token si está disponible en localStorage
           const token = localStorage.getItem('token') || '';
+
+          let url = 'http://localhost:8000/api/treatments/physio/';
+          if (activeFilter !== null) {
+            url += `?is_active=${activeFilter}`;
+          }
           
-          const response = await fetch('http://localhost:8000/api/treatments/physio/', {
+          const response = await fetch(url, {
             headers: {
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json'
@@ -136,9 +141,8 @@ const SeguimientoPage = () => {
         setLoading(false);
       }
     };
-
-    fetchTreatments();
-  }, [extractActivePatients]);
+  fetchTreatments();
+}, [extractActivePatients, activeFilter]);
 
   // Aplicar filtros cuando cambien
   useEffect(() => {
@@ -320,6 +324,5 @@ const SeguimientoPage = () => {
     </div>
   );
 };
-
 
 export default SeguimientoPage;
