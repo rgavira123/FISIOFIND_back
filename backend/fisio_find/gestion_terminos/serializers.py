@@ -9,7 +9,7 @@ class AppTerminosSerializer(serializers.ModelSerializer):
         required=True, 
         error_messages={'required': 'El campo contenido es obligatorio.'}
     )
-    
+
     version = serializers.CharField(
         required=True, 
         max_length=100,
