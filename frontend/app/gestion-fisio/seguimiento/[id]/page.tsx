@@ -385,12 +385,13 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
           <button
             onClick={() =>
               router.push(
-                `/gestion-fisio/seguimiento/ejercicios?treatment_id=${id}`
+                // `/gestion-fisio/seguimiento/ejercicios?treatment_id=${id}`
+                `/gestion-fisio/seguimiento/${id}/sesiones`
               )
             }
             className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
           >
-            Gestionar Ejercicios
+            Gestionar Sesiones
           </button>
           <button
             onClick={handleEditToggle}
