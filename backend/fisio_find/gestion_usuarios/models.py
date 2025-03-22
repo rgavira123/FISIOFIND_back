@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+import boto3
+from django.conf import settings
 
 ACCOUNT_STATUS_CHOICES = [
     ('ACTIVE', 'Active'),
@@ -86,19 +88,34 @@ class Admin(models.Model):
         return f"{self.user.username} - {self.user.email}"
     
 
-class File(models.Model):
-    physiotherapist = models.ForeignKey(Physiotherapist, on_delete=models.CASCADE, related_name='files')
-    patients = models.ManyToManyField(Patient, related_name='files', blank=True)
+class Video(models.Model):
+    physiotherapist = models.ForeignKey(Physiotherapist, on_delete=models.CASCADE, related_name='videos')
+    patients = models.ManyToManyField(Patient, related_name='videos', blank=True)
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
-    file_saved = models.FileField(upload_to="archivos/")
-    type = models.CharField(
-        max_length=10,
-        choices=[("video", "Video"), ("pdf", "PDF"), ("word", "Word")],
-        blank=True
-    )
+    file_key = models.CharField(
+        max_length=500, unique=True
+    )     
 
-    def __str__(self):
+    def __str__(self): 
         return self.title
     
+    def delete_from_storage(self):
+        """Elimina el archivo de DigitalOcean Spaces"""
+        s3_client = boto3.client(
+            "s3",
+            aws_access_key_id=settings.DIGITALOCEAN_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.DIGITALOCEAN_SECRET_ACCESS_KEY,
+            endpoint_url=settings.DIGITALOCEAN_ENDPOINT_URL
+        )
+
+        try:
+            s3_client.delete_object(Bucket=settings.DIGITALOCEAN_SPACE_NAME, Key=self.file_key)
+        except Exception as e:
+            print(f"Error al eliminar el archivo de Spaces: {e}")
+
+    @property
+    def file_url(self):
+        """Devuelve la URL pública del archivo almacenado en DigitalOcean"""
+        return f"https://fisiofind-repo.fra1.digitaloceanspaces.com/{self.file_key}"

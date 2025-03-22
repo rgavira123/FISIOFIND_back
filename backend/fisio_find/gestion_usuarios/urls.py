@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import patient_register_view, custom_token_obtain_view, logout_view, check_role_view, physio_register_view, return_user, physio_update_view, PatientProfileView, create_file#, AdminPatientList, AdminPatientCreate, AdminPatientnDetail, AdminPatientUpdate, AdminPatientDelete, AdminAppUserDetail
+from .views import patient_register_view, custom_token_obtain_view, logout_view, check_role_view, physio_register_view, return_user, physio_update_view, PatientProfileView, create_file, delete_video, list_my_videos, stream_video, update_video#, AdminPatientList, AdminPatientCreate, AdminPatientnDetail, AdminPatientUpdate, AdminPatientDelete, AdminAppUserDetail
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -12,7 +12,11 @@ urlpatterns = [
     path('physio/update/', physio_update_view, name='physio_update'),
     path('profile/', PatientProfileView.as_view(), name='profile'),
     path('current-user/', return_user, name='current_user'),
-    path('create/file/', create_file, name='file_create'),
+    path('videos/upload/', create_file, name='upload_video'),
+    path('videos/delete/<int:video_id>/', delete_video, name='delete_video'),
+    path('videos/list-my-videos/', list_my_videos, name='list_my_videos'),
+    path('videos/stream-video/<int:video_id>/', stream_video, name='stream_video'),
+    path('videos/update-video/<int:video_id>/', update_video, name='update_video'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

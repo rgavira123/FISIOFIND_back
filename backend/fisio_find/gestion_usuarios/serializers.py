@@ -5,11 +5,13 @@ from django.contrib.auth.password_validation import validate_password
 from django.db.utils import IntegrityError
 from django.db import transaction
 from gestion_usuarios.validacionFisios import validar_colegiacion
-from .models import AppUser, Patient, Physiotherapist, PhysiotherapistSpecialization, Specialization, File
+from .models import AppUser, Patient, Physiotherapist, PhysiotherapistSpecialization, Specialization, Video
 import re
+from django.conf import settings
 from datetime import *
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
+import boto3, uuid
 
 class AppUserSerializer(serializers.ModelSerializer):
     user_id = serializers.IntegerField(source='id', read_only=True)
@@ -392,15 +394,118 @@ class PatientAdminViewSerializer(serializers.ModelSerializer):
         model = Patient
         fields = '__all__'
 
-class FileSerializer(serializers.ModelSerializer):
-    patients = serializers.PrimaryKeyRelatedField(queryset=Patient.objects.all(), many=True, required=False)
-    
+
+class VideoSerializer(serializers.ModelSerializer):
+    file = serializers.FileField(write_only=True)  # Para recibir el archivo en el request
+    file_url = serializers.SerializerMethodField()  # Para devolver la URL pública
+    patients = serializers.PrimaryKeyRelatedField(many=True, queryset=Patient.objects.all())  
+
     class Meta:
-        model = File
-        fields = ['id', 'physiotherapist', 'patients', 'title', 'description','uploaded_at', 'file_saved', 'type']
-    
-    def create(self, validated_data):
-        patients = validated_data.pop('patients', [])
-        file = File.objects.create(**validated_data)
-        file.patients.set(patients)
+        model = Video
+        fields = ["id", "patients", "title", "description", "file", "file_key", "file_url", "uploaded_at"]
+        extra_kwargs = {
+            "file_key": {"read_only": True},  # El usuario no debe enviar esto
+        }
+
+    def validate_file(self, file):
+        """Valida que el archivo sea un video permitido."""
+        allowed_extensions = (".mp4", ".mov", ".avi", ".mkv")
+        if not file.name.lower().endswith(allowed_extensions):
+            raise serializers.ValidationError("Solo se permiten archivos de video.")
         return file
+
+    def create(self, validated_data):
+        """Sube el archivo a DigitalOcean Spaces y guarda el Video en la BD."""
+        file = validated_data.pop("file")  # Extraer archivo del request
+        physiotherapist = self.context["request"].user.physio  # Usuario logueado
+        patients = validated_data.pop("patients", [])
+
+        # Generar un nombre único para evitar sobrescribir archivos
+        file_extension = file.name.split(".")[-1]
+        file_key = f"videos/{physiotherapist.id}/{uuid.uuid4()}.{file_extension}"
+
+        # Conectar a DigitalOcean Spaces
+        s3_client = boto3.client(
+            "s3",
+            region_name=settings.DIGITALOCEAN_REGION,
+            endpoint_url=settings.DIGITALOCEAN_ENDPOINT_URL,
+            aws_access_key_id=settings.DIGITALOCEAN_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.DIGITALOCEAN_SECRET_ACCESS_KEY,
+        )
+
+        # Intentar subir el archivo
+        try:
+            s3_client.upload_fileobj(
+                file,
+                settings.DIGITALOCEAN_SPACE_NAME,
+                file_key,
+                ExtraArgs={"ACL": "public-read"},  # Permitir acceso público
+            )
+        except Exception as e:
+            raise serializers.ValidationError(f"Error al subir archivo: {str(e)}")
+
+        # Guardar en la BD
+        video = Video.objects.create(
+            file_key=file_key,
+            physiotherapist=physiotherapist,
+            **validated_data  # Agrega título, descripción, etc.
+        )
+        video.patients.set(patients)
+        return video
+
+    def update(self, instance, validated_data):
+        """Actualiza un video en DigitalOcean Spaces y la BD."""
+        file = validated_data.pop("file", None)  # Nuevo archivo (opcional)
+        patients = validated_data.pop("patients", None)  # Lista de pacientes (opcional)
+
+        # Actualizar título y descripción si están en los datos
+        instance.title = validated_data.get("title", instance.title)
+        instance.description = validated_data.get("description", instance.description)
+
+        if file:
+            # Conectar a DigitalOcean Spaces
+            s3_client = boto3.client(
+                "s3",
+                region_name=settings.DIGITALOCEAN_REGION,
+                endpoint_url=settings.DIGITALOCEAN_ENDPOINT_URL,
+                aws_access_key_id=settings.DIGITALOCEAN_ACCESS_KEY_ID,
+                aws_secret_access_key=settings.DIGITALOCEAN_SECRET_ACCESS_KEY,
+            )
+
+            # Borrar archivo anterior de DigitalOcean
+            try:
+                s3_client.delete_object(
+                    Bucket=settings.DIGITALOCEAN_SPACE_NAME,
+                    Key=instance.file_key,
+                )
+            except Exception as e:
+                raise serializers.ValidationError(f"Error al eliminar archivo anterior: {str(e)}")
+
+            # Generar nuevo nombre único
+            file_extension = file.name.split(".")[-1]
+            new_file_key = f"videos/{instance.physiotherapist.id}/{uuid.uuid4()}.{file_extension}"
+
+            # Subir nuevo archivo
+            try:
+                s3_client.upload_fileobj(
+                    file,
+                    settings.DIGITALOCEAN_SPACE_NAME,
+                    new_file_key,
+                    ExtraArgs={"ACL": "public-read"},
+                )
+            except Exception as e:
+                raise serializers.ValidationError(f"Error al subir nuevo archivo: {str(e)}")
+
+            # Actualizar referencia en la BD
+            instance.file_key = new_file_key
+
+        # Si se pasan pacientes, actualizarlos
+        if patients is not None:
+            instance.patients.set(patients)
+
+        instance.save()
+        return instance
+
+    def get_file_url(self, obj):
+        """Devuelve la URL completa del archivo."""
+        return f"{settings.DIGITALOCEAN_ENDPOINT_URL}/{obj.file_key}"

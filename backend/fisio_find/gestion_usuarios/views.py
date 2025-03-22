@@ -4,17 +4,19 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from .serializers import PatientRegisterSerializer, PatientAdminViewSerializer, PhysioRegisterSerializer,PhysioSerializer, PatientSerializer, AppUserSerializer, AppUserAdminViewSerializer, FileSerializer
+from .serializers import PatientRegisterSerializer, PatientAdminViewSerializer, PhysioRegisterSerializer,PhysioSerializer, PatientSerializer, AppUserSerializer, AppUserAdminViewSerializer, VideoSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import Physiotherapist, Patient, AppUser, File
+from .models import Physiotherapist, Patient, AppUser, Video
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics
 #from permissions import IsAdmin
-
-
-from .permissions import IsPatient, IsPhysiotherapist
+import boto3
+from .permissions import IsPatient, IsPhysiotherapist, IsPhysioOrPatient
 from .models import Patient
 from rest_framework.permissions import IsAuthenticated
+import json
+from django.conf import settings
+from django.http import HttpResponse, StreamingHttpResponse
 
 class PatientProfileView(generics.RetrieveAPIView):
     permission_classes = [IsPatient]
@@ -192,10 +194,183 @@ class AdminPatientDelete(generics.DestroyAPIView):
 @api_view(['POST'])
 @permission_classes([IsPhysiotherapist])
 def create_file(request):
-    serializer = FileSerializer(data=request.data, context={'request': request})
+    print("🔍 Datos recibidos:", request.data)
+
+    # Convertir request.data en un diccionario mutable (necesario para modificar `QueryDict`)
+    mutable_data = request.data.copy()
+
+    # Manejo de `patients`
+    patients_raw = mutable_data.get("patients")
+    if patients_raw:
+        if isinstance(patients_raw, str):
+            try:
+                patients_list = json.loads(patients_raw)  # Convierte "[1, 3]" a [1, 3]
+                if isinstance(patients_list, list) and all(isinstance(i, int) for i in patients_list):
+                    mutable_data.setlist("patients", patients_list)  # Asegura que se guarde como lista
+                else:
+                    return Response({"error": "Formato de patients incorrecto, debe ser una lista de enteros"}, status=status.HTTP_400_BAD_REQUEST)
+            except json.JSONDecodeError:
+                return Response({"error": "Formato de patients inválido"}, status=status.HTTP_400_BAD_REQUEST)
+
+    print("📌 Datos después de procesar:", mutable_data)  # Depuración
+
+    # Pasamos `mutable_data` en lugar de `request.data`
+    serializer = VideoSerializer(data=mutable_data, context={"request": request})
 
     if serializer.is_valid():
-        file = serializer.save(physiotherapist=request.user.physio)
-        return Response({"message": "Archivo creado correctamente", "file": FileSerializer(file).data}, status=status.HTTP_201_CREATED)
+        video = serializer.save()
+        return Response(
+            {"message": "Archivo creado correctamente", "video": VideoSerializer(video).data},
+            status=status.HTTP_201_CREATED
+        )
 
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+@permission_classes([IsPhysiotherapist])
+def delete_video(request, video_id):
+    user = request.user
+    print(user.physio.id)  # Depuración
+    print(f"Usuario autenticado: {user}, Rol: {getattr(user, 'physiotherapist', None)}")  # Depuración
+    try:
+        video = Video.objects.get(id=video_id)
+        print(f"Video encontrado: {video}")  # Depuración
+    
+        if not hasattr(user, 'physio') or video.physiotherapist.id != user.physio.id:
+            return Response({"error": "No tienes permiso para eliminar este video"}, status=status.HTTP_403_FORBIDDEN)
+
+        video.delete_from_storage()
+        video.delete()
+
+        return Response({"message": "Video eliminado correctamente"}, status=status.HTTP_200_OK)
+
+    except Video.DoesNotExist:
+        return Response({"error": "Video no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    
+
+@api_view(['GET'])
+@permission_classes([IsPatient])  # Solo pacientes pueden acceder
+def list_my_videos(request):
+    user = request.user
+    print("Patient:", user.patient.id)  # Depuración
+
+    # Verificar si el usuario autenticado es un paciente
+    if not hasattr(user, 'patient') or user.patient is None:
+        return Response({"error": "No tienes permisos para ver estos videos"}, status=status.HTTP_403_FORBIDDEN)
+
+    try:
+        patient_id = user.patient.id  # Obtenemos el ID del paciente autenticado
+        videos = Video.objects.filter(patients__id=patient_id)  # Filtrar videos donde el paciente esté en la lista
+
+        serializer = VideoSerializer(videos, many=True)  # Serializar los videos
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    except Exception as e:
+        print(f"Error al obtener los videos del paciente: {e}")  # Depuración
+        return Response({"error": "Hubo un problema al obtener los videos"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+s3_client = boto3.client(
+    's3',
+    aws_access_key_id=settings.DIGITALOCEAN_ACCESS_KEY_ID,
+    aws_secret_access_key=settings.DIGITALOCEAN_SECRET_ACCESS_KEY,
+    region_name=settings.DIGITALOCEAN_REGION,
+    endpoint_url=settings.DIGITALOCEAN_ENDPOINT_URL,
+)
+
+
+@api_view(['GET'])
+@permission_classes([IsPhysioOrPatient])
+def stream_video(request, video_id):
+    try:
+        video = Video.objects.get(id=video_id)
+        if request.user.id not in video.patients.values_list('id', flat=True):
+            return Response({'error': 'No tienes acceso a este video'}, status=403)
+
+        video_object = s3_client.get_object(
+            Bucket=settings.DIGITALOCEAN_SPACE_NAME,
+            Key=video.file_key
+        )
+
+        video_size = video_object["ContentLength"]
+        video_body = video_object["Body"]
+
+        # Manejar streaming por fragmentos (range requests)
+        range_header = request.headers.get("Range", None)
+        if range_header:
+            range_value = range_header.replace("bytes=", "").split("-")
+            start = int(range_value[0]) if range_value[0] else 0
+            end = int(range_value[1]) if len(range_value) > 1 and range_value[1] else video_size - 1
+            chunk_size = end - start + 1
+
+            # Leer solo el fragmento necesario
+            video_body.seek(start)
+            video_chunk = video_body.read(chunk_size)
+
+            # Responder con `206 Partial Content`
+            response = HttpResponse(video_chunk, content_type="video/mp4")
+            response["Content-Range"] = f"bytes {start}-{end}/{video_size}"
+            response["Accept-Ranges"] = "bytes"
+            response["Content-Length"] = str(chunk_size)
+            response["Cache-Control"] = "no-cache"
+            response["Connection"] = "keep-alive"
+            response.status_code = 206
+        else:
+            # Streaming completo en fragmentos
+            def stream_file():
+                for chunk in video_body.iter_chunks():
+                    yield chunk
+
+            response = StreamingHttpResponse(stream_file(), content_type="video/mp4")
+            response["Content-Length"] = str(video_size)
+            response["Accept-Ranges"] = "bytes"
+            response["Cache-Control"] = "no-cache"
+            response["Connection"] = "keep-alive"
+        
+        return response
+
+    except Video.DoesNotExist:
+        return Response({"error": "El video no existe"}, status=404)
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)
+
+
+@api_view(['PUT'])
+@permission_classes([IsPhysiotherapist])  # Solo usuarios autenticados pueden acceder
+def update_video(request, video_id):
+    try:
+        # Obtener el video desde la BD
+        video = Video.objects.get(id=video_id)
+
+        # Verificar que el usuario autenticado es el fisioterapeuta propietario del video
+        if request.user.physio != video.physiotherapist:
+            return Response({'error': 'No tienes permiso para actualizar este video'}, status=status.HTTP_403_FORBIDDEN)
+
+    except Video.DoesNotExist:
+        return Response({'error': 'El video no existe'}, status=status.HTTP_404_NOT_FOUND)
+
+    # Convertir request.data en un diccionario mutable
+    mutable_data = request.data.copy()
+
+    # Manejo de `patients`
+    patients_raw = mutable_data.get("patients")
+    if patients_raw:
+        if isinstance(patients_raw, str):
+            try:
+                patients_list = json.loads(patients_raw)  # Convierte "[1, 3]" a [1, 3]
+                if isinstance(patients_list, list) and all(isinstance(i, int) for i in patients_list):
+                    mutable_data.setlist("patients", patients_list)  # Asegura que se guarde como lista
+                else:
+                    return Response({"error": "Formato de patients incorrecto, debe ser una lista de enteros"}, status=status.HTTP_400_BAD_REQUEST)
+            except json.JSONDecodeError:
+                return Response({"error": "Formato de patients inválido"}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Serializar con los datos nuevos
+    serializer = VideoSerializer(video, data=mutable_data, partial=False, context={'request': request})
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message": "Video actualizado correctamente", "video": serializer.data}, status=status.HTTP_200_OK)
+    
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
