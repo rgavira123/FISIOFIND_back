@@ -1,11 +1,17 @@
 "use client";
 
-import { useState } from "react";
 import Body from "./body-highlighter/index";
 
-const MapaDolor = (scale) => {
+const MapaDolor = ({scale, gender, sendWebSocketMessage, partsColored}) => {
 
-  const [partsColored, setPartsColored] = useState([])
+  function sendSelectedParts(parts_to_send) {
+    sendWebSocketMessage({
+      action: 'pain-map',
+      message: {
+        partsSelected: parts_to_send
+      }
+    });
+  }
 
   function selectColoredParts(partObj,side) {
 
@@ -13,32 +19,35 @@ const MapaDolor = (scale) => {
     const op_side = side == "left" ? "right" : "left"
     if (partsColored.some(p => p.slug === part && p.side === undefined)) {
       if (part === "hair" || part === "head") {
-        setPartsColored(partsColored.filter(p => p.slug !== part))
+        sendSelectedParts(partsColored.filter(p => p.slug !== part))
       } else {
-        setPartsColored([...partsColored.filter(p => p.slug !== part), {slug: part,intensity:2,side:op_side}])
+        sendSelectedParts([...partsColored.filter(p => p.slug !== part), {slug: part,intensity:2,side:op_side}])
       }
     } else if (partsColored.some(p => p.slug === part && p.side === op_side)) {
-      setPartsColored([...partsColored.filter(p => !(p.slug === part && p.side === op_side)), {slug: part,intensity:2}])
+      sendSelectedParts([...partsColored.filter(p => !(p.slug === part && p.side === op_side)), {slug: part,intensity:2}])
     } else if (!partsColored.some(p => p.slug === part && p.side === side)) {
-      setPartsColored([...partsColored, {slug: part,intensity:2, side}])
+      sendSelectedParts([...partsColored, {slug: part,intensity:2, side}])
     } else {
-      setPartsColored(partsColored.filter(p => !(p.slug === part && p.side === side)))
+      sendSelectedParts(partsColored.filter(p => !(p.slug === part && p.side === side)))
     }
-  }
 
+    sendSelectedParts()
+  }
   return (
     <div className="flex flex-row align-center justify-center">
     <Body
       data={partsColored}
+      scale={scale}
+      gender={gender}
       side="front"
-      scale
       border="#dfdfdf"
       onBodyPartPress={selectColoredParts}
     />
     <Body
       data={partsColored}
+      scale={scale}
+      gender={gender}
       side="back"
-      scale
       border="#dfdfdf"
       onBodyPartPress={selectColoredParts}
     />

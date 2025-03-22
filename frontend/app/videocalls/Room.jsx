@@ -22,6 +22,10 @@ import useChat from './hooks/useChat';
 import useRoomManagement from './hooks/useRoomManagement';
 import MapaDolor from './tools/MapaDolor'
 
+import { faCancel } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+
 /**
  * Main Room component for video call
  * @param {Object} props - Component props
@@ -41,6 +45,7 @@ const Room = ({ roomCode }) => {
   const [showSettings, setShowSettings] = useState(false);
   const [selectedTool, setSelectedTool] = useState(null);
   const [activePainMap, setActivePainMap] = useState(null);
+  const [partsColored, setPartsColored] = useState([{slug:"biceps",intensity:2}]);
 
   // First initialize WebSocket hook with a dummy message handler
   const webSocket = useWebSocket(
@@ -107,6 +112,18 @@ const Room = ({ roomCode }) => {
             console.log("⚠️ Recibido user-disconnected. Cerrando llamada y redirigiendo...");
             roomManagement.handleCallEnded();
             break;
+          case 'pain-map':
+            console.log('Recibido mapa de dolor',data.message)
+            if (data.message.mapId)
+              if (data.message.mapId === "quit") {
+                setActivePainMap(null)
+              } else {
+                setActivePainMap(data.message.mapId)
+              }
+            else if (data.message.partsSelected) {
+              setPartsColored(data.message.partsSelected)
+            }
+            break;  
           default:
             // WebRTC related messages
             webRTC.handleWebSocketMessage(data);
@@ -155,12 +172,12 @@ const Room = ({ roomCode }) => {
     setActivePainMap(mapId);
   };
 
-  const sendPainMapToPatient = () => {
+  const sendPainMapToPatient = (specific) => {
     if (activePainMap) {
       webSocket.sendWebSocketMessage({
         action: 'pain-map',
         message: {
-          mapId: activePainMap
+          mapId: specific ? specific : activePainMap
         }
       });
       
@@ -233,8 +250,16 @@ const Room = ({ roomCode }) => {
 
 
       {/* Tools (patient only) */}
-      {!showTools && (
-        <MapaDolor scale={1.5} />
+      {!showTools && activePainMap &&(
+        <>
+        <button 
+          className={`${styles.actionButton} ${styles.primaryAction}`}
+          onClick={() => sendPainMapToPatient("quit")}
+        >
+          <FontAwesomeIcon icon={faCancel} /> Dejar de compartir
+        </button>
+        <MapaDolor scale={1.3} gender={activePainMap} partsColored={partsColored} sendWebSocketMessage={webSocket.sendWebSocketMessage}/>
+        </>
       )}
       {/* Tools (physio only) */}
       {showTools && (
@@ -251,6 +276,8 @@ const Room = ({ roomCode }) => {
               handlePainMapSelect={handlePainMapSelect}
               sendPainMapToPatient={sendPainMapToPatient}
               userRole={userRole}
+              partsColored={partsColored}
+              sendWebSocketMessage={webSocket.sendWebSocketMessage}
             />
           )}
         </>
