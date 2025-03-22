@@ -33,6 +33,14 @@ interface Exercise {
   physiotherapist: number;
 }
 
+interface Series {
+  series_number: number;
+  repetitions: number;
+  weight?: number;
+  time?: number;
+  distance?: number;
+}
+
 interface ExerciseSessionData {
   exercise: Exercise;
   exerciseSessionId: number;
@@ -55,6 +63,10 @@ const ExercisesPage = ({
     description: "",
     area: "UPPER_BODY" as AreaChoice,
   });
+
+  const [series, setSeries] = useState<Series[]>([]);
+  const [showSeriesForm, setShowSeriesForm] = useState(false);
+  const [currentExerciseSessionId, setCurrentExerciseSessionId] = useState<number | null>(null);
 
   const loadAvailableExercises = async () => {
     try {
@@ -116,8 +128,9 @@ const ExercisesPage = ({
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      await loadSessionExercises();
-      await loadAvailableExercises();
+      const data = await response.json();
+      setCurrentExerciseSessionId(data.id);
+      setShowSeriesForm(true);
       setShowExistingExercises(false);
     } catch (err) {
       setError("Error al asignar el ejercicio");
@@ -237,17 +250,66 @@ const ExercisesPage = ({
         throw new Error(`HTTP error! status: ${assignResponse.status}`);
       }
 
-      setNewExercise({
-        title: "",
-        description: "",
-        area: "UPPER_BODY" as AreaChoice,
-      });
-      setShowForm(false);
-      loadSessionExercises();
+      const assignData = await assignResponse.json();
+      setCurrentExerciseSessionId(assignData.id);
+      setShowSeriesForm(true);
     } catch (err) {
       setError("Error al crear y asignar el ejercicio");
       console.log(err);
     }
+  };
+
+  const handleCreateSeries = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token || !currentExerciseSessionId) {
+        setError("No se ha encontrado el token de autenticación o el ID de la sesión de ejercicio");
+        return;
+      }
+
+      for (const serie of series) {
+        const response = await fetch(
+          `${getApiBaseUrl()}/api/treatments/exercise-sessions/${currentExerciseSessionId}/series/create/`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(serie),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+      }
+
+      setSeries([]);
+      setShowSeriesForm(false);
+      setCurrentExerciseSessionId(null);
+      loadSessionExercises();
+    } catch (err) {
+      setError("Error al crear las series");
+      console.log(err);
+    }
+  };
+
+  const handleAddSeries = () => {
+    const newSeries: Series = {
+      series_number: series.length + 1,
+      repetitions: 0,
+      weight: undefined,
+      time: undefined,
+      distance: undefined,
+    };
+    setSeries([...series, newSeries]);
+  };
+
+  const handleUpdateSeries = (index: number, field: keyof Series, value: number) => {
+    const updatedSeries = [...series];
+    updatedSeries[index] = { ...updatedSeries[index], [field]: value };
+    setSeries(updatedSeries);
   };
 
   const handleUnassignExercise = async (exerciseSessionId: number) => {
@@ -461,6 +523,97 @@ const ExercisesPage = ({
             </div>
           ))}
         </div>
+
+        {showSeriesForm && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-2xl">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Configurar Series del Ejercicio</h2>
+              
+              <div className="space-y-6">
+                {series.map((serie, index) => (
+                  <div key={index} className="p-4 bg-gray-50 rounded-lg">
+                    <h3 className="text-lg font-semibold mb-4">Serie {serie.series_number}</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Repeticiones
+                        </label>
+                        <input
+                          type="number"
+                          value={serie.repetitions}
+                          onChange={(e) => handleUpdateSeries(index, 'repetitions', parseInt(e.target.value))}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-xl"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Peso (kg)
+                        </label>
+                        <input
+                          type="number"
+                          value={serie.weight || ''}
+                          onChange={(e) => handleUpdateSeries(index, 'weight', parseFloat(e.target.value))}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-xl"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Tiempo (segundos)
+                        </label>
+                        <input
+                          type="number"
+                          value={serie.time || ''}
+                          onChange={(e) => handleUpdateSeries(index, 'time', parseInt(e.target.value))}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-xl"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Distancia (metros)
+                        </label>
+                        <input
+                          type="number"
+                          value={serie.distance || ''}
+                          onChange={(e) => handleUpdateSeries(index, 'distance', parseFloat(e.target.value))}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-xl"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6 flex justify-between">
+                <button
+                  onClick={handleAddSeries}
+                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded-xl hover:bg-gray-300"
+                >
+                  Añadir Serie
+                </button>
+                <div className="space-x-4">
+                  <button
+                    onClick={() => {
+                      setSeries([]);
+                      setShowSeriesForm(false);
+                      setCurrentExerciseSessionId(null);
+                    }}
+                    className="px-4 py-2 bg-red-400 text-white rounded-xl hover:bg-red-500"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    onClick={handleCreateSeries}
+                    className="px-4 py-2 bg-[#6bc9be] text-white rounded-xl hover:bg-[#5ab8ad]"
+                  >
+                    Guardar Series
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );
