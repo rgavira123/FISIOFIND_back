@@ -4,17 +4,18 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from .serializers import PatientRegisterSerializer, PatientAdminViewSerializer, PhysioRegisterSerializer, PhysioSerializer, PatientSerializer, AppUserSerializer, AppUserAdminViewSerializer
+from .serializers import PatientRegisterSerializer, PatientAdminViewSerializer, PhysioUpdateSerializer, PhysioRegisterSerializer, PhysioSerializer, PatientSerializer, AppUserSerializer, AppUserAdminViewSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import Physiotherapist, Patient, AppUser
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics
+from .permissions import IsPhysiotherapist
 #from permissions import IsAdmin
 
 
 from .permissions import IsPatient
 from .models import Patient
-from rest_framework.permissions import IsAuthenticated
+
 
 class PatientProfileView(generics.RetrieveAPIView):
     permission_classes = [IsPatient]
@@ -110,14 +111,13 @@ def physio_register_view(request):
         return Response({"message": "Fisioterapeuta registrado correctamente"}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['POST'])
-@permission_classes([AllowAny])
+@api_view(['PUT'])
+@permission_classes([IsPhysiotherapist])
 def physio_update_view(request):
     """Actualiza los datos del fisioterapeuta autenticado"""
     
     # Obtener el fisioterapeuta asociado al usuario autenticado
     physio = get_object_or_404(Physiotherapist, user=request.user)
-
     
     # Aplanar las claves 'user.*' para que coincidan con lo que espera el serializer
     request_data = {}
@@ -127,14 +127,72 @@ def physio_update_view(request):
         else:
             request_data[key] = value
                 
+
     # Serializar y validar los datos enviados
     serializer = PhysioRegisterSerializer(physio, data=request_data, partial=True)
+
     
     if serializer.is_valid():
         serializer.update(physio, serializer.validated_data)
         return Response({"message": "Fisioterapeuta actualizado correctamente"}, status=status.HTTP_200_OK)
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@permission_classes([IsPhysiotherapist])
+def physio_create_service_view(request):
+    
+    """Crea un nuevo servicio para el fisioterapeuta autenticado o actualiza los existentes"""
+    
+    # Obtener el fisioterapeuta asociado al usuario autenticado
+    physio = get_object_or_404(Physiotherapist, user=request.user)
+    
+    # Obtener servicios existentes
+    existing_services = physio.services or {}
+    
+    # Obtener nuevos servicios del request
+    new_services = request.data.get('services', {})
+    
+    # Actualizar servicios existentes o añadir nuevos
+    for service_name, service_data in new_services.items():
+        if service_name in existing_services:
+            # Si el servicio existe, actualizar sus propiedades
+            for prop_key, prop_value in service_data.items():
+                existing_services[service_name][prop_key] = prop_value
+        else:
+            # Si el servicio no existe, añadirlo completo
+            existing_services[service_name] = service_data
+    
+    # Preparar los datos para el serializador
+    update_data = {'services': existing_services}
+    
+    # Usar el serializador para actualización
+    serializer = PhysioUpdateSerializer(physio, data=update_data, partial=True)
+    
+    if serializer.is_valid():
+        serializer.update(physio, serializer.validated_data)
+        return Response({"message": "Servicios actualizados correctamente"}, status=status.HTTP_200_OK)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def physio_get_services_view(request, physio_id):
+    physio = get_object_or_404(Physiotherapist, id=physio_id)
+    return Response(physio.services)
+
+@api_view(['DELETE'])
+def physio_delete_service_view(request, service_id):
+    physio = get_object_or_404(Physiotherapist, user=request.user)
+    services = physio.services
+    if services is None:
+        return Response({"message": "No hay servicios para eliminar"}, status=status.HTTP_200_OK)
+    if service_id not in services:
+        return Response({"error": "El servicio no existe"}, status=status.HTTP_404_NOT_FOUND)
+    del services[service_id]
+    physio.services = services
+    physio.save()
+    return Response({"message": "Servicio eliminado correctamente"}, status=status.HTTP_200_OK)
 
 """
 class AdminAppUserDetail(generics.RetrieveAPIView):

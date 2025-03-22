@@ -98,6 +98,12 @@ const Room = ({ roomCode }) => {
             chat.handleChatMessage(data.message);
             break;
           case 'call-ended':
+
+            console.log("🛑 Recibido call-ended en el paciente, ejecutando handleCallEnded...");
+            roomManagement.handleCallEnded();
+            break;
+          case 'user-disconnected': 
+            console.log("⚠️ Recibido user-disconnected. Cerrando llamada y redirigiendo...");
             roomManagement.handleCallEnded();
             break;
           default:
@@ -238,6 +244,7 @@ const Room = ({ roomCode }) => {
               activePainMap={activePainMap}
               handlePainMapSelect={handlePainMapSelect}
               sendPainMapToPatient={sendPainMapToPatient}
+              userRole={userRole}
             />
           )}
         </>

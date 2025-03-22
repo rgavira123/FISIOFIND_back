@@ -99,6 +99,24 @@
     gap: 1.5rem;
     margin-bottom: 1.5rem;
   }
+  .roomWrapper {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+  }
+  
+  .roomContainer {
+    flex: 3;
+    overflow-y: auto;
+  }
+  
+  .anatomicalModelContainer {
+    flex: 1;
+    border-left: 1px solid #ccc;
+    padding: 16px;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+  }
   
   .videoContainer {
     position: relative;
@@ -120,6 +138,7 @@
     height: 100%;
     object-fit: cover;
     background-color: #1a1a1a;
+    transform: scaleX(-1);
   }
   
   .videoLabel {
@@ -1412,4 +1431,25 @@
       flex-direction: row;
       justify-content: flex-end;
     }
+  }
+
+  .cubeContainer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    text-align: center;
+    z-index: 1000;
+  }
+  
+  .cube {
+    width: 100px;
+    height: 100px;
+    background-color: #3498db;
+    transform: rotate(45deg);
+    animation: spin 4s infinite linear;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
