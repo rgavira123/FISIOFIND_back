@@ -10,6 +10,8 @@ import re
 from datetime import *
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
+from gestion_usuarios.util import validate_dni_match_letter, codigo_postal_no_mide_5, telefono_no_mide_9, validate_dni_structure
+
 
 class AppUserSerializer(serializers.ModelSerializer):
     user_id = serializers.IntegerField(source='id', read_only=True)
@@ -27,6 +29,7 @@ class AppUserSerializer(serializers.ModelSerializer):
             )
         ]
     )
+
     class Meta:
         model = AppUser
         fields = [
@@ -107,12 +110,15 @@ class PatientSerializer(serializers.ModelSerializer):
         """Verifica que la fecha de nacimiento sea anterior a la fecha actual"""
         if value >= datetime.now().date():
             raise serializers.ValidationError("La fecha de nacimiento debe ser anterior a la fecha actual.")
+        
+        if value < date(1900, 1, 1): # Si la fecha es anterior de 1900
+            raise serializers.ValidationError("La fecha no puede ser tan atrás en el tiempo")
+        
         return value
 
     def validate(self, data):
         """Valida campos necesarios en el paciente"""
         user_data = data.get('user', {})
-
         if not user_data.get('username'):
             raise serializers.ValidationError({"username": "El nombre de usuario es obligatorio."})
         if not user_data.get('email'):
@@ -161,12 +167,10 @@ class PatientRegisterSerializer(serializers.ModelSerializer):
     phone_number = serializers.CharField(required=True)
     postal_code = serializers.CharField(required=True)
     first_name = serializers.CharField(
-        required=True, 
-        error_messages={'required': 'El campo nombre es obligatorio.'}
+        required=True
     )
     last_name = serializers.CharField(
-        required=True, 
-        error_messages={'required': 'El campo apellido es obligatorio.'}
+        required=True
     )
     birth_date = serializers.DateField(required=True)
 
@@ -185,32 +189,35 @@ class PatientRegisterSerializer(serializers.ModelSerializer):
     
     def validate(self, data):
         """Validaciones adicionales para DNI, teléfono y código postal."""
-        dni_pattern = re.compile(r'^\d{8}[A-HJ-NP-TV-Z]$')
-        if not dni_pattern.match(data['dni']):
-            raise serializers.ValidationError({"dni": "El DNI debe tener 8 números seguidos de una letra válida."})
+        validation_errors  = dict()
+        
+        if not validate_dni_structure(data['dni']):
+            validation_errors["dni"] = "El DNI debe tener 8 números seguidos de una letra válida."
 
-        # Validar que la letra del DNI es correcta
-        dni_numbers = data['dni'][:-1]
-        dni_letter = data['dni'][-1].upper()
-        letters = "TRWAGMYFPDXBNJZSQVHLCKE"
-        if letters[int(dni_numbers) % 23] != dni_letter:
-            raise serializers.ValidationError({"dni": "La letra del DNI no coincide con el número."})
+        if validate_dni_match_letter(data['dni']):
+            validation_errors["dni"] = "La letra del DNI no coincide con el número."
         
-        if len(data['phone_number']) != 9:
-            raise serializers.ValidationError({"phone_number": "El número de teléfono debe tener 9 caracteres."})
+        if telefono_no_mide_9(data['phone_number']):
+            validation_errors["phone_number"] =  "El número de teléfono debe tener 9 caracteres."
         
-        if len(data['postal_code']) != 5:
-            raise serializers.ValidationError({"postal_code": "El código postal debe tener 5 caracteres."})
+        if codigo_postal_no_mide_5(data['postal_code']):
+            validation_errors["postal_code"] = "El código postal debe tener 5 caracteres."
 
         if not data['first_name']:
-            raise serializers.ValidationError({"first_name": "El campo nombre es obligatorio."})
+            validation_errors["first_name"] = "Este campo es requerido."
         
         if not data['last_name']:
-            raise serializers.ValidationError({"last_name": "El campo apellido es obligatorio."})
+            validation_errors["last_name"] = "Este campo es requerido."
         
-        today = date.today()
-        if data['birth_date'] > today:
-            raise serializers.ValidationError({"birth_date": "La fecha de nacimiento no puede ser posterior a la fecha actual."})
+        if data['birth_date'] > date.today():
+            validation_errors["birth_date"] = "La fecha de nacimiento no puede ser posterior a la fecha actual."
+
+        if data['birth_date'] < date(1900, 1, 1): # Si la fecha es anterior de 1900
+            validation_errors["birth_date"] = "La fecha no puede ser tan atrás en el tiempo"
+
+
+        if validation_errors or len(validation_errors) > 1:
+            raise serializers.ValidationError(validation_errors)
 
         return data
 
@@ -283,22 +290,21 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
     
     def validate(self, data):
         """Validaciones adicionales para DNI, teléfono y código postal."""
-        dni_pattern = re.compile(r'^\d{8}[A-HJ-NP-TV-Z]$')
-        if not dni_pattern.match(data['dni']):
-            raise serializers.ValidationError({"dni": "El DNI debe tener 8 números seguidos de una letra válida."})
+        validation_errors  = dict()
+        if not validate_dni_structure(data['dni']):
+            validation_errors["dni"] = "El DNI debe tener 8 números seguidos de una letra válida."
 
-        # Validar que la letra del DNI es correcta
-        dni_numbers = data['dni'][:-1]
-        dni_letter = data['dni'][-1].upper()
-        letters = "TRWAGMYFPDXBNJZSQVHLCKE"
-        if letters[int(dni_numbers) % 23] != dni_letter:
-            raise serializers.ValidationError({"dni": "La letra del DNI no coincide con el número."})
+        if validate_dni_match_letter(data['dni']):
+            validation_errors["dni"] = "La letra del DNI no coincide con el número."
         
-        if len(data['phone_number']) != 9:
-            raise serializers.ValidationError({"phone_number": "El número de teléfono debe tener 9 caracteres."})
+        if telefono_no_mide_9(data['phone_number']):
+            validation_errors["phone_number"] = "El número de teléfono debe tener 9 caracteres."
         
-        if len(data['postal_code']) != 5:
-            raise serializers.ValidationError({"postal_code": "El código postal debe tener 5 caracteres."})
+        if codigo_postal_no_mide_5(data['postal_code']):
+            validation_errors["postal_code"] = "El código postal debe tener 5 caracteres."
+        
+        if validation_errors or len(validation_errors) > 1:
+            raise serializers.ValidationError(validation_errors)
         
         return data
     
@@ -317,9 +323,8 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
                 collegiate_number = validated_data.pop('collegiate_number')
                 autonomic_community = validated_data.pop('autonomic_community')
                 
-                full_name_uppercase = first_name.upper() + " " + last_name.upper()
                 # Validar número de colegiado
-                valid_physio = validar_colegiacion(full_name_uppercase, collegiate_number, autonomic_community)
+                valid_physio = validar_colegiacion(first_name, last_name, collegiate_number, autonomic_community)
                 
                 if not valid_physio:
                     raise serializers.ValidationError({"collegiate_number": "El número de colegiado o el nombre no es válido."})
@@ -397,23 +402,22 @@ class PhysioUpdateSerializer(serializers.ModelSerializer):
     
     def validate(self, data):
         """Validaciones solo para los campos proporcionados."""
+        validation_errors = dict()
         if 'dni' in data:
-            dni_pattern = re.compile(r'^\d{8}[A-HJ-NP-TV-Z]$')
-            if not dni_pattern.match(data['dni']):
-                raise serializers.ValidationError({"dni": "El DNI debe tener 8 números seguidos de una letra válida."})
+            if not validate_dni_structure(data['dni']):
+                validation_errors["dni"] = "El DNI debe tener 8 números seguidos de una letra válida."
             
-            # Validar que la letra del DNI es correcta
-            dni_numbers = data['dni'][:-1]
-            dni_letter = data['dni'][-1].upper()
-            letters = "TRWAGMYFPDXBNJZSQVHLCKE"
-            if letters[int(dni_numbers) % 23] != dni_letter:
-                raise serializers.ValidationError({"dni": "La letra del DNI no coincide con el número."})
+            if validate_dni_match_letter(data['dni']):
+                validation_errors["dni"] = "La letra del DNI no coincide con el número."
         
-        if 'phone_number' in data and len(data['phone_number']) != 9:
-            raise serializers.ValidationError({"phone_number": "El número de teléfono debe tener 9 caracteres."})
+        if 'phone_number' in data and telefono_no_mide_9(data['phone_number']):
+            validation_errors["phone_number"] = "El número de teléfono debe tener 9 caracteres."
         
-        if 'postal_code' in data and len(data['postal_code']) != 5:
-            raise serializers.ValidationError({"postal_code": "El código postal debe tener 5 caracteres."})
+        if 'postal_code' in data and codigo_postal_no_mide_5(data['postal_code']):
+            validation_errors["postal_code"] = "El código postal debe tener 5 caracteres."
+        
+        if validation_errors or len(validation_errors) > 1:
+            raise serializers.ValidationError(validation_errors)
         
         return data
     
