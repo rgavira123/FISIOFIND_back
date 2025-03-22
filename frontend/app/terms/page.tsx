@@ -55,7 +55,6 @@ export default function TermsPage(): React.ReactElement {
   const [newTermType, setNewTermType] = useState<string>("");
   const [newTermContent, setNewTermContent] = useState<string>("");
   const [activeTermId, setActiveTermId] = useState<number | null>(null);
-  const router = useRouter();
 
   // Check if user is admin
   useEffect(() => {
@@ -78,7 +77,6 @@ export default function TermsPage(): React.ReactElement {
         }
       } catch (err) {
         console.error("Error checking user role:", err);
-        // Don't set any error state here, just log it
       }
     };
 
@@ -110,17 +108,14 @@ export default function TermsPage(): React.ReactElement {
             console.log("Authenticated request failed:", authErr.response?.status);
             // If we get a 401, the token might be expired or invalid
             if (authErr.response?.status === 401) {
-              // You might want to redirect to login or refresh token here
               console.log("Authentication token may be expired");
             }
           }
         }
         
-        // For public access, try a different approach - some endpoints might have public versions
         try {
           const publicResponse = await axios.get<ApiTermItem[]>(`${getApiBaseUrl()}/api/terms/list/`, {
             timeout: 5000,
-            // Don't send auth headers for public access
           });
           
           if (publicResponse.data && publicResponse.data.length > 0) {
@@ -143,11 +138,11 @@ export default function TermsPage(): React.ReactElement {
     };
     
     const processTermsData = (data: ApiTermItem[]): void => {
-      // Now use the tag field instead of checking the version string
-      const termsOfUse = data.find(term => term.tag === 'terms');
-      const cookiePolicy = data.find(term => term.tag === 'cookies');
-      const privacyPolicy = data.find(term => term.tag === 'privacy');
-      
+    const termsOfUse = data.find(term => term.tag === 'terms');
+    const cookiePolicy = data.find(term => term.tag === 'cookies');
+    const privacyPolicy = data.find(term => term.tag === 'privacy');
+    const license = data.find(term => term.tag === 'license');
+    
       setTerms([
         {
           id: termsOfUse?.id || 1,
@@ -155,7 +150,7 @@ export default function TermsPage(): React.ReactElement {
           content: termsOfUse?.content || "El contenido de los términos de uso se mostrará aquí.",
           version: termsOfUse?.version || "v1.0",
           icon: <IconFileText className="h-6 w-6 text-green-600" />,
-          tag: 'terms', // Add the tag
+          tag: 'terms',
         },
         {
           id: cookiePolicy?.id || 2,
@@ -163,7 +158,7 @@ export default function TermsPage(): React.ReactElement {
           content: cookiePolicy?.content || "El contenido de la política de cookies se mostrará aquí.",
           version: cookiePolicy?.version || "v1.0",
           icon: <IconCookie className="h-6 w-6 text-amber-600" />,
-          tag: 'cookies', // Add the tag
+          tag: 'cookies',
         },
         {
           id: privacyPolicy?.id || 3,
@@ -171,7 +166,15 @@ export default function TermsPage(): React.ReactElement {
           content: privacyPolicy?.content || "El contenido de la política de privacidad se mostrará aquí.",
           version: privacyPolicy?.version || "v1.0",
           icon: <IconLock className="h-6 w-6 text-blue-600" />,
-          tag: 'privacy', // Add the tag
+          tag: 'privacy',
+        },
+        {
+          id: license?.id || 3,
+          title: "Licencias",
+          content: license?.content || "El contenido de las licencias a las que se acoge la aplicación se mostrará aquí.",
+          version: license?.version || "v1.0",
+          icon: <IconFileText className="h-6 w-6 text-purple-600" />,
+          tag: 'license',
         },
       ]);
     };
@@ -190,7 +193,6 @@ export default function TermsPage(): React.ReactElement {
       setLoading(true);
       const token = localStorage.getItem('accessToken');
       
-      // Find the current term to get its tag
       const currentTerm = terms.find(term => term.id === id);
       let tag = 'terms';
       
@@ -199,6 +201,8 @@ export default function TermsPage(): React.ReactElement {
           tag = 'cookies';
         } else if (currentTerm.title === "Política de Privacidad") {
           tag = 'privacy';
+        } else if (currentTerm.title === "Licencias") {
+          tag = 'license';
         }
       }
       
@@ -207,7 +211,7 @@ export default function TermsPage(): React.ReactElement {
         {
           content: editContent,
           version: editVersion,
-          tag: tag // Include the tag in the update
+          tag: tag
         },
         {
           headers: {
@@ -282,6 +286,9 @@ export default function TermsPage(): React.ReactElement {
       } else if (newTermType === "privacy") {
         title = "Política de Privacidad";
         icon = <IconLock className="h-6 w-6 text-blue-600" />;
+      } else if (newTermType === "license") {
+        title = "Licencias";
+        icon = <IconCheck className="h-6 w-6 text-orange-600" />;
       }
       
       const response = await axios.post(
@@ -299,14 +306,13 @@ export default function TermsPage(): React.ReactElement {
         }
       );
       
-      // Add the new term to the local state
       const newTerm = {
         id: response.data.id,
         title: title,
         content: newTermContent,
         version: version,
         icon: icon,
-        tag: tag // Include the tag in the new term
+        tag: tag
       };
       
       setTerms([...terms, newTerm]);
@@ -330,7 +336,7 @@ export default function TermsPage(): React.ReactElement {
       <div className="container mx-auto py-12">
         <h1 className="text-3xl font-bold text-center mb-8">FISIO FIND - INFORMACIÓN LEGAL</h1>
         <BentoGrid className="max-w-6xl mx-auto">
-          {[1, 2, 3].map((item) => (
+          {[1, 2, 3, 4].map((item) => (
             <BentoGridItem
               key={item}
               header={<TermSkeleton />}
@@ -469,17 +475,14 @@ export default function TermsPage(): React.ReactElement {
             return words.slice(0, wordLimit).join(' ').concat('...');
           };
 
-          if (termTag === 'terms') {
+          if (termTag === 'terms' || termTag === 'license') {
             const content = term.content.split('## 4. ')[1] || term.content;
-            firstSentence = truncateByWords(content, 55);
-          } else if (termTag === 'cookies') {
+            firstSentence = truncateByWords(content, 45);
+          } else if (termTag === 'cookies' || termTag === 'privacy') {
             const content = term.content.split('## 4. ')[1] || term.content;
             firstSentence = truncateByWords(content, 30);
-          } else if (termTag === 'privacy') {
-            const content = term.content.split('## 4. ')[1] || term.content;
-            firstSentence = truncateByWords(content, 80);
           } else {
-            firstSentence = truncateByWords(term.content, 45); // Default fallback
+            firstSentence = truncateByWords(term.content, 45);
           }
           return (
             <BentoGridItem
@@ -492,9 +495,7 @@ export default function TermsPage(): React.ReactElement {
                   </span>
                 </div>
               }
-              // Inside your component, update the rendering of term content:
               
-              // In the BentoGridItem description:
               description={
                 editMode === term.id ? (
                   <div className="space-y-4">
@@ -560,9 +561,15 @@ export default function TermsPage(): React.ReactElement {
               }
               icon={term.icon}
               className={
-                term.title === "Términos de Uso" || term.title === "Política de Cookies" 
+                term.title === "Términos de Uso" 
                   ? "md:col-span-2" 
-                  : i === 2 ? "md:col-span-4" : ""
+                  : term.title === "Política de Cookies"
+                    ? "md:col-span-1"
+                    : term.title === "Política de Privacidad"
+                      ? "md:col-span-1"
+                      : term.title === "Licencias"
+                        ? "md:col-span-2"
+                        : ""
               }
             />
           );
@@ -624,18 +631,15 @@ export default function TermsPage(): React.ReactElement {
                   <div className="p-4 border-t border-gray-200 dark:border-gray-700 flex justify-end">
                     <button
                       onClick={() => {
-                        // Create a blob with the content
                         const blob = new Blob([activeTerm.content], { type: 'text/markdown' });
                         const url = URL.createObjectURL(blob);
                         
-                        // Create a temporary link and trigger download
                         const a = document.createElement('a');
                         a.href = url;
                         a.download = `${activeTerm.title.toLowerCase().replace(/\s+/g, '-')}-${activeTerm.version}.md`;
                         document.body.appendChild(a);
                         a.click();
                         
-                        // Clean up
                         document.body.removeChild(a);
                         URL.revokeObjectURL(url);
                       }}
@@ -670,6 +674,7 @@ export default function TermsPage(): React.ReactElement {
                 <option value="terms">Términos de Uso</option>
                 <option value="cookies">Política de Cookies</option>
                 <option value="privacy">Política de Privacidad</option>
+                <option value="license">Licencias</option>
               </select>
             </div>
             

@@ -7,6 +7,7 @@ class Terms(models.Model):
         ('terms', 'Terms of Use'),
         ('cookies', 'Cookie Policy'),
         ('privacy', 'Privacy Policy'),
+        ('license', 'License'),
     ]
 
     modifier = models.ForeignKey(Admin, on_delete=models.PROTECT)
