@@ -376,7 +376,7 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
       <div className="flex justify-between items-center mb-6">
         <button
           onClick={handleGoBack}
-          className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded inline-flex items-center"
+          className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-xl inline-flex items-center"
         >
           ← Volver
         </button>
@@ -389,13 +389,13 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
                 `/gestion-fisio/seguimiento/${id}/sesiones`
               )
             }
-            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
+            className="bg-[#6bc9be] hover:bg-[#5ab8ad] text-white font-semibold py-2 px-4 rounded-xl inline-flex items-center"
           >
             Gestionar Sesiones
           </button>
           <button
             onClick={handleEditToggle}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
+            className="bg-[#05668d] hover:bg-[#045272] text-white font-semibold py-2 px-4 rounded-xl inline-flex items-center"
           >
             {isEditing ? "Cancelar" : "Editar"}
           </button>
@@ -413,12 +413,6 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
             >
               {treatment.is_active ? "Activo" : "Inactivo"}
             </span>
-            <button
-              onClick={handleEditToggle}
-              className="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
-            >
-              {isEditing ? "Cancelar" : "Editar"}
-            </button>
           </div>
         </div>
 
@@ -617,14 +611,14 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
         <div className="mt-6 flex justify-end space-x-4">
           {treatment.is_active ? (
             <button
-              className="px-6 py-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+              className="mb-4 mt-4 px-6 py-3 bg-red-400 text-white font-medium rounded-xl hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-offset-2 transition-colors duration-200 flex items-center space-x-2"
               onClick={() => handleStatusChange(false)}
             >
               Marcar como Inactivo
             </button>
           ) : (
             <button
-              className="px-6 py-3 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+              className="mb-8 mt-8 px-6 py-3 bg-[#6bc9be] text-white font-medium rounded-xl hover:bg-[#5ab8ad] focus:outline-none focus:ring-2 focus:ring-[#6bc9be] focus:ring-offset-2 transition-colors duration-200 flex items-center space-x-2"
               onClick={() => handleStatusChange(true)}
             >
               Reactivar Tratamiento

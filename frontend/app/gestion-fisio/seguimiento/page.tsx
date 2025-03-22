@@ -222,9 +222,9 @@ const SeguimientoPage = () => {
             <div className="flex space-x-2">
               <button
                 onClick={() => handleFilterChange(null)}
-                className={`px-4 py-2 rounded-md transition ${
+                className={`px-4 py-2 rounded-xl transition ${
                   activeFilter === null
-                    ? 'bg-blue-500 text-white'
+                    ? 'bg-[#6bc9be] text-white'
                     : 'bg-gray-200 hover:bg-gray-300'
                 }`}
               >
@@ -232,9 +232,9 @@ const SeguimientoPage = () => {
               </button>
               <button
                 onClick={() => handleFilterChange(true)}
-                className={`px-4 py-2 rounded-md transition ${
+                className={`px-4 py-2 rounded-xl transition ${
                   activeFilter === true
-                    ? 'bg-blue-500 text-white'
+                    ? 'bg-[#6bc9be] text-white'
                     : 'bg-gray-200 hover:bg-gray-300'
                 }`}
               >
@@ -242,9 +242,9 @@ const SeguimientoPage = () => {
               </button>
               <button
                 onClick={() => handleFilterChange(false)}
-                className={`px-4 py-2 rounded-md transition ${
+                className={`px-4 py-2 rounded-xl transition ${
                   activeFilter === false
-                    ? 'bg-blue-500 text-white'
+                    ? 'bg-[#6bc9be] text-white'
                     : 'bg-gray-200 hover:bg-gray-300'
                 }`}
               >
@@ -263,7 +263,7 @@ const SeguimientoPage = () => {
               placeholder="Nombre del paciente..."
               value={searchTerm}
               onChange={(e) => handleSearch(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
         </div>
@@ -278,7 +278,7 @@ const SeguimientoPage = () => {
           {filteredTreatments.map((treatment) => (
             <div 
               key={treatment.id}
-              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition cursor-pointer"
+              className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition cursor-pointer"
               onClick={() => handleCardClick(treatment.id)}
             >
               <div className={`p-1 text-center text-white ${treatment.is_active ? 'bg-green-500' : 'bg-gray-500'}`}>
