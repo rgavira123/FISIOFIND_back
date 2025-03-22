@@ -421,7 +421,14 @@ def process_due_payments():
 @api_view(['POST'])
 @permission_classes([])
 def process_due_payments_api(request):
-    """Procesar los pagos vencidos y no pagados."""
+    """
+    Procesa los pagos pendientes según el estado de la cita:
+    
+    Opción 1: Si la cita ha finalizado (now > appointment.end_time), se procesa el pago de forma inmediata.
+    Opción 2: Si quedan menos de 48h para que comience la cita y la cita aún no ha finalizado,
+              se crea un PaymentIntent con capture_method='manual' para retener el importe.
+              (La captura final deberá realizarse cuando la cita termine).
+    """
     api_key = request.headers.get("X-API-KEY")
     if api_key != settings.PAYMENT_API_KEY:
         return JsonResponse({"error": "Unauthorized"}, status=403)
@@ -429,68 +436,78 @@ def process_due_payments_api(request):
     try:
         now = timezone.now()
 
-        # Buscar todas las citas cuyo pago ha vencido y no se ha realizado
-        appointments_due_for_payment = Appointment.objects.filter(
-            start_time__lt=now + timezone.timedelta(hours=48),
+        # --- Grupo 1: Citas finalizadas ---
+        finished_appointments = Appointment.objects.filter(
+            end_time__lt=now,
             payment__status='Not Paid'
         )
-
-        for appointment in appointments_due_for_payment:
-            # Verificar si el pago ya ha sido realizado o si la cita ha pasado de su fecha límite
-            if not appointment.payment:
-                continue
-
-            if appointment.payment.status == 'Paid':
-                continue
-
-            if now > appointment.start_time - timezone.timedelta(hours=48):
-                # Si han pasado más de 48 horas desde la cita, se cancela la cita
-                appointment.status = 'Canceled'
-                appointment.payment.status = 'Canceled'
-                appointment.payment.save()
-                appointment.save()
-                continue
-
-            # Si está dentro del plazo de 48 horas, cobramos el pago
+        for appointment in finished_appointments:
             payment = appointment.payment
-            
-            # Verificar que el PaymentIntent no ha sido creado
+            # Si no se ha creado el PaymentIntent, crearlo con confirmación inmediata
             if not payment.stripe_payment_intent_id:
-                # Crear el PaymentIntent en Stripe
                 payment_intent = stripe.PaymentIntent.create(
                     amount=int(payment.amount * 100),  # Monto en centavos
                     currency='eur',
-                    customer=payment.appointment.patient.stripe_customer_id,  # Asegúrate de tener stripe_customer_id
+                    customer=appointment.patient.stripe_customer_id,
                     payment_method_types=['card'],
                     payment_method=payment.stripe_payment_method_id,
-                    confirm=True,  # Se confirma de inmediato
-                    off_session=True,  # Permite cobrar sin la acción del cliente
-
+                    confirm=True,
+                    off_session=True,
                 )
-
                 payment.stripe_payment_intent_id = payment_intent['id']
                 payment.save()
-
-            # Intentar cobrar el pago
-            payment_intent = stripe.PaymentIntent.retrieve(payment.stripe_payment_intent_id)
+            else:
+                payment_intent = stripe.PaymentIntent.retrieve(payment.stripe_payment_intent_id)
             
-            # Si el PaymentIntent está en estado 'requires_payment_method', significa que necesitamos un método de pago
-            if payment_intent['status'] == 'requires_payment_method':
-                print(f'Payment for appointment {appointment.id} requires a payment method.')
-                continue
+            # Si el PaymentIntent aún no está cobrado, capturarlo
+            if payment_intent['status'] != 'succeeded':
+                captured_intent = stripe.PaymentIntent.capture(payment.stripe_payment_intent_id)
+                if captured_intent['status'] == 'succeeded':
+                    payment.status = 'Paid'
+                    payment.payment_date = now
+                    payment.save()
+                    appointment.status = 'Paid'
+                    appointment.save()
 
-            # Confirmamos el pago si está listo
-            if payment_intent['status'] == 'succeeded':
-                payment.status = 'Paid'
-                payment.payment_date = timezone.now()
+        # --- Grupo 2: Citas próximas (en curso) ---
+        upcoming_appointments = Appointment.objects.filter(
+            start_time__lt=now + timezone.timedelta(hours=48),
+            end_time__gt=now,
+            payment__status='Not Paid'
+        )
+        for appointment in upcoming_appointments:
+            payment = appointment.payment
+            print(f"Procesando pago para cita próxima: {payment.__dict__}")
+            # Si aún no se ha creado el PaymentIntent, crearlo con capture_method='manual'
+            if not payment.stripe_payment_intent_id:
+                payment_intent = stripe.PaymentIntent.create(
+                    amount=int(payment.amount * 100),
+                    currency='eur',
+                    customer=appointment.patient.stripe_customer_id,
+                    payment_method_types=['card'],
+                    payment_method=payment.stripe_payment_method_id,
+                    capture_method='manual',  # Retiene el importe sin capturarlo
+                    confirm=True,
+                    off_session=True,
+                )
+                payment.stripe_payment_intent_id = payment_intent['id']
                 payment.save()
-
-                # Cambiar el estado de la cita
-                appointment.status = 'Paid'
-                appointment.save()
+            else:
+                payment_intent = stripe.PaymentIntent.retrieve(payment.stripe_payment_intent_id)
+            
+            print(f"PaymentIntent: {payment_intent}")
+            # Opcional: Si la cita ya finalizó, capturar el PaymentIntent manualmente.
+            if now > appointment.end_time:
+                captured_intent = stripe.PaymentIntent.capture(payment.stripe_payment_intent_id)
+                if captured_intent['status'] == 'succeeded':
+                    payment.status = 'Paid'
+                    payment.payment_date = now
+                    payment.save()
+                    appointment.status = 'Paid'
+                    appointment.save()
 
         return HttpResponse("Payment processing completed.")
-
+        
     except Exception as e:
         print(f"Error processing payments: {str(e)}")
         return HttpResponse(f"Error processing payments: {str(e)}")
