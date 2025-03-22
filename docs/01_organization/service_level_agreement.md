@@ -48,7 +48,8 @@ classoption: "table"
   - [6.3. Sus derechos sobre sus datos](#63-sus-derechos-sobre-sus-datos)
   - [6.4. Conservación de datos](#64-conservación-de-datos)
   - [6.5. Compartición de datos](#65-compartición-de-datos)
-  - [6.6. Contacto para asuntos de privacidad](#66-contacto-para-asuntos-de-privacidad)
+  - [6.6. Localización y Seguridad](#66-localizacion-y-seguridad)
+  - [6.7. Contacto para asuntos de privacidad](#67-contacto-para-asuntos-de-privacidad)
 - [7. MODIFICACIONES AL ACUERDO](#7-modificaciones-al-acuerdo)
 - [8. CONTACTO Y SOPORTE](#8-contacto-y-soporte)
 - [9. DISPOSICIONES FINALES](#9-disposiciones-finales)
@@ -69,11 +70,11 @@ classoption: "table"
 
 - **Miembros del grupo:** Alberto Carmona Sicre, Antonio Macías Ferrera, Benjamín Ignacio Maureira Flores, Francisco Capote García, Daniel Alors Romero, Daniel Fernández Caballero, Daniel Ruiz López, Daniel Tortorici Bartús, Daniel Vela Camacho, Delfín Santana Rubio, Guadalupe Ridruejo Pineda, Julen Redondo Pacheco, Miguel Encina Martínez, Francisco Mateos Villarejo, Pablo Fernández Pérez, Ramón Gavira Sánchez, Rafael Pulido Cifuentes.
 
-- **Contribuidores:** [Antonio Macías Ferrera](https://github.com/antoniommff) (autor),  [Delfín Santana Rubio](https://github.com/DelfinSR) (revisor)
+- **Contribuidores:** [Antonio Macías Ferrera](https://github.com/antoniommff) (autor),  [Delfín Santana Rubio](https://github.com/DelfinSR) (revisor y autor)
 
 - **Fecha de Creación:** 17/03/2025  
 
-- **Versión:** v1.1
+- **Versión:** v1.2
 
 <br>
 
@@ -86,6 +87,7 @@ classoption: "table"
 | ------------ | -------- | --------------------------- | ------------------------------------------------------------- |
 | 17/03/2025   | v1.0     | Antonio Macías Ferrera      | Elaboración de la primera versión del acuerdo con el usuario. |
 | 20/03/2025   | v1.1     | Antonio Macías Ferrera      | Adecuación del SLA a FISIO FIND |
+| 22/03/2025   | v1.2     | Delfín Santana Rubio     | Corrección y ampliación de algunos apartados |
 
 <br>
 
@@ -136,8 +138,18 @@ Es importante destacar que NO utilizamos cookies de terceros ni cookies publicit
 
 Para poder acceder a las funcionalidades completas de **FisioFind** más allá de la búsqueda básica de fisioterapeutas (como solicitar citas, realizar videollamadas, acceder al historial médico o visualizar informes), es necesario aceptar el uso de estas cookies técnicas esenciales, ya que son imprescindibles para el funcionamiento de estos servicios.
 
-El usuario podrá gestionar las cookies a través de la configuración de su navegador, teniendo en cuenta que el rechazo de las cookies técnicas esenciales impedirá el acceso a la mayoría de las funcionalidades de la plataforma que requieren autenticación.
+El usuario podrá gestionar las cookies a través de la configuración de su navegador, teniendo en cuenta que el rechazo de las cookies técnicas esenciales impedirá el acceso a la mayoría de las funcionalidades de la plataforma que requieren autenticación. Aquí se dan links a tutoriales para desactivar las cookies en los principales navegadores:
+- [Google Chrome para Android](https://support.google.com/accounts/answer/61416?hl=es-419&co=GENIE.Platform%3DAndroid&oco=0)
+- [Google Chrome para escritorio](https://support.google.com/accounts/answer/61416?hl=es-419&co=GENIE.Platform%3DDesktop&oco=0)
+- [Google Chrome para IPhone y IPad](https://support.google.com/accounts/answer/61416?hl=es-419&co=GENIE.Platform%3DiOS&oco=0)
+- Tutorial deshabilitar cookies de terceros en [Firefox](https://support.mozilla.org/es/kb/Deshabilitar%20cookies%20de%20terceros)
 
+A continuación, se da un listado de las cookies que utilizamos. Todas son técnicas:
+| Nombre | Descripción | Duración |
+|--------|-------------|----------|
+|sessionid| Cookie destinada a guardar la sesión del usuario en la plataforma. Permite no tener que pedir que el usuario se autentique en cada acción que hace. | Hasta que el usuario cierra sesión |
+|token| Cookie destinada a guardar la sesión del usuario en la plataforma. Permite no tener que pedir que el usuario se autentique en cada acción que hace. | Hasta que el usuario cierra sesión |
+|sb_csrftoken| Cookie utilizada por la herramienta de modelos 3D que utilizamos de [sketchfab.com](sketchfab.com) destinada a la seguridad de la conexión con la herramienta de modelos 3D. | Aproximadamente 1 año o hasta que el usuario deja de utilizar el modelo 3D. |
 <br>
 
 \newpage
@@ -162,7 +174,7 @@ El usuario podrá gestionar las cookies a través de la configuración de su nav
 
 ### 5.2. Propiedad Intelectual
 
-- Todo el contenido, diseño, código fuente, logotipos y marcas pertenecen a **FisioFind**.
+- Todo el contenido, diseño, código fuente, logotipos y marcas pertenecen a **FisioFind** a excepción de los modelos 3D y el mapa de dolor.
 
 - Queda prohibida la reproducción, distribución o modificación no autorizada de cualquier contenido alojado en la plataforma que no haya sido proporcionado por los propios usuarios. Dicho esto, quedan exluidos de esta restricción los informes generados tras las consultas o el material multimedia alojado que pertenezca a un usuario fisioterapeuta (véase videos o documentos).
 
@@ -231,6 +243,8 @@ En **FisioFind**, nos comprometemos a procesar su información de manera transpa
 
 ### 6.1. ¿Qué información recopilamos y por qué?
 
+En general, todos los datos que se introduzcan en la plataforma serán recopilados. Debido a que existen muchos formularios en la plataforma, para asegurar la legibilidad de este documento a continuación damos una explicación aproximada centrándonos en los datos más importantes que recopilamos.
+
 **Para todos los usuarios:**
 Recopilamos información básica necesaria para el funcionamiento de la plataforma, incluyendo su nombre y dirección de correo electrónico. Esta información nos permite crear y gestionar su cuenta, así como comunicarnos con usted sobre aspectos importantes del servicio.
 
@@ -242,6 +256,10 @@ Los profesionales que se registran en nuestra plataforma deberán proporcionar i
 - Número de colegiado
 - Documento Nacional de Identidad (DNI)
 - Información sobre su consulta o centro
+
+También, cuando utiliza la herramienta de modelo 3D de [sketchfab.com](sketchfab.com), por lo que cuando utiliza este modelo usted está también sujeto a los [términos y servicios de la plataforma](https://sketchfab.com/terms) y su [política de privacidad](https://sketchfab.com/privacy). Actualmente, este servicio solo tiene disponible una versión en inglés de sus políticas, por lo que recomendamos utilizar un [traductor online](https://translate.google.es/?hl=es&sl=en&tl=es&op=translate).
+
+Además, nuestro servicio se encuentra alojado en el proveedor (DigitalOcean)[https://www.digitalocean.com/]. Este proveedor recopila información sobre la conexión que se hace a nuestra página web, como puede ser la IP o el *User Agent* del navegador. Puede encontrar más información en los [términos y condiciones del proveedor haciendo click en este link](https://www.digitalocean.com/legal) y en su [política de privacidad haciendo click en este link](https://www.digitalocean.com/legal/privacy-policy). Actualmente, este servicio solo tiene disponible una versión en inglés de sus políticas, por lo que recomendamos utilizar un [traductor online](https://translate.google.es/?hl=es&sl=en&tl=es&op=translate).
 
 ### 6.2. ¿Cómo utilizamos su información?
 
@@ -303,13 +321,23 @@ Solo compartimos su información en las siguientes circunstancias:
 
 - Cuando sea requerido por ley o autoridades competentes
 
-### 6.6. Contacto para asuntos de privacidad
+- Cuando utiliza en la plataforma la herramienta de Modelos3D de [sketchfab.com](sketchfab.com) (comprobar sección 6.1)
+
+Sin embargo, esta sección está condicionada con los términos y condiciones del proveedor de servicio que utilizamos: [DigitalOcean](https://www.digitalocean.com/). Puede encontrar más información en los (términos y condiciones del proveedor haciendo click en este [link](https://www.digitalocean.com/legal) y en su [política de privacidad haciendo click en este link](https://www.digitalocean.com/legal/privacy-policy). Actualmente, este servicio solo tiene disponible una versión en inglés de sus políticas, por lo que recomendamos utilizar un [traductor online](https://translate.google.es/?hl=es&sl=en&tl=es&op=translate).
+
+### 6.6. Localización y Seguridad
+
+**Fisio Find** implementa medidas para asegurar la seguridad de nuestros usuarios y sus datos. Los datos y la aplicación se encuentran alojado en nuestro proveedor de servicio [DigitalOcean](https://www.digitalocean.com/). Este proveedor permite utilizar servidores en varias localizaciones, pero Fisio Find utiliza los servidores que se encuentran en **Frankfurt, Alemania**. Puede encontrar información sobre la seguridad que implementa DigitalOcean en sus servidores en [este link](https://www.digitalocean.com/security).
+
+### 6.7. Contacto para asuntos de privacidad
 
 Para cualquier consulta sobre privacidad o ejercer sus derechos, puede contactar con nuestro Delegado de Protección de Datos:
 
 - Delegado de Protección de Datos: Delfín Santana Rubio
 
 - **Correo Electrónico:**: denuncias@fisiofind.com
+
+Los datos que comparta al hacer contacto con este correo también serán recopilados. La recopilación estará sujeta a lo estipulado en este documento.
 
 Nos comprometemos a responder a sus solicitudes en un plazo máximo de 14 días.
 
