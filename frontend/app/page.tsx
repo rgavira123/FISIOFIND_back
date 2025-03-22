@@ -29,7 +29,7 @@ const Home = () => {
   const closePhysioModal = () => setIsPhysioModalOpen(false);
   const [isClient, setIsClient] = useState(false);
   const [token, setToken] = useState<string | null>(null);
-
+  const apiBaseurl = getApiBaseUrl();
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -53,15 +53,19 @@ const Home = () => {
   }, [isClient, token]);
 
   // Efecto para mover imágenes flotantes al hacer scroll
+  // Modify the floating images styles
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const floatingImages = document.querySelectorAll(".floating-image");
-      floatingImages.forEach((image, index) => {
-        const offset = (index + 1) * 50;
-        (image as HTMLElement).style.transform = `translateX(${scrollY / offset
-          }px)`;
-      });
+      
+      // Only apply floating effect if screen is large enough
+      if (window.innerWidth > 1240) {
+        floatingImages.forEach((image, index) => {
+          const offset = (index + 1) * 50;
+          (image as HTMLElement).style.transform = `translateX(${scrollY / offset}px)`;
+        });
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -144,7 +148,7 @@ const Home = () => {
       }
 
       try {
-        const searchUrl = `${getApiBaseUrl()}/api/sesion_invitado/physios-with-specializations/?specialization=${specialization}`;
+        const searchUrl = `${apiBaseurl}/api/sesion_invitado/physios-with-specializations/?specialization=${specialization}`;
         const response = await axios.get(searchUrl);
 
         if (response.status === 200) {
