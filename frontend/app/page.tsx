@@ -8,6 +8,8 @@ import Modal from "@/components/ui/Modal";
 import Link from "next/link";
 import axios from "axios";
 import { getApiBaseUrl } from "@/utils/api";
+import { DemoWindow } from "@/components/demo-window";
+import { WavyBackground } from "@/components/ui/wavy-background";
 
 interface Physiotherapist {
   id: string;
@@ -297,91 +299,72 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen w-full z=90">
+    <div className="min-h-screen w-full z=90" style={{ backgroundColor: "rgb(238, 251, 250)" }}>
       {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center text-center relative overflow-hidden mb-8 py-12">
-        <div className="absolute top-0 left-0 w-full h-full">
-          <div className="floating-image" style={{ right: "70%", top: "35%" }}>
+      <section className="flex flex-col items-center justify-center text-center relative overflow-hidden mb-8">
+        <WavyBackground className="max-w-full mx-auto py-12">
+          <div className="absolute top-0 left-0 w-full h-full">
+            <div className="floating-image" style={{ right: "70%", top: "35%" }}>
+              <Image
+                src="/static/9_girl.webp"
+                alt="Floating Image 3"
+                width={250}
+                height={250}
+              />
+            </div>
+            <div className="floating-image" style={{ left: "30%", top: "10%" }}>
+              <Image
+                src="/static/1_heart.webp"
+                alt="Floating Image 1"
+                width={70}
+                height={70}
+              />
+            </div>
+            <div className="floating-image" style={{ right: "30%", top: "10%" }}>
+              <Image
+                src="/static/7_treatment.webp"
+                alt="Floating Image 3"
+                width={80}
+                height={80}
+              />
+            </div>
+            <div className="floating-image" style={{ right: "10%", top: "35%" }}>
+              <Image
+                src="/static/2_liftweights.webp"
+                alt="Floating Image 3"
+                width={150}
+                height={150}
+              />
+            </div>
+          </div>
+          <div className="flex flex-col items-center mt-8">
             <Image
-              src="/static/9_girl.webp"
-              alt="Floating Image 3"
+              src="/static/logo_fisio_find_smaller.webp"
+              alt="Fisio Find Logo"
               width={250}
               height={250}
+              className="mb-12 relative z-10"
             />
+            <h1 className="text-7xl font-bold mb-12 font-alfa-slab-one relative z-10">
+              <span className="text-white drop-shadow-[0_2.5px_3.5px_#41B8D5]">Fisio Find</span>
+            </h1>
+            <p className="text-xl font-bold mb-14 max-w-2xl mx-auto relative z-10 text-[#253240] mt-16">
+              La plataforma especializada en fisioterapia online donde te conectamos
+              con el profesional que mejor se ajusta a tus necesidades.
+            </p>
           </div>
-          <div className="floating-image" style={{ left: "30%", top: "10%" }}>
-            <Image
-              src="/static/1_heart.webp"
-              alt="Floating Image 1"
-              width={70}
-              height={70}
-            />
-          </div>
-          <div
-            className="floating-image"
-            style={{ right: "38%", bottom: "29%" }}
-          >
-            <Image
-              src="/static/4_shine.webp"
-              alt="Floating Image 2"
-              width={40}
-              height={40}
-            />
-          </div>
-          <div
-            className="floating-image"
-            style={{ left: "37%", bottom: "41%" }}
-          >
-            <Image
-              src="/static/4_shine.webp"
-              alt="Floating Image 2"
-              width={40}
-              height={40}
-            />
-          </div>
-          <div className="floating-image" style={{ right: "30%", top: "10%" }}>
-            <Image
-              src="/static/7_treatment.webp"
-              alt="Floating Image 3"
-              width={80}
-              height={80}
-            />
-          </div>
-          <div className="floating-image" style={{ right: "10%", top: "55%" }}>
-            <Image
-              src="/static/2_liftweights.webp"
-              alt="Floating Image 3"
-              width={150}
-              height={150}
-            />
-          </div>
-        </div>
-        <Image
-          src="/static/logo_fisio_find_smaller.webp"
-          alt="Fisio Find Logo"
-          width={150}
-          height={150}
-          className="mb-4"
-        />
-        <h1 className="text-5xl font-bold mb-2 font-alfa-slab-one">
-          <span className="text-[#05668d]">Fisio </span>
-          <span className="text-[#018b89]">Find</span>
-        </h1>
-        <p className="text-lg mb-4 max-w-2xl">
-          La plataforma especializada en fisioterapia online donde te conectamos
-          con el profesional que mejor se ajusta a tus necesidades.
-        </p>
+        </WavyBackground>
       </section>
 
-      
+      {/* Demo Video */}
+      <section className="px-4 py-16 relative z-10">
+        <DemoWindow />
+      </section>
 
-      
 
       {/* Search Section */}
       {/* Unified Search Bar */}
       <SearchPhysiotherapists />
-
-
 
 
       {/* Focus Cards Section: solo se muestra si NO está autenticado */}
