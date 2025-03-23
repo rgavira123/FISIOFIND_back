@@ -91,6 +91,11 @@ const ExercisesPage = ({
   const [showEditSeriesForm, setShowEditSeriesForm] = useState(false);
   const [currentSeries, setCurrentSeries] = useState<SeriesData | null>(null);
 
+  const [showUnassignConfirmation, setShowUnassignConfirmation] =
+    useState(false);
+  const [exerciseSessionIdToUnassign, setExerciseSessionIdToUnassign] =
+    useState<number | null>(null);
+
   const loadAvailableExercises = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -448,16 +453,24 @@ const ExercisesPage = ({
     setSeries(updatedSeries);
   };
 
-  const handleUnassignExercise = async (exerciseSessionId: number) => {
+  const handleUnassignExercise = (exerciseSessionId: number) => {
+    setExerciseSessionIdToUnassign(exerciseSessionId);
+    setShowUnassignConfirmation(true);
+  };
+
+  // Add function to confirm unassignment
+  const confirmUnassignExercise = async () => {
     try {
       const token = localStorage.getItem("token");
-      if (!token) {
-        setError("No se ha encontrado el token de autenticación");
+      if (!token || !exerciseSessionIdToUnassign) {
+        setError(
+          "No se ha encontrado el token de autenticación o el ejercicio a desasignar"
+        );
         return;
       }
 
       const response = await fetch(
-        `${getApiBaseUrl()}/api/treatments/exercise-sessions/${exerciseSessionId}/unassign-exercise/`,
+        `${getApiBaseUrl()}/api/treatments/exercise-sessions/${exerciseSessionIdToUnassign}/unassign-exercise/`,
         {
           method: "DELETE",
           headers: {
@@ -472,10 +485,18 @@ const ExercisesPage = ({
       }
 
       loadSessionExercises();
+      setShowUnassignConfirmation(false);
+      setExerciseSessionIdToUnassign(null);
     } catch (err) {
       setError("Error al desasignar el ejercicio");
       console.log(err);
     }
+  };
+
+  // Add function to cancel unassignment
+  const cancelUnassignExercise = () => {
+    setShowUnassignConfirmation(false);
+    setExerciseSessionIdToUnassign(null);
   };
 
   const handleAddSeriesToExistingExercise = (exerciseSessionId: number) => {
@@ -1018,6 +1039,38 @@ const ExercisesPage = ({
             </div>
           ))}
         </div>
+
+        {showUnassignConfirmation && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-xl shadow-2xl w-full max-w-md">
+              <h2 className="text-xl font-bold text-gray-900 mb-4">
+                Confirmar desasignación
+              </h2>
+              <p className="text-gray-600 mb-2">
+                ¿Estás seguro de que deseas eliminar este ejercicio de la
+                sesión?
+              </p>
+              <p className="text-red-500 font-medium mb-6">
+                ¡Atención! Todas las series asociadas a este ejercicio serán
+                eliminadas permanentemente.
+              </p>
+              <div className="flex justify-end space-x-4">
+                <button
+                  onClick={cancelUnassignExercise}
+                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded-xl hover:bg-gray-300 transition-colors duration-200"
+                >
+                  Cancelar
+                </button>
+                <button
+                  onClick={confirmUnassignExercise}
+                  className="px-4 py-2 bg-red-500 text-white rounded-xl hover:bg-red-600 transition-colors duration-200"
+                >
+                  Eliminar
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {showSeriesForm && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
