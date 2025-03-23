@@ -24,6 +24,15 @@ export function DemoWindow() {
           muted 
           playsInline 
           preload="auto"
+          ref={(videoElement) => {
+            if (videoElement) {
+              // Set a random start time between 0 and 70% of the video duration
+              videoElement.addEventListener('loadedmetadata', () => {
+                const randomStartTime = Math.random() * (videoElement.duration * 0.7);
+                videoElement.currentTime = randomStartTime;
+              });
+            }
+          }}
         >
           <source src="/static/demo_1.mp4" type="video/mp4" />
           <source src="/static/demo_1.webm" type="video/webm" />
