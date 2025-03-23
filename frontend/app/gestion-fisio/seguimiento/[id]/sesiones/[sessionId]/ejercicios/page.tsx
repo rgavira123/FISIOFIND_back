@@ -96,6 +96,32 @@ const ExercisesPage = ({
   const [exerciseSessionIdToUnassign, setExerciseSessionIdToUnassign] =
     useState<number | null>(null);
 
+  const formatAreaName = (areaCode: string): string => {
+    const areaMap: Record<string, string> = {
+      UPPER_BODY: "Parte Superior del Cuerpo",
+      LOWER_BODY: "Parte Inferior del Cuerpo",
+      CORE: "Zona Media/Core",
+      FULL_BODY: "Cuerpo Completo",
+      SHOULDER: "Hombros",
+      ARM: "Brazos (Bíceps, Tríceps)",
+      CHEST: "Pecho",
+      BACK: "Espalda",
+      QUADRICEPS: "Cuádriceps",
+      HAMSTRINGS: "Isquiotibiales",
+      GLUTES: "Glúteos",
+      CALVES: "Pantorrillas",
+      NECK: "Cuello",
+      LOWER_BACK: "Zona Lumbar",
+      HIP: "Caderas",
+      BALANCE: "Ejercicios de Equilibrio",
+      MOBILITY: "Movilidad",
+      STRETCHING: "Estiramientos",
+      PROPRIOCEPTION: "Propiocepción",
+    };
+
+    return areaMap[areaCode] || areaCode;
+  };
+
   const loadAvailableExercises = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -702,7 +728,15 @@ const ExercisesPage = ({
                     {exercise.title}
                   </h3>
                   <p className="text-gray-600 mb-3">{exercise.description}</p>
-                  <p className="text-gray-500 mb-4">Área: {exercise.area}</p>
+                  <p className="text-gray-600 mb-3">
+                    {exercise?.description || "Sin descripción"}
+                  </p>
+                  <p className="text-gray-500 mb-4">
+                    Área:{" "}
+                    {exercise?.area
+                      ? formatAreaName(exercise.area)
+                      : "No especificada"}
+                  </p>
                   <button
                     onClick={() => handleAssignExercise(exercise.id)}
                     className="w-full px-4 py-2 bg-[#6bc9be] text-white font-medium rounded-xl hover:bg-[#5ab8ad] focus:outline-none focus:ring-2 focus:ring-[#6bc9be] focus:ring-offset-2 transition-colors duration-200"
@@ -949,7 +983,7 @@ const ExercisesPage = ({
                 {exercise?.description || "Sin descripción"}
               </p>
               <p className="text-gray-500 mb-4">
-                Área: {exercise?.area || "No especificada"}
+                Área: {formatAreaName(exercise.area)}
               </p>
 
               {/* Display series information */}
