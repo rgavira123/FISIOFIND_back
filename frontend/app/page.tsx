@@ -510,16 +510,16 @@ const Home = () => {
                 </a>
               </li>
               <li>
-                <a href="https://fisiofind.vercel.app">Documentación</a>
+                <a href="/terms">Política de Privacidad</a>
               </li>
               <li>
-                <Link href="/">Términos de Servicio</Link>
+                <Link href="/terms">Términos de Servicio</Link>
               </li>
             </ul>
           </div>
           <div>
             <h3 className="text-lg font-bold mb-4">Contacto</h3>
-            <p>Correo: support@fisiofind.com</p>
+            <p>Correo: <a href="mailto:support@fisiofind.com" className="hover:underline">support@fisiofind.com</a></p>
             <p>Ubicación: Sevilla, España</p>
           </div>
         </div>
