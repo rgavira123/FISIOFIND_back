@@ -4,7 +4,9 @@ import Body from "./body-highlighter/index";
 
 const MapaDolor = ({scale, gender, sendWebSocketMessage, partsColored}) => {
 
-  function sendSelectedParts(parts_to_send) {
+  function sendSelectedParts(parts_to_send) { 
+    // Si no se quiere mandar por websocketes porque se quiere utilizar el modelo como una foto
+    // se puede pasar la funcion sendWebSocketMessage como una funcion vacia
     sendWebSocketMessage({
       action: 'pain-map',
       message: {
@@ -30,8 +32,6 @@ const MapaDolor = ({scale, gender, sendWebSocketMessage, partsColored}) => {
     } else {
       sendSelectedParts(partsColored.filter(p => !(p.slug === part && p.side === side)))
     }
-
-    sendSelectedParts()
   }
   return (
     <div className="flex flex-row align-center justify-center">

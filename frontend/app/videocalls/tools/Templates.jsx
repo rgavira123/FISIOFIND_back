@@ -30,11 +30,9 @@ const Plantillas = ({ activePainMap, handlePainMapSelect, sendPainMapToPatient, 
             onClick={() => handlePainMapSelect(activePainMap === 'female' ? null : 'female')}
           >
             <div className={styles.painMapIcon}>
-              <div className={styles.painMapBody}>
-                <div className={styles.painMapBodyFront}></div>
-              </div>
+              <MapaDolor gender={"female"} scale={0.27} partsColored={[]} sendWebSocketMessage={() => {}} />
             </div>
-            <span>Mujer</span>
+            <span>Modelo A</span>
           </div>
 
           <div
@@ -42,11 +40,9 @@ const Plantillas = ({ activePainMap, handlePainMapSelect, sendPainMapToPatient, 
             onClick={() => handlePainMapSelect(activePainMap === 'male' ? null : 'male')}
           >
             <div className={styles.painMapIcon}>
-              <div className={styles.painMapBody}>
-                <div className={styles.painMapBodyBack}></div>
-              </div>
+              <MapaDolor gender={"male"} scale={0.27} partsColored={[]} sendWebSocketMessage={() => {}} />
             </div>
-            <span>Hombre</span>
+            <span>Modelo B</span>
           </div>
         </div>
 
