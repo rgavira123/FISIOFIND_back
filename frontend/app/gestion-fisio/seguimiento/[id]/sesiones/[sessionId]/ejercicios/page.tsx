@@ -88,6 +88,9 @@ const ExercisesPage = ({
     null
   );
 
+  const [showEditSeriesForm, setShowEditSeriesForm] = useState(false);
+  const [currentSeries, setCurrentSeries] = useState<SeriesData | null>(null);
+
   const loadAvailableExercises = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -553,6 +556,79 @@ const ExercisesPage = ({
     setSeriesIdToDelete(null);
   };
 
+  const handleEditSeries = (serie: SeriesData) => {
+    setCurrentSeries(serie);
+    setShowEditSeriesForm(true);
+  };
+
+  const handleUpdateExistingSeries = async () => {
+    try {
+      if (!currentSeries) {
+        setError("No hay serie seleccionada para editar");
+        return;
+      }
+
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setError("No se ha encontrado el token de autenticación");
+        return;
+      }
+
+      const response = await fetch(
+        `${getApiBaseUrl()}/api/treatments/series/${currentSeries.id}/`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            repetitions: currentSeries.repetitions,
+            weight: currentSeries.weight,
+            time: currentSeries.time,
+            distance: currentSeries.distance,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      // Update exercises state locally
+      const updatedExercises = exercises.map((exercise) => {
+        if (
+          exercise.series &&
+          exercise.series.some((s) => s.id === currentSeries.id)
+        ) {
+          // This is the exercise containing the edited series
+          const updatedSeries = exercise.series.map((s) =>
+            s.id === currentSeries.id ? currentSeries : s
+          );
+
+          return {
+            ...exercise,
+            series: updatedSeries,
+          };
+        }
+        return exercise;
+      });
+
+      setExercises(updatedExercises);
+      setShowEditSeriesForm(false);
+      setCurrentSeries(null);
+    } catch (err) {
+      setError("Error al actualizar la serie");
+      console.error("Error details:", err);
+    }
+  };
+
+  // Add function to cancel editing
+  const handleCancelEditSeries = () => {
+    setShowEditSeriesForm(false);
+    setCurrentSeries(null);
+  };
+
   if (loading) return <div>Cargando...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -869,24 +945,40 @@ const ExercisesPage = ({
                       >
                         <div className="flex justify-between items-start">
                           <p className="font-medium">Serie {index + 1}</p>
-                          <button
-                            onClick={() => handleDeleteSeries(serie.id)}
-                            className="text-red-500 hover:text-red-700 transition-colors duration-200"
-                            title="Eliminar serie"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-5 w-5"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
+                          <div className="flex space-x-2">
+                            <button
+                              onClick={() => handleEditSeries(serie)}
+                              className="text-blue-500 hover:text-blue-700 transition-colors duration-200"
+                              title="Editar serie"
                             >
-                              <path
-                                fillRule="evenodd"
-                                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          </button>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                              >
+                                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                              </svg>
+                            </button>
+                            <button
+                              onClick={() => handleDeleteSeries(serie.id)}
+                              className="text-red-500 hover:text-red-700 transition-colors duration-200"
+                              title="Eliminar serie"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </button>
+                          </div>
                         </div>
                         <div className="grid grid-cols-2 gap-2 text-sm mt-1">
                           <p>Repeticiones: {serie.repetitions}</p>
@@ -937,9 +1029,7 @@ const ExercisesPage = ({
               <div className="space-y-6">
                 {series.map((serie, index) => (
                   <div key={index} className="p-4 bg-gray-50 rounded-lg">
-                    <h3 className="text-lg font-semibold mb-4">
-                      Detalles
-                    </h3>
+                    <h3 className="text-lg font-semibold mb-4">Detalles</h3>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -1040,6 +1130,105 @@ const ExercisesPage = ({
                     Guardar Series
                   </button>
                 </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {showEditSeriesForm && currentSeries && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                Editar Serie
+              </h2>
+
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Repeticiones
+                  </label>
+                  <input
+                    type="number"
+                    value={currentSeries.repetitions}
+                    onChange={(e) =>
+                      setCurrentSeries({
+                        ...currentSeries,
+                        repetitions: parseInt(e.target.value),
+                      })
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 rounded-xl"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Peso (kg)
+                  </label>
+                  <input
+                    type="number"
+                    value={currentSeries.weight || ""}
+                    onChange={(e) =>
+                      setCurrentSeries({
+                        ...currentSeries,
+                        weight: e.target.value
+                          ? parseFloat(e.target.value)
+                          : undefined,
+                      })
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 rounded-xl"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Tiempo (segundos)
+                  </label>
+                  <input
+                    type="number"
+                    value={currentSeries.time || ""}
+                    onChange={(e) =>
+                      setCurrentSeries({
+                        ...currentSeries,
+                        time: e.target.value
+                          ? parseInt(e.target.value)
+                          : undefined,
+                      })
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 rounded-xl"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Distancia (metros)
+                  </label>
+                  <input
+                    type="number"
+                    value={currentSeries.distance || ""}
+                    onChange={(e) =>
+                      setCurrentSeries({
+                        ...currentSeries,
+                        distance: e.target.value
+                          ? parseFloat(e.target.value)
+                          : undefined,
+                      })
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 rounded-xl"
+                  />
+                </div>
+              </div>
+
+              <div className="mt-6 flex justify-end space-x-4">
+                <button
+                  onClick={handleCancelEditSeries}
+                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded-xl hover:bg-gray-300"
+                >
+                  Cancelar
+                </button>
+                <button
+                  onClick={handleUpdateExistingSeries}
+                  className="px-4 py-2 bg-[#6bc9be] text-white rounded-xl hover:bg-[#5ab8ad]"
+                >
+                  Guardar Cambios
+                </button>
               </div>
             </div>
           </div>

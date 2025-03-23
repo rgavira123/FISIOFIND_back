@@ -822,7 +822,7 @@ class SeriesDeleteView(APIView):
     """
     Vista para eliminar una serie específica de un ejercicio en una sesión.
     """
-    permission_classes = [IsPhysioOrPatient]
+    permission_classes = [IsPhysiotherapist]
 
     def delete(self, request, pk):
         try:
