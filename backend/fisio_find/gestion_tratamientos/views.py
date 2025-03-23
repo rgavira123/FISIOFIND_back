@@ -818,6 +818,38 @@ class SeriesDetailView(APIView):
                 status=status.HTTP_404_NOT_FOUND
             )
 
+class SeriesDeleteView(APIView):
+    """
+    Vista para eliminar una serie específica de un ejercicio en una sesión.
+    """
+    permission_classes = [IsPhysioOrPatient]
+
+    def delete(self, request, pk):
+        try:
+            # Verificar que la serie existe
+            series = Series.objects.get(id=pk)
+            
+            # Guardar el ID de la sesión de ejercicio para reordenar las series después
+            exercise_session_id = series.exercise_session.id
+            
+            # Eliminar la serie
+            series.delete()
+            
+            # Reordenar las series restantes
+            remaining_series = Series.objects.filter(exercise_session_id=exercise_session_id).order_by('series_number')
+            
+            # Actualizar los números de serie
+            for index, serie in enumerate(remaining_series, 1):
+                serie.series_number = index
+                serie.save()
+            
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Series.DoesNotExist:
+            return Response(
+                {'detail': 'No se ha encontrado la serie'}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
+
 class SeriesListByExerciseSessionView(APIView):
     """
     Vista para listar las series de un ejercicio en una sesión específica.

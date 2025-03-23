@@ -4,7 +4,7 @@ from .views import (
     SessionCreateView, SessionListView, SessionDetailView,
     ExerciseCreateView, ExerciseListView, ExerciseDetailView, ExerciseSearchView, ExerciseByAreaView,
     AssignExerciseToSessionView, UnassignExerciseFromSessionView, ExerciseListBySessionView,
-    SeriesCreateView, SeriesDetailView, SeriesListByExerciseSessionView,
+    SeriesCreateView, SeriesDetailView, SeriesListByExerciseSessionView, SeriesDeleteView,
     ExerciseLogCreateView, ExerciseLogListView, ExerciseLogDetailView
 )
 
@@ -36,6 +36,7 @@ urlpatterns = [
     path('exercise-sessions/<int:exercise_session_id>/series/create/', SeriesCreateView.as_view(), name='create_series'),
     path('exercise-sessions/<int:exercise_session_id>/series/', SeriesListByExerciseSessionView.as_view(), name='series_list_by_exercise_session'),
     path('series/<int:pk>/', SeriesDetailView.as_view(), name='series_detail'),
+    path('series/<int:pk>/delete/', SeriesDeleteView.as_view(), name='delete_series'),
 
     # Registro de progreso en ejercicios
     path('exercise-logs/create/', ExerciseLogCreateView.as_view(), name='create_exercise_log'),
