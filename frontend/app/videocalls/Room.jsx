@@ -45,7 +45,7 @@ const Room = ({ roomCode }) => {
   const [showSettings, setShowSettings] = useState(false);
   const [selectedTool, setSelectedTool] = useState(null);
   const [activePainMap, setActivePainMap] = useState(null);
-  const [partsColored, setPartsColored] = useState([{slug:"biceps",intensity:2}]);
+  const [partsColored, setPartsColored] = useState([]);
 
   // First initialize WebSocket hook with a dummy message handler
   const webSocket = useWebSocket(
