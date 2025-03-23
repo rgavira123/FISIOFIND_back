@@ -818,6 +818,28 @@ class SeriesDetailView(APIView):
                 status=status.HTTP_404_NOT_FOUND
             )
 
+class SeriesListByExerciseSessionView(APIView):
+    """
+    Vista para listar las series de un ejercicio en una sesión específica.
+    """
+    permission_classes = [IsPhysioOrPatient]
+
+    def get(self, request, exercise_session_id):
+        try:
+            # Verificar que la sesión de ejercicio existe
+            exercise_session = ExerciseSession.objects.get(id=exercise_session_id)
+            
+            # Obtener todas las series asociadas a esta sesión de ejercicio
+            series = Series.objects.filter(exercise_session=exercise_session).order_by('series_number')
+            
+            serializer = SeriesSerializer(series, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except ExerciseSession.DoesNotExist:
+            return Response(
+                {'detail': 'No se ha encontrado la sesión de ejercicio'}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
+
 class ExerciseListBySessionView(APIView):
     """
     Vista para listar los ejercicios asignados a una sesión.

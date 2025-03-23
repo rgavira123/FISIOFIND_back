@@ -41,9 +41,22 @@ interface Series {
   distance?: number;
 }
 
+// Add this interface for series data
+interface SeriesData {
+  id: number;
+  series_number: number;
+  repetitions: number;
+  weight?: number;
+  time?: number;
+  distance?: number;
+  exercise_session: number;
+}
+
+// Update the ExerciseSessionData interface to include series
 interface ExerciseSessionData {
   exercise: Exercise;
   exerciseSessionId: number;
+  series?: SeriesData[];
 }
 
 const ExercisesPage = ({
@@ -141,6 +154,36 @@ const ExercisesPage = ({
     }
   };
 
+  const loadSeriesForExerciseSession = async (exerciseSessionId: number) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setError("No se ha encontrado el token de autenticación");
+        return [];
+      }
+
+      const response = await fetch(
+        `${getApiBaseUrl()}/api/treatments/exercise-sessions/${exerciseSessionId}/series/`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (err) {
+      console.error("Error loading series:", err);
+      return [];
+    }
+  };
+
   const loadSessionExercises = useCallback(async () => {
     try {
       setLoading(true);
@@ -187,9 +230,14 @@ const ExercisesPage = ({
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const exerciseData = await response.json();
+        
+        // Load series for this exercise session
+        const seriesData = await loadSeriesForExerciseSession(exerciseSession.id);
+        
         exercisesList.push({
           exercise: exerciseData,
-          exerciseSessionId: exerciseSession.id
+          exerciseSessionId: exerciseSession.id,
+          series: seriesData
         });
       }
 
@@ -649,7 +697,7 @@ const ExercisesPage = ({
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {exercises.map(({exercise, exerciseSessionId}) => (
+          {exercises.map(({exercise, exerciseSessionId, series}) => (
             <div
               key={exerciseSessionId}
               className="bg-white p-6 rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl hover:transform hover:scale-[1.02]"
@@ -663,6 +711,29 @@ const ExercisesPage = ({
               <p className="text-gray-500 mb-4">
                 Área: {exercise?.area || "No especificada"}
               </p>
+              
+              {/* Display series information */}
+              {series && series.length > 0 ? (
+                <div className="mt-4 mb-4">
+                  <h4 className="text-lg font-medium text-gray-700 mb-2">Series:</h4>
+                  <div className="space-y-3">
+                    {series.map((serie) => (
+                      <div key={serie.id} className="bg-gray-50 p-3 rounded-lg">
+                        <p className="font-medium">Serie {serie.series_number}</p>
+                        <div className="grid grid-cols-2 gap-2 text-sm mt-1">
+                          <p>Repeticiones: {serie.repetitions}</p>
+                          {serie.weight && <p>Peso: {serie.weight} kg</p>}
+                          {serie.time && <p>Tiempo: {serie.time} seg</p>}
+                          {serie.distance && <p>Distancia: {serie.distance} m</p>}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <p className="text-gray-500 italic mb-4">No hay series configuradas</p>
+              )}
+              
               <button
                 onClick={() => handleUnassignExercise(exerciseSessionId)}
                 className="mb-4 mt-4 px-6 py-3 bg-red-400 text-white font-medium rounded-xl hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-offset-2 transition-colors duration-200 flex items-center space-x-2"
