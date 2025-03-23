@@ -10,6 +10,7 @@ import axios from "axios";
 import { getApiBaseUrl } from "@/utils/api";
 import { DemoWindow } from "@/components/demo-window";
 import { WavyBackground } from "@/components/ui/wavy-background";
+import { GradientButton } from "@/components/ui/gradient-button";
 
 interface Physiotherapist {
   id: string;
@@ -278,7 +279,7 @@ const Home = () => {
                         />
                       </CardItem>
                       {/* Botón para ver el perfil del fisioterapeuta */}
-                      <button>
+                      <GradientButton>
                         <CardItem
                           translateZ="20"
                           className="px-4 py-2 rounded-xl bg-[#1E5ACD] text-white text-sm font-bold hover:bg-[#1848A3] transition-colors"
@@ -286,7 +287,7 @@ const Home = () => {
                         >
                           Reservar cita
                         </CardItem>
-                      </button>
+                      </GradientButton>
                     </CardBody>
                   </CardContainer>
                 ))}
@@ -379,20 +380,21 @@ const Home = () => {
             posibilidades.
           </p>
           <div className="flex flex-col gap-4">
-            <button
-              className="shadow__btn bg-[#1E5ACD] text-white px-4 py-3 rounded font-bold hover:bg-[#1848A3] transition-colors"
+            <GradientButton
+              variant="create" 
+              fullWidth
               onClick={() => router.push("/register")}
             >
               Crea una cuenta
-            </button>
+            </GradientButton>
             <p className="text-lg">Si ya tienes una cuenta ...</p>
-            <button
-              className="shadow__btn text-white rounded font-bold hover:bg-[#0A7487] transition-colors text-sm"
+            <GradientButton
+              variant="edit" 
+              fullWidth
               onClick={() => router.push("/login")}
-              style={{ "--shadow-color": "#0A7487" } as React.CSSProperties}
             >
               Inicia sesión
-            </button>
+            </GradientButton>
           </div>
             <section className="w-full bg-[#1E5ACD] py-4 text-center text-white rounded-lg mx-auto mt-8 max-w-4xl shadow-lg">
             <div className="px-4 flex flex-col sm:flex-row items-center justify-center">
@@ -467,15 +469,15 @@ const Home = () => {
 
       {/* Footer */}
       <footer className="py-12 px-4">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 pt-8 gap-8 border-t border-gray-700">
-          <div>
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 pt-8 gap-8 border-t border-gray-700 text-center">
+          <div className="flex flex-col items-center">
             <h3 className="text-lg font-bold mb-4">Sobre Fisio Find</h3>
             <p>
               Una plataforma innovadora diseñada para conectar pacientes con los
               mejores fisioterapeutas.
             </p>
           </div>
-          <div>
+          <div className="flex flex-col items-center">
             <h3 className="text-lg font-bold mb-4">Enlaces Útiles</h3>
             <ul>
               <li>
@@ -500,7 +502,7 @@ const Home = () => {
               </li>
             </ul>
           </div>
-          <div>
+          <div className="flex flex-col items-center">
             <h3 className="text-lg font-bold mb-4">Contacto</h3>
             <p>Correo: <a href="mailto:support@fisiofind.com" className="hover:underline">support@fisiofind.com</a></p>
             <p>Ubicación: Sevilla, España</p>

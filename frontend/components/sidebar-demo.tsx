@@ -100,7 +100,7 @@ export function SidebarDemo() {
       <Sidebar open={open} setOpen={setOpen}>
         <SidebarBody className="flex flex-col h-full justify-between py-8">
           <div className="flex flex-col flex-1 overflow-y-auto scrollbar-hide overflow-x-hidden">
-            <div className="mb-8">{open ? <Logo /> : <LogoIcon />}</div>
+            <div className="mb-8 hidden md:block">{open ? <Logo /> : <LogoIcon />}</div>
             <div className="flex flex-col gap-8">
               {links.map((link, idx) => (
                 <SidebarLink key={idx} link={link} />
@@ -114,9 +114,12 @@ export function SidebarDemo() {
                   label: "Cerrar Sesión",
                   href: "#",
                   icon: (
-                    <IconArrowLeft className="text-[#253240] h-4 w-4 flex-shrink-0 mx-auto" />
+                    <div className="w-8 h-8 rounded-full border-2 border-[#FA5C2B] flex items-center justify-center">
+                      <IconArrowLeft className="text-[#FA5C2B] h-4 w-4 flex-shrink-0" />
+                    </div>
                   ),
                 }}
+                className="hover:bg-red-50"
               />
             </div>
           )}
