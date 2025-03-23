@@ -111,7 +111,7 @@ def list_appointments_patient(request):
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def get_physio_schedule_by_id(request, pk):
     try:
         physiotherapist = Physiotherapist.objects.get(id=pk)

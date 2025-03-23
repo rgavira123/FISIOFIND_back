@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import Wizard from "@/components/ui/Wizard";
 import { Step } from "@/lib/definitions";
-import { AppointmentProvider } from "@/context/appointmentContext";
 
 
 const steps: Step[] = [
@@ -31,9 +30,9 @@ export default function WizardPage() {
     }
   }, [isClient, token]);
 
+
+
   return (
-    <AppointmentProvider>
       <Wizard steps={steps} token={token} isClient={isClient}/>
-    </AppointmentProvider>
   );
 }
