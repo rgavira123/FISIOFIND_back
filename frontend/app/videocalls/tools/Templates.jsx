@@ -62,7 +62,7 @@ const Plantillas = ({ activePainMap, handlePainMapSelect, sendPainMapToPatient, 
               </button>
               <button 
                 className={`${styles.actionButton} ${styles.primaryAction}`}
-                onClick={() => {handlePainMapSelect("quit");sendPainMapToPatient}}
+                onClick={() => {sendPainMapToPatient('quit')}}
               >
                 <FontAwesomeIcon icon={faCancel} /> Dejar de compartir
               </button>
