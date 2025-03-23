@@ -380,6 +380,84 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({"error": "Error de integridad en la base de datos. Posible duplicado de datos."})
 
 
+class PhysioUpdateSerializer(serializers.ModelSerializer):
+    
+    email = serializers.EmailField(required=False)
+    phone_number = serializers.CharField(required=False)
+    postal_code = serializers.CharField(required=False)
+    photo = serializers.ImageField(required=False)
+    services = serializers.JSONField(required=False)
+    specializations = serializers.ListField(
+        child=serializers.CharField(), required=False
+    )
+    schedule = serializers.JSONField(required=False)
+    bio = serializers.CharField(required=False)
+    
+    class Meta:
+        model = Physiotherapist
+        fields = ['email', 'phone_number', 'postal_code', 'bio', 'photo', 'services', 'specializations', 'schedule']
+    
+    def validate(self, data):
+        """Validaciones solo para los campos proporcionados."""
+        if 'dni' in data:
+            dni_pattern = re.compile(r'^\d{8}[A-HJ-NP-TV-Z]$')
+            if not dni_pattern.match(data['dni']):
+                raise serializers.ValidationError({"dni": "El DNI debe tener 8 números seguidos de una letra válida."})
+            
+            # Validar que la letra del DNI es correcta
+            dni_numbers = data['dni'][:-1]
+            dni_letter = data['dni'][-1].upper()
+            letters = "TRWAGMYFPDXBNJZSQVHLCKE"
+            if letters[int(dni_numbers) % 23] != dni_letter:
+                raise serializers.ValidationError({"dni": "La letra del DNI no coincide con el número."})
+        
+        if 'phone_number' in data and len(data['phone_number']) != 9:
+            raise serializers.ValidationError({"phone_number": "El número de teléfono debe tener 9 caracteres."})
+        
+        if 'postal_code' in data and len(data['postal_code']) != 5:
+            raise serializers.ValidationError({"postal_code": "El código postal debe tener 5 caracteres."})
+        
+        return data
+    
+    def update(self, instance, validated_data):
+        """Actualiza los datos de un fisioterapeuta y su usuario asociado."""
+        try:
+            with transaction.atomic():
+                # Actualizar datos del usuario (AppUser)
+                user = instance.user
+                user.email = validated_data.get("email", user.email)
+                user.phone_number = validated_data.get("phone_number", user.phone_number)
+                user.postal_code = validated_data.get("postal_code", user.postal_code)
+                
+                if "photo" in validated_data:
+                    user.photo = validated_data.get("photo")
+                user.save()
+
+                # Actualizar datos del fisioterapeuta (Physiotherapist)
+                if "bio" in validated_data:
+                    instance.bio = validated_data.get("bio")
+                if "services" in validated_data:
+                    instance.services = validated_data.get("services")
+                if "schedule" in validated_data:
+                    instance.schedule = validated_data.get("schedule")
+                
+                # Manejar especializaciones si se proporcionan
+                if 'specializations' in validated_data:
+                    specializations_data = validated_data.get('specializations', [])
+                    # Eliminar asociaciones anteriores
+                    instance.physiotherapistspecialization_set.all().delete()
+                    # Crear nuevas asociaciones
+                    for spec_name in specializations_data:
+                        specialization, _ = Specialization.objects.get_or_create(name=spec_name)
+                        PhysiotherapistSpecialization.objects.create(physiotherapist=instance, specialization=specialization)
+                
+                instance.save()
+                return instance
+
+        except IntegrityError:
+            raise serializers.ValidationError({"error": "Error de integridad en la base de datos. Posible duplicado de datos."})
+
+
 class AppUserAdminViewSerializer(serializers.ModelSerializer):
     
     class Meta:
