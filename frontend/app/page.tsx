@@ -29,7 +29,7 @@ const Home = () => {
   const closePhysioModal = () => setIsPhysioModalOpen(false);
   const [isClient, setIsClient] = useState(false);
   const [token, setToken] = useState<string | null>(null);
-
+  const apiBaseurl = getApiBaseUrl();
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -53,15 +53,19 @@ const Home = () => {
   }, [isClient, token]);
 
   // Efecto para mover imágenes flotantes al hacer scroll
+  // Modify the floating images styles
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const floatingImages = document.querySelectorAll(".floating-image");
-      floatingImages.forEach((image, index) => {
-        const offset = (index + 1) * 50;
-        (image as HTMLElement).style.transform = `translateX(${scrollY / offset
-          }px)`;
-      });
+      
+      // Only apply floating effect if screen is large enough
+      if (window.innerWidth > 1240) {
+        floatingImages.forEach((image, index) => {
+          const offset = (index + 1) * 50;
+          (image as HTMLElement).style.transform = `translateX(${scrollY / offset}px)`;
+        });
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -124,7 +128,7 @@ const Home = () => {
       const fetchSpecializations = async () => {
         try {
           const response = await axios.get(
-            `${getApiBaseUrl()}/api/sesion_invitado/specializations`
+            `${getApiBaseUrl()}/api/sesion_invitado/specializations/`
           );
           if (response.status === 200) {
             setSpecializations(["", ...response.data]);
@@ -144,7 +148,7 @@ const Home = () => {
       }
 
       try {
-        const searchUrl = `${getApiBaseUrl()}/api/sesion_invitado/physios-with-specializations/?specialization=${specialization}`;
+        const searchUrl = `${apiBaseurl}/api/sesion_invitado/physios-with-specializations/?specialization=${specialization}`;
         const response = await axios.get(searchUrl);
 
         if (response.status === 200) {
@@ -276,7 +280,7 @@ const Home = () => {
                         <CardItem
                           translateZ="20"
                           className="px-4 py-2 rounded-xl bg-[#1E5ACD] text-white text-sm font-bold hover:bg-[#1848A3] transition-colors"
-                          onClick={() => router.push(`/citas/crear/${physio.id}`)}
+                          onClick={() => router.push(`/appointments/create/${physio.id}`)}
                         >
                           Reservar cita
                         </CardItem>
@@ -353,7 +357,7 @@ const Home = () => {
           </div>
         </div>
         <Image
-          src="/static/logo_fisio_find_smaller.png"
+          src="/static/logo_fisio_find_smaller.webp"
           alt="Fisio Find Logo"
           width={150}
           height={150}
@@ -506,16 +510,16 @@ const Home = () => {
                 </a>
               </li>
               <li>
-                <a href="https://fisiofind.vercel.app">Documentación</a>
+                <a href="/terms">Política de Privacidad</a>
               </li>
               <li>
-                <Link href="/">Términos de Servicio</Link>
+                <Link href="/terms">Términos de Servicio</Link>
               </li>
             </ul>
           </div>
           <div>
             <h3 className="text-lg font-bold mb-4">Contacto</h3>
-            <p>Correo: support@fisiofind.com</p>
+            <p>Correo: <a href="mailto:support@fisiofind.com" className="hover:underline">support@fisiofind.com</a></p>
             <p>Ubicación: Sevilla, España</p>
           </div>
         </div>
