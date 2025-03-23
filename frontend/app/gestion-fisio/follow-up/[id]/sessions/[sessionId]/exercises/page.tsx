@@ -684,7 +684,7 @@ const ExercisesPage = ({
       <div className="max-w-7xl mx-auto">
         <button
           onClick={() =>
-            router.push(`/gestion-fisio/seguimiento/${params.id}/sesiones`)
+            router.push(`/physio-management/follow-up/${params.id}/sessions`)
           }
           className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-xl inline-flex items-center mb-6"
         >

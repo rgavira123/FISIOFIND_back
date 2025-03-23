@@ -220,7 +220,7 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
       <div className="max-w-7xl mx-auto">
         <button
           onClick={() =>
-            router.push(`/gestion-fisio/seguimiento/${treatmentId}`)
+            router.push(`/physio-management/follow-up/${treatmentId}`)
           }
           className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-xl inline-flex items-center mb-6"
         >
@@ -288,7 +288,7 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
               </p>
               <div className="flex flex-col space-y-2">
                 <button
-                  onClick={() => router.push(`/gestion-fisio/seguimiento/${treatmentId}/sesiones/${session.id}/ejercicios`)}
+                  onClick={() => router.push(`/physio-management/follow-up/${treatmentId}/sessions/${session.id}/exercises/`)}
                   className="w-full px-6 py-3 bg-[#05668d] text-white font-medium rounded-xl hover:bg-[#045a7d] focus:outline-none focus:ring-2 focus:ring-[#05668d] focus:ring-offset-2 transition-all duration-200 flex items-center justify-center space-x-2"
                 >
                   <span>Gestionar Ejercicios</span>

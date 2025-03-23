@@ -181,7 +181,7 @@ const SeguimientoPage = () => {
   };
 
   const handleCardClick = (id: number) => {
-    router.push(`/gestion-fisio/seguimiento/${id}`);
+    router.push(`/physio-management/follow-up/${id}`);
   };
 
   // Función para obtener el nombre del paciente

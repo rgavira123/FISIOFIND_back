@@ -12,6 +12,7 @@ import {
   Legend,
   Tooltip,
 } from "chart.js";
+import { getApiBaseUrl } from "@/utils/api";
 
 // Registrar los componentes necesarios de Chart.js
 Chart.register(
@@ -82,7 +83,7 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
           const token = localStorage.getItem("token") || "";
 
           const response = await fetch(
-            `http://localhost:8000/api/treatments/${id}/`,
+            `${getApiBaseUrl()}/api/treatments/${id}/`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -123,7 +124,7 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
   }, [id]);
 
   const handleGoBack = () => {
-    router.push("/gestion-fisio/seguimiento");
+    router.push("/physio-management/follow-up");
   };
 
   const handleEditToggle = () => {
@@ -177,7 +178,7 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
       // const token = localStorage.getItem('token') || '';
 
       const response = await fetch(
-        `http://localhost:8000/api/treatments/${id}/`,
+        `${getApiBaseUrl()}/api/treatments/${id}/`,
         {
           method: "PUT",
           headers: {
@@ -219,7 +220,7 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
       // const token = localStorage.getItem('token') || '';
 
       const response = await fetch(
-        `http://localhost:8000/api/treatments/${id}/status/`,
+        `${getApiBaseUrl()}/api/treatments/${id}/status/`,
         {
           method: "PUT",
           headers: {
@@ -385,8 +386,7 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
           <button
             onClick={() =>
               router.push(
-                // `/gestion-fisio/seguimiento/ejercicios?treatment_id=${id}`
-                `/gestion-fisio/seguimiento/${id}/sesiones`
+                `/physio-management/follow-up/${id}/sessions`
               )
             }
             className="bg-[#6bc9be] hover:bg-[#5ab8ad] text-white font-semibold py-2 px-4 rounded-xl inline-flex items-center"
