@@ -456,6 +456,15 @@ const ExercisesPage = ({
     }
   };
 
+  const handleAddSeriesToExistingExercise = (
+    exerciseSessionId: number
+  ) => {
+    setCurrentExerciseSessionId(exerciseSessionId);
+    setSeries([]); // Reset series form
+    handleAddSeries(); // Add a default empty series
+    setShowSeriesForm(true);
+  };
+
   if (loading) return <div>Cargando...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -718,7 +727,7 @@ const ExercisesPage = ({
                   <h4 className="text-lg font-medium text-gray-700 mb-2">Series:</h4>
                   <div className="space-y-3">
                     {series.map((serie) => (
-                      <div key={serie.id} className="bg-gray-50 p-3 rounded-lg">
+                      <div key={serie.id} className="bg-gray-50 p-3 rounded-xl">
                         <p className="font-medium">Serie {serie.series_number}</p>
                         <div className="grid grid-cols-2 gap-2 text-sm mt-1">
                           <p>Repeticiones: {serie.repetitions}</p>
@@ -734,12 +743,21 @@ const ExercisesPage = ({
                 <p className="text-gray-500 italic mb-4">No hay series configuradas</p>
               )}
               
-              <button
-                onClick={() => handleUnassignExercise(exerciseSessionId)}
-                className="mb-4 mt-4 px-6 py-3 bg-red-400 text-white font-medium rounded-xl hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-offset-2 transition-colors duration-200 flex items-center space-x-2"
-              >
-                <span>Eliminar de la Sesión</span>
-              </button>
+              <div className="flex space-x-2">
+                <button
+                  onClick={() => handleAddSeriesToExistingExercise(exerciseSessionId)}
+                  className="px-3 py-3 bg-[#6bc9be] text-white font-medium rounded-xl hover:bg-[#5ab8ad] focus:outline-none focus:ring-2 focus:ring-[#6bc9be] focus:ring-offset-2 transition-colors duration-200 flex items-center justify-center space-x-2"
+                >
+                  <span>Añadir Series</span>
+                </button>
+                
+                <button
+                  onClick={() => handleUnassignExercise(exerciseSessionId)}
+                  className="px-3 py-3 bg-red-400 text-white font-medium rounded-xl hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-offset-2 transition-colors duration-200 flex items-center justify-center space-x-2"
+                >
+                  <span>Eliminar de la Sesión</span>
+                </button>
+              </div>
             </div>
           ))}
         </div>
