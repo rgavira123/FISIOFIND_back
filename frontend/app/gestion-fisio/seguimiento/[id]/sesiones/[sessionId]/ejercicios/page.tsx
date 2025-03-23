@@ -278,9 +278,38 @@ const ExercisesPage = ({
   // Add a function to handle form completion
   const handleCompleteForm = async () => {
     try {
-      await handleCreateSeries();
+      const token = localStorage.getItem("token");
+      if (!token || !currentExerciseSessionId) {
+        setError("No se ha encontrado el token de autenticación o el ID de la sesión de ejercicio");
+        return;
+      }
+
+      // Create series for the exercise session
+      for (const serie of series) {
+        const response = await fetch(
+          `${getApiBaseUrl()}/api/treatments/exercise-sessions/${currentExerciseSessionId}/series/create/`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(serie),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+      }
+
+      // Reset form state
+      setSeries([]);
       setFormStep(1);
       setShowForm(false);
+      setCurrentExerciseSessionId(null);
+      
+      // Reload exercises to show the newly created and assigned exercise
       await loadSessionExercises();
     } catch (err) {
       setError("Error al completar el formulario");
