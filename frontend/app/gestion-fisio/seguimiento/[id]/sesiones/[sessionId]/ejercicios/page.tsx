@@ -1026,6 +1026,19 @@ const ExercisesPage = ({
                 Configurar Series del Ejercicio
               </h2>
 
+              <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6 rounded">
+                <p className="text-blue-700 font-medium">
+                  Información importante:
+                </p>
+                <ul className="list-disc ml-5 text-blue-600 text-sm mt-1">
+                  <li>Todos los valores deben ser mayores que 0</li>
+                  <li>
+                    Debe especificar al menos un valor para peso, tiempo o
+                    distancia
+                  </li>
+                </ul>
+              </div>
+
               <div className="space-y-6">
                 {series.map((serie, index) => (
                   <div key={index} className="p-4 bg-gray-50 rounded-lg">
@@ -1033,7 +1046,7 @@ const ExercisesPage = ({
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Repeticiones
+                          Repeticiones *
                         </label>
                         <input
                           type="number"
@@ -1047,6 +1060,7 @@ const ExercisesPage = ({
                           }
                           className="w-full px-3 py-2 border border-gray-300 rounded-xl"
                           required
+                          min="1"
                         />
                       </div>
                       <div>
@@ -1142,10 +1156,23 @@ const ExercisesPage = ({
                 Editar Serie
               </h2>
 
+              <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6 rounded">
+                <p className="text-blue-700 font-medium">
+                  Información importante:
+                </p>
+                <ul className="list-disc ml-5 text-blue-600 text-sm mt-1">
+                  <li>Todos los valores deben ser mayores que 0</li>
+                  <li>
+                    Debe especificar al menos un valor para peso, tiempo o
+                    distancia
+                  </li>
+                </ul>
+              </div>
+
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Repeticiones
+                    Repeticiones (obligatorio)
                   </label>
                   <input
                     type="number"
@@ -1158,6 +1185,7 @@ const ExercisesPage = ({
                     }
                     className="w-full px-3 py-2 border border-gray-300 rounded-xl"
                     required
+                    min="1"
                   />
                 </div>
                 <div>
