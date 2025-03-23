@@ -81,7 +81,7 @@ class SeriesSerializer(serializers.ModelSerializer):
 class SessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Session
-        fields = ['id', 'treatment', 'day_of_week']
+        fields = ['id', 'name', 'treatment', 'day_of_week']
         read_only_fields = ['id']
         
 class ExerciseLogSerializer(serializers.ModelSerializer):

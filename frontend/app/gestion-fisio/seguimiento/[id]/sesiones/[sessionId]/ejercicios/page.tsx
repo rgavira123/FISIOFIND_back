@@ -1024,7 +1024,7 @@ const ExercisesPage = ({
                   onClick={() =>
                     handleAddSeriesToExistingExercise(exerciseSessionId)
                   }
-                  className="px-3 py-3 bg-[#6bc9be] text-white font-medium rounded-xl hover:bg-[#5ab8ad] focus:outline-none focus:ring-2 focus:ring-[#6bc9be] focus:ring-offset-2 transition-colors duration-200 flex items-center justify-center space-x-2"
+                  className="px-3 py-3 bg-[#0c7986] text-white font-medium rounded-xl hover:bg-[#0a6875] focus:outline-none focus:ring-2 focus:ring-[#0c7986] focus:ring-offset-2 transition-colors duration-200 flex items-center justify-center space-x-2"
                 >
                   <span>Añadir Series</span>
                 </button>
