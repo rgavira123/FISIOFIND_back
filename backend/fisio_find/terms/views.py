@@ -1,6 +1,6 @@
 from rest_framework import generics, filters
 from rest_framework.permissions import AllowAny
-from gestion_usuarios.permissions import IsAdmin
+from users.permissions import IsAdmin
 from .models import Terms
 from .serializers import TermsSerializer
 

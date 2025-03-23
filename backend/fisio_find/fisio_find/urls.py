@@ -12,7 +12,7 @@ def home(request):
 urlpatterns = [
     path('', home, name='home'),
     path('admin/', admin.site.urls),
-    path('api/app_user/', include('gestion_usuarios.urls')),
+    path('api/app_user/', include('users.urls')),
     path('api/appointment/', include('gestion_citas.urls')),
     path('api/terms/', include('terms.urls')),
     path('api/videocall/', include('videocall.urls')),
