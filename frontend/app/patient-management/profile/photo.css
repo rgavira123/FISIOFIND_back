@@ -19,16 +19,7 @@
     input {
       display: none;
     }
-    
-    img {
-      position: absolute;
-      object-fit: cover;
-      width: $circleSize;
-      height: $circleSize;
-      box-shadow: $shadow;
-      border-radius: $radius;
-      z-index: 0;
-    }
+
     
     .-label {
       cursor: pointer;
