@@ -132,6 +132,9 @@ const ExercisesPage = ({
       setCurrentExerciseSessionId(data.id);
       setShowSeriesForm(true);
       setShowExistingExercises(false);
+      
+      // Load updated exercises after assigning a new one
+      await loadSessionExercises();
     } catch (err) {
       setError("Error al asignar el ejercicio");
       console.log(err);
@@ -230,6 +233,7 @@ const ExercisesPage = ({
       }
 
       const createData = await createResponse.json();
+      console.log("Exercise created:", createData);
 
       // Asignar el ejercicio creado a la sesión
       const assignResponse = await fetch(
@@ -251,11 +255,16 @@ const ExercisesPage = ({
       }
 
       const assignData = await assignResponse.json();
+      console.log("Exercise assigned:", assignData);
       setCurrentExerciseSessionId(assignData.id);
       setShowSeriesForm(true);
+      setShowForm(false); // Hide the exercise creation form when moving to series form
+      
+      // Load updated exercises after creating and assigning a new one
+      await loadSessionExercises();
     } catch (err) {
       setError("Error al crear y asignar el ejercicio");
-      console.log(err);
+      console.error("Error details:", err);
     }
   };
 
