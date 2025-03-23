@@ -280,17 +280,17 @@ if (loading)
     <div className="user-profile-container">
       {/* Sección izquierda con la foto y datos principales */}
       <div className="user-profile-left">
-                <div className="profile-pic">
+                <div className="profile-pic flex align-center justify-center">
                     <label className="-label" htmlFor="file">
                         <span className="glyphicon glyphicon-camera"></span>
-                        <span>Change Image</span>
+                        <span style={{"display":"none"}}>Change Image</span>
+                        <input style={{"display":"none"}} id="file" type="file" accept="image/*" onChange={handleFileChange} />
+                        <img
+                            src={getImageSrc()}
+                            alt="Profile"
+                            width="200"
+                        />
                     </label>
-                    <input id="file" type="file" accept="image/*" onChange={handleFileChange} />
-                    <img
-                        src={getImageSrc()}
-                        alt="Profile"
-                        width="200"
-                    />
                 </div>
         <div className="user-info">
           <p>{profile?.user?.username || "Nombre de usuario"}</p>
