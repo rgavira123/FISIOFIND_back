@@ -513,8 +513,32 @@ const ExercisesPage = ({
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      // Reload exercises to update the series list
-      await loadSessionExercises();
+      // Update exercises state locally instead of reloading from server
+      const updatedExercises = exercises.map((exercise) => {
+        if (
+          exercise.series &&
+          exercise.series.some((s) => s.id === seriesIdToDelete)
+        ) {
+          // This is the exercise containing the deleted series
+          const updatedSeries = exercise.series.filter(
+            (s) => s.id !== seriesIdToDelete
+          );
+
+          // Reorder series numbers
+          const reorderedSeries = updatedSeries.map((s, index) => ({
+            ...s,
+            series_number: index + 1,
+          }));
+
+          return {
+            ...exercise,
+            series: reorderedSeries,
+          };
+        }
+        return exercise;
+      });
+
+      setExercises(updatedExercises);
       setShowDeleteConfirmation(false);
       setSeriesIdToDelete(null);
     } catch (err) {
@@ -838,15 +862,13 @@ const ExercisesPage = ({
                     Series:
                   </h4>
                   <div className="space-y-3">
-                    {series.map((serie) => (
+                    {series.map((serie, index) => (
                       <div
                         key={serie.id}
                         className="bg-gray-50 p-3 rounded-xl relative"
                       >
                         <div className="flex justify-between items-start">
-                          <p className="font-medium">
-                            Serie {serie.series_number}
-                          </p>
+                          <p className="font-medium">Serie {index + 1}</p>
                           <button
                             onClick={() => handleDeleteSeries(serie.id)}
                             className="text-red-500 hover:text-red-700 transition-colors duration-200"
@@ -916,7 +938,7 @@ const ExercisesPage = ({
                 {series.map((serie, index) => (
                   <div key={index} className="p-4 bg-gray-50 rounded-lg">
                     <h3 className="text-lg font-semibold mb-4">
-                      Serie {serie.series_number}
+                      Detalles
                     </h3>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
