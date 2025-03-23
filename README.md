@@ -33,6 +33,7 @@
 	- [Sprint 2: Tools \& Payment](#sprint-2-tools--payment)
 	- [Sprint 3: Extras \& Testing](#sprint-3-extras--testing)
 - [Contributing](#contributing)
+- [License](#license)
 - [Acknowledgments](#acknowledgments)
 
 ---
@@ -502,6 +503,11 @@ For the **techniacal pilot users** or any other interested contributor:
    </a>
 </p>
 </details>
+
+
+##  License
+
+This project is protected under the [MIT License](https://choosealicense.com/licenses/mit/) License. For more details, refer to the [LICENSE](LICENSE) file.
 
 
 ##  Acknowledgments
