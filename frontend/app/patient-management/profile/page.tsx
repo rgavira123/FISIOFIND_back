@@ -129,16 +129,21 @@ const PatientProfile = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setProfile((prevProfile) => ({
-        ...prevProfile,
-        user: {
-          ...prevProfile.user,
-          photoFile: file,  // Guardamos el archivo para enviarlo más tarde
-          preview: URL.createObjectURL(file),  // Para vista previa
-        },
-      }));
+        // Crear URL para vista previa
+        const previewUrl = URL.createObjectURL(file);
+
+        // Actualizar el estado con el archivo y la URL de vista previa
+        setProfile((prevProfile) => ({
+            ...prevProfile,
+            user: {
+                ...prevProfile.user,
+                photo: previewUrl, // Para mostrar en la interfaz
+                photoFile: file,    // Para enviar al backend
+                preview: previewUrl
+            },
+        }));
     }
-  };
+};
 
   const handleImageClick = () => {
     document.getElementById('file-input').click();  // Abrir el input oculto para cargar una nueva foto
@@ -253,17 +258,17 @@ const PatientProfile = () => {
   const getImageSrc = () => {
     // Verifica si hay un previewUrl (es decir, si el usuario ha subido una imagen)
     if (profile.user.preview) {
-      return profile.user.photo; // Si existe una foto en el estado, usarla
+        return profile.user.photo; // Si existe una foto en el estado, usarla
     }
 
     // Si no existe un previewUrl, entonces usar la imagen del backend si está disponible
     if (profile?.user?.photo) {
-      return `${getApiBaseUrl()}/api/app_user${profile.user.photo}`;
+        return `${getApiBaseUrl()}/api/app_user${profile.user.photo}`;
     }
 
     // Si no hay foto, usar la imagen por defecto
     return "/default_avatar.png";
-  };
+};
 
 if (loading)
     return (
@@ -275,19 +280,18 @@ if (loading)
     <div className="user-profile-container">
       {/* Sección izquierda con la foto y datos principales */}
       <div className="user-profile-left">
-        <div className="profile-pic">
-          <label className="-label" htmlFor="file">
-            <span className="glyphicon glyphicon-camera"></span>
-            <span>Selecciona otra imagen</span>
-          </label>
-          <input id="file-input" type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
-          <img
-            src={getImageSrc()}
-            alt="Profile"
-            width="200"
-            onClick={handleImageClick}
-          />
-        </div>
+                <div className="profile-pic">
+                    <label className="-label" htmlFor="file">
+                        <span className="glyphicon glyphicon-camera"></span>
+                        <span>Change Image</span>
+                    </label>
+                    <input id="file" type="file" accept="image/*" onChange={handleFileChange} />
+                    <img
+                        src={getImageSrc()}
+                        alt="Profile"
+                        width="200"
+                    />
+                </div>
         <div className="user-info">
           <p>{profile?.user?.username || "Nombre de usuario"}</p>
           <p>{profile?.user?.first_name + " " + profile?.user?.last_name || "Nombre"}</p>
