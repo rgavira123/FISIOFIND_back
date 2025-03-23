@@ -206,6 +206,10 @@ const ExercisesPage = ({
     loadSessionExercises();
   }, []);
 
+  // Add a state to track the form step
+  const [formStep, setFormStep] = useState(1);
+
+  // Modify the handleCreateExercise function to handle the first step
   const handleCreateExercise = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -256,16 +260,40 @@ const ExercisesPage = ({
 
       const assignData = await assignResponse.json();
       console.log("Exercise assigned:", assignData);
-      setCurrentExerciseSessionId(assignData.id);
-      setShowSeriesForm(true);
-      setShowForm(false); // Hide the exercise creation form when moving to series form
       
-      // Load updated exercises after creating and assigning a new one
-      await loadSessionExercises();
+      // Set the exercise session ID and move to step 2
+      setCurrentExerciseSessionId(assignData.id);
+      setFormStep(2);
+      
+      // Add a default series
+      if (series.length === 0) {
+        handleAddSeries();
+      }
     } catch (err) {
       setError("Error al crear y asignar el ejercicio");
       console.error("Error details:", err);
     }
+  };
+
+  // Add a function to handle form completion
+  const handleCompleteForm = async () => {
+    try {
+      await handleCreateSeries();
+      setFormStep(1);
+      setShowForm(false);
+      await loadSessionExercises();
+    } catch (err) {
+      setError("Error al completar el formulario");
+      console.error("Error details:", err);
+    }
+  };
+
+  // Add a function to handle form cancellation
+  const handleCancelForm = () => {
+    setFormStep(1);
+    setShowForm(false);
+    setSeries([]);
+    setCurrentExerciseSessionId(null);
   };
 
   const handleCreateSeries = async () => {
@@ -417,95 +445,178 @@ const ExercisesPage = ({
         )}
 
         {showForm && (
-          <form
-            onSubmit={handleCreateExercise}
-            className="mb-8 p-6 bg-white rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl"
-          >
-            <div className="grid grid-cols-1 gap-6">
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700 mb-1">
-                  Título
-                </label>
-                <input
-                  type="text"
-                  value={newExercise.title}
-                  onChange={(e) =>
-                    setNewExercise({ ...newExercise, title: e.target.value })
-                  }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-1 focus:ring-gray-300 focus:border-gray-300 transition-colors duration-200"
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700 mb-1">
-                  Descripción
-                </label>
-                <textarea
-                  value={newExercise.description}
-                  onChange={(e) =>
-                    setNewExercise({
-                      ...newExercise,
-                      description: e.target.value,
-                    })
-                  }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-1 focus:ring-gray-300 focus:border-gray-300 transition-colors duration-200"
-                  rows={4}
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700 mb-1">
-                  Área
-                </label>
-                <select
-                  value={newExercise.area}
-                  onChange={(e) =>
-                    setNewExercise({
-                      ...newExercise,
-                      area: e.target.value as AreaChoice,
-                    })
-                  }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-1 focus:ring-gray-300 focus:border-gray-300 transition-colors duration-200"
-                  required
-                >
-                  <option value="UPPER_BODY">Parte Superior del Cuerpo</option>
-                  <option value="LOWER_BODY">Parte Inferior del Cuerpo</option>
-                  <option value="CORE">Zona Media/Core</option>
-                  <option value="FULL_BODY">Cuerpo Completo</option>
-                  <option value="SHOULDER">Hombros</option>
-                  <option value="ARM">Brazos (Bíceps, Tríceps)</option>
-                  <option value="CHEST">Pecho</option>
-                  <option value="BACK">Espalda</option>
-                  <option value="QUADRICEPS">Cuádriceps</option>
-                  <option value="HAMSTRINGS">Isquiotibiales</option>
-                  <option value="GLUTES">Glúteos</option>
-                  <option value="CALVES">Pantorrillas</option>
-                  <option value="NECK">Cuello</option>
-                  <option value="LOWER_BACK">Zona Lumbar</option>
-                  <option value="HIP">Caderas</option>
-                  <option value="BALANCE">Ejercicios de Equilibrio</option>
-                  <option value="MOBILITY">Movilidad</option>
-                  <option value="STRETCHING">Estiramientos</option>
-                  <option value="PROPRIOCEPTION">Propiocepción</option>
-                </select>
-              </div>
-            </div>
-            <div className="flex space-x-4">
-              <button
-                type="submit"
-                className="mb-8 mt-8 px-6 py-3 bg-[#6bc9be] text-white font-medium rounded-xl hover:bg-[#5ab8ad] focus:outline-none focus:ring-2 focus:ring-[#6bc9be] focus:ring-offset-2 transition-colors duration-200 flex items-center space-x-2"
-                onClick={() => setShowForm(false)}
-              >
-                Crear y Asignar Ejercicio
-              </button>
-              <button
-                onClick={() => setShowForm(false)}
-                className="mb-8 mt-8 px-6 py-3 bg-red-400 text-white font-medium rounded-xl hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-offset-2 transition-colors duration-200 flex items-center space-x-2"
-              >
-                Cancelar
-              </button>
-            </div>
-          </form>
+          <div className="mb-8 p-6 bg-white rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl">
+            {formStep === 1 ? (
+              <>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Crear Nuevo Ejercicio</h2>
+                <form onSubmit={handleCreateExercise} className="grid grid-cols-1 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700 mb-1">
+                      Título
+                    </label>
+                    <input
+                      type="text"
+                      value={newExercise.title}
+                      onChange={(e) =>
+                        setNewExercise({ ...newExercise, title: e.target.value })
+                      }
+                      className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-1 focus:ring-gray-300 focus:border-gray-300 transition-colors duration-200"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700 mb-1">
+                      Descripción
+                    </label>
+                    <textarea
+                      value={newExercise.description}
+                      onChange={(e) =>
+                        setNewExercise({
+                          ...newExercise,
+                          description: e.target.value,
+                        })
+                      }
+                      className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-1 focus:ring-gray-300 focus:border-gray-300 transition-colors duration-200"
+                      rows={4}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700 mb-1">
+                      Área
+                    </label>
+                    <select
+                      value={newExercise.area}
+                      onChange={(e) =>
+                        setNewExercise({
+                          ...newExercise,
+                          area: e.target.value as AreaChoice,
+                        })
+                      }
+                      className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-1 focus:ring-gray-300 focus:border-gray-300 transition-colors duration-200"
+                      required
+                    >
+                      <option value="UPPER_BODY">Parte Superior del Cuerpo</option>
+                      <option value="LOWER_BODY">Parte Inferior del Cuerpo</option>
+                      <option value="CORE">Zona Media/Core</option>
+                      <option value="FULL_BODY">Cuerpo Completo</option>
+                      <option value="SHOULDER">Hombros</option>
+                      <option value="ARM">Brazos (Bíceps, Tríceps)</option>
+                      <option value="CHEST">Pecho</option>
+                      <option value="BACK">Espalda</option>
+                      <option value="QUADRICEPS">Cuádriceps</option>
+                      <option value="HAMSTRINGS">Isquiotibiales</option>
+                      <option value="GLUTES">Glúteos</option>
+                      <option value="CALVES">Pantorrillas</option>
+                      <option value="NECK">Cuello</option>
+                      <option value="LOWER_BACK">Zona Lumbar</option>
+                      <option value="HIP">Caderas</option>
+                      <option value="BALANCE">Ejercicios de Equilibrio</option>
+                      <option value="MOBILITY">Movilidad</option>
+                      <option value="STRETCHING">Estiramientos</option>
+                      <option value="PROPRIOCEPTION">Propiocepción</option>
+                    </select>
+                  </div>
+                  <div className="flex space-x-4 mt-6">
+                    <button
+                      type="submit"
+                      className="px-6 py-3 bg-[#6bc9be] text-white font-medium rounded-xl hover:bg-[#5ab8ad] focus:outline-none focus:ring-2 focus:ring-[#6bc9be] focus:ring-offset-2 transition-colors duration-200 flex items-center space-x-2"
+                    >
+                      Continuar
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleCancelForm}
+                      className="px-6 py-3 bg-red-400 text-white font-medium rounded-xl hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-offset-2 transition-colors duration-200 flex items-center space-x-2"
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                </form>
+              </>
+            ) : (
+              <>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Configurar Series del Ejercicio</h2>
+                <div className="space-y-6">
+                  {series.map((serie, index) => (
+                    <div key={index} className="p-4 bg-gray-50 rounded-lg">
+                      <h3 className="text-lg font-semibold mb-4">Serie {serie.series_number}</h3>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Repeticiones
+                          </label>
+                          <input
+                            type="number"
+                            value={serie.repetitions}
+                            onChange={(e) => handleUpdateSeries(index, 'repetitions', parseInt(e.target.value))}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-xl"
+                            required
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Peso (kg)
+                          </label>
+                          <input
+                            type="number"
+                            value={serie.weight || ''}
+                            onChange={(e) => handleUpdateSeries(index, 'weight', parseFloat(e.target.value))}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-xl"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Tiempo (segundos)
+                          </label>
+                          <input
+                            type="number"
+                            value={serie.time || ''}
+                            onChange={(e) => handleUpdateSeries(index, 'time', parseInt(e.target.value))}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-xl"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Distancia (metros)
+                          </label>
+                          <input
+                            type="number"
+                            value={serie.distance || ''}
+                            onChange={(e) => handleUpdateSeries(index, 'distance', parseFloat(e.target.value))}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-xl"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-6 flex justify-between">
+                  <button
+                    onClick={handleAddSeries}
+                    className="px-4 py-2 bg-gray-200 text-gray-800 rounded-xl hover:bg-gray-300"
+                  >
+                    Añadir Serie
+                  </button>
+                  <div className="space-x-4">
+                    <button
+                      onClick={handleCancelForm}
+                      className="px-4 py-2 bg-red-400 text-white rounded-xl hover:bg-red-500"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      onClick={handleCompleteForm}
+                      className="px-4 py-2 bg-[#6bc9be] text-white rounded-xl hover:bg-[#5ab8ad]"
+                    >
+                      Guardar Series
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
