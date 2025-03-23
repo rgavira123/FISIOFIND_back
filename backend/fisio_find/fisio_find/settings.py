@@ -70,7 +70,7 @@ INSTALLED_APPS += [
     'users',
     'gestion_citas',
     'terms',
-    'sesion_invitado',
+    'guest_session',
 ]
 
 
