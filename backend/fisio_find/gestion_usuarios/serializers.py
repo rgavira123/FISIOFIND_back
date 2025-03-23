@@ -105,8 +105,11 @@ class PatientSerializer(serializers.ModelSerializer):
 
     def validate_birth_date(self, value):
         """Verifica que la fecha de nacimiento sea anterior a la fecha actual"""
+
         if value >= datetime.now().date():
             raise serializers.ValidationError("La fecha de nacimiento debe ser anterior a la fecha actual.")
+        elif value < date(1900,1,1):
+            raise serializers.ValidationError("La fecha de nacimiento no puede ser tan atrás en el tiempo.")
         return value
 
     def validate(self, data):
@@ -129,11 +132,19 @@ class PatientSerializer(serializers.ModelSerializer):
         return data
 
     def update(self, instance, validated_data):
-        """Actualiza tanto el paciente como su usuario"""
+        """Impide la modificación del DNI y actualiza los demás datos"""
         user_data = validated_data.pop('user', None)
         user_instance = instance.user
 
-        # Si hay datos de usuario, actualizar manualmente solo los campos proporcionados
+        # Impedir la modificación del DNI
+        if user_data and 'dni' in user_data:
+            user_data.pop('dni', None) 
+        
+        if 'birth_date' in validated_data:
+            validated_data.pop('birth_date', None)  
+
+
+        # Si hay datos de usuario, actualizar solo los campos permitidos
         if user_data:
             for attr, value in user_data.items():
                 setattr(user_instance, attr, value)
