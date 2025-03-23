@@ -12,6 +12,8 @@ const PatientProfile = () => {
   const [profile, setProfile] = useState({
     user: {
       username: "",
+      first_name: "",
+      last_name: "",
       email: "",
       phone_number: "",
       postal_code: "",
@@ -32,67 +34,75 @@ const PatientProfile = () => {
 
   useEffect(() => {
     setIsClient(true);
+    const storedToken = getAuthToken();
+    setToken(storedToken);
   }, []);
-
+  
   useEffect(() => {
-    if (isClient) {
-      const token = getAuthToken(); // Obtiene el token de autenticación
-      setToken(token);
-      if (token) {
-        axios.get(`${getApiBaseUrl()}/api/app_user/check-role/`, {
-          headers: {
-            "Authorization": "Bearer " + token
+    if (isClient && token) {
+      axios.get(`${getApiBaseUrl()}/api/app_user/check-role/`, {
+        headers: { "Authorization": "Bearer " + token }
+      })
+        .then(response => {
+          const role = response.data.user_role;
+          if (role !== "patient") {
+            location.href = "/permissions-error/";
+          } else {
+            fetchPatientProfile();
           }
         })
-          .then(response => {
-            const role = response.data.user_role;
-            if (role !== "patient") {
-              location.href = "/permissions-error/";
-            } else {
-              fetchPatientProfile();
-            }
-          })
-          .catch(error => {
-            console.error("Error al obtener el rol del usuario:", error);
-            location.href = "/permissions-error/";
-          });
-      } else {
-        location.href = "/permissions-error/";
-      }
+        .catch(error => {
+          console.error("Error al obtener el rol del usuario:", error);
+          location.href = "/permissions-error/";
+        });
     }
   }, [token, isClient]);
-
+  
+  
 
   const fetchPatientProfile = async () => {
     setLoading(true);
     setErrors({});
     setSuccess("");
+
     try {
       if (!token) {
         setErrors({ general: "No hay token disponible." });
+        return;
+      }
+
+      const response = await axios.get(`${getApiBaseUrl()}/api/app_user/current-user/`, {
+        headers: { Authorization: "Bearer " + token },
+      });
+
+      console.log("Respuesta del backend:", response.data);
+
+      const userData = response.data.patient || response.data.physio;
+
+      if (!userData) {
+        setErrors({ general: "Usuario no válido." });
         setLoading(false);
         return;
       }
 
-      const response = await axios.get(`${getApiBaseUrl}/api/app_user/current-user/`, {
-        headers: { Authorization: "Bearer " + token },
-      });
-      console.log(response.data);
-
       setProfile({
         user: {
-          dni: response.data.patient.user_data.dni,
-          email: response.data.patient.user_data.email,
-          phone_number: response.data.patient.user_data.phone_number,
-          photo: response.data.patient.user_data.photo, // Si la foto está disponible en la respuesta
-          postal_code: response.data.patient.user_data.postal_code,
-          username: response.data.patient.user_data.username,
-          account_status: response.data.patient.user_data.account_status,
+          dni: userData.user_data.dni,
+          first_name: userData.user_data.first_name,
+          last_name: userData.user_data.last_name,
+          email: userData.user_data.email,
+          phone_number: userData.user_data.phone_number,
+          photo: userData.user_data.photo,
+          postal_code: userData.user_data.postal_code,
+          username: userData.user_data.username,
+          account_status: userData.user_data.account_status,
         },
-        birth_date: response.data.patient.birth_date,
-        gender: response.data.patient.gender
+        birth_date: userData.birth_date,
+        gender: userData.gender
       });
+
     } catch (error) {
+      console.error("Error al obtener el perfil:", error.response ? error.response.data : error);
       setErrors({ general: "Error obteniendo el perfil." });
     } finally {
       setLoading(false);
@@ -117,7 +127,17 @@ const PatientProfile = () => {
   };
 
   const handleFileChange = (e) => {
-    setSelectedFile(e.target.files[0]);
+    const file = e.target.files[0];
+    if (file) {
+      setProfile((prevProfile) => ({
+        ...prevProfile,
+        user: {
+          ...prevProfile.user,
+          photoFile: file,  // Guardamos el archivo para enviarlo más tarde
+          preview: URL.createObjectURL(file),  // Para vista previa
+        },
+      }));
+    }
   };
 
   const handleImageClick = () => {
@@ -163,17 +183,20 @@ const PatientProfile = () => {
       return;
     }
 
-    try {
-      if (token) {
-        setErrors({ general: "No hay token disponible." });
-        return;
-      }
+    // Verifica si hay token
+    if (!token) {
+      setErrors({ general: "No hay token disponible." });
+      return;
+    }
 
+    try {
       const formData = new FormData();
 
-      // Agregar los campos del usuario
+      // Agregar los campos del usuario (excepto la foto)
       Object.entries(profile.user).forEach(([key, value]) => {
-        if (value && key !== "photo") formData.append(`user.${key}`, value);
+        if (value && key !== "photo" && key !== "photoFile") {
+          formData.append(`user.${key}`, value);
+        }
       });
 
       // Agregar los campos del paciente
@@ -185,6 +208,7 @@ const PatientProfile = () => {
         formData.append("user.photo", profile.user.photoFile);
       }
 
+      // Realizar la solicitud de actualización
       const response = await axios.patch(`${getApiBaseUrl()}/api/app_user/profile/`, formData, {
         headers: {
           Authorization: "Bearer " + token,
@@ -226,27 +250,6 @@ const PatientProfile = () => {
     }
   };
 
-  // const handleFileChange = (e) => {
-  //       const file = e.target.files[0];
-  //       if (file) {
-  //           // Crear URL para vista previa
-  //           const previewUrl = URL.createObjectURL(file);
-  //           console.log(previewUrl);
-  //           console.log(file);
-
-  //           // Actualizar el estado con el archivo y la URL de vista previa
-  //           setProfile((prevProfile) => ({
-  //               ...prevProfile,
-  //               user: {
-  //                   ...prevProfile.user,
-  //                   photo: previewUrl, // Para mostrar en la interfaz
-  //                   photoFile: file,    // Para enviar al backend
-  //                   preview: previewUrl
-  //               },
-  //           }));
-  //       }
-  //   };
-
   const getImageSrc = () => {
     // Verifica si hay un previewUrl (es decir, si el usuario ha subido una imagen)
     if (profile.user.preview) {
@@ -262,9 +265,12 @@ const PatientProfile = () => {
     return "/default_avatar.png";
   };
 
-
-  if (loading) return <p>Cargando perfil...</p>;
-
+if (loading)
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-xl font-semibold text-gray-600 animate-pulse">Cargando perfil...</p>
+      </div>
+    );
   return (
     <div className="user-profile-container">
       {/* Sección izquierda con la foto y datos principales */}
@@ -272,19 +278,19 @@ const PatientProfile = () => {
         <div className="profile-pic">
           <label className="-label" htmlFor="file">
             <span className="glyphicon glyphicon-camera"></span>
-            <span>Change Image</span>
+            <span>Selecciona otra imagen</span>
           </label>
-          <input id="file" type="file" accept="image/*" onChange={handleFileChange} />
+          <input id="file-input" type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
           <img
             src={getImageSrc()}
             alt="Profile"
             width="200"
+            onClick={handleImageClick}
           />
         </div>
         <div className="user-info">
           <p>{profile?.user?.username || "Nombre de usuario"}</p>
           <p>{profile?.user?.first_name + " " + profile?.user?.last_name || "Nombre"}</p>
-
         </div>
       </div>
 
@@ -297,8 +303,8 @@ const PatientProfile = () => {
             </div>
           )}
 
-          <div>
-            <label>Email:</label>
+          <div className="mb-1">
+            <label className="block mb-1">Email:</label>
             <input
               type="email"
               name="email"
@@ -309,8 +315,8 @@ const PatientProfile = () => {
             {errors.email && <p className="text-red-500">{errors.email}</p>}
           </div>
 
-          <div>
-            <label>Teléfono:</label>
+          <div className="mb-1">
+            <label className="block mb-1">Teléfono:</label>
             <input
               type="text"
               name="phone_number"
@@ -321,8 +327,8 @@ const PatientProfile = () => {
             {errors.phone_number && <p className="text-red-500">{errors.phone_number}</p>}
           </div>
 
-          <div>
-            <label>Código Postal:</label>
+          <div className="mb-1">
+            <label className="block mb-1">Código Postal:</label>
             <input
               type="text"
               name="postal_code"
@@ -333,8 +339,8 @@ const PatientProfile = () => {
             {errors.postal_code && <p className="text-red-500">{errors.postal_code}</p>}
           </div>
 
-          <div>
-            <label>Fecha de Nacimiento:</label>
+          <div className="mb-1">
+            <label className="block mb-1">Fecha de Nacimiento:</label>
             <input
               type="date"
               name="birth_date"
@@ -345,8 +351,8 @@ const PatientProfile = () => {
             {errors.birth_date && <p className="text-red-500">{errors.birth_date}</p>}
           </div>
 
-          <div>
-            <label>DNI:</label>
+          <div className="mb-1">
+            <label className="block mb-1">DNI:</label>
             <input
               type="text"
               name="dni"
@@ -357,8 +363,8 @@ const PatientProfile = () => {
             {errors.dni && <p className="text-red-500">{errors.dni}</p>}
           </div>
 
-          <div>
-            <label>Género:</label>
+          <div className="mb-1">
+            <label className="block mb-1">Género:</label>
             <select
               name="gender"
               value={profile?.gender || ""}
@@ -382,8 +388,6 @@ const PatientProfile = () => {
         </form>
       </div>
     </div>
-
-
   );
 };
 
