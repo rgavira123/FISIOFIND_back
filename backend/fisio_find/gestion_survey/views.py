@@ -5,7 +5,7 @@ from django.shortcuts import render
 from rest_framework.parsers import JSONParser
 from rest_framework import generics, status
 from rest_framework.response import Response
-from gestion_usuarios.permissions import IsAdmin
+from users.permissions import IsAdmin
 from rest_framework.permissions import AllowAny
 from rest_framework import generics
 from datetime import datetime

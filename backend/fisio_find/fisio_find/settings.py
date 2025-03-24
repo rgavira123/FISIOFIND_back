@@ -55,7 +55,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'channels',
     'videocall',
-    'gestion_tratamientos',
 ]
 
 # DJANGO REST FRAMEWORK
@@ -72,6 +71,7 @@ INSTALLED_APPS += [
     'gestion_citas',
     'terms',
     'guest_session',
+    'treatments',
 ]
 
 
