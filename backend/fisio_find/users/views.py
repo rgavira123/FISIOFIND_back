@@ -32,7 +32,6 @@ class PatientProfileView(generics.RetrieveAPIView):
     def patch(self, request, *args, **kwargs):
         try:
             patient = Patient.objects.get(user=request.user)  
-
             request_data = request.data.copy()
 
             user_data = request_data.get('user', {})  
