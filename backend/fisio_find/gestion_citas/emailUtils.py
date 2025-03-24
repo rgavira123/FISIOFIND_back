@@ -88,11 +88,16 @@ def send_appointment_email(appointment_id, action_type, role=None):
                 for slot in slots:
                     start = slot["start"]
                     end = slot["end"]
+                    start_time = f"{date} {start}"
+                    end_time = f"{date} {end}"
+                    # Construimos el enlace con los parámetros start_time y end_time
+                    token = signing.dumps({'appointment_id': appointment.id, 'patient_user_id': appointment.patient.user.id})
+                    link = f"{frontend_domain}/confirm-alternative/{token}?start_time={start_time}&end_time={end_time}"
                     alternatives_html += f"""
                         <div style="border:1px solid #ddd; padding:10px; border-radius:8px; margin:10px 0; text-align: center;">
                             ⏰ <strong>{start} - {end}</strong>  
                             <br><br> 
-                            <a href="{frontend_domain}/mis-citas" 
+                            <a href="{link}" 
                             style="display:inline-block; padding:10px 15px; background-color:#1E5AAD; color:white; text-decoration:none; border-radius:5px;">
                                 Confirmar este horario
                             </a>

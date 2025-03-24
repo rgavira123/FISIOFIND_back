@@ -8,6 +8,7 @@ urlpatterns = [
     path('physio/schedule/add-unavailable/', views.add_unavailable_day),
     path('<int:appointmentId>/', views.get_appointment_by_id, name='get_appointment_by_id'),
     path('confirm/<str:token>/', views.confirm_appointment_using_token, name='confirm_appointment'),
+    path('confirm-alternative/<str:token>/', views.confirm_alternative_appointment, name='confirm_appointment_alternatives'),
 
     #Patients
     path('patient/', views.create_appointment_patient),

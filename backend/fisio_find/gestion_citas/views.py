@@ -19,6 +19,8 @@ from gestion_citas.emailUtils import send_appointment_email
 from django.core import signing
 from django.core.signing import BadSignature, SignatureExpired
 from rest_framework.permissions import AllowAny
+from urllib.parse import unquote
+
 
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 10
@@ -479,6 +481,74 @@ def confirm_appointment(request, appointment_id):
         "message": "La cita fue aceptada correctamente",  # Mensaje de confirmación
         "appointment": serializer.data  # Datos de la cita actualizada
     }, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def confirm_alternative_appointment(request, token):
+    try:
+        # Extrae y valida el token
+        data = signing.loads(token, max_age=48*3600)
+        appointment_id = data.get('appointment_id')
+        patient_user_id = data.get('patient_user_id')
+    except SignatureExpired:
+        return Response({"error": "El token ha expirado"}, status=status.HTTP_400_BAD_REQUEST)
+    except BadSignature:
+        return Response({"error": "Token inválido"}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Busca la cita a partir del ID extraído del token
+    try:
+        appointment = Appointment.objects.get(id=appointment_id)
+    except Appointment.DoesNotExist:
+        return Response({"error": "Cita no encontrada"}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Verifica que el paciente autenticado sea el paciente correspondiente
+    if request.user.id != patient_user_id:
+        return Response({"error": "No autorizado para confirmar esta cita"}, status=status.HTTP_403_FORBIDDEN)
+
+    # Extrae los parámetros start_time y end_time de la query string
+    start_time_str = request.query_params.get('start_time')
+    end_time_str = request.query_params.get('end_time')
+
+    if not start_time_str or not end_time_str:
+        return Response({"error": "Faltan los parámetros start_time o end_time"}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Decodificar los valores de fecha y hora
+    start_time_decoded = unquote(start_time_str)
+    end_time_decoded = unquote(end_time_str)
+
+    # Convertir las cadenas de fecha y hora en objetos datetime
+    try:
+        start_time = datetime.strptime(start_time_decoded, '%Y-%m-%d %H:%M')
+        end_time = datetime.strptime(end_time_decoded, '%Y-%m-%d %H:%M')
+    except ValueError:
+        return Response({"error": "El formato de la fecha y hora es incorrecto. Debe ser 'YYYY-MM-DD HH:MM'"}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Verifica que la franja seleccionada sea válida
+    valid_selection = False
+    for date, slots in appointment.alternatives.items():
+        for slot in slots:
+            slot_start_time = datetime.strptime(f"{date} {slot['start']}", '%Y-%m-%d %H:%M')
+            slot_end_time = datetime.strptime(f"{date} {slot['end']}", '%Y-%m-%d %H:%M')
+
+            if slot_start_time == start_time and slot_end_time == end_time:
+                valid_selection = True
+                break
+        if valid_selection:
+            break
+
+    if not valid_selection:
+        return Response({"error": "El rango horario seleccionado no coincide con las alternativas disponibles"}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Actualiza la cita con la nueva fecha y hora seleccionada
+    appointment.start_time = start_time
+    appointment.end_time = end_time
+    appointment.status = "confirmed"
+    appointment.save()
+
+    # Enviar un correo de confirmación al paciente
+    send_appointment_email(appointment.id, 'modified-accepted')
+    return Response({"message": "¡Cita aceptada con éxito!"}, status=status.HTTP_200_OK)
 
 
 @api_view(['DELETE'])
