@@ -19,6 +19,7 @@ const VideoCallPage = () => {
   const [modalMessage, setModalMessage] = useState("");
   const [isClient, setIsClient] = useState(false);
   const [token, setToken] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setIsClient(true);
@@ -51,7 +52,10 @@ const VideoCallPage = () => {
         })
         .catch((error) => {
           console.error("Error fetching user role:", error);
-        });
+        })
+        .finally(() => setLoading(false));
+    } else {
+      setLoading(false);
     }
   }, [token]);
 
@@ -63,13 +67,17 @@ const VideoCallPage = () => {
     }
 
     try {
-      const response = await axios.post(`${getApiBaseUrl()}/api/videocall/create-room/`, {}, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
+      const response = await axios.post(
+        `${getApiBaseUrl()}/api/videocall/create-room/`,
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
       setRoomCode(response.data.code);
-      window.location.href = `/videocalls/${response.data.code}?role=physio`;
+      window.location.href = `/videocalls/${response.data.code}`;
     } catch (error) {
       console.error("Error creating room:", error);
     }
@@ -82,18 +90,51 @@ const VideoCallPage = () => {
     }
 
     try {
-      const response = await axios.get(`${getApiBaseUrl()}/api/videocall/join-room/${code}/`, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
+      const response = await axios.get(
+        `${getApiBaseUrl()}/api/videocall/join-room/${code}/`,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
       setRoomDetails(response.data);
-      window.location.href = `/videocalls/${response.data.code}?role=${userRole}`;
+      window.location.href = `/videocalls/${response.data.code}`;
     } catch (error) {
       console.error("Error joining room:", error);
       setRoomDetails(null);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p>Cargando...</p>
+      </div>
+    );
+  }
+  
+  if (!token || !userRole) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+          <h2 className="text-xl font-semibold mb-4 text-blue-600">Acceso restringido</h2>
+          <p className="text-gray-700 mb-4">
+            🔒 Necesitas iniciar sesión para acceder a las videollamadas.
+          </p>
+          <button
+            onClick={() => (window.location.href = '/login')}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+          >
+            Iniciar Sesión
+          </button>
+        </div>
+      </div>
+    );
+  }
+  
+  
+
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-6">
@@ -117,7 +158,6 @@ const VideoCallPage = () => {
           Videollamadas
         </h2>
 
-        {/* Mostrar rol detectado */}
         <div className="mb-4 text-center text-gray-700">
           <p>
             Rol detectado:{" "}
