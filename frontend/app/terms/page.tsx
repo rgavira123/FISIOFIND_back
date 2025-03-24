@@ -117,6 +117,8 @@ export default function TermsPage(): React.ReactElement {
           return;
         }
 
+        console.log("Token found:", token.substring(0, 10) + "..."); // Log part of the token for debugging
+        
         const response = await axios.get(
           `${getApiBaseUrl()}/api/app_user/check-role/`,
           {
@@ -126,6 +128,8 @@ export default function TermsPage(): React.ReactElement {
           }
         );
 
+        console.log("Role response:", response.data);
+        
         if (response.data && response.data.user_role === "admin") {
           setIsAdmin(true);
           setAdminUsername(response.data.username);

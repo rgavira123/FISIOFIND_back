@@ -1,11 +1,11 @@
 from rest_framework import generics, filters, status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from gestion_usuarios.permissions import IsAdmin
-from gestion_usuarios.models import Admin
 from .models import Terms
 from .serializers import TermsSerializer
 from datetime import datetime
+from users.permissions import IsAdmin
+from users.models import Admin
 
 
 class TermsList(generics.ListAPIView):
@@ -47,7 +47,7 @@ class TermsCreate(generics.CreateAPIView):
 
             # Create a mutable copy of the data
             data = request.data.copy()
-            
+
             # Validate required fields
             if not data.get('content'):
                 return Response(
@@ -75,7 +75,7 @@ class TermsCreate(generics.CreateAPIView):
                 created_at=datetime.now(),
                 updated_at=datetime.now()
             )
-            
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response(
@@ -98,7 +98,7 @@ class TermsUpdate(generics.UpdateAPIView):
                 modifier=request.user.admin,
                 updated_at=datetime.now()
             )
-            
+
             return Response(serializer.data)
         except Exception as e:
             return Response(
@@ -125,4 +125,3 @@ class TermsDelete(generics.DestroyAPIView):
                 {'error': str(e)},
                 status=status.HTTP_400_BAD_REQUEST
             )
-
