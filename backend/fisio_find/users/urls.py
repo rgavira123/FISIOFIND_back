@@ -14,7 +14,7 @@ urlpatterns = [
     path('physio/delete-service/<int:service_id>/', physio_delete_service_view, name='physio_delete_service'),
     path('profile/', PatientProfileView.as_view(), name='profile'),
     path('current-user/', return_user, name='current_user'),
-    path('services/<int:physio_id>/', physio_get_services_view, name='physio_get_services'),
+    path('services/<int:physio_id>/', physio_get_services_view, name='physio_get_xservices'),
     
     path('admin/patient/list/search/<str:query>/', admin_search_patients_by_user, name='admin_patient_list'),
     path('admin/physio/list/search/<str:query>/',admin_search_physios_by_user, name="admin_physio_list"),
