@@ -77,8 +77,8 @@ const WizardNavigation: React.FC<WizardNavigationProps> = ({
       .then(() => {
         alert("La cita se realizó correctamente.");
         // Eliminamos el borrador unificado
-        localStorage.removeItem("appointmentDraft");
-        localStorage.removeItem("physioName");
+        sessionStorage.removeItem("appointmentDraft");
+        sessionStorage.removeItem("physioName");
         dispatch({ type: "DESELECT_SERVICE" });
         router.push("/my-appointments");
       })
@@ -93,8 +93,8 @@ const WizardNavigation: React.FC<WizardNavigationProps> = ({
     const safeDraft = { ...appointmentData };
     // Eliminamos cualquier info sensible si hace falta
     if (safeDraft.paymentInfo) delete safeDraft.paymentInfo;
-    const name = localStorage.getItem("physioName");
-    localStorage.removeItem("physioName");
+    const name = sessionStorage.getItem("physioName");
+    sessionStorage.removeItem("physioName");
     // Unificamos todo en un solo objeto
     const unifiedDraft = {
       appointmentData: safeDraft,
@@ -104,8 +104,8 @@ const WizardNavigation: React.FC<WizardNavigationProps> = ({
       physioName: name,
     };
 
-    // Guardamos en una sola entrada del localStorage
-    localStorage.setItem("appointmentDraft", JSON.stringify(unifiedDraft));
+    // Guardamos en una sola entrada del sessionStorage
+    sessionStorage.setItem("appointmentDraft", JSON.stringify(unifiedDraft));
     router.push(redirectPath);
   }
 
@@ -163,7 +163,7 @@ const WizardNavigation: React.FC<WizardNavigationProps> = ({
               <button
                 onClick={() => {
                   // Solo removemos la entrada unificada
-                  localStorage.removeItem("appointmentDraft");
+                  sessionStorage.removeItem("appointmentDraft");
                   router.push("/");
                 }}
                 className="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-400"
