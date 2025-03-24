@@ -6,16 +6,11 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from .serializers import PatientRegisterSerializer, PatientAdminViewSerializer, PhysioRegisterSerializer, PhysioSerializer, PatientSerializer, AppUserSerializer, AppUserAdminViewSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import Physiotherapist, Patient, AppUser
+from .models import Physiotherapist, Patient, AppUser, Admin
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics
-from permissions import IsAdmin
+from .permissions import IsAdmin, IsPatient
 from .models import ACCOUNT_STATUS_CHOICES
-
-
-from .permissions import IsPatient
-from .models import Patient
-from rest_framework.permissions import IsAuthenticated
 
 class PatientProfileView(generics.RetrieveAPIView):
     permission_classes = [IsPatient]
@@ -141,7 +136,7 @@ def physio_update_view(request):
 
 @api_view(['GET'])
 @permission_classes([IsAdmin])
-def admin_list_pacient_profiles(request):
+def admin_list_patient_profiles(request):
     user = request.user
     if hasattr(user, 'admin'):
         patients = Patient.objects.all()   
@@ -196,55 +191,3 @@ def admin_update_account_status(request, user_id):
     user_to_update.save()
 
     return Response({"message": "Estado de cuenta actualizado correctamente.", "new_status": new_status}, status=status.HTTP_200_OK)
-
-
-"""
-class AdminAppUserDetail(generics.RetrieveAPIView):
-    '''
-    API endpoint que retorna un solo user por su id para admin.
-    '''
-    permission_classes = [AllowAny]
-    queryset = AppUser.objects.all()
-    serializer_class = AppUserAdminViewSerializer
-
-class AdminPatientCreate(generics.CreateAPIView):
-    '''
-    API endpoint para crear un término para admin.
-    '''
-    permission_classes = [AllowAny]
-    queryset = Patient.objects.all()
-    serializer_class = PatientRegisterSerializer
-
-
-class AdminPatientList(generics.ListAPIView):
-    '''
-    API endpoint para listar los pacientes para admin.
-    '''
-    permission_classes = [AllowAny]
-    queryset = Patient.objects.all()
-    serializer_class = PatientAdminViewSerializer
-
-class AdminPatientnDetail(generics.RetrieveAPIView):
-    '''
-    API endpoint que retorna un solo paciente por su id para admin.
-    '''
-    permission_classes = [AllowAny]
-    queryset = Patient.objects.all()
-    serializer_class = PatientAdminViewSerializer
-
-class AdminPatientUpdate(generics.RetrieveUpdateAPIView):
-    '''
-    API endpoint para que admin actualice un término.
-    '''
-    permission_classes = [AllowAny]
-    queryset = Patient.objects.all()
-    serializer_class = PatientRegisterSerializer
-
-class AdminPatientDelete(generics.DestroyAPIView):
-    '''
-    API endpoint para que admin elimine un término.
-    '''
-    permission_classes = [AllowAny]
-    queryset = Patient.objects.all()
-    serializer_class = PatientRegisterSerializer
-"""

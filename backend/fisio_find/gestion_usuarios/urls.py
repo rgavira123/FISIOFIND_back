@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import patient_register_view, custom_token_obtain_view, logout_view, check_role_view, physio_register_view, return_user, physio_update_view, PatientProfileView#, AdminPatientList, AdminPatientCreate, AdminPatientnDetail, AdminPatientUpdate, AdminPatientDelete, AdminAppUserDetail
+from .views import patient_register_view, custom_token_obtain_view, logout_view, check_role_view, physio_register_view, return_user, physio_update_view, PatientProfileView, admin_list_patient_profiles, admin_list_physioterapist_profiles, admin_update_account_status, admin_delete_user 
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -11,7 +11,11 @@ urlpatterns = [
     path('physio/register/', physio_register_view, name='physio_register'),
     path('physio/update/', physio_update_view, name='physio_update'),
     path('profile/', PatientProfileView.as_view(), name='profile'),
-    path('current-user/', return_user, name='current_user')
+    path('current-user/', return_user, name='current_user'),
+    path('admin/patient/list/', admin_list_patient_profiles, name='admin_patient_list'),
+    path('admin/physio/list/', admin_list_physioterapist_profiles, name='admin_physio_list'),
+    path('admin/update-account-status/<int:user_id>/', admin_update_account_status, name='admin_update_account_status'),
+    path('admin/delete-user/<int:user_id>/', admin_delete_user, name='admin_delete_user')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

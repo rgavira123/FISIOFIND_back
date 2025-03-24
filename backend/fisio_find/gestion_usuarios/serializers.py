@@ -31,7 +31,7 @@ class AppUserSerializer(serializers.ModelSerializer):
         model = AppUser
         fields = [
             'user_id', 'username', 'first_name', 'last_name', 'email', 
-            'photo', 'dni', 'phone_number', 'postal_code'
+            'photo', 'dni', 'phone_number', 'postal_code', 'account_status'
         ]
         extra_kwargs = {
             'username': {'validators': []},  # Evita la validación de unicidad automática en updates
