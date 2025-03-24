@@ -47,6 +47,7 @@ const POLICY_ORDER = {
   privacy: 4,
 } as const;
 
+
 export default function TermsPage(): React.ReactElement {
   const [terms, setTerms] = useState<TermItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -457,6 +458,22 @@ export default function TermsPage(): React.ReactElement {
     <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100 animate-pulse" />
   );
 
+
+  function getStaticPdfFilename(tag: string): string {
+    switch (tag) {
+      case "cookies":
+        return "1_cookies_fisiofind.pdf";
+      case "terms":
+        return "2_terms_fisiofind.pdf";
+      case "privacy":
+        return "3_privacy_fisiofind.pdf";
+      case "license":
+        return "4_license_fisiofind.pdf";
+      default:
+        return "";
+    }
+  }
+
   // -------------------- Render Principal --------------------
   return (
     <div className="container mx-auto py-16 px-4 sm:px-6 lg:px-8 max-w-7xl">
@@ -795,21 +812,24 @@ export default function TermsPage(): React.ReactElement {
                       <div className="p-4 border-t border-gray-200 dark:border-gray-700 flex justify-end">
                         <button
                           onClick={() => {
-                            const blob = new Blob([activeTerm.content], {
-                              type: "text/markdown",
-                            });
-                            const url = URL.createObjectURL(blob);
+                            // 1) Decidir el PDF según el "tag" del término
+                            const pdfFile = getStaticPdfFilename(activeTerm.tag || "");
+                            if (!pdfFile) {
+                              // Por si no hay coincidencia
+                              alert("No existe un PDF para este tipo de término.");
+                              return;
+                            }
 
-                            const a = document.createElement("a");
-                            a.href = url;
-                            a.download = `${activeTerm.title
-                              .toLowerCase()
-                              .replace(/\s+/g, "-")}-${activeTerm.version}.md`;
-                            document.body.appendChild(a);
-                            a.click();
+                            // 2) Construir la URL pública (carpeta /public/pdfs/06_terms/)
+                            const pdfUrl = `/pdfs/06_terms/${pdfFile}`;
 
-                            document.body.removeChild(a);
-                            URL.revokeObjectURL(url);
+                            // 3) Crear enlace "invisible" y forzar click para descargar
+                            const link = document.createElement("a");
+                            link.href = pdfUrl;
+                            link.download = pdfFile; // Para que el navegador lo baje directamente
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
                           }}
                           className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center"
                         >

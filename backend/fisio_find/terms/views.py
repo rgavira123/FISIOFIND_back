@@ -125,3 +125,4 @@ class TermsDelete(generics.DestroyAPIView):
                 {'error': str(e)},
                 status=status.HTTP_400_BAD_REQUEST
             )
+
