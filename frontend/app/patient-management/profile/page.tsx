@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { getApiBaseUrl } from "@/utils/api";
-import { User, Phone, Mail, MapPin, Calendar, FileText, Users, Camera, Save, Check, Lock } from 'lucide-react';
+import { Phone, Mail, MapPin, Calendar, FileText, Users, Camera, Save, Check, Lock } from 'lucide-react';
 import { GradientButton } from "@/components/ui/gradient-button";
 
 const BASE_URL = `${getApiBaseUrl()}`;
@@ -130,7 +130,7 @@ const PatientProfile = () => {
   };
 
   const confirmSensitiveChanges = async () => {
-    if (pendingChanges.password && !oldPassword) {
+    if ('password' in pendingChanges && !oldPassword) {
       setErrors({ password: "Debes ingresar tu contraseña actual para actualizar la contraseña." });
       return;
     }
@@ -145,7 +145,6 @@ const PatientProfile = () => {
     setPendingChanges({});
     setShowConfirmation(false);
 
-    // Call the profile update function after confirming changes
     await submitProfileUpdate();
   };
 
@@ -160,14 +159,13 @@ const PatientProfile = () => {
       // Create URL for preview
       const previewUrl = URL.createObjectURL(file);
       
-      // Update the state with the file and preview URL
       setProfile((prevProfile) => ({
         ...prevProfile,
         user: {
           ...prevProfile.user,
-          photo: prevProfile.user.photo, // Keep original photo reference
-          photoFile: file,   // For sending to the backend
-          preview: previewUrl // For displaying in the UI
+          photo: prevProfile.user.photo,
+          photoFile: file,
+          preview: previewUrl
         },
       }));
       
@@ -176,7 +174,10 @@ const PatientProfile = () => {
   };
 
   const handleImageClick = () => {
-    document.getElementById('file-input').click();
+    const fileInput = document.getElementById('file-input');
+    if (fileInput) {
+      fileInput.click();
+    }
   };
 
   const validateForm = () => {
@@ -563,6 +564,7 @@ const PatientProfile = () => {
                         variant="grey"
                         onClick={() => {
                           setShowConfirmation(false);
+                          cancelSensitiveChanges();
                         }}
                       >
                         Cancelar

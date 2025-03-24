@@ -413,8 +413,8 @@ const Calendar = ({
               <div
                 className={`w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center mx-auto ${
                   isToday
-                    ? "bg-green text-white font-medium" // Updated to match schedule calendar
-                    : "text-blue-700"
+                    ? "bg-[#05AC9C] text-white font-medium"
+                    : "text-[#05668D]"
                 }`}
               >
                 {dayNumberText}
@@ -427,11 +427,11 @@ const Calendar = ({
       {/* Custom styles for calendar */}
       <style jsx global>{`
         .fc .fc-daygrid-day.fc-day-today {
-          background-color: rgba(0, 128, 0, 0.2); /* Updated to match schedule calendar */
+          background-color: rgba(0, 128, 0, 0.1); /* Lighter green background */
         }
         
         .fc .fc-button-primary {
-          background-color: #008000; /* Updated to match schedule calendar */
+          background-color: #008000; /* Green */
           border-color: #008000;
         }
         
@@ -450,6 +450,15 @@ const Calendar = ({
         .calendar-container {
           min-height: 50vh;
           max-height: 70vh;
+          background-color: white; /* Ensure white background */
+        }
+        
+        .fc-view-harness {
+          background-color: white; /* Ensure white background for the calendar view */
+        }
+        
+        .fc-col-header, .fc-scrollgrid-sync-table {
+          background-color: white; /* Ensure white background for header and table */
         }
         
         @media (max-width: 640px) {
@@ -505,3 +514,4 @@ const Calendar = ({
 };
 
 export default CalendarPage;
+

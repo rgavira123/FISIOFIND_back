@@ -6,7 +6,9 @@ import "./photo.css";
 import ScheduleCalendar from "@/components/ui/ScheduleCalendar";
 import { getApiBaseUrl } from "@/utils/api";
 import { GradientButton } from "@/components/ui/gradient-button";
-import { Mail, Phone, MapPin, FileText, Lock, Check } from "lucide-react";
+import { Mail, Phone, MapPin, FileText, Lock, Save } from "lucide-react";
+import ServiceEditModal from "@/components/service-edit-modal";
+import ServiceModal from "@/components/service-create-modal";
 
 const getAuthToken = () => {
     return localStorage.getItem("token"); // Obtiene el token JWT
@@ -66,6 +68,10 @@ const FisioProfile = () => {
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [oldPassword, setOldPassword] = useState(""); // State for old password
 
+    const [showEditServiceModal, setShowEditServiceModal] = useState(false);
+    const [selectedService, setSelectedService] = useState(null);
+    const [selectedServiceName, setSelectedServiceName] = useState("");
+
     useEffect(() => {
         setIsClient(true);
     }, []);
@@ -102,6 +108,87 @@ const FisioProfile = () => {
         } catch (error) {
             console.error("Error añadiendo servicio:", error);
             alert("Error añadiendo servicio.");
+        }
+    };
+
+    const handleServiceClick = (key, service) => {
+        setSelectedService(service);
+        setSelectedServiceName(key);
+        setShowEditServiceModal(true);
+    };
+
+    const handleDeleteService = async (serviceName) => {
+        try {
+            const storedToken = getAuthToken();
+            if (!storedToken) {
+                alert("No hay token disponible.");
+                return;
+            }
+    
+            console.log(`Deleting service: ${serviceName}`); // Add this for debugging
+            
+            // Call the delete endpoint directly
+            const response = await axios.delete(
+                `${getApiBaseUrl()}/api/app_user/physio/delete-service/${serviceName}/`,
+                { headers: { Authorization: `Bearer ${storedToken}` } }
+            );
+    
+            if (response.status === 200) {
+                console.log("Servicio eliminado correctamente.");
+                
+                // Update local state
+                const updatedServices = { ...services };
+                delete updatedServices[serviceName];
+                setServices(updatedServices);
+                
+                // Close the modal
+                setShowEditServiceModal(false);
+            }
+        } catch (error) {
+            console.error("Error eliminando servicio:", error);
+            alert(`Error eliminando servicio: ${error.response?.data?.error || error.message}`);
+        }
+    };
+
+    // Update the handleUpdateService function
+    const handleUpdateService = async (serviceName, updatedService) => {
+        try {
+            // Create a copy of the services object
+            const updatedServices = { ...services };
+            
+            // If the service name has changed, remove the old one
+            if (serviceName !== updatedService.titulo) {
+                delete updatedServices[serviceName];
+            }
+            
+            // Add/update the service with the new title as key
+            updatedServices[updatedService.titulo] = updatedService;
+            
+            // Update local state
+            setServices(updatedServices);
+            
+            // Close the modal
+            setShowEditServiceModal(false);
+            
+            // Send the updated services to the backend
+            const storedToken = getAuthToken();
+            if (!storedToken) {
+                alert("No hay token disponible.");
+                return;
+            }
+
+            const response = await axios.post(
+                `${getApiBaseUrl()}/api/app_user/physio/create-service/`,
+                { services: updatedServices },
+                { headers: { Authorization: `Bearer ${storedToken}` } }
+            );
+
+            if (response.status === 200) {
+                console.log("Servicio actualizado correctamente.");
+            }
+        } catch (error) {
+            console.error("Error actualizando servicio:", error);
+            alert("Error actualizando servicio.");
         }
     };
 
@@ -227,7 +314,7 @@ const FisioProfile = () => {
 
     const handleSensitiveChange = (e) => {
         const { name, value } = e.target;
-    
+
         setPendingChanges((prev) => ({
             ...prev,
             [name]: value,
@@ -236,10 +323,11 @@ const FisioProfile = () => {
     
     const confirmSensitiveChanges = async () => {
         if (pendingChanges.password && !oldPassword) {
-            setFormErrors({ password: "Debes ingresar tu contraseña actual para actualizar la contraseña." });
+            setFormErrors((prev) => ({ ...prev, password: "Debes ingresar tu contraseña actual para actualizar la contraseña." }));
             return;
         }
     
+        // Update the profile state with pending changes
         setProfile((prevProfile) => ({
             ...prevProfile,
             user: {
@@ -247,11 +335,20 @@ const FisioProfile = () => {
                 ...pendingChanges,
             },
         }));
-        setPendingChanges({});
+        
+        // Add old password to form data if changing password
+        if (pendingChanges.password) {
+            setPendingChanges((prev) => ({
+                ...prev,
+                old_password: oldPassword
+            }));
+        }
+        
+        // Close the confirmation modal
         setShowConfirmation(false);
-    
+        
         // Call the profile update function after confirming changes
-        await handleSubmit(); // Call without an event
+        await handleSubmit();
     };
     
     const cancelSensitiveChanges = () => {
@@ -261,70 +358,117 @@ const FisioProfile = () => {
 
     const handleSubmit = async (e?: React.FormEvent) => {
         if (e) e.preventDefault(); // Prevent default only if event is provided
-
+    
         // Check if sensitive fields have been changed
-        if (pendingChanges.dni || pendingChanges.password) {
+        if ((pendingChanges.dni || pendingChanges.password) && !showConfirmation) {
             setShowConfirmation(true);
             return;
         }
-
+    
         // Validate all fields before submitting
         const isValid = ["email", "phone_number", "postal_code", "bio"].every((field) =>
             validateField(field, (field === "bio" ? profile.bio : profile.user[field]) || "")
         );
-
+    
         if (!isValid) {
             alert("Por favor, corrige los errores antes de enviar.");
             return;
         }
-
+    
         try {
             if (!token) {
                 setError("No hay token disponible.");
                 return;
             }
-
+    
             const formData = new FormData();
+            
+            // Add user data to formData
             Object.entries(profile.user).forEach(([key, value]) => {
-                if (key !== "photoFile" && key !== "preview" && value) {
+                if (key !== "photoFile" && key !== "preview" && value !== undefined && key !== "photo") {
                     formData.append(`user.${key}`, value);
                 }
             });
-
+    
             // Include the photo file if it exists
             if (profile.user.photoFile) {
-                formData.append("user.photo", profile.user.photoFile); // Ensure photo file is appended
+                formData.append("photo", profile.user.photoFile);
             }
-
+    
+            // Handle DNI change properly - use the pending change if it exists
+            if (pendingChanges.dni) {
+                formData.append("user.dni", pendingChanges.dni);
+            }
+            
+            // Handle password change
+            if (pendingChanges.password) {
+                formData.append("user.password", pendingChanges.password);
+                formData.append("user.old_password", oldPassword);
+            }
+    
             formData.append("gender", profile.gender || "");
             formData.append("birth_date", profile.birth_date || "");
             formData.append("autonomic_community", profile.autonomic_community || "");
             formData.append("collegiate_number", profile.collegiate_number || "");
             formData.append("bio", profile.bio || "");
             formData.append("rating_avg", profile.rating_avg || "");
-
+    
             const { initialized, ...scheduleWithoutInitialized } = schedule;
             formData.append("schedule", JSON.stringify(scheduleWithoutInitialized));
-            formData.append("services", JSON.stringify(services)); // Ensure services are sent as a JSON string
-
+            formData.append("services", JSON.stringify(services));
+    
             // Log the form data for debugging
             console.log("FormData being sent:");
             for (let [key, value] of formData.entries()) {
-                console.log(`${key}: ${value}`);
+                console.log(`${key}: ${typeof value === 'object' ? 'File object' : value}`);
             }
-
+    
             const response = await axios.put(`${getApiBaseUrl()}/api/app_user/physio/update/`, formData, {
-                headers: { Authorization: "Bearer " + token, "Content-Type": "multipart/form-data" },
+                headers: { 
+                    Authorization: "Bearer " + token, 
+                    "Content-Type": "multipart/form-data" 
+                },
             });
-
+    
             if (response.status === 200) {
                 console.log("Perfil actualizado correctamente");
+                // Clear the preview and photoFile after successful update
+                if (profile.user.preview) {
+                    URL.revokeObjectURL(profile.user.preview);
+                }
+                
+                // Update the profile state with the new DNI value
+                if (pendingChanges.dni) {
+                    setProfile(prev => ({
+                        ...prev,
+                        user: {
+                            ...prev.user,
+                            dni: pendingChanges.dni,
+                            photoFile: undefined,
+                            preview: undefined
+                        }
+                    }));
+                } else {
+                    setProfile(prev => ({
+                        ...prev,
+                        user: {
+                            ...prev.user,
+                            photoFile: undefined,
+                            preview: undefined
+                        }
+                    }));
+                }
+                
+                // Clear pending changes and old password
+                setPendingChanges({});
+                setOldPassword("");
+                
                 fetchFisioProfile(); // Refresh profile data
             }
         } catch (error) {
             console.error("Error updating profile:", error);
             if (error.response) {
-                console.error("Response data:", error.response.data); // Log server response
+                console.error("Response data:", error.response.data);
                 alert(`Error: ${JSON.stringify(error.response.data)}`);
             } else {
                 alert("Error actualizando el perfil.");
@@ -335,6 +479,11 @@ const FisioProfile = () => {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
+            // Revoke previous preview URL if exists
+            if (profile.user.preview) {
+                URL.revokeObjectURL(profile.user.preview);
+            }
+            
             // Create URL for preview
             const previewUrl = URL.createObjectURL(file);
 
@@ -343,7 +492,6 @@ const FisioProfile = () => {
                 ...prevProfile,
                 user: {
                     ...prevProfile.user,
-                    photo: prevProfile.user.photo, // Keep original photo reference
                     photoFile: file,   // For sending to the backend
                     preview: previewUrl // For displaying in the UI
                 },
@@ -359,69 +507,18 @@ const FisioProfile = () => {
 
         // If there's a photo from the backend
         if (profile?.user?.photo) {
-            return `${getApiBaseUrl()}/api/app_user${profile.user.photo}`;
+            // Check if the photo is already a full URL
+            if (profile.user.photo.startsWith('http')) {
+                return profile.user.photo;
+            }
+            // Otherwise, construct the URL
+            return `${getApiBaseUrl()}${profile.user.photo}`;
         }
 
         // Default avatar if no photo is available
         return "/default_avatar.png";
     };
 
-    const ServiceModal = ({ onClose, onSave }) => {
-        const [titulo, setTitulo] = useState("");
-        const [descripcion, setDescripcion] = useState("");
-        const [precio, setPrecio] = useState("");
-        const [frecuencia, setFrecuencia] = useState("diaria"); // Valor por defecto
-        const [duracion, setDuracion] = useState("");
-        const [unidadDuracion, setUnidadDuracion] = useState("días"); // Valor por defecto
-
-        const handleSave = () => {
-            const newService = { titulo, descripcion, precio, frecuencia, duracion: `${duracion} ${unidadDuracion}` };
-            onSave(newService);
-        };
-
-        return (
-            <div className="modal-overlay">
-                <div className="modal-content">
-                    <h2>Añadir servicio</h2>
-                    <label>Título:</label>
-                    <input type="text" value={titulo} onChange={(e) => setTitulo(e.target.value)} />
-
-                    <label>Descripción:</label>
-                    <textarea value={descripcion ? descripcion : ""} onChange={(e) => setDescripcion(e.target.value)} />
-
-                    <label>Precio:</label>
-                    <input type="text" value={precio} placeholder="€ / consulta" onChange={(e) => setPrecio(e.target.value)} />
-
-                    <label>Frecuencia:</label>
-                    <select value={frecuencia} onChange={(e) => setFrecuencia(e.target.value)}>
-                        <option value="diaria">Diaria</option>
-                        <option value="semanal">Semanal</option>
-                        <option value="quincenal">Quincenal</option>
-                        <option value="mensual">Mensual</option>
-                        <option value="trimestral">Trimestral</option>
-                        <option value="semestral">Semestral</option>
-                    </select>
-
-                    <label>Duración:</label>
-                    <div className="duration-input">
-                        <input
-                            type="number"
-                            value={duracion}
-                            onChange={(e) => setDuracion(e.target.value)}
-                            placeholder="Duración"
-                        />
-                        <select value={unidadDuracion} onChange={(e) => setUnidadDuracion(e.target.value)}>
-                            <option value="días">Minutos</option>
-                            <option value="semanas">Horas</option>
-                        </select>
-                    </div>
-
-                    <GradientButton variant="create" onClick={handleSave}>Guardar</GradientButton>
-                    <GradientButton variant="grey" onClick={onClose}>Cancelar</GradientButton>
-                </div>
-            </div>
-        );
-    };
 
     if (loading) {
         return (
@@ -530,28 +627,61 @@ const FisioProfile = () => {
                                 {Object.keys(services).length === 0 ? (
                                     <p className="text-gray-500 text-center py-6">No hay servicios añadidos aún.</p>
                                 ) : (
-                                    <div className="grid gap-4 md:grid-cols-2">
-                                        {Object.entries(services).map(([key, service]) => (
-                                            <div key={key} className="border border-gray-200 rounded-md p-4 hover:shadow-md transition-shadow">
-                                                <h3 className="font-semibold text-lg text-gray-800 mb-2">{service.titulo}</h3>
-                                                <p className="text-gray-600 mb-3 text-sm">{service.descripcion}</p>
-                                                <div className="space-y-1 text-sm">
-                                                    <div className="flex justify-between">
-                                                        <span className="text-gray-500">Precio:</span>
-                                                        <span className="font-medium">{service.precio}</span>
-                                                    </div>
-                                                    <div className="flex justify-between">
-                                                        <span className="text-gray-500">Frecuencia:</span>
-                                                        <span>{service.frecuencia}</span>
-                                                    </div>
-                                                    <div className="flex justify-between">
-                                                        <span className="text-gray-500">Duración:</span>
-                                                        <span>{service.duracion}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
+                                <div className="grid gap-4 md:grid-cols-1">
+                                    {Object.entries(services).map(([key, service]) => (
+                                        <div
+                                        key={key}
+                                        className="relative bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer border border-gray-100 overflow-hidden group w-full"
+                                        onClick={() => handleServiceClick(key, service)}
+                                       >
+                                         {/* Header section with title and optional tag */}
+                                         <div className="flex justify-between items-center p-4 pb-2 border-b border-gray-100">
+                                           <h3 className="font-bold text-xl text-gray-800 group-hover:text-blue-600 transition-colors">
+                                             {service.titulo}
+                                           </h3>
+                                           <span className="bg-blue-500 text-white text-xs px-2 py-1 rounded-full">
+                                             Servicio
+                                           </span>
+                                         </div>
+                                       
+                                         {/* Description */}
+                                         <p className="text-gray-600 text-sm px-4 py-3 leading-relaxed">
+                                           {service.descripcion}
+                                         </p>
+                                       
+                                         {/* Details section with icons */}
+                                         <div className="px-4 pb-4 space-y-2 text-sm">
+                                           <div className="flex items-center justify-between">
+                                             <div className="flex items-center text-gray-500">
+                                               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                               </svg>
+                                               <span>Precio:</span>
+                                             </div>
+                                             <span className="font-semibold text-gray-800">{service.precio}</span>
+                                           </div>
+                                           <div className="flex items-center justify-between">
+                                             <div className="flex items-center text-gray-500">
+                                               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                               </svg>
+                                               <span>Frecuencia:</span>
+                                             </div>
+                                             <span className="text-gray-700">{service.frecuencia}</span>
+                                           </div>
+                                           <div className="flex items-center justify-between">
+                                             <div className="flex items-center text-gray-500">
+                                               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                               </svg>
+                                               <span>Duración:</span>
+                                             </div>
+                                             <span className="text-gray-700">{service.duracion}</span>
+                                           </div>
+                                         </div>
+                                       </div>
+                                    ))}
+                                </div>
                                 )}
                             </div>
                         </div>
@@ -699,6 +829,7 @@ const FisioProfile = () => {
                             )}
 
                             <GradientButton variant="edit" className="mt-8 w-full py-4 px-6 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-xl transition-all duration-200 transform hover:-translate-y-0.5 flex items-center justify-center">
+                                <Save size={18} className="mr-2" />
                                 Actualizar Perfil
                             </GradientButton>
                         </form>
@@ -722,6 +853,25 @@ const FisioProfile = () => {
                 <ServiceModal
                     onClose={() => setShowServiceModal(false)}
                     onSave={handleAddService}
+                />
+            )}
+
+            {/* Modals */}
+            {showServiceModal && (
+                <ServiceModal
+                    onClose={() => setShowServiceModal(false)}
+                    onSave={handleAddService}
+                />
+            )}
+            
+            {/* Add the ServiceEditModal here */}
+            {showEditServiceModal && selectedService && (
+                <ServiceEditModal
+                    service={selectedService}
+                    serviceName={selectedServiceName}
+                    onClose={() => setShowEditServiceModal(false)}
+                    onSave={handleUpdateService}
+                    onDelete={handleDeleteService}
                 />
             )}
         </div>

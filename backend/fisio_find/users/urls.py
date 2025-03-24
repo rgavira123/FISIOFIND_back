@@ -13,7 +13,10 @@ urlpatterns = [
     path('physio/register/', physio_register_view, name='physio_register'),
     path('physio/update/', physio_update_view, name='physio_update'),
     path('physio/create-service/', physio_create_service, name='physio_create_service'),
+    # Change this line in urlpatterns
     path('physio/delete-service/<int:service_id>/', physio_delete_service_view, name='physio_delete_service'),
+    # To this
+    path('physio/delete-service/<str:service_name>/', physio_delete_service_view, name='physio_delete_service'),
     path('profile/', PatientProfileView.as_view(), name='profile'),
     path('current-user/', return_user, name='current_user'),
     path('services/<int:physio_id>/', physio_get_services_view, name='physio_get_services'),

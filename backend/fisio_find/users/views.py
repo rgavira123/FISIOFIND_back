@@ -10,6 +10,7 @@ from .models import Physiotherapist, Patient
 from rest_framework import generics
 from .permissions import IsPhysiotherapist
 from .permissions import IsPatient
+# Add this import if it's not already there
 import json
 
 
@@ -183,17 +184,35 @@ def physio_get_services_view(request, physio_id):
 
 
 @api_view(['DELETE'])
-def physio_delete_service_view(request, service_id):
-    physio = get_object_or_404(Physiotherapist, user=request.user)
-    services = physio.services
-    if services is None:
-        return Response({"message": "No hay servicios para eliminar"}, status=status.HTTP_200_OK)
-    if service_id not in services:
-        return Response({"error": "El servicio no existe"}, status=status.HTTP_404_NOT_FOUND)
-    del services[service_id]
-    physio.services = services
-    physio.save()
-    return Response({"message": "Servicio eliminado correctamente"}, status=status.HTTP_200_OK)
+@permission_classes([IsAuthenticated, IsPhysiotherapist])
+def physio_delete_service_view(request, service_name):
+    try:
+        # Get the physiotherapist profile
+        physio = Physiotherapist.objects.get(user=request.user)
+        
+        # Get current services
+        services = physio.services
+        if isinstance(services, str):
+            services = json.loads(services)
+        elif services is None:
+            services = {}
+        
+        # Check if the service exists
+        if service_name not in services:
+            return Response({"error": "Servicio no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+        
+        # Remove the service
+        del services[service_name]
+        
+        # Update the physiotherapist's services
+        physio.services = services
+        physio.save()
+        
+        return Response({"message": "Servicio eliminado correctamente"}, status=status.HTTP_200_OK)
+    except Physiotherapist.DoesNotExist:
+        return Response({"error": "Fisioterapeuta no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 """

@@ -135,10 +135,9 @@ const Logo = () => {
       className="font-normal flex items-center justify-center text-sm text-[#253240] py-1 relative z-300 w-full"
     >
       <img
-        src="/static/fisio_find_logo.webp"
+        src="/static/logo_fisio_find_smaller.webp"
         alt="Logo"
         className="h-16 w-auto flex-shrink-0"
-        style={{ filter: "brightness(0) invert(0)" }}
       />
     </a>
   );
@@ -152,10 +151,9 @@ export const LogoIcon = () => {
     >
       <div className="h-12 w-12 overflow-hidden flex items-center justify-center">
         <img
-          src="/static/fisio_find_logo.webp"
+          src="/static/logo_fisio_find_smaller.webp"
           alt="Fisio Find logo"
           className="h-12 w-auto flex-shrink-0 object-contain"
-          style={{ filter: "brightness(0) invert(0)" }}
         />
       </div>
     </a>
