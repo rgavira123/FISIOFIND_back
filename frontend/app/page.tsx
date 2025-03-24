@@ -171,7 +171,7 @@ const Home = () => {
       const fetchSpecializations = async () => {
         try {
           const response = await axios.get(
-            `${getApiBaseUrl()}/api/sesion_invitado/specializations/`
+            `${getApiBaseUrl()}/api/guest_session/specializations/`
           );
           if (response.status === 200) {
             setSpecializations(["", ...response.data]);
@@ -191,7 +191,7 @@ const Home = () => {
       }
 
       try {
-        const searchUrl = `${apiBaseurl}/api/sesion_invitado/physios-with-specializations/?specialization=${specialization}`;
+        const searchUrl = `${apiBaseurl}/api/guest_session/physios-with-specializations/?specialization=${specialization}`;
         const response = await axios.get(searchUrl);
 
         if (response.status === 200) {
@@ -563,16 +563,16 @@ const Home = () => {
                 </a>
               </li>
               <li>
-                <a href="https://fisiofind.vercel.app">Documentación</a>
+                <a href="/terms">Política de Privacidad</a>
               </li>
               <li>
-                <Link href="/">Términos de Servicio</Link>
+                <Link href="/terms">Términos de Servicio</Link>
               </li>
             </ul>
           </div>
           <div>
             <h3 className="text-lg font-bold mb-4">Contacto</h3>
-            <p>Correo: support@fisiofind.com</p>
+            <p>Correo: <a href="mailto:support@fisiofind.com" className="hover:underline">support@fisiofind.com</a></p>
             <p>Ubicación: Sevilla, España</p>
           </div>
         </div>

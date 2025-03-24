@@ -52,7 +52,7 @@ export default function GestionarTerminos() {
 
   useEffect(() => {
     axios
-      .get(`${getApiBaseUrl()}/api/terminos/list/`, {
+      .get(`${getApiBaseUrl()}/api/terms/list/`, {
         headers: {
           Authorization: "Bearer " + token,
         },

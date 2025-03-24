@@ -1,48 +1,48 @@
 [
     {
-        "model": "gestion_usuarios.specialization",
+        "model": "users.specialization",
         "pk": 1,
         "fields": {
             "name": "Deportiva"
         }
     },
     {
-        "model": "gestion_usuarios.specialization",
+        "model": "users.specialization",
         "pk": 2,
         "fields": {
             "name": "Ortopédica y Traumatológica"
         }
     },
     {
-        "model": "gestion_usuarios.specialization",
+        "model": "users.specialization",
         "pk": 3,
         "fields": {
             "name": "Geriátrica"
         }
     },
     {
-        "model": "gestion_usuarios.specialization",
+        "model": "users.specialization",
         "pk": 4,
         "fields": {
             "name": "Pediátrica"
         }
     },
     {
-        "model": "gestion_usuarios.specialization",
+        "model": "users.specialization",
         "pk": 5,
         "fields": {
             "name": "Neurológica"
         }
     },
     {
-        "model": "gestion_usuarios.specialization",
+        "model": "users.specialization",
         "pk": 6,
         "fields": {
             "name": "Obstetricia y suelo pélvico"
         }
     },
     {
-        "model": "gestion_usuarios.appuser",
+        "model": "users.appuser",
         "pk": 1,
         "fields": {
             "username": "jorgito",
@@ -57,7 +57,7 @@
         }
     },
     {
-        "model": "gestion_usuarios.physiotherapist",
+        "model": "users.physiotherapist",
         "pk": 1,
         "fields": {
             "user": 1,
@@ -151,7 +151,7 @@
         }
     },
     {
-        "model": "gestion_usuarios.appuser",
+        "model": "users.appuser",
         "pk": 2,
         "fields": {
             "username": "abel",
@@ -166,7 +166,7 @@
         }
     },
     {
-        "model": "gestion_usuarios.physiotherapist",
+        "model": "users.physiotherapist",
         "pk": 2,
         "fields": {
             "user": 2,
@@ -185,7 +185,7 @@
         }
     },
     {
-        "model": "gestion_usuarios.appuser",
+        "model": "users.appuser",
         "pk": 3,
         "fields": {
             "username": "lupe",
@@ -200,7 +200,7 @@
         }
     },
     {
-        "model": "gestion_usuarios.physiotherapist",
+        "model": "users.physiotherapist",
         "pk": 3,
         "fields": {
             "user": 3,
@@ -219,7 +219,7 @@
         }
     },
     {
-        "model": "gestion_usuarios.appuser",
+        "model": "users.appuser",
         "pk": 4,
         "fields": {
             "username": "guille",
@@ -234,7 +234,7 @@
         }
     },
     {
-        "model": "gestion_usuarios.physiotherapist",
+        "model": "users.physiotherapist",
         "pk": 4,
         "fields": {
             "user": 4,
@@ -252,7 +252,7 @@
         }
     },
     {
-        "model": "gestion_usuarios.appuser",
+        "model": "users.appuser",
         "pk": 5,
         "fields": {
             "username": "lupita",
@@ -267,7 +267,7 @@
         }
     },
     {
-        "model": "gestion_usuarios.physiotherapist",
+        "model": "users.physiotherapist",
         "pk": 5,
         "fields": {
             "user": 5,
@@ -286,7 +286,7 @@
         }
     },
     {
-        "model": "gestion_usuarios.appuser",
+        "model": "users.appuser",
         "pk": 6,
         "fields": {
             "username": "patient1",
@@ -301,7 +301,7 @@
         }
     },
     {
-        "model": "gestion_usuarios.patient",
+        "model": "users.patient",
         "pk": 1,
         "fields": {
             "user": 6,
@@ -310,7 +310,7 @@
         }
     },
     {
-        "model": "gestion_usuarios.appuser",
+        "model": "users.appuser",
         "pk": 7,
         "fields": {
             "username": "patient2",
@@ -323,7 +323,7 @@
         }
     },
     {
-        "model": "gestion_usuarios.patient",
+        "model": "users.patient",
         "pk": 2,
         "fields": {
             "user": 7,
@@ -332,7 +332,7 @@
         }
     },
     {
-        "model": "gestion_usuarios.appuser",
+        "model": "users.appuser",
         "pk": 8,
         "fields": {
             "username": "patient3",
@@ -345,7 +345,7 @@
         }
     },
     {
-        "model": "gestion_usuarios.patient",
+        "model": "users.patient",
         "pk": 3,
         "fields": {
             "user": 8,
@@ -354,7 +354,7 @@
         }
     },
     {
-        "model": "gestion_usuarios.appuser",
+        "model": "users.appuser",
         "pk": 9,
         "fields": {
             "username": "patient4",
@@ -367,7 +367,7 @@
         }
     },
     {
-        "model": "gestion_usuarios.patient",
+        "model": "users.patient",
         "pk": 4,
         "fields": {
             "user": 9,
@@ -376,7 +376,7 @@
         }
     },
     {
-        "model": "gestion_usuarios.appuser",
+        "model": "users.appuser",
         "pk": 10,
         "fields": {
             "username": "patient5",
@@ -389,7 +389,7 @@
         }
     },
     {
-        "model": "gestion_usuarios.patient",
+        "model": "users.patient",
         "pk": 5,
         "fields": {
             "user": 10,

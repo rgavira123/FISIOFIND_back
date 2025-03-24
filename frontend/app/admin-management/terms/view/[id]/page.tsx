@@ -53,7 +53,7 @@ export default function VerTermino() {
 
   useEffect(() => {
     axios
-      .get(`${getApiBaseUrl()}/api/terminos/list/` + id + "/", {
+      .get(`${getApiBaseUrl()}/api/terms/list/` + id + "/", {
         headers: {
           Authorization: "Bearer " + token,
         },

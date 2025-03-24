@@ -5,8 +5,8 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from gestion_citas.models import Appointment, Physiotherapist
 from gestion_citas.serializers import AppointmentSerializer
 from rest_framework.permissions import IsAuthenticated
-from gestion_usuarios.permissions import IsPhysiotherapist, IsPatient, IsPhysioOrPatient
-from gestion_usuarios.permissions import IsAdmin
+from users.permissions import IsPhysiotherapist, IsPatient, IsPhysioOrPatient
+from users.permissions import IsAdmin
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
@@ -654,6 +654,51 @@ def confirm_appointment_using_token(request, token):
 
 
     return Response({"message": "¡Cita aceptada con éxito!"}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+@permission_classes([IsAdmin])
+def create_appointment_admin(request):
+
+    data = request.data.copy()
+
+    serializer = AppointmentSerializer(data=data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class AdminAppointmenList(generics.ListAPIView):
+    '''
+    API endpoint para listar los términos para admin.
+    '''
+    permission_classes = [IsAdmin]
+    queryset = Appointment.objects.all()
+    serializer_class = AppointmentSerializer
+
+class AdminAppointmennDetail(generics.RetrieveAPIView):
+    '''
+    API endpoint que retorna un solo término por su id para admin.
+    '''
+    permission_classes = [IsAdmin]
+    queryset = Appointment.objects.all()
+    serializer_class = AppointmentSerializer
+
+class AdminAppointmenUpdate(generics.RetrieveUpdateAPIView):
+    '''
+    API endpoint para que admin actualice un término.
+    '''
+    permission_classes = [IsAdmin]
+    queryset = Appointment.objects.all()
+    serializer_class = AppointmentSerializer
+
+class AdminAppointmenDelete(generics.DestroyAPIView):
+    '''
+    API endpoint para que admin elimine un término.
+    '''
+    permission_classes = [IsAdmin]
+    queryset = Appointment.objects.all()
+    serializer_class = AppointmentSerializer
 
 """
 class AdminAppointmenCreate(generics.CreateAPIView):
