@@ -1,9 +1,7 @@
 from rest_framework import serializers
 
 from users.models import Patient, Physiotherapist
-from .models import Exercise, ExerciseLog, ExerciseSession, Session, Treatment, Series
-from users.serializers import PhysioSerializer
-from users.serializers import PatientSerializer
+from .models import Exercise, ExerciseLog, ExerciseSession, Session, SessionTest, SessionTestResponse, SessionTest, Treatment, Series
 from django.utils import timezone
 
 class TreatmentSerializer(serializers.ModelSerializer):
@@ -91,3 +89,45 @@ class ExerciseLogSerializer(serializers.ModelSerializer):
         model = ExerciseLog
         fields = ['id', 'series', 'date', 'repetitions_done', 'weight_done', 'time_done', 'distance_done', 'notes', 'patient']
         read_only_fields = ['id', 'date', 'patient']
+        
+class SessionTestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SessionTest
+        fields = ['id', 'session', 'question', 'test_type', 'scale_labels']
+        read_only_fields = ['id']
+
+class SessionTestResponseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SessionTestResponse
+        fields = ['id', 'test', 'patient', 'response_text', 'response_scale', 'submitted_at']
+        read_only_fields = ['id', 'patient', 'submitted_at']
+        
+    def validate(self, data):
+        test = data.get('test') or self.instance.test
+        
+        if not test:
+            raise serializers.ValidationError("No se ha especificado un test.")
+        
+        test_type = test.test_type
+        
+        if test_type == SessionTest.TEXT:
+            if not data.get('response_text'):
+                raise serializers.ValidationError({"response_text": "Este campo es obligatorio para respuestas abiertas."})
+            if data.get('response_scale') is not None:
+                raise serializers.ValidationError({"response_scale": "No debe incluir respuesta numérica en un test de texto."})
+            
+        elif test_type == SessionTest.SCALE:
+            scale = data.get('response_scale')
+            if scale is None:
+                raise serializers.ValidationError({"response_scale": "Este campo es obligatorio para respuestas de escala."})
+            if data.get('response_text'):
+                raise serializers.ValidationError({"response_text": "No debe incluir texto en un test de escala."})
+            
+            # Validar que la escala esté dentro del rango definido en scale_labels
+            if test.scale_labels:
+                valid_keys = list(map(int, test.scale_labels.keys()))
+                if scale not in valid_keys:
+                    raise serializers.ValidationError({"response_scale": f"El valor debe estar entre {min(valid_keys)} y {max(valid_keys)}."})
+        
+        return data
+           

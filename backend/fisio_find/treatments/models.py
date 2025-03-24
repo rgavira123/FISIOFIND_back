@@ -2,7 +2,6 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from users.models import Patient, Physiotherapist
 
-
 class Treatment(models.Model):
     physiotherapist = models.ForeignKey(Physiotherapist, on_delete=models.CASCADE, related_name='treatments')
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='treatments')
@@ -40,7 +39,32 @@ class Session(models.Model):
     def __str__(self):
         return f"Sesión para {self.treatment.patient.user.username} el {self.get_day_of_week_display()}"
 
-
+class SessionTest(models.Model):
+    TEXT = 'text'
+    SCALE = 'scale'
+    TEXT_TYPE_CHOICES = [
+        (TEXT, 'Text'),
+        (SCALE, 'Scale'),
+    ]
+    
+    session = models.OneToOneField(Session, on_delete=models.CASCADE, related_name='test')
+    question = models.CharField(max_length=255)
+    test_type = models.CharField(max_length=10, choices=TEXT_TYPE_CHOICES, default=TEXT)
+    scale_labels = models.JSONField(blank=True, null=True, help_text="Etiquetas para cada valor para preguntas de tipo escala")
+    
+    def __str__(self):
+        return f"Test de {self.session.treatment.patient.user.username} en sesión {self.session.id}: {self.question}"
+    
+class SessionTestResponse(models.Model):
+    test = models.ForeignKey(SessionTest, on_delete=models.CASCADE, related_name='responses')
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='test_responses')
+    response_text = models.TextField(blank=True, null=True)
+    response_scale = models.IntegerField(blank=True, null=True)
+    
+    submitted_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"Respuesta de {self.patient.user.username} al test {self.test.question} en sesión {self.test.session.id}"
 
 class Exercise(models.Model):
     """ Catálogo de ejercicios disponibles """
@@ -83,7 +107,6 @@ class ExerciseSession(models.Model):
     def __str__(self):
         return f"{self.exercise.title} en sesión {self.session.id}"
 
-
 class Series(models.Model):
     """ Una serie dentro de un ejercicio en una sesión """
     exercise_session = models.ForeignKey(ExerciseSession, on_delete=models.CASCADE, related_name='series')
@@ -124,3 +147,4 @@ class ExerciseLog(models.Model):
 
     def __str__(self):
         return f"Log de {self.patient.user.username} en serie {self.series.series_number}"
+    

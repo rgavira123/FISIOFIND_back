@@ -2,14 +2,11 @@ import logging
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated,AllowAny
 
 from users.permissions import IsPatient, IsPhysioOrPatient, IsPhysiotherapist
-from .models import Exercise, ExerciseLog, ExerciseSession, Series, Session, Treatment
-from .serializers import ExerciseLogSerializer, ExerciseSerializer, ExerciseSessionSerializer, SeriesSerializer, SessionSerializer, TreatmentSerializer, TreatmentDetailSerializer
+from .models import Exercise, ExerciseLog, ExerciseSession, Series, Session, SessionTest, Treatment
+from .serializers import ExerciseLogSerializer, ExerciseSerializer, ExerciseSessionSerializer, SeriesSerializer, SessionSerializer, SessionTestResponseSerializer, SessionTestSerializer, TreatmentSerializer, TreatmentDetailSerializer
 from gestion_citas.models import Appointment
-from users.models import Physiotherapist
-from users.models import Patient
 
 class TreatmentCreateView(APIView):
     """
@@ -376,6 +373,143 @@ class SessionDetailView(APIView):
                 status=status.HTTP_404_NOT_FOUND
             )
 
+class SessionTestCreateOrUpdateView(APIView):
+    """
+    Vista para que un fisioterapeuta pueda crear o actualizar tests en una sesión.
+    """
+    permission_classes = [IsPhysiotherapist]
+    
+    def post(self, request, session_id):
+        pyshiotherapist = request.user.physio
+        try:
+            session = Session.objects.get(id=session_id)
+            if session.treatment.physiotherapist != pyshiotherapist:
+                return Response(
+                    {'detail': 'No tiene permiso para crear tests en esta sesión'},
+                    status=status.HTTP_403_FORBIDDEN
+                )
+        except Session.DoesNotExist:
+            return Response(
+                {'detail': 'No se ha encontrado la sesión'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+            
+        data = request.data.copy()
+        data['session'] = session.id
+        
+        try:
+            instance = session.test
+            serializer = SessionTestSerializer(instance, data=data, partial=True)
+        except SessionTest.DoesNotExist:
+            serializer = SessionTestSerializer(data=data)
+            
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class SessionTestRetrieveView(APIView):
+    """
+    Vista para que un fisioterapeuta o un paciente puedan ver los tests de una sesión.
+    """
+    permission_classes = [IsPhysioOrPatient]
+
+    def get(self, request, session_id):
+        try:
+            session = Session.objects.get(id=session_id)
+            test = session.test
+        except (Session.DoesNotExist, SessionTest.DoesNotExist):
+            return Response({'detail': 'Test no encontrado'}, status=404)
+
+        # Validar acceso del usuario
+        user = request.user
+        if session.treatment.physiotherapist.user != user and session.treatment.patient.user != user:
+            return Response({'detail': 'No tiene permiso'}, status=403)
+
+        serializer = SessionTestSerializer(test)
+        return Response(serializer.data, status=200)
+
+
+class SessionTestDeleteView(APIView):
+    """
+    Vista para que un fisioterapeuta pueda eliminar un test de una sesión.
+    """
+    permission_classes = [IsPhysiotherapist]
+
+    def delete(self, request, session_id):
+        physiotherapist = request.user.physio
+        try:
+            session = Session.objects.get(id=session_id)
+            if session.treatment.physiotherapist != physiotherapist:
+                return Response({'detail': 'No tiene permiso'}, status=403)
+
+            test = session.test
+            test.delete()
+            return Response({'detail': 'Test eliminado'}, status=204)
+
+        except (Session.DoesNotExist, SessionTest.DoesNotExist):
+            return Response({'detail': 'Test no encontrado'}, status=404)
+            
+    
+class SessionTestResponseView(APIView):
+    """
+    Vista para que un paciente pueda responder a un test de una sesión.
+    """
+    permission_classes = [IsPatient]
+    
+    def post(self, request, session_id):
+        patient = request.user.patient
+        try:
+            session = Session.objects.get(id=session_id)
+            if session.treatment.patient != patient:
+                return Response(
+                    {'detail': 'No tiene permiso para responder a este test'},
+                    status=status.HTTP_403_FORBIDDEN
+                )
+            test = session.test
+        except (SessionTest.DoesNotExist, Session.DoesNotExist):
+            return Response(
+                {'detail': 'No se ha encontrado el test'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        
+        data = request.data.copy()
+        data['test'] = test.id
+        data['patient'] = patient.id
+        
+        serializer = SessionTestResponseSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save(patient=patient)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class SessionTestResponseListView(APIView):
+    """
+    Vista para que un fisioterapeuta o un paciente puedan ver las respuestas a un test de una sesión.
+    """
+    permission_classes = [IsPhysioOrPatient]
+    
+    def get(self, request, session_id):
+        try:
+            session = Session.objects.get(id=session_id)
+            test = session.test
+        except (Session.DoesNotExist, SessionTest.DoesNotExist):
+            return Response(
+                {'detail': 'No se ha encontrado el test'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        user = request.user
+        if session.treatment.physiotherapist.user != user and session.treatment.patient.user != user:
+            return Response(
+                {'detail': 'No tiene permiso para ver las respuestas a este test'},
+                status=status.HTTP_403_FORBIDDEN
+            )
+            
+        responses = test.responses.all()
+        serializer = SessionTestResponseSerializer(responses, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
 class ExerciseCreateView(APIView):
     """
     Vista para que un fisioterapeuta pueda crear ejercicios en su biblioteca personal.

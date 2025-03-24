@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Exercise, ExerciseLog, ExerciseSession, Series, Session, Treatment
+from .models import Exercise, ExerciseLog, ExerciseSession, Series, Session, SessionTestResponse, SessionTest, Treatment
 
 @admin.register(Treatment)
 class TreatmentAdmin(admin.ModelAdmin):
@@ -24,3 +24,5 @@ admin.site.register(Exercise)
 admin.site.register(ExerciseSession)
 admin.site.register(Series)
 admin.site.register(ExerciseLog)
+admin.site.register(SessionTest)
+admin.site.register(SessionTestResponse)

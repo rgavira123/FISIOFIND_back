@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (
-    TreatmentCreateView, PhysiotherapistTreatmentListView, PatientTreatmentListView, TreatmentDetailView,
+    SessionTestCreateOrUpdateView, SessionTestDeleteView, SessionTestResponseListView, SessionTestResponseView, SessionTestRetrieveView, TreatmentCreateView, PhysiotherapistTreatmentListView, PatientTreatmentListView, TreatmentDetailView,
     SessionCreateView, SessionListView, SessionDetailView,
     ExerciseCreateView, ExerciseListView, ExerciseDetailView, ExerciseSearchView, ExerciseByAreaView,
     AssignExerciseToSessionView, UnassignExerciseFromSessionView, ExerciseListBySessionView,
@@ -15,10 +15,15 @@ urlpatterns = [
     path('patient/', PatientTreatmentListView.as_view(), name='patient_treatment_list'),
     path('<int:pk>/', TreatmentDetailView.as_view(), name='treatment_detail'),
 
-    # Sesiones dentro de un tratamiento
+    # Sesiones dentro de un tratamiento y sus tests
     path('<int:treatment_id>/sessions/create/', SessionCreateView.as_view(), name='create_session'),
     path('<int:treatment_id>/sessions/', SessionListView.as_view(), name='session_list'),
-    path('sessions/<int:pk>/', SessionDetailView.as_view(), name='session_detail'),
+    path('sessions/<int:session_id>/', SessionDetailView.as_view(), name='session_detail'),
+    path('sessions/<int:session_id>/test/', SessionTestCreateOrUpdateView.as_view(), name='create_update_test'),
+    path('sessions/<int:session_id>/test/view/', SessionTestRetrieveView.as_view(), name='view_test'),
+    path('sessions/<int:session_id>/test/delete/', SessionTestDeleteView.as_view(), name='delete_test'),
+    path('sessions/<int:session_id>/test/respond/', SessionTestResponseView.as_view(), name='respond_test'),
+    path('sessions/<int:session_id>/test/responses/', SessionTestResponseListView.as_view(), name='list_test_responses'),
 
     # Ejercicios
     path('exercises/create/', ExerciseCreateView.as_view(), name='create_exercise'),
