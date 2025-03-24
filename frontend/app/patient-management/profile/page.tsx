@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { getApiBaseUrl } from "@/utils/api";
-import { User, Phone, Mail, MapPin, Calendar, FileText, Users, Camera, Save, Check } from 'lucide-react';
+import { User, Phone, Mail, MapPin, Calendar, FileText, Users, Camera, Save, Check, Lock } from 'lucide-react';
 import { GradientButton } from "@/components/ui/gradient-button";
 
 const BASE_URL = `${getApiBaseUrl()}`;
@@ -31,6 +31,9 @@ const PatientProfile = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isClient, setIsClient] = useState(false);
   const [token, setToken] = useState<string | null>(null);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [pendingChanges, setPendingChanges] = useState({});
+  const [oldPassword, setOldPassword] = useState(""); // State for old password
 
   useEffect(() => {
     setIsClient(true);
@@ -118,6 +121,40 @@ const PatientProfile = () => {
     });
   };
 
+  const handleSensitiveChange = (e) => {
+    const { name, value } = e.target;
+
+    setPendingChanges((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const confirmSensitiveChanges = async () => {
+    if (pendingChanges.password && !oldPassword) {
+      setErrors({ password: "Debes ingresar tu contraseña actual para actualizar la contraseña." });
+      return;
+    }
+
+    setProfile((prevProfile) => ({
+      ...prevProfile,
+      user: {
+        ...prevProfile.user,
+        ...pendingChanges,
+      },
+    }));
+    setPendingChanges({});
+    setShowConfirmation(false);
+
+    // Call the profile update function after confirming changes
+    await submitProfileUpdate();
+  };
+
+  const cancelSensitiveChanges = () => {
+    setPendingChanges({});
+    setShowConfirmation(false);
+  };
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -140,7 +177,7 @@ const PatientProfile = () => {
   };
 
   const handleImageClick = () => {
-    document.getElementById('file-input').click();  // Abrir el input oculto para cargar una nueva foto
+    document.getElementById('file-input').click();
   };
 
   const validateForm = () => {
@@ -176,6 +213,16 @@ const PatientProfile = () => {
     setSuccess("");
     setErrors({});
 
+    // Check if sensitive fields have been changed
+    if (pendingChanges.dni || pendingChanges.password) {
+      setShowConfirmation(true);
+      return;
+    }
+
+    await submitProfileUpdate();
+  };
+
+  const submitProfileUpdate = async () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -190,12 +237,21 @@ const PatientProfile = () => {
 
       const formData = new FormData();
 
-      // Add user fields
+      // Add user fields, including sensitive fields like DNI and password
       Object.entries(profile.user).forEach(([key, value]) => {
         if (value && key !== "photo" && key !== "photoFile" && key !== "preview") {
           formData.append(`user.${key}`, value);
         }
       });
+
+      // Add pending changes for sensitive fields (DNI and password)
+      if (pendingChanges.dni) {
+        formData.append("user.dni", pendingChanges.dni);
+      }
+      if (pendingChanges.password) {
+        formData.append("user.password", pendingChanges.password);
+        formData.append("user.old_password", oldPassword); // Include old password
+      }
 
       // Add patient fields
       formData.append("gender", profile.gender);
@@ -238,6 +294,12 @@ const PatientProfile = () => {
           if (data.user.dni) {
             errorMessages.dni = data.user.dni[0];
           }
+          if (data.user.password) {
+            errorMessages.password = data.user.password[0];
+          }
+          if (data.user.old_password) {
+            errorMessages.old_password = data.user.old_password[0];
+          }
         }
 
         setErrors(errorMessages);
@@ -265,7 +327,7 @@ const PatientProfile = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center p-5" 
-           style={{ background: "linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%)" }}>
+           style={{ backgroundColor: "rgb(238, 251, 250)" }}>
         <div className="bg-white rounded-3xl shadow-xl p-8 w-full max-w-md text-center">
           <div className="animate-pulse flex flex-col items-center">
             <div className="rounded-full bg-gray-200 h-32 w-32 mb-4"></div>
@@ -279,9 +341,9 @@ const PatientProfile = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-5" 
-         style={{ background: "linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%)" }}>
+         style={{ backgroundColor: "rgb(238, 251, 250)" }}>
       
-      <div className="bg-white w-full max-w-4xl rounded-3xl shadow-xl overflow-hidden"
+      <div className="bg-white w-full max-w-3xl rounded-3xl shadow-xl overflow-hidden"
            style={{ boxShadow: "0 20px 60px rgba(0, 0, 0, 0.08)" }}>
         
         <div className="flex flex-col md:flex-row">
@@ -442,9 +504,83 @@ const PatientProfile = () => {
                   {errors.gender && <p className="mt-1 text-sm text-red-600">{errors.gender}</p>}
                 </div>
               </div>
-              
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">DNI</label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <FileText size={18} />
+                  </div>
+                  <input
+                    type="text"
+                    name="dni"
+                    value={pendingChanges.dni || profile.user.dni}
+                    onChange={handleSensitiveChange}
+                    className="w-full pl-10 pr-3 py-3 border-2 border-gray-200 rounded-xl transition-all duration-200 outline-none focus:border-[#1E5ACD] focus:shadow-[0_0_0_4px_rgba(30,90,205,0.1)]"
+                  />
+                </div>
+                {errors.dni && <p className="mt-1 text-sm text-red-600">{errors.dni}</p>}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <Lock size={18} />
+                  </div>
+                  <input
+                    type="password"
+                    name="password"
+                    value={pendingChanges.password || "******"}
+                    onChange={handleSensitiveChange}
+                    className="w-full pl-10 pr-3 py-3 border-2 border-gray-200 rounded-xl transition-all duration-200 outline-none focus:border-[#1E5ACD] focus:shadow-[0_0_0_4px_rgba(30,90,205,0.1)]"
+                  />
+                </div>
+                {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
+              </div>
+
+              {/* Confirmation Modal */}
+              {showConfirmation && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                  <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm">
+                    <h2 className="text-lg font-bold mb-4">Confirmar Cambios</h2>
+                    <p className="text-sm text-gray-600 mb-6">
+                      Estás a punto de cambiar información sensible (DNI o contraseña). Si estás cambiando tu contraseña, ingresa tu contraseña actual.
+                    </p>
+                    {pendingChanges.password && (
+                      <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Contraseña Actual</label>
+                        <input
+                          type="password"
+                          value={oldPassword}
+                          onChange={(e) => setOldPassword(e.target.value)}
+                          className="w-full px-3 py-2 border-2 border-gray-200 rounded-xl outline-none focus:border-[#1E5ACD] focus:shadow-[0_0_0_4px_rgba(30,90,205,0.1)]"
+                        />
+                        {errors.old_password && <p className="mt-1 text-sm text-red-600">{errors.old_password}</p>}
+                      </div>
+                    )}
+                    <div className="flex justify-end space-x-4">
+                      <GradientButton
+                        variant="grey"
+                        onClick={() => {
+                          setShowConfirmation(false);
+                        }}
+                      >
+                        Cancelar
+                      </GradientButton>
+                      <GradientButton
+                        variant="danger"
+                        onClick={confirmSensitiveChanges}
+                      >
+                        Confirmar
+                      </GradientButton>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <GradientButton
-                type="edit"
+                variant="edit"
                 className="mt-8 w-full py-4 px-6 bg-gradient-to-r from-[#1E5ACD] to-[#3a6fd8] text-white font-semibold rounded-xl transition-all duration-200 transform hover:-translate-y-0.5 flex items-center justify-center"
               >
                 <Save size={18} className="mr-2" />
@@ -454,6 +590,11 @@ const PatientProfile = () => {
           </div>
         </div>
       </div>
+      {success && (
+        <div className="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50">
+          <p>{success}</p>
+        </div>
+      )}
     </div>
   );
 };
