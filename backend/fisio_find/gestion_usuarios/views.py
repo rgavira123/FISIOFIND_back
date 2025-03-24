@@ -114,66 +114,60 @@ def physio_register_view(request):
 @api_view(['PUT'])
 @permission_classes([IsPhysiotherapist])
 def physio_update_view(request):
-    """Actualiza los datos del fisioterapeuta autenticado"""
-    
-    # Obtener el fisioterapeuta asociado al usuario autenticado
+    """Update the authenticated physiotherapist's data."""
     physio = get_object_or_404(Physiotherapist, user=request.user)
-    
-    # Aplanar las claves 'user.*' para que coincidan con lo que espera el serializer
+
+    # Flatten 'user.*' keys to match serializer expectations
     request_data = {}
     for key, value in request.data.items():
         if key.startswith("user."):
-            request_data[key[5:]] = value  # Quita el prefijo "user."
+            request_data[key[5:]] = value  # Remove "user." prefix
         else:
             request_data[key] = value
-                
 
-    # Serializar y validar los datos enviados
-    serializer = PhysioRegisterSerializer(physio, data=request_data, partial=True)
+    # Ensure services are parsed as JSON if provided
+    if "services" in request_data and isinstance(request_data["services"], str):
+        try:
+            request_data["services"] = json.loads(request_data["services"])
+        except json.JSONDecodeError:
+            return Response({"error": "Formato de servicios inválido."}, status=status.HTTP_400_BAD_REQUEST)
 
-    
+    # Serialize and validate the data
+    serializer = PhysioUpdateSerializer(physio, data=request_data, partial=True, context={'request': request})
+
     if serializer.is_valid():
         serializer.update(physio, serializer.validated_data)
         return Response({"message": "Fisioterapeuta actualizado correctamente"}, status=status.HTTP_200_OK)
-    
+
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 @permission_classes([IsPhysiotherapist])
-def physio_create_service_view(request):
-    
+def physio_create_service(request):
     """Crea un nuevo servicio para el fisioterapeuta autenticado o actualiza los existentes"""
-    
-    # Obtener el fisioterapeuta asociado al usuario autenticado
     physio = get_object_or_404(Physiotherapist, user=request.user)
     
-    # Obtener servicios existentes
-    existing_services = physio.services or {}
-    
-    # Obtener nuevos servicios del request
+    # Ensure services are parsed as JSON if provided
     new_services = request.data.get('services', {})
+    if isinstance(new_services, str):
+        try:
+            new_services = json.loads(new_services)
+        except json.JSONDecodeError:
+            return Response({"error": "Formato de servicios inválido."}, status=status.HTTP_400_BAD_REQUEST)
     
-    # Actualizar servicios existentes o añadir nuevos
+    # Merge new services with existing ones
+    existing_services = physio.services or {}
     for service_name, service_data in new_services.items():
         if service_name in existing_services:
-            # Si el servicio existe, actualizar sus propiedades
-            for prop_key, prop_value in service_data.items():
-                existing_services[service_name][prop_key] = prop_value
+            existing_services[service_name].update(service_data)
         else:
-            # Si el servicio no existe, añadirlo completo
             existing_services[service_name] = service_data
     
-    # Preparar los datos para el serializador
-    update_data = {'services': existing_services}
+    # Update the physiotherapist's services
+    physio.services = existing_services
+    physio.save()
     
-    # Usar el serializador para actualización
-    serializer = PhysioUpdateSerializer(physio, data=update_data, partial=True)
-    
-    if serializer.is_valid():
-        serializer.update(physio, serializer.validated_data)
-        return Response({"message": "Servicios actualizados correctamente"}, status=status.HTTP_200_OK)
-    
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response({"message": "Servicios actualizados correctamente", "services": existing_services}, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])

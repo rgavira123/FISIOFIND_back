@@ -9,7 +9,6 @@ import {
   IconUser,
   IconPhone,
 } from "@tabler/icons-react";
-import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import axios from "axios";
 import { getApiBaseUrl } from "@/utils/api";
@@ -56,41 +55,41 @@ export function SidebarDemo() {
     }
   }, [pathname, isClient, token]);
 
-  // Update the icon sizes in the links array
+  // Update the icon sizes and colors in the links array
   const links = [
     {
       label: "Buscar",
       href: "/",
       icon: (
-        <IconSearch className="text-[#253240] h-5 w-5 flex-shrink-0 mx-auto" />
+        <IconSearch className="text-[#05668D] h-5 w-5 flex-shrink-0 mx-auto" />
       ),
     },
     {
       label: "Mis citas",
       href: "/my-appointments",
       icon: (
-        <IconCalendar className="text-[#253240] h-5 w-5 flex-shrink-0 mx-auto" />
+        <IconCalendar className="text-[#0A7487] h-5 w-5 flex-shrink-0 mx-auto" />
       ),
     },
     {
       label: "Tratamientos",
       href: "#",
       icon: (
-        <IconStethoscope className="text-[#253240] h-5 w-5 flex-shrink-0 mx-auto" />
+        <IconStethoscope className="text-[#05918F] h-5 w-5 flex-shrink-0 mx-auto" />
       ),
     },
     {
       label: "Mi perfil",
       href: urlPerfil ? urlPerfil : "/",
       icon: (
-        <IconUser className="text-[#253240] h-5 w-5 flex-shrink-0 mx-auto" />
+        <IconUser className="text-[#05AC9C] h-5 w-5 flex-shrink-0 mx-auto" />
       ),
     },
     {
       label: "Videollamadas",
       href: "/videocalls",
       icon: (
-        <IconPhone className="text-[#253240] h-5 w-5 flex-shrink-0 mx-auto" />
+        <IconPhone className="text-[#1E5ACD] h-5 w-5 flex-shrink-0 mx-auto" />
       ),
     },
   ];
@@ -114,7 +113,7 @@ export function SidebarDemo() {
                   label: "Cerrar Sesión",
                   href: "#",
                   icon: (
-                    <div className="w-8 h-8 rounded-full border-2 border-[#FA5C2B] flex items-center justify-center">
+                    <div className="w-8 h-8 min-w-[2rem] min-h-[2rem] rounded-full border-2 border-[#FA5C2B] flex items-center justify-center">
                       <IconArrowLeft className="text-[#FA5C2B] h-4 w-4 flex-shrink-0" />
                     </div>
                   ),

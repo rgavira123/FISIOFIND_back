@@ -13,12 +13,12 @@ from django.core.validators import RegexValidator
 
 class AppUserSerializer(serializers.ModelSerializer):
     user_id = serializers.IntegerField(source='id', read_only=True)
+    photo = serializers.ImageField(required=False)  # Ensure photo is handled as an optional field
 
     phone_number = serializers.CharField(
         validators=[RegexValidator(regex=r'^\d{9}$', message="El número de teléfono debe tener exactamente 9 dígitos.")]
     )
 
-    photo = serializers.ImageField(required=False)
     dni = serializers.CharField(
         validators=[
             RegexValidator(
@@ -85,6 +85,8 @@ class PhysioSerializer(serializers.ModelSerializer):
         slug_field='name',
         many=True
     )
+    services = serializers.JSONField(required=False)  # Ensure services are serialized as JSON
+
     class Meta:
         model = Physiotherapist
         exclude = ['user']
@@ -397,6 +399,7 @@ class PhysioUpdateSerializer(serializers.ModelSerializer):
     
     def validate(self, data):
         """Validaciones solo para los campos proporcionados."""
+        # Ensure optional fields are not strictly required
         if 'dni' in data:
             dni_pattern = re.compile(r'^\d{8}[A-HJ-NP-TV-Z]$')
             if not dni_pattern.match(data['dni']):
@@ -417,38 +420,42 @@ class PhysioUpdateSerializer(serializers.ModelSerializer):
         
         return data
     
+    def validate_services(self, value):
+        """Ensure services are in the correct format."""
+        if not isinstance(value, dict):
+            raise serializers.ValidationError("Los servicios deben ser un objeto JSON.")
+        for service_name, service_data in value.items():
+            if not isinstance(service_data, dict):
+                raise serializers.ValidationError(f"El servicio '{service_name}' debe contener un objeto con sus propiedades.")
+        return value
+
     def update(self, instance, validated_data):
-        """Actualiza los datos de un fisioterapeuta y su usuario asociado."""
+        """Update the physiotherapist's data, including services."""
         try:
             with transaction.atomic():
-                # Actualizar datos del usuario (AppUser)
+                # Update user data
                 user = instance.user
                 user.email = validated_data.get("email", user.email)
                 user.phone_number = validated_data.get("phone_number", user.phone_number)
                 user.postal_code = validated_data.get("postal_code", user.postal_code)
-                
                 if "photo" in validated_data:
                     user.photo = validated_data.get("photo")
                 user.save()
 
-                # Actualizar datos del fisioterapeuta (Physiotherapist)
+                # Update physiotherapist data
                 if "bio" in validated_data:
                     instance.bio = validated_data.get("bio")
                 if "services" in validated_data:
-                    instance.services = validated_data.get("services")
+                    instance.services = validated_data.get("services")  # Update services
                 if "schedule" in validated_data:
                     instance.schedule = validated_data.get("schedule")
-                
-                # Manejar especializaciones si se proporcionan
-                if 'specializations' in validated_data:
-                    specializations_data = validated_data.get('specializations', [])
-                    # Eliminar asociaciones anteriores
+                if "specializations" in validated_data:
+                    specializations_data = validated_data.get("specializations", [])
                     instance.physiotherapistspecialization_set.all().delete()
-                    # Crear nuevas asociaciones
                     for spec_name in specializations_data:
                         specialization, _ = Specialization.objects.get_or_create(name=spec_name)
                         PhysiotherapistSpecialization.objects.create(physiotherapist=instance, specialization=specialization)
-                
+
                 instance.save()
                 return instance
 
