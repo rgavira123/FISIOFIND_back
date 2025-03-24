@@ -315,24 +315,27 @@ def delete_video(request, video_id):
     
 
 @api_view(['GET'])
-@permission_classes([IsPatient])  # Solo pacientes pueden acceder
+@permission_classes([IsPhysioOrPatient])  
 def list_my_videos(request):
     user = request.user
-    print("Patient:", user.patient.id)  # Depuración
-
-    # Verificar si el usuario autenticado es un paciente
-    if not hasattr(user, 'patient') or user.patient is None:
-        return Response({"error": "No tienes permisos para ver estos videos"}, status=status.HTTP_403_FORBIDDEN)
 
     try:
-        patient_id = user.patient.id  # Obtenemos el ID del paciente autenticado
-        videos = Video.objects.filter(patients__id=patient_id)  # Filtrar videos donde el paciente esté en la lista
+        if hasattr(user, 'patient'):
+            print("Patient:", user.patient.id)
+            videos = Video.objects.filter(patients__id=user.patient.id)
 
-        serializer = VideoSerializer(videos, many=True)  # Serializar los videos
+        elif hasattr(user, 'physio'):
+            print("Physio:", user.physio.id)
+            videos = Video.objects.filter(physiotherapist=user.physio.id)
+
+        else:
+            return Response({"error": "No tienes permisos para ver estos videos"}, status=status.HTTP_403_FORBIDDEN)
+
+        serializer = VideoSerializer(videos, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     except Exception as e:
-        print(f"Error al obtener los videos del paciente: {e}")  # Depuración
+        print(f"Error al obtener los videos: {e}")
         return Response({"error": "Hubo un problema al obtener los videos"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
