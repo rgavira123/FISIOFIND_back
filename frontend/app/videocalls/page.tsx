@@ -20,56 +20,122 @@ const VideoCallPage = () => {
   const [modalMessage, setModalMessage] = useState("");
   const [isClient, setIsClient] = useState(false);
   const [token, setToken] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  const createRoom = async () => {
-    if (!userRole) {
-      alert("Selecciona un rol antes de crear la sala.");
-      return;
+  useEffect(() => {
+    if (isClient) {
+      const storedToken = localStorage.getItem("token");
+      setToken(storedToken);
     }
+  }, [isClient]);
 
-    if (userRole === "patient") {
-      setModalMessage("Lo sentimos, los pacientes no pueden crear salas.");
+  useEffect(() => {
+    if (token) {
+      axios
+        .get(`${getApiBaseUrl()}/api/app_user/check-role/`, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((response) => {
+          const roleFromAPI = response.data.user_role;
+          if (roleFromAPI === "physiotherapist") {
+            setUserRole("physio");
+          } else if (roleFromAPI === "patient") {
+            setUserRole("patient");
+          } else {
+            setUserRole(null);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching user role:", error);
+        })
+        .finally(() => setLoading(false));
+    } else {
+      setLoading(false);
+    }
+  }, [token]);
+
+  const createRoom = async () => {
+    if (userRole !== "physio") {
+      setModalMessage("Lo sentimos, solo los fisioterapeutas pueden crear salas.");
       setShowModal(true);
       return;
     }
 
-    if (isClient) {
-      const storedToken = localStorage.getItem("token");
-      setToken(storedToken);
-      try {
-        const response = await axios.post(`${getApiBaseUrl()}/api/videocall/create-room/`);
-        setRoomCode(response.data.code);
-        window.location.href = `/videocalls/${response.data.code}?role=${userRole}`;
-      } catch (error) {
-        console.error("Error creating room:", error);
-      }
+    try {
+      const response = await axios.post(
+        `${getApiBaseUrl()}/api/videocall/create-room/`,
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      setRoomCode(response.data.code);
+      window.location.href = `/videocalls/${response.data.code}`;
+    } catch (error) {
+      console.error("Error creating room:", error);
     }
   };
 
   const joinRoom = async () => {
-    if (!userRole) {
-      alert("Selecciona un rol antes de unirte a la sala.");
-      return;
-    }
-
-    if (!code || code.trim() === '') {
+    if (!code || code.trim() === "") {
       alert("Por favor, ingresa un código de sala válido.");
       return;
     }
 
     try {
-      const response = await axios.get(`${getApiBaseUrl()}/api/videocall/join-room/${code}/`);
+      const response = await axios.get(
+        `${getApiBaseUrl()}/api/videocall/join-room/${code}/`,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
       setRoomDetails(response.data);
-      window.location.href = `/videocalls/${response.data.code}?role=${userRole}`;
+      window.location.href = `/videocalls/${response.data.code}`;
     } catch (error) {
       console.error("Error joining room:", error);
       setRoomDetails(null);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p>Cargando...</p>
+      </div>
+    );
+  }
+  
+  if (!token || !userRole) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+          <h2 className="text-xl font-semibold mb-4 text-blue-600">Acceso restringido</h2>
+          <p className="text-gray-700 mb-4">
+            🔒 Necesitas iniciar sesión para acceder a las videollamadas.
+          </p>
+          <button
+            onClick={() => (window.location.href = '/login')}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+          >
+            Iniciar Sesión
+          </button>
+        </div>
+      </div>
+    );
+  }
+  
+  
+
 
   return (
     <div className="min-h-screen flex items-center justify-center p-5" 
@@ -92,114 +158,70 @@ const VideoCallPage = () => {
         </div>
       )}
 
-      <div className="bg-white w-full max-w-[480px] rounded-3xl shadow-xl p-10 transition-all duration-300"
-           style={{ boxShadow: "0 20px 60px rgba(0, 0, 0, 0.08)" }}>
-        
-        <div className="text-center mb-9">
-          <h1 className="text-3xl font-bold mb-2"
-              style={{ 
-                background: "linear-gradient(90deg, #1E5ACD, #3a6fd8)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent"
-              }}>
-            Videollamadas
-          </h1>
+      <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md">
+        <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">
+          Videollamadas
+        </h2>
+
+        <div className="mb-4 text-center text-gray-700">
+          <p>
+            Rol detectado:{" "}
+            <span className="font-semibold capitalize">
+              {userRole === "physio"
+                ? "Fisioterapeuta (Host)"
+                : userRole === "patient"
+                ? "Paciente (Visualización)"
+                : "Desconocido"}
+            </span>
+          </p>
         </div>
-        
-        <h2 className="text-lg font-semibold text-gray-700 mb-8">Selecciona tu rol:</h2>
-        
-        <div className="flex gap-4 mb-8">
-          <div className="flex-1 relative">
-            <input
-              type="radio"
-              name="role"
-              id="fisio"
-              value="physio"
-              checked={userRole === "physio"}
-              onChange={() => setUserRole("physio")}
-              className="absolute opacity-0 w-full h-full cursor-pointer"
-            />
-            <label 
-              htmlFor="fisio" 
-              className={`block bg-gray-50 border-2 ${userRole === "physio" ? "border-[#1E5ACD] bg-gradient-to-b from-blue-50 to-[#e8effa] shadow-md" : "border-gray-200"} rounded-2xl p-6 text-center transition-all duration-200 flex flex-col items-center h-full`}
-              style={userRole === "physio" ? {boxShadow: "0 4px 12px rgba(30, 90, 205, 0.15)"} : {}}
+
+        {/* Crear Sala */}
+        {userRole === "physio" && (
+          <div className="mb-4 flex flex-col items-center">
+            <button
+              onClick={createRoom}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg w-full"
             >
-              <div className="w-[60px] h-[60px] rounded-full bg-[#e8effa] flex items-center justify-center mb-4">
-                <IconHeart className="text-[#1E5ACD]" size={28} />
-              </div>
-              <div className="font-semibold text-gray-700 mb-1">Fisioterapeuta</div>
-              <div className="text-sm text-gray-500">(Host)</div>
-            </label>
-          </div>
-          
-          <div className="flex-1 relative">
-            <input
-              type="radio"
-              name="role"
-              id="paciente"
-              value="patient"
-              checked={userRole === "patient"}
-              onChange={() => setUserRole("patient")}
-              className="absolute opacity-0 w-full h-full cursor-pointer"
-            />
-            <label 
-              htmlFor="paciente" 
-              className={`block bg-gray-50 border-2 ${userRole === "patient" ? "border-[#05AC9C] bg-gradient-to-b from-[#e6f7f6] to-[#e6f7f6] shadow-md" : "border-gray-200"} rounded-2xl p-6 text-center transition-all duration-200 flex flex-col items-center h-full`}
-              style={userRole === "patient" ? {boxShadow: "0 4px 12px rgba(5, 172, 156, 0.15)"} : {}}
-            >
-              <div className="w-[60px] h-[60px] rounded-full bg-[#e6f7f6] flex items-center justify-center mb-4">
-                <IconHeadphones className="text-[#05AC9C]" size={28} />
-              </div>
-              <div className="font-semibold text-gray-700 mb-1">Paciente</div>
-              <div className="text-sm text-gray-500">(Visualización)</div>
-            </label>
-          </div>
-        </div>
-        
-        <div className="mb-6 relative">
-          <input
-            type="text"
-            placeholder="Ingresa el código de la sala"
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-            className="w-full py-[18px] px-5 text-base border-2 border-gray-200 rounded-xl transition-all duration-200 outline-none focus:border-[#1E5ACD] focus:shadow-[0_0_0_4px_rgba(30,90,205,0.1)]"
-          />
-        </div>
-        
-        <div className="space-y-4">
-          <GradientButton 
-            variant="create" 
-            fullWidth 
-            onClick={createRoom}
-          >
-            Crear Sala
-          </GradientButton>
-          
-          <GradientButton 
-            variant="edit" 
-            fullWidth 
-            onClick={joinRoom}
-          >
-            Unirse a la Sala
-          </GradientButton>
-        </div>
-        
-        {roomCode && (
-          <div className="mt-4 text-center">
-            <p className="text-gray-600">
-              Código de la sala: <span className="font-semibold">{roomCode}</span>
-            </p>
+              Crear Sala
+            </button>
+            {roomCode && (
+              <p className="text-gray-600 mt-2">
+                Código de la sala:{" "}
+                <span className="font-semibold">{roomCode}</span>
+              </p>
+            )}
           </div>
         )}
-        
-        {roomDetails && (
-          <div className="mt-4 text-center">
-            <p className="text-gray-600">
-              Unido a la Sala: <span className="font-semibold">{roomDetails.code}</span>
-            </p>
-            <p className="text-gray-600">
-              Creada en: <span className="font-semibold">{roomDetails.created_at}</span>
-            </p>
+
+        {/* Unirse a Sala */}
+        {userRole === "patient" && (
+          <div className="mb-4">
+            <input
+              type="text"
+              placeholder="Ingresa el código de la sala"
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+            <button
+              onClick={joinRoom}
+              className="mt-2 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg w-full"
+            >
+              Unirse a la Sala
+            </button>
+            {roomDetails && (
+              <div className="text-gray-600 mt-2 text-center">
+                <p>
+                  Unido a la Sala:{" "}
+                  <span className="font-semibold">{roomDetails.code}</span>
+                </p>
+                <p>
+                  Creada en:{" "}
+                  <span className="font-semibold">{roomDetails.created_at}</span>
+                </p>
+              </div>
+            )}
           </div>
         )}
       </div>

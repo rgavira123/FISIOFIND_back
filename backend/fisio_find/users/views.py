@@ -1,20 +1,16 @@
 from django.shortcuts import get_object_or_404
-import re
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from .serializers import PatientRegisterSerializer, PatientAdminViewSerializer, PhysioUpdateSerializer, PhysioRegisterSerializer, PhysioSerializer, PatientSerializer, AppUserSerializer, AppUserAdminViewSerializer
+from .serializers import PatientRegisterSerializer, PhysioUpdateSerializer, PhysioRegisterSerializer
+from .serializers import PhysioSerializer, PatientSerializer, AppUserSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import Physiotherapist, Patient, AppUser
-from rest_framework_simplejwt.views import TokenObtainPairView
+from .models import Physiotherapist, Patient
 from rest_framework import generics
 from .permissions import IsPhysiotherapist
-#from permissions import IsAdmin
-
-
 from .permissions import IsPatient
-from .models import Patient
+import json
 
 
 class PatientProfileView(generics.RetrieveAPIView):
@@ -28,17 +24,15 @@ class PatientProfileView(generics.RetrieveAPIView):
         except Patient.DoesNotExist:
             return Response({"error": "Perfil de paciente no encontrado"}, status=status.HTTP_404_NOT_FOUND)
 
-
     def patch(self, request, *args, **kwargs):
         try:
-            patient = Patient.objects.get(user=request.user)  
-
+            patient = Patient.objects.get(user=request.user)
             request_data = request.data.copy()
 
-            user_data = request_data.get('user', {})  
-            user_data['id'] = request.user.id  
+            user_data = request_data.get('user', {})
+            user_data['id'] = request.user.id
 
-            request_data['user'] = user_data  
+            request_data['user'] = user_data
 
             serializer = PatientSerializer(patient, data=request_data, partial=True, context={'request': request})
 
@@ -51,7 +45,8 @@ class PatientProfileView(generics.RetrieveAPIView):
 
         except Patient.DoesNotExist:
             return Response({"error": "Perfil de paciente no encontrado"}, status=status.HTTP_404_NOT_FOUND)
-        
+
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def patient_register_view(request):
@@ -60,6 +55,7 @@ def patient_register_view(request):
         serializer.save()
         return Response({"message": "Paciente registrado correctamente"}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -70,13 +66,19 @@ def custom_token_obtain_view(request):
         return Response({'access': response.data['access']})
     return Response(response.data, status=response.status_code)
 
+
 @api_view(['POST'])
 def logout_view(request):
     return Response({"message": "Logout exitoso."}, status=200)
 
+
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def check_role_view(request):
-    user = request.user  # Obtenemos el usuario autenticado
+    if not request.user.is_authenticated:
+        return Response({"user_role": "unknown"})
+
+    user = request.user
 
     if hasattr(user, 'patient'):
         role = "patient"
@@ -88,6 +90,7 @@ def check_role_view(request):
         role = "unknown"
 
     return Response({"user_role": role})
+
 
 @api_view(['GET'])
 def return_user(request):
@@ -102,22 +105,22 @@ def return_user(request):
         return Response({"physio": {**serializer.data, "user_data": user_serializer.data}})
     return Response({"error": "User role not found"}, status=status.HTTP_404_NOT_FOUND)
 
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def physio_register_view(request):
     serializer = PhysioRegisterSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response({"message": "Fisioterapeuta registrado correctamente"}, status=status.HTTP_201_CREATED)
+        return Response({"message": "Fisioteraputa registrado correctamente"}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['PUT'])
 @permission_classes([IsPhysiotherapist])
 def physio_update_view(request):
-    """Update the authenticated physiotherapist's data."""
     physio = get_object_or_404(Physiotherapist, user=request.user)
 
-    # Flatten 'user.*' keys to match serializer expectations
     request_data = {}
     for key, value in request.data.items():
         if key.startswith("user."):
@@ -141,12 +144,13 @@ def physio_update_view(request):
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 @api_view(['POST'])
 @permission_classes([IsPhysiotherapist])
 def physio_create_service(request):
     """Crea un nuevo servicio para el fisioterapeuta autenticado o actualiza los existentes"""
     physio = get_object_or_404(Physiotherapist, user=request.user)
-    
+
     # Ensure services are parsed as JSON if provided
     new_services = request.data.get('services', {})
     if isinstance(new_services, str):
@@ -154,7 +158,7 @@ def physio_create_service(request):
             new_services = json.loads(new_services)
         except json.JSONDecodeError:
             return Response({"error": "Formato de servicios inválido."}, status=status.HTTP_400_BAD_REQUEST)
-    
+
     # Merge new services with existing ones
     existing_services = physio.services or {}
     for service_name, service_data in new_services.items():
@@ -162,18 +166,20 @@ def physio_create_service(request):
             existing_services[service_name].update(service_data)
         else:
             existing_services[service_name] = service_data
-    
+
     # Update the physiotherapist's services
     physio.services = existing_services
     physio.save()
-    
+
     return Response({"message": "Servicios actualizados correctamente", "services": existing_services}, status=status.HTTP_200_OK)
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def physio_get_services_view(request, physio_id):
     physio = get_object_or_404(Physiotherapist, id=physio_id)
     return Response(physio.services)
+
 
 @api_view(['DELETE'])
 def physio_delete_service_view(request, service_id):
@@ -187,6 +193,7 @@ def physio_delete_service_view(request, service_id):
     physio.services = services
     physio.save()
     return Response({"message": "Servicio eliminado correctamente"}, status=status.HTTP_200_OK)
+
 
 """
 class AdminAppUserDetail(generics.RetrieveAPIView):
