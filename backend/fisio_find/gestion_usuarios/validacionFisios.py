@@ -13,6 +13,7 @@ class SeleniumScraper:
     def __init__(self):
         # Configurar Selenium (se requiere que JS esté habilitado)
         options = webdriver.ChromeOptions()
+        options.add_argument("--headless")  # Ejecutar en segundo plano
         options.add_argument("--no-sandbox")  
         options.add_argument("--enable-javascript")  # Asegurar que JS está habilitado
         options.add_argument("--disable-dev-shm-usage")  
@@ -23,13 +24,25 @@ class SeleniumScraper:
             options=options
         )
 
-    def obtener_colegiado(self, valorBusqueda: str, url: str, xpath: str, loadTime: int = 2) -> BeautifulSoup:
+    def obtener_colegiado(self, valorBusqueda: str, url: str, xpath: str, loadTime: int = 2, general: str = None) -> BeautifulSoup:
         self.driver.get(url)
         time.sleep(loadTime)  # Esperar que cargue la página
         
         if "murcia" in url:
             num_sort = self.driver.find_element(By.XPATH, '//*[@id="myTable"]/thead/tr/th[3]')
             num_sort.click()
+            
+        if general == "navarra":
+            select = self.driver.find_element(By.XPATH, '//*[@id="colegio"]/option[16]')
+            select.click()
+        
+        if general == "canarias":
+            select = self.driver.find_element(By.XPATH, '//*[@id="colegio"]/option[6]')
+            select.click()
+            
+        if general == "castilla y leon":
+            select = self.driver.find_element(By.XPATH, '//*[@id="colegio"]/option[9]')
+            select.click()
     
         search_box = self.driver.find_element(By.XPATH, xpath)
         search_box.send_keys(valorBusqueda)  # Ingresar valor de búsqueda (nombre o número)
@@ -72,12 +85,12 @@ def validar_colegiacion(nombre: str, numero: str, comunidad: str) -> bool:
             case "andalucia":  # Por número y nombre, ver caso 00001
                 url = "https://colfisio.org/registro-censo-fisioterapeutas"
                 try:
-                    soup = scraper.obtener_colegiado(numero, url, "//*[@id='input-456']")
+                    soup = scraper.obtener_colegiado(nombre, url, '//*[@id="input-458"]')
                     resultado = soup.find("div", class_="title-of-the-card")
                     if resultado:
                         datos = quitar_tildes(resultado.text.replace("\n", "").strip())
-                        cadena = f"Nº {numero} - {quitar_tildes(nombre)}"
-                        return datos == cadena
+                        num = datos.split(" ")[1]
+                        return numero == num
                     else:
                         return False
                 except Exception as e:
@@ -99,14 +112,14 @@ def validar_colegiacion(nombre: str, numero: str, comunidad: str) -> bool:
                     return False
             
             case "asturias":  # Por número y nombre
-                url = "https://www.cofispa.org/censo"
+                url = "https://www.cofispa.org/censo-colegiados"
                 try:
-                    soup = scraper.obtener_colegiado(numero, url, "//*[@id='num_colegiado']")
-                    resultado = soup.find("tr", class_="linea_colegiado")
+                    soup = scraper.obtener_colegiado(numero, url, '//*[@id="number"]')
+                    resultado = soup.find("tbody").tr
                     if resultado:
                         datos = [td.text.strip() for td in resultado.find_all("td")]
-                        datos = quitar_tildes(f"{datos[0]} {datos[1]}")
-                        if "Mª" in datos:
+                        datos = quitar_tildes(f"{datos[1]} {datos[2]} {datos[3]}")
+                        if("Mª" in datos):
                             datos = datos.replace("Mª", "MARIA")
                         return datos == quitar_tildes(nombre)
                     else:
@@ -131,13 +144,13 @@ def validar_colegiacion(nombre: str, numero: str, comunidad: str) -> bool:
                     return False
             
             case "canarias":  # Por número y nombre (NO FUNCIONA CON HEADLESS)
-                url = "https://fisiocanarias.org/ventanilla-unica/censo-de-colegiados"
+                url = "https://www.consejo-fisioterapia.org/vu_colegiados.html"
                 try:
-                    soup = scraper.obtener_colegiado(numero, url, '//*[@id="mat-input-2"]')
-                    resultado = soup.find("td", class_="name-td")
+                    soup = scraper.obtener_colegiado(nombre, url, '//*[@id="nombre"]')
+                    resultado = soup.find("tr", class_="colegiado")
                     if resultado:
-                        datos = quitar_tildes(resultado.div.text)
-                        return datos == quitar_tildes(nombre)
+                        datos = [td.text.strip() for td in resultado.find_all("td")]
+                        return numero == datos[1]
                     else:
                         return False
                 except Exception as e:
@@ -147,12 +160,13 @@ def validar_colegiacion(nombre: str, numero: str, comunidad: str) -> bool:
             case "cantabria":  # Por número y nombre
                 url = "https://colfisiocant.org/busqueda-profesionales/"
                 try:
-                    soup = scraper.obtener_colegiado(numero, url, "//*[@id='tablepress-1_filter']/label/input")
+                    soup = scraper.obtener_colegiado(nombre, url, "//*[@id='tablepress-1_filter']/label/input")
                     resultado = soup.find("tbody", class_="row-hover").tr
                     if resultado:
                         datos = [td.text.strip() for td in resultado.find_all("td")]
-                        datos = quitar_tildes(f"{datos[1]} {datos[2]} {datos[3]}")
-                        return datos == quitar_tildes(nombre)
+                        while len(numero) < 3:
+                            numero = "0" + numero
+                        return numero == datos[0].replace("39/", "")
                     else:
                         return False
                 except Exception as e:
@@ -167,7 +181,7 @@ def validar_colegiacion(nombre: str, numero: str, comunidad: str) -> bool:
                     if resultado:
                         datos = [td.text.strip() for td in resultado.find_all("td")]
                         datos = quitar_tildes(f"{datos[1]}").split(", ")
-                        cadena = f"{datos[1]} {datos[0]}"
+                        cadena = f"{datos[1]} {datos[0]}".upper()
                         return cadena == quitar_tildes(nombre)
                     else:
                         return False
@@ -176,15 +190,13 @@ def validar_colegiacion(nombre: str, numero: str, comunidad: str) -> bool:
                     return False
             
             case "castilla y leon":  # Por número y nombre (NO FUNCIONA CON HEADLESS)
-                url = "https://cpfcyl.com/ciudadanos/listado-de-colegiados"
+                url = "https://www.consejo-fisioterapia.org/vu_colegiados.html"
                 try:
-                    soup = scraper.obtener_colegiado(numero, url, '//*[@id="mat-input-3"]')
-                    resultado = soup.find("td", class_="name-td")
+                    soup = scraper.obtener_colegiado(nombre, url, '//*[@id="nombre"]')
+                    resultado = soup.find("tr", class_="colegiado")
                     if resultado:
-                        datos = quitar_tildes(resultado.div.text)
-                        if "Mª" in datos:
-                            datos = datos.replace("Mª", "MARIA")
-                        return datos == quitar_tildes(nombre)
+                        datos = [td.text.strip() for td in resultado.find_all("td")]
+                        return numero == datos[1]
                     else:
                         return False
                 except Exception as e:
@@ -210,12 +222,11 @@ def validar_colegiacion(nombre: str, numero: str, comunidad: str) -> bool:
             case "extremadura":  # Por número y nombre
                 url = "https://cofext.org/cms/colegiados.php"
                 try:
-                    soup = scraper.obtener_colegiado(numero, url, '//*[@id="example_filter"]/label/input')
+                    soup = scraper.obtener_colegiado(quitar_tildes(nombre), url, '//*[@id="example_filter"]/label/input')
                     resultado = soup.find("tr", class_="odd")
                     if resultado:
                         datos = [td.text.strip() for td in resultado.find_all("td")]
-                        datos = f"{datos[0]} {datos[1]}"
-                        return datos == quitar_tildes(nombre)
+                        return numero == datos[2]
                     else:
                         return False
                 except Exception as e:
@@ -288,19 +299,14 @@ def validar_colegiacion(nombre: str, numero: str, comunidad: str) -> bool:
                     print(f"⚠️ Error durante la validación en {comunidad}: {e}")
                     return False
             
-            case "navarra":  # Por nombre, va regulinchi
-                url = "https://cofn.net/es/listado-colegiados"
+            case "navarra":  # Por nombre, se valida en la web general de colegiados
+                url = "https://www.consejo-fisioterapia.org/vu_colegiados.html"
                 try:
-                    soup = scraper.obtener_colegiado(nombre.split(" ")[0], url, '//*[@id="nombre"]')
-                    resultados = soup.find_all("h3", class_="title")
-                    if resultados:
-                        for name in resultados:
-                            cadena = quitar_tildes(name.a.text.replace("D. ", "").replace("Dña. ", "").replace(".", "")).split(", ")
-                            cadena = f"{cadena[1]} {cadena[0]}"
-                            nColegiado = name.find_next_sibling().text.split("Nº ")[1]
-                            if nColegiado == numero and cadena == quitar_tildes(nombre):
-                                return True
-                        return False
+                    soup = scraper.obtener_colegiado(nombre, url, '//*[@id="nombre"]', general=comunidad)
+                    resultado = soup.find("tr", class_="colegiado")
+                    if resultado:
+                        datos = [td.text.strip() for td in resultado.find_all("td")]
+                        return numero == datos[1]
                     else:
                         return False
                 except Exception as e:
@@ -314,8 +320,7 @@ def validar_colegiacion(nombre: str, numero: str, comunidad: str) -> bool:
                     resultado = soup.find("table", class_="tabletwo").tbody.tr
                     if resultado:
                         datos = [td.text.strip() for td in resultado.find_all("td")]
-                        cadena = quitar_tildes(f"{datos[2]} {datos[1]}").upper()
-                        return cadena == quitar_tildes(nombre)
+                        return numero == datos[0]
                     else:
                         return False
                 except Exception as e:
