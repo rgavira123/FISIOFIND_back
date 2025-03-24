@@ -56,34 +56,100 @@ export default function EditarCitas() {
     }
   }, [isClient, token]);
 
+  const [pacienteFetched, setPacienteFetched] = useState(null);
+  function searchPaciente(id) {
+    axios.get(`${getApiBaseUrl()}/api/app_user/admin/patient/list/`+id+'/',{
+      headers : {
+        "Authorization": "Bearer "+token
+      }
+    }
+    ).then(response => {
+        if (response.data.user) {
+          setPacienteFetched(response.data.user)
+        } else {
+          setPacienteFetched({user:{"first_name":"No","last_name":"encontrado"}})
+        }
+      })
+      .catch(error => {
+        if (error.response && error.response.status == 404) {
+          setPacienteFetched({user:{"first_name":"No","last_name":"encontrado"}})
+        } else {
+
+          console.error("Error fetching data:", error);
+        }
+      });
+  }
+
+  const [fisioFetched, setFisioFetched] = useState(null);
+  function searchFisio(id) {
+    axios.get(`${getApiBaseUrl()}/api/app_user/admin/physio/list/`+id+'/',{
+      headers : {
+      //  "Authorization": "Bearer "+token
+      }
+    }
+    ).then(response => {
+        if (response.data.user) {
+          setFisioFetched(response.data.user)
+        } else {
+          setFisioFetched({"first_name":"No","last_name":"encontrado"})
+        }
+      })
+      .catch(error => {
+        if (error.response && error.response.status == 404) {
+          setFisioFetched({"first_name":"No","last_name":"encontrado"})
+        } else {
+
+          console.error("Error fetching data:", error);
+        }
+      });
+  }
+
+  useEffect(() => {
+    console.log(fisioFetched,pacienteFetched)
+    if (fisioFetched && fisioFetched.email) {
+
+      searchFisios(fisioFetched.email)
+    }
+    if (pacienteFetched && pacienteFetched.email){
+      searchPacientes(pacienteFetched.email)
+    }
+  },[fisioFetched, pacienteFetched])
+
   const [cita, setCita] = useState<citaInterface | null>(null);
 
   const [fechaInicio, setFechaInicio] = useState("");
   const [fechaFinal, setFechaFinal] = useState("");
   const [esOnline, setEsOnline] = useState(true);
   const [servicios, setServicios] = useState("");
+  const [alternativas, setAlternativas] = useState("");
   const [paciente, setPaciente] = useState("");
   const [fisio, setFisio] = useState("");
   const [estado, setEstado] = useState("")
 
   useEffect(() => {
-    axios.get(`${getApiBaseUrl()}/api/app_appointment/appointment/admin/list/`+id+'/',{
+    axios.get(`${getApiBaseUrl()}/api/appointment/admin/list/`+id+'/',{
       headers : {
-        "Authorization": "Bearer "+token
+      //  "Authorization": "Bearer "+token
       }
     }
     ).then(response => {
         setCita(response.data);
-        setFechaInicio(response.data.start_time.replace("Z",""))
-        setFechaFinal(response.data.end_time.replace("Z",""))
+        console.log(response.data)
+        setFechaInicio(response.data.start_time.split("+")[0])
+        setFechaFinal(response.data.end_time.split("+")[0])
         setEsOnline(response.data.is_online)
         setServicios(JSON.stringify(response.data.service))
+
         setPaciente(response.data.patient)
+        searchPaciente(response.data.patient)
         setFisio(response.data.physiotherapist)
+        searchFisio(response.data.physiotherapist)
+
         setEstado(response.data.status)
+        setAlternativas(response.data.alternatives)
       }, {
         headers : {
-          "Authorization": "Bearer "+token
+        //  "Authorization": "Bearer "+token
         }
       })
       .catch(error => {
@@ -102,7 +168,7 @@ export default function EditarCitas() {
       return
     }
 
-    axios.put(`${getApiBaseUrl()}/api/app_appointment/appointment/admin/edit/`+id+'/',{
+    axios.put(`${getApiBaseUrl()}/api/appointment/admin/edit/`+id+'/',{
       start_time: fechaInicio,
       end_time: fechaFinal,
       is_online: esOnline,
@@ -111,7 +177,8 @@ export default function EditarCitas() {
       physiotherapist: fisio,
       patient_id: paciente,
       physiotherapist_id: fisio,
-      status: estado
+      status: estado,
+      alternatives: alternativas
     },{
       headers : {
         "Authorization": "Bearer "+token
@@ -135,43 +202,34 @@ export default function EditarCitas() {
     });
   }
 
-  const [pacienteFetched, setPacienteFetched] = useState(null);
-  function searchPaciente(id) {
-    axios.get(`${getApiBaseUrl()}/api/app_user/admin/user/list/`+id+'/',{
+  const [pacientesFetched, setPacientesFetched] = useState([]);
+  function searchPacientes(query) {
+    axios.get(`${getApiBaseUrl()}/api/app_user/admin/patient/list/search/`+query+'/',{
       headers : {
         "Authorization": "Bearer "+token
       }
     }
     ).then(response => {
-        setPacienteFetched(response.data)
+        console.log(response.data)
+        setPacientesFetched(response.data)
       })
       .catch(error => {
-        if (error.response && error.response.status == 404) {
-          setPacienteFetched({"first_name":"No","last_name":"encontrado"})
-        } else {
-
-          console.error("Error fetching data:", error);
-        }
+        console.log("Error fetching data:", error);
       });
   }
 
-  const [fisioFetched, setFisioFetched] = useState(null);
-  function searcFisio(id) {
-    axios.get(`${getApiBaseUrl()}/api/app_user/admin/user/list/`+id+'/',{
+  const [fisiosFetched, setFisiosFetched] = useState([]);
+  function searchFisios(query) {
+    axios.get(`${getApiBaseUrl()}/api/app_user/admin/physio/list/search/`+query+'/',{
       headers : {
         "Authorization": "Bearer "+token
       }
     }
     ).then(response => {
-        setFisioFetched(response.data)
+        setFisiosFetched(response.data)
       })
       .catch(error => {
-        if (error.response && error.response.status == 404) {
-          setFisioFetched({"first_name":"No","last_name":"encontrado"})
-        } else {
-
-          console.error("Error fetching data:", error);
-        }
+        console.log("Error fetching data:", error);
       });
   }
 
@@ -202,16 +260,39 @@ export default function EditarCitas() {
             </div>
 
             <div>
-              <label htmlFor="paciente">ID Paciente: </label>
-              <input required value={paciente} type="text" id="paciente"  onChange={paciente => {setPaciente(paciente.target.value); searchPaciente(paciente.target.value)}} />
-              {pacienteFetched && <p>Paciente seleccionado: {pacienteFetched.first_name + ' ' + pacienteFetched.last_name}</p>}
+              <label htmlFor="paciente">Email/Nombre/DNI paciente: </label>
+              <input type="text" id="paciente"  onChange={paciente => {searchPacientes(paciente.target.value)}} />
+              <select
+                value={paciente}
+                onChange={(e) => setPaciente(e.target.value)}
+                className="border p-2 rounded"
+              >
+                <option value={-1}>Seleccionar paciente...</option>
+                {pacientesFetched && pacientesFetched.map((patient: any) => (
+                  <option key={patient.id} value={patient.id}>
+                    {patient.user.first_name} {patient.user.last_name} ({patient.user.dni}) ({patient.user.email})
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div>
-              <label htmlFor="fisio">ID Fisioterapeuta: </label>
-              <input required value={fisio} type="text" id="fisio"  onChange={fisio => {setFisio(fisio.target.value); searcFisio(fisio.target.value)}} />
-              {fisioFetched && <p>Fisioterapeuta seleccionado: {fisioFetched.first_name + ' ' + fisioFetched.last_name}</p>}
+              <label htmlFor="fisio">Email/Nombre/DNI fisioterapeuta: </label>
+              <input type="text" id="fisio"  onChange={fisio => {searchFisios(fisio.target.value)}} />
+              <select
+                value={fisio}
+                onChange={(e) => setFisio(e.target.value)}
+                className="border p-2 rounded"
+              >
+                <option value={-1}>Seleccionar fisioterapeuta...</option>
+                {fisiosFetched && fisiosFetched.map((physio: any) => (
+                  <option key={physio.id} value={physio.id}>
+                    {physio.user.first_name} {physio.user.last_name} ({physio.user.dni}) ({physio.user.email})
+                  </option>
+                ))}
+              </select>
             </div>
+
 
             <div className="json-service">
               <label htmlFor="servicios">Servicios:</label>
@@ -226,7 +307,13 @@ export default function EditarCitas() {
                 <option value="canceled">Cancelada</option>
                 <option value="booked">Reservada</option>
               </select>
+            </div>  
+
+            <div className="json-service">
+              <label htmlFor="alternativas">Alternativas:</label>
+              <textarea  value={alternativas} id="alternativas" onChange={altr => setAlternativas(altr.target.value)}></textarea>
             </div>
+
             {errorMessage && <p className="text-red-500">*{errorMessage}</p>}
             <input type="submit" value="Submit" className="btn-admin" />
           </form>

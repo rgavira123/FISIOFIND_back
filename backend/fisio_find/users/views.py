@@ -8,8 +8,8 @@ from .serializers import PhysioSerializer, PatientSerializer, AppUserSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import Physiotherapist, Patient
 from rest_framework import generics
-from .permissions import IsPhysiotherapist
-from .permissions import IsPatient
+from .permissions import IsPatient, IsPhysiotherapist, IsAdmin
+from django.db.models import Q
 
 
 class PatientProfileView(generics.RetrieveAPIView):
@@ -187,6 +187,49 @@ def physio_delete_service_view(request, service_id):
     physio.save()
     return Response({"message": "Servicio eliminado correctamente"}, status=status.HTTP_200_OK)
 
+@api_view(['GET'])
+@permission_classes([IsAdmin])
+def admin_search_patients_by_user(request, query):
+    matched_users = AppUser.objects.filter(
+        Q(dni__icontains=query) |
+        Q(first_name__icontains=query) |
+        Q(last_name__icontains=query) |
+        Q(email__icontains=query)
+    )
+
+    patients = Patient.objects.filter(user__in=matched_users)
+    serializer = PatientSerializer(patients, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+@permission_classes([IsAdmin])
+def admin_search_physios_by_user(request, query):
+    matched_users = AppUser.objects.filter(
+        Q(dni__icontains=query) |
+        Q(first_name__icontains=query) |
+        Q(last_name__icontains=query) |
+        Q(email__icontains=query)
+    )
+
+    physios = Physiotherapist.objects.filter(user__in=matched_users)
+    serializer = PhysioSerializer(physios, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+class AdminPatientDetail(generics.RetrieveAPIView):
+    '''
+    API endpoint que retorna un solo paciente por su id para admin.
+    '''
+    permission_classes = [IsAdmin]
+    queryset = Patient.objects.all()
+    serializer_class = PatientSerializer
+    
+class AdminPhysioDetail(generics.RetrieveAPIView):
+    '''
+    API endpoint que retorna un solo paciente por su id para admin.
+    '''
+    permission_classes = [IsAdmin]
+    queryset = Physiotherapist.objects.all()
+    serializer_class = PhysioSerializer
 
 """
 class AdminAppUserDetail(generics.RetrieveAPIView):
