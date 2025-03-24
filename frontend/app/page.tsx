@@ -82,7 +82,7 @@ const Home = () => {
 
   // Efecto para cargar el borrador unificado
   useEffect(() => {
-    const storedDraft = localStorage.getItem("appointmentDraft");
+    const storedDraft = sessionStorage.getItem("appointmentDraft");
     if (storedDraft) {
       const parsedDraft = JSON.parse(storedDraft);
       setDraftData(parsedDraft);
@@ -106,7 +106,7 @@ const Home = () => {
 
   // Descartar borrador
   const handleDiscardDraft = () => {
-    localStorage.removeItem("appointmentDraft");
+    sessionStorage.removeItem("appointmentDraft");
     dispatch({ type: "DESELECT_SERVICE" });
     setDraftModal(false);
   };
