@@ -19,7 +19,8 @@ def send_appointment_email(appointment_id, action_type, role=None):
         frontend_domain = "http://localhost:3000"
 
         # Generamos un token firmado temporal (sin almacenarlo en la base de datos)
-        token = signing.dumps({'appointment_id': appointment.id})
+        token = signing.dumps({'appointment_id': appointment.id,
+                              'physio_user_id': appointment.physiotherapist.user.id})
         link = f"{frontend_domain}/confirm-appointment/{token}"
 
         recipient_email = None
@@ -140,7 +141,6 @@ def send_appointment_email(appointment_id, action_type, role=None):
 
     except Appointment.DoesNotExist:
         print("Error: Cita no encontrada")
-
 
 
 def send_email(subject, message, recipient_email):

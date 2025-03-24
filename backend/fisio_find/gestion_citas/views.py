@@ -546,27 +546,33 @@ def get_appointment_by_id(request, appointmentId):
         return Response({"error": "Bad request"}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])
 def confirm_appointment_using_token(request, token):
     try:
-        print("hola llego aqui")
         # Extrae y valida el token; max_age define la expiración en segundos (48 horas)
         data = signing.loads(token, max_age=48*3600)
         appointment_id = data.get('appointment_id')
+        token_physio_user_id = data.get('physio_user_id')
     except SignatureExpired:
         return Response({"error": "El token ha expirado"}, status=status.HTTP_400_BAD_REQUEST)
     except BadSignature:
-        return Response({"error": "Token inválido"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": "Token de aceptación de cita inválido"}, status=status.HTTP_400_BAD_REQUEST)
 
     # Busca la cita a partir del ID extraído del token
     try:
         appointment = Appointment.objects.get(id=appointment_id)
     except Appointment.DoesNotExist:
-        return Response({"error": "Cita no encontrada"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": "Cita no encontrada"}, status=status.HTTP_404_NOT_FOUND)
 
-    # Marca la cita como aceptada
+    # Verifica que el usuario autenticado sea el fisioterapeuta correspondiente
+    if request.user.id != token_physio_user_id:
+        return Response({"error": "No autorizado para confirmar esta cita"}, status=status.HTTP_403_FORBIDDEN)
+
+    # Marca la cita como aceptada y guarda
     appointment.status = "confirmed"
     appointment.save()
+    send_appointment_email(appointment.id, 'confirmed')
+
 
     return Response({"message": "¡Cita aceptada con éxito!"}, status=status.HTTP_200_OK)
 
