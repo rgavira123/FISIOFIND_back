@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
-from gestion_usuarios.models import Patient, Physiotherapist
+from users.models import Patient, Physiotherapist
 
 
 class Treatment(models.Model):

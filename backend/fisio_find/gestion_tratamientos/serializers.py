@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
-from gestion_usuarios.models import Patient, Physiotherapist
+from users.models import Patient, Physiotherapist
 from .models import Exercise, ExerciseLog, ExerciseSession, Session, Treatment, Series
-from gestion_usuarios.serializers import PhysioSerializer
-from gestion_usuarios.serializers import PatientSerializer
+from users.serializers import PhysioSerializer
+from users.serializers import PatientSerializer
 from django.utils import timezone
 
 class TreatmentSerializer(serializers.ModelSerializer):

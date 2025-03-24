@@ -1,14 +1,15 @@
+import logging
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated,AllowAny
 
-from gestion_usuarios.permissions import IsPatient, IsPhysioOrPatient, IsPhysiotherapist
+from users.permissions import IsPatient, IsPhysioOrPatient, IsPhysiotherapist
 from .models import Exercise, ExerciseLog, ExerciseSession, Series, Session, Treatment
 from .serializers import ExerciseLogSerializer, ExerciseSerializer, ExerciseSessionSerializer, SeriesSerializer, SessionSerializer, TreatmentSerializer, TreatmentDetailSerializer
 from gestion_citas.models import Appointment
-from gestion_usuarios.models import Physiotherapist
-from gestion_usuarios.models import Patient
+from users.models import Physiotherapist
+from users.models import Patient
 
 class TreatmentCreateView(APIView):
     """
@@ -281,8 +282,11 @@ class SessionListView(APIView):
                 status=status.HTTP_404_NOT_FOUND
             )
         except Exception as e:
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error("Unexpected error occurred", exc_info=True)
             return Response(
-                {'detail': f'Error inesperado: {str(e)}'},
+                {'detail': 'An unexpected error has occurred. Please try again later.'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )           
 
@@ -904,8 +908,9 @@ class ExerciseListBySessionView(APIView):
                 status=status.HTTP_404_NOT_FOUND
             )
         except Exception as e:
+            logging.error(f'Unexpected error: {str(e)}')
             return Response(
-                {'detail': f'Error inesperado: {str(e)}'},
+                 {'detail': 'An internal error has occurred.'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
             
