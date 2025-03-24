@@ -414,7 +414,7 @@ def update_appointment(request, appointment_id):
         if serializer.data['alternatives']:
             send_appointment_email(appointment.id, 'modified')
         elif serializer.data['status'] == "confirmed":
-            send_appointment_email(appointment.id, 'confirmed')
+            send_appointment_email(appointment.id, 'modified-accepted')
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

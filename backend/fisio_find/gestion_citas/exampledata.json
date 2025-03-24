@@ -46,7 +46,7 @@
         "pk": 1,
         "fields": {
             "username": "jorgito",
-            "email": "jorgito@sample.com",
+            "email": "danvelcam@alum.us.es",
             "password": "pbkdf2_sha256$870000$3QqCfXSf9kmYHVoGHNxxiP$nQrFTWfdh8L2ap9wOVTulFJoqDrw2UD7wheiXkgJMXw=",
             "dni": "77860168Q",
             "phone_number": "666666666",
@@ -292,7 +292,7 @@
             "username": "patient1",
             "first_name": "patient",
             "last_name": "sample ",
-            "email": "patient1@example.com",
+            "email": "danielmtar@outlook.com",
             "password": "pbkdf2_sha256$870000$3QqCfXSf9kmYHVoGHNxxiP$nQrFTWfdh8L2ap9wOVTulFJoqDrw2UD7wheiXkgJMXw=",
             "dni": "76543211B",
             "phone_number": "700000001",

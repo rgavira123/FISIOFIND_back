@@ -41,6 +41,15 @@ def send_appointment_email(appointment_id, action_type, role=None):
             """
             send_email(subject_physio, message_physio, physio_email)
 
+            # Notificación al paciente
+            subject_patient = "📅 Solicitud de Reserva Recibida – Pendiente de Confirmación"
+            message_patient = f"""
+                Hola <strong>{patient_name}</strong>,<br><br>
+                Tu solicitud de reserva para el <strong>{appointment_date}</strong> con <strong>{physio_name} {physio_surname}</strong> se ha realizado correctamente.
+                <br><br>Ahora está pendiente de ser confirmada por el fisioterapeuta. Recibirás una notificación una vez que se confirme.
+            """
+            send_email(subject_patient, message_patient, patient_email)
+
         elif action_type == "confirmed":
             subject = "✅ Tu Cita ha sido Confirmada"
             message = f"""
@@ -103,14 +112,35 @@ def send_appointment_email(appointment_id, action_type, role=None):
                     </a>
                 </div>
             """
-
             recipient_email = patient_email
+
+        elif action_type == "modified-accepted":
+            # Notificación al fisioterapeuta
+            subject_physio = "✅ Cita Reprogramada y Aceptada"
+            message_physio = f"""
+                Hola <strong>{physio_name}</strong>,<br><br>
+                El paciente <strong>{patient_name}</strong> ha aceptado la propuesta de reprogramación.
+                <br><br>La hora final seleccionada es el <strong>{appointment_date}</strong>.
+                <br><br>La cita ha sido reprogramada exitosamente.
+            """
+            send_email(subject_physio, message_physio, physio_email)
+
+            # Notificación al paciente
+            subject_patient = "✅ Confirmación de Cita Reprogramada"
+            message_patient = f"""
+                Hola <strong>{patient_name}</strong>,<br><br>
+                Has aceptado la propuesta de cita del fisioterapeuta <strong>{physio_name} {physio_surname}</strong>.
+                <br><br>La cita ha sido confirmada para el <strong>{appointment_date}</strong>.
+                <br><br>Gracias por confiar en nosotros.
+            """
+            send_email(subject_patient, message_patient, patient_email)
 
         if recipient_email:
             send_email(subject, message, recipient_email)
 
     except Appointment.DoesNotExist:
         print("Error: Cita no encontrada")
+
 
 
 def send_email(subject, message, recipient_email):
