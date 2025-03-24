@@ -66,7 +66,7 @@
             "rating_avg": 4.5,
             "schedule": {
                 "exceptions": {
-                    "2025-03-15": [
+                    "2025-04-14": [
                         {
                             "end": "12:00",
                             "start": "10:00"
@@ -79,18 +79,18 @@
                 },
                 "appointments": [
                     {
-                        "start_time": "2025-03-28T16:30:00",
-                        "end_time": "2025-03-28T17:15:00",
+                        "start_time": "2025-04-28T16:30:00",
+                        "end_time": "2025-04-28T17:15:00",
                         "status": "confirmed"
                     },
                     {
-                        "start_time": "2025-03-15T10:00:00",
-                        "end_time": "2025-03-15T10:45:00",
+                        "start_time": "2025-04-15T10:00:00",
+                        "end_time": "2025-04-15T10:45:00",
                         "status": "booked"
                     },
                     {
-                        "start_time": "2025-03-10T10:00:00",
-                        "end_time": "2025-03-10T10:45:00",
+                        "start_time": "2025-04-10T10:00:00",
+                        "end_time": "2025-04-10T10:45:00",
                         "status": "booked"
                     }
                 ],

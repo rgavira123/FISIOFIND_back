@@ -99,14 +99,8 @@ export const getAvailableSlots = (
     .map((app: any) => {
       const startDate = new Date(app.start_time);
       const endDate = new Date(app.end_time);
-      const startTime = `${startDate.getUTCHours().toString().padStart(2, "0")}:${startDate
-        .getUTCMinutes()
-        .toString()
-        .padStart(2, "0")}`;
-      const endTime = `${endDate.getUTCHours().toString().padStart(2, "0")}:${endDate
-        .getUTCMinutes()
-        .toString()
-        .padStart(2, "0")}`;
+      const startTime = `${startDate.getHours().toString()}:${startDate.getMinutes().toString().padStart(2, "0")}`;
+      const endTime = `${endDate.getHours().toString()}:${endDate.getMinutes().toString().padStart(2, "0")}`;
       return { start: startTime, end: endTime };
     });
 
