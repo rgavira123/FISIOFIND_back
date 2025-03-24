@@ -25,17 +25,11 @@ class StandardResultsSetPagination(PageNumberPagination):
     page_size_query_param = 'page_size'
     max_page_size = 100
 
-
-@api_view(['POST'])
-@permission_classes([IsAuthenticated, IsPatient])
-def create_appointment_patient(request):
-    patient = request.user.patient
-    if hasattr(request.user, 'physio'):
-        return Response({"error": "Los fisioterapeutas no pueden crear citas como pacientes"}, status=status.HTTP_403_FORBIDDEN)
-
-    data = request.data.copy()
-    data['patient'] = patient.id
-    physio_id = data.get('physiotherapist')
+def update_schedule(data):
+    if isinstance(data, Appointment):
+        physio_id = data.physiotherapist.id
+    else:
+        physio_id = data.get('physiotherapist')
     if not physio_id:
         return Response({"error": "Debes proporcionar un ID de fisioterapeuta"}, status=status.HTTP_400_BAD_REQUEST)
     
@@ -47,24 +41,37 @@ def create_appointment_patient(request):
     if not current_schedule:
         return Response({"error": "No se ha definido un horario para este fisioterapeuta"}, status=status.HTTP_404_NOT_FOUND)
 
+    # Obtener las citas actualizadas
+    appointments = Appointment.objects.filter(physiotherapist=physiotherapist)
+    current_schedule['appointments'] = [
+        {
+            "start_time": appointment.start_time.strftime('%Y-%m-%dT%H:%M:%S'),
+            "end_time": appointment.end_time.strftime('%Y-%m-%dT%H:%M:%S'),
+            "status": appointment.status
+        }
+        for appointment in appointments
+    ]
+
+    # Guardar el schedule actualizado
+    physiotherapist.schedule = current_schedule
+    physiotherapist.save()
+    
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated, IsPatient])
+def create_appointment_patient(request):
+    patient = request.user.patient
+    if hasattr(request.user, 'physio'):
+        return Response({"error": "Los fisioterapeutas no pueden crear citas como pacientes"}, status=status.HTTP_403_FORBIDDEN)
+
+    data = request.data.copy()
+    data['patient'] = patient.id
+
     serializer = AppointmentSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
         send_appointment_email(serializer.data['id'], 'booked')
-        # Obtener las citas actualizadas
-        appointments = Appointment.objects.filter(physiotherapist=physiotherapist)
-        current_schedule['appointments'] = [
-            {
-                "start_time": appointment.start_time.strftime('%Y-%m-%dT%H:%M:%S'),
-                "end_time": appointment.end_time.strftime('%Y-%m-%dT%H:%M:%S'),
-                "status": appointment.status
-            }
-            for appointment in appointments
-        ]
-
-        # Guardar el schedule actualizado
-        physiotherapist.schedule = current_schedule
-        physiotherapist.save()
+        update_schedule(data)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -83,6 +90,7 @@ def create_appointment_physio(request):
     serializer = AppointmentSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
+        update_schedule(data)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -440,6 +448,7 @@ def update_appointment(request, appointment_id):
             send_appointment_email(appointment.id, 'modified')
         elif serializer.data['status'] == "confirmed":
             send_appointment_email(appointment.id, 'modified-accepted')
+        update_schedule(data)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -515,7 +524,7 @@ def delete_appointment(request, appointment_id):
 
     # Eliminar la cita
     appointment.delete()
-
+    update_schedule(appointment)
     return Response({"message": "Cita eliminada correctamente"}, status=status.HTTP_204_NO_CONTENT)
 
 
