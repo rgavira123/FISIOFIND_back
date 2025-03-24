@@ -35,11 +35,36 @@ def create_appointment_patient(request):
 
     data = request.data.copy()
     data['patient'] = patient.id
+    physio_id = data.get('physiotherapist')
+    if not physio_id:
+        return Response({"error": "Debes proporcionar un ID de fisioterapeuta"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    physiotherapist = Physiotherapist.objects.get(id=physio_id)
+    if not physiotherapist:
+        return Response({"error": "Fisioterapeuta no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    
+    current_schedule = physiotherapist.schedule
+    if not current_schedule:
+        return Response({"error": "No se ha definido un horario para este fisioterapeuta"}, status=status.HTTP_404_NOT_FOUND)
 
     serializer = AppointmentSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
         send_appointment_email(serializer.data['id'], 'booked')
+        # Obtener las citas actualizadas
+        appointments = Appointment.objects.filter(physiotherapist=physiotherapist)
+        current_schedule['appointments'] = [
+            {
+                "start_time": appointment.start_time.strftime('%Y-%m-%dT%H:%M:%S'),
+                "end_time": appointment.end_time.strftime('%Y-%m-%dT%H:%M:%S'),
+                "status": appointment.status
+            }
+            for appointment in appointments
+        ]
+
+        # Guardar el schedule actualizado
+        physiotherapist.schedule = current_schedule
+        physiotherapist.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
