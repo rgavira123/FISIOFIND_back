@@ -17,7 +17,9 @@ class SeleniumScraper:
         options.add_argument("--headless")  # Ejecutar en segundo plano
         options.add_argument("--no-sandbox")  
         options.add_argument("--enable-javascript")  # Asegurar que JS está habilitado
-        options.add_argument("--disable-dev-shm-usage")  
+        options.add_argument("--disable-gpu")  
+        options.add_argument("--window-size=1920x1080")
+        options.add_argument("--disable-dev-shm-usage") 
         options.binary_location = "/usr/bin/chromium-browser"
 
         # Especificar ruta manual de ChromeDriver
