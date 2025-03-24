@@ -20,6 +20,12 @@ urlpatterns = [
     path('update/<int:appointment_id>/', views.update_appointment, name='update_appointment'),
     path('delete/<int:appointment_id>/', views.delete_appointment, name='delete_appointment'),
     path('update/<int:appointment_id>/confirm/', views.confirm_appointment, name='confirm_appointment'),
+    
+    path('admin/create/', views.create_appointment_admin, name="create_appointment_admin"),
+    path('admin/list/', views.AdminAppointmenList.as_view(), name="list_appointments_admin"),
+    path('admin/list/<int:pk>/', views.AdminAppointmennDetail.as_view()),
+    path('admin/edit/<int:pk>/', views.AdminAppointmenUpdate.as_view()),
+    path('admin/delete/<int:pk>/', views.AdminAppointmenDelete.as_view()),
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)
 """

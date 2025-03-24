@@ -80,6 +80,7 @@ class AppUserSerializer(serializers.ModelSerializer):
 
 
 class PhysioSerializer(serializers.ModelSerializer):
+    user = AppUserSerializer()
     specializations = serializers.SlugRelatedField(
         queryset=Specialization.objects.all(),
         slug_field='name',
@@ -89,7 +90,8 @@ class PhysioSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Physiotherapist
-        exclude = ['user']
+        fields = '__all__'
+        #exclude = ['user']
 
 
 class PatientSerializer(serializers.ModelSerializer):
@@ -97,7 +99,7 @@ class PatientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Patient
-        fields = ['user', 'gender', 'birth_date']
+        fields = ['id', 'user', 'gender', 'birth_date']
 
     def validate_gender(self, value):
         """Verifica que el género no esté vacío"""

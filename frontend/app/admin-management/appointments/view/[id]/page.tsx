@@ -11,9 +11,10 @@ interface citaInterface {
   end_time: string;
   is_online: string;
   service: string;
-  physiotherapist: string;
   patient: string;
+  physiotherapist: string;
   status: string;
+  alternatives: string;
 }
 
 const estados_cita = {
@@ -68,13 +69,17 @@ export default function VerCita() {
 
   const [pacienteFetched, setPacienteFetched] = useState(null);
   function searchPaciente(id) {
-    axios.get(`${getApiBaseUrl()}/api/app_user/admin/user/list/`+id+'/',{
+    axios.get(`${getApiBaseUrl()}/api/app_user/admin/patient/list/`+id+'/',{
       headers : {
         "Authorization": "Bearer "+token
       }
     }
     ).then(response => {
-        setPacienteFetched(response.data)
+        if (response.data.user) {
+          setPacienteFetched(response.data.user)
+        } else {
+          setPacienteFetched({"first_name":"No","last_name":"encontrado"})
+        }
       })
       .catch(error => {
         if (error.response && error.response.status == 404) {
@@ -88,17 +93,21 @@ export default function VerCita() {
 
   const [fisioFetched, setFisioFetched] = useState(null);
   function searchFisio(id) {
-    axios.get(`${getApiBaseUrl()}/api/app_user/admin/user/list/`+id+'/',{
+    axios.get(`${getApiBaseUrl()}/api/app_user/admin/physio/list/`+id+'/',{
       headers : {
         "Authorization": "Bearer "+token
       }
     }
     ).then(response => {
-        setFisioFetched(response.data)
+        if (response.data.user) {
+          setFisioFetched(response.data.user)
+        } else {
+          setFisioFetched({user:{"first_name":"No","last_name":"encontrado"}})
+        }
       })
       .catch(error => {
         if (error.response && error.response.status == 404) {
-          setFisioFetched({"first_name":"No","last_name":"encontrado"})
+          setFisioFetched({user:{"first_name":"No","last_name":"encontrado"}})
         } else {
 
           console.error("Error fetching data:", error);
@@ -107,7 +116,7 @@ export default function VerCita() {
   }
 
   useEffect(() => {
-    axios.get(`${getApiBaseUrl()}/api/app_appointment/appointment/admin/list/`+id+'/', {
+    axios.get(`${getApiBaseUrl()}/api/appointment/admin/list/`+id+'/', {
       headers : {
         "Authorization": "Bearer "+token
       }
@@ -132,7 +141,7 @@ export default function VerCita() {
         <a href="/admin-management/appointments/"><button className="btn-admin">Volver</button></a>
         <h1>Vista de cita</h1>
       </div>
-      <div className="terminos-container">
+      <div className="terminos-container text-left">
         {cita && <>
           <p>Inicio cita: {print_time(cita.start_time)}</p>
           <p>Final cita: {print_time(cita.end_time)}</p>
@@ -143,6 +152,7 @@ export default function VerCita() {
           <p>Id del fisioterapeuta: {cita.physiotherapist} </p>
           <p>Nombre del fisioterapeuta: {fisioFetched && fisioFetched.first_name + ' ' + fisioFetched.last_name}</p>
           <p>Servicios: {JSON.stringify(cita.service)} </p>
+          <p>Alternativas: {JSON.stringify(cita.alternatives)} </p>
           </>
         }
         {!cita && <h1>Cita no encontrada</h1>
