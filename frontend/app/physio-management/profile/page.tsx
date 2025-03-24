@@ -11,6 +11,31 @@ const getAuthToken = () => {
 };
 
 const FisioProfile = () => {
+    interface QuestionElement {
+        type: string;
+        label: string;
+        scope: string;
+      }
+      
+      interface Questionary {
+        type: string;
+        label: string;
+        "UI Schema"?: {
+          elements: QuestionElement[];
+        };
+      }
+      
+      // Actualizar la interfaz Service
+      interface Service {
+        id?: number;
+        tipo: "PRIMERA_CONSULTA" | "CONTINUAR_TRATAMIENTO" | "OTRO";
+        titulo: string;
+        descripcion: string;
+        precio: string;
+        duracion: number; // En minutos
+        custom_questionnaire?: Questionary;
+      }
+      
     const [profile, setProfile] = useState({
         user: {
             dni: "",
@@ -30,16 +55,16 @@ const FisioProfile = () => {
         gender: "",
         rating_avg: "",
         schedule: "",
-        services: ""
+        services: [] as Service[],
     });
 
-    
+    const [editingServiceIndex, setEditingServiceIndex] = useState<number | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [formErrors, setFormErrors] = useState({});
-    const [showServiceModal, setShowServiceModal] = useState(false);
-    const [services, setServices] = useState([]);
-    const [schedule, setSchedule] = useState({
+    const [showServiceModal, setShowServiceModal] = useState(false);      
+      const [services, setServices] = useState<Service[]>([]);
+      const [schedule, setSchedule] = useState({
         exceptions: {},
         appointments: [],
         weekly_schedule: {
@@ -59,11 +84,6 @@ const FisioProfile = () => {
     useEffect(() => {
         setIsClient(true);
     }, []);
-
-    const handleAddService = (newService) => {
-        setServices([...services, newService]);
-        setShowServiceModal(false);
-    };
 
     useEffect(() => {
         fetchFisioProfile();
@@ -88,6 +108,7 @@ const FisioProfile = () => {
                 const response = await axios.get(`${getApiBaseUrl()}/api/app_user/current-user/`, {
                     headers: { Authorization: `Bearer ${storedToken}` },
                 });
+                console.log("response.data.physio.services", response.data.physio.services);
 
                 setProfile({
                     user: {
@@ -108,10 +129,58 @@ const FisioProfile = () => {
                     gender: response.data.physio.gender,
                     rating_avg: response.data.physio.rating_avg,
                     schedule: response.data.physio.schedule,
-                    services: response.data.physio.services
+                    services: [],
                 });
-                if (response.data.physio.services) {
-                    setServices(JSON.parse(response.data.physio.services));
+                try {
+                    let parsedServices = [];
+                    // Comprobar si los servicios son un string JSON o un array o un objeto
+                    if (typeof response.data.physio.services === 'string') {
+                        try {
+                            parsedServices = JSON.parse(response.data.physio.services);
+                        } catch (e) {
+                            console.error("Error al parsear los servicios:", e);
+                        }
+                    } else if (Array.isArray(response.data.physio.services)) {
+                        parsedServices = response.data.physio.services;
+                    } else if (typeof response.data.physio.services === 'object') {
+                        // Si es un objeto con claves (como en el ejemplo)
+                        parsedServices = response.data.physio.services;
+                    }
+                
+                    // Procesar los servicios dependiendo de su formato
+                    let serviceList: Service[] = [];
+                
+                    // Si es un objeto con claves (como {Fisioterapia: {...}, Servicio 2: {...}})
+                    if (parsedServices && typeof parsedServices === 'object' && !Array.isArray(parsedServices)) {
+                        Object.entries(parsedServices).forEach(([key, value]: [string, any]) => {
+                            serviceList.push({
+                                id: value.id || null,
+                                titulo: value.title || key,
+                                tipo: value.tipo || "PRIMERA_CONSULTA",
+                                descripcion: value.description || "",
+                                precio: value.price ? `${value.price}€` : "",
+                                duracion: typeof value.duration === 'string' ? value.duration : `${value.duration} minutos`,
+                                custom_questionnaire: value["custom_questionnaire"] || null
+                            });
+                        });
+                    } else if (Array.isArray(parsedServices)) {
+                        // Si ya es un array
+                        serviceList = parsedServices.map((service) => ({
+                            id: service.id || null,
+                            titulo: service.titulo || service.title || "",
+                            tipo: service.tipo || "PRIMERA_CONSULTA",
+                            descripcion: service.descripcion || service.description || "",
+                            precio: service.precio || (service.price ? `${service.price}€` : ""),
+                            duracion: service.duracion || (service.duration ? `${service.duration} minutos` : ""),
+                            custom_questionnaire: service["custom_questionnaire"] || service.custom_questionnaire || null
+                        }));
+                    }
+                
+                    setServices(serviceList);
+                    setProfile((prevProfile) => ({ ...prevProfile, services: serviceList }));
+                } catch (e) {
+                    console.error("Error al procesar los servicios:", e);
+                    setServices([]);
                 }
                 if (response.data.physio.schedule) {
                     setSchedule(JSON.parse(response.data.physio.schedule));
@@ -123,6 +192,100 @@ const FisioProfile = () => {
             }
         }
     };
+
+
+// Funciones para gestionar servicios con la API
+const addServiceToAPI = async (serviceData: Service): Promise<number | null> => {
+    try {
+    console.log("serviceData", serviceData);
+      // Preparar el servicio en el formato que espera el backend
+      const serviceForBackend = {
+        title: serviceData.titulo,
+        description: serviceData.descripcion,
+        price: parseFloat(serviceData.precio.replace('€', '').trim()),
+        duration: serviceData.duracion,
+        tipo: serviceData.tipo,
+        custom_questionnaire: serviceData.custom_questionnaire ? {
+          "UI Schema": serviceData.custom_questionnaire
+        } : null
+      };
+      
+      const response = await axios.post(
+        `${getApiBaseUrl()}/api/app_user/physio/add-service/`, 
+        serviceForBackend,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      
+        return response.data.services;
+    } catch (error: unknown) {
+      console.error("Error al añadir servicio:", error);
+      if (axios.isAxiosError(error) && error.response) {
+        alert(`Error: ${JSON.stringify(error.response.data)}`);
+      } else {
+        alert("Error al añadir el servicio.");
+      }
+      return null;
+    }
+  };
+  
+  const updateServiceInAPI = async (serviceId, serviceData) => {
+    try {
+      // Preparar el servicio en el formato que espera el backend
+      const serviceForBackend = {
+        title: serviceData.titulo,
+        description: serviceData.descripcion,
+        price: parseFloat(serviceData.precio.replace('€', '').trim()),
+        duration: serviceData.duracion,
+        tipo: serviceData.tipo,
+        custom_questionnaire: serviceData.custom_questionnaire ? {
+          "UI Schema": serviceData.custom_questionnaire
+        } : null
+      };
+      
+      const response = await axios.put(
+        `${getApiBaseUrl()}/api/app_user/physio/update-service/${serviceId}/`, 
+        serviceForBackend,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      
+      if (response.status === 200) {
+        return response.data.services;
+      }
+      else {
+        throw new Error("Error al actualizar el servicio");
+      }
+    } catch (error) {
+      console.error("Error al actualizar servicio:", error);
+      if (error.response) {
+        alert(`Error: ${JSON.stringify(error.response.data)}`);
+      } else {
+        alert("Error al actualizar el servicio.");
+      }
+      return false;
+    }
+  };
+  
+  const deleteServiceFromAPI = async (serviceId) => {
+    try {
+      const response = await axios.delete(
+        `${getApiBaseUrl()}/api/app_user/physio/delete-service/${serviceId}/`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      
+      return response.status === 204 || response.status === 200;
+    } catch (error) {
+      console.error("Error al eliminar servicio:", error);
+      if (error.response) {
+        alert(`Error: ${JSON.stringify(error.response.data)}`);
+      } else {
+        alert("Error al eliminar el servicio.");
+      }
+      return false;
+    }
+  };
+
+
+
 
     // Manejar actualizaciones del calendario
     const handleScheduleChange = (newSchedule) => {
@@ -211,7 +374,7 @@ const FisioProfile = () => {
             const { initialized, ...scheduleWithoutInitialized } = schedule;
             formData.append("schedule", JSON.stringify(scheduleWithoutInitialized));
             
-            formData.append("services", JSON.stringify(services));
+            // formData.append("services", JSON.stringify(services));
 
             const response = await axios.put(`${getApiBaseUrl()}/api/app_user/physio/update/`, formData, {
                 headers: { Authorization: "Bearer " + token, "Content-Type": "multipart/form-data" },
@@ -265,64 +428,412 @@ const FisioProfile = () => {
         return "/default_avatar.png";
     };
 
-    const ServiceModal = ({ onClose, onSave }) => {
-        const [titulo, setTitulo] = useState("");
-        const [descripcion, setDescripcion] = useState("");
-        const [precio, setPrecio] = useState("");
-        const [frecuencia, setFrecuencia] = useState("diaria"); // Valor por defecto
-        const [duracion, setDuracion] = useState("");
-        const [unidadDuracion, setUnidadDuracion] = useState("días"); // Valor por defecto
+    const handleAddService = async (newService) => {
+        try {
+          if (editingServiceIndex !== null) {
+            // Estamos editando un servicio existente
+            const serviceToEdit = services[editingServiceIndex];
+            
+            if (serviceToEdit.id) {
+              // Actualizar en la API
+              const services = await updateServiceInAPI(serviceToEdit.id, newService);
+              
+              if (services) {
+                const serviceList: Service[] = [];
+                // Actualizar el estado local solo si la API devuelve éxito
+                Object.entries(services).forEach(([key, value]: [string, any]) => {
+                    serviceList.push({
+                        id: value.id || null,
+                        titulo: value.title || key,
+                        tipo: value.tipo || "PRIMERA_CONSULTA",
+                        descripcion: value.description || "",
+                        precio: value.price ? `${value.price}€` : "",
+                        duracion: typeof value.duration === 'string' ? value.duration : `${value.duration} minutos`,
+                        custom_questionnaire: value["custom_questionnaire"] || null
+                    });
+                });
+                setServices(serviceList);
+                setProfile(prev => ({...prev, services: serviceList}));
+                alert("Servicio actualizado correctamente");
+              } else {
+                alert("Error al actualizar el servicio");
+              }
+            } else {
+              // Si no tiene ID pero estamos editando, es raro pero tratarlo como un nuevo servicio
+              const services = await addServiceToAPI(newService);
+              
+              if (services) {
+                const serviceList: Service[] = [];
+                // Actualizar el estado local solo si la API devuelve éxito
+                Object.entries(services).forEach(([key, value]: [string, any]) => {
+                    serviceList.push({
+                        id: value.id || null,
+                        titulo: value.title || key,
+                        tipo: value.tipo || "PRIMERA_CONSULTA",
+                        descripcion: value.description || "",
+                        precio: value.price ? `${value.price}€` : "",
+                        duracion: typeof value.duration === 'string' ? value.duration : `${value.duration} minutos`,
+                        custom_questionnaire: value["custom_questionnaire"] || null
+                    });
+                });
+                setServices(serviceList);
+                setProfile(prev => ({...prev, services: serviceList}));
+                alert("Servicio actualizado correctamente");
+              } else {
+                alert("Error al añadir el servicio");
+              }
+            }
+          } else {
+            // Estamos añadiendo un nuevo servicio
+            const services = await addServiceToAPI(newService);
+              
+            if (services) {
+              const serviceList: Service[] = [];
+              // Actualizar el estado local solo si la API devuelve éxito
+              Object.entries(services).forEach(([key, value]: [string, any]) => {
+                  serviceList.push({
+                      id: value.id || null,
+                      titulo: value.title || key,
+                      tipo: value.tipo || "PRIMERA_CONSULTA",
+                      descripcion: value.description || "",
+                      precio: value.price ? `${value.price}€` : "",
+                      duracion: typeof value.duration === 'string' ? value.duration : `${value.duration} minutos`,
+                      custom_questionnaire: value["custom_questionnaire"] || null
+                  });
+              });
+              setServices(serviceList);
+              setProfile(prev => ({...prev, services: serviceList}));
+              alert("Servicio añadido correctamente");
+            } else {
+              alert("Error al añadir el servicio");
+            }
+          }
+        } catch (error) {
+          console.error("Error al gestionar el servicio:", error);
+          alert("Error al procesar la operación");
+        } finally {
+          setEditingServiceIndex(null);
+          setShowServiceModal(false);
+        }
+      };
 
+
+    const handleEditService = (index) => {
+        setEditingServiceIndex(index);
+        setShowServiceModal(true);
+    };
+
+    const handleDeleteService = async (index) => {
+        if (window.confirm("¿Estás seguro de que deseas eliminar este servicio?")) {
+          try {
+            const serviceToDelete = services[index];
+            
+            if (serviceToDelete.id) {
+              // Eliminar de la API
+              const success = await deleteServiceFromAPI(serviceToDelete.id);
+              
+              if (success) {
+                // Solo actualizar el estado local si la API devuelve éxito
+                const updatedServices = [...services];
+                updatedServices.splice(index, 1);
+                setServices(updatedServices);
+                setProfile(prev => ({...prev, services: updatedServices}));
+                alert("Servicio eliminado correctamente");
+              } else {
+                alert("Error al eliminar el servicio");
+              }
+            } else {
+              // Si no tiene ID, es un servicio que nunca se guardó en la API
+              alert("No se puede eliminar un servicio que no ha sido guardado");
+            }
+          } catch (error) {
+            console.error("Error al eliminar el servicio:", error);
+            alert("Error al eliminar el servicio");
+          }
+        }
+      };
+
+
+    const ServiceModal = ({ onClose, onSave, editingService = null }: { onClose: () => void; onSave: (service: Service) => void; editingService?: Service | null }) => {
+        // Inicializar con valores del servicio a editar o valores por defecto
+        const [tipo, setTipo] = useState(editingService?.tipo || "PRIMERA_CONSULTA");
+        const [titulo, setTitulo] = useState(editingService?.titulo || "");
+        const [descripcion, setDescripcion] = useState(editingService?.descripcion || "");
+        const [precio, setPrecio] = useState(editingService?.precio || "");
+        const [duracion, setDuracion] = useState(() => {
+            if (editingService) {
+                if (typeof editingService.duracion === 'number') {
+                    return String(editingService.duracion);
+                } else if (typeof editingService.duracion === 'string') {
+                    // Extraer solo los dígitos de la cadena
+                    const match = editingService.duracion.match(/\d+/);
+                    return match ? match[0] : "60";
+                }
+            }
+            return "60"; // Valor por defecto
+        });
+        
+        // Estado para gestionar el cuestionario
+        const [showQuestionnaireSection, setShowQuestionnaireSection] = useState(() => {
+            // Verificar si el servicio que estamos editando tiene un cuestionario
+            if (editingService?.custom_questionnaire) {
+                if (editingService.custom_questionnaire.elements || 
+                    editingService.custom_questionnaire["UI Schema"]?.elements) {
+                    return true;
+                }
+            }
+            return false;
+        });
+        const [questionary, setQuestionary] = useState<Questionary>(() => {
+            const defaultQuestionary: Questionary = {
+                type: "Group",
+                label: "Cuestionario Personalizado",
+                elements: [
+                    {
+                        type: "Control",
+                        label: "Peso (kg)",
+                        scope: "#/properties/peso"
+                    },
+                    {
+                        type: "Control",
+                        label: "Altura (cm)",
+                        scope: "#/properties/altura"
+                    },
+                    {
+                        type: "Control",
+                        label: "Edad",
+                        scope: "#/properties/edad"
+                    },
+                    {
+                        type: "Control",
+                        label: "Nivel de actividad física",
+                        scope: "#/properties/actividad_fisica"
+                    },
+                    {
+                        type: "Control",
+                        label: "Motivo de la consulta",
+                        scope: "#/properties/motivo_consulta"
+                    }
+                ]
+            };
+            
+            // Verificar todos los posibles formatos de cuestionario
+            if (editingService?.custom_questionnaire) {
+                // Si es un objeto directo con elementos
+                if (editingService.custom_questionnaire.elements) {
+                    return editingService.custom_questionnaire;
+                }
+                // Si tiene una estructura anidada con UI Schema
+                else if (editingService.custom_questionnaire["UI Schema"]) {
+                    return editingService.custom_questionnaire["UI Schema"];
+                }
+                // Si el propio objeto es el UI Schema
+                else if (editingService.custom_questionnaire.type && editingService.custom_questionnaire.type === "Group") {
+                    return editingService.custom_questionnaire;
+                }
+            }
+            
+            return defaultQuestionary;
+        });
+        
+        // Para gestionar nuevas preguntas
+        const [newQuestion, setNewQuestion] = useState("");
+        
+        // Generar ID único para scope basado en el texto de la pregunta
+        const generateScope = (question: string) => {
+            // Simplificar el texto para el scope, eliminar espacios, acentos, etc.
+            const simplifiedText = question
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/[^\w\s]/g, "")
+                .replace(/\s+/g, "_");
+            
+            return `#/properties/${simplifiedText}`;
+        };
+        
+        // Añadir una nueva pregunta al cuestionario
+        const addQuestion = () => {
+            if (!newQuestion.trim()) return;
+            
+            const newElement = {
+                type: "Control",
+                label: newQuestion,
+                scope: generateScope(newQuestion)
+            };
+            
+            setQuestionary({
+                ...questionary,
+                elements: [...questionary.elements, newElement]
+            });
+            
+            setNewQuestion("");
+        };
+        
+        // Eliminar una pregunta del cuestionario
+        const removeQuestion = (index: number) => {
+            // No permitir eliminar las 5 primeras preguntas predeterminadas
+            if (index < 5) return;
+            
+            const updatedElements = [...questionary.elements];
+            updatedElements.splice(index, 1);
+            
+            setQuestionary({
+                ...questionary,
+                elements: updatedElements
+            });
+        };
+        
+        // Handle custom title based on type
+        useEffect(() => {
+            if (tipo === "PRIMERA_CONSULTA" && !editingService) {
+                setTitulo("Primera consulta");
+            } else if (tipo === "CONTINUAR_TRATAMIENTO" && !editingService) {
+                setTitulo("Continuación de tratamiento");
+            }
+        }, [tipo]);
+    
         const handleSave = () => {
-            const newService = { titulo, descripcion, precio, frecuencia, duracion: `${duracion} ${unidadDuracion}` };
+            // Validación básica
+            if (!titulo.trim()) {
+                alert("El título es obligatorio");
+                return;
+            }
+            
+            if (!precio.trim()) {
+                alert("El precio es obligatorio");
+                return;
+            }
+            
+            if (!duracion || parseInt(duracion) <= 0) {
+                alert("La duración debe ser mayor a 0 minutos");
+                return;
+            }
+            
+            const newService = {
+                tipo,
+                titulo,
+                descripcion,
+                precio,
+                duracion: parseInt(duracion),
+                ...(showQuestionnaireSection ? { custom_questionnaire: questionary } : {})
+            };
+            
             onSave(newService);
         };
-
+    
         return (
             <div className="modal-overlay">
                 <div className="modal-content">
-                    <h2>Añadir servicio</h2>
-                    <label>Título:</label>
-                    <input type="text" value={titulo} onChange={(e) => setTitulo(e.target.value)} />
-
-                    <label>Descripción:</label>
-                    <textarea value={descripcion ? descripcion : ""} onChange={(e) => setDescripcion(e.target.value)} />
-
-                    <label>Precio:</label>
-                    <input type="text" value={precio} placeholder="€ / consulta" onChange={(e) => setPrecio(e.target.value)} />
-
-                    <label>Frecuencia:</label>
-                    <select value={frecuencia} onChange={(e) => setFrecuencia(e.target.value)}>
-                        <option value="diaria">Diaria</option>
-                        <option value="semanal">Semanal</option>
-                        <option value="quincenal">Quincenal</option>
-                        <option value="mensual">Mensual</option>
-                        <option value="trimestral">Trimestral</option>
-                        <option value="semestral">Semestral</option>
+                    <h2>{editingService ? "Editar servicio" : "Añadir servicio"}</h2>
+                    
+                    <label>Tipo de servicio:</label>
+                    <select value={tipo} onChange={(e) => setTipo(e.target.value as string)}>
+                        <option value="PRIMERA_CONSULTA">Primera consulta</option>
+                        <option value="CONTINUAR_TRATAMIENTO">Continuar tratamiento</option>
+                        <option value="OTRO">Otro</option>
                     </select>
-
-                    <label>Duración:</label>
-                    <div className="duration-input">
-                        <input
-                            type="number"
-                            value={duracion}
-                            onChange={(e) => setDuracion(e.target.value)}
-                            placeholder="Duración"
-                        />
-                        <select value={unidadDuracion} onChange={(e) => setUnidadDuracion(e.target.value)}>
-                            <option value="días">Días</option>
-                            <option value="semanas">Semanas</option>
-                            <option value="meses">Meses</option>
-                        </select>
+                    
+                    <label>Título: <span className="required">*</span></label>
+                    <input 
+                        type="text" 
+                        value={titulo} 
+                        onChange={(e) => setTitulo(e.target.value)}
+                        disabled={tipo !== "OTRO"}
+                        className={!titulo.trim() ? "error-input" : ""}
+                    />
+    
+                    <label>Descripción:</label>
+                    <textarea 
+                        value={descripcion} 
+                        onChange={(e) => setDescripcion(e.target.value)}
+                        placeholder="Describe brevemente en qué consiste este servicio"
+                    />
+    
+                    <label>Precio por consulta: <span className="required">*</span></label>
+                    <input 
+                        type="text" 
+                        value={precio}
+                        onChange={(e) => setPrecio(e.target.value)}
+                        placeholder="€"
+                        className={!precio.trim() ? "error-input" : ""}
+                    />
+    
+                    <label>Duración (minutos): <span className="required">*</span></label>
+                    <input
+                        type="number"
+                        value={duracion}
+                        onChange={(e) => setDuracion(e.target.value)}
+                        min="1"
+                        placeholder="60"
+                        className={!duracion || parseInt(duracion) <= 0 ? "error-input" : ""}
+                    />
+                    
+                    <div className="questionnaire-toggle">
+                        <label>
+                        Incluir cuestionario pre-intervención
+                            <input 
+                                type="checkbox" 
+                                checked={showQuestionnaireSection}
+                                onChange={() => setShowQuestionnaireSection(!showQuestionnaireSection)}
+                            />
+                        </label>
                     </div>
-
-                    <button onClick={handleSave}>Guardar</button>
-                    <button onClick={onClose}>Cancelar</button>
+                    
+                    {showQuestionnaireSection && (
+                        <div className="questionnaire-section">
+                            <p className="note">Las siguientes preguntas ya están incluidas por defecto:</p>
+                            
+        <ul className="questions-list">
+            {questionary && questionary.elements ? (
+                questionary.elements.map((element, index) => (
+                    <li key={index} className={index < 5 ? "default-question" : ""}>
+                        {element.label}
+                        {index >= 5 && (
+                            <button 
+                                type="button" 
+                                className="remove-question"
+                                onClick={() => removeQuestion(index)}
+                            >
+                                ×
+                            </button>
+                        )}
+                    </li>
+                ))
+            ) : (
+                <li>No hay preguntas definidas en este cuestionario.</li>
+            )}
+        </ul>
+                            
+                            <div className="add-question">
+                                <label>Añadir nueva pregunta:</label>
+                                <div className="question-input">
+                                    <input 
+                                        type="text"
+                                        value={newQuestion}
+                                        onChange={(e) => setNewQuestion(e.target.value)}
+                                        placeholder="Ej. ¿Tiene alguna lesión previa?"
+                                    />
+                                    <button 
+                                        type="button"
+                                        onClick={addQuestion}
+                                        disabled={!newQuestion.trim()}
+                                    >
+                                        Añadir
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+    
+                    <div className="modal-buttons">
+                        <button className="save-button" onClick={handleSave}>Guardar</button>
+                        <button className="cancel-button" onClick={onClose}>Cancelar</button>
+                    </div>
                 </div>
             </div>
         );
     };
-
 
 
 
@@ -386,26 +897,96 @@ const FisioProfile = () => {
                     <button type="submit">Actualizar Perfil</button>
                 </form>
 
-                <div className="services-section">
-                    <h2>Servicios</h2>
-                    <hr />
-                    <button onClick={() => setShowServiceModal(!showServiceModal)}>+ Añadir servicio</button>
-                    {services.map((service, index) => (
-                        <div key={index} className="service-item">
-                            <h3>{service.titulo}</h3>
-                            <p>{service.descripcion}</p>
-                            <p>Precio: {service.precio}</p>
-                            <p>Frecuencia: {service.frecuencia}</p>
-                            <p>Duración: {service.duracion}</p>
+    <div className="services-section">
+    <h2>Servicios</h2>
+    <hr />
+    {loading && (
+  <div className="loading-overlay">
+    <div className="loading-spinner"></div>
+    <p>Procesando...</p>
+  </div>
+)}
+    <button 
+        className="add-service-button"
+        onClick={() => {
+            setEditingServiceIndex(null);
+            setShowServiceModal(true);
+        }}
+    >
+        + Añadir servicio
+    </button>
+    
+    {services.length === 0 ? (
+        <p className="no-services">No hay servicios registrados</p>
+    ) : (
+        <div className="service-list">
+            {services.map((service, index) => (
+                <div key={index} className="service-item">
+                    <div className="service-header">
+                        <h3>{service.titulo}</h3>
+                        <div className="service-type-badge">
+                            {service.tipo === "PRIMERA_CONSULTA" 
+                                ? "Primera consulta" 
+                                : service.tipo === "CONTINUAR_TRATAMIENTO" 
+                                    ? "Continuación de tratamiento" 
+                                    : "Otro"
+                            }
                         </div>
-                    ))}
+                    </div>
+                    
+                    {service.descripcion && (
+                        <p className="service-description">{service.descripcion}</p>
+                    )}
+                    
+        <div className="service-details">
+            <div className="detail-item">
+                <span className="detail-icon">💰</span>
+                <span>{service.precio}</span>
+            </div>
+            <div className="detail-item">
+                <span className="detail-icon">⏱️</span>
+                <span>{service.duracion} minutos</span>
+            </div>
+            {(service.custom_questionnaire && 
+                (service.custom_questionnaire.elements || 
+                service.custom_questionnaire["UI Schema"]?.elements)) && (
+                <div className="detail-item">
+                    <span className="detail-icon">📋</span>
+                    <span>Cuestionario preintervención incluido</span>
                 </div>
-
-                {/* Modal para añadir servicios */}
+            )}
+        </div>
+                    
+                    
+                    <div className="service-actions">
+                        <button 
+                            onClick={() => handleEditService(index)}
+                            className="edit-button"
+                        >
+                            Editar
+                        </button>
+                        <button 
+                            onClick={() => handleDeleteService(index)}
+                            className="delete-button"
+                        >
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+                
+                {/* Modal para añadir/editar servicios */}
                 {showServiceModal && (
                     <ServiceModal
-                        onClose={() => setShowServiceModal(false)}
+                        onClose={() => {
+                            setShowServiceModal(false);
+                            setEditingServiceIndex(null);
+                        }}
                         onSave={handleAddService}
+                        editingService={editingServiceIndex !== null ? services[editingServiceIndex] : undefined}
                     />
                 )}
             </div>

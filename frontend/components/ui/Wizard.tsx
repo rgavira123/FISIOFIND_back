@@ -29,15 +29,17 @@ const Wizard: React.FC<{ steps: Step[], token: string | null, isClient: boolean}
             if (response.data && typeof response.data === 'object') {
             Object.entries(response.data).forEach(([_, service]: [string, any]) => {
               if (service && typeof service === 'object' && 'id' in service) {
-                const questionnaire = service["cuestionario Personalizado"] || {};
-
+                const questionnaire = service.custom_questionnaire && service.custom_questionnaire["UI Schema"]
+                ? service.custom_questionnaire["UI Schema"]
+                : { type: "", label: "", elements: [] };
+                console.log(questionnaire);
                 parsedServices.push({
                   id: String(service.id),
                   title: service.title || "",
                   price: typeof service.price === 'number' ? service.price : parseFloat(service.price || "0"),
                   description: service.description || "",
                   duration: service.duration || "",
-                  questionary: questionnaire['UI Schema'] || { type: "", label: "", elements: [] },
+                  questionary: questionnaire,
                 });
                 }
               });
