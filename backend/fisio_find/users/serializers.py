@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from rest_framework.validators import UniqueValidator  # Importación correcta
+from rest_framework.validators import UniqueValidator
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.password_validation import validate_password
 from django.db.utils import IntegrityError
@@ -32,7 +32,7 @@ class AppUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = AppUser
         fields = [
-            'user_id', 'username', 'first_name', 'last_name', 'email', 
+            'user_id', 'username', 'first_name', 'last_name', 'email',
             'photo', 'dni', 'phone_number', 'postal_code'
         ]
         extra_kwargs = {
@@ -42,14 +42,14 @@ class AppUserSerializer(serializers.ModelSerializer):
 
     def validate_username(self, value):
         """Verifica si el nombre de usuario ya está en uso, excluyendo al propio usuario"""
-        user = self.context.get('request').user  
+        user = self.context.get('request').user
         if AppUser.objects.filter(username=value).exclude(id=user.id).exists():
             raise serializers.ValidationError("El nombre de usuario ya está en uso.")
         return value
 
     def validate_email(self, value):
         """Verifica si el email ya está en uso, excluyendo al propio usuario"""
-        user = self.context.get('request').user 
+        user = self.context.get('request').user
         if AppUser.objects.filter(email=value).exclude(id=user.id).exists():
             raise serializers.ValidationError("El email ya está en uso.")
         return value
@@ -69,7 +69,7 @@ class AppUserSerializer(serializers.ModelSerializer):
 
     def validate_dni(self, value):
         """Verifica si el DNI ya está en uso, excluyendo al propio usuario"""
-        user = self.context.get('request').user 
+        user = self.context.get('request').user
         if AppUser.objects.filter(dni=value).exclude(id=user.id).exists():
             raise serializers.ValidationError("El DNI ya está en uso.")
         return value
@@ -90,7 +90,7 @@ class PhysioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Physiotherapist
         exclude = ['user']
-        
+
 
 class PatientSerializer(serializers.ModelSerializer):
     user = AppUserSerializer()
@@ -198,7 +198,7 @@ class PatientRegisterSerializer(serializers.ModelSerializer):
             validation_errors["dni"] = "La letra del DNI no coincide con el número."
 
         if telefono_no_mide_9(data['phone_number']):
-            validation_errors["phone_number"] =  "El número de teléfono debe tener 9 caracteres."
+            validation_errors["phone_number"] = "El número de teléfono debe tener 9 caracteres."
 
         if codigo_postal_no_mide_5(data['postal_code']):
             validation_errors["postal_code"] = "El código postal debe tener 5 caracteres."
@@ -277,8 +277,9 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Physiotherapist
         fields = [
-            'username', 'email', 'password', 'dni', 'gender', 'first_name', 'last_name', 
-            'birth_date', 'collegiate_number', 'autonomic_community', 'phone_number', 'postal_code', 'bio', 'photo', 'services', 'specializations', 'schedule'
+            'username', 'email', 'password', 'dni', 'gender', 'first_name', 'last_name',
+            'birth_date', 'collegiate_number', 'autonomic_community', 'phone_number', 'postal_code',
+            'bio', 'photo', 'services', 'specializations', 'schedule'
         ]
 
     def validate_password(self, value):
@@ -326,14 +327,15 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
                 valid_physio = validar_colegiacion(first_name, last_name, collegiate_number, autonomic_community)
 
                 if not valid_physio:
-                    raise serializers.ValidationError({"collegiate_number": "El número de colegiado o el nombre no es válido."})
+                    raise serializers.ValidationError({"collegiate_number":
+                                                      "El número de colegiado o nombre no son válidos"})
 
                 # Crear el fisioterapeuta y asociarlo al usuario
                 app_user = AppUser.objects.create(
                     username=validated_data.pop('username'),
                     email=validated_data.pop('email'),
                     dni=validated_data.pop('dni'),
-                    password=make_password(validated_data.pop('password')),  # Encripta la contraseña
+                    password=make_password(validated_data.pop('password')),
                     phone_number=validated_data.pop('phone_number'),
                     postal_code=validated_data.pop('postal_code'),
                     first_name=first_name,
@@ -356,7 +358,8 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
                 return physio
 
         except IntegrityError as e:
-            raise serializers.ValidationError({"error": "Error de integridad en la base de datos. Posible duplicado de datos."})
+            raise serializers.ValidationError({"error":
+                                              "Error de integridad en la base de datos. Posible duplicado de datos."})
 
     def update(self, instance, validated_data):
         """Actualiza los datos de un fisioterapeuta y su usuario asociado."""
@@ -377,7 +380,8 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
                 return instance
 
         except IntegrityError:
-            raise serializers.ValidationError({"error": "Error de integridad en la base de datos. Posible duplicado de datos."})
+            raise serializers.ValidationError({"error":
+                                              "Error de integridad en la base de datos. Posible duplicado de datos."})
 
 
 class PhysioUpdateSerializer(serializers.ModelSerializer):
@@ -458,7 +462,8 @@ class PhysioUpdateSerializer(serializers.ModelSerializer):
                 return instance
 
         except IntegrityError:
-            raise serializers.ValidationError({"error": "Error de integridad en la base de datos. Posible duplicado de datos."})
+            raise serializers.ValidationError({"error":
+                                              "Error de integridad en la base de datos. Posible duplicado de datos."})
 
 
 class AppUserAdminViewSerializer(serializers.ModelSerializer):

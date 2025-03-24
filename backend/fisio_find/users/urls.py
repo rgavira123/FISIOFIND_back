@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import patient_register_view, physio_delete_service_view, physio_get_services_view, physio_create_service
-from .vews import custom_token_obtain_view, logout_view, check_role_view, physio_register_view, return_user
-from .vews import physio_update_view, PatientProfileView
+from .views import custom_token_obtain_view, logout_view, check_role_view, physio_register_view, return_user
+from .views import physio_update_view, PatientProfileView
 from django.conf import settings
 from django.conf.urls.static import static
 
