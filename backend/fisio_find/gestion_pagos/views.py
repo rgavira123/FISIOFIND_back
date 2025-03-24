@@ -240,6 +240,17 @@ def invoice_pdf_view(request):
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
     
+#obtener todas las facturas de fisioterapeuta
+@api_view(['GET'])
+@permission_classes([IsPhysiotherapist])
+def get_physio_invoices(request):
+    physiotherapist = request.user.physio
+    my_appointments = Appointment.objects.filter(physiotherapist=physiotherapist)
+    my_payments = Payment.objects.filter(appointment__in=my_appointments)
+    serializer = PaymentSerializer(my_payments, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 #obtener dinero acumulado de todas las payment pagadas por el fisioterapeuta
 @api_view(['GET'])
 @permission_classes([IsPhysiotherapist])
