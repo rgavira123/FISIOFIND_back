@@ -8,6 +8,7 @@ import Modal from "@/components/ui/Modal";
 import Link from "next/link";
 import axios from "axios";
 import { getApiBaseUrl } from "@/utils/api";
+import { CookieConsent } from "@/components/CookieConsent";
 
 interface Physiotherapist {
   id: string;
@@ -298,6 +299,9 @@ const Home = () => {
 
   return (
     <div className="min-h-screen w-full z=90">
+      {/* Add CookieConsent component */}
+      <CookieConsent />
+      
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center text-center relative overflow-hidden mb-8 py-12">
         <div className="absolute top-0 left-0 w-full h-full">
