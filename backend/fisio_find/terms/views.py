@@ -2,7 +2,7 @@ from rest_framework import generics, filters, status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from gestion_usuarios.permissions import IsAdmin
-from gestion_usuarios.models import Admin  # Add this import
+from gestion_usuarios.models import Admin
 from .models import Terms
 from .serializers import TermsSerializer
 from datetime import datetime

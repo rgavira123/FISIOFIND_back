@@ -1,5 +1,5 @@
 from django.db import models
-from gestion_usuarios.models import Admin
+from users.models import Admin
 
 
 class Terms(models.Model):

@@ -3,9 +3,9 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 from django.db.models import Q
-from gestion_usuarios.models import Physiotherapist
-from gestion_usuarios.serializers import PhysioSerializer
-from gestion_usuarios.models import Specialization
+from users.models import Physiotherapist
+from users.serializers import PhysioSerializer
+from users.models import Specialization
 
 class SearchPhysiotherapistView(APIView):
     """

@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class SesionInvitado(AppConfig):
+class UsersConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'sesion_invitado'
+    name = 'users'
