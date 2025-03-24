@@ -143,21 +143,21 @@ const PatientProfile = () => {
               />
             </div>
             
-            <h2 className="text-xl font-bold mb-1">{profile.user.username}</h2>
+            <h2 className="text-xl font-bold mb-1">{profile?.user?.username || "Nombre de usuario"}</h2>
             <p className="text-blue-100 mb-6">Paciente</p>
             
             <div className="w-full space-y-4">
               <div className="flex items-center">
                 <Mail size={16} className="mr-2 opacity-70" />
-                <p className="text-sm truncate">{profile.user.email}</p>
+                <p className="text-sm truncate">{profile?.user?.email || ""}</p>
               </div>
               <div className="flex items-center">
                 <Phone size={16} className="mr-2 opacity-70" />
-                <p className="text-sm">{profile.user.phone_number}</p>
+                <p className="text-sm">{profile?.user?.phone_number || ""r}</p>
               </div>
               <div className="flex items-center">
                 <FileText size={16} className="mr-2 opacity-70" />
-                <p className="text-sm">DNI: {profile.user.dni}</p>
+                <p className="text-sm">DNI: {profile?.user?.dni || ""}</p>
               </div>
             </div>
           </div>
