@@ -3,6 +3,7 @@ import { CalendarProps } from "@/lib/definitions";
 import Image from "next/image";
 import AlternativeSelector from "./alternative-selector";
 import { getApiBaseUrl } from "@/utils/api";
+import { formatDateFromIso } from "@/lib/utils";
 
 interface AppointmentModalProps {
   selectedEvent: CalendarProps | null;
@@ -152,13 +153,13 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
         <div className="bg-gray-100 p-4 rounded-b-xl">
           <p className="text-gray-600 mt-2">
             <strong>Inicio:</strong>{" "}
-            {new Date(selectedEvent.start).toLocaleString()}
+            {formatDateFromIso(selectedEvent.start)}
           </p>
           {selectedEvent.end && (
             <p className="text-gray-600">
               <strong>Fin:</strong>{" "}
-              {new Date(selectedEvent.end).toLocaleString()}
-            </p>
+              {formatDateFromIso(selectedEvent.end)}
+              </p>
           )}
           <p className="mt-2">{selectedEvent.description}</p>
           {selectedEvent.alternatives && currentRole == "patient" && (
