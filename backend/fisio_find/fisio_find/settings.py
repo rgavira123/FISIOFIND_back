@@ -68,7 +68,7 @@ INSTALLED_APPS += [
 
 INSTALLED_APPS += [
     'users',
-    'gestion_citas',
+    'appointment',
     'terms',
     'guest_session',
 ]

@@ -1,4 +1,4 @@
-from gestion_citas.models import Appointment
+from appointment.models import Appointment
 from django.core.mail import EmailMessage
 from django.core import signing
 

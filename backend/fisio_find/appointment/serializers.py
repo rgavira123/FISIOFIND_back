@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from gestion_citas.models import Appointment, StatusChoices
+from appointment.models import Appointment, StatusChoices
 from users.models import AppUser, Patient, Physiotherapist
 
 class AppointmentSerializer(serializers.Serializer):

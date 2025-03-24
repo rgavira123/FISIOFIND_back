@@ -398,7 +398,7 @@
         }
     },
     {
-        "model": "gestion_citas.appointment",
+        "model": "appointment.appointment",
         "pk": 1,
         "fields": {
             "start_time": "2025-03-12T10:00:00Z",
@@ -415,7 +415,7 @@
         }
     },
     {
-        "model": "gestion_citas.appointment",
+        "model": "appointment.appointment",
         "pk": 2,
         "fields": {
             "start_time": "2025-03-13T10:00:00Z",
@@ -432,7 +432,7 @@
         }
     },
     {
-        "model": "gestion_citas.appointment",
+        "model": "appointment.appointment",
         "pk": 3,
         "fields": {
             "start_time": "2025-03-14T10:00:00Z",
@@ -449,7 +449,7 @@
         }
     },
     {
-        "model": "gestion_citas.appointment",
+        "model": "appointment.appointment",
         "pk": 4,
         "fields": {
             "start_time": "2025-03-15T10:00:00Z",
@@ -466,7 +466,7 @@
         }
     },
     {
-        "model": "gestion_citas.appointment",
+        "model": "appointment.appointment",
         "pk": 5,
         "fields": {
             "start_time": "2025-03-16T10:00:00Z",
@@ -483,7 +483,7 @@
         }
     },
     {
-        "model": "gestion_citas.appointment",
+        "model": "appointment.appointment",
         "pk": 6,
         "fields": {
             "start_time": "2025-03-17T10:00:00Z",
@@ -500,7 +500,7 @@
         }
     },
     {
-        "model": "gestion_citas.appointment",
+        "model": "appointment.appointment",
         "pk": 7,
         "fields": {
             "start_time": "2025-03-18T10:00:00Z",
@@ -517,7 +517,7 @@
         }
     },
     {
-        "model": "gestion_citas.appointment",
+        "model": "appointment.appointment",
         "pk": 8,
         "fields": {
             "start_time": "2025-03-19T10:00:00Z",
@@ -534,7 +534,7 @@
         }
     },
     {
-        "model": "gestion_citas.appointment",
+        "model": "appointment.appointment",
         "pk": 9,
         "fields": {
             "start_time": "2025-03-20T10:00:00Z",
@@ -551,7 +551,7 @@
         }
     },
     {
-        "model": "gestion_citas.appointment",
+        "model": "appointment.appointment",
         "pk": 10,
         "fields": {
             "start_time": "2025-03-21T10:00:00Z",

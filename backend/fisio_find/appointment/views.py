@@ -2,8 +2,8 @@ from collections import defaultdict
 from datetime import datetime, timedelta
 from rest_framework import generics
 from rest_framework.filters import SearchFilter, OrderingFilter
-from gestion_citas.models import Appointment, Physiotherapist
-from gestion_citas.serializers import AppointmentSerializer
+from appointment.models import Appointment, Physiotherapist
+from appointment.serializers import AppointmentSerializer
 from rest_framework.permissions import IsAuthenticated
 from users.permissions import IsPhysiotherapist, IsPatient, IsPhysioOrPatient
 from users.permissions import IsAdmin
@@ -15,7 +15,7 @@ from django.core.exceptions import ValidationError
 from rest_framework.views import APIView
 from django.utils.timezone import make_aware, is_aware
 from datetime import datetime, timezone, timedelta
-from gestion_citas.emailUtils import send_appointment_email
+from appointment.emailUtils import send_appointment_email
 from django.core import signing
 from django.core.signing import BadSignature, SignatureExpired
 from rest_framework.permissions import AllowAny
