@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class GestionUsuariosConfig(AppConfig):
+class GuestSession(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'gestion_usuarios'
+    name = 'guest_session'

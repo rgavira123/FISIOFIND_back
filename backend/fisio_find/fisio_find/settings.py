@@ -68,10 +68,10 @@ INSTALLED_APPS += [
 # APPS PROPIAS
 
 INSTALLED_APPS += [
-    'gestion_usuarios',
+    'users',
     'gestion_citas',
     'terms',
-    'sesion_invitado',
+    'guest_session',
 ]
 
 
@@ -214,7 +214,7 @@ DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default=env('EMAIL_HOST_USER'))
 
 ALLOWED_HOSTS = ['*'] if DEBUG else ['fisiofind-backend.azurewebsites.net']
 
-AUTH_USER_MODEL = 'gestion_usuarios.AppUser'
+AUTH_USER_MODEL = 'users.AppUser'
 
 
 # Password validation
@@ -228,7 +228,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LANGUAGE_CODE = 'es-es'
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Madrid'
 USE_I18N = True
 USE_TZ = True
 

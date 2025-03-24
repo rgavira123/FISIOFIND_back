@@ -5,8 +5,8 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from gestion_citas.models import Appointment, Physiotherapist
 from gestion_citas.serializers import AppointmentSerializer
 from rest_framework.permissions import IsAuthenticated
-from gestion_usuarios.permissions import IsPhysiotherapist, IsPatient, IsPhysioOrPatient
-from gestion_usuarios.permissions import IsAdmin
+from users.permissions import IsPhysiotherapist, IsPatient, IsPhysioOrPatient
+from users.permissions import IsAdmin
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
