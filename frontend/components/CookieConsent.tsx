@@ -43,7 +43,7 @@ export function CookieConsent() {
       <div className="w-full max-w-md bg-white p-8 rounded-3xl shadow-lg text-center">
         <div className="mb-6">
           <Image
-            src="/cookie-icon.png"
+            src="/cookie-icon.webp"
             alt="Cookies"
             width={120}
             height={120}
@@ -65,6 +65,8 @@ export function CookieConsent() {
             <Link 
               href="/terms" 
               onClick={handleCookiesPolicyClick}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-[#05668D] hover:text-[#05918F] text-sm font-medium"
             >
               Política de Cookies
