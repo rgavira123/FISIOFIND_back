@@ -17,6 +17,7 @@ type Action =
     }
   }
   | { type: "DESELECT_SERVICE" }
+  | { type: "SET_QUESTIONARY_COMPLETE"; payload: boolean }
   | { type: "SELECT_PAYMENT_METHOD"; payload: string }
   | { type: "SELECT_SLOT"; payload: { start_time: string; end_time: string; is_online: boolean } }
   | { type: 'UPDATE_QUESTIONARY_RESPONSES'; payload: QuestionaryResponse }

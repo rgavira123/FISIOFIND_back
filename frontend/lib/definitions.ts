@@ -9,6 +9,7 @@ export type CalendarProps = {
   service?: {
     type: string;
     duration: number;
+    questionaryResponses: QuestionaryResponse;
   };
   alternatives?: Record<string, { start: string; end: string }[]>;
 };

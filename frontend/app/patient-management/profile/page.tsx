@@ -74,7 +74,7 @@ const PatientProfile = () => {
         return;
       }
 
-      const response = await axios.get(`${getApiBaseUrl}/api/app_user/current-user/`, {
+      const response = await axios.get(`${getApiBaseUrl()}/api/app_user/current-user/`, {
         headers: { Authorization: "Bearer " + token },
       });
       console.log(response.data);

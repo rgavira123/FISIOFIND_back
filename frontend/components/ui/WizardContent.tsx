@@ -7,10 +7,14 @@ import AppointmentCalendar from "./AppointmentCalendar";
 import { formatAppointment } from "@/lib/utils"; // Se importa la función de formateo
 import { useParams } from "next/navigation";
 import ServiceQuestionary from "./ServiceQuestionary";
+import { ServiceQuestionaryRef } from "./ServiceQuestionary"; // Asegúrate de importar la referencia
+
 
 interface WizardContentProps {
   currentStep: number;
   services: Service[];
+  questionaryRef: React.RefObject<ServiceQuestionaryRef | null>; // Permitir null
+
 }
 
 // Función para calcular el máximo común divisor de dos números
@@ -23,11 +27,12 @@ const computeGCD = (arr: number[]): number => {
   return arr.reduce((prev, curr) => gcd(prev, curr));
 };
 
-const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services }) => {
+const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services, questionaryRef }) => {
   const { state, dispatch } = useAppointment();
   const appointmentData = state.appointmentData;
   const { id } = useParams();
   const physioId = parseInt(id as string);
+
 
 
   const handleSelectService = (service: Service) => {
@@ -100,7 +105,7 @@ const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services }) 
       </div>
     );
   } else if (currentStep === 4) {
-      return <ServiceQuestionary />;
+      return <ServiceQuestionary ref={questionaryRef} />;
   } else if (currentStep === 5) {
     // Se formatean las fechas de inicio y fin de forma separada
     const inicio = appointmentData.start_time ? formatAppointment(appointmentData.start_time) : { date: "", time: "" };

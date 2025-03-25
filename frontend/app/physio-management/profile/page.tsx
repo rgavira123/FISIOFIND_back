@@ -15,18 +15,18 @@ const FisioProfile = () => {
         type: string;
         label: string;
         scope: string;
-      }
-      
-      interface Questionary {
+    }
+
+    interface Questionary {
         type: string;
         label: string;
         "UI Schema"?: {
-          elements: QuestionElement[];
+            elements: QuestionElement[];
         };
-      }
-      
-      // Actualizar la interfaz Service
-      interface Service {
+    }
+
+    // Actualizar la interfaz Service
+    interface Service {
         id?: number;
         tipo: "PRIMERA_CONSULTA" | "CONTINUAR_TRATAMIENTO" | "OTRO";
         titulo: string;
@@ -34,8 +34,8 @@ const FisioProfile = () => {
         precio: string;
         duracion: number; // En minutos
         custom_questionnaire?: Questionary;
-      }
-      
+    }
+
     const [profile, setProfile] = useState({
         user: {
             dni: "",
@@ -62,22 +62,22 @@ const FisioProfile = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [formErrors, setFormErrors] = useState({});
-    const [showServiceModal, setShowServiceModal] = useState(false);      
-      const [services, setServices] = useState<Service[]>([]);
-      const [schedule, setSchedule] = useState({
+    const [showServiceModal, setShowServiceModal] = useState(false);
+    const [services, setServices] = useState<Service[]>([]);
+    const [schedule, setSchedule] = useState({
         exceptions: {},
         appointments: [],
         weekly_schedule: {
-          monday: [],
-          tuesday: [],
-          wednesday: [],
-          thursday: [],
-          friday: [],
-          saturday: [],
-          sunday: [],
+            monday: [],
+            tuesday: [],
+            wednesday: [],
+            thursday: [],
+            friday: [],
+            saturday: [],
+            sunday: [],
         },
         initialized: false,
-      });
+    });
     const [isClient, setIsClient] = useState(false);
     const [token, setToken] = useState<string | null>(null);
 
@@ -146,10 +146,10 @@ const FisioProfile = () => {
                         // Si es un objeto con claves (como en el ejemplo)
                         parsedServices = response.data.physio.services;
                     }
-                
+
                     // Procesar los servicios dependiendo de su formato
                     let serviceList: Service[] = [];
-                
+
                     // Si es un objeto con claves (como {Fisioterapia: {...}, Servicio 2: {...}})
                     if (parsedServices && typeof parsedServices === 'object' && !Array.isArray(parsedServices)) {
                         Object.entries(parsedServices).forEach(([key, value]: [string, any]) => {
@@ -175,7 +175,7 @@ const FisioProfile = () => {
                             custom_questionnaire: service["custom_questionnaire"] || service.custom_questionnaire || null
                         }));
                     }
-                
+
                     setServices(serviceList);
                     setProfile((prevProfile) => ({ ...prevProfile, services: serviceList }));
                 } catch (e) {
@@ -194,95 +194,95 @@ const FisioProfile = () => {
     };
 
 
-// Funciones para gestionar servicios con la API
-const addServiceToAPI = async (serviceData: Service): Promise<number | null> => {
-    try {
-    console.log("serviceData", serviceData);
-      // Preparar el servicio en el formato que espera el backend
-      const serviceForBackend = {
-        title: serviceData.titulo,
-        description: serviceData.descripcion,
-        price: parseFloat(serviceData.precio.replace('€', '').trim()),
-        duration: serviceData.duracion,
-        tipo: serviceData.tipo,
-        custom_questionnaire: serviceData.custom_questionnaire ? {
-          "UI Schema": serviceData.custom_questionnaire
-        } : null
-      };
-      
-      const response = await axios.post(
-        `${getApiBaseUrl()}/api/app_user/physio/add-service/`, 
-        serviceForBackend,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      
-        return response.data.services;
-    } catch (error: unknown) {
-      console.error("Error al añadir servicio:", error);
-      if (axios.isAxiosError(error) && error.response) {
-        alert(`Error: ${JSON.stringify(error.response.data)}`);
-      } else {
-        alert("Error al añadir el servicio.");
-      }
-      return null;
-    }
-  };
-  
-  const updateServiceInAPI = async (serviceId, serviceData) => {
-    try {
-      // Preparar el servicio en el formato que espera el backend
-      const serviceForBackend = {
-        title: serviceData.titulo,
-        description: serviceData.descripcion,
-        price: parseFloat(serviceData.precio.replace('€', '').trim()),
-        duration: serviceData.duracion,
-        tipo: serviceData.tipo,
-        custom_questionnaire: serviceData.custom_questionnaire ? {
-          "UI Schema": serviceData.custom_questionnaire
-        } : null
-      };
-      
-      const response = await axios.put(
-        `${getApiBaseUrl()}/api/app_user/physio/update-service/${serviceId}/`, 
-        serviceForBackend,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      
-      if (response.status === 200) {
-        return response.data.services;
-      }
-      else {
-        throw new Error("Error al actualizar el servicio");
-      }
-    } catch (error) {
-      console.error("Error al actualizar servicio:", error);
-      if (error.response) {
-        alert(`Error: ${JSON.stringify(error.response.data)}`);
-      } else {
-        alert("Error al actualizar el servicio.");
-      }
-      return false;
-    }
-  };
-  
-  const deleteServiceFromAPI = async (serviceId) => {
-    try {
-      const response = await axios.delete(
-        `${getApiBaseUrl()}/api/app_user/physio/delete-service/${serviceId}/`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      
-      return response.status === 204 || response.status === 200;
-    } catch (error) {
-      console.error("Error al eliminar servicio:", error);
-      if (error.response) {
-        alert(`Error: ${JSON.stringify(error.response.data)}`);
-      } else {
-        alert("Error al eliminar el servicio.");
-      }
-      return false;
-    }
-  };
+    // Funciones para gestionar servicios con la API
+    const addServiceToAPI = async (serviceData: Service): Promise<number | null> => {
+        try {
+            console.log("serviceData", serviceData);
+            // Preparar el servicio en el formato que espera el backend
+            const serviceForBackend = {
+                title: serviceData.titulo,
+                description: serviceData.descripcion,
+                price: parseFloat(serviceData.precio.replace('€', '').trim()),
+                duration: serviceData.duracion,
+                tipo: serviceData.tipo,
+                custom_questionnaire: serviceData.custom_questionnaire ? {
+                    "UI Schema": serviceData.custom_questionnaire
+                } : null
+            };
+
+            const response = await axios.post(
+                `${getApiBaseUrl()}/api/app_user/physio/add-service/`,
+                serviceForBackend,
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            return response.data.services;
+        } catch (error: unknown) {
+            console.error("Error al añadir servicio:", error);
+            if (axios.isAxiosError(error) && error.response) {
+                alert(`Error: ${JSON.stringify(error.response.data)}`);
+            } else {
+                alert("Error al añadir el servicio.");
+            }
+            return null;
+        }
+    };
+
+    const updateServiceInAPI = async (serviceId, serviceData) => {
+        try {
+            // Preparar el servicio en el formato que espera el backend
+            const serviceForBackend = {
+                title: serviceData.titulo,
+                description: serviceData.descripcion,
+                price: parseFloat(serviceData.precio.replace('€', '').trim()),
+                duration: serviceData.duracion,
+                tipo: serviceData.tipo,
+                custom_questionnaire: serviceData.custom_questionnaire ? {
+                    "UI Schema": serviceData.custom_questionnaire
+                } : null
+            };
+
+            const response = await axios.put(
+                `${getApiBaseUrl()}/api/app_user/physio/update-service/${serviceId}/`,
+                serviceForBackend,
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            if (response.status === 200) {
+                return response.data.services;
+            }
+            else {
+                throw new Error("Error al actualizar el servicio");
+            }
+        } catch (error) {
+            console.error("Error al actualizar servicio:", error);
+            if (error.response) {
+                alert(`Error: ${JSON.stringify(error.response.data)}`);
+            } else {
+                alert("Error al actualizar el servicio.");
+            }
+            return false;
+        }
+    };
+
+    const deleteServiceFromAPI = async (serviceId) => {
+        try {
+            const response = await axios.delete(
+                `${getApiBaseUrl()}/api/app_user/physio/delete-service/${serviceId}/`,
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            return response.status === 204 || response.status === 200;
+        } catch (error) {
+            console.error("Error al eliminar servicio:", error);
+            if (error.response) {
+                alert(`Error: ${JSON.stringify(error.response.data)}`);
+            } else {
+                alert("Error al eliminar el servicio.");
+            }
+            return false;
+        }
+    };
 
 
 
@@ -369,11 +369,11 @@ const addServiceToAPI = async (serviceData: Service): Promise<number | null> => 
             formData.append("collegiate_number", profile.collegiate_number || "");
             formData.append("bio", profile.bio || "");
             formData.append("rating_avg", profile.rating_avg || "");
-            
+
             // Actualizar el schedule con los datos actuales del calendario
             const { initialized, ...scheduleWithoutInitialized } = schedule;
             formData.append("schedule", JSON.stringify(scheduleWithoutInitialized));
-            
+
             // formData.append("services", JSON.stringify(services));
 
             const response = await axios.put(`${getApiBaseUrl()}/api/app_user/physio/update/`, formData, {
@@ -430,92 +430,92 @@ const addServiceToAPI = async (serviceData: Service): Promise<number | null> => 
 
     const handleAddService = async (newService) => {
         try {
-          if (editingServiceIndex !== null) {
-            // Estamos editando un servicio existente
-            const serviceToEdit = services[editingServiceIndex];
-            
-            if (serviceToEdit.id) {
-              // Actualizar en la API
-              const services = await updateServiceInAPI(serviceToEdit.id, newService);
-              
-              if (services) {
-                const serviceList: Service[] = [];
-                // Actualizar el estado local solo si la API devuelve éxito
-                Object.entries(services).forEach(([key, value]: [string, any]) => {
-                    serviceList.push({
-                        id: value.id || null,
-                        titulo: value.title || key,
-                        tipo: value.tipo || "PRIMERA_CONSULTA",
-                        descripcion: value.description || "",
-                        precio: value.price ? `${value.price}€` : "",
-                        duracion: typeof value.duration === 'string' ? value.duration : `${value.duration} minutos`,
-                        custom_questionnaire: value["custom_questionnaire"] || null
-                    });
-                });
-                setServices(serviceList);
-                setProfile(prev => ({...prev, services: serviceList}));
-                alert("Servicio actualizado correctamente");
-              } else {
-                alert("Error al actualizar el servicio");
-              }
+            if (editingServiceIndex !== null) {
+                // Estamos editando un servicio existente
+                const serviceToEdit = services[editingServiceIndex];
+
+                if (serviceToEdit.id) {
+                    // Actualizar en la API
+                    const services = await updateServiceInAPI(serviceToEdit.id, newService);
+
+                    if (services) {
+                        const serviceList: Service[] = [];
+                        // Actualizar el estado local solo si la API devuelve éxito
+                        Object.entries(services).forEach(([key, value]: [string, any]) => {
+                            serviceList.push({
+                                id: value.id || null,
+                                titulo: value.title || key,
+                                tipo: value.tipo || "PRIMERA_CONSULTA",
+                                descripcion: value.description || "",
+                                precio: value.price ? `${value.price}€` : "",
+                                duracion: typeof value.duration === 'string' ? value.duration : `${value.duration} minutos`,
+                                custom_questionnaire: value["custom_questionnaire"] || null
+                            });
+                        });
+                        setServices(serviceList);
+                        setProfile(prev => ({ ...prev, services: serviceList }));
+                        alert("Servicio actualizado correctamente");
+                    } else {
+                        alert("Error al actualizar el servicio");
+                    }
+                } else {
+                    // Si no tiene ID pero estamos editando, es raro pero tratarlo como un nuevo servicio
+                    const services = await addServiceToAPI(newService);
+
+                    if (services) {
+                        const serviceList: Service[] = [];
+                        // Actualizar el estado local solo si la API devuelve éxito
+                        Object.entries(services).forEach(([key, value]: [string, any]) => {
+                            serviceList.push({
+                                id: value.id || null,
+                                titulo: value.title || key,
+                                tipo: value.tipo || "PRIMERA_CONSULTA",
+                                descripcion: value.description || "",
+                                precio: value.price ? `${value.price}€` : "",
+                                duracion: typeof value.duration === 'string' ? value.duration : `${value.duration} minutos`,
+                                custom_questionnaire: value["custom_questionnaire"] || null
+                            });
+                        });
+                        setServices(serviceList);
+                        setProfile(prev => ({ ...prev, services: serviceList }));
+                        alert("Servicio actualizado correctamente");
+                    } else {
+                        alert("Error al añadir el servicio");
+                    }
+                }
             } else {
-              // Si no tiene ID pero estamos editando, es raro pero tratarlo como un nuevo servicio
-              const services = await addServiceToAPI(newService);
-              
-              if (services) {
-                const serviceList: Service[] = [];
-                // Actualizar el estado local solo si la API devuelve éxito
-                Object.entries(services).forEach(([key, value]: [string, any]) => {
-                    serviceList.push({
-                        id: value.id || null,
-                        titulo: value.title || key,
-                        tipo: value.tipo || "PRIMERA_CONSULTA",
-                        descripcion: value.description || "",
-                        precio: value.price ? `${value.price}€` : "",
-                        duracion: typeof value.duration === 'string' ? value.duration : `${value.duration} minutos`,
-                        custom_questionnaire: value["custom_questionnaire"] || null
+                // Estamos añadiendo un nuevo servicio
+                const services = await addServiceToAPI(newService);
+
+                if (services) {
+                    const serviceList: Service[] = [];
+                    // Actualizar el estado local solo si la API devuelve éxito
+                    Object.entries(services).forEach(([key, value]: [string, any]) => {
+                        serviceList.push({
+                            id: value.id || null,
+                            titulo: value.title || key,
+                            tipo: value.tipo || "PRIMERA_CONSULTA",
+                            descripcion: value.description || "",
+                            precio: value.price ? `${value.price}€` : "",
+                            duracion: typeof value.duration === 'string' ? value.duration : `${value.duration} minutos`,
+                            custom_questionnaire: value["custom_questionnaire"] || null
+                        });
                     });
-                });
-                setServices(serviceList);
-                setProfile(prev => ({...prev, services: serviceList}));
-                alert("Servicio actualizado correctamente");
-              } else {
-                alert("Error al añadir el servicio");
-              }
+                    setServices(serviceList);
+                    setProfile(prev => ({ ...prev, services: serviceList }));
+                    alert("Servicio añadido correctamente");
+                } else {
+                    alert("Error al añadir el servicio");
+                }
             }
-          } else {
-            // Estamos añadiendo un nuevo servicio
-            const services = await addServiceToAPI(newService);
-              
-            if (services) {
-              const serviceList: Service[] = [];
-              // Actualizar el estado local solo si la API devuelve éxito
-              Object.entries(services).forEach(([key, value]: [string, any]) => {
-                  serviceList.push({
-                      id: value.id || null,
-                      titulo: value.title || key,
-                      tipo: value.tipo || "PRIMERA_CONSULTA",
-                      descripcion: value.description || "",
-                      precio: value.price ? `${value.price}€` : "",
-                      duracion: typeof value.duration === 'string' ? value.duration : `${value.duration} minutos`,
-                      custom_questionnaire: value["custom_questionnaire"] || null
-                  });
-              });
-              setServices(serviceList);
-              setProfile(prev => ({...prev, services: serviceList}));
-              alert("Servicio añadido correctamente");
-            } else {
-              alert("Error al añadir el servicio");
-            }
-          }
         } catch (error) {
-          console.error("Error al gestionar el servicio:", error);
-          alert("Error al procesar la operación");
+            console.error("Error al gestionar el servicio:", error);
+            alert("Error al procesar la operación");
         } finally {
-          setEditingServiceIndex(null);
-          setShowServiceModal(false);
+            setEditingServiceIndex(null);
+            setShowServiceModal(false);
         }
-      };
+    };
 
 
     const handleEditService = (index) => {
@@ -525,33 +525,33 @@ const addServiceToAPI = async (serviceData: Service): Promise<number | null> => 
 
     const handleDeleteService = async (index) => {
         if (window.confirm("¿Estás seguro de que deseas eliminar este servicio?")) {
-          try {
-            const serviceToDelete = services[index];
-            
-            if (serviceToDelete.id) {
-              // Eliminar de la API
-              const success = await deleteServiceFromAPI(serviceToDelete.id);
-              
-              if (success) {
-                // Solo actualizar el estado local si la API devuelve éxito
-                const updatedServices = [...services];
-                updatedServices.splice(index, 1);
-                setServices(updatedServices);
-                setProfile(prev => ({...prev, services: updatedServices}));
-                alert("Servicio eliminado correctamente");
-              } else {
+            try {
+                const serviceToDelete = services[index];
+
+                if (serviceToDelete.id) {
+                    // Eliminar de la API
+                    const success = await deleteServiceFromAPI(serviceToDelete.id);
+
+                    if (success) {
+                        // Solo actualizar el estado local si la API devuelve éxito
+                        const updatedServices = [...services];
+                        updatedServices.splice(index, 1);
+                        setServices(updatedServices);
+                        setProfile(prev => ({ ...prev, services: updatedServices }));
+                        alert("Servicio eliminado correctamente");
+                    } else {
+                        alert("Error al eliminar el servicio");
+                    }
+                } else {
+                    // Si no tiene ID, es un servicio que nunca se guardó en la API
+                    alert("No se puede eliminar un servicio que no ha sido guardado");
+                }
+            } catch (error) {
+                console.error("Error al eliminar el servicio:", error);
                 alert("Error al eliminar el servicio");
-              }
-            } else {
-              // Si no tiene ID, es un servicio que nunca se guardó en la API
-              alert("No se puede eliminar un servicio que no ha sido guardado");
             }
-          } catch (error) {
-            console.error("Error al eliminar el servicio:", error);
-            alert("Error al eliminar el servicio");
-          }
         }
-      };
+    };
 
 
     const ServiceModal = ({ onClose, onSave, editingService = null }: { onClose: () => void; onSave: (service: Service) => void; editingService?: Service | null }) => {
@@ -572,12 +572,12 @@ const addServiceToAPI = async (serviceData: Service): Promise<number | null> => 
             }
             return "60"; // Valor por defecto
         });
-        
+
         // Estado para gestionar el cuestionario
         const [showQuestionnaireSection, setShowQuestionnaireSection] = useState(() => {
             // Verificar si el servicio que estamos editando tiene un cuestionario
             if (editingService?.custom_questionnaire) {
-                if (editingService.custom_questionnaire.elements || 
+                if (editingService.custom_questionnaire.elements ||
                     editingService.custom_questionnaire["UI Schema"]?.elements) {
                     return true;
                 }
@@ -590,17 +590,17 @@ const addServiceToAPI = async (serviceData: Service): Promise<number | null> => 
                 label: "Cuestionario Personalizado",
                 elements: [
                     {
-                        type: "Control",
+                        type: "Number",
                         label: "Peso (kg)",
                         scope: "#/properties/peso"
                     },
                     {
-                        type: "Control",
+                        type: "Number",
                         label: "Altura (cm)",
                         scope: "#/properties/altura"
                     },
                     {
-                        type: "Control",
+                        type: "Number",
                         label: "Edad",
                         scope: "#/properties/edad"
                     },
@@ -616,7 +616,7 @@ const addServiceToAPI = async (serviceData: Service): Promise<number | null> => 
                     }
                 ]
             };
-            
+
             // Verificar todos los posibles formatos de cuestionario
             if (editingService?.custom_questionnaire) {
                 // Si es un objeto directo con elementos
@@ -632,13 +632,15 @@ const addServiceToAPI = async (serviceData: Service): Promise<number | null> => 
                     return editingService.custom_questionnaire;
                 }
             }
-            
+
             return defaultQuestionary;
         });
-        
+
         // Para gestionar nuevas preguntas
         const [newQuestion, setNewQuestion] = useState("");
-        
+        const [questionType, setQuestionType] = useState("Control");
+
+
         // Generar ID único para scope basado en el texto de la pregunta
         const generateScope = (question: string) => {
             // Simplificar el texto para el scope, eliminar espacios, acentos, etc.
@@ -648,42 +650,43 @@ const addServiceToAPI = async (serviceData: Service): Promise<number | null> => 
                 .replace(/[\u0300-\u036f]/g, "")
                 .replace(/[^\w\s]/g, "")
                 .replace(/\s+/g, "_");
-            
+
             return `#/properties/${simplifiedText}`;
         };
-        
+
         // Añadir una nueva pregunta al cuestionario
         const addQuestion = () => {
             if (!newQuestion.trim()) return;
-            
+
             const newElement = {
-                type: "Control",
+                type: questionType, // Usar el tipo seleccionado en el desplegable
                 label: newQuestion,
                 scope: generateScope(newQuestion)
             };
-            
+
             setQuestionary({
                 ...questionary,
                 elements: [...questionary.elements, newElement]
             });
-            
+
             setNewQuestion("");
+            setQuestionType("Control"); // Restablecer al tipo predeterminado después de añadir
         };
-        
+
         // Eliminar una pregunta del cuestionario
         const removeQuestion = (index: number) => {
             // No permitir eliminar las 5 primeras preguntas predeterminadas
             if (index < 5) return;
-            
+
             const updatedElements = [...questionary.elements];
             updatedElements.splice(index, 1);
-            
+
             setQuestionary({
                 ...questionary,
                 elements: updatedElements
             });
         };
-        
+
         // Handle custom title based on type
         useEffect(() => {
             if (tipo === "PRIMERA_CONSULTA" && !editingService) {
@@ -692,24 +695,24 @@ const addServiceToAPI = async (serviceData: Service): Promise<number | null> => 
                 setTitulo("Continuación de tratamiento");
             }
         }, [tipo]);
-    
+
         const handleSave = () => {
             // Validación básica
             if (!titulo.trim()) {
                 alert("El título es obligatorio");
                 return;
             }
-            
+
             if (!precio.trim()) {
                 alert("El precio es obligatorio");
                 return;
             }
-            
+
             if (!duracion || parseInt(duracion) <= 0) {
                 alert("La duración debe ser mayor a 0 minutos");
                 return;
             }
-            
+
             const newService = {
                 tipo,
                 titulo,
@@ -718,47 +721,47 @@ const addServiceToAPI = async (serviceData: Service): Promise<number | null> => 
                 duracion: parseInt(duracion),
                 ...(showQuestionnaireSection ? { custom_questionnaire: questionary } : {})
             };
-            
+
             onSave(newService);
         };
-    
+
         return (
             <div className="modal-overlay">
                 <div className="modal-content">
                     <h2>{editingService ? "Editar servicio" : "Añadir servicio"}</h2>
-                    
+
                     <label>Tipo de servicio:</label>
                     <select value={tipo} onChange={(e) => setTipo(e.target.value as string)}>
                         <option value="PRIMERA_CONSULTA">Primera consulta</option>
                         <option value="CONTINUAR_TRATAMIENTO">Continuar tratamiento</option>
                         <option value="OTRO">Otro</option>
                     </select>
-                    
+
                     <label>Título: <span className="required">*</span></label>
-                    <input 
-                        type="text" 
-                        value={titulo} 
+                    <input
+                        type="text"
+                        value={titulo}
                         onChange={(e) => setTitulo(e.target.value)}
                         disabled={tipo !== "OTRO"}
                         className={!titulo.trim() ? "error-input" : ""}
                     />
-    
+
                     <label>Descripción:</label>
-                    <textarea 
-                        value={descripcion} 
+                    <textarea
+                        value={descripcion}
                         onChange={(e) => setDescripcion(e.target.value)}
                         placeholder="Describe brevemente en qué consiste este servicio"
                     />
-    
+
                     <label>Precio por consulta: <span className="required">*</span></label>
-                    <input 
-                        type="text" 
+                    <input
+                        type="text"
                         value={precio}
                         onChange={(e) => setPrecio(e.target.value)}
                         placeholder="€"
                         className={!precio.trim() ? "error-input" : ""}
                     />
-    
+
                     <label>Duración (minutos): <span className="required">*</span></label>
                     <input
                         type="number"
@@ -768,64 +771,85 @@ const addServiceToAPI = async (serviceData: Service): Promise<number | null> => 
                         placeholder="60"
                         className={!duracion || parseInt(duracion) <= 0 ? "error-input" : ""}
                     />
-                    
+
                     <div className="questionnaire-toggle">
                         <label>
-                        Incluir cuestionario pre-intervención
-                            <input 
-                                type="checkbox" 
+                            Incluir cuestionario pre-intervención
+                            <input
+                                type="checkbox"
                                 checked={showQuestionnaireSection}
                                 onChange={() => setShowQuestionnaireSection(!showQuestionnaireSection)}
                             />
                         </label>
                     </div>
-                    
+
                     {showQuestionnaireSection && (
                         <div className="questionnaire-section">
                             <p className="note">Las siguientes preguntas ya están incluidas por defecto:</p>
-                            
-        <ul className="questions-list">
-            {questionary && questionary.elements ? (
-                questionary.elements.map((element, index) => (
-                    <li key={index} className={index < 5 ? "default-question" : ""}>
-                        {element.label}
-                        {index >= 5 && (
-                            <button 
-                                type="button" 
-                                className="remove-question"
-                                onClick={() => removeQuestion(index)}
-                            >
-                                ×
-                            </button>
-                        )}
-                    </li>
-                ))
-            ) : (
-                <li>No hay preguntas definidas en este cuestionario.</li>
-            )}
-        </ul>
-                            
+
+                            <ul className="questions-list">
+                                {questionary && questionary.elements ? (
+                                    questionary.elements.map((element, index) => (
+                                        <li key={index} className={index < 5 ? "default-question" : ""}>
+                                            {element.label}
+                                            <span className="question-type-badge">
+                                                {element.type === "Number" ? "Numérico" : "Texto"}
+                                            </span>
+                                            {index >= 5 && (
+                                                <button
+                                                    type="button"
+                                                    className="remove-question"
+                                                    onClick={() => removeQuestion(index)}
+                                                >
+                                                    ×
+                                                </button>
+                                            )}
+                                        </li>
+                                    ))
+                                ) : (
+                                    <li>No hay preguntas definidas en este cuestionario.</li>
+                                )}
+                            </ul>
+
                             <div className="add-question">
                                 <label>Añadir nueva pregunta:</label>
-                                <div className="question-input">
-                                    <input 
-                                        type="text"
-                                        value={newQuestion}
-                                        onChange={(e) => setNewQuestion(e.target.value)}
-                                        placeholder="Ej. ¿Tiene alguna lesión previa?"
-                                    />
-                                    <button 
-                                        type="button"
-                                        onClick={addQuestion}
-                                        disabled={!newQuestion.trim()}
-                                    >
-                                        Añadir
-                                    </button>
+                                <div className="question-input-group">
+                                    <div className="question-type-select">
+                                        <select
+                                            value={questionType}
+                                            onChange={(e) => setQuestionType(e.target.value)}
+                                            className="question-type-dropdown"
+                                        >
+                                            <option value="Control">Texto</option>
+                                            <option value="Number">Numérico</option>
+                                        </select>
+                                    </div>
+                                    <div className="question-input">
+                                        <input
+                                            type="text"
+                                            value={newQuestion}
+                                            onChange={(e) => setNewQuestion(e.target.value)}
+                                            placeholder="Ej. ¿Tiene alguna lesión previa?"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={addQuestion}
+                                            disabled={!newQuestion.trim()}
+                                            className="add-question-button"
+                                        >
+                                            Añadir
+                                        </button>
+                                    </div>
                                 </div>
+                                <p className="type-hint">
+                                    {questionType === "Control" ?
+                                        "El campo de texto permite cualquier respuesta textual." :
+                                        "El campo numérico solo permitirá introducir números."}
+                                </p>
                             </div>
                         </div>
                     )}
-    
+
                     <div className="modal-buttons">
                         <button className="save-button" onClick={handleSave}>Guardar</button>
                         <button className="cancel-button" onClick={onClose}>Cancelar</button>
@@ -864,8 +888,8 @@ const addServiceToAPI = async (serviceData: Service): Promise<number | null> => 
                     <p>Colegio: {profile?.autonomic_community || "No disponible"}</p>
                 </div>
                 <h3 className="mt-4 mb-2 font-bold">Calendario de disponibilidad</h3>
-                <ScheduleCalendar 
-                    initialSchedule={schedule} 
+                <ScheduleCalendar
+                    initialSchedule={schedule}
                     onScheduleChange={handleScheduleChange}
                 />
             </div>
@@ -897,87 +921,87 @@ const addServiceToAPI = async (serviceData: Service): Promise<number | null> => 
                     <button type="submit">Actualizar Perfil</button>
                 </form>
 
-    <div className="services-section">
-    <h2>Servicios</h2>
-    <hr />
-    {loading && (
-  <div className="loading-overlay">
-    <div className="loading-spinner"></div>
-    <p>Procesando...</p>
-  </div>
-)}
-    <button 
-        className="add-service-button"
-        onClick={() => {
-            setEditingServiceIndex(null);
-            setShowServiceModal(true);
-        }}
-    >
-        + Añadir servicio
-    </button>
-    
-    {services.length === 0 ? (
-        <p className="no-services">No hay servicios registrados</p>
-    ) : (
-        <div className="service-list">
-            {services.map((service, index) => (
-                <div key={index} className="service-item">
-                    <div className="service-header">
-                        <h3>{service.titulo}</h3>
-                        <div className="service-type-badge">
-                            {service.tipo === "PRIMERA_CONSULTA" 
-                                ? "Primera consulta" 
-                                : service.tipo === "CONTINUAR_TRATAMIENTO" 
-                                    ? "Continuación de tratamiento" 
-                                    : "Otro"
-                            }
+                <div className="services-section">
+                    <h2>Servicios</h2>
+                    <hr />
+                    {loading && (
+                        <div className="loading-overlay">
+                            <div className="loading-spinner"></div>
+                            <p>Procesando...</p>
                         </div>
-                    </div>
-                    
-                    {service.descripcion && (
-                        <p className="service-description">{service.descripcion}</p>
                     )}
-                    
-        <div className="service-details">
-            <div className="detail-item">
-                <span className="detail-icon">💰</span>
-                <span>{service.precio}</span>
-            </div>
-            <div className="detail-item">
-                <span className="detail-icon">⏱️</span>
-                <span>{service.duracion} minutos</span>
-            </div>
-            {(service.custom_questionnaire && 
-                (service.custom_questionnaire.elements || 
-                service.custom_questionnaire["UI Schema"]?.elements)) && (
-                <div className="detail-item">
-                    <span className="detail-icon">📋</span>
-                    <span>Cuestionario preintervención incluido</span>
-                </div>
-            )}
-        </div>
-                    
-                    
-                    <div className="service-actions">
-                        <button 
-                            onClick={() => handleEditService(index)}
-                            className="edit-button"
-                        >
-                            Editar
-                        </button>
-                        <button 
-                            onClick={() => handleDeleteService(index)}
-                            className="delete-button"
-                        >
-                            Eliminar
-                        </button>
-                    </div>
-                </div>
+                    <button
+                        className="add-service-button"
+                        onClick={() => {
+                            setEditingServiceIndex(null);
+                            setShowServiceModal(true);
+                        }}
+                    >
+                        + Añadir servicio
+                    </button>
+
+                    {services.length === 0 ? (
+                        <p className="no-services">No hay servicios registrados</p>
+                    ) : (
+                        <div className="service-list">
+                            {services.map((service, index) => (
+                                <div key={index} className="service-item">
+                                    <div className="service-header">
+                                        <h3>{service.titulo}</h3>
+                                        <div className="service-type-badge">
+                                            {service.tipo === "PRIMERA_CONSULTA"
+                                                ? "Primera consulta"
+                                                : service.tipo === "CONTINUAR_TRATAMIENTO"
+                                                    ? "Continuación de tratamiento"
+                                                    : "Otro"
+                                            }
+                                        </div>
+                                    </div>
+
+                                    {service.descripcion && (
+                                        <p className="service-description">{service.descripcion}</p>
+                                    )}
+
+                                    <div className="service-details">
+                                        <div className="detail-item">
+                                            <span className="detail-icon">💰</span>
+                                            <span>{service.precio}</span>
+                                        </div>
+                                        <div className="detail-item">
+                                            <span className="detail-icon">⏱️</span>
+                                            <span>{service.duracion} minutos</span>
+                                        </div>
+                                        {(service.custom_questionnaire &&
+                                            (service.custom_questionnaire.elements ||
+                                                service.custom_questionnaire["UI Schema"]?.elements)) && (
+                                                <div className="detail-item">
+                                                    <span className="detail-icon">📋</span>
+                                                    <span>Cuestionario preintervención incluido</span>
+                                                </div>
+                                            )}
+                                    </div>
+
+
+                                    <div className="service-actions">
+                                        <button
+                                            onClick={() => handleEditService(index)}
+                                            className="edit-button"
+                                        >
+                                            Editar
+                                        </button>
+                                        <button
+                                            onClick={() => handleDeleteService(index)}
+                                            className="delete-button"
+                                        >
+                                            Eliminar
+                                        </button>
+                                    </div>
+                                </div>
                             ))}
                         </div>
                     )}
                 </div>
-                
+
                 {/* Modal para añadir/editar servicios */}
                 {showServiceModal && (
                     <ServiceModal

@@ -82,6 +82,7 @@ export default function Home() {
               service: {
                 type: event.service.type,
                 duration: event.service.duration,
+                questionaryResponses: event.service.questionaryResponses,
               },
               alternatives: event.alternatives,
             }));

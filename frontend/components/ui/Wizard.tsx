@@ -8,10 +8,14 @@ import { Service, Step } from "@/lib/definitions";
 import { AppointmentProvider } from "@/context/appointmentContext"; // Asegúrate de ajustar la ruta
 import axios from "axios";
 import {getApiBaseUrl} from "@/utils/api";
+import { useRef } from "react";
+import { ServiceQuestionaryRef } from "./ServiceQuestionary";
 
 const Wizard: React.FC<{ steps: Step[], token: string | null, isClient: boolean}> = ({ steps, token, isClient }) => {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [services, setServices] = useState<Service[]>([]);
+  const questionaryRef = useRef<ServiceQuestionaryRef>(null); // Referencia al cuestionario
+
 
   React.useEffect(() => {
     const fetchServices = async () => {
@@ -75,8 +79,20 @@ const Wizard: React.FC<{ steps: Step[], token: string | null, isClient: boolean}
   // ];
 
   // Navegación
-  const goToNextStep = () =>
+  const goToNextStep = () => {
+    // Si estamos en el paso del cuestionario (asumiendo que es el paso 4)
+    if (currentStep === 4) {
+      // Validar el cuestionario antes de continuar
+      const isValid = questionaryRef.current?.validateQuestionaryAndContinue();
+      if (!isValid) {
+        return; // No avanzar si el cuestionario no es válido
+      }
+    }
+    
+    // Avanzar al siguiente paso
     setCurrentStep((prev) => Math.min(prev + 1, steps.length));
+  };
+
   const goToPreviousStep = () =>
     setCurrentStep((prev) => Math.max(prev - 1, 1));
 
@@ -90,7 +106,7 @@ const Wizard: React.FC<{ steps: Step[], token: string | null, isClient: boolean}
 
           {/* Contenido */}
           <div className="mt-8 w-full bg-white rounded shadow p-6">
-            <WizardContent currentStep={currentStep} services={services} />
+            <WizardContent currentStep={currentStep} services={services} questionaryRef={questionaryRef}/>
           </div>
 
           {/* Navegación */}

@@ -60,7 +60,12 @@ const WizardNavigation: React.FC<WizardNavigationProps> = ({
                 start_time: appointmentData?.start_time,
                 end_time: appointmentData?.end_time,
                 is_online: appointmentData?.is_online,
-                service: appointmentData?.service,
+                service: {
+                  type: appointmentData?.service.type,
+                  price: appointmentData?.service.price,
+                  duration: appointmentData?.service.duration,
+                  questionaryResponses: appointmentData?.questionaryResponses,
+                },
                 physiotherapist: appointmentData?.physiotherapist,
                 status: "booked",
                 alternatives: "",

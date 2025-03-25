@@ -154,11 +154,90 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
             <strong>Inicio:</strong>{" "}
             {new Date(selectedEvent.start).toLocaleString()}
           </p>
-          {selectedEvent.end && (
+          {selectedEvent.end && currentRole == 'patient' &&(
             <p className="text-gray-600">
               <strong>Fin:</strong>{" "}
               {new Date(selectedEvent.end).toLocaleString()}
             </p>
+          )}
+          {selectedEvent.end && currentRole == "physiotherapist" && (
+            <>
+              <p className="text-gray-600">
+                <strong>Fin:</strong>{" "}
+                {new Date(selectedEvent.end).toLocaleString()}
+              </p>
+          {selectedEvent.service?.questionaryResponses && (
+            <div className="mt-4 bg-gray-50 p-3 rounded-lg border border-gray-200">
+              <strong className="text-[#05668D] block mb-2 border-b pb-1">Información del paciente:</strong>
+              <div className="grid grid-cols-1 gap-2">
+                {/* Sección de datos personales */}
+                <div className="mb-3">
+                  <h4 className="font-medium text-sm text-gray-700 mb-1">Datos personales</h4>
+                  <ul className="text-gray-600 list-none pl-2">
+                    {/* Mostrar peso con unidad */}
+                    {selectedEvent.service.questionaryResponses.peso && (
+                      <li className="flex justify-between py-1 border-b border-gray-100">
+                        <span className="font-medium">Peso:</span> 
+                        <span>{selectedEvent.service.questionaryResponses.peso} kg</span>
+                      </li>
+                    )}
+                    
+                    {/* Mostrar altura con unidad */}
+                    {selectedEvent.service.questionaryResponses.altura && (
+                      <li className="flex justify-between py-1 border-b border-gray-100">
+                        <span className="font-medium">Altura:</span> 
+                        <span>{selectedEvent.service.questionaryResponses.altura} cm</span>
+                      </li>
+                    )}
+                    
+                    {/* Mostrar edad con unidad */}
+                    {selectedEvent.service.questionaryResponses.edad && (
+                      <li className="flex justify-between py-1 border-b border-gray-100">
+                        <span className="font-medium">Edad:</span> 
+                        <span>{selectedEvent.service.questionaryResponses.edad} años</span>
+                      </li>
+                    )}
+                    
+                    {/* Nivel de actividad física */}
+                    {selectedEvent.service.questionaryResponses.actividad_fisica && (
+                      <li className="flex justify-between py-1 border-b border-gray-100">
+                        <span className="font-medium">Nivel de actividad física:</span> 
+                        <span>{selectedEvent.service.questionaryResponses.actividad_fisica}</span>
+                      </li>
+                    )}
+
+                
+                    {/* Sección de motivo de consulta */}
+                    {selectedEvent.service.questionaryResponses.motivo_consulta && (
+                      <li className="flex justify-between py-1 border-b border-gray-100">
+                            <span className="font-medium">Motivo de la consulta:</span> 
+                            <span>{selectedEvent.service.questionaryResponses.motivo_consulta}</span>
+                          </li>
+                    )}
+                  </ul>
+                </div>
+                {/* Otras preguntas personalizadas */}
+                {Object.entries(selectedEvent.service.questionaryResponses)
+                  .filter(([key]) => !['peso', 'altura', 'edad', 'actividad_fisica', 'motivo_consulta'].includes(key))
+                  .length > 0 && (
+                    <div>
+                      <h4 className="font-medium text-sm text-gray-700 mb-1">Información adicional</h4>
+                      <ul className="text-gray-600 list-none pl-2">
+                        {Object.entries(selectedEvent.service.questionaryResponses)
+                          .filter(([key]) => !['peso', 'altura', 'edad', 'actividad_fisica', 'motivo_consulta'].includes(key))
+                          .map(([key, value], index) => (
+                            <li key={index} className="flex flex-col py-1 border-b border-gray-100">
+                              <span className="font-medium">{key}:</span> 
+                              <span className="ml-2">{value}</span>
+                            </li>
+                          ))}
+                      </ul>
+                    </div>
+                  )}
+              </div>
+            </div>
+          )}
+            </>
           )}
           <p className="mt-2">{selectedEvent.description}</p>
           {selectedEvent.alternatives && currentRole == "patient" && (
