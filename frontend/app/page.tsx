@@ -344,7 +344,7 @@ const Home = () => {
               alt="Fisio Find Logo"
               width={250}
               height={250}
-              className="mb-12 relative z-10"
+              className="mb-12 relative z-10 w-[250px] h-auto"
             />
             <h1 className="text-7xl font-bold mb-12 font-alfa-slab-one relative z-10">
               <span className="text-white drop-shadow-[0_2.5px_3.5px_#41B8D5]">Fisio Find</span>
