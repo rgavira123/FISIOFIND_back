@@ -1,3 +1,4 @@
+import logging
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -6,7 +7,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from .serializers import PatientRegisterSerializer, PhysioUpdateSerializer, PhysioRegisterSerializer
 from .serializers import PhysioSerializer, PatientSerializer, AppUserSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import Physiotherapist, Patient
+from .models import AppUser, Physiotherapist, Patient
 from rest_framework import generics
 from .permissions import IsPhysiotherapist
 from .permissions import IsPatient
@@ -213,7 +214,8 @@ def physio_delete_service_view(request, service_name):
     except Physiotherapist.DoesNotExist:
         return Response({"error": "Fisioterapeuta no encontrado"}, status=status.HTTP_404_NOT_FOUND)
     except Exception as e:
-        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        logging.error("An error occurred while deleting a service: %s", str(e))
+        return Response({"error": "An internal error has occurred."}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 @permission_classes([IsAdmin])
