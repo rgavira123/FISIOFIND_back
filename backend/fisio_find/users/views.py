@@ -6,7 +6,6 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from .serializers import PatientRegisterSerializer, PhysioUpdateSerializer, PhysioRegisterSerializer
 from .serializers import PhysioSerializer, PatientSerializer, AppUserSerializer
-from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import AppUser, Physiotherapist, Patient
 from rest_framework import generics
 from .permissions import IsPhysiotherapist
@@ -14,6 +13,7 @@ from .permissions import IsPatient
 import json
 from .permissions import IsAdmin
 from django.db.models import Q
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 
 class PatientProfileView(generics.RetrieveAPIView):
