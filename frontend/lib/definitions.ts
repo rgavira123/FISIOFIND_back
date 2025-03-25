@@ -36,7 +36,7 @@ export interface QuestionaryResponse {
 }
 
 export interface Service {
-  id: string;
+  id: number;
   title: string;
   price: number;
   description: string;
@@ -49,6 +49,7 @@ export interface AppointmentData {
   end_time: string;
   is_online: boolean;
   service: {
+    id: number;
     type: string;
     price: number;
     duration: number;

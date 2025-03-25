@@ -830,14 +830,18 @@ const FisioProfile = () => {
                     />
 
                     <div className="questionnaire-toggle">
-                        <label>
-                            Incluir cuestionario pre-intervención
-                            <input
-                                type="checkbox"
-                                checked={showQuestionnaireSection}
-                                onChange={() => setShowQuestionnaireSection(!showQuestionnaireSection)}
-                            />
-                        </label>
+                    <label>
+                        Incluir cuestionario pre-intervención
+                        <input
+                        type="checkbox"
+                        checked={showQuestionnaireSection}
+                        onChange={() => setShowQuestionnaireSection(!showQuestionnaireSection)}
+                        />
+                        <span></span>
+                    </label>
+                    <p className="toggle-description">
+                        Agrega un formulario personalizado que el paciente rellenará antes de su cita
+                    </p>
                     </div>
 
                     {showQuestionnaireSection && (
@@ -1095,7 +1099,7 @@ const FisioProfile = () => {
                                         </div>
                                         <div className="detail-item">
                                             <span className="detail-icon">⏱️</span>
-                                            <span>{service.duracion} minutos</span>
+                                            <span>{service.duracion} </span>
                                         </div>
                                         {(service.custom_questionnaire &&
                                             (service.custom_questionnaire.elements ||

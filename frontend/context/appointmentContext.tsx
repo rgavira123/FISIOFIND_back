@@ -12,7 +12,7 @@ type Action =
   | {
     type: "SELECT_SERVICE";
     payload: {
-      service: { type: string; price: number; duration: number, questionary: { type: string; label: string; elements: QuestionElement[] } };
+      service: { id: number; type: string; price: number; duration: number, questionary: { type: string; label: string; elements: QuestionElement[] } };
       physiotherapist: number;
     }
   }
@@ -27,7 +27,7 @@ const initialState: State = {
     start_time: "",
     end_time: "",
     is_online: false,
-    service: { type: "", price: 0, duration: 0, questionary: { type: "", label: "", elements: [] } },
+    service: { id: 0, type: "", price: 0, duration: 0, questionary: { type: "", label: "", elements: [] } },
     physiotherapist: 0,
     status: "",
     alternatives: "",
@@ -62,7 +62,7 @@ const appointmentReducer = (state: State, action: Action): State => {
           start_time: "",
           end_time: "",
           is_online: false,
-          service: { type: "", price: 0, duration: 0, questionary: { type: "", label: "", elements: [] } },
+          service: { id: 0, type: "", price: 0, duration: 0, questionary: { type: "", label: "", elements: [] } },
           physiotherapist: 0,
           status: "",
           alternatives: "",
@@ -87,14 +87,14 @@ const appointmentReducer = (state: State, action: Action): State => {
           status: "pending",
         },
       };
-      case 'UPDATE_QUESTIONARY_RESPONSES':
-        return {
-          ...state,
-          appointmentData: {
-            ...state.appointmentData,
-            questionaryResponses: action.payload
-          }
-        };
+    case 'UPDATE_QUESTIONARY_RESPONSES':
+      return {
+        ...state,
+        appointmentData: {
+          ...state.appointmentData,
+          questionaryResponses: action.payload
+        }
+      };
     default:
       return state;
   }

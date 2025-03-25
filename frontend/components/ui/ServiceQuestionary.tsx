@@ -175,43 +175,41 @@ const ServiceQuestionary = forwardRef<ServiceQuestionaryRef>((props, ref) => {
     
     if (element.type === 'Control') {
       return (
-        <div className={`mb-4 ${errorClass}`} key={propertyName}>
-          <label className="block text-gray-700 font-medium mb-2">
+        <div className={`form-field ${errorClass}`} key={propertyName}>
+          <label>
             {element.label}
-            <span className="text-red-500 ml-1">*</span>
+            <span className="required">*</span>
           </label>
           <input 
             type="text"
             name={propertyName}
-            className={`w-full px-3 py-2 border ${hasError ? 'border-red-500' : 'border-gray-300'} 
-              rounded-md focus:outline-none focus:ring-2 ${hasError ? 'focus:ring-red-500' : 'focus:ring-blue-500'}`}
+            className={`form-input ${hasError ? 'form-input-error' : ''}`}
             value={responses[propertyName] || ''}
             onChange={(e) => handleInputChange(propertyName, e.target.value, 'Control')}
             maxLength={150}
           />
-          {hasError && <p className="text-red-500 text-sm mt-1">{errors[propertyName]}</p>}
-          <div className="text-right text-xs text-gray-500 mt-1">
+          {hasError && <p className="input-error-message">{errors[propertyName]}</p>}
+          <div className="character-counter">
             {responses[propertyName] ? responses[propertyName].length : 0}/150
           </div>
         </div>
       );
     } else if (element.type === 'Number') {
       return (
-        <div className={`mb-4 ${errorClass}`} key={propertyName}>
-          <label className="block text-gray-700 font-medium mb-2">
+        <div className={`form-field ${errorClass}`} key={propertyName}>
+          <label>
             {element.label}
-            <span className="text-red-500 ml-1">*</span>
+            <span className="required">*</span>
           </label>
           <input 
             type="text"
             name={propertyName}
-            className={`w-full px-3 py-2 border ${hasError ? 'border-red-500' : 'border-gray-300'} 
-              rounded-md focus:outline-none focus:ring-2 ${hasError ? 'focus:ring-red-500' : 'focus:ring-blue-500'}`}
+            className={`form-input ${hasError ? 'form-input-error' : ''}`}
             value={responses[propertyName] || ''}
             onChange={(e) => handleInputChange(propertyName, e.target.value, 'Number')}
             placeholder="Ingrese un valor numérico"
           />
-          {hasError && <p className="text-red-500 text-sm mt-1">{errors[propertyName]}</p>}
+          {hasError && <p className="input-error-message">{errors[propertyName]}</p>}
         </div>
       );
     }
@@ -220,13 +218,13 @@ const ServiceQuestionary = forwardRef<ServiceQuestionaryRef>((props, ref) => {
   };
 
   return (
-    <div className="p-4">
-      <h3 className="text-lg font-semibold mb-4">{questionary.label || "Cuestionario"}</h3>
+    <div className="questionary-container">
+      <h3 className="questionary-title">{questionary.label || "Cuestionario"}</h3>
       
       {attempted && Object.keys(errors).length > 0 && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4">
-          <p className="font-medium">Por favor complete todos los campos requeridos</p>
-          <ul className="list-disc ml-5 mt-1 text-sm">
+        <div className="questionary-error-summary animated-error">
+          <p>Por favor complete todos los campos requeridos</p>
+          <ul>
             {Object.entries(errors).map(([field, message]) => (
               <li key={field}>{message}</li>
             ))}
@@ -234,15 +232,13 @@ const ServiceQuestionary = forwardRef<ServiceQuestionaryRef>((props, ref) => {
         </div>
       )}
       
-      <div>
+      <div className="questionary-form">
         {questionary.elements.map(element => renderElement(element))}
       </div>
       
-      <div className="mt-4 bg-blue-50 border border-blue-200 text-blue-700 px-4 py-3 rounded">
-        <p className="text-sm">Todos los campos marcados con <span className="text-red-500">*</span> son obligatorios.</p>
+      <div className="important-notice">
+        <p>Todos los campos marcados con <span className="required">*</span> son obligatorios.</p>
       </div>
-      
-      {/* Eliminamos el botón de "Verificar y continuar" */}
     </div>
   );
 });

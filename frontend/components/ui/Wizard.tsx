@@ -38,7 +38,7 @@ const Wizard: React.FC<{ steps: Step[], token: string | null, isClient: boolean}
                 : { type: "", label: "", elements: [] };
                 console.log(questionnaire);
                 parsedServices.push({
-                  id: String(service.id),
+                  id: service.id,
                   title: service.title || "",
                   price: typeof service.price === 'number' ? service.price : parseFloat(service.price || "0"),
                   description: service.description || "",
@@ -58,25 +58,6 @@ const Wizard: React.FC<{ steps: Step[], token: string | null, isClient: boolean}
     
     fetchServices();
   }, [token]);
-
-
-  // const services: Service[] = [
-  //   {
-  //     id: "1",
-  //     title: "Masaje Deportivo",
-  //     price: 50,
-  //     description:
-  //       "Masaje enfocado en aliviar tensiones musculares de deportistas.",
-  //     duration: "45",
-  //   },
-  //   {
-  //     id: "2",
-  //     title: "Rehabilitación de Rodilla",
-  //     price: 80,
-  //     description: "Terapia para mejorar la movilidad y reducir el dolor.",
-  //     duration: "60",
-  //   },
-  // ];
 
   // Navegación
   const goToNextStep = () => {
