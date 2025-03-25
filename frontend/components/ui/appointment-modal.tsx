@@ -124,12 +124,14 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
       });
   };
 
-  const isFutureAndTwoDaysAhead = () => {
-    const eventStart = new Date(selectedEvent?.start);
+  const isMoreThan48HoursAway = () => {
+    if (!selectedEvent?.start) return false;
+    
+    const eventDate = new Date(selectedEvent.start);
     const now = new Date();
-    const diffInMs = eventStart.getTime() - now.getTime();
-    const diffInDays = diffInMs / (1000 * 3600 * 24);
-    return diffInDays >= 2;
+    
+    const diffInHours = (eventDate.getTime() - now.getTime()) / (1000 * 60 * 60); // Convierte la diferencia de milisegundos a horas
+    return diffInHours > 48;
   };
 
   return (
@@ -177,7 +179,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
             >
               {currentRole == "physiotherapist" &&
                 selectedEvent.status === "booked" &&
-                isFutureAndTwoDaysAhead() && (
+                isMoreThan48HoursAway() && (
                   <button
                     className="mt-4 bg-[#05668D] text-white px-4 py-2 rounded-xl hover:bg-blue-600"
                     onClick={confirmAppointment}
@@ -193,7 +195,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
                   Modificar cita
                 </button>
               )}
-              {selectedEvent && new Date(selectedEvent.start) > new Date() && (
+              {currentRole == "physiotherapist" && selectedEvent &&  (
                 <button
                   className="mt-4 bg-[#05668D] text-white px-4 py-2 rounded-xl hover:bg-blue-600"
                   onClick={() => deleteEvent(selectedEvent)}

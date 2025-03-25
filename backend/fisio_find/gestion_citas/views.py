@@ -507,7 +507,7 @@ def delete_appointment(request, appointment_id):
         role = 'patient'  # El usuario es paciente
 
     # Verificar si quedan menos de 48 horas para el inicio de la cita
-    if appointment.start_time - now < timedelta(hours=48):
+    if hasattr(user, 'patient') and appointment.start_time - now < timedelta(hours=48):
         return Response({"error": "No puedes borrar una cita con menos de 48 horas de antelación"}, status=status.HTTP_403_FORBIDDEN)
 
     # Enviar el correo con el rol del usuario
