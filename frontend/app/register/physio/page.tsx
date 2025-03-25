@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import Image from "next/image";
 import { getApiBaseUrl } from "@/utils/api";
+import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 
 interface FormData {
   username: string;
@@ -19,6 +20,7 @@ interface FormData {
   birth_date: string;
   collegiate_number: string;
   autonomic_community: string;
+  plan: string;
 }
 
 const GENDER_OPTIONS = [
@@ -46,6 +48,32 @@ const AUTONOMIC_COMMUNITY_OPTIONS = [
   { value: "LA RIOJA", label: "La Rioja" },
   { value: "COMUNIDAD VALENCIANA", label: "Comunidad Valenciana" },
 ];
+
+const CheckIcon = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    viewBox="0 0 20 20"
+    fill="currentColor"
+  >
+    <path
+      fillRule="evenodd"
+      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+      clipRule="evenodd"
+    />
+  </svg>
+);
+
+const StarIcon = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    viewBox="0 0 20 20"
+    fill="currentColor"
+  >
+    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+  </svg>
+);
 
 // Move FormField outside the main component to prevent recreation on each render
 const FormField = ({
@@ -124,6 +152,7 @@ const PhysioSignUpForm = () => {
     birth_date: "",
     collegiate_number: "",
     autonomic_community: "MADRID",
+    plan: "gold",
   });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -194,6 +223,11 @@ const PhysioSignUpForm = () => {
         isValid = false;
       } else if (!/^\d{9}$/.test(formData.phone_number)) {
         newErrors.phone_number = "Número de teléfono no válido";
+        isValid = false;
+      }
+    } else if (step === 4) {
+      if (!formData.plan) {
+        newErrors.plan = "Selecciona un plan para continuar";
         isValid = false;
       }
     }
@@ -308,41 +342,48 @@ const PhysioSignUpForm = () => {
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center w-full">
                 <div
-                  className={`flex items-center justify-center w-10 h-10 rounded-full ${
-                    currentStep >= 1
-                      ? "bg-[#1E5ACD] text-white"
-                      : "bg-gray-200 text-gray-600"
-                  }`}
+                  className={`flex items-center justify-center w-10 h-10 rounded-full ${currentStep >= 1
+                    ? "bg-[#1E5ACD] text-white"
+                    : "bg-gray-200 text-gray-600"
+                    }`}
                 >
                   1
                 </div>
                 <div
-                  className={`h-1 flex-1 mx-2 ${
-                    currentStep >= 2 ? "bg-[#1E5ACD]" : "bg-gray-200"
-                  }`}
+                  className={`h-1 flex-1 mx-2 ${currentStep >= 2 ? "bg-[#1E5ACD]" : "bg-gray-200"
+                    }`}
                 ></div>
                 <div
-                  className={`flex items-center justify-center w-10 h-10 rounded-full ${
-                    currentStep >= 2
-                      ? "bg-[#1E5ACD] text-white"
-                      : "bg-gray-200 text-gray-600"
-                  }`}
+                  className={`flex items-center justify-center w-10 h-10 rounded-full ${currentStep >= 2
+                    ? "bg-[#1E5ACD] text-white"
+                    : "bg-gray-200 text-gray-600"
+                    }`}
                 >
                   2
                 </div>
                 <div
-                  className={`h-1 flex-1 mx-2 ${
-                    currentStep >= 3 ? "bg-[#1E5ACD]" : "bg-gray-200"
-                  }`}
+                  className={`h-1 flex-1 mx-2 ${currentStep >= 3 ? "bg-[#1E5ACD]" : "bg-gray-200"
+                    }`}
                 ></div>
                 <div
-                  className={`flex items-center justify-center w-10 h-10 rounded-full ${
-                    currentStep >= 3
-                      ? "bg-[#1E5ACD] text-white"
-                      : "bg-gray-200 text-gray-600"
-                  }`}
+                  className={`flex items-center justify-center w-10 h-10 rounded-full ${currentStep >= 3
+                    ? "bg-[#1E5ACD] text-white"
+                    : "bg-gray-200 text-gray-600"
+                    }`}
                 >
                   3
+                </div>
+                <div
+                  className={`h-1 flex-1 mx-2 ${currentStep >= 4 ? "bg-[#1E5ACD]" : "bg-gray-200"
+                    }`}
+                ></div>
+                <div
+                  className={`flex items-center justify-center w-10 h-10 rounded-full ${currentStep >= 4
+                    ? "bg-[#1E5ACD] text-white"
+                    : "bg-gray-200 text-gray-600"
+                    }`}
+                >
+                  4
                 </div>
               </div>
             </div>
@@ -473,6 +514,137 @@ const PhysioSignUpForm = () => {
               </div>
             )}
 
+            {currentStep === 4 && (
+              <div className="space-y-6">
+                <h2 className="text-2xl font-bold text-[#1E5ACD] text-center">Selecciona tu Plan</h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                  {/* Fisio Blue */}
+                  <label
+                    className={`relative cursor-pointer p-6 rounded-xl border-2 transition-all
+          ${formData.plan === 'blue'
+                        ? 'border-[#1E5ACD] bg-blue-50 dark:bg-blue-900/30'
+                        : 'border-gray-200 hover:border-blue-200 dark:border-neutral-700 dark:hover:border-blue-600'
+                      }`}
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="mt-1">
+                        <input
+                          type="radio"
+                          name="plan"
+                          value="blue"
+                          checked={formData.plan === 'blue'}
+                          onChange={() => setFormData(prev => ({ ...prev, plan: 'blue' }))}
+                          className="w-5 h-5 text-[#1E5ACD] border-2 border-gray-300 focus:ring-[#1E5ACD]"
+                        />
+                      </div>
+
+                      <div className="flex-1">
+                        <div className="flex items-baseline justify-between">
+                          <h3 className="text-xl font-semibold text-[#1E5ACD]">Fisio Blue</h3>
+                          <p className="text-xl font-high">
+                            17,99€<span className="text-sm text-gray-500">/mes</span>
+                          </p>
+                        </div>
+
+                        <ul className="mt-4 space-y-3 text-gray-600 dark:text-gray-300">
+                          <li className="flex items-center gap-2">
+                            <CheckIcon className="w-5 h-5 text-green-500" />
+                            <div className="h-1 bg-gray-400 rounded-full" />
+                              Videollamadas con todas las herramientas
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <CheckIcon className="w-5 h-5 text-green-500" />
+                            <div className="h-1 bg-gray-400 rounded-full" />
+                              Seguimiento del paciente
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <CheckIcon className="w-5 h-5 text-green-500" />
+                            <div className="h-1 bg-gray-400 rounded-full" />
+                              Chat integrado
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <CheckIcon className="w-5 h-5 text-green-500" />
+                            <div className="h-1 bg-gray-400 rounded-full" />
+                              Subir y compartir vídeos (hasta 15)
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <CheckIcon className="w-5 h-5 text-green-500" />
+                            Soporte técnico limitado
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </label>
+
+                  {/* Fisio Gold */}
+                  <label
+                    className={`relative cursor-pointer p-6 rounded-xl border-2 transition-all
+          ${formData.plan === 'gold'
+                        ? 'border-amber-400 bg-amber-50 dark:bg-amber-900/30'
+                        : 'border-gray-200 hover:border-amber-200 dark:border-neutral-700 dark:hover:border-amber-600'
+                      }`}
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="mt-1">
+                        <input
+                          type="radio"
+                          name="plan"
+                          value="gold"
+                          checked={formData.plan === 'gold'}
+                          onChange={() => setFormData(prev => ({ ...prev, plan: 'gold' }))}
+                          className="w-5 h-5 text-amber-500 border-2 border-gray-300 focus:ring-amber-500"
+                        />
+                      </div>
+
+                      <div className="flex-1">
+                        <div className="flex items-baseline justify-between">
+                          <div className="flex items-center gap-2">
+                            <h3 className="text-xl font-semibold text-amber-600">Fisio Gold</h3>
+                            <h3 className="px-2 py-1 text-xs font-medium bg-amber-100 text-amber-800 rounded-full">MÁS POPULAR</h3>
+                          </div>
+                          <p className="text-xl font-high">
+                            24,99€<span className="text-sm text-gray-500">/mes</span>
+                          </p>
+                        </div>
+
+                        <ul className="mt-4 space-y-3 text-gray-600 dark:text-gray-300">
+                          <li className="flex items-center gap-2">
+                            <CheckIcon className="w-5 h-5 text-green-500" />
+                            Todas las ventajas de Fisio Blue
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <StarIcon className="w-4 h-4 text-amber-500" />
+                            <div className="h-1 bg-gray-400 rounded-full" />
+                            Mayor alcance
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <StarIcon className="w-4 h-4 text-amber-500" />
+                            <div className="h-1 bg-gray-400 rounded-full" />
+                            Tick de verificación
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <StarIcon className="w-4 h-4 text-amber-500" />
+                            <div className="h-1 bg-gray-400 rounded-full" />
+                            Subir y compartir vídeos (hasta 30)
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <StarIcon className="w-4 h-4 text-amber-500" />
+                            <div className="h-1 bg-gray-400 rounded-full" />
+                            Soporte técnico personalizado
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </label>
+                </div>
+
+                {errors.plan && (
+                  <p className="text-red-500 text-center mt-4">⚠️ {errors.plan}</p>
+                )}
+              </div>
+            )}
+
             <div className="flex justify-between mt-8">
               {currentStep > 1 && (
                 <button
@@ -484,7 +656,7 @@ const PhysioSignUpForm = () => {
                 </button>
               )}
 
-              {currentStep < 3 ? (
+              {currentStep < 4 ? (
                 <button
                   type="button"
                   onClick={handleNextStep}

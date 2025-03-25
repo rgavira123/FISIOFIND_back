@@ -5,7 +5,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.db.utils import IntegrityError
 from django.db import transaction
 from users.validacionFisios import validar_colegiacion
-from .models import AppUser, Patient, Physiotherapist, PhysiotherapistSpecialization, Specialization
+from .models import AppUser, Patient, Physiotherapist, PhysiotherapistSpecialization, Specialization, Pricing
 from datetime import date, datetime
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
@@ -275,13 +275,22 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
         child=serializers.CharField(), required=False  # Lista de nombres de especializaciones
     )
     schedule = serializers.JSONField(required=False)
+    plan = serializers.SlugRelatedField(
+        slug_field='name',  # Asume que el modelo PricingPlan tiene un campo 'name' con valores "blue" y "gold"
+        queryset=Pricing.objects.all(),
+        required=True,
+        error_messages={
+            'does_not_exist': 'El plan seleccionado no es válido',
+            'invalid': 'Valor de plan inválido'
+        }
+    )
 
     class Meta:
         model = Physiotherapist
         fields = [
             'username', 'email', 'password', 'dni', 'gender', 'first_name', 'last_name',
             'birth_date', 'collegiate_number', 'autonomic_community', 'phone_number', 'postal_code',
-            'bio', 'photo', 'services', 'specializations', 'schedule'
+            'bio', 'photo', 'services', 'specializations', 'schedule', 'plan'
         ]
 
     def validate_password(self, value):
@@ -324,6 +333,7 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
                 birth_date = validated_data.pop('birth_date')
                 collegiate_number = validated_data.pop('collegiate_number')
                 autonomic_community = validated_data.pop('autonomic_community')
+                plan = validated_data.pop('plan')
 
                 # Validar número de colegiado
                 valid_physio = validar_colegiacion(first_name, last_name, collegiate_number, autonomic_community)
@@ -349,7 +359,8 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
                     autonomic_community=autonomic_community,
                     birth_date=birth_date,
                     collegiate_number=collegiate_number,
-                    gender=gender
+                    gender=gender,
+                    plan=plan
                 )
 
                 # Manejar especializaciones
@@ -398,10 +409,19 @@ class PhysioUpdateSerializer(serializers.ModelSerializer):
     )
     schedule = serializers.JSONField(required=False)
     bio = serializers.CharField(required=False)
+    plan = serializers.SlugRelatedField(
+        slug_field='name',
+        queryset=Pricing.objects.all(),
+        required=False,
+        error_messages={
+            'does_not_exist': 'El plan seleccionado no es válido',
+            'invalid': 'Valor de plan inválido'
+        }
+    )
 
     class Meta:
         model = Physiotherapist
-        fields = ['email', 'phone_number', 'postal_code', 'bio', 'photo', 'services', 'specializations', 'schedule']
+        fields = ['email', 'phone_number', 'postal_code', 'bio', 'photo', 'services', 'specializations', 'schedule', 'plan']
 
     def validate(self, data):
         """Validaciones solo para los campos proporcionados."""
@@ -449,6 +469,8 @@ class PhysioUpdateSerializer(serializers.ModelSerializer):
                 # Update physiotherapist data
                 if "bio" in validated_data:
                     instance.bio = validated_data.get("bio")
+                if "plan" in validated_data:
+                    instance.plan = validated_data.get("plan")
                 if "services" in validated_data:
                     instance.services = validated_data.get("services")  # Update services
                 if "schedule" in validated_data:

@@ -63,6 +63,14 @@ class PhysiotherapistSpecialization(models.Model):
     specialization = models.ForeignKey(
         'Specialization', on_delete=models.SET_NULL, null=True, blank=True
     )
+    
+class Pricing(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    price = models.DecimalField(max_digits=5, decimal_places=2)
+    video_limit = models.IntegerField()
+
+    def __str__(self):
+        return self.name
 
 class Physiotherapist(models.Model):
     user = models.OneToOneField(AppUser, on_delete=models.CASCADE, related_name='physio')
@@ -75,6 +83,13 @@ class Physiotherapist(models.Model):
     services = models.JSONField(null=True, blank=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     specializations = models.ManyToManyField(Specialization, through="PhysiotherapistSpecialization")
+    plan = models.ForeignKey(
+        Pricing,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='physios'
+    )
 
     def __str__(self):
         return f"{self.user.username} - {self.user.email}"
