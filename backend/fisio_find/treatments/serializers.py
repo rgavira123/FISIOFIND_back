@@ -80,6 +80,9 @@ class SeriesSerializer(serializers.ModelSerializer):
         return data
 
 class SessionSerializer(serializers.ModelSerializer):
+    day_of_week = serializers.ListField(
+        child=serializers.ChoiceField(choices=Session.DAYS_OF_WEEK_CHOICES)
+    )
     class Meta:
         model = Session
         fields = ['id', 'name', 'treatment', 'day_of_week']
