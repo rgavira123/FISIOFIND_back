@@ -11,6 +11,7 @@ import { getApiBaseUrl } from "@/utils/api";
 import { DemoWindow } from "@/components/demo-window";
 import { WavyBackground } from "@/components/ui/wavy-background";
 import { GradientButton } from "@/components/ui/gradient-button";
+import { CookieConsent } from "@/components/CookieConsent";
 
 interface Physiotherapist {
   id: string;
@@ -133,18 +134,27 @@ const Home = () => {
           const response = await axios.get(
             `${getApiBaseUrl()}/api/guest_session/specializations/`
           );
+
           if (response.status === 200) {
-            setSpecializations(["", ...response.data]);
+            if (response.data && response.data.length > 0) {
+              setSpecializations(["", ...response.data]);
+            } else {
+              console.warn("Specializations list is empty.");
+              setSpecializations([]); // Set an empty list if no data is returned
+            }
+          } else {
+            console.warn("Unexpected response status:", response.status);
           }
         } catch (error) {
           console.error("Error fetching data:", error);
         }
       };
+
       fetchSpecializations();
     }, []);
 
     const handleSearch = async () => {
-      setSearchAttempted(true); // Marca que el usuario ha intentado buscar
+      setSearchAttempted(true);
 
       if (!specialization) {
         return;
@@ -271,7 +281,7 @@ const Home = () => {
                       {/* Imagen estática del fisioterapeuta */}
                       <CardItem translateZ="60" className="w-full mt-4 z-20">
                         <Image
-                          src="/static/fisioterapeuta_sample.jpeg"
+                          src="/static/fisioterapeuta_sample.webp"
                           className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl"
                           alt="Fisioterapeuta"
                           width={500}
@@ -301,6 +311,8 @@ const Home = () => {
 
   return (
     <div className="min-h-screen w-full z=90" style={{ backgroundColor: "rgb(238, 251, 250)" }}>
+      {/* Add CookieConsent component */}
+      <CookieConsent />
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center text-center relative overflow-hidden mb-8">
         <WavyBackground className="max-w-full mx-auto py-12">
