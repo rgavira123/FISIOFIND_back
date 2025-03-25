@@ -10,7 +10,7 @@ const getAuthToken = () => {
 
 const PatientVideos = () => {
   const [videos, setVideos] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true); // Cargando inicialmente
   const [message, setMessage] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
   const [isVideoLoading, setIsVideoLoading] = useState(false); // Para controlar el modal de carga del video
@@ -21,11 +21,9 @@ const PatientVideos = () => {
       if (!storedToken) {
         console.error("❌ No hay token disponible.");
         setMessage("Error: No hay token de autenticación.");
+        setLoading(false);
         return;
       }
-
-      setLoading(true);
-      setMessage("");
 
       try {
         const response = await axios.get(`${getApiBaseUrl()}/api/app_user/videos/list-my-videos/`, {
@@ -43,7 +41,7 @@ const PatientVideos = () => {
         console.error("⚠️ Error al obtener los videos:", error);
         setMessage("❌ Error al obtener los videos.");
       } finally {
-        setLoading(false);
+        setLoading(false); // Al finalizar la carga de videos, cambia el estado
       }
     };
 
@@ -80,26 +78,40 @@ const PatientVideos = () => {
   };
 
   return (
-    <div align="center">
-      <h2>Mis Videos</h2>
-      {loading && <p>🔄 Cargando videos...</p>}
-      {message && <p>{message}</p>}
+    <div className="container mx-auto p-4">
+      <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-gray-100">Lista de Videos</h2>
 
-      <div>
-        {videos.length === 0 ? (
-          <p>No tienes videos disponibles.</p>
-        ) : (
-          <ul>
+      {/* Mostrar "Cargando videos..." mientras se está cargando */}
+      {loading && <p className="text-center text-gray-600">🔄 Cargando videos...</p>}
+
+      {/* Mostrar mensaje de error si hay algún problema al cargar los videos */}
+      {message && <p className="text-center text-red-600">{message}</p>}
+
+      <div className="mt-6">
+        {/* Si no hay videos y no se está cargando, muestra el mensaje de "No tienes videos disponibles" */}
+        {videos.length === 0 && !loading && (
+          <p className="text-center text-gray-600">No tienes videos disponibles.</p>
+        )}
+
+        {/* Si hay videos, muéstralos */}
+        {videos.length > 0 && !loading && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {videos.map((video) => (
-              <li key={video.id}>
-                <div>
-                  <h3>Título: {video.title}</h3>
-                  <p>Descripción: {video.description}</p>
-                  <button onClick={() => handleVideoClick(video.id)}>Ver Video</button>
-                </div>
-              </li>
+              <div
+                key={video.id}
+                className="p-4 bg-white rounded-lg shadow-lg transition transform hover:scale-105 hover:shadow-2xl"
+              >
+                <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100">{video.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300 mt-2">{video.description}</p>
+                <button
+                  onClick={() => handleVideoClick(video.id)}
+                  className="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+                >
+                  Ver Video
+                </button>
+              </div>
             ))}
-          </ul>
+          </div>
         )}
       </div>
 
@@ -108,7 +120,7 @@ const PatientVideos = () => {
           <div className="modal-content">
             <p>Estamos cargando tu video, espera un momentito...</p>
             <img
-              width={1000} // Ajusta el tamaño del gif
+              width={1000}
               height={700}
               src="https://i.pinimg.com/originals/f0/ea/b2/f0eab24676401bdbcd892f2b5b7ede43.gif"
               alt="Cargando"
@@ -119,12 +131,25 @@ const PatientVideos = () => {
       )}
 
       {videoUrl && (
-        <div>
-          <h3>Reproduciendo Video</h3>
-          <video width="640" height="480" controls>
-            <source src={videoUrl} type="video/mp4" />
-            Tu navegador no soporta la etiqueta de video.
-          </video>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-4 rounded-lg shadow-xl max-w-4xl w-full relative">
+            <button
+              onClick={() => setVideoUrl(null)}  // Cierra el video al hacer clic en la "X"
+              className="absolute top-0 right-0 p-2 text-black bg-transparent border-none hover:text-gray-600 transition"
+            >
+              ❌
+            </button>
+            <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4 text-center">Reproduciendo Video</h3>
+            <div className="relative" style={{ paddingBottom: '56.25%' }}>
+              <video
+                className="absolute top-0 left-0 w-full h-full object-cover"
+                controls
+              >
+                <source src={videoUrl} type="video/mp4" />
+                Tu navegador no soporta la etiqueta de video.
+              </video>
+            </div>
+          </div>
         </div>
       )}
 
@@ -140,7 +165,6 @@ const PatientVideos = () => {
           justify-content: center;
           align-items: center;
           z-index: 1000;
-          color: white;
         }
 
         .modal-content {
@@ -153,8 +177,8 @@ const PatientVideos = () => {
 
         .loading-gif {
           margin-top: 20px;
-          width: 1000px; // Ajusta el tamaño del gif
-          height: auto; // Mantiene la relación de aspecto
+          width: 1000px;
+          height: auto;
         }
       `}</style>
     </div>
