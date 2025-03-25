@@ -28,6 +28,7 @@ const GENDER_OPTIONS = [
 ];
 
 const AUTONOMIC_COMMUNITY_OPTIONS = [
+  { value: "", label: "Selecciona una comunidad..." },
   { value: "ANDALUCIA", label: "Andalucía" },
   { value: "ARAGON", label: "Aragón" },
   { value: "ASTURIAS", label: "Asturias" },
@@ -84,10 +85,19 @@ const FormField = ({
         value={value}
         onChange={onChange}
         required={required}
-        className="w-full px-4 py-2 border border-gray-300 dark:border-neutral-700 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#1E5ACD] dark:bg-neutral-800 dark:text-white"
+        className="w-full px-4 py-2 border border-gray-300 dark:border-neutral-700 rounded-md shadow-sm 
+        focus:outline-none focus:ring-2 focus:ring-[#1E5ACD] dark:bg-neutral-800 dark:text-white
+        appearance-none bg-white dark:bg-neutral-800 cursor-pointer
+        bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20d%3D%22M5.293%207.293a1%201%200%20011.414%200L10%2010.586l3.293-3.293a1%201%200%20111.414%201.414l-4%204a1%201%200%2001-1.414%200l-4-4a1%201%200%20010-1.414z%22%20fill%3D%22%236B7280%22%2F%3E%3C%2Fsvg%3E')]
+        bg-[length:1.5em_1.5em] bg-[right_0.5rem_center] bg-no-repeat
+        hover:border-[#1E5ACD] transition-colors duration-200"
       >
         {options.map((option) => (
-          <option key={option.value} value={option.value}>
+          <option 
+            key={option.value} 
+            value={option.value}
+            className="py-2"
+          >
             {option.label}
           </option>
         ))}
@@ -478,7 +488,7 @@ const PhysioSignUpForm = () => {
                 <button
                   type="button"
                   onClick={handlePrevStep}
-                  className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
+                  className="px-6 py-2 bg-[#05AC9C] text-white font-medium rounded-xl transition-colors hover:bg-[#048F83] flex items-center gap-2"
                 >
                   Anterior
                 </button>
@@ -488,7 +498,7 @@ const PhysioSignUpForm = () => {
                 <button
                   type="button"
                   onClick={handleNextStep}
-                  className="ml-auto px-6 py-2 bg-[#1E5ACD] hover:bg-[#1848A3] text-white font-medium rounded-md transition-colors"
+                  className="ml-auto px-6 py-2 bg-gradient-to-r from-[#05668D] to-[#0A7487] hover:from-[#0A7487] hover:to-[#05918F] text-white font-medium rounded-xl transition-colors"
                 >
                   Siguiente
                 </button>
@@ -496,7 +506,7 @@ const PhysioSignUpForm = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="ml-auto px-6 py-2 bg-[#1E5ACD] hover:bg-[#1848A3] text-white font-medium rounded-md transition-colors disabled:bg-blue-300"
+                  className="ml-auto px-6 py-2 bg-gradient-to-r from-[#05668D] to-[#0A7487] hover:from-[#0A7487] hover:to-[#05918F] text-white font-medium rounded-xl transition-colors disabled:from-blue-300 disabled:to-blue-400"
                 >
                   {isSubmitting ? "Registrando..." : "Completar Registro"}
                 </button>
