@@ -573,7 +573,7 @@ def process_due_payments_api(request):
         # --- Grupo 1: Citas finalizadas ---
         finished_appointments = Appointment.objects.filter(
             end_time__lt=now,
-            payment__status='Not Paid'
+            payment__status='Not Captured'
         )
         for appointment in finished_appointments:
             payment = appointment.payment
@@ -600,7 +600,7 @@ def process_due_payments_api(request):
                     payment.status = 'Paid'
                     payment.payment_date = now
                     payment.save()
-                    appointment.status = 'Paid'
+                    appointment.status = 'finished'
                     appointment.save()
 
         # --- Grupo 2: Citas próximas (en curso) ---
@@ -625,10 +625,11 @@ def process_due_payments_api(request):
                     off_session=True,
                 )
                 payment.stripe_payment_intent_id = payment_intent['id']
+                payment.status = 'Not Captured'
                 payment.save()
             else:
                 payment_intent = stripe.PaymentIntent.retrieve(payment.stripe_payment_intent_id)
-            
+
             print(f"PaymentIntent: {payment_intent}")
             # Opcional: Si la cita ya finalizó, capturar el PaymentIntent manualmente.
             if now > appointment.end_time:
@@ -637,7 +638,7 @@ def process_due_payments_api(request):
                     payment.status = 'Paid'
                     payment.payment_date = now
                     payment.save()
-                    appointment.status = 'Paid'
+                    appointment.status = 'finished'
                     appointment.save()
 
         return HttpResponse("Payment processing completed.")
