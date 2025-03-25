@@ -38,19 +38,20 @@ export function SidebarDemo() {
       setToken(storedToken);
       setIsAuthenticated(!!token);
       if (token) {
-        axios.get(`${getApiBaseUrl()}/api/app_user/check-role/`, {
-          headers: {
-            "Authorization": "Bearer " + token
-          }
-        })
-          .then(response => {
+        axios
+          .get(`${getApiBaseUrl()}/api/app_user/check-role/`, {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          })
+          .then((response) => {
             const role = response.data.user_role;
             if (role === "patient") {
               setUrlPerfil("/patient-management/profile/");
             } else if (role === "physiotherapist") {
               setUrlPerfil("/physio-management/profile/");
             }
-          })
+          });
       }
     }
   }, [pathname, isClient, token]);
@@ -73,7 +74,7 @@ export function SidebarDemo() {
     },
     {
       label: "Tratamientos",
-      href: "#",
+      href: isAuthenticated? "/physio-management/follow-up" : "/login",
       icon: (
         <IconStethoscope className="text-[#05918F] h-5 w-5 flex-shrink-0 mx-auto" />
       ),
