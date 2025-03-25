@@ -18,6 +18,7 @@ const CalendarPage = ({
   editionMode,
   isClient,
   token,
+  currentRole,
 }: {
   events: any;
   handleAlternativesSubmit: (alternatives: Record<string, { start: string; end: string }[]>) => void;
@@ -27,10 +28,10 @@ const CalendarPage = ({
   editionMode: boolean;
   isClient: boolean;
   token: string | null;
+  currentRole: string;
 }) => {
   const [hoveredEventId, setHoveredEventId] = useState<string | null>(null);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-
   return (
     <div className="min-h-screen bg-gray-50 p-2 md:p-4">
       <div className="flex flex-col lg:flex-row gap-4">
@@ -147,7 +148,6 @@ const CalendarPage = ({
         <div className="lg:flex-1">
           <Calendar
             events={events}
-            currentRole="admin"
             hoveredEventId={hoveredEventId}
             handleAlternativesSubmit={handleAlternativesSubmit}
             setSelectedEvent={setSelectedEvent}
@@ -156,6 +156,7 @@ const CalendarPage = ({
             editionMode={editionMode}
             isClient={isClient}
             token={token}
+            currentRole={currentRole}
           />
         </div>
       </div>
@@ -191,7 +192,6 @@ const Calendar = ({
   const currentDay = today.getDate();
   const currentMonth = today.toLocaleString("es", { month: "long" });
   const currentYear = today.getFullYear();
-
   // Load the initial view from localStorage or default to "month"
   const [view, setView] = useState(() => {
     if (typeof window !== "undefined") {

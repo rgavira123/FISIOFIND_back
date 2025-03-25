@@ -37,7 +37,6 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
   token,
 }) => {
   const [isClosing, setIsClosing] = useState(false); // Add isClosing state
-
   const closeModal = () => {
     setIsClosing(true); // Trigger closing animation
     setTimeout(() => {

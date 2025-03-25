@@ -167,7 +167,17 @@ export default function Home() {
   return (
     <>
       <div className="flex flex-row justify-between">
-        <Calendar events={events} currentRole={currentRole} hoveredEventId={hoveredEventId} handleAlternativesSubmit={handleAlternativesSubmit} setEditionMode={setEditionMode} editionMode={editionMode} setSelectedEvent={setSelectedEvent} selectedEvent={selectedEvent} isClient={isClient} token={token}/>
+        <Calendar 
+          events={events}
+          handleAlternativesSubmit={handleAlternativesSubmit}
+          setEditionMode={setEditionMode}
+          editionMode={editionMode}
+          setSelectedEvent={setSelectedEvent}
+          selectedEvent={selectedEvent}
+          isClient={isClient}
+          token={token}
+          currentRole={currentRole}
+        />
       </div>
 
       {data && (
