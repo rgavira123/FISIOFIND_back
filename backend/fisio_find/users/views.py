@@ -1,3 +1,4 @@
+import logging
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -5,11 +6,14 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from .serializers import PatientRegisterSerializer, PhysioUpdateSerializer, PhysioRegisterSerializer
 from .serializers import PhysioSerializer, PatientSerializer, AppUserSerializer
-from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import Physiotherapist, Patient
+from .models import AppUser, Physiotherapist, Patient
 from rest_framework import generics
-from .permissions import IsPatient, IsPhysiotherapist, IsAdmin
+from .permissions import IsPhysiotherapist
+from .permissions import IsPatient
+import json
+from .permissions import IsAdmin
 from django.db.models import Q
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 
 class PatientProfileView(generics.RetrieveAPIView):
@@ -123,11 +127,19 @@ def physio_update_view(request):
     request_data = {}
     for key, value in request.data.items():
         if key.startswith("user."):
-            request_data[key[5:]] = value  # Quita el prefijo "user."
+            request_data[key[5:]] = value  # Remove "user." prefix
         else:
             request_data[key] = value
 
-    serializer = PhysioRegisterSerializer(physio, data=request_data, partial=True)
+    # Ensure services are parsed as JSON if provided
+    if "services" in request_data and isinstance(request_data["services"], str):
+        try:
+            request_data["services"] = json.loads(request_data["services"])
+        except json.JSONDecodeError:
+            return Response({"error": "Formato de servicios inválido."}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Serialize and validate the data
+    serializer = PhysioUpdateSerializer(physio, data=request_data, partial=True, context={'request': request})
 
     if serializer.is_valid():
         serializer.update(physio, serializer.validated_data)
@@ -138,33 +150,32 @@ def physio_update_view(request):
 
 @api_view(['POST'])
 @permission_classes([IsPhysiotherapist])
-def physio_create_service_view(request):
-    # Obtener el fisioterapeuta asociado al usuario autenticado
+def physio_create_service(request):
+    """Crea un nuevo servicio para el fisioterapeuta autenticado o actualiza los existentes"""
     physio = get_object_or_404(Physiotherapist, user=request.user)
 
-    # Obtener servicios existentes
-    existing_services = physio.services or {}
-
-    # Obtener nuevos servicios del request
+    # Ensure services are parsed as JSON if provided
     new_services = request.data.get('services', {})
+    if isinstance(new_services, str):
+        try:
+            new_services = json.loads(new_services)
+        except json.JSONDecodeError:
+            return Response({"error": "Formato de servicios inválido."}, status=status.HTTP_400_BAD_REQUEST)
 
-    # Actualizar servicios existentes o añadir nuevos
+    # Merge new services with existing ones
+    existing_services = physio.services or {}
     for service_name, service_data in new_services.items():
         if service_name in existing_services:
-            for prop_key, prop_value in service_data.items():
-                existing_services[service_name][prop_key] = prop_value
+            existing_services[service_name].update(service_data)
         else:
             existing_services[service_name] = service_data
 
-    update_data = {'services': existing_services}
+    # Update the physiotherapist's services
+    physio.services = existing_services
+    physio.save()
 
-    serializer = PhysioUpdateSerializer(physio, data=update_data, partial=True)
-
-    if serializer.is_valid():
-        serializer.update(physio, serializer.validated_data)
-        return Response({"message": "Servicios actualizados correctamente"}, status=status.HTTP_200_OK)
-
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response({"message": "Servicios actualizados correctamente",
+                    "services": existing_services}, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
@@ -180,17 +191,36 @@ def physio_get_services_view(request, physio_id):
 
 
 @api_view(['DELETE'])
-def physio_delete_service_view(request, service_id):
-    physio = get_object_or_404(Physiotherapist, user=request.user)
-    services = physio.services
-    if services is None:
-        return Response({"message": "No hay servicios para eliminar"}, status=status.HTTP_200_OK)
-    if service_id not in services:
-        return Response({"error": "El servicio no existe"}, status=status.HTTP_404_NOT_FOUND)
-    del services[service_id]
-    physio.services = services
-    physio.save()
-    return Response({"message": "Servicio eliminado correctamente"}, status=status.HTTP_200_OK)
+@permission_classes([IsAuthenticated, IsPhysiotherapist])
+def physio_delete_service_view(request, service_name):
+    try:
+        # Get the physiotherapist profile
+        physio = Physiotherapist.objects.get(user=request.user)
+        
+        # Get current services
+        services = physio.services
+        if isinstance(services, str):
+            services = json.loads(services)
+        elif services is None:
+            services = {}
+        
+        # Check if the service exists
+        if service_name not in services:
+            return Response({"error": "Servicio no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+        
+        # Remove the service
+        del services[service_name]
+        
+        # Update the physiotherapist's services
+        physio.services = services
+        physio.save()
+        
+        return Response({"message": "Servicio eliminado correctamente"}, status=status.HTTP_200_OK)
+    except Physiotherapist.DoesNotExist:
+        return Response({"error": "Fisioterapeuta no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        logging.error("An error occurred while deleting a service: %s", str(e))
+        return Response({"error": "An internal error has occurred."}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 @permission_classes([IsAdmin])
