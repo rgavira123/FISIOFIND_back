@@ -265,6 +265,65 @@ def get_payment_details(request, payment_id):
         return Response({'error': 'Payment not found'}, status=status.HTTP_404_NOT_FOUND)
     
 
+@api_view(['GET'])
+@permission_classes([IsPatient])
+def get_refund_status(request, payment_id):
+    """Allow a patient to check the refund status of a payment."""
+    try:
+        # Obtener el pago
+        payment = Payment.objects.get(id=payment_id)
+
+        # Verificar que el usuario sea el paciente asociado a la cita
+        if request.user.patient != payment.appointment.patient:
+            return Response({'error': 'You can only check the refund status of your own payments'}, 
+                            status=status.HTTP_403_FORBIDDEN)
+
+        # Caso 1: Pago no reembolsado o no pagado
+        if payment.status in ['Not Paid', 'Paid', 'Canceled']:
+            return Response({'message': 'No refund has been issued for this payment', 
+                             'payment_status': payment.status}, 
+                            status=status.HTTP_200_OK)
+
+        # Caso 2: Pago reembolsado
+        if payment.status == 'Refunded':
+            # Consultar el PaymentIntent en Stripe
+            payment_intent = stripe.PaymentIntent.retrieve(payment.stripe_payment_intent_id)
+            
+            # Buscar reembolsos asociados al PaymentIntent
+            refunds = stripe.Refund.list(payment_intent=payment.stripe_payment_intent_id, limit=1)
+            if refunds.data:  # Si hay al menos un reembolso
+                refund = refunds.data[0]  # Tomar el más reciente
+                refund_status = refund['status']
+                refund_amount = refund['amount'] / 100  # Convertir de centavos a euros
+                refund_date = refund['created']  # Timestamp de Stripe (en segundos)
+                
+                # Convertir timestamp a formato legible
+                from datetime import datetime
+                refund_date_formatted = datetime.utcfromtimestam(refund_date).strftime('%Y-%m-%d %H:%M:%S UTC')
+
+                return Response({
+                    'message': 'Refund status retrieved successfully',
+                    'payment_status': payment.status,
+                    'refund_status': refund_status,
+                    'refund_amount': refund_amount,
+                    'refund_date': refund_date_formatted
+                }, status=status.HTTP_200_OK)
+            else:
+                # Si no hay reembolso en Stripe pero el estado es 'Refunded', hay inconsistencia
+                return Response({'error': 'Refund recorded locally but not found in Stripe'}, 
+                                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        return Response({'error': 'Unknown payment status'}, 
+                        status=status.HTTP_400_BAD_REQUEST)
+
+    except Payment.DoesNotExist:
+        return Response({'error': 'Payment not found'}, status=status.HTTP_404_NOT_FOUND)
+    except stripe.error.StripeError as e:
+        return Response({'error': f'Stripe error: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return Response({'error': f'Error retrieving refund status: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
+    
+
 #facturas
 @api_view(['GET'])
 @permission_classes([IsPatient])
