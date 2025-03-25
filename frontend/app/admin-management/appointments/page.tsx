@@ -66,7 +66,7 @@ export default function GestionarCitas() {
   }, [isClient, token]);
 
   useEffect(() => {
-    axios.get(`${getApiBaseUrl()}/api/app_appointment/appointment/admin/list/`, {
+    axios.get(`${getApiBaseUrl()}/api/appointment/admin/list/`, {
       headers : {
         "Authorization": "Bearer "+token
       }

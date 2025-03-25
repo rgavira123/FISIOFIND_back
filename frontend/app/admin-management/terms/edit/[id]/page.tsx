@@ -56,7 +56,7 @@ export default function EditarTermino() {
 
   useEffect(() => {
     axios
-      .get(`${getApiBaseUrl()}/api/terminos/list/` + id + "/", {
+      .get(`${getApiBaseUrl()}/api/terms/list/` + id + "/", {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -76,7 +76,7 @@ export default function EditarTermino() {
 
     axios
       .put(
-        `${getApiBaseUrl()}/api/terminos/update/` + id + "/",
+        `${getApiBaseUrl()}/api/terms/update/` + id + "/",
         {
           id,
           content,

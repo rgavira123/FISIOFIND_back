@@ -53,7 +53,7 @@ export default function EliminarTermino() {
 
   useEffect(() => {
     axios
-      .get(`${getApiBaseUrl()}/api/terminos/list/` + id + "/", {
+      .get(`${getApiBaseUrl()}/api/terms/list/` + id + "/", {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -68,7 +68,7 @@ export default function EliminarTermino() {
 
   function deleteTermino() {
     axios
-      .delete(`${getApiBaseUrl()}/api/terminos/delete/` + id + "/", {
+      .delete(`${getApiBaseUrl()}/api/terms/delete/` + id + "/", {
         headers: {
           Authorization: "Bearer " + token,
         },

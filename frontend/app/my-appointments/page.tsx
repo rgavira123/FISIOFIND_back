@@ -64,7 +64,7 @@ export default function Home() {
           console.log("Error fetching data:", error);
         });
 
-      if (currentRole == "physiotherapist") {
+      if (currentRole === "physiotherapist") {
         axios.get(`${getApiBaseUrl()}/api/appointment/physio/list/`, {
           headers: {
             Authorization: "Bearer " + token, // Envía el JWT en la cabecera de la petición
@@ -86,13 +86,13 @@ export default function Home() {
               alternatives: event.alternatives,
             }));
             console.log("citas", response.data);
-            setEvents(transformedEvents);
+            setEvents(transformedEvents); // Ensure events are replaced, not appended
           })
           .catch(error => {
             console.log("Error fetching data:", error);
             setData({ message: "Error al cargar las citas", status: "error" });
           });
-      } else if (currentRole == "patient") {
+      } else if (currentRole === "patient") {
         axios.get(`${getApiBaseUrl()}/api/appointment/patient/list/`, {
           headers: {
             Authorization: "Bearer " + token, // Envía el JWT en la cabecera de la petición
@@ -114,7 +114,7 @@ export default function Home() {
               alternatives: event.alternatives,
             }));
             console.log("citas", response.data);
-            setEvents(transformedEvents);
+            setEvents(transformedEvents); // Ensure events are replaced, not appended
           })
           .catch(error => {
             console.log("Error fetching data:", error);
@@ -122,7 +122,7 @@ export default function Home() {
           });
       }
     }
-  }, [currentRole, token]);
+  }, [currentRole, token]); // Ensure this effect runs only when currentRole or token changes
 
   const handleAlternativesSubmit = (
     alternatives: Record<string, { start: string; end: string }[]>
@@ -167,12 +167,6 @@ export default function Home() {
   return (
     <>
       <div className="flex flex-row justify-between">
-        {/* Vista en Cards */}
-        <Cards events={events} currentRole={currentRole} onCardHover={handleCardHover} token={token} isClient={isClient} handleAlternativesSubmit={handleAlternativesSubmit} setEditionMode={setEditionMode} editionMode={editionMode} setSelectedEvent={setSelectedEvent} selectedEvent={selectedEvent}/>
-
-        <div style={{ borderLeft: "1px solid #000", minHeight: "100%" }}></div>
-
-        {/* Vista del Calendario */}
         <Calendar events={events} currentRole={currentRole} hoveredEventId={hoveredEventId} handleAlternativesSubmit={handleAlternativesSubmit} setEditionMode={setEditionMode} editionMode={editionMode} setSelectedEvent={setSelectedEvent} selectedEvent={selectedEvent} isClient={isClient} token={token}/>
       </div>
 
