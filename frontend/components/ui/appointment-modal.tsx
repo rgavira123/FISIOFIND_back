@@ -172,7 +172,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
           )}
           {selectedEvent.status != "finished" && (
             <div
-              className="flex flex-row mt-4"
+              className="gap-4 flex flex-row mt-4"
               style={{ justifyContent: "space-between" }}
             >
               {currentRole == "physiotherapist" &&
