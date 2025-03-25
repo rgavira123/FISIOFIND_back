@@ -178,6 +178,136 @@ form button:hover {
   gap: 15px;
 }
 
+.specializations-container {
+  margin: 1rem 0;
+  position: relative;
+}
+
+.selected-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: -10px;
+  margin-bottom: 0.5rem;
+}
+
+.tag {
+  background: #4CAF50;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  .remove-tag {
+    margin-top: 0px;
+    cursor: pointer;
+    font-weight: bold;
+    &:hover {
+      color: #ffeb3b;
+    }
+  }
+}
+
+.custom-dropdown {
+  border: 1px solid #41B8D5;
+  border-radius: 4px;
+  position: relative;
+}
+
+.dropdown-header {
+  padding: 0.8rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  &:hover {
+    background: #f5f5f5;
+  }
+}
+
+.arrow {
+  margin-top: 0px;
+  color: #41B8D5;
+  transition: transform 0.2s;
+  &.open {
+    transform: rotate(180deg);
+  }
+}
+
+.dropdown-options {
+  top: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: -7px;
+  &:focus {
+    outline: none;
+  }
+}
+
+.option {
+  padding: 0.8rem;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+    background: #f5f5f5;
+  }
+  
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .checkmark {
+    margin-top: 0px;
+    position: relative;
+    height: 18px;
+    width: 18px;
+    border: 2px solid #4CAF50;
+    border-radius: 4px;
+    margin-right: 0.8rem;
+    
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+      left: 5px;
+      top: 1px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+  
+  input:checked ~ .checkmark {
+    background: #4CAF50;
+    &:after {
+      display: block;
+    }
+  }
+}
+
 .schedule-info {
   width: 90%;
   margin-top: 30px;
@@ -379,7 +509,8 @@ form button:hover {
 }
 
 .modal-close-button:hover {
-  color: #ff4d4d; /* Color rojo al pasar el cursor */
+  color: #ff4d4d;
+  /* Color rojo al pasar el cursor */
 }
 
 .questionnaire-section {

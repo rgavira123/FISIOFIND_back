@@ -1,3 +1,4 @@
+import json
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator  # Importación correcta
 from django.contrib.auth.hashers import make_password
@@ -393,7 +394,21 @@ class PhysioUpdateSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Physiotherapist
-        fields = ['email', 'phone_number', 'postal_code', 'bio', 'photo', 'services', 'specializations', 'schedule']
+        fields = ['email', 'phone_number', 'postal_code', 'bio', 'photo', 'services', 'specializations', 'schedule', 'bio']
+        
+    def to_internal_value(self, data):
+        # Convertir el string JSON a lista antes de la validación
+        if 'specializations' in data and isinstance(data['specializations'], str):
+            try:
+                mutable_data = data.copy()
+                mutable_data['specializations'] = json.loads(mutable_data['specializations'])
+                return super().to_internal_value(mutable_data)
+            except json.JSONDecodeError:
+                raise serializers.ValidationError({
+                    "specializations": "Formato JSON inválido"
+                })
+        
+        return super().to_internal_value(data)
     
     def validate(self, data):
         """Validaciones solo para los campos proporcionados."""
@@ -441,13 +456,16 @@ class PhysioUpdateSerializer(serializers.ModelSerializer):
                 
                 # Manejar especializaciones si se proporcionan
                 if 'specializations' in validated_data:
-                    specializations_data = validated_data.get('specializations', [])
-                    # Eliminar asociaciones anteriores
-                    instance.physiotherapistspecialization_set.all().delete()
-                    # Crear nuevas asociaciones
+                    specializations_data = validated_data.pop('specializations')
+                    
+                    # Obtener o crear las especializaciones
+                    specializations = []
                     for spec_name in specializations_data:
-                        specialization, _ = Specialization.objects.get_or_create(name=spec_name)
-                        PhysiotherapistSpecialization.objects.create(physiotherapist=instance, specialization=specialization)
+                        spec, _ = Specialization.objects.get_or_create(name=spec_name)
+                        specializations.append(spec)
+                    
+                    # Asignar usando los objetos reales
+                    instance.specializations.set(specializations)
                 
                 instance.save()
                 return instance

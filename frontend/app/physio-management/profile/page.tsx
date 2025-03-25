@@ -55,6 +55,7 @@ const FisioProfile = () => {
         gender: "",
         rating_avg: "",
         schedule: "",
+        specializations: "",
         services: [] as Service[],
     });
 
@@ -64,6 +65,20 @@ const FisioProfile = () => {
     const [formErrors, setFormErrors] = useState({});
     const [showServiceModal, setShowServiceModal] = useState(false);
     const [services, setServices] = useState<Service[]>([]);
+    const availableSpecializations = [
+        'Deportiva',
+        'Ortopédica y Traumatológica',
+        'Neurológica',
+        'Pediátrica',
+        'Obstetricia y Suelo pélvico',
+        'Geriátrica',
+        'Oncológica',
+        'Cardiovascular',
+        'Respiratoria'
+    ];
+    const [selectedSpecializations, setSelectedSpecializations] = useState<string[]>([]);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
     const [scheduleModalOpen, setScheduleModalOpen] = useState(false);
     const [schedule, setSchedule] = useState({
         exceptions: {},
@@ -85,6 +100,17 @@ const FisioProfile = () => {
     useEffect(() => {
         setIsClient(true);
     }, []);
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+          if (dropdownOpen && !e.target.closest('.custom-dropdown')) {
+            setDropdownOpen(false);
+          }
+        };
+      
+        document.addEventListener('click', handleClickOutside);
+        return () => document.removeEventListener('click', handleClickOutside);
+      }, [dropdownOpen]);
 
     useEffect(() => {
         fetchFisioProfile();
@@ -109,7 +135,6 @@ const FisioProfile = () => {
                 const response = await axios.get(`${getApiBaseUrl()}/api/app_user/current-user/`, {
                     headers: { Authorization: `Bearer ${storedToken}` },
                 });
-                console.log("response.data.physio.services", response.data.physio.services);
 
                 setProfile({
                     user: {
@@ -130,6 +155,7 @@ const FisioProfile = () => {
                     gender: response.data.physio.gender,
                     rating_avg: response.data.physio.rating_avg,
                     schedule: response.data.physio.schedule,
+                    specializations: response.data.physio.specializations,
                     services: [],
                 });
                 try {
@@ -185,6 +211,13 @@ const FisioProfile = () => {
                 }
                 if (response.data.physio.schedule) {
                     setSchedule(JSON.parse(response.data.physio.schedule));
+                }
+                if (response.data.physio.specializations) {
+                    const specs = Array.isArray(response.data.physio.specializations)
+                        ? response.data.physio.specializations
+                        : response.data.physio.specializations.split(',');
+                    
+                    setSelectedSpecializations(specs);
                 }
             } catch {
                 setError("Error obteniendo el perfil.");
@@ -392,6 +425,7 @@ const FisioProfile = () => {
             formData.append("collegiate_number", profile.collegiate_number || "");
             formData.append("bio", profile.bio || "");
             formData.append("rating_avg", profile.rating_avg || "");
+            formData.append("specializations", JSON.stringify(selectedSpecializations));
 
             // Actualizar el schedule con los datos actuales del calendario
             const { initialized, ...scheduleWithoutInitialized } = schedule;
@@ -937,6 +971,69 @@ const FisioProfile = () => {
                     <label>Código Postal:</label>
                     <input type="text" name="postal_code" value={profile.user.postal_code} onChange={handleChange} />
                     <span className="error-message">{formErrors["postal_code"]}</span>
+
+                    <label>Especializaciones:</label>
+                    <div className="specializations-container">
+                        <div className="selected-tags">
+                            {selectedSpecializations.map((spec) => (
+                                <div key={spec} className="tag">
+                                    {spec}
+                                    <span
+                                        className="remove-tag"
+                                        onClick={() => setSelectedSpecializations(prev => prev.filter(s => s !== spec))}
+                                    >
+                                        ×
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="custom-dropdown">
+                            <div
+                                className="dropdown-header"
+                                onClick={() => setDropdownOpen(!dropdownOpen)}
+                            >
+                                {selectedSpecializations.length > 0
+                                    ? `${selectedSpecializations.length} seleccionadas`
+                                    : "Selecciona especializaciones"}
+                                <span className={`arrow ${dropdownOpen ? "open" : ""}`}>↓</span>
+                            </div>
+
+                            {dropdownOpen && (
+                                <div className="dropdown-options">
+                                    <input
+                                        type="text"
+                                        placeholder="Buscar especialización..."
+                                        className="search-input"
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                    />
+
+                                    {availableSpecializations
+                                        .filter(spec =>
+                                            spec.toLowerCase().includes(searchQuery.toLowerCase())
+                                        )
+                                        .map((spec) => (
+                                            <label key={spec} className="option">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={selectedSpecializations.includes(spec)}
+                                                    onChange={(e) => {
+                                                        if (e.target.checked) {
+                                                            setSelectedSpecializations(prev => [...prev, spec]);
+                                                        } else {
+                                                            setSelectedSpecializations(prev => prev.filter(s => s !== spec));
+                                                        }
+                                                    }}
+                                                />
+                                                <span className="checkmark"></span>
+                                                {spec}
+                                            </label>
+                                        ))}
+                                </div>
+                            )}
+                        </div>
+                    </div>
 
                     <label>Biografía:</label>
                     <textarea
