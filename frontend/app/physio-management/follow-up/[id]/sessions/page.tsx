@@ -281,17 +281,40 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {sessions.map((session) => (
-            <div key={session.id} className="bg-white p-6 rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl hover:transform hover:scale-[1.02]">
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">{session.name || `Sesión ${session.id}`}</h3>
+            <div
+              key={session.id}
+              className="bg-white p-6 rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl hover:transform hover:scale-[1.02]"
+            >
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">
+                {session.name || `Sesión ${session.id}`}
+              </h3>
               <p className="text-gray-600 mb-4">
-                Día: {daysOfWeek.find(day => day.value === session.day_of_week)?.label}
+                Día:{" "}
+                {
+                  daysOfWeek.find((day) => day.value === session.day_of_week)
+                    ?.label
+                }
               </p>
               <div className="flex flex-col space-y-2">
                 <button
-                  onClick={() => router.push(`/physio-management/follow-up/${treatmentId}/sessions/${session.id}/exercises/`)}
+                  onClick={() =>
+                    router.push(
+                      `/physio-management/follow-up/${treatmentId}/sessions/${session.id}/exercises/`
+                    )
+                  }
                   className="w-full px-6 py-3 bg-[#05668d] text-white font-medium rounded-xl hover:bg-[#045a7d] focus:outline-none focus:ring-2 focus:ring-[#05668d] focus:ring-offset-2 transition-all duration-200 flex items-center justify-center space-x-2"
                 >
                   <span>Gestionar Ejercicios</span>
+                </button>
+                <button
+                  onClick={() =>
+                    router.push(
+                      `/physio-management/follow-up/${treatmentId}/sessions/${session.id}/tests/`
+                    )
+                  }
+                  className="w-full px-6 py-3 bg-[#05668d] text-white font-medium rounded-xl hover:bg-[#045a7d] focus:outline-none focus:ring-2 focus:ring-[#05668d] focus:ring-offset-2 transition-all duration-200 flex items-center justify-center space-x-2"
+                >
+                  <span>Gestionar Cuestionarios</span>
                 </button>
                 <div className="flex space-x-2 mt-2">
                   <button
@@ -316,27 +339,45 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
         {editMode && sessionToEdit && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Editar Sesión</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                Editar Sesión
+              </h2>
               <form onSubmit={handleUpdateSession} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Nombre de la Sesión</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Nombre de la Sesión
+                  </label>
                   <input
                     type="text"
                     value={sessionToEdit.name}
-                    onChange={(e) => setSessionToEdit({ ...sessionToEdit, name: e.target.value })}
+                    onChange={(e) =>
+                      setSessionToEdit({
+                        ...sessionToEdit,
+                        name: e.target.value,
+                      })
+                    }
                     className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Nombre de la sesión"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Día de la Semana</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Día de la Semana
+                  </label>
                   <select
                     value={sessionToEdit.day_of_week}
-                    onChange={(e) => setSessionToEdit({ ...sessionToEdit, day_of_week: e.target.value })}
+                    onChange={(e) =>
+                      setSessionToEdit({
+                        ...sessionToEdit,
+                        day_of_week: e.target.value,
+                      })
+                    }
                     className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   >
                     {daysOfWeek.map((day) => (
-                      <option key={day.value} value={day.value}>{day.label}</option>
+                      <option key={day.value} value={day.value}>
+                        {day.label}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -364,9 +405,12 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
         {showDeleteConfirmation && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-6 rounded-xl shadow-2xl w-full max-w-md">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Confirmar eliminación</h2>
+              <h2 className="text-xl font-bold text-gray-900 mb-4">
+                Confirmar eliminación
+              </h2>
               <p className="text-gray-600 mb-6">
-                ¿Estás seguro de que deseas eliminar esta sesión? Esta acción no se puede deshacer.
+                ¿Estás seguro de que deseas eliminar esta sesión? Esta acción no
+                se puede deshacer.
               </p>
               <div className="flex justify-end space-x-3">
                 <button
