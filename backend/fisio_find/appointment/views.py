@@ -342,7 +342,7 @@ def _is_valid_time_range(start, end):
 
 
 @api_view(['PUT'])
-@permission_classes([IsAuthenticated, IsPhysioOrPatient])
+@permission_classes([IsAuthenticated, IsPhysiotherapist])
 def update_appointment(request, appointment_id):
     try:
         appointment = Appointment.objects.get(id=appointment_id)
@@ -410,35 +410,6 @@ def update_appointment(request, appointment_id):
         }
 
         data["status"] = "pending"
-
-    # Si el usuario es paciente
-    elif hasattr(user, 'patient'):
-        # if appointment.status != "pending":
-        #     return Response({"error": "Solo puedes modificar citas con estado 'pending'"}, status=status.HTTP_403_FORBIDDEN)
-
-        selected_start_time = data.get("start_time")
-        selected_end_time = data.get("end_time")
-
-        if not selected_start_time or not selected_end_time:
-            return Response({"error": "Debes proporcionar un 'start_time' y un 'end_time' válidos"}, status=status.HTTP_400_BAD_REQUEST)
-
-        # Validar que la selección coincida con una alternativa exacta
-        valid_selection = False
-        for slots in appointment.alternatives.values():
-            for slot in slots:
-                if slot["start"] == selected_start_time and slot["end"] == selected_end_time:
-                    valid_selection = True
-                    break
-            if valid_selection:
-                break
-
-        # if not valid_selection:
-        #     return Response({"error": "El rango horario seleccionado no coincide con las alternativas disponibles"}, status=status.HTTP_400_BAD_REQUEST)
-
-        # Actualizar la cita con la nueva fecha y hora seleccionada
-        data["alternatives"] = ""  # Eliminar todas las alternativas
-        data["status"] = "confirmed"
-
     else:
         return Response({"error": "No tienes permisos para modificar esta cita"}, status=status.HTTP_403_FORBIDDEN)
 
@@ -455,6 +426,55 @@ def update_appointment(request, appointment_id):
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated, IsPatient])
+def accept_alternative(request, appointment_id):
+    try:
+        appointment = Appointment.objects.get(id=appointment_id)
+    except Appointment.DoesNotExist:
+        return Response({"error": "Cita no encontrada"}, status=status.HTTP_404_NOT_FOUND)
+
+    user = request.user
+    data = request.data.copy()
+    alternatives = appointment.alternatives
+    if alternatives == "":
+        return Response({"error": "No puedes aceptar una alternativa si la cita no tiene alternativas"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # Verificar que el usuario autenticado sea el paciente correspondiente
+    if user.patient != appointment.patient:
+        return Response({"error": "No autorizado para aceptar una alternativa de esta cita"}, status=status.HTTP_403_FORBIDDEN)
+    
+    selected_start_time = data.get("start_time")
+    selected_end_time = data.get("end_time")
+
+    if not selected_start_time or not selected_end_time:
+        return Response({"error": "Debes proporcionar un 'start_time' y un 'end_time' válidos"}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Validar que la selección coincida con una alternativa exacta
+    valid_selection = False
+    for slots in alternatives.values():
+        for slot in slots:
+            if slot["start"] == selected_start_time and slot["end"] == selected_end_time:
+                valid_selection = True
+                break
+        if valid_selection:
+            break
+
+    if not valid_selection:
+        return Response({"error": "El rango horario seleccionado no coincide con las alternativas disponibles"}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Actualizar la cita con la nueva fecha y hora seleccionada
+    data["alternatives"] = ""  # Eliminar todas las alternativas
+    data["status"] = "confirmed"
+
+    serializer = AppointmentSerializer(appointment, data=data, partial=True)
+
+    if serializer.is_valid():
+        serializer.save()
+        update_schedule(data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
