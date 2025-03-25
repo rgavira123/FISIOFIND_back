@@ -7,7 +7,6 @@ import { getApiBaseUrl } from "@/utils/api";
 const GestionAdmin = () => {
 
   const [isClient, setIsClient] = useState(false);
-  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -15,13 +14,12 @@ const GestionAdmin = () => {
 
   useEffect(() => {
     if (isClient) {
-      const storedToken = localStorage.getItem("token");
-      setToken(storedToken);
+      const token = localStorage.getItem("token");
       if (token) {
         axios
           .get(`${getApiBaseUrl()}/api/app_user/check-role/`, {
             headers: {
-              Authorization: "Bearer " + token,
+              'Authorization': `Bearer ${token}`,
             },
           })
           .then((response) => {
@@ -38,7 +36,7 @@ const GestionAdmin = () => {
         location.href = "..";
       }
     }
-  }, [isClient, token]);
+  }, [isClient]);
 
   return (
     <>

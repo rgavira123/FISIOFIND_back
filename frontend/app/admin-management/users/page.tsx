@@ -1,12 +1,12 @@
 'use client';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { getApiBaseUrl } from "@/utils/api";
 
 const GestionUsuarios = () => {
 
   const [isClient, setIsClient] = useState(false);
-  const [token, setToken] = useState<string | null>(null);
+
 
   useEffect(() => {
     setIsClient(true);
@@ -14,8 +14,7 @@ const GestionUsuarios = () => {
 
   useEffect(() => {
     if (isClient) {
-      const storedToken = localStorage.getItem("token");
-      setToken(storedToken);
+      const token = localStorage.getItem("token");
       if (token) {
         axios
           .get(`${getApiBaseUrl()}/api/app_user/check-role/`, {
@@ -37,7 +36,7 @@ const GestionUsuarios = () => {
         location.href = "..";
       }
     }
-  }, [isClient, token]);
+  }, [isClient]);
 
   return (
     <>

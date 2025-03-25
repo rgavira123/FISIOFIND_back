@@ -93,6 +93,13 @@ export function SidebarDemo() {
         <IconPhone className="text-[#1E5ACD] h-5 w-5 flex-shrink-0 mx-auto" />
       ),
     },
+    {
+      label: "Admin",
+      href: "/admin-management",
+      icon: (
+        <IconPhone className="text-[#1E5ACD] h-5 w-5 flex-shrink-0 mx-auto" />
+      ),
+    },
   ];
 
   return (

@@ -9,7 +9,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import Physiotherapist, Patient, AppUser, Admin
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics
-from .permissions import IsAdmin, IsPatient
+from .permissions import IsAdmin, IsPatient, IsPhysiotherapist
 from .models import ACCOUNT_STATUS_CHOICES
 
 class PatientProfileView(generics.RetrieveAPIView):
@@ -256,7 +256,7 @@ class AdminPhysioDetail(generics.RetrieveAPIView):
     queryset = Physiotherapist.objects.all()
     serializer_class = PhysioSerializer
 
-"""
+
 class AdminAppUserDetail(generics.RetrieveAPIView):
     '''
     API endpoint que retorna un solo user por su id para admin.
@@ -264,6 +264,7 @@ class AdminAppUserDetail(generics.RetrieveAPIView):
     permission_classes = [AllowAny]
     queryset = AppUser.objects.all()
     serializer_class = AppUserAdminViewSerializer
+    
 
 @api_view(['GET'])
 @permission_classes([IsAdmin])
@@ -293,16 +294,18 @@ def admin_list_physioterapist_profiles(request):
 
     return Response({"error": "No tienes permisos para ver esta información."}, status=status.HTTP_403_FORBIDDEN)
 
-@api_view(['DELETE'])
-@permission_classes([IsAdmin]) 
-def admin_delete_user(request, user_id):
-    user_to_delete = get_object_or_404(AppUser, id=user_id)
+@api_view(['PATCH'])
+@permission_classes([IsAdmin])
+def admin_remove_user(request, user_id):
+    user_to_update = get_object_or_404(AppUser, id=user_id)
 
-    if hasattr(user_to_delete, 'admin'):
+    if hasattr(user_to_update, 'admin'):
         return Response({"error": "No puedes eliminar a otro administrador."}, status=status.HTTP_403_FORBIDDEN)
+    
+    user_to_update.account_status = "REMOVED"
+    user_to_update.save()
 
-    user_to_delete.delete()
-    return Response({"message": "Usuario eliminado correctamente."}, status=status.HTTP_200_OK)
+    return Response({"message": "Usuario marcado como REMOVED correctamente. Para eliminarlo, debe hacerlo directamente desde la base de datos."}, status=status.HTTP_200_OK)
 
 
 @api_view(['PATCH'])
@@ -322,11 +325,13 @@ def admin_update_account_status(request, user_id):
     user_to_update.save()
 
     return Response({"message": "Estado de cuenta actualizado correctamente.", "new_status": new_status}, status=status.HTTP_200_OK)
+
+'''
 class AdminPatientDelete(generics.DestroyAPIView):
-    '''
-    API endpoint para que admin elimine un término.
-    '''
+    
+    #API endpoint para que admin elimine un término.
+
     permission_classes = [AllowAny]
     queryset = Patient.objects.all()
     serializer_class = PatientRegisterSerializer
-"""
+'''
