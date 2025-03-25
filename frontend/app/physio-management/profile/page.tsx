@@ -64,6 +64,7 @@ const FisioProfile = () => {
     const [formErrors, setFormErrors] = useState({});
     const [showServiceModal, setShowServiceModal] = useState(false);
     const [services, setServices] = useState<Service[]>([]);
+    const [scheduleModalOpen, setScheduleModalOpen] = useState(false);
     const [schedule, setSchedule] = useState({
         exceptions: {},
         appointments: [],
@@ -286,6 +287,28 @@ const FisioProfile = () => {
 
 
 
+
+    const getScheduleSummary = () => {
+        const daysOfWeek = {
+            monday: "Lunes",
+            tuesday: "Martes",
+            wednesday: "Miércoles",
+            thursday: "Jueves",
+            friday: "Viernes",
+            saturday: "Sábado",
+            sunday: "Domingo",
+        };
+
+        return Object.entries(schedule.weekly_schedule)
+            .map(([day, ranges]) => {
+                if (ranges.length === 0) return null;
+
+                const timeRanges = ranges.map((interval) => `${interval[0].start} - ${interval[0].end}`).join(", ");
+                return `${daysOfWeek[day]}: ${timeRanges}`;
+            })
+            .filter(Boolean)
+            .join("\n") || "No se ha configurado horario";
+    };
 
     // Manejar actualizaciones del calendario
     const handleScheduleChange = (newSchedule) => {
@@ -887,11 +910,17 @@ const FisioProfile = () => {
                     <p>Número de colegiado: {profile?.collegiate_number || "No disponible"}</p>
                     <p>Colegio: {profile?.autonomic_community || "No disponible"}</p>
                 </div>
-                <h3 className="mt-4 mb-2 font-bold">Calendario de disponibilidad</h3>
-                <ScheduleCalendar
-                    initialSchedule={schedule}
-                    onScheduleChange={handleScheduleChange}
-                />
+                <div className="schedule-info">
+                    <h2>Mi horario</h2>
+                    <hr />
+                    <p className="schedule-summary">{getScheduleSummary()}</p>
+                    <button
+                        className="edit-schedule-button"
+                        onClick={() => setScheduleModalOpen(true)}
+                    >
+                        Editar horario
+                    </button>
+                </div>
             </div>
 
             {/* Sección derecha con el formulario */}
@@ -1012,6 +1041,24 @@ const FisioProfile = () => {
                         onSave={handleAddService}
                         editingService={editingServiceIndex !== null ? services[editingServiceIndex] : undefined}
                     />
+                )}
+
+                {/* Modal para editar el horario */}
+                {scheduleModalOpen && (
+                    <div className="modal-overlay">
+                        <div className="modal-content">
+                            {/* Botón de cierre en la esquina superior derecha */}
+                            <button className="modal-close-button" onClick={() => setScheduleModalOpen(false)}>
+                                &times;
+                            </button>
+
+                            <h2>Editar horario</h2>
+                            <ScheduleCalendar
+                                initialSchedule={schedule}
+                                onScheduleChange={setSchedule}
+                            />
+                        </div>
+                    </div>
                 )}
             </div>
         </div>

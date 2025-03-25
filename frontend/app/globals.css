@@ -75,9 +75,11 @@
   .backdrop-blur-sm {
     backdrop-filter: blur(4px);
   }
+
   .backdrop-blur-md {
     backdrop-filter: blur(8px);
   }
+
   .backdrop-blur-lg {
     backdrop-filter: blur(12px);
   }
@@ -99,8 +101,8 @@ form label {
   font-size: 20px;
 }
 
-form input, 
-form select, 
+form input,
+form select,
 form textarea {
   width: 100%;
   padding: 10px;
@@ -113,12 +115,12 @@ form textarea {
 }
 
 form span {
-    color: red;
-    font-size: 18px;
-    margin-top: -25px;
+  color: red;
+  font-size: 18px;
+  margin-top: -25px;
 }
 
-form input::placeholder, 
+form input::placeholder,
 form textarea::placeholder {
   color: #6BC9BE;
 }
@@ -174,6 +176,51 @@ form button:hover {
   display: flex;
   flex-direction: column;
   gap: 15px;
+}
+
+.schedule-info {
+  width: 90%;
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid #6BC9BE;
+}
+
+.schedule-info h2 {
+  font-size: 1.5em;
+  color: #253240;
+  font-weight: bold;
+}
+
+.schedule-info hr {
+  border: 0;
+  height: 1px;
+  background: #41B8D5;
+  margin-bottom: 15px;
+}
+
+.schedule-summary {
+  white-space: pre-line;
+  color: #253240;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.edit-schedule-button {
+  background-color: #05668D;
+  color: #FFFFFF;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.edit-schedule-button:hover {
+  background-color: #05918F;
 }
 
 /* Estilos para la sección de servicios */
@@ -253,12 +300,13 @@ form button:hover {
 }
 
 .modal-content {
+  position: relative;
   background-color: #FFFFFF;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border: 2px solid #6BC9BE;
-  width: 400px;
+  width: 70%;
   max-height: 90vh;
   overflow-y: auto;
 }
@@ -317,6 +365,21 @@ form button:hover {
 
 .modal-content button:last-of-type:hover {
   background-color: #5a6268;
+}
+
+.modal-close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+}
+
+.modal-close-button:hover {
+  color: #ff4d4d; /* Color rojo al pasar el cursor */
 }
 
 .questionnaire-section {
@@ -431,7 +494,8 @@ select {
   color: #253240;
   font-size: 18px;
   margin-bottom: 10px;
-  appearance: none; /* Elimina el estilo por defecto del select */
+  appearance: none;
+  /* Elimina el estilo por defecto del select */
   cursor: pointer;
 }
 
@@ -481,10 +545,11 @@ select:hover {
   gap: 15px;
 }
 
-form input:disabled, form select:disabled {
-  background-color: #f3f4f6; 
-  color: #6B7280; 
-  cursor: not-allowed; 
+form input:disabled,
+form select:disabled {
+  background-color: #f3f4f6;
+  color: #6B7280;
+  cursor: not-allowed;
 }
 
 .error__close path {
