@@ -66,7 +66,6 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
   const [treatment, setTreatment] = useState<Treatment | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedTreatment, setEditedTreatment] = useState<Partial<Treatment>>(
     {}
@@ -78,6 +77,42 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
     "success" | "error" | "info" | "warning"
   >("success");
 
+  const fetchTreatmentDetails = async () => {
+    try {
+      setLoading(true);
+      const token = localStorage.getItem("token") || "";
+  
+      const response = await fetch(
+        `${getApiBaseUrl()}/api/treatments/${id}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error("Error al obtener el tratamiento");
+      }
+  
+      const data = await response.json();
+      setTreatment(data);
+      setEditedTreatment({
+        start_time: data.start_time,
+        end_time: data.end_time,
+        homework: data.homework,
+        is_active: data.is_active,
+      });
+    } catch (err) {
+      console.error("Error general:", err);
+      setAlertType("error");
+      setAlertMessage("No se pudieron cargar los detalles del tratamiento. Por favor, inténtalo de nuevo.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   useEffect(() => {
     const fetchTreatmentDetails = async () => {
       try {
@@ -190,14 +225,17 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
         body: JSON.stringify(editedTreatment),
       });
 
+
       if (!response.ok) {
         throw new Error("Error al guardar los cambios");
       }
 
-      const updatedTreatment = await response.json();
+      await fetchTreatmentDetails();
+
+      // const updatedTreatment = await response.json();
 
       // Actualizar el estado con los datos del servidor
-      setTreatment(updatedTreatment);
+      // setTreatment(updatedTreatment);
       setIsEditing(false);
 
       // Mostrar mensaje de éxito (opcional)
