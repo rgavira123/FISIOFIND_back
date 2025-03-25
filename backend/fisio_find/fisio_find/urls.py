@@ -16,6 +16,7 @@ urlpatterns = [
     path('api/appointment/', include('gestion_citas.urls')),
     path('api/terms/', include('terms.urls')),
     path('api/videocall/', include('videocall.urls')),
+    path('api/treatments/', include('treatments.urls')),
     path('api/guest_session/', include('guest_session.urls')),
 ]
 
