@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from users.serializers import PatientSerializer, PhysioSerializer
 from users.models import Patient, Physiotherapist
 from .models import Exercise, ExerciseLog, ExerciseSession, Session, SessionTest, SessionTestResponse, SessionTest, Treatment, Series
 from django.utils import timezone
@@ -36,12 +37,14 @@ class TreatmentSerializer(serializers.ModelSerializer):
         return data
         
 class TreatmentDetailSerializer(serializers.ModelSerializer):
-    physiotherapist = serializers.PrimaryKeyRelatedField(queryset=Physiotherapist.objects.all())
-    patient = serializers.PrimaryKeyRelatedField(queryset=Patient.objects.all())
+    physiotherapist = PhysioSerializer(read_only=True)
+    physiotherapist_id = serializers.PrimaryKeyRelatedField(source='physiotherapist', queryset=Physiotherapist.objects.all(), write_only=True)
+    patient = PatientSerializer(read_only=True)
+    patient_id = serializers.PrimaryKeyRelatedField(source='patient', queryset=Patient.objects.all(), write_only=True)
     
     class Meta:
         model = Treatment
-        fields = ['id', 'physiotherapist', 'patient', 'start_time', 'end_time', 
+        fields = ['id', 'physiotherapist', 'physiotherapist_id', 'patient', 'patient_id', 'start_time', 'end_time', 
                  'homework', 'is_active', 'created_at', 'updated_at', 'sessions']
         read_only_fields = ['id', 'created_at', 'updated_at']
         
