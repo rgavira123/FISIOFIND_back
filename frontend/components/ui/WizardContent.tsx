@@ -16,6 +16,7 @@ import ServiceQuestionary from "./ServiceQuestionary";
 interface WizardContentProps {
   currentStep: number;
   services: Service[];
+  token: string | null;
 }
 
 // Función para calcular el máximo común divisor de dos números
@@ -31,6 +32,7 @@ const computeGCD = (arr: number[]): number => {
 const WizardContent: React.FC<WizardContentProps> = ({
   currentStep,
   services,
+  token
 }) => {
   const { state, dispatch } = useAppointment();
   const appointmentData = state.appointmentData;
@@ -104,15 +106,8 @@ const WizardContent: React.FC<WizardContentProps> = ({
       </div>
     );
   } else if (currentStep === 3) {
-    return (
-      <div>
-        <h3 className="text-lg font-bold mb-4">Elige tu método de pago</h3>
-        {/* Aquí se podría agregar el selector de pago */}
-      </div>
-    );
-  } else if (currentStep === 4) {
       return <ServiceQuestionary />;
-  } else if (currentStep === 5) {
+  } else if (currentStep === 4) {
     // Se formatean las fechas de inicio y fin de forma separada
     const inicio = appointmentData.start_time ? formatAppointment(appointmentData.start_time) : { date: "", time: "" };
     const fin = appointmentData.end_time ? formatAppointment(appointmentData.end_time) : { time: "" };
@@ -181,12 +176,12 @@ const WizardContent: React.FC<WizardContentProps> = ({
         )}
       </div>
     );
-  } else if (currentStep === 4) {
+  } else if (currentStep === 5) {
     return (
       <div>
         {/* <h3 className="text-lg font-bold mb-4">Elige tu método de pago</h3> */}
         <Elements stripe={stripePromise}>
-            <CheckoutForm request={appointmentData} />
+            <CheckoutForm request={appointmentData} token={token}/>
         </Elements>
       </div>
     );

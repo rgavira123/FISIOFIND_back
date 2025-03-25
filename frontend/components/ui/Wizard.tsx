@@ -75,12 +75,6 @@ const Wizard: React.FC<WizardProps> = ({ steps, token, isClient }) => {
   }, [token]);
 
 
-
-
-
-
-
-
   // 3) Control de pasos
   const goToNextStep = () => setCurrentStep((prev) => Math.min(prev + 1, steps.length));
   const goToPreviousStep = () => setCurrentStep((prev) => Math.max(prev - 1, 1));
@@ -93,7 +87,7 @@ const Wizard: React.FC<WizardProps> = ({ steps, token, isClient }) => {
         <WizardHeader steps={steps} currentStep={currentStep} />
 
         <div className="mt-8 w-full bg-white rounded shadow p-6">
-          <WizardContent currentStep={currentStep} services={services} />
+          <WizardContent currentStep={currentStep} services={services} token={token}/>
         </div>
 
         <WizardNavigation
