@@ -109,7 +109,7 @@ export function SidebarDemo() {
               {publicLinks.map((link, idx) => (
                 <SidebarLink key={`public-${idx}`} link={link} />
               ))}
-              {isAuthenticated && 
+              {isAuthenticated && urlPerfil && // Only show profile if authenticated and urlPerfil exists (not admin)
                 privateLinks.map((link, idx) => (
                   <SidebarLink key={`private-${idx}`} link={link} />
                 ))
