@@ -8,6 +8,9 @@ import Modal from "@/components/ui/Modal";
 import Link from "next/link";
 import axios from "axios";
 import { getApiBaseUrl } from "@/utils/api";
+import { DemoWindow } from "@/components/demo-window";
+import { WavyBackground } from "@/components/ui/wavy-background";
+import { GradientButton } from "@/components/ui/gradient-button";
 import { CookieConsent } from "@/components/CookieConsent";
 
 interface Physiotherapist {
@@ -286,7 +289,7 @@ const Home = () => {
                         />
                       </CardItem>
                       {/* Botón para ver el perfil del fisioterapeuta */}
-                      <button>
+                      <GradientButton>
                         <CardItem
                           translateZ="20"
                           className="px-4 py-2 rounded-xl bg-[#1E5ACD] text-white text-sm font-bold hover:bg-[#1848A3] transition-colors"
@@ -294,7 +297,7 @@ const Home = () => {
                         >
                           Reservar cita
                         </CardItem>
-                      </button>
+                      </GradientButton>
                     </CardBody>
                   </CardContainer>
                 ))}
@@ -307,94 +310,74 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen w-full z=90">
+    <div className="min-h-screen w-full z=90" style={{ backgroundColor: "rgb(238, 251, 250)" }}>
       {/* Add CookieConsent component */}
       <CookieConsent />
-      
       {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center text-center relative overflow-hidden mb-8 py-12">
-        <div className="absolute top-0 left-0 w-full h-full">
-          <div className="floating-image" style={{ right: "70%", top: "35%" }}>
+      <section className="flex flex-col items-center justify-center text-center relative overflow-hidden mb-8">
+        <WavyBackground className="max-w-full mx-auto py-12">
+          <div className="absolute top-0 left-0 w-full h-full">
+            <div className="floating-image" style={{ right: "70%", top: "35%" }}>
+              <Image
+                src="/static/9_girl.webp"
+                alt="Floating Image 3"
+                width={250}
+                height={250}
+              />
+            </div>
+            <div className="floating-image" style={{ left: "30%", top: "10%" }}>
+              <Image
+                src="/static/1_heart.webp"
+                alt="Floating Image 1"
+                width={70}
+                height={70}
+              />
+            </div>
+            <div className="floating-image" style={{ right: "30%", top: "10%" }}>
+              <Image
+                src="/static/7_treatment.webp"
+                alt="Floating Image 3"
+                width={80}
+                height={80}
+              />
+            </div>
+            <div className="floating-image" style={{ right: "10%", top: "35%" }}>
+              <Image
+                src="/static/2_liftweights.webp"
+                alt="Floating Image 3"
+                width={150}
+                height={150}
+              />
+            </div>
+          </div>
+          <div className="flex flex-col items-center mt-8">
             <Image
-              src="/static/9_girl.webp"
-              alt="Floating Image 3"
+              src="/static/logo_fisio_find_smaller.webp"
+              alt="Fisio Find Logo"
               width={250}
               height={250}
+              className="mb-12 relative z-10 w-[250px] h-auto"
             />
+            <h1 className="text-7xl font-bold mb-12 font-alfa-slab-one relative z-10">
+              <span className="text-white drop-shadow-[0_2.5px_3.5px_#41B8D5]">Fisio Find</span>
+            </h1>
+            <p className="text-xl font-bold mb-14 max-w-2xl mx-auto relative z-10 text-[#253240] mt-16">
+              La plataforma especializada en fisioterapia online donde te conectamos
+              con el profesional que mejor se ajusta a tus necesidades.
+            </p>
           </div>
-          <div className="floating-image" style={{ left: "30%", top: "10%" }}>
-            <Image
-              src="/static/1_heart.webp"
-              alt="Floating Image 1"
-              width={70}
-              height={70}
-            />
-          </div>
-          <div
-            className="floating-image"
-            style={{ right: "38%", bottom: "29%" }}
-          >
-            <Image
-              src="/static/4_shine.webp"
-              alt="Floating Image 2"
-              width={40}
-              height={40}
-            />
-          </div>
-          <div
-            className="floating-image"
-            style={{ left: "37%", bottom: "41%" }}
-          >
-            <Image
-              src="/static/4_shine.webp"
-              alt="Floating Image 2"
-              width={40}
-              height={40}
-            />
-          </div>
-          <div className="floating-image" style={{ right: "30%", top: "10%" }}>
-            <Image
-              src="/static/7_treatment.webp"
-              alt="Floating Image 3"
-              width={80}
-              height={80}
-            />
-          </div>
-          <div className="floating-image" style={{ right: "10%", top: "55%" }}>
-            <Image
-              src="/static/2_liftweights.webp"
-              alt="Floating Image 3"
-              width={150}
-              height={150}
-            />
-          </div>
-        </div>
-        <Image
-          src="/static/logo_fisio_find_smaller.webp"
-          alt="Fisio Find Logo"
-          width={150}
-          height={150}
-          className="mb-4"
-        />
-        <h1 className="text-5xl font-bold mb-2 font-alfa-slab-one">
-          <span className="text-[#05668d]">Fisio </span>
-          <span className="text-[#018b89]">Find</span>
-        </h1>
-        <p className="text-lg mb-4 max-w-2xl">
-          La plataforma especializada en fisioterapia online donde te conectamos
-          con el profesional que mejor se ajusta a tus necesidades.
-        </p>
+        </WavyBackground>
       </section>
 
-      
+      {/* Demo Video */}
+      <section className="px-4 py-16 relative z-10">
+        <DemoWindow />
+      </section>
 
-      
 
       {/* Search Section */}
       {/* Unified Search Bar */}
       <SearchPhysiotherapists />
-
-
 
 
       {/* Focus Cards Section: solo se muestra si NO está autenticado */}
@@ -409,20 +392,21 @@ const Home = () => {
             posibilidades.
           </p>
           <div className="flex flex-col gap-4">
-            <button
-              className="shadow__btn bg-[#1E5ACD] text-white px-4 py-3 rounded font-bold hover:bg-[#1848A3] transition-colors"
+            <GradientButton
+              variant="create" 
+              fullWidth
               onClick={() => router.push("/register")}
             >
               Crea una cuenta
-            </button>
+            </GradientButton>
             <p className="text-lg">Si ya tienes una cuenta ...</p>
-            <button
-              className="shadow__btn text-white rounded font-bold hover:bg-[#0A7487] transition-colors text-sm"
+            <GradientButton
+              variant="edit" 
+              fullWidth
               onClick={() => router.push("/login")}
-              style={{ "--shadow-color": "#0A7487" } as React.CSSProperties}
             >
               Inicia sesión
-            </button>
+            </GradientButton>
           </div>
             <section className="w-full bg-[#1E5ACD] py-4 text-center text-white rounded-lg mx-auto mt-8 max-w-4xl shadow-lg">
             <div className="px-4 flex flex-col sm:flex-row items-center justify-center">
@@ -497,15 +481,15 @@ const Home = () => {
 
       {/* Footer */}
       <footer className="py-12 px-4">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 pt-8 gap-8 border-t border-gray-700">
-          <div>
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 pt-8 gap-8 border-t border-gray-700 text-center">
+          <div className="flex flex-col items-center">
             <h3 className="text-lg font-bold mb-4">Sobre Fisio Find</h3>
             <p>
               Una plataforma innovadora diseñada para conectar pacientes con los
               mejores fisioterapeutas.
             </p>
           </div>
-          <div>
+          <div className="flex flex-col items-center">
             <h3 className="text-lg font-bold mb-4">Enlaces Útiles</h3>
             <ul>
               <li>
@@ -530,7 +514,7 @@ const Home = () => {
               </li>
             </ul>
           </div>
-          <div>
+          <div className="flex flex-col items-center">
             <h3 className="text-lg font-bold mb-4">Contacto</h3>
             <p>Correo: <a href="mailto:support@fisiofind.com" className="hover:underline">support@fisiofind.com</a></p>
             <p>Ubicación: Sevilla, España</p>
