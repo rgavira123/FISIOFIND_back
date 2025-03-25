@@ -487,9 +487,9 @@ class VideoSerializer(serializers.ModelSerializer):
 
     def validate_file(self, file):
         """Valida que el archivo sea un video permitido."""
-        allowed_extensions = (".mp4", ".mov", ".avi", ".mkv")
+        allowed_extensions = (".mp4")
         if not file.name.lower().endswith(allowed_extensions):
-            raise serializers.ValidationError("Solo se permiten archivos de video.")
+            raise serializers.ValidationError("Solo se permiten archivos .mp4 .")
         return file
 
     def create(self, validated_data):

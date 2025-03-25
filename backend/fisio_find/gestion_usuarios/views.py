@@ -349,11 +349,16 @@ s3_client = boto3.client(
 
 
 @api_view(['GET'])
-@permission_classes([IsPhysioOrPatient])
+@permission_classes([IsPatient])
 def stream_video(request, video_id):
     try:
         video = Video.objects.get(id=video_id)
-        if request.user.id not in video.patients.values_list('id', flat=True):
+        if not hasattr(request.user, "patient"):
+            return Response({'error': 'No tienes un perfil de paciente'}, status=403)
+
+        patient_id = request.user.patient.id  # Obtener el ID del paciente
+
+        if patient_id not in video.patients.values_list('id', flat=True):
             return Response({'error': 'No tienes acceso a este video'}, status=403)
 
         video_object = s3_client.get_object(
@@ -427,15 +432,15 @@ def update_video(request, video_id):
         if isinstance(patients_raw, str):
             try:
                 patients_list = json.loads(patients_raw)  # Convierte "[1, 3]" a [1, 3]
-                if isinstance(patients_list, list) and all(isinstance(i, int) for i in patients_list):
-                    mutable_data.setlist("patients", patients_list)  # Asegura que se guarde como lista
-                else:
-                    return Response({"error": "Formato de patients incorrecto, debe ser una lista de enteros"}, status=status.HTTP_400_BAD_REQUEST)
             except json.JSONDecodeError:
                 return Response({"error": "Formato de patients inválido"}, status=status.HTTP_400_BAD_REQUEST)
-
+        elif isinstance(patients_raw, list):
+            patients_list = patients_raw
+        else:
+            return Response({"error": "Formato de patients incorrecto, debe ser una lista de enteros"}, status=status.HTTP_400_BAD_REQUEST)
+        
     # Serializar con los datos nuevos
-    serializer = VideoSerializer(video, data=mutable_data, partial=False, context={'request': request})
+    serializer = VideoSerializer(video, data=mutable_data, partial=True, context={'request': request})
 
     if serializer.is_valid():
         serializer.save()
