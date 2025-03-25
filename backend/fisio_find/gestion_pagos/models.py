@@ -18,8 +18,14 @@ class Payment(models.Model):
     payment_method = models.CharField(max_length=50, default='Card')
     status = models.CharField(max_length=20, choices=PAYMENT_STATUSES, default='Not Paid')
     payment_date = models.DateTimeField(null=True, blank=True)
-    stripe_payment_intent_id = models.CharField(max_length=100, null=True, blank=True)
+    
+    #Un PaymentIntent representa un intento de cobro a un cliente. Es el objeto principal que usas para procesar un pago único (como una cita en tu caso).
+    stripe_payment_intent_id = models.CharField(max_length=100, null=True, blank=True) 
+
+    #Se usa para configurar un método de pago (como una tarjeta) para futuros cobros, sin realizar un pago inmediato. Es común en suscripciones o pagos recurrentes
     stripe_setup_intent_id = models.CharField(max_length=100, null=True, blank=True)
+
+    #Un PaymentMethod representa un medio de pago específico del cliente, como una tarjeta de crédito o débito (ej. "Visa terminada en 4242")
     stripe_payment_method_id = models.CharField(max_length=100, null=True, blank=True)
 
     @property
