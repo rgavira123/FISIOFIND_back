@@ -314,7 +314,7 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
                   }
                   className="w-full px-6 py-3 bg-[#05668d] text-white font-medium rounded-xl hover:bg-[#045a7d] focus:outline-none focus:ring-2 focus:ring-[#05668d] focus:ring-offset-2 transition-all duration-200 flex items-center justify-center space-x-2"
                 >
-                  <span>Gestionar Cuestionarios</span>
+                  <span>Gestionar Cuestionario</span>
                 </button>
                 <div className="flex space-x-2 mt-2">
                   <button
