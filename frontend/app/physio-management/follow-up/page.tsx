@@ -2,6 +2,9 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import RestrictedAccess from '@/components/RestrictedAccess';
+import { getApiBaseUrl } from "@/utils/api";
+import axios from "axios";
 
 // Definir las interfaces para los datos
 interface User {
@@ -58,8 +61,35 @@ const SeguimientoPage = () => {
   const [error, setError] = useState<string | null>(null);
   const [activeFilter, setActiveFilter] = useState<boolean | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
-  
+  const [token, setToken] = useState<string | null>(null);
+  const [userRole, setUserRole] = useState<string | null>(null);
+  const [isClient, setIsClient] = useState(false);
 
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (isClient) {
+      const storedToken = localStorage.getItem("token");
+      setToken(storedToken);
+
+      if (storedToken) {
+        axios.get(`${getApiBaseUrl()}/api/app_user/check-role/`, {
+          headers: {
+            Authorization: "Bearer " + storedToken
+          }
+        })
+        .then(response => {
+          setUserRole(response.data.user_role);
+        })
+        .catch(error => {
+          console.error("Error fetching user role:", error);
+          setUserRole(null);
+        });
+      }
+    }
+  }, [isClient]);
   const extractActivePatients = useCallback((treatmentsData: Treatment[]) => {
     const activePatientsMap = new Map<number, Patient>();
 
@@ -200,6 +230,41 @@ const SeguimientoPage = () => {
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
       </div>
     );
+  }
+
+  if (!token) {
+    return <RestrictedAccess message="Necesitas iniciar sesión para acceder a los tratamientos." />;
+  }
+
+  if (userRole === "patient") {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+        <div className="bg-white p-8 rounded-3xl shadow-xl text-center max-w-md w-full transition-all duration-300"
+             style={{ boxShadow: "0 20px 60px rgba(0, 0, 0, 0.08)" }}>
+          <h2 className="text-2xl font-bold mb-4"
+              style={{ 
+                background: "linear-gradient(90deg, #1E5ACD, #3a6fd8)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent"
+              }}>
+            Próximamente
+          </h2>
+          <p className="text-gray-700 mb-6">
+            🚀 La vista de seguimiento para pacientes estará disponible próximamente. Estamos trabajando para ofrecerte la mejor experiencia posible.
+          </p>
+          <button
+            onClick={() => router.push('/')}
+            className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 w-full"
+          >
+            Volver al inicio
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (userRole !== "physiotherapist") {
+    return <RestrictedAccess message="Esta sección está reservada para fisioterapeutas." />;
   }
 
   return (

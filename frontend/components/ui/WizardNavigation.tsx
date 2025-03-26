@@ -111,69 +111,71 @@ const WizardNavigation: React.FC<WizardNavigationProps> = ({
 
   return (
     <>
-      <div className="flex space-x-4 mt-6">
-        <button
-          onClick={goToPrevious}
-          className="px-4 py-2 bg-gray-300 text-black rounded disabled:opacity-50 hover:bg-logo2"
-          disabled={currentStep === 1}
-        >
-          Atrás
-        </button>
+      <div className="flex justify-center space-x-4 mt-6">
+        {currentStep !== 1 && (
+          <button
+            onClick={goToPrevious}
+            className="px-6 py-2 rounded-xl bg-white border-2 border-[#65C2C9] text-[#65C2C9] hover:bg-[#65C2C9] hover:text-white transition-colors"
+          >
+            Atrás
+          </button>
+        )}
         {currentStep === totalSteps ? (
           <button
             onClick={createAppointment}
-            className="px-4 py-2 bg-logo3 text-white rounded hover:bg-logo4"
+            className="px-6 py-2 rounded-xl bg-[#05668D] text-white hover:bg-[#05918F] transition-colors"
           >
             Finalizar
           </button>
         ) : (
           <button
             onClick={goToNext}
-            className="px-4 py-2 bg-gray-300 text-black rounded disabled:opacity-50 hover:bg-logo3"
+            className="px-6 py-2 rounded-xl bg-[#05668D] text-white hover:bg-[#05918F] transition-colors disabled:opacity-50"
             disabled={currentStep === totalSteps}
           >
             Siguiente
           </button>
         )}
       </div>
-
       {/* Modal de autenticación */}
-      {showAuthModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded shadow-lg max-w-sm w-full">
-            <h2 className="text-xl font-bold mb-4">Debes iniciar sesión</h2>
-            <p className="mb-4">
-              Para confirmar tu cita, por favor inicia sesión o crea una cuenta.
-            </p>
-            <div className="flex flex-col gap-3">
-              <button
-                onClick={() => handleDraftSaveAndRedirect("/login")}
-                style={{ backgroundColor: "#0A7487" }}
-                className="px-4 py-2 text-white rounded hover:opacity-90"
-              >
-                Iniciar Sesión
-              </button>
-              <button
-                onClick={() => handleDraftSaveAndRedirect("/register")}
-                style={{ backgroundColor: "#1E5ACD" }}
-                className="px-4 py-2 text-white rounded hover:opacity-90"
-              >
-                Crear Cuenta
-              </button>
-              <button
-                onClick={() => {
-                  // Solo removemos la entrada unificada
-                  sessionStorage.removeItem("appointmentDraft");
-                  router.push("/");
-                }}
-                className="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-400"
-              >
-                Cancelar
-              </button>
+      {
+        showAuthModal && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div className="bg-white p-6 rounded shadow-lg max-w-sm w-full">
+              <h2 className="text-xl font-bold mb-4">Debes iniciar sesión</h2>
+              <p className="mb-4">
+                Para confirmar tu cita, por favor inicia sesión o crea una cuenta.
+              </p>
+              <div className="flex flex-col gap-3">
+                <button
+                  onClick={() => handleDraftSaveAndRedirect("/login")}
+                  style={{ backgroundColor: "#0A7487" }}
+                  className="px-4 py-2 text-white rounded hover:opacity-90"
+                >
+                  Iniciar Sesión
+                </button>
+                <button
+                  onClick={() => handleDraftSaveAndRedirect("/register")}
+                  style={{ backgroundColor: "#1E5ACD" }}
+                  className="px-4 py-2 text-white rounded hover:opacity-90"
+                >
+                  Crear Cuenta
+                </button>
+                <button
+                  onClick={() => {
+                    // Solo removemos la entrada unificada
+                    sessionStorage.removeItem("appointmentDraft");
+                    router.push("/");
+                  }}
+                  className="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-400"
+                >
+                  Cancelar
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )
+      }
     </>
   );
 };
