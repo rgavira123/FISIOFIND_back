@@ -975,7 +975,7 @@ const FisioProfile = () => {
                 {/* Contenido derecho - Sección de formulario */}
                 <div className="col-span-2 p-8 space-y-6">
                     {/* Formulario de actualización de perfil */}
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                    <form onSubmit={handleSubmit} className="space- y-4">
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <label className="block text-sm font-medium text-gray-700">Correo Electrónico</label>
@@ -1072,7 +1072,8 @@ const FisioProfile = () => {
                                 <h3 className="text-lg font-semibold">Servicios</h3>
                                 <GradientButton 
                                     variant="create"
-                                    onClick={() => {
+                                    onClick={(e) => {
+                                        e.preventDefault(); // Esto evita que se envíe el formulario
                                         setEditingServiceIndex(null);
                                         setShowServiceModal(true);
                                     }}
