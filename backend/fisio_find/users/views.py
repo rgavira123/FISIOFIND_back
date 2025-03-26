@@ -213,7 +213,7 @@ def physio_delete_service_view(request, service_name):
     except Exception as e:
         logging.error("An error occurred while deleting a service: %s", str(e))
         return Response({"error": "An internal error has occurred."}, status=status.HTTP_400_BAD_REQUEST)
-
+"""
 @api_view(['GET'])
 @permission_classes([IsAdmin])
 def admin_search_patients_by_user(request, query):
@@ -227,6 +227,7 @@ def admin_search_patients_by_user(request, query):
     patients = Patient.objects.filter(user__in=matched_users)
     serializer = PatientSerializer(patients, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 @api_view(['GET'])
 @permission_classes([IsAdmin])
@@ -354,6 +355,7 @@ def admin_update_account_status(request, user_id):
     user_to_update.save()
 
     return Response({"message": "Estado de cuenta actualizado correctamente.", "new_status": new_status}, status=status.HTTP_200_OK)
+"""
 """
 '''
 class AdminPatientDelete(generics.DestroyAPIView):
