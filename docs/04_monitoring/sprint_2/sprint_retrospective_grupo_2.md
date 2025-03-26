@@ -134,20 +134,20 @@ Este tipo de retrospectiva permite que el equipo reflexione de manera estructura
 ## **GOOD: ¿Qué salió bien?**
 - ✅ Ambiente y comunicación: el grupo al completo está satisfecho con el ambiente y la comunicación fluida que se ha generado entre los compañeros.
 - ✅ Trabajo en equipo: estamos muy orgullosos de que si un compañero necesitaba ayuda, sin pensarlo, algún otro compañero le ayudaba a resolverla.
-- ✅ Reparto de tareas: hemos hecho un buen reparto de tareas, equilibrado en mayor o menor medida y esperamos que siga siendo así durante todo el desarrollo del proyecto.
 - ✅ Compromiso: Todos los miembros del equipo mostraron una actitud proactiva y se mantuvieron enfocados en cumplir con las metas establecidas, aunque a veces de forma tardía.
 - ✅ Cambio en la aplicación: Durante este sprint, la aplicación ha experimentado una transformación significativa, lo que demuestra el avance del equipo en el desarrollo de nuevas funcionalidades y mejoras.
 - ✅ Disgregación del equipo: Aunque el equipo se dividió en varios grupos para cumplir con los objetivos establecidos, esta disgregación fue necesaria y resultó ser efectiva para avanzar en las funcionalidades críticas.
 
 ## **BAD: ¿Qué NO salió bien?**
-- 🔴 Feedback de los usuarios piloto: Los usuarios piloto no han mostrado el nivel de compromiso esperado, y su feedback no ha sido lo suficientemente enriquecedor ni útil para mejorar la aplicación. Es necesario replantear cómo gestionar mejor su participación y la obtención de comentarios más relevantes.
+- 🔴 Feedback de los usuarios piloto: Los usuarios piloto no han mostrado el nivel de compromiso esperado, y su feedback ha resultado insuficiente. Es necesario replantear cómo gestionar mejor su participación y la obtención de comentarios más relevantes.
 
 ## **START: ¿Qué debemos empezar a hacer?**
 - 🟡 Merge diario a develop: Es crucial que todos los miembros del equipo realicen merges a develop a diario para evitar los conflictos de integración que se presentaron en este sprint. Esto contribuirá a mantener un flujo de trabajo más estable y sin sobresaltos.
 - 🟡 Mejorar la comunicación con los usuarios piloto: Establecer un plan de acción claro para involucrar a los usuarios piloto de manera más activa. Debemos asegurarnos de que comprendan la importancia de su feedback y proporcionarles más contexto sobre cómo sus comentarios impactan el desarrollo de la aplicación.
+- 🟡 Medición de conflictos en PRs: A partir de ahora, se realizará un seguimiento del número de conflictos en cada Pull Request y el tiempo perdido en resolverlos. Esto permitirá identificar patrones y mejorar la gestión de ramas e integraciones.
 
 ## **STOP: ¿Qué debemos dejar de hacer?**
-- 🟠 Posponer tareas importantes: dejar de retrasar tareas críticas que pueden impactar negativamente en el avance general del proyecto.
+- 🟠 Posponer tareas importantes: Dejar de retrasar tareas críticas que pueden impactar negativamente en el avance general del proyecto.
 
 <br>
 
@@ -160,8 +160,8 @@ A partir de las discusiones anteriores, se han definido las siguientes acciones 
 | Acción | Responsable | Fecha límite |
 |--------|------------|--------------|
 | 🔵 **Asegurarse de realizar merges a `develop` a diario** para evitar conflictos e integraciones de gran envergadura. | Todo el equipo | Diario |
-| 🔵 **Replantear la estrategia con los usuarios piloto** para mejorar la calidad de su feedback. | Líder de Producto | Antes de la siguiente ronda de pruebas |
-| 🔵 **Implementar un plan de comunicación proactiva con los usuarios piloto**, asegurando su compromiso y claridad sobre el impacto de sus comentarios. | Líder de Comunicación | Durante el próximo sprint |
+| 🔵 **Replantear la estrategia con los usuarios piloto** para mejorar la calidad de su feedback. | Antonio y Guadalupe | Antes de la siguiente ronda de pruebas |
+| 🔵 **Implementar un plan de comunicación proactiva con los usuarios piloto**, asegurando su compromiso y claridad sobre el impacto de sus comentarios. | Antonio y Guadalupe | Durante el próximo sprint |
 
 
 <br>
