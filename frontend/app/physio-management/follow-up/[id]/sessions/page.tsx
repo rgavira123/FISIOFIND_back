@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { getApiBaseUrl } from "@/utils/api";
-import MultiSelectDropdown from "@/components/ui/MultiselectDropdown";
+import styles from "@/app/global.css";
+// Se ha eliminado la importación de MultiSelectDropdown
 
 interface Session {
   id: number;
@@ -12,8 +13,79 @@ interface Session {
   day_of_week: string[];
 }
 
-const SessionsPage = ({ params }: { params: { id: string } }) => {
-  const treatmentId = params.id;
+interface Option {
+  value: string;
+  label: string;
+}
+
+// Componente personalizado para seleccionar días
+const DaysDropdown = ({
+  options,
+  selected,
+  setSelected,
+  placeholder,
+}: {
+  options: Option[];
+  selected: string[];
+  setSelected: (value: string[]) => void;
+  placeholder: string;
+}) => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const toggleOption = (value: string) => {
+    if (selected.includes(value)) {
+      setSelected(selected.filter((day) => day !== value));
+    } else {
+      setSelected([...selected, value]);
+    }
+  };
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      <div
+        onClick={() => setDropdownOpen(!dropdownOpen)}
+        className="border border-gray-300 rounded-xl py-2 px-3 cursor-pointer text-lg" // Increased padding and text size
+      >
+        {selected.length === 0
+          ? placeholder
+          : `${selected.length} seleccionado${selected.length > 1 ? "s" : ""}`}
+      </div>
+      {dropdownOpen && (
+        <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-xl shadow-lg"> {/* Added max-height and scroll */}
+          {options.map((option) => (
+            <div
+              key={option.value}
+              onClick={() => toggleOption(option.value)}
+              className="flex items-center justify-between px-4 py-6 hover:bg-gray-100 cursor-pointer first:rounded-t-xl last:rounded-b-xl" // Increased padding and text size
+            >
+              <span className="text-gray-700">{option.label}</span>
+              {selected.includes(option.value) && (
+                <span className="text-[#6bc9be] font-bold text-xl">✓</span> // Increased checkmark size
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+// Move the SessionsContent to a separate client component
+const SessionsContent = ({ treatmentId }: { treatmentId: string }) => {
   const router = useRouter();
   const [sessions, setSessions] = useState<Session[]>([]);
   const [loading, setLoading] = useState(true);
@@ -23,7 +95,7 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
     day_of_week: [] as string[],
   });
 
-  const daysOfWeek = [
+  const daysOfWeek: Option[] = [
     { value: "Monday", label: "Lunes" },
     { value: "Tuesday", label: "Martes" },
     { value: "Wednesday", label: "Miércoles" },
@@ -37,15 +109,12 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
   const [editMode, setEditMode] = useState(false);
   const [sessionToEdit, setSessionToEdit] = useState<Session | null>(null);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-  const [sessionIdToDelete, setSessionIdToDelete] = useState<number | null>(
-    null
-  );
+  const [sessionIdToDelete, setSessionIdToDelete] = useState<number | null>(null);
 
   useEffect(() => {
     loadSessions();
   }, []);
 
-  // Update loadSessions function to use the API base URL
   const loadSessions = async () => {
     try {
       setLoading(true);
@@ -65,18 +134,14 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
         }
       );
 
-      // Rest of the function remains the same
       if (!response.ok) {
         throw new Error("Error al cargar las sesiones");
       }
 
       const data = await response.json();
-      console.log(data);
       setSessions(data);
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Error al cargar las sesiones"
-      );
+      setError(err instanceof Error ? err.message : "Error al cargar las sesiones");
     } finally {
       setLoading(false);
     }
@@ -111,19 +176,17 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
       }
 
       await loadSessions();
-      setNewSession({ name: "", day_of_week: ["Monday"] });
+      setNewSession({ name: "", day_of_week: [] });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Error al crear la sesión");
     }
   };
 
-  // Function to handle edit button click
   const handleEditClick = (session: Session) => {
     setSessionToEdit(session);
     setEditMode(true);
   };
 
-  // Function to handle session update
   const handleUpdateSession = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -136,7 +199,7 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
       }
 
       const response = await fetch(
-        `http://localhost:8000/api/treatments/sessions/${sessionToEdit.id}/`,
+        `${getApiBaseUrl()}/api/treatments/sessions/${sessionToEdit.id}/`,
         {
           method: "PUT",
           headers: {
@@ -159,25 +222,20 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
       setEditMode(false);
       setSessionToEdit(null);
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Error al actualizar la sesión"
-      );
+      setError(err instanceof Error ? err.message : "Error al actualizar la sesión");
     }
   };
 
-  // Function to cancel edit mode
   const handleCancelEdit = () => {
     setEditMode(false);
     setSessionToEdit(null);
   };
 
-  // Function to handle delete button click
   const handleDeleteClick = (sessionId: number) => {
     setSessionIdToDelete(sessionId);
     setShowDeleteConfirmation(true);
   };
 
-  // Function to confirm session deletion
   const handleDeleteSession = async () => {
     try {
       if (!sessionIdToDelete) return;
@@ -189,7 +247,7 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
       }
 
       const response = await fetch(
-        `http://localhost:8000/api/treatments/sessions/${sessionIdToDelete}/`,
+        `${getApiBaseUrl()}/api/treatments/sessions/${sessionIdToDelete}/`,
         {
           method: "DELETE",
           headers: {
@@ -207,13 +265,10 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
       setShowDeleteConfirmation(false);
       setSessionIdToDelete(null);
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Error al eliminar la sesión"
-      );
+      setError(err instanceof Error ? err.message : "Error al eliminar la sesión");
     }
   };
 
-  // Function to cancel delete confirmation
   const handleCancelDelete = () => {
     setShowDeleteConfirmation(false);
     setSessionIdToDelete(null);
@@ -246,8 +301,8 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
           </h2>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700 sr-only">
-                Nombre de la Sesión
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Nombre de la sesión
               </label>
               <input
                 type="text"
@@ -260,7 +315,10 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
               />
             </div>
             <div className="space-y-2">
-              <MultiSelectDropdown
+              <label className="block text-sm font-medium text-gray-700 mb-3">
+                Días de la semana
+              </label>
+              <DaysDropdown
                 options={daysOfWeek}
                 selected={newSession.day_of_week}
                 setSelected={(value) =>
@@ -272,7 +330,7 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
           </div>
           <button
             type="submit"
-            className="mb-8 mt-8 px-6 py-3 bg-[#6bc9be] text-white font-medium rounded-xl hover:bg-[#5ab8ad] focus:outline-none focus:ring-2 focus:ring-[#6bc9be] focus:ring-offset-2 transition-colors duration-200 flex items-center space-x-2"
+            className="mb-8 mt-8 px-6 py-3 bg-[#6bc9be] text-white font-medium rounded-xl hover:bg-[#5ab8ad] text-white font-medium rounded-xl hover:bg-[#5ab8ad] focus:outline-none focus:ring-2 focus:ring-[#6bc9be] focus:ring-offset-2 transition-colors duration-200 flex items-center space-x-2"
           >
             Crear Sesión
           </button>
@@ -364,9 +422,10 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
                   />
                 </div>
                 <div>
-                  <MultiSelectDropdown
+                  {/* En el modal de edición usamos también nuestro DaysDropdown */}
+                  <DaysDropdown
                     options={daysOfWeek}
-                    selected={sessionToEdit?.day_of_week || []}
+                    selected={sessionToEdit.day_of_week || []}
                     setSelected={(value) =>
                       setSessionToEdit((prev) =>
                         prev ? { ...prev, day_of_week: value } : prev
@@ -427,6 +486,11 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
       </div>
     </div>
   );
+};
+
+// Main page component
+const SessionsPage = ({ params }: { params: { id: string } }) => {
+  return <SessionsContent treatmentId={params.id} />;
 };
 
 export default SessionsPage;
