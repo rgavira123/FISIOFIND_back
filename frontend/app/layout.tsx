@@ -34,7 +34,8 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${poppins.variable} font-sans antialiased bg-gray-50 dark:bg-neutral-900`}
+        className={`${poppins.variable} font-sans antialiased`}
+        style={{ backgroundColor: "rgb(238, 251, 250)" }}
       >
         {/* Envolvemos todo con el AppointmentProvider */}
         <AppointmentProvider>

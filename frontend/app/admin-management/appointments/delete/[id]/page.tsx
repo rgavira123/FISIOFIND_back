@@ -55,7 +55,7 @@ export default function EliminarCitas() {
   }, [isClient, token]);
 
   useEffect(() => {
-    axios.get(`${getApiBaseUrl()}/api/app_appointment/appointment/admin/list/`+id+'/', {
+    axios.get(`${getApiBaseUrl()}/api/appointment/admin/list/`+id+'/', {
       headers : {
         "Authorization": "Bearer "+token
       }
@@ -69,7 +69,7 @@ export default function EliminarCitas() {
   }, []);
 
   function deleteCita() {
-    axios.delete(`${getApiBaseUrl()}/api/app_appointment/appointment/admin/delete/`+id+'/', {
+    axios.delete(`${getApiBaseUrl()}/api/appointment/admin/delete/`+id+'/', {
       headers : {
         "Authorization": "Bearer "+token
       }

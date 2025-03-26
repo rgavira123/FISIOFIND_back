@@ -8,9 +8,10 @@ export default function editarCitas() {
   const [fechaInicio, setFechaInicio] = useState("");
   const [fechaFinal, setFechaFinal] = useState("");
   const [esOnline, setEsOnline] = useState(true);
-  const [servicios, setServicios] = useState("");
-  const [paciente, setPaciente] = useState("");
-  const [fisio, setFisio] = useState("");
+  const [servicios, setServicios] = useState('{"type": "Rehabilitación", "duration": 45}');
+  const [alternativas, setAlternativas] = useState('{}');
+  const [paciente, setPaciente] = useState("0");
+  const [fisio, setFisio] = useState("0");
   const [estado, setEstado] = useState("finished")
   
   const [errorMessage, setErrorMessage] = useState("");
@@ -59,14 +60,15 @@ export default function editarCitas() {
       return
     }
 
-    axios.post(`${getApiBaseUrl()}/api/app_appointment/appointment/admin/create/`,{
+    axios.post(`${getApiBaseUrl()}/api/appointment/admin/create/`,{
       start_time: fechaInicio,
       end_time: fechaFinal,
       is_online: esOnline,
       service: service,
       patient: paciente,
       physiotherapist: fisio,
-      status: estado
+      status: estado,
+      alternatives: alternativas
     }, {
       headers : {
         "Authorization": "Bearer "+token
@@ -89,43 +91,40 @@ export default function editarCitas() {
     });
   }
 
-  const [pacienteFetched, setPacienteFetched] = useState(null);
-  function searchPaciente(id) {
-    axios.get(`${getApiBaseUrl()}/api/app_user/admin/user/list/`+id+'/',{
+  const [pacientesFetched, setPacientesFetched] = useState([]);
+  function searchPaciente(query) {
+    if (query.length < 3) {
+      return
+    }
+    axios.get(`${getApiBaseUrl()}/api/app_user/admin/patient/list/search/`+query+'/',{
       headers : {
         "Authorization": "Bearer "+token
       }
     }
     ).then(response => {
-        setPacienteFetched(response.data)
+        console.log(response.data)
+        setPacientesFetched(response.data)
       })
       .catch(error => {
-        if (error.response && error.response.status == 404) {
-          setPacienteFetched({"first_name":"No","last_name":"encontrado"})
-        } else {
-
-          console.error("Error fetching data:", error);
-        }
+        console.log("Error fetching data:", error);
       });
   }
 
-  const [fisioFetched, setFisioFetched] = useState(null);
-  function searcFisio(id) {
-    axios.get(`${getApiBaseUrl()}/api/app_user/admin/user/list/`+id+'/',{
+  const [fisiosFetched, setFisiosFetched] = useState([]);
+  function searcFisio(query) {
+    if (query.length < 3) {
+      return
+    }
+    axios.get(`${getApiBaseUrl()}/api/app_user/admin/physio/list/search/`+query+'/',{
       headers : {
         "Authorization": "Bearer "+token
       }
     }
     ).then(response => {
-        setFisioFetched(response.data)
+        setFisiosFetched(response.data)
       })
       .catch(error => {
-        if (error.response && error.response.status == 404) {
-          setFisioFetched({"first_name":"No","last_name":"encontrado"})
-        } else {
-
-          console.error("Error fetching data:", error);
-        }
+        console.log("Error fetching data:", error);
       });
   }
 
@@ -154,20 +153,42 @@ export default function editarCitas() {
           </div>
 
           <div>
-            <label htmlFor="paciente">ID Paciente: </label>
-            <input required type="text" id="paciente"  onChange={paciente => {setPaciente(paciente.target.value); searchPaciente(paciente.target.value)}} />
-            {pacienteFetched && <p>Paciente seleccionado: {pacienteFetched.first_name + ' ' + pacienteFetched.last_name}</p>}
+            <label htmlFor="paciente">Email/Nombre/DNI paciente: </label>
+            <input required type="text" id="paciente"  onChange={paciente => {searchPaciente(paciente.target.value)}} />
+            <select
+              value={paciente}
+              onChange={(e) => setPaciente(e.target.value)}
+              className="border p-2 rounded"
+            >
+              <option value="">Seleccionar paciente...</option>
+              {pacientesFetched && pacientesFetched.map((patient: any) => (
+                <option key={patient.id} value={patient.id}>
+                  {patient.user.first_name} {patient.user.last_name} ({patient.user.dni}) ({patient.user.email})
+                </option>
+              ))}
+            </select>
           </div>
 
           <div>
-            <label htmlFor="fisio">ID Fisioterapeuta: </label>
-            <input required type="text" id="fisio"  onChange={fisio => {setFisio(fisio.target.value); searcFisio(fisio.target.value)}} />
-            {fisioFetched && <p>Fisioterapeuta seleccionado: {fisioFetched.first_name + ' ' + fisioFetched.last_name}</p>}
+            <label htmlFor="fisio">Email/Nombre/DNI fisioterapeuta: </label>
+            <input required type="text" id="fisio"  onChange={fisio => {searcFisio(fisio.target.value)}} />
+            <select
+              value={fisio}
+              onChange={(e) => setFisio(e.target.value)}
+              className="border p-2 rounded"
+            >
+              <option value="">Seleccionar fisioterapeuta...</option>
+              {fisiosFetched && fisiosFetched.map((physio: any) => (
+                <option key={physio.id} value={physio.id}>
+                  {physio.user.first_name} {physio.user.last_name} ({physio.user.dni}) ({physio.user.email})
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="json-service">
             <label htmlFor="servicios">Servicios:</label>
-            <textarea required id="servicios" onChange={serv => setServicios(serv.target.value)}></textarea>
+            <textarea  value={servicios} required id="servicios" onChange={serv => setServicios(serv.target.value)}></textarea>
           </div>
 
           <div>
@@ -178,6 +199,11 @@ export default function editarCitas() {
               <option value="canceled">Cancelada</option>
               <option value="booked">Reservada</option>
             </select>
+          </div>
+
+          <div className="json-service">
+            <label htmlFor="alternativas">Alternativas:</label>
+            <textarea  value={alternativas} required id="alternativas" onChange={altr => setAlternativas(altr.target.value)}></textarea>
           </div>
 
           {errorMessage && <p className="text-red-500 text-wrap">*{errorMessage}</p>}

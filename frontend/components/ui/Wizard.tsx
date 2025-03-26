@@ -37,6 +37,11 @@ const Wizard: React.FC<WizardProps> = ({ steps, token, isClient }) => {
             // Obtener el nombre del fisioterapeuta
             physioName = response.data.physio_name || "";
   
+            if (!response.data.services) {
+              alert("Por favor, contacte con el administrador del servicio. Un fisioterapeuta ha configurado mal sus servicios")
+              location.href=".."
+            }
+
             Object.entries(response.data.services).forEach(
               ([_, service]: [string, any]) => {
                 if (service && typeof service === "object" && "id" in service) {
@@ -63,7 +68,7 @@ const Wizard: React.FC<WizardProps> = ({ steps, token, isClient }) => {
           }
           setServices(parsedServices);
   
-          localStorage.setItem("physioName", physioName);
+          sessionStorage.setItem("physioName", physioName);
         }
       } catch (error) {
         console.error("Error fetching services:", error);
