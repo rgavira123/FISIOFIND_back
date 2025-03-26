@@ -35,11 +35,36 @@ def create_appointment_patient(request):
 
     data = request.data.copy()
     data['patient'] = patient.id
+    physio_id = data.get('physiotherapist')
+    if not physio_id:
+        return Response({"error": "Debes proporcionar un ID de fisioterapeuta"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    physiotherapist = Physiotherapist.objects.get(id=physio_id)
+    if not physiotherapist:
+        return Response({"error": "Fisioterapeuta no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    
+    current_schedule = physiotherapist.schedule
+    if not current_schedule:
+        return Response({"error": "No se ha definido un horario para este fisioterapeuta"}, status=status.HTTP_404_NOT_FOUND)
 
     serializer = AppointmentSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
         send_appointment_email(serializer.data['id'], 'booked')
+        # Obtener las citas actualizadas
+        appointments = Appointment.objects.filter(physiotherapist=physiotherapist)
+        current_schedule['appointments'] = [
+            {
+                "start_time": appointment.start_time.strftime('%Y-%m-%dT%H:%M:%S'),
+                "end_time": appointment.end_time.strftime('%Y-%m-%dT%H:%M:%S'),
+                "status": appointment.status
+            }
+            for appointment in appointments
+        ]
+
+        # Guardar el schedule actualizado
+        physiotherapist.schedule = current_schedule
+        physiotherapist.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -111,7 +136,7 @@ def list_appointments_patient(request):
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def get_physio_schedule_by_id(request, pk):
     try:
         physiotherapist = Physiotherapist.objects.get(id=pk)
@@ -414,7 +439,7 @@ def update_appointment(request, appointment_id):
         if serializer.data['alternatives']:
             send_appointment_email(appointment.id, 'modified')
         elif serializer.data['status'] == "confirmed":
-            send_appointment_email(appointment.id, 'confirmed')
+            send_appointment_email(appointment.id, 'modified-accepted')
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -482,7 +507,7 @@ def delete_appointment(request, appointment_id):
         role = 'patient'  # El usuario es paciente
 
     # Verificar si quedan menos de 48 horas para el inicio de la cita
-    if appointment.start_time - now < timedelta(hours=48):
+    if hasattr(user, 'patient') and appointment.start_time - now < timedelta(hours=48):
         return Response({"error": "No puedes borrar una cita con menos de 48 horas de antelación"}, status=status.HTTP_403_FORBIDDEN)
 
     # Enviar el correo con el rol del usuario
@@ -521,27 +546,33 @@ def get_appointment_by_id(request, appointmentId):
         return Response({"error": "Bad request"}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])
 def confirm_appointment_using_token(request, token):
     try:
-        print("hola llego aqui")
         # Extrae y valida el token; max_age define la expiración en segundos (48 horas)
         data = signing.loads(token, max_age=48*3600)
         appointment_id = data.get('appointment_id')
+        token_physio_user_id = data.get('physio_user_id')
     except SignatureExpired:
         return Response({"error": "El token ha expirado"}, status=status.HTTP_400_BAD_REQUEST)
     except BadSignature:
-        return Response({"error": "Token inválido"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": "Token de aceptación de cita inválido"}, status=status.HTTP_400_BAD_REQUEST)
 
     # Busca la cita a partir del ID extraído del token
     try:
         appointment = Appointment.objects.get(id=appointment_id)
     except Appointment.DoesNotExist:
-        return Response({"error": "Cita no encontrada"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": "Cita no encontrada"}, status=status.HTTP_404_NOT_FOUND)
 
-    # Marca la cita como aceptada
+    # Verifica que el usuario autenticado sea el fisioterapeuta correspondiente
+    if request.user.id != token_physio_user_id:
+        return Response({"error": "No autorizado para confirmar esta cita"}, status=status.HTTP_403_FORBIDDEN)
+
+    # Marca la cita como aceptada y guarda
     appointment.status = "confirmed"
     appointment.save()
+    send_appointment_email(appointment.id, 'confirmed')
+
 
     return Response({"message": "¡Cita aceptada con éxito!"}, status=status.HTTP_200_OK)
 

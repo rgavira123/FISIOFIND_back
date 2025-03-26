@@ -416,18 +416,9 @@ const FisioProfile = () => {
             const { initialized, ...scheduleWithoutInitialized } = schedule;
             formData.append("schedule", JSON.stringify(scheduleWithoutInitialized));
             formData.append("services", JSON.stringify(services));
-    
-            // Log the form data for debugging
-            console.log("FormData being sent:");
-            for (let [key, value] of formData.entries()) {
-                console.log(`${key}: ${typeof value === 'object' ? 'File object' : value}`);
-            }
-    
+
             const response = await axios.put(`${getApiBaseUrl()}/api/app_user/physio/update/`, formData, {
-                headers: { 
-                    Authorization: "Bearer " + token, 
-                    "Content-Type": "multipart/form-data" 
-                },
+                headers: { Authorization: "Bearer " + token, "Content-Type": "multipart/form-data" },
             });
     
             if (response.status === 200) {

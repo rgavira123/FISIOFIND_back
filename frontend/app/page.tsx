@@ -13,6 +13,8 @@ import { WavyBackground } from "@/components/ui/wavy-background";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { CookieConsent } from "@/components/CookieConsent";
 
+import { useAppointment } from "@/context/appointmentContext";
+import DraftModal from "@/components/ui/draftAppointmentModal";
 interface Physiotherapist {
   id: string;
   name: string;
@@ -34,6 +36,11 @@ const Home = () => {
   const [isClient, setIsClient] = useState(false);
   const [token, setToken] = useState<string | null>(null);
   const apiBaseurl = getApiBaseUrl();
+  const [showDraftModal, setShowDraftModal] = useState(false);
+  const [draftData, setDraftData] = useState<any>(null);
+  const [returnUrl, setReturnUrl] = useState<string | null>(null);
+  const { dispatch } = useAppointment();
+
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -62,12 +69,14 @@ const Home = () => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const floatingImages = document.querySelectorAll(".floating-image");
-      
+
       // Only apply floating effect if screen is large enough
       if (window.innerWidth > 1240) {
         floatingImages.forEach((image, index) => {
           const offset = (index + 1) * 50;
-          (image as HTMLElement).style.transform = `translateX(${scrollY / offset}px)`;
+          (image as HTMLElement).style.transform = `translateX(${
+            scrollY / offset
+          }px)`;
         });
       }
     };
@@ -75,6 +84,41 @@ const Home = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Efecto para cargar el borrador unificado
+  useEffect(() => {
+    const storedDraft = localStorage.getItem("appointmentDraft");
+    if (storedDraft) {
+      const parsedDraft = JSON.parse(storedDraft);
+      setDraftData(parsedDraft);
+      setShowDraftModal(true);
+    }
+  }, []);
+
+  // Retomar borrador
+  const handleResumeDraft = () => {
+    if (draftData) {
+      // Cargamos el appointmentData en el context
+      dispatch({ type: "LOAD_DRAFT", payload: draftData.appointmentData });
+      setShowDraftModal(false);
+
+      // Redirigimos a la URL guardada (por ejemplo, Wizard)
+      if (draftData.returnUrl) {
+        router.push(draftData.returnUrl);
+      }
+    }
+  };
+
+  // Descartar borrador
+  const handleDiscardDraft = () => {
+    localStorage.removeItem("appointmentDraft");
+    dispatch({ type: "DESELECT_SERVICE" });
+    setDraftModal(false);
+  };
+
+  const setDraftModal = (value: boolean) => {
+    setShowDraftModal(value);
+  };
 
   // Datos de ejemplo para los fisioterapeutas destacados
   // const topPhysiotherapists: Physiotherapist[] = [
@@ -191,6 +235,13 @@ const Home = () => {
 
     return (
       <div className="w-full flex items-center relative">
+        {showDraftModal && draftData && (
+          <DraftModal
+            draftData={draftData}
+            onResume={handleResumeDraft}
+            onDiscard={handleDiscardDraft}
+          />
+        )}
         <section className="w-full py-4 relative overflow-hidden">
           <h2 className="text-3xl text-[#253240] font-bold mb-2 text-center">
             Encuentra a tu fisioterapeuta ideal
@@ -293,7 +344,9 @@ const Home = () => {
                         <CardItem
                           translateZ="20"
                           className="px-4 py-2 rounded-xl bg-[#1E5ACD] text-white text-sm font-bold hover:bg-[#1848A3] transition-colors"
-                          onClick={() => router.push(`/appointments/create/${physio.id}`)}
+                          onClick={() =>
+                            router.push(`/appointments/create/${physio.id}`)
+                          }
                         >
                           Reservar cita
                         </CardItem>
@@ -379,7 +432,6 @@ const Home = () => {
       {/* Unified Search Bar */}
       <SearchPhysiotherapists />
 
-
       {/* Focus Cards Section: solo se muestra si NO está autenticado */}
       {!isAuthenticated && (
         <section className="flex flex-col items-center justify-center text-center py-12 dark:bg-neutral-900">
@@ -408,24 +460,28 @@ const Home = () => {
               Inicia sesión
             </GradientButton>
           </div>
-            <section className="w-full bg-[#1E5ACD] py-4 text-center text-white rounded-lg mx-auto mt-8 max-w-4xl shadow-lg">
+          <section className="w-full bg-[#1E5ACD] py-4 text-center text-white rounded-lg mx-auto mt-8 max-w-4xl shadow-lg">
             <div className="px-4 flex flex-col sm:flex-row items-center justify-center">
               <p className="font-bold text-lg sm:text-xl mb-2 sm:mb-0">
-              ¿Eres fisioterapeuta?
+                ¿Eres fisioterapeuta?
               </p>
               <button
-              className="ml-0 sm:ml-3 px-4 py-2 bg-white text-[#1E5ACD] rounded-md font-semibold hover:bg-gray-100 transition-all"
-              onClick={() => window.open("https://fisiofind-landing-page.netlify.app/", "_blank")}
+                className="ml-0 sm:ml-3 px-4 py-2 bg-white text-[#1E5ACD] rounded-md font-semibold hover:bg-gray-100 transition-all"
+                onClick={() =>
+                  window.open(
+                    "https://fisiofind-landing-page.netlify.app/",
+                    "_blank"
+                  )
+                }
               >
-              Para más información, accede aquí
+                Para más información, accede aquí
               </button>
             </div>
-            </section>
+          </section>
           <br />
         </section>
       )}
       {/* Sección “¿Eres fisioterapeuta?” */}
-
 
       {/* Top Physiotherapists Section */}
       <section className="max-w-7xl mx-auto px-4 mb-12">
@@ -493,7 +549,11 @@ const Home = () => {
             <h3 className="text-lg font-bold mb-4">Enlaces Útiles</h3>
             <ul>
               <li>
-                <a href="https://fisiofind-landing-page.netlify.app/" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://fisiofind-landing-page.netlify.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Conoce Fisio Find
                 </a>
               </li>

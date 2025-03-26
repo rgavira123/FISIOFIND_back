@@ -67,7 +67,7 @@ export function SidebarDemo() {
     },
     {
       label: "Mis citas",
-      href: "/my-appointments",
+      href: isAuthenticated ? "/my-appointments" : "/register",
       icon: (
         <IconCalendar className="text-[#0A7487] h-5 w-5 flex-shrink-0 mx-auto" />
       ),
