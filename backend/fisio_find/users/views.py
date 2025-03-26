@@ -4,15 +4,16 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from .serializers import PatientRegisterSerializer, PatientAdminViewSerializer,PhysioUpdateSerializer, PhysioRegisterSerializer, PhysioSerializer, PatientSerializer, AppUserSerializer, AppUserAdminViewSerializer
-from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import Physiotherapist, Patient, AppUser, Admin
-from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import PatientRegisterSerializer, PhysioUpdateSerializer, PhysioRegisterSerializer
+from .serializers import PhysioSerializer, PatientSerializer, AppUserSerializer
+from .models import AppUser, Physiotherapist, Patient
 from rest_framework import generics
-from .permissions import IsAdmin, IsPatient, IsPhysiotherapist
-from django.db.models import Q
+from .permissions import IsPhysiotherapist
+from .permissions import IsPatient
 import json
-from .models import ACCOUNT_STATUS_CHOICES
+from .permissions import IsAdmin
+from django.db.models import Q
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 class PatientProfileView(generics.RetrieveAPIView):
     permission_classes = [IsPatient]
