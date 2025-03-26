@@ -8,13 +8,13 @@ import Modal from "@/components/ui/Modal";
 import Link from "next/link";
 import axios from "axios";
 import { getApiBaseUrl } from "@/utils/api";
+import { useAppointment } from "@/context/appointmentContext";
+import DraftModal from "@/components/ui/draftAppointmentModal";
 import { DemoWindow } from "@/components/demo-window";
 import { WavyBackground } from "@/components/ui/wavy-background";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { CookieConsent } from "@/components/CookieConsent";
 
-import { useAppointment } from "@/context/appointmentContext";
-import DraftModal from "@/components/ui/draftAppointmentModal";
 interface Physiotherapist {
   id: string;
   name: string;
@@ -87,7 +87,7 @@ const Home = () => {
 
   // Efecto para cargar el borrador unificado
   useEffect(() => {
-    const storedDraft = localStorage.getItem("appointmentDraft");
+    const storedDraft = sessionStorage.getItem("appointmentDraft");
     if (storedDraft) {
       const parsedDraft = JSON.parse(storedDraft);
       setDraftData(parsedDraft);
@@ -111,7 +111,7 @@ const Home = () => {
 
   // Descartar borrador
   const handleDiscardDraft = () => {
-    localStorage.removeItem("appointmentDraft");
+    sessionStorage.removeItem("appointmentDraft");
     dispatch({ type: "DESELECT_SERVICE" });
     setDraftModal(false);
   };
@@ -313,15 +313,13 @@ const Home = () => {
               <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {searchResults.map((physio, index) => (
                   <CardContainer key={index}>
-                    <CardBody className="bg-gradient-to-bl from-white to-[#65C2C9]/50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-blue-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-full min-h-[400px] rounded-xl p-6 border flex flex-col">
-                      {/* Nombre */}
+                    <CardBody className="bg-gradient-to-bl from-white to-[#65C2C9]/50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-blue-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-full min-h-[350px] rounded-xl p-6 border flex flex-col justify-between">
                       <CardItem
                         translateZ="50"
                         className="text-xl font-bold text-neutral-600 dark:text-white"
                       >
                         {physio.name}
                       </CardItem>
-                      {/* Especialidades */}
                       <CardItem
                         as="p"
                         translateZ="40"
@@ -329,28 +327,24 @@ const Home = () => {
                       >
                         {physio.specializations}
                       </CardItem>
-                      {/* Imagen estática del fisioterapeuta */}
-                      <CardItem translateZ="60" className="w-full mt-4 z-20">
+                      <CardItem translateZ="60" className="w-full">
                         <Image
                           src="/static/fisioterapeuta_sample.webp"
-                          className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl"
+                          className="h-40 w-full object-cover rounded-xl group-hover/card:shadow-xl"
                           alt="Fisioterapeuta"
                           width={500}
                           height={500}
                         />
                       </CardItem>
-                      {/* Botón para ver el perfil del fisioterapeuta */}
-                      <GradientButton>
+                      <div className="flex justify-center mt-4">
                         <CardItem
                           translateZ="20"
-                          className="px-4 py-2 rounded-xl bg-[#1E5ACD] text-white text-sm font-bold hover:bg-[#1848A3] transition-colors"
-                          onClick={() =>
-                            router.push(`/appointments/create/${physio.id}`)
-                          }
+                          className="px-6 py-2 rounded-xl bg-[#1E5ACD] hover:bg-[#5ab3a8] text-white text-sm font-bold transition-colors cursor-pointer"
+                          onClick={() => router.push(`/appointments/create/${physio.id}`)}
                         >
                           Reservar cita
                         </CardItem>
-                      </GradientButton>
+                      </div>
                     </CardBody>
                   </CardContainer>
                 ))}

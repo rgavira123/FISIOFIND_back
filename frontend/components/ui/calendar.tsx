@@ -8,6 +8,9 @@ import "@/app/my-appointments/my-appointments.css";
 import DynamicFormModal from "./dinamic-form-modal";
 import { AppointmentModal } from "./appointment-modal";
 import { CalendarProps } from "@/lib/definitions";
+import { getApiBaseUrl } from "@/utils/api";
+import axios from "axios";
+import { formatDateFromIso } from "@/lib/utils";
 
 const CalendarPage = ({
   events,
@@ -18,6 +21,7 @@ const CalendarPage = ({
   editionMode,
   isClient,
   token,
+  currentRole,
 }: {
   events: any;
   handleAlternativesSubmit: (alternatives: Record<string, { start: string; end: string }[]>) => void;
@@ -27,44 +31,43 @@ const CalendarPage = ({
   editionMode: boolean;
   isClient: boolean;
   token: string | null;
+  currentRole: string;
 }) => {
   const [hoveredEventId, setHoveredEventId] = useState<string | null>(null);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-
   return (
     <div className="min-h-screen bg-gray-50 p-2 md:p-4">
       <div className="flex flex-col lg:flex-row gap-4">
         {/* Collapsible Sidebar Toggle (visible only on mobile) */}
-        <button 
+        <button
           className="lg:hidden flex items-center justify-center bg-white rounded-lg shadow-sm p-2 mb-2"
           onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         >
           <span className="mr-2">
             {isSidebarCollapsed ? "Mostrar eventos" : "Ocultar eventos"}
           </span>
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            width="16" 
-            height="16" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            strokeWidth="2" 
-            strokeLinecap="round" 
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
             strokeLinejoin="round"
           >
-            {isSidebarCollapsed ? 
-              <path d="M9 18l6-6-6-6" /> : 
+            {isSidebarCollapsed ?
+              <path d="M9 18l6-6-6-6" /> :
               <path d="M15 18l-6-6 6-6" />
             }
           </svg>
         </button>
 
         {/* Sidebar for Event Cards */}
-        <div 
-          className={`${
-            isSidebarCollapsed ? "hidden" : "block"
-          } lg:block lg:w-1/3 xl:w-1/4 bg-white rounded-lg shadow-sm p-4 mb-4 lg:mb-0 transition-all duration-300 ease-in-out`}
+        <div
+          className={`${isSidebarCollapsed ? "hidden" : "block"
+            } lg:block lg:w-1/3 xl:w-1/4 bg-white rounded-lg shadow-sm p-4 mb-4 lg:mb-0 transition-all duration-300 ease-in-out`}
         >
           <div className="flex justify-between items-center mb-4">
             <h2 className="font-medium text-lg text-gray-700">Eventos</h2>
@@ -93,36 +96,37 @@ const CalendarPage = ({
                   className="p-3 border border-gray-100 rounded-lg hover:shadow-md transition-all duration-200 cursor-pointer bg-white hover:bg-gray-50"
                   onMouseEnter={() => setHoveredEventId(event.title)}
                   onMouseLeave={() => setHoveredEventId(null)}
-                  onClick={() => setSelectedEvent({
-                    id: event.id?.toString() || "",
-                    title: event.title?.toString() || "Sin título",
-                    start: event.start?.toString() || "",
-                    end: event.end?.toString() || "",
-                    description: event.extendedProps?.description || "Sin descripción",
-                    status: event.extendedProps?.status || "Sin estado",
-                    service: {
-                      type: event.extendedProps?.service?.type || "Sin servicio",
-                      duration: event.extendedProps?.service?.duration || 0,
-                    },
-                    alternatives: event.extendedProps?.alternatives || null,
-                  })}
+                  onClick={() =>
+                    setSelectedEvent({
+                      id: event.id?.toString() || "",
+                      title: event.title?.toString() || "Sin título",
+                      start: event.start?.toString() || "",
+                      end: event.end?.toString() || "",
+                      description: event.description || "Sin descripción",
+                      status: event.status || "Sin estado",
+                      service: {
+                        type: event.service?.type || "Sin servicio",
+                        duration: event.service?.duration || 0,
+                      },
+                      alternatives: event.extendedProps?.alternatives || null,
+                    })
+                  }
                 >
                   <div className="flex justify-between items-start">
                     <h3 className="font-medium text-gray-800 line-clamp-1">{event.title}</h3>
                     <span
-                      className={`text-xs px-2 py-1 rounded-full ${
-                        event.extendedProps?.status === "confirmed"
+                      className={`text-xs px-2 py-1 rounded-full ${event.extendedProps?.status === "confirmed"
                           ? "bg-green-50 text-green-700"
                           : event.extendedProps?.status === "pending"
-                          ? "bg-yellow-50 text-yellow-700"
-                          : "bg-blue-50 text-blue-700"
-                      }`}
+                            ? "bg-yellow-50 text-yellow-700"
+                            : "bg-blue-50 text-blue-700"
+                        }`}
                     >
                       {event.extendedProps?.status === "confirmed"
                         ? "Confirmado"
                         : event.extendedProps?.status === "pending"
-                        ? "Pendiente"
-                        : "Reservado"}
+                          ? "Pendiente"
+                          : "Reservado"}
                     </span>
                   </div>
                   <p className="text-sm text-gray-500 mt-1 flex items-center">
@@ -130,12 +134,13 @@ const CalendarPage = ({
                       <circle cx="12" cy="12" r="10"></circle>
                       <polyline points="12 6 12 12 16 14"></polyline>
                     </svg>
-                    {new Date(event.start).toLocaleString("es", {
+                    {/* {new Date(event.start).toLocaleString("es", {
                       month: "short",
                       day: "numeric",
                       hour: "2-digit",
                       minute: "2-digit",
-                    })}
+                    })} */}
+                    {formatDateFromIso(event.start)}
                   </p>
                 </div>
               ))
@@ -147,7 +152,6 @@ const CalendarPage = ({
         <div className="lg:flex-1">
           <Calendar
             events={events}
-            currentRole="admin"
             hoveredEventId={hoveredEventId}
             handleAlternativesSubmit={handleAlternativesSubmit}
             setSelectedEvent={setSelectedEvent}
@@ -156,6 +160,7 @@ const CalendarPage = ({
             editionMode={editionMode}
             isClient={isClient}
             token={token}
+            currentRole={currentRole}
           />
         </div>
       </div>
@@ -191,7 +196,6 @@ const Calendar = ({
   const currentDay = today.getDate();
   const currentMonth = today.toLocaleString("es", { month: "long" });
   const currentYear = today.getFullYear();
-
   // Load the initial view from localStorage or default to "month"
   const [view, setView] = useState(() => {
     if (typeof window !== "undefined") {
@@ -199,6 +203,71 @@ const Calendar = ({
     }
     return "month"; // Default to "month" if not on the client side
   });
+  const [schedule, setSchedule] = useState<any>(null); // Datos del schedule desde la API
+  const [physioId, setPhysioId] = useState<number | null>(null); // ID del fisioterapeuta
+
+  // Traer el schedule desde la API usando la id del fisioterapeuta
+  useEffect(() => {
+    if (isClient) {
+      if (token) {
+        if (currentRole == "physiotherapist") {
+          const getCurrentUser = async () => {
+            try {
+              const response = await axios.get(
+                `${getApiBaseUrl()}/api/app_user/current-user/`,
+                {
+                  headers: {
+                    Authorization: "Bearer " + token,
+                  }
+                }
+              );
+              if (response.status === 200) {
+                setPhysioId(response.data.physio.id);
+              }
+            } catch (error) {
+              console.error("Error fetching schedule:", error);
+            }
+          };
+          getCurrentUser();
+        }
+      }
+    }
+  }, [currentRole, token, isClient]);
+
+
+  // Traer el schedule desde la API usando la id del fisioterapeuta
+  useEffect(() => {
+    if (physioId) {
+      const fetchSchedule = async () => {
+        try {
+          const response = await axios.get(
+            `${getApiBaseUrl()}/api/appointment/schedule/${physioId}/`
+          );
+          if (response.status === 200) {
+            const parsed_schedule = {
+              schedule: {
+                exceptions: response.data.schedule.exceptions,
+                appointments: response.data.schedule.appointments,
+                weekly_schedule: {
+                  monday: response.data.schedule.weekly_schedule.monday,
+                  tuesday: response.data.schedule.weekly_schedule.tuesday,
+                  wednesday: response.data.schedule.weekly_schedule.wednesday,
+                  thursday: response.data.schedule.weekly_schedule.thursday,
+                  friday: response.data.schedule.weekly_schedule.friday,
+                  saturday: response.data.schedule.weekly_schedule.saturday,
+                  sunday: response.data.schedule.weekly_schedule.sunday,
+                },
+              },
+            }
+            setSchedule(parsed_schedule);
+          }
+        } catch (error) {
+          console.error("Error fetching schedule:", error);
+        }
+      };
+      fetchSchedule();
+    }
+  }, [physioId]);
 
   useEffect(() => {
     const calendarApi = calendarRef.current?.getApi();
@@ -207,10 +276,10 @@ const Calendar = ({
         view === "month"
           ? "dayGridMonth"
           : view === "week"
-          ? "timeGridWeek"
-          : view === "day"
-          ? "timeGridDay"
-          : "listWeek"
+            ? "timeGridWeek"
+            : view === "day"
+              ? "timeGridDay"
+              : "listWeek"
       );
     }
   }, [view]);
@@ -224,10 +293,10 @@ const Calendar = ({
         newView === "month"
           ? "dayGridMonth"
           : newView === "week"
-          ? "timeGridWeek"
-          : newView === "day"
-          ? "timeGridDay"
-          : "listWeek"
+            ? "timeGridWeek"
+            : newView === "day"
+              ? "timeGridDay"
+              : "listWeek"
       );
     }
   };
@@ -313,31 +382,28 @@ const Calendar = ({
             <div className="flex bg-blue-50 rounded-lg"> {/* Updated background color */}
               <button
                 onClick={() => handleViewChange("month")}
-                className={`px-3 py-1 text-sm font-medium rounded-l-lg transition-colors ${
-                  view === "month"
+                className={`px-3 py-1 text-sm font-medium rounded-l-lg transition-colors ${view === "month"
                     ? "bg-blue-500 text-white"
                     : "text-blue-700 hover:bg-blue-200"
-                }`}
+                  }`}
               >
                 Mes
               </button>
               <button
                 onClick={() => handleViewChange("week")}
-                className={`px-3 py-1 text-sm font-medium transition-colors ${
-                  view === "week"
+                className={`px-3 py-1 text-sm font-medium transition-colors ${view === "week"
                     ? "bg-blue-500 text-white"
                     : "text-blue-700 hover:bg-blue-200"
-                }`}
+                  }`}
               >
                 Semana
               </button>
               <button
                 onClick={() => handleViewChange("day")}
-                className={`px-3 py-1 text-sm font-medium rounded-r-lg transition-colors ${
-                  view === "day"
+                className={`px-3 py-1 text-sm font-medium rounded-r-lg transition-colors ${view === "day"
                     ? "bg-blue-500 text-white"
                     : "text-blue-700 hover:bg-blue-200"
-                }`}
+                  }`}
               >
                 Día
               </button>
@@ -411,11 +477,10 @@ const Calendar = ({
 
             return (
               <div
-                className={`w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center mx-auto ${
-                  isToday
+                className={`w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center mx-auto ${isToday
                     ? "bg-[#05AC9C] text-white font-medium"
                     : "text-[#05668D]"
-                }`}
+                  }`}
               >
                 {dayNumberText}
               </div>
@@ -507,6 +572,7 @@ const Calendar = ({
           event={selectedEvent}
           onClose={() => setEditionMode(false)}
           onSubmit={handleAlternativesSubmit}
+          schedule={schedule}
         />
       )}
     </div>

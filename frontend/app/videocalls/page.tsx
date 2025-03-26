@@ -116,7 +116,7 @@ const VideoCallPage = () => {
         </div>
       </div>
     );
-  }
+  } 
   
   if (!token || !userRole) {
     return (

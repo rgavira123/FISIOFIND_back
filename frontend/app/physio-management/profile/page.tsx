@@ -1,872 +1,890 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import axios from "axios";
-import "./photo.css";
-import ScheduleCalendar from "@/components/ui/ScheduleCalendar";
+import Image from "next/image";
 import { getApiBaseUrl } from "@/utils/api";
-import { GradientButton } from "@/components/ui/gradient-button";
-import { Mail, Phone, MapPin, FileText, Lock, Save } from "lucide-react";
-import ServiceEditModal from "@/components/service-edit-modal";
-import ServiceModal from "@/components/service-create-modal";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
-const getAuthToken = () => {
-    return localStorage.getItem("token"); // Obtiene el token JWT
+// Tipado de los datos del formulario
+interface FormData {
+  username: string;
+  email: string;
+  password: string;
+  first_name: string;
+  last_name: string;
+  dni: string;
+  phone_number: string;
+  postal_code: string;
+  gender: string;
+  birth_date: string;
+  collegiate_number: string;
+  autonomic_community: string;
+  plan: string;
+}
+
+// Opciones de género
+const GENDER_OPTIONS = [
+  { value: "M", label: "Masculino" },
+  { value: "F", label: "Femenino" },
+  { value: "O", label: "Otro" },
+];
+
+// Opciones de comunidad autónoma
+const AUTONOMIC_COMMUNITY_OPTIONS = [
+  { value: "ANDALUCIA", label: "Andalucía" },
+  { value: "ARAGON", label: "Aragón" },
+  { value: "ASTURIAS", label: "Asturias" },
+  { value: "BALEARES", label: "Baleares" },
+  { value: "CANARIAS", label: "Canarias" },
+  { value: "CANTABRIA", label: "Cantabria" },
+  { value: "CASTILLA Y LEON", label: "Castilla y León" },
+  { value: "CASTILLA-LA MANCHA", label: "Castilla-La Mancha" },
+  { value: "CATALUÑA", label: "Cataluña" },
+  { value: "EXTREMADURA", label: "Extremadura" },
+  { value: "GALICIA", label: "Galicia" },
+  { value: "MADRID", label: "Madrid" },
+  { value: "MURCIA", label: "Murcia" },
+  { value: "NAVARRA", label: "Navarra" },
+  { value: "PAIS VASCO", label: "País Vasco" },
+  { value: "LA RIOJA", label: "La Rioja" },
+  { value: "COMUNIDAD VALENCIANA", label: "Comunidad Valenciana" },
+];
+
+// Carga de Stripe
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+
+// Icono de check (para las listas)
+const CheckIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 20 20" fill="currentColor">
+    <path
+      fillRule="evenodd"
+      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+      clipRule="evenodd"
+    />
+  </svg>
+);
+
+// Icono de estrella (para destacar ventajas)
+const StarIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 20 20" fill="currentColor">
+    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+  </svg>
+);
+
+// Componente reutilizable para los campos del formulario
+const FormField = ({
+  name,
+  label,
+  type = "text",
+  options = [],
+  required = true,
+  value,
+  onChange,
+  error,
+}: {
+  name: string;
+  label: string;
+  type?: string;
+  options?: { value: string; label: string }[];
+  required?: boolean;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  error?: string;
+}) => (
+  <div className="mb-4">
+    <label
+      htmlFor={name}
+      className="block text-sm font-medium text-gray-700 dark:text-white mb-1"
+    >
+      {label} {required && <span className="text-red-500">*</span>}
+    </label>
+    {type === "select" ? (
+      <select
+        id={name}
+        name={name}
+        value={value}
+        onChange={onChange}
+        required={required}
+        className="w-full px-4 py-2 border border-gray-300 dark:border-neutral-700 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#1E5ACD] dark:bg-neutral-800 dark:text-white"
+      >
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+    ) : (
+      <input
+        type={type}
+        id={name}
+        name={name}
+        value={value}
+        onChange={onChange}
+        required={required}
+        className="w-full px-4 py-2 border border-gray-300 dark:border-neutral-700 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#1E5ACD] dark:bg-neutral-800 dark:text-white"
+      />
+    )}
+    {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+  </div>
+);
+
+// Componente para el pago (paso 5)
+interface StripePaymentFormProps {
+  amount: number; // en céntimos
+  onPaymentSuccess: () => Promise<void>;
+}
+
+const StripePaymentForm = ({ amount, onPaymentSuccess }: StripePaymentFormProps) => {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [error, setError] = useState<string | null>(null);
+  const [processing, setProcessing] = useState<boolean>(false);
+
+  const handlePaymentSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!stripe || !elements) return;
+    setError(null);
+    setProcessing(true);
+
+    try {
+      const cardElement = elements.getElement(CardElement);
+      if (!cardElement) {
+        setError("No se encontró el elemento de tarjeta.");
+        setProcessing(false);
+        return;
+      }
+
+      // Crea método de pago
+      const { error: stripeError, paymentMethod } = await stripe.createPaymentMethod({
+        type: "card",
+        card: cardElement,
+      });
+      if (stripeError) {
+        setError(stripeError.message || "Error de pago");
+        setProcessing(false);
+        return;
+      }
+
+      // Llamada a tu endpoint de pago
+      const response = await axios.post(`${getApiBaseUrl()}/api/app_user/physio/payment/`, {
+        payment_method_id: paymentMethod?.id,
+        amount,
+        currency: "eur",
+      });
+
+      if (response.data.success) {
+        // Esperamos a que se complete el registro en el padre
+        await onPaymentSuccess();
+      } else {
+        setError("El pago no fue exitoso");
+      }
+    } catch (err: any) {
+      setError("Error procesando el pago: " + err.message);
+    } finally {
+      setProcessing(false);
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold text-[#1E5ACD] text-center">
+        Pago seguro con Stripe
+      </h2>
+
+      <p className="text-center text-gray-700 dark:text-gray-300">
+        Estás a punto de pagar <strong>{(amount / 100).toFixed(2)} €</strong> al mes.
+      </p>
+
+      {processing && (
+        <p className="text-center text-blue-600 mb-2">
+          Procesando pago y validando datos...
+        </p>
+      )}
+
+      <form onSubmit={handlePaymentSubmit} className="max-w-2xl mx-auto">
+        <div className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-sm">
+          <CardElement
+            options={{
+              style: {
+                base: {
+                  fontSize: "16px",
+                  color: "#424770",
+                  "::placeholder": { color: "#aab7c4" },
+                },
+                invalid: { color: "#9e2146" },
+              },
+            }}
+            className="border border-gray-300 p-3 rounded-md"
+          />
+          {error && <p className="text-red-500 mt-2">{error}</p>}
+
+          <button
+            type="submit"
+            disabled={!stripe || processing}
+            className="w-full mt-6 bg-[#1E5ACD] hover:bg-[#1848A3] text-white font-medium py-2 rounded-md transition-colors disabled:opacity-50"
+          >
+            {processing ? "Procesando..." : "Pagar ahora"}
+          </button>
+        </div>
+      </form>
+    </div>
+  );
 };
 
-const FisioProfile = () => {
-    const [profile, setProfile] = useState({
-        user: {
-            dni: "",
-            email: "",
-            first_name: "",
-            last_name: "",
-            phone_number: "",
-            photo: "",
-            postal_code: "",
-            user_id: "",
-            username: "",
-        },
-        autonomic_community: "",
-        bio: "",
-        birth_date: "",
-        collegiate_number: "",
-        gender: "",
-        rating_avg: "",
-        schedule: "",
-        services: ""
-    });
+const PhysioSignUpForm = () => {
+  const router = useRouter();
 
-    
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
-    const [formErrors, setFormErrors] = useState({});
-    const [showServiceModal, setShowServiceModal] = useState(false);
-    const [services, setServices] = useState<Record<string, any>>({});
-    const [schedule, setSchedule] = useState({
-        exceptions: {},
-        appointments: [],
-        weekly_schedule: {
-          monday: [],
-          tuesday: [],
-          wednesday: [],
-          thursday: [],
-          friday: [],
-          saturday: [],
-          sunday: [],
-        },
-        initialized: false,
-      });
-    const [isClient, setIsClient] = useState(false);
-    const [token, setToken] = useState<string | null>(null);
-    interface PendingChanges {
-        dni?: string;
-        password?: string;
+  // currentStep: 1→2→3→4→5
+  const [currentStep, setCurrentStep] = useState<number>(1);
+
+  // Datos del formulario
+  const [formData, setFormData] = useState<FormData>({
+    username: "",
+    email: "",
+    password: "",
+    first_name: "",
+    last_name: "",
+    dni: "",
+    phone_number: "",
+    postal_code: "",
+    gender: "M",
+    birth_date: "",
+    collegiate_number: "",
+    autonomic_community: "MADRID",
+    plan: "gold",
+  });
+
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [validationMessage, setValidationMessage] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isValidating, setIsValidating] = useState<boolean>(false);
+  const [isClient, setIsClient] = useState<boolean>(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Manejo de cambios en los inputs
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      const { name, value } = e.target;
+      setFormData((prev) => ({ ...prev, [name]: value }));
+      if (errors[name]) {
+        setErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors[name];
+          return newErrors;
+        });
+      }
+    },
+    [errors]
+  );
+
+  // Validación por paso
+  const validateStep = (step: number) => {
+    const newErrors: { [key: string]: string } = {};
+    let isValid = true;
+
+    if (step === 1) {
+      if (!formData.username.trim()) {
+        newErrors.username = "El nombre de usuario es obligatorio";
+        isValid = false;
+      }
+      if (!formData.email.trim()) {
+        newErrors.email = "El email es obligatorio";
+        isValid = false;
+      } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+        newErrors.email = "Email no válido";
+        isValid = false;
+      }
+      if (!formData.password.trim()) {
+        newErrors.password = "La contraseña es obligatoria";
+        isValid = false;
+      } else if (formData.password.length < 8) {
+        newErrors.password = "La contraseña debe tener al menos 8 caracteres";
+        isValid = false;
+      }
+    } else if (step === 2) {
+      if (!formData.first_name.trim()) {
+        newErrors.first_name = "El nombre es obligatorio";
+        isValid = false;
+      }
+      if (!formData.last_name.trim()) {
+        newErrors.last_name = "Los apellidos son obligatorios";
+        isValid = false;
+      }
+      if (!formData.dni.trim()) {
+        newErrors.dni = "El DNI es obligatorio";
+        isValid = false;
+      } else if (!/^[0-9]{8}[A-Z]$/.test(formData.dni)) {
+        newErrors.dni = "Formato de DNI no válido";
+        isValid = false;
+      }
+      if (!formData.phone_number.trim()) {
+        newErrors.phone_number = "El teléfono es obligatorio";
+        isValid = false;
+      } else if (!/^\d{9}$/.test(formData.phone_number)) {
+        newErrors.phone_number = "Número de teléfono no válido";
+        isValid = false;
+      }
+      if (!formData.birth_date.trim()) {
+        newErrors.birth_date = "La fecha de nacimiento es obligatoria";
+        isValid = false;
+      }
+      if (!formData.gender) {
+        newErrors.gender = "El género es obligatorio";
+        isValid = false;
+      }
+    } else if (step === 3) {
+      // Ejemplo: podrías validar si el numero colegiado no está vacío
+      // (Aquí lo dejamos sencillo)
+    } else if (step === 4) {
+      if (!formData.plan) {
+        newErrors.plan = "Selecciona un plan para continuar";
+        isValid = false;
+      }
     }
+    setErrors(newErrors);
+    return isValid;
+  };
 
-    const [pendingChanges, setPendingChanges] = useState<PendingChanges>({});
-    const [showConfirmation, setShowConfirmation] = useState(false);
-    const [oldPassword, setOldPassword] = useState(""); // State for old password
-
-    const [showEditServiceModal, setShowEditServiceModal] = useState(false);
-    const [selectedService, setSelectedService] = useState(null);
-    const [selectedServiceName, setSelectedServiceName] = useState("");
-
-    useEffect(() => {
-        setIsClient(true);
-    }, []);
-
-    interface Service {
-        titulo: string;
-        descripcion: string;
-        precio: string;
-        frecuencia: string;
-        duracion: string;
+  // Avanzar al siguiente paso
+  const handleNextStep = () => {
+    if (validateStep(currentStep)) {
+      setCurrentStep(currentStep + 1);
     }
+  };
 
-    const handleAddService = async (newService: Service) => {
-        const updatedServices = { ...services, [newService.titulo]: newService };
-        setServices(updatedServices);
+  // Retroceder al paso anterior
+  const handlePrevStep = () => {
+    setCurrentStep(currentStep - 1);
+  };
 
-        try {
-            const storedToken = getAuthToken();
-            if (!storedToken) {
-                alert("No hay token disponible.");
-                return;
-            }
+  // Validar datos en backend antes de ir al pago (paso 5)
+  const handleProceedToPayment = async () => {
+    // Validamos 1, 2, 4 (y 3 si quieres) antes de pasar
+    if (!validateStep(1) || !validateStep(2) || !validateStep(3) || !validateStep(4)) {
+      setValidationMessage("Corrige los errores antes de proceder.");
+      return;
+    }
+    setIsValidating(true);
+    try {
+      const response = await axios.post(
+        `${getApiBaseUrl()}/api/app_user/physio/validate/`,
+        formData,
+        { headers: { "Content-Type": "application/json" } }
+      );
+      if (response.data.valid) {
+        setValidationMessage("Todos los datos son correctos. Proceda con el pago.");
+        setCurrentStep(5);
+      }
+    } catch (error: any) {
+      if (axios.isAxiosError(error) && error.response) {
+        setErrors(error.response.data);
+        setValidationMessage("Hay errores en los datos, corrígelos antes de proceder.");
+      }
+    } finally {
+      setIsValidating(false);
+    }
+  };
 
-            const response = await axios.post(
-                `${getApiBaseUrl()}/api/app_user/physio/create-service/`,
-                { services: updatedServices },
-                { headers: { Authorization: `Bearer ${storedToken}` } }
-            );
-
-            if (response.status === 200) {
-                console.log("Servicio añadido correctamente.");
-                setShowServiceModal(false); // Close the modal
-            }
-        } catch (error) {
-            console.error("Error añadiendo servicio:", error);
-            alert("Error añadiendo servicio.");
-        }
-    };
-
-    const handleServiceClick = (key, service) => {
-        setSelectedService(service);
-        setSelectedServiceName(key);
-        setShowEditServiceModal(true);
-    };
-
-    const handleDeleteService = async (serviceName) => {
-        try {
-            const storedToken = getAuthToken();
-            if (!storedToken) {
-                alert("No hay token disponible.");
-                return;
-            }
-    
-            console.log(`Deleting service: ${serviceName}`); // Add this for debugging
-            
-            // Call the delete endpoint directly
-            const response = await axios.delete(
-                `${getApiBaseUrl()}/api/app_user/physio/delete-service/${serviceName}/`,
-                { headers: { Authorization: `Bearer ${storedToken}` } }
-            );
-    
-            if (response.status === 200) {
-                console.log("Servicio eliminado correctamente.");
-                
-                // Update local state
-                const updatedServices = { ...services };
-                delete updatedServices[serviceName];
-                setServices(updatedServices);
-                
-                // Close the modal
-                setShowEditServiceModal(false);
-            }
-        } catch (error) {
-            console.error("Error eliminando servicio:", error);
-            alert(`Error eliminando servicio: ${error.response?.data?.error || error.message}`);
-        }
-    };
-
-    // Update the handleUpdateService function
-    const handleUpdateService = async (serviceName, updatedService) => {
-        try {
-            // Create a copy of the services object
-            const updatedServices = { ...services };
-            
-            // If the service name has changed, remove the old one
-            if (serviceName !== updatedService.titulo) {
-                delete updatedServices[serviceName];
-            }
-            
-            // Add/update the service with the new title as key
-            updatedServices[updatedService.titulo] = updatedService;
-            
-            // Update local state
-            setServices(updatedServices);
-            
-            // Close the modal
-            setShowEditServiceModal(false);
-            
-            // Send the updated services to the backend
-            const storedToken = getAuthToken();
-            if (!storedToken) {
-                alert("No hay token disponible.");
-                return;
-            }
-
-            const response = await axios.post(
-                `${getApiBaseUrl()}/api/app_user/physio/create-service/`,
-                { services: updatedServices },
-                { headers: { Authorization: `Bearer ${storedToken}` } }
-            );
-
-            if (response.status === 200) {
-                console.log("Servicio actualizado correctamente.");
-            }
-        } catch (error) {
-            console.error("Error actualizando servicio:", error);
-            alert("Error actualizando servicio.");
-        }
-    };
-
-    useEffect(() => {
-        fetchFisioProfile();
-        return () => {
-            if (profile.user.photo && profile.user.photo.startsWith('blob:')) {
-                URL.revokeObjectURL(profile.user.photo);
-            }
-        };
-    }, [token, isClient]);
-
-    const fetchFisioProfile = async () => {
-        if (isClient) {
-            try {
-                const storedToken = getAuthToken();
-                setToken(storedToken);
-                if (!storedToken) {
-                    setError("No hay token disponible.");
-                    setLoading(false);
-                    return;
-                }
-
-                const response = await axios.get(`${getApiBaseUrl()}/api/app_user/current-user/`, {
-                    headers: { Authorization: `Bearer ${storedToken}` },
-                });
-
-                setProfile({
-                    user: {
-                        dni: response.data.physio.user_data.dni,
-                        email: response.data.physio.user_data.email,
-                        first_name: response.data.physio.user_data.first_name,
-                        last_name: response.data.physio.user_data.last_name,
-                        phone_number: response.data.physio.user_data.phone_number,
-                        photo: response.data.physio.user_data.photo,
-                        postal_code: response.data.physio.user_data.postal_code,
-                        user_id: response.data.physio.user_data.user_id,
-                        username: response.data.physio.user_data.username,
-                    },
-                    autonomic_community: response.data.physio.autonomic_community,
-                    bio: response.data.physio.bio,
-                    birth_date: response.data.physio.birth_date,
-                    collegiate_number: response.data.physio.collegiate_number,
-                    gender: response.data.physio.gender,
-                    rating_avg: response.data.physio.rating_avg,
-                    schedule: response.data.physio.schedule,
-                    services: response.data.physio.services,
-                });
-
-                // Parse services if they are in string format
-                if (response.data.physio.services) {
-                    setServices(
-                        typeof response.data.physio.services === "string"
-                            ? JSON.parse(response.data.physio.services)
-                            : response.data.physio.services
-                    );
-                }
-
-                // Parse schedule if it is in string format
-                if (response.data.physio.schedule) {
-                    setSchedule(
-                        typeof response.data.physio.schedule === "string"
-                            ? JSON.parse(response.data.physio.schedule)
-                            : response.data.physio.schedule
-                    );
-                }
-            } catch (error) {
-                console.error("Error fetching profile:", error);
-                setError("Error obteniendo el perfil.");
-            } finally {
-                setLoading(false);
-            }
-        }
-    };
-
-    // Manejar actualizaciones del calendario
-    const handleScheduleChange = (newSchedule: typeof schedule) => {
-        setSchedule(newSchedule);
-    };
-
-    // Validaciones de los campos editables
-    const validateField = (name: string, value: string) => {
-        let error = "";
-
-        switch (name) {
-            case "email":
-                if (!value) error = "El email es obligatorio.";
-                else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) error = "Formato de email inválido.";
-                break;
-            case "phone_number":
-                if (!value) error = "El teléfono es obligatorio.";
-                else if (!/^\d+$/.test(value)) error = "Solo se permiten números.";
-                else if (value.length > 15) error = "Máximo 15 dígitos.";
-                break;
-            case "postal_code":
-                if (!value) error = "El código postal es obligatorio.";
-                else if (!/^\d+$/.test(value)) error = "Solo se permiten números.";
-                else if (value.length > 10) error = "Máximo 10 caracteres.";
-                break;
-            case "bio":
-                if (value.length > 500) error = "Máximo 500 caracteres.";
-                break;
-        }
-
-        setFormErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
-        return error === "";
-    };
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-
-        validateField(name, value);
-
-        if (name === "bio") {
-            setProfile((prevProfile) => ({ ...prevProfile, bio: value }));
-        } else {
-            setProfile((prevProfile) => ({
-                ...prevProfile,
-                user: { ...prevProfile.user, [name]: value },
-            }));
-        }
-    };
-
-    const handleSensitiveChange = (e) => {
-        const { name, value } = e.target;
-
-        setPendingChanges((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
-    
-    const confirmSensitiveChanges = async () => {
-        if (pendingChanges.password && !oldPassword) {
-            setFormErrors((prev) => ({ ...prev, password: "Debes ingresar tu contraseña actual para actualizar la contraseña." }));
-            return;
-        }
-    
-        // Update the profile state with pending changes
-        setProfile((prevProfile) => ({
-            ...prevProfile,
-            user: {
-                ...prevProfile.user,
-                ...pendingChanges,
-            },
-        }));
-        
-        // Add old password to form data if changing password
-        if (pendingChanges.password) {
-            setPendingChanges((prev) => ({
-                ...prev,
-                old_password: oldPassword
-            }));
-        }
-        
-        // Close the confirmation modal
-        setShowConfirmation(false);
-        
-        // Call the profile update function after confirming changes
-        await handleSubmit();
-    };
-    
-    const cancelSensitiveChanges = () => {
-        setPendingChanges({});
-        setShowConfirmation(false);
-    };
-
-    const handleSubmit = async (e?: React.FormEvent) => {
-        if (e) e.preventDefault(); // Prevent default only if event is provided
-    
-        // Check if sensitive fields have been changed
-        if ((pendingChanges.dni || pendingChanges.password) && !showConfirmation) {
-            setShowConfirmation(true);
-            return;
-        }
-    
-        // Validate all fields before submitting
-        const isValid = ["email", "phone_number", "postal_code", "bio"].every((field) =>
-            validateField(field, (field === "bio" ? profile.bio : profile.user[field]) || "")
+  // Registro final tras el pago
+  const registerPhysio = async () => {
+    setIsSubmitting(true);
+    try {
+      const response = await axios.post(
+        `${getApiBaseUrl()}/api/app_user/physio/register/`,
+        formData,
+        { headers: { "Content-Type": "application/json" } }
+      );
+      if (response.status === 201) {
+        // Login automático
+        const loginResponse = await axios.post(
+          `${getApiBaseUrl()}/api/app_user/login/`,
+          { username: formData.username, password: formData.password },
+          { headers: { "Content-Type": "application/json" } }
         );
-    
-        if (!isValid) {
-            alert("Por favor, corrige los errores antes de enviar.");
-            return;
+        if (loginResponse.status === 200) {
+          if (isClient) {
+            localStorage.setItem("token", loginResponse.data.access);
+            router.push("/");
+          }
         }
-    
-        try {
-            if (!token) {
-                setError("No hay token disponible.");
-                return;
-            }
-    
-            const formData = new FormData();
-            
-            // Add user data to formData
-            Object.entries(profile.user).forEach(([key, value]) => {
-                if (key !== "photoFile" && key !== "preview" && value !== undefined && key !== "photo") {
-                    formData.append(`user.${key}`, value);
-                }
-            });
-    
-            // Include the photo file if it exists
-            if (profile.user.photoFile) {
-                formData.append("photo", profile.user.photoFile);
-            }
-    
-            // Handle DNI change properly - use the pending change if it exists
-            if (pendingChanges.dni) {
-                formData.append("user.dni", pendingChanges.dni);
-            }
-            
-            // Handle password change
-            if (pendingChanges.password) {
-                formData.append("user.password", pendingChanges.password);
-                formData.append("user.old_password", oldPassword);
-            }
-    
-            formData.append("gender", profile.gender || "");
-            formData.append("birth_date", profile.birth_date || "");
-            formData.append("autonomic_community", profile.autonomic_community || "");
-            formData.append("collegiate_number", profile.collegiate_number || "");
-            formData.append("bio", profile.bio || "");
-            formData.append("rating_avg", profile.rating_avg || "");
-    
-            const { initialized, ...scheduleWithoutInitialized } = schedule;
-            formData.append("schedule", JSON.stringify(scheduleWithoutInitialized));
-            formData.append("services", JSON.stringify(services));
+      }
+    } catch (error: any) {
+      if (axios.isAxiosError(error) && error.response) {
+        setErrors(error.response.data);
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
-            const response = await axios.put(`${getApiBaseUrl()}/api/app_user/physio/update/`, formData, {
-                headers: { Authorization: "Bearer " + token, "Content-Type": "multipart/form-data" },
-            });
-    
-            if (response.status === 200) {
-                console.log("Perfil actualizado correctamente");
-                // Clear the preview and photoFile after successful update
-                if (profile.user.preview) {
-                    URL.revokeObjectURL(profile.user.preview);
-                }
-                
-                // Update the profile state with the new DNI value
-                if (pendingChanges.dni) {
-                    setProfile(prev => ({
-                        ...prev,
-                        user: {
-                            ...prev.user,
-                            dni: pendingChanges.dni,
-                            photoFile: undefined,
-                            preview: undefined
-                        }
-                    }));
-                } else {
-                    setProfile(prev => ({
-                        ...prev,
-                        user: {
-                            ...prev.user,
-                            photoFile: undefined,
-                            preview: undefined
-                        }
-                    }));
-                }
-                
-                // Clear pending changes and old password
-                setPendingChanges({});
-                setOldPassword("");
-                
-                fetchFisioProfile(); // Refresh profile data
-            }
-        } catch (error) {
-            console.error("Error updating profile:", error);
-            if (error.response) {
-                console.error("Response data:", error.response.data);
-                alert(`Error: ${JSON.stringify(error.response.data)}`);
-            } else {
-                alert("Error actualizando el perfil.");
-            }
-        }
-    };
+  // Maneja el submit en pasos 1-4
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (currentStep < 4) {
+      if (validateStep(currentStep)) {
+        setCurrentStep(currentStep + 1);
+      }
+    } else if (currentStep === 4) {
+      handleProceedToPayment();
+    }
+  };
 
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            // Revoke previous preview URL if exists
-            if (profile.user.preview) {
-                URL.revokeObjectURL(profile.user.preview);
-            }
-            
-            // Create URL for preview
-            const previewUrl = URL.createObjectURL(file);
+  // Llamado desde el formulario de pago (paso 5) cuando el pago es exitoso
+  const handlePaymentSuccess = async () => {
+    await registerPhysio();
+  };
 
-            // Update the state with the file and preview URL
-            setProfile((prevProfile) => ({
-                ...prevProfile,
-                user: {
-                    ...prevProfile.user,
-                    photoFile: file,   // For sending to the backend
-                    preview: previewUrl // For displaying in the UI
-                },
-            }));
-        }
-    };
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white dark:from-neutral-900 dark:to-black py-8">
+      <div className="max-w-5xl mx-auto px-4">
+        <div className="text-center mb-8">
+          <Image
+            src="/static/fisio_find_logo.webp"
+            alt="Fisio Find Logo"
+            width={120}
+            height={120}
+            className="mx-auto mb-4"
+          />
+          <h1 className="text-3xl font-bold text-[#1E5ACD]">Registro de Fisioterapeuta</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-2">
+            Completa el formulario para comenzar a ofrecer tus servicios
+          </p>
+        </div>
 
-    const getImageSrc = () => {
-        // If there's a preview URL (user has uploaded a new image)
-        if (profile.user.preview) {
-            return profile.user.preview;
-        }
+        <div className="bg-white dark:bg-black rounded-xl shadow-xl overflow-hidden">
+          {/* Progress Steps - 5 pasos */}
+          <div className="px-6 pt-6">
+            <div className="flex items-center w-full mb-8">
+              {/* Paso 1 */}
+              <div
+                className={`flex items-center justify-center w-10 h-10 rounded-full ${
+                  currentStep >= 1 ? "bg-[#1E5ACD] text-white" : "bg-gray-200 text-gray-600"
+                }`}
+              >
+                1
+              </div>
+              <div
+                className={`h-1 flex-1 mx-2 ${
+                  currentStep >= 2 ? "bg-[#1E5ACD]" : "bg-gray-200"
+                }`}
+              ></div>
 
-        // If there's a photo from the backend
-        if (profile?.user?.photo) {
-            // Check if the photo is already a full URL
-            if (profile.user.photo.startsWith('http')) {
-                return profile.user.photo;
-            }
-            // Otherwise, construct the URL
-            return `${getApiBaseUrl()}${profile.user.photo}`;
-        }
+              {/* Paso 2 */}
+              <div
+                className={`flex items-center justify-center w-10 h-10 rounded-full ${
+                  currentStep >= 2 ? "bg-[#1E5ACD] text-white" : "bg-gray-200 text-gray-600"
+                }`}
+              >
+                2
+              </div>
+              <div
+                className={`h-1 flex-1 mx-2 ${
+                  currentStep >= 3 ? "bg-[#1E5ACD]" : "bg-gray-200"
+                }`}
+              ></div>
 
-        // Default avatar if no photo is available
-        return "/default_avatar.png";
-    };
+              {/* Paso 3 */}
+              <div
+                className={`flex items-center justify-center w-10 h-10 rounded-full ${
+                  currentStep >= 3 ? "bg-[#1E5ACD] text-white" : "bg-gray-200 text-gray-600"
+                }`}
+              >
+                3
+              </div>
+              <div
+                className={`h-1 flex-1 mx-2 ${
+                  currentStep >= 4 ? "bg-[#1E5ACD]" : "bg-gray-200"
+                }`}
+              ></div>
 
+              {/* Paso 4 */}
+              <div
+                className={`flex items-center justify-center w-10 h-10 rounded-full ${
+                  currentStep >= 4 ? "bg-[#1E5ACD] text-white" : "bg-gray-200 text-gray-600"
+                }`}
+              >
+                4
+              </div>
+              <div
+                className={`h-1 flex-1 mx-2 ${
+                  currentStep >= 5 ? "bg-[#1E5ACD]" : "bg-gray-200"
+                }`}
+              ></div>
 
-    if (loading) {
-        return (
-          <div className="min-h-screen flex items-center justify-center p-5" 
-               style={{ backgroundColor: "rgb(238, 251, 250)" }}>
-            <div className="bg-white rounded-3xl shadow-xl p-8 w-full max-w-md text-center">
-              <div className="animate-pulse flex flex-col items-center">
-                <div className="rounded-full bg-gray-200 h-32 w-32 mb-4"></div>
-                <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-                <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+              {/* Paso 5 */}
+              <div
+                className={`flex items-center justify-center w-10 h-10 rounded-full ${
+                  currentStep >= 5 ? "bg-[#1E5ACD] text-white" : "bg-gray-200 text-gray-600"
+                }`}
+              >
+                5
               </div>
             </div>
           </div>
-        );
-      }
-      if (error) return <p>Error: {error}</p>;
 
-    return (
-        <div className="max-w-7xl mx-auto bg-gray-50 py-8 px-4 sm:px-6 lg:px-8"
-         style={{ backgroundColor: "rgb(238, 251, 250)" }}>
-            <div className="md:flex md:gap-8">
-                {/* Left Section */}
-                <div className="md:w-1/3">
-                    <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-                        {/* Profile Picture */}
-                        <div className="flex flex-col items-center mb-6">
-                            <div className="relative w-32 h-32 mb-4">
-                                <img
-                                    src={getImageSrc()}
-                                    alt="Profile"
-                                    className="w-full h-full object-cover rounded-full border-4 border-white shadow"
-                                />
-                                <label 
-                                    className="absolute bottom-0 right-0 bg-blue-500 text-white p-2 rounded-full cursor-pointer shadow-md hover:bg-blue-600 transition-colors"
-                                    htmlFor="file"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fillRule="evenodd" d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4h3a3 3 0 006 0h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm2.5 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm2.45 4a2.5 2.5 0 10-4.9 0h4.9zM12 9a1 1 0 100 2h3a1 1 0 100-2h-3zm-1 4a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clipRule="evenodd" />
-                                    </svg>
-                                </label>
-                                <input id="file" type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
-                            </div>
-                            
-                            <h2 className="text-2xl font-semibold text-gray-800">
-                                {profile?.user?.first_name + " " + profile?.user?.last_name || "Nombre"}
-                            </h2>
-                            <p className="text-gray-500">@{profile?.user?.username || "usuario"}</p>
-                        </div>
-                        
-                        {/* User Info Cards */}
-                        <div className="space-y-3 mb-6">
-                            <div className="flex items-center p-3 bg-gray-50 rounded-md">
-                                <div className="text-blue-500 mr-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fillRule="evenodd" d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4h3a3 3 0 006 0h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm2.5 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm2.45 4a2.5 2.5 0 10-4.9 0h4.9zM12 9a1 1 0 100 2h3a1 1 0 100-2h-3zm-1 4a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clipRule="evenodd" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p className="text-sm text-gray-500">DNI</p>
-                                    <p className="font-medium">{profile?.user?.dni || "No disponible"}</p>
-                                </div>
-                            </div>
-                            
-                            <div className="flex items-center p-3 bg-gray-50 rounded-md">
-                                <div className="text-blue-500 mr-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                        <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p className="text-sm text-gray-500">Número de colegiado</p>
-                                    <p className="font-medium">{profile?.collegiate_number || "No disponible"}</p>
-                                </div>
-                            </div>
-                            
-                            <div className="flex items-center p-3 bg-gray-50 rounded-md">
-                                <div className="text-blue-500 mr-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p className="text-sm text-gray-500">Colegio</p>
-                                    <p className="font-medium">{profile?.autonomic_community || "No disponible"}</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        {/* Services Section */}
-                        <div className="bg-white rounded-lg shadow-sm p-6">
-                            <div className="flex justify-between items-center mb-4">
-                                <h2 className="text-xl font-semibold text-gray-800">Servicios </h2>
-                                <GradientButton 
-                                    variant="create"
-                                    onClick={() => setShowServiceModal(!showServiceModal)}
-                                    className="px-1 flex items-center justify-center"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
-                                    </svg>
-                                    <span>Añadir servicio</span>
-                                </GradientButton>
-                            </div>
-                            
-                            <div className="border-t border-gray-200 pt-4">
-                                {Object.keys(services).length === 0 ? (
-                                    <p className="text-gray-500 text-center py-6">No hay servicios añadidos aún.</p>
-                                ) : (
-                                <div className="grid gap-4 md:grid-cols-1">
-                                    {Object.entries(services).map(([key, service]) => (
-                                        <div
-                                        key={key}
-                                        className="relative bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer border border-gray-100 overflow-hidden group w-full"
-                                        onClick={() => handleServiceClick(key, service)}
-                                       >
-                                         {/* Header section with title and optional tag */}
-                                         <div className="flex justify-between items-center p-4 pb-2 border-b border-gray-100">
-                                           <h3 className="font-bold text-xl text-gray-800 group-hover:text-blue-600 transition-colors">
-                                             {service.titulo}
-                                           </h3>
-                                           <span className="bg-blue-500 text-white text-xs px-2 py-1 rounded-full">
-                                             Servicio
-                                           </span>
-                                         </div>
-                                       
-                                         {/* Description */}
-                                         <p className="text-gray-600 text-sm px-4 py-3 leading-relaxed">
-                                           {service.descripcion}
-                                         </p>
-                                       
-                                         {/* Details section with icons */}
-                                         <div className="px-4 pb-4 space-y-2 text-sm">
-                                           <div className="flex items-center justify-between">
-                                             <div className="flex items-center text-gray-500">
-                                               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                               </svg>
-                                               <span>Precio:</span>
-                                             </div>
-                                             <span className="font-semibold text-gray-800">{service.precio}</span>
-                                           </div>
-                                           <div className="flex items-center justify-between">
-                                             <div className="flex items-center text-gray-500">
-                                               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                               </svg>
-                                               <span>Frecuencia:</span>
-                                             </div>
-                                             <span className="text-gray-700">{service.frecuencia}</span>
-                                           </div>
-                                           <div className="flex items-center justify-between">
-                                             <div className="flex items-center text-gray-500">
-                                               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                               </svg>
-                                               <span>Duración:</span>
-                                             </div>
-                                             <span className="text-gray-700">{service.duracion}</span>
-                                           </div>
-                                         </div>
-                                       </div>
-                                    ))}
-                                </div>
-                                )}
-                            </div>
-                        </div>
+          {/* Formulario pasos 1 a 4 */}
+          {currentStep < 5 && (
+            <form onSubmit={handleSubmit} className="p-6">
+              {/* Paso 1: Cuenta */}
+              {currentStep === 1 && (
+                <div className="space-y-4">
+                  <h2 className="text-xl font-semibold mb-4">Información de Cuenta</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="md:col-span-2">
+                      <FormField
+                        name="username"
+                        label="Nombre de usuario"
+                        value={formData.username}
+                        onChange={handleChange}
+                        error={errors.username}
+                      />
                     </div>
+                    <FormField
+                      name="email"
+                      label="Email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      error={errors.email}
+                    />
+                    <FormField
+                      name="password"
+                      label="Contraseña"
+                      type="password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      error={errors.password}
+                    />
+                  </div>
                 </div>
-                
-                {/* Right Section */}
-                <div className="md:w-2/3">
-                    {/* Profile Form */}
-                    <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-                        <h2 className="text-xl font-semibold text-gray-800 mb-4">Información Personal</h2>
-                        
-                        <form onSubmit={handleSubmit} className="space-y-5">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                                <div className="relative">
-                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                                    <Mail size={18} className="m-auto" />
-                                </div>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        value={profile.user.email}
-                                        onChange={handleChange}
-                                        className="w-full pl-10 pr-3 py-3 border-2 border-gray-200 rounded-xl transition-all duration-200 outline-none focus:border-blue-500 focus:shadow-[0_0_0_4px_rgba(59,130,246,0.1)]"
-                                    />
-                                </div>
-                                {formErrors.email && <p className="mt-1 text-sm text-red-600">{formErrors.email}</p>}
-                            </div>
+              )}
 
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
-                                <div className="relative">
-                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                                        <Phone size={18} />
-                                    </div>
-                                    <input
-                                        type="text"
-                                        name="phone_number"
-                                        value={profile.user.phone_number}
-                                        onChange={handleChange}
-                                        className="w-full pl-10 pr-3 py-3 border-2 border-gray-200 rounded-xl transition-all duration-200 outline-none focus:border-blue-500 focus:shadow-[0_0_0_4px_rgba(59,130,246,0.1)]"
-                                    />
-                                </div>
-                                {formErrors.phone_number && <p className="mt-1 text-sm text-red-600">{formErrors.phone_number}</p>}
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">DNI</label>
-                                    <div className="relative">
-                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                                            <FileText size={18} />
-                                        </div>
-                                        <input
-                                            type="text"
-                                            name="dni"
-                                            value={pendingChanges.dni || profile.user.dni}
-                                            onChange={handleSensitiveChange}
-                                            className="w-full pl-10 pr-3 py-3 border-2 border-gray-200 rounded-xl transition-all duration-200 outline-none focus:border-blue-500 focus:shadow-[0_0_0_4px_rgba(59,130,246,0.1)]"
-                                        />
-                                    </div>
-                                    {formErrors.dni && <p className="mt-1 text-sm text-red-600">{formErrors.dni}</p>}
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Código Postal</label>
-                                    <div className="relative">
-                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                                            <MapPin size={18} />
-                                        </div>
-                                        <input
-                                            type="text"
-                                            name="postal_code"
-                                            value={profile.user.postal_code}
-                                            onChange={handleChange}
-                                            className="w-full pl-10 pr-3 py-3 border-2 border-gray-200 rounded-xl transition-all duration-200 outline-none focus:border-blue-500 focus:shadow-[0_0_0_4px_rgba(59,130,246,0.1)]"
-                                        />
-                                    </div>
-                                    {formErrors.postal_code && <p className="mt-1 text-sm text-red-600">{formErrors.postal_code}</p>}
-                                </div>
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
-                                <div className="relative">
-                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                                        <Lock size={18} />
-                                    </div>
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        value={pendingChanges.password || "******"}
-                                        onChange={handleSensitiveChange}
-                                        className="w-full pl-10 pr-3 py-3 border-2 border-gray-200 rounded-xl transition-all duration-200 outline-none focus:border-blue-500 focus:shadow-[0_0_0_4px_rgba(59,130,246,0.1)]"
-                                    />
-                                </div>
-                                {formErrors.password && <p className="mt-1 text-sm text-red-600">{formErrors.password}</p>}
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Biografía:</label>
-                                <textarea
-                                    name="bio"
-                                    value={profile.bio ? profile.bio : ""}
-                                    onChange={handleChange}
-                                    rows={4}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                />
-                                {formErrors["bio"] && (
-                                    <p className="mt-1 text-sm text-red-600">{formErrors["bio"]}</p>
-                                )}
-                            </div>
-
-                            {/* Confirmation Modal */}
-                            {showConfirmation && (
-                                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                                    <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm">
-                                        <h2 className="text-lg font-bold mb-4">Confirmar Cambios</h2>
-                                        <p className="text-sm text-gray-600 mb-6">
-                                            Estás a punto de cambiar información sensible (DNI o contraseña). Si estás cambiando tu contraseña, ingresa tu contraseña actual.
-                                        </p>
-                                        {pendingChanges.password && (
-                                            <div className="mb-4">
-                                                <label className="block text-sm font-medium text-gray-700 mb-1">Contraseña Actual</label>
-                                                <input
-                                                    type="password"
-                                                    value={oldPassword}
-                                                    onChange={(e) => setOldPassword(e.target.value)}
-                                                    className="w-full px-3 py-2 border-2 border-gray-200 rounded-xl outline-none focus:border-blue-500 focus:shadow-[0_0_0_4px_rgba(59,130,246,0.1)]"
-                                                />
-                                                {formErrors.old_password && <p className="mt-1 text-sm text-red-600">{formErrors.old_password}</p>}
-                                            </div>
-                                        )}
-                                        <div className="flex justify-end space-x-4">
-                                            <GradientButton variant="grey" onClick={cancelSensitiveChanges}>
-                                                Cancelar
-                                            </GradientButton>
-                                            <GradientButton variant="danger" onClick={confirmSensitiveChanges}>
-                                                Confirmar
-                                            </GradientButton>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-
-                            <GradientButton variant="edit" className="mt-8 w-full py-4 px-6 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-xl transition-all duration-200 transform hover:-translate-y-0.5 flex items-center justify-center">
-                                <Save size={18} className="mr-2" />
-                                Actualizar Perfil
-                            </GradientButton>
-                        </form>
-                    </div>
-                    
-                    {/* Calendar Schedule */}
-                    <div className="bg-white rounded-lg shadow-sm p-6">
-                        <h3 className="text-lg font-semibold text-gray-800 mb-3">Calendario de disponibilidad</h3>
-                        <div className="bg-gray-50 p-3 rounded-md">
-                            <ScheduleCalendar 
-                                initialSchedule={schedule} 
-                                onScheduleChange={handleScheduleChange}
-                            />
-                        </div>
-                    </div>
+              {/* Paso 2: Personal */}
+              {currentStep === 2 && (
+                <div className="space-y-4">
+                  <h2 className="text-xl font-semibold mb-4">Información Personal</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <FormField
+                      name="first_name"
+                      label="Nombre"
+                      value={formData.first_name}
+                      onChange={handleChange}
+                      error={errors.first_name}
+                    />
+                    <FormField
+                      name="last_name"
+                      label="Apellidos"
+                      value={formData.last_name}
+                      onChange={handleChange}
+                      error={errors.last_name}
+                    />
+                    <FormField
+                      name="dni"
+                      label="DNI"
+                      value={formData.dni}
+                      onChange={handleChange}
+                      error={errors.dni}
+                    />
+                    <FormField
+                      name="phone_number"
+                      label="Número de teléfono"
+                      type="tel"
+                      value={formData.phone_number}
+                      onChange={handleChange}
+                      error={errors.phone_number}
+                    />
+                    <FormField
+                      name="birth_date"
+                      label="Fecha de nacimiento"
+                      type="date"
+                      value={formData.birth_date}
+                      onChange={handleChange}
+                      error={errors.birth_date}
+                    />
+                    <FormField
+                      name="gender"
+                      label="Género"
+                      type="select"
+                      options={GENDER_OPTIONS}
+                      value={formData.gender}
+                      onChange={handleChange}
+                      error={errors.gender}
+                    />
+                  </div>
                 </div>
+              )}
+
+              {/* Paso 3: Profesional */}
+              {currentStep === 3 && (
+                <div className="space-y-4">
+                  <h2 className="text-xl font-semibold mb-4">Información Profesional</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <FormField
+                      name="collegiate_number"
+                      label="Número Colegiado"
+                      value={formData.collegiate_number}
+                      onChange={handleChange}
+                      error={errors.collegiate_number}
+                    />
+                    <FormField
+                      name="autonomic_community"
+                      label="Comunidad Autónoma"
+                      type="select"
+                      options={AUTONOMIC_COMMUNITY_OPTIONS}
+                      value={formData.autonomic_community}
+                      onChange={handleChange}
+                      error={errors.autonomic_community}
+                    />
+                    <FormField
+                      name="postal_code"
+                      label="Código Postal"
+                      value={formData.postal_code}
+                      onChange={handleChange}
+                      error={errors.postal_code}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Paso 4: Plan */}
+              {currentStep === 4 && (
+                <div className="space-y-6">
+                  <h2 className="text-2xl font-bold text-[#1E5ACD] text-center">
+                    Selecciona tu Plan
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    {/* Fisio Blue */}
+                    <label
+                      className={`relative cursor-pointer p-6 rounded-xl border-2 transition-all ${
+                        formData.plan === "blue"
+                          ? "border-[#1E5ACD] bg-blue-50 dark:bg-blue-900/30"
+                          : "border-gray-200 hover:border-blue-200 dark:border-neutral-700 dark:hover:border-blue-600"
+                      }`}
+                    >
+                      <div className="flex items-start gap-4">
+                        <div className="mt-1">
+                          <input
+                            type="radio"
+                            name="plan"
+                            value="blue"
+                            checked={formData.plan === "blue"}
+                            onChange={() => setFormData((prev) => ({ ...prev, plan: "blue" }))}
+                            className="w-5 h-5 text-[#1E5ACD] border-2 border-gray-300 focus:ring-[#1E5ACD]"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-baseline justify-between">
+                            <h3 className="text-xl font-semibold text-[#1E5ACD]">
+                              Fisio Blue
+                            </h3>
+                            <p className="text-xl font-high">
+                              17,99€<span className="text-sm text-gray-500">/mes</span>
+                            </p>
+                          </div>
+                          <ul className="mt-4 space-y-3 text-gray-600 dark:text-gray-300">
+                            <li className="flex items-center gap-2">
+                              <CheckIcon className="w-5 h-5 text-green-500" />
+                              Videollamadas con todas las herramientas
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <CheckIcon className="w-5 h-5 text-green-500" />
+                              Seguimiento del paciente
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <CheckIcon className="w-5 h-5 text-green-500" />
+                              Chat integrado
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <CheckIcon className="w-5 h-5 text-green-500" />
+                              Subir y compartir vídeos (hasta 15)
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <CheckIcon className="w-5 h-5 text-green-500" />
+                              Soporte técnico limitado
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </label>
+
+                    {/* Fisio Gold */}
+                    <label
+                      className={`relative cursor-pointer p-6 rounded-xl border-2 transition-all ${
+                        formData.plan === "gold"
+                          ? "border-amber-400 bg-amber-50 dark:bg-amber-900/30"
+                          : "border-gray-200 hover:border-amber-200 dark:border-neutral-700 dark:hover:border-amber-600"
+                      }`}
+                    >
+                      <div className="flex items-start gap-4">
+                        <div className="mt-1">
+                          <input
+                            type="radio"
+                            name="plan"
+                            value="gold"
+                            checked={formData.plan === "gold"}
+                            onChange={() => setFormData((prev) => ({ ...prev, plan: "gold" }))}
+                            className="w-5 h-5 text-amber-500 border-2 border-gray-300 focus:ring-amber-500"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-baseline justify-between">
+                            <div className="flex items-center gap-2">
+                              <h3 className="text-xl font-semibold text-amber-600">
+                                Fisio Gold
+                              </h3>
+                              <h3 className="px-2 py-1 text-xs font-medium bg-amber-100 text-amber-800 rounded-full">
+                                MÁS POPULAR
+                              </h3>
+                            </div>
+                            <p className="text-xl font-high">
+                              24,99€<span className="text-sm text-gray-500">/mes</span>
+                            </p>
+                          </div>
+                          <ul className="mt-4 space-y-3 text-gray-600 dark:text-gray-300">
+                            <li className="flex items-center gap-2">
+                              <CheckIcon className="w-5 h-5 text-green-500" />
+                              Todas las ventajas de Fisio Blue
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <StarIcon className="w-4 h-4 text-amber-500" />
+                              Mayor alcance
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <StarIcon className="w-4 h-4 text-amber-500" />
+                              Tick de verificación
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <StarIcon className="w-4 h-4 text-amber-500" />
+                              Subir y compartir vídeos (hasta 30)
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <StarIcon className="w-4 h-4 text-amber-500" />
+                              Soporte técnico personalizado
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </label>
+                  </div>
+
+                  {errors.plan && (
+                    <p className="text-red-500 text-center mt-4">⚠️ {errors.plan}</p>
+                  )}
+                </div>
+              )}
+
+              <div className="flex justify-between mt-8">
+                {currentStep > 1 && currentStep < 5 && (
+                  <button
+                    type="button"
+                    onClick={handlePrevStep}
+                    className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
+                  >
+                    Anterior
+                  </button>
+                )}
+                {/* Botón Siguiente (pasos 1-3) */}
+                {currentStep < 4 && (
+                  <button
+                    type="button"
+                    onClick={handleNextStep}
+                    className="ml-auto px-6 py-2 bg-[#1E5ACD] hover:bg-[#1848A3] text-white font-medium rounded-md transition-colors"
+                  >
+                    Siguiente
+                  </button>
+                )}
+                {/* Botón para proceder al pago (paso 4) */}
+                {currentStep === 4 && (
+                  <button
+                    type="button"
+                    onClick={handleProceedToPayment}
+                    className="ml-auto px-6 py-2 bg-[#1E5ACD] hover:bg-[#1848A3] text-white font-medium rounded-md transition-colors"
+                  >
+                    Continuar al Pago
+                  </button>
+                )}
+              </div>
+
+              {isValidating && (
+                <p className="text-center text-blue-600 mt-4">
+                  Validando datos, por favor espere...
+                </p>
+              )}
+              {validationMessage && !isValidating && (
+                <p
+                  className={`text-center mt-4 ${
+                    validationMessage.toLowerCase().includes("corrige") ||
+                    validationMessage.toLowerCase().includes("errores")
+                      ? "text-red-600"
+                      : "text-green-600"
+                  }`}
+                >
+                  {validationMessage}
+                </p>
+              )}
+            </form>
+          )}
+
+          {/* Paso 5: Pago */}
+          {currentStep === 5 && (
+            <div className="p-6">
+              <Elements stripe={stripePromise}>
+                <StripePaymentForm
+                  amount={formData.plan === "blue" ? 1799 : 2499} // en céntimos
+                  onPaymentSuccess={handlePaymentSuccess}
+                />
+              </Elements>
+
+              {/* Mientras se está registrando al fisio */}
+              {isSubmitting && (
+                <p className="text-center text-blue-600 mt-4">
+                  Terminando de registrar tus datos...
+                </p>
+              )}
             </div>
-            
-            {/* Modal for adding services */}
-            {showServiceModal && (
-                <ServiceModal
-                    onClose={() => setShowServiceModal(false)}
-                    onSave={handleAddService}
-                />
-            )}
-
-            {/* Modals */}
-            {showServiceModal && (
-                <ServiceModal
-                    onClose={() => setShowServiceModal(false)}
-                    onSave={handleAddService}
-                />
-            )}
-            
-            {/* Add the ServiceEditModal here */}
-            {showEditServiceModal && selectedService && (
-                <ServiceEditModal
-                    service={selectedService}
-                    serviceName={selectedServiceName}
-                    onClose={() => setShowEditServiceModal(false)}
-                    onSave={handleUpdateService}
-                    onDelete={handleDeleteService}
-                />
-            )}
+          )}
         </div>
-    );
+
+        <div className="text-center mt-6">
+          <p className="text-gray-600 dark:text-gray-400">
+            ¿Ya tienes una cuenta?{" "}
+            <button
+              onClick={() => router.push("/login")}
+              className="text-[#1E5ACD] hover:underline font-medium"
+            >
+              Iniciar sesión
+            </button>
+          </p>
+          <button
+            onClick={() => router.push("/register")}
+            className="mt-4 text-gray-500 hover:text-gray-700 flex items-center gap-2 mx-auto"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+            Volver a selección de rol
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export default FisioProfile;
+export default PhysioSignUpForm;

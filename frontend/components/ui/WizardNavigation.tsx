@@ -45,46 +45,52 @@ const WizardNavigation: React.FC<WizardNavigationProps> = ({
   }, [isClient, token]);
 
   // Función para crear la cita en el backend
-  // const createAppointment = () => {
-  //   if (!token) {
-  //     setShowAuthModal(true);
-  //     return;
-  //   }
+  const createAppointment = () => {
+    if (!token) {
+      setShowAuthModal(true);
+      return;
+    }
 
-  //   if (currentRole !== "patient") {
-  //     alert("Debes estar registrado como paciente para confirmar la cita.");
-  //     router.push("/register");
-  //     return;
-  //   }
+    if (currentRole !== "patient") {
+      alert("Debes estar registrado como paciente para confirmar la cita.");
+      router.push("/register");
+      return;
+    }
 
-  //   axios
-  //     .post(
-  //       `${getApiBaseUrl()}/api/appointment/patient/`,
-  //       {
-  //         start_time: appointmentData.start_time,
-  //         end_time: appointmentData.end_time,
-  //         is_online: appointmentData.is_online,
-  //         service: appointmentData.service,
-  //         physiotherapist: appointmentData.physiotherapist,
-  //         status: "booked",
-  //         alternatives: "",
-  //       },
-  //       {
-  //         headers: { Authorization: `Bearer ${token}` },
-  //       }
-  //     )
-  //     .then(() => {
-  //       alert("La cita se realizó correctamente.");
-  //       // Eliminamos el borrador unificado
-  //       localStorage.removeItem("appointmentDraft");
-  //       localStorage.removeItem("physioName");
-  //       dispatch({ type: "DESELECT_SERVICE" });
-  //       router.push("/my-appointments");
-  //     })
-  //     .catch((error) => {
-  //       alert("Error en la creación de la cita: " + error);
-  //     });
-  // };
+    axios
+      .post(
+        `${getApiBaseUrl()}/api/appointment/patient/`,
+        {
+          start_time: appointmentData.start_time,
+          end_time: appointmentData.end_time,
+          is_online: appointmentData.is_online,
+          service: {
+                  type: appointmentData?.service.type,
+                  price: appointmentData?.service.price,
+                  duration: appointmentData.service.duration,
+                  questionaryResponses: appointmentData?.questionaryResponses,
+                },
+          physiotherapist: appointmentData.physiotherapist,
+          status: "booked",
+          alternatives: "",
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then(() => {
+        alert("La cita se realizó correctamente.");
+        // Eliminamos el borrador unificado
+        sessionStorage.removeItem("appointmentDraft");
+        sessionStorage.removeItem("physioName");
+        dispatch({ type: "DESELECT_SERVICE" });
+        router.push("/my-appointments");
+      })
+      .catch((error) => {
+        alert("Error en la creación de la cita: " + error);
+      });
+    };
+
 
   // Función para guardar el borrador unificado y redirigir
   function handleDraftSaveAndRedirect(redirectPath: string) {
@@ -92,8 +98,8 @@ const WizardNavigation: React.FC<WizardNavigationProps> = ({
     const safeDraft = { ...appointmentData };
     // Eliminamos cualquier info sensible si hace falta
     if (safeDraft.paymentInfo) delete safeDraft.paymentInfo;
-    const name = localStorage.getItem("physioName");
-    localStorage.removeItem("physioName");
+    const name = sessionStorage.getItem("physioName");
+    sessionStorage.removeItem("physioName");
     // Unificamos todo en un solo objeto
     const unifiedDraft = {
       appointmentData: safeDraft,
@@ -103,21 +109,22 @@ const WizardNavigation: React.FC<WizardNavigationProps> = ({
       physioName: name,
     };
 
-    // Guardamos en una sola entrada del localStorage
-    localStorage.setItem("appointmentDraft", JSON.stringify(unifiedDraft));
+    // Guardamos en una sola entrada del sessionStorage
+    sessionStorage.setItem("appointmentDraft", JSON.stringify(unifiedDraft));
     router.push(redirectPath);
   }
 
   return (
     <>
-      <div className="flex space-x-4 mt-6">
-        <button
-          onClick={goToPrevious}
-          className="px-4 py-2 bg-gray-300 text-black rounded disabled:opacity-50 hover:bg-logo2"
-          disabled={currentStep === 1}
-        >
-          Atrás
-        </button>
+      <div className="flex justify-center space-x-4 mt-6">
+        {currentStep !== 1 && (
+          <button
+            onClick={goToPrevious}
+            className="px-6 py-2 rounded-xl bg-white border-2 border-[#65C2C9] text-[#65C2C9] hover:bg-[#65C2C9] hover:text-white transition-colors"
+          >
+            Atrás
+          </button>
+        )}
         {currentStep === totalSteps ? (
           <></>
           // <button
@@ -129,7 +136,7 @@ const WizardNavigation: React.FC<WizardNavigationProps> = ({
         ) : (
           <button
             onClick={goToNext}
-            className="px-4 py-2 bg-gray-300 text-black rounded disabled:opacity-50 hover:bg-logo3"
+            className="px-6 py-2 rounded-xl bg-[#05668D] text-white hover:bg-[#05918F] transition-colors disabled:opacity-50"
             disabled={currentStep === totalSteps}
           >
             Siguiente
