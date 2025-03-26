@@ -1,11 +1,11 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin  # 👈 esto es lo importante
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin 
 from .models import AppUser, Patient, Physiotherapist, Admin
-from .forms import CustomUserCreationForm, CustomUserChangeForm
+from .forms import AppUserCreationForm, AppUserChangeForm
 
-class CustomUserAdmin(BaseUserAdmin):  # 👈 y aquí también
-    add_form = CustomUserCreationForm
-    form = CustomUserChangeForm
+class AppUserAdmin(BaseUserAdmin): 
+    add_form = AppUserCreationForm
+    form = AppUserChangeForm
     model = AppUser
 
     list_display = ['username', 'email', 'dni', 'account_status']
@@ -26,7 +26,7 @@ class CustomUserAdmin(BaseUserAdmin):  # 👈 y aquí también
         }),
     )
 
-admin.site.register(AppUser, CustomUserAdmin)
+admin.site.register(AppUser, AppUserAdmin)
 admin.site.register(Patient)
 admin.site.register(Physiotherapist)
 admin.site.register(Admin)
