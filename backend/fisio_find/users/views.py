@@ -148,10 +148,6 @@ def process_payment(request):
     payment_method_id = request.data.get("payment_method_id")
     amount = request.data.get("amount")
     currency = request.data.get("currency", "eur")
-    print(stripe.api_key)
-    print(payment_method_id)
-    print(amount)
-    print(currency)
     
 
     if not payment_method_id or not amount:
@@ -172,6 +168,13 @@ def process_payment(request):
             amount=amount,
             currency=currency,
             confirm=True,
+            off_session=True,
+            automatic_payment_methods={
+                'enabled': True,
+                'allow_redirects': 'never'  # Evita métodos de redirección
+},
+            
+            
         )
 
         if intent.status == "succeeded":

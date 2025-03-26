@@ -5,13 +5,11 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import Image from "next/image";
 import { getApiBaseUrl } from "@/utils/api";
-// Importa Stripe
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-// (Opcional) Componentes 3D si los usas
-import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 
+// Tipado de los datos del formulario
 interface FormData {
   username: string;
   email: string;
@@ -28,12 +26,14 @@ interface FormData {
   plan: string;
 }
 
+// Opciones de género
 const GENDER_OPTIONS = [
   { value: "M", label: "Masculino" },
   { value: "F", label: "Femenino" },
   { value: "O", label: "Otro" },
 ];
 
+// Opciones de comunidad autónoma
 const AUTONOMIC_COMMUNITY_OPTIONS = [
   { value: "ANDALUCIA", label: "Andalucía" },
   { value: "ARAGON", label: "Aragón" },
@@ -54,9 +54,10 @@ const AUTONOMIC_COMMUNITY_OPTIONS = [
   { value: "COMUNIDAD VALENCIANA", label: "Comunidad Valenciana" },
 ];
 
+// Carga de Stripe
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
-console.log("Stripe Publishable Key:", process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
+// Icono de check (para las listas)
 const CheckIcon = ({ className }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 20 20" fill="currentColor">
     <path
@@ -67,13 +68,14 @@ const CheckIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+// Icono de estrella (para destacar ventajas)
 const StarIcon = ({ className }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 20 20" fill="currentColor">
     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
   </svg>
 );
 
-// Componente para cada campo
+// Componente reutilizable para los campos del formulario
 const FormField = ({
   name,
   label,
@@ -94,7 +96,10 @@ const FormField = ({
   error?: string;
 }) => (
   <div className="mb-4">
-    <label htmlFor={name} className="block text-sm font-medium text-gray-700 dark:text-white mb-1">
+    <label
+      htmlFor={name}
+      className="block text-sm font-medium text-gray-700 dark:text-white mb-1"
+    >
       {label} {required && <span className="text-red-500">*</span>}
     </label>
     {type === "select" ? (
@@ -127,51 +132,58 @@ const FormField = ({
   </div>
 );
 
-// Componente de pago con Stripe (Paso 5)
-// Este componente es autónomo y se renderiza cuando currentStep === 5.
+// Componente para el pago (paso 5)
 interface StripePaymentFormProps {
-  amount: number;
-  onPaymentSuccess: () => void;
+  amount: number; // en céntimos
+  onPaymentSuccess: () => Promise<void>;
 }
+
 const StripePaymentForm = ({ amount, onPaymentSuccess }: StripePaymentFormProps) => {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState<string | null>(null);
-  const [processing, setProcessing] = useState(false);
+  const [processing, setProcessing] = useState<boolean>(false);
 
   const handlePaymentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!stripe || !elements) return;
+    setError(null);
     setProcessing(true);
-    const cardElement = elements.getElement(CardElement);
-    if (!cardElement) {
-      setError("Error: no se encontró el elemento de tarjeta.");
-      setProcessing(false);
-      return;
-    }
-    const { error: stripeError, paymentMethod } = await stripe.createPaymentMethod({
-      type: "card",
-      card: cardElement,
-    });
-    if (stripeError) {
-      setError(stripeError.message || "Error de pago");
-      setProcessing(false);
-      return;
-    }
+
     try {
-      // Llama al endpoint de pago configurado en /api/app_user/physio/payment/
+      const cardElement = elements.getElement(CardElement);
+      if (!cardElement) {
+        setError("No se encontró el elemento de tarjeta.");
+        setProcessing(false);
+        return;
+      }
+
+      // Crea método de pago
+      const { error: stripeError, paymentMethod } = await stripe.createPaymentMethod({
+        type: "card",
+        card: cardElement,
+      });
+      if (stripeError) {
+        setError(stripeError.message || "Error de pago");
+        setProcessing(false);
+        return;
+      }
+
+      // Llamada a tu endpoint de pago
       const response = await axios.post(`${getApiBaseUrl()}/api/app_user/physio/payment/`, {
         payment_method_id: paymentMethod?.id,
-        amount, // monto en céntimos
+        amount,
         currency: "eur",
       });
+
       if (response.data.success) {
-        onPaymentSuccess();
+        // Esperamos a que se complete el registro en el padre
+        await onPaymentSuccess();
       } else {
-        setError("Error en el pago");
+        setError("El pago no fue exitoso");
       }
-    } catch (err) {
-      setError("Error procesando el pago");
+    } catch (err: any) {
+      setError("Error procesando el pago: " + err.message);
     } finally {
       setProcessing(false);
     }
@@ -179,7 +191,20 @@ const StripePaymentForm = ({ amount, onPaymentSuccess }: StripePaymentFormProps)
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-[#1E5ACD] text-center">Pago seguro con Stripe</h2>
+      <h2 className="text-2xl font-bold text-[#1E5ACD] text-center">
+        Pago seguro con Stripe
+      </h2>
+
+      <p className="text-center text-gray-700 dark:text-gray-300">
+        Estás a punto de pagar <strong>{(amount / 100).toFixed(2)} €</strong> al mes.
+      </p>
+
+      {processing && (
+        <p className="text-center text-blue-600 mb-2">
+          Procesando pago y validando datos...
+        </p>
+      )}
+
       <form onSubmit={handlePaymentSubmit} className="max-w-2xl mx-auto">
         <div className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-sm">
           <CardElement
@@ -196,6 +221,7 @@ const StripePaymentForm = ({ amount, onPaymentSuccess }: StripePaymentFormProps)
             className="border border-gray-300 p-3 rounded-md"
           />
           {error && <p className="text-red-500 mt-2">{error}</p>}
+
           <button
             type="submit"
             disabled={!stripe || processing}
@@ -211,7 +237,11 @@ const StripePaymentForm = ({ amount, onPaymentSuccess }: StripePaymentFormProps)
 
 const PhysioSignUpForm = () => {
   const router = useRouter();
+
+  // currentStep: 1→2→3→4→5
   const [currentStep, setCurrentStep] = useState<number>(1);
+
+  // Datos del formulario
   const [formData, setFormData] = useState<FormData>({
     username: "",
     email: "",
@@ -227,6 +257,7 @@ const PhysioSignUpForm = () => {
     autonomic_community: "MADRID",
     plan: "gold",
   });
+
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [validationMessage, setValidationMessage] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -237,13 +268,14 @@ const PhysioSignUpForm = () => {
     setIsClient(true);
   }, []);
 
+  // Manejo de cambios en los inputs
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       const { name, value } = e.target;
-      setFormData((prevData) => ({ ...prevData, [name]: value }));
+      setFormData((prev) => ({ ...prev, [name]: value }));
       if (errors[name]) {
-        setErrors((prevErrors) => {
-          const newErrors = { ...prevErrors };
+        setErrors((prev) => {
+          const newErrors = { ...prev };
           delete newErrors[name];
           return newErrors;
         });
@@ -252,9 +284,11 @@ const PhysioSignUpForm = () => {
     [errors]
   );
 
+  // Validación por paso
   const validateStep = (step: number) => {
     const newErrors: { [key: string]: string } = {};
     let isValid = true;
+
     if (step === 1) {
       if (!formData.username.trim()) {
         newErrors.username = "El nombre de usuario es obligatorio";
@@ -297,6 +331,17 @@ const PhysioSignUpForm = () => {
         newErrors.phone_number = "Número de teléfono no válido";
         isValid = false;
       }
+      if (!formData.birth_date.trim()) {
+        newErrors.birth_date = "La fecha de nacimiento es obligatoria";
+        isValid = false;
+      }
+      if (!formData.gender) {
+        newErrors.gender = "El género es obligatorio";
+        isValid = false;
+      }
+    } else if (step === 3) {
+      // Ejemplo: podrías validar si el numero colegiado no está vacío
+      // (Aquí lo dejamos sencillo)
     } else if (step === 4) {
       if (!formData.plan) {
         newErrors.plan = "Selecciona un plan para continuar";
@@ -307,19 +352,22 @@ const PhysioSignUpForm = () => {
     return isValid;
   };
 
+  // Avanzar al siguiente paso
   const handleNextStep = () => {
     if (validateStep(currentStep)) {
       setCurrentStep(currentStep + 1);
     }
   };
 
+  // Retroceder al paso anterior
   const handlePrevStep = () => {
     setCurrentStep(currentStep - 1);
   };
 
-  // Valida en el backend antes de proceder al pago (paso 5)
+  // Validar datos en backend antes de ir al pago (paso 5)
   const handleProceedToPayment = async () => {
-    if (!validateStep(1) || !validateStep(2) || !validateStep(4)) {
+    // Validamos 1, 2, 4 (y 3 si quieres) antes de pasar
+    if (!validateStep(1) || !validateStep(2) || !validateStep(3) || !validateStep(4)) {
       setValidationMessage("Corrige los errores antes de proceder.");
       return;
     }
@@ -334,7 +382,7 @@ const PhysioSignUpForm = () => {
         setValidationMessage("Todos los datos son correctos. Proceda con el pago.");
         setCurrentStep(5);
       }
-    } catch (error) {
+    } catch (error: any) {
       if (axios.isAxiosError(error) && error.response) {
         setErrors(error.response.data);
         setValidationMessage("Hay errores en los datos, corrígelos antes de proceder.");
@@ -344,7 +392,7 @@ const PhysioSignUpForm = () => {
     }
   };
 
-  // Registra al fisioterapeuta tras un pago exitoso
+  // Registro final tras el pago
   const registerPhysio = async () => {
     setIsSubmitting(true);
     try {
@@ -354,6 +402,7 @@ const PhysioSignUpForm = () => {
         { headers: { "Content-Type": "application/json" } }
       );
       if (response.status === 201) {
+        // Login automático
         const loginResponse = await axios.post(
           `${getApiBaseUrl()}/api/app_user/login/`,
           { username: formData.username, password: formData.password },
@@ -366,7 +415,7 @@ const PhysioSignUpForm = () => {
           }
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       if (axios.isAxiosError(error) && error.response) {
         setErrors(error.response.data);
       }
@@ -375,7 +424,7 @@ const PhysioSignUpForm = () => {
     }
   };
 
-  // Maneja el submit para los pasos 1 a 4
+  // Maneja el submit en pasos 1-4
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (currentStep < 4) {
@@ -385,6 +434,11 @@ const PhysioSignUpForm = () => {
     } else if (currentStep === 4) {
       handleProceedToPayment();
     }
+  };
+
+  // Llamado desde el formulario de pago (paso 5) cuando el pago es exitoso
+  const handlePaymentSuccess = async () => {
+    await registerPhysio();
   };
 
   return (
@@ -398,45 +452,90 @@ const PhysioSignUpForm = () => {
             height={120}
             className="mx-auto mb-4"
           />
-          <h1 className="text-3xl font-bold text-[#1E5ACD]">
-            Registro de Fisioterapeuta
-          </h1>
+          <h1 className="text-3xl font-bold text-[#1E5ACD]">Registro de Fisioterapeuta</h1>
           <p className="text-gray-600 dark:text-gray-400 mt-2">
             Completa el formulario para comenzar a ofrecer tus servicios
           </p>
         </div>
 
         <div className="bg-white dark:bg-black rounded-xl shadow-xl overflow-hidden">
-          {/* Progress Steps */}
+          {/* Progress Steps - 5 pasos */}
           <div className="px-6 pt-6">
-            <div className="flex items-center justify-between mb-8">
-              <div className="flex items-center w-full">
-                {[1, 2, 3, 4].map((step) => (
-                  <div
-                    key={step}
-                    className={`flex items-center justify-center w-10 h-10 rounded-full ${
-                      currentStep >= step ? "bg-[#1E5ACD] text-white" : "bg-gray-200 text-gray-600"
-                    }`}
-                  >
-                    {step}
-                  </div>
-                ))}
-                {currentStep === 5 && (
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[#1E5ACD] text-white">
-                    5
-                  </div>
-                )}
+            <div className="flex items-center w-full mb-8">
+              {/* Paso 1 */}
+              <div
+                className={`flex items-center justify-center w-10 h-10 rounded-full ${
+                  currentStep >= 1 ? "bg-[#1E5ACD] text-white" : "bg-gray-200 text-gray-600"
+                }`}
+              >
+                1
+              </div>
+              <div
+                className={`h-1 flex-1 mx-2 ${
+                  currentStep >= 2 ? "bg-[#1E5ACD]" : "bg-gray-200"
+                }`}
+              ></div>
+
+              {/* Paso 2 */}
+              <div
+                className={`flex items-center justify-center w-10 h-10 rounded-full ${
+                  currentStep >= 2 ? "bg-[#1E5ACD] text-white" : "bg-gray-200 text-gray-600"
+                }`}
+              >
+                2
+              </div>
+              <div
+                className={`h-1 flex-1 mx-2 ${
+                  currentStep >= 3 ? "bg-[#1E5ACD]" : "bg-gray-200"
+                }`}
+              ></div>
+
+              {/* Paso 3 */}
+              <div
+                className={`flex items-center justify-center w-10 h-10 rounded-full ${
+                  currentStep >= 3 ? "bg-[#1E5ACD] text-white" : "bg-gray-200 text-gray-600"
+                }`}
+              >
+                3
+              </div>
+              <div
+                className={`h-1 flex-1 mx-2 ${
+                  currentStep >= 4 ? "bg-[#1E5ACD]" : "bg-gray-200"
+                }`}
+              ></div>
+
+              {/* Paso 4 */}
+              <div
+                className={`flex items-center justify-center w-10 h-10 rounded-full ${
+                  currentStep >= 4 ? "bg-[#1E5ACD] text-white" : "bg-gray-200 text-gray-600"
+                }`}
+              >
+                4
+              </div>
+              <div
+                className={`h-1 flex-1 mx-2 ${
+                  currentStep >= 5 ? "bg-[#1E5ACD]" : "bg-gray-200"
+                }`}
+              ></div>
+
+              {/* Paso 5 */}
+              <div
+                className={`flex items-center justify-center w-10 h-10 rounded-full ${
+                  currentStep >= 5 ? "bg-[#1E5ACD] text-white" : "bg-gray-200 text-gray-600"
+                }`}
+              >
+                5
               </div>
             </div>
           </div>
 
+          {/* Formulario pasos 1 a 4 */}
           {currentStep < 5 && (
             <form onSubmit={handleSubmit} className="p-6">
+              {/* Paso 1: Cuenta */}
               {currentStep === 1 && (
                 <div className="space-y-4">
-                  <h2 className="text-xl font-semibold mb-4">
-                    Información de Cuenta
-                  </h2>
+                  <h2 className="text-xl font-semibold mb-4">Información de Cuenta</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="md:col-span-2">
                       <FormField
@@ -467,11 +566,10 @@ const PhysioSignUpForm = () => {
                 </div>
               )}
 
+              {/* Paso 2: Personal */}
               {currentStep === 2 && (
                 <div className="space-y-4">
-                  <h2 className="text-xl font-semibold mb-4">
-                    Información Personal
-                  </h2>
+                  <h2 className="text-xl font-semibold mb-4">Información Personal</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <FormField
                       name="first_name"
@@ -523,11 +621,10 @@ const PhysioSignUpForm = () => {
                 </div>
               )}
 
+              {/* Paso 3: Profesional */}
               {currentStep === 3 && (
                 <div className="space-y-4">
-                  <h2 className="text-xl font-semibold mb-4">
-                    Información Profesional
-                  </h2>
+                  <h2 className="text-xl font-semibold mb-4">Información Profesional</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <FormField
                       name="collegiate_number"
@@ -556,6 +653,7 @@ const PhysioSignUpForm = () => {
                 </div>
               )}
 
+              {/* Paso 4: Plan */}
               {currentStep === 4 && (
                 <div className="space-y-6">
                   <h2 className="text-2xl font-bold text-[#1E5ACD] text-center">
@@ -577,9 +675,7 @@ const PhysioSignUpForm = () => {
                             name="plan"
                             value="blue"
                             checked={formData.plan === "blue"}
-                            onChange={() =>
-                              setFormData((prev) => ({ ...prev, plan: "blue" }))
-                            }
+                            onChange={() => setFormData((prev) => ({ ...prev, plan: "blue" }))}
                             className="w-5 h-5 text-[#1E5ACD] border-2 border-gray-300 focus:ring-[#1E5ACD]"
                           />
                         </div>
@@ -595,22 +691,18 @@ const PhysioSignUpForm = () => {
                           <ul className="mt-4 space-y-3 text-gray-600 dark:text-gray-300">
                             <li className="flex items-center gap-2">
                               <CheckIcon className="w-5 h-5 text-green-500" />
-                              <div className="h-1 bg-gray-400 rounded-full" />
                               Videollamadas con todas las herramientas
                             </li>
                             <li className="flex items-center gap-2">
                               <CheckIcon className="w-5 h-5 text-green-500" />
-                              <div className="h-1 bg-gray-400 rounded-full" />
                               Seguimiento del paciente
                             </li>
                             <li className="flex items-center gap-2">
                               <CheckIcon className="w-5 h-5 text-green-500" />
-                              <div className="h-1 bg-gray-400 rounded-full" />
                               Chat integrado
                             </li>
                             <li className="flex items-center gap-2">
                               <CheckIcon className="w-5 h-5 text-green-500" />
-                              <div className="h-1 bg-gray-400 rounded-full" />
                               Subir y compartir vídeos (hasta 15)
                             </li>
                             <li className="flex items-center gap-2">
@@ -637,9 +729,7 @@ const PhysioSignUpForm = () => {
                             name="plan"
                             value="gold"
                             checked={formData.plan === "gold"}
-                            onChange={() =>
-                              setFormData((prev) => ({ ...prev, plan: "gold" }))
-                            }
+                            onChange={() => setFormData((prev) => ({ ...prev, plan: "gold" }))}
                             className="w-5 h-5 text-amber-500 border-2 border-gray-300 focus:ring-amber-500"
                           />
                         </div>
@@ -664,22 +754,18 @@ const PhysioSignUpForm = () => {
                             </li>
                             <li className="flex items-center gap-2">
                               <StarIcon className="w-4 h-4 text-amber-500" />
-                              <div className="h-1 bg-gray-400 rounded-full" />
                               Mayor alcance
                             </li>
                             <li className="flex items-center gap-2">
                               <StarIcon className="w-4 h-4 text-amber-500" />
-                              <div className="h-1 bg-gray-400 rounded-full" />
                               Tick de verificación
                             </li>
                             <li className="flex items-center gap-2">
                               <StarIcon className="w-4 h-4 text-amber-500" />
-                              <div className="h-1 bg-gray-400 rounded-full" />
                               Subir y compartir vídeos (hasta 30)
                             </li>
                             <li className="flex items-center gap-2">
                               <StarIcon className="w-4 h-4 text-amber-500" />
-                              <div className="h-1 bg-gray-400 rounded-full" />
                               Soporte técnico personalizado
                             </li>
                           </ul>
@@ -704,7 +790,7 @@ const PhysioSignUpForm = () => {
                     Anterior
                   </button>
                 )}
-
+                {/* Botón Siguiente (pasos 1-3) */}
                 {currentStep < 4 && (
                   <button
                     type="button"
@@ -714,7 +800,7 @@ const PhysioSignUpForm = () => {
                     Siguiente
                   </button>
                 )}
-
+                {/* Botón para proceder al pago (paso 4) */}
                 {currentStep === 4 && (
                   <button
                     type="button"
@@ -731,12 +817,11 @@ const PhysioSignUpForm = () => {
                   Validando datos, por favor espere...
                 </p>
               )}
-
               {validationMessage && !isValidating && (
                 <p
                   className={`text-center mt-4 ${
                     validationMessage.toLowerCase().includes("corrige") ||
-                    validationMessage.toLowerCase().includes("hay errores")
+                    validationMessage.toLowerCase().includes("errores")
                       ? "text-red-600"
                       : "text-green-600"
                   }`}
@@ -747,15 +832,22 @@ const PhysioSignUpForm = () => {
             </form>
           )}
 
-          {/* Si currentStep es 5, renderizamos el formulario de pago fuera del formulario anterior */}
+          {/* Paso 5: Pago */}
           {currentStep === 5 && (
             <div className="p-6">
               <Elements stripe={stripePromise}>
                 <StripePaymentForm
-                  amount={formData.plan === "blue" ? 1799 : 2499}
-                  onPaymentSuccess={registerPhysio}
+                  amount={formData.plan === "blue" ? 1799 : 2499} // en céntimos
+                  onPaymentSuccess={handlePaymentSuccess}
                 />
               </Elements>
+
+              {/* Mientras se está registrando al fisio */}
+              {isSubmitting && (
+                <p className="text-center text-blue-600 mt-4">
+                  Terminando de registrar tus datos...
+                </p>
+              )}
             </div>
           )}
         </div>
