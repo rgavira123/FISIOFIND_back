@@ -155,11 +155,15 @@ form button:hover {
 }
 
 .user-profile-left img {
-  width: 300px;
-  height: 300px;
+  width: 300px; 
+  height: 100%;
+  min-height: 200px;
+  max-height: 300px; 
   border-radius: 50%;
   border: 3px solid #41B8D5;
+  object-fit: cover; 
 }
+
 
 .user-profile-left .user-info {
   margin-top: 15px;

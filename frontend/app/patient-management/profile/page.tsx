@@ -14,6 +14,8 @@ const PatientProfile = () => {
   const [profile, setProfile] = useState({
     user: {
       username: "",
+      first_name: "",
+      last_name: "",
       email: "",
       phone_number: "",
       postal_code: "",
@@ -37,66 +39,78 @@ const PatientProfile = () => {
 
   useEffect(() => {
     setIsClient(true);
+    const storedToken = getAuthToken();
+    setToken(storedToken);
   }, []);
-
+  
   useEffect(() => {
-    if (isClient) {
-      const token = getAuthToken(); // Obtiene el token de autenticación
-      setToken(token);
-      if (token) {
-        axios.get(`${getApiBaseUrl()}/api/app_user/check-role/`, {
-          headers: {
-            "Authorization": "Bearer " + token
+    if (isClient && token) {
+      axios.get(`${getApiBaseUrl()}/api/app_user/check-role/`, {
+        headers: { "Authorization": "Bearer " + token }
+      })
+        .then(response => {
+          const role = response.data.user_role;
+          if (role !== "patient") {
+            location.href = "/permissions-error/";
+          } else {
+            fetchPatientProfile();
           }
         })
-          .then(response => {
-            const role = response.data.user_role;
-            if (role !== "patient") {
-              location.href = "/permissions-error/";
-            } else {
-              fetchPatientProfile();
-            }
-          })
-          .catch(error => {
-            console.error("Error al obtener el rol del usuario:", error);
-            location.href = "/permissions-error/";
-          });
-      } else {
-        location.href = "/permissions-error/";
-      }
+        .catch(error => {
+          console.error("Error al obtener el rol del usuario:", error);
+          location.href = "/permissions-error/";
+        });
     }
   }, [token, isClient]);
-
+  
+  
 
   const fetchPatientProfile = async () => {
     setLoading(true);
     setErrors({});
     setSuccess("");
+
     try {
       if (!token) {
         setErrors({ general: "No hay token disponible." });
+        return;
+      }
+
+      const response = await axios.get(`${getApiBaseUrl()}/api/app_user/current-user/`, {
+        headers: { Authorization: "Bearer " + token },
+      });
+
+      console.log("Respuesta del backend:", response.data);
+
+      const userData = response.data.patient || response.data.physio;
+
+      if (!userData) {
+        setErrors({ general: "Usuario no válido." });
         setLoading(false);
         return;
       }
       const response = await axios.get(`${getApiBaseUrl()}/api/app_user/current-user/`, {
         headers: { Authorization: "Bearer " + token },
       });
-      console.log(response.data);
 
       setProfile({
         user: {
-          dni: response.data.patient.user_data.dni,
-          email: response.data.patient.user_data.email,
-          phone_number: response.data.patient.user_data.phone_number,
-          photo: response.data.patient.user_data.photo, // Si la foto está disponible en la respuesta
-          postal_code: response.data.patient.user_data.postal_code,
-          username: response.data.patient.user_data.username,
-          account_status: response.data.patient.user_data.account_status,
+          dni: userData.user_data.dni,
+          first_name: userData.user_data.first_name,
+          last_name: userData.user_data.last_name,
+          email: userData.user_data.email,
+          phone_number: userData.user_data.phone_number,
+          photo: userData.user_data.photo,
+          postal_code: userData.user_data.postal_code,
+          username: userData.user_data.username,
+          account_status: userData.user_data.account_status,
         },
-        birth_date: response.data.patient.birth_date,
-        gender: response.data.patient.gender
+        birth_date: userData.birth_date,
+        gender: userData.gender
       });
+
     } catch (error) {
+      console.error("Error al obtener el perfil:", error.response ? error.response.data : error);
       setErrors({ general: "Error obteniendo el perfil." });
     } finally {
       setLoading(false);
@@ -229,12 +243,13 @@ const PatientProfile = () => {
       return;
     }
 
-    try {
-      if (!token) {
-        setErrors({ general: "No hay token disponible." });
-        return;
-      }
+    // Verifica si hay token
+    if (!token) {
+      setErrors({ general: "No hay token disponible." });
+      return;
+    }
 
+    try {
       const formData = new FormData();
 
       // Add user fields, including sensitive fields like DNI and password
@@ -262,6 +277,7 @@ const PatientProfile = () => {
         formData.append("user.photo", selectedFile);
       }
 
+      // Realizar la solicitud de actualización
       const response = await axios.patch(`${getApiBaseUrl()}/api/app_user/profile/`, formData, {
         headers: {
           Authorization: "Bearer " + token,
@@ -317,7 +333,7 @@ const PatientProfile = () => {
 
     // If there's a photo from the backend
     if (profile?.user?.photo) {
-      return `${getApiBaseUrl()}${profile.user.photo}`;
+        return `${getApiBaseUrl()}/api/app_user${profile.user.photo}`;
     }
 
     // Default avatar if no photo is available
@@ -339,6 +355,12 @@ const PatientProfile = () => {
     );
   }
 
+if (loading)
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-xl font-semibold text-gray-600 animate-pulse">Cargando perfil...</p>
+      </div>
+    );
   return (
     <div className="min-h-screen flex items-center justify-center p-5" 
          style={{ backgroundColor: "rgb(238, 251, 250)" }}>
