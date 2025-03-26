@@ -1,5 +1,6 @@
 import logging
 import stripe
+import os
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view, permission_classes
@@ -142,16 +143,30 @@ def process_payment(request):
       - amount: Monto en céntimos (por ejemplo, 1799 para 17,99€).
       - currency: Moneda (por defecto "eur").
     """
-    stripe.api_key = settings.STRIPE_SECRET_KEY  # Asegúrate de que STRIPE_SECRET_KEY esté en tus settings
+
+    stripe.api_key = settings.STRIPE_SECRET_KEY
     payment_method_id = request.data.get("payment_method_id")
     amount = request.data.get("amount")
     currency = request.data.get("currency", "eur")
+    print(stripe.api_key)
+    print(payment_method_id)
+    print(amount)
+    print(currency)
+    
 
     if not payment_method_id or not amount:
+        print("estamos aqui")
         return Response({"error": "Faltan parámetros obligatorios."}, status=status.HTTP_400_BAD_REQUEST)
 
     try:
-        # Crea y confirma el PaymentIntent
+        # Aseguramos que amount es un entero
+        amount = int(amount)
+    except ValueError:
+        print("estamos aqui en el monto")
+        return Response({"error": "El monto debe ser un número entero."}, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        # Crear y confirmar el PaymentIntent
         intent = stripe.PaymentIntent.create(
             payment_method=payment_method_id,
             amount=amount,
@@ -159,10 +174,8 @@ def process_payment(request):
             confirm=True,
         )
 
-        # Si el pago se confirma correctamente
         if intent.status == "succeeded":
-            return Response({"success": True}, status=status.HTTP_200_OK)
-        # Si se requiere alguna acción adicional (por ejemplo, autenticación 3D Secure)
+            return Response({"success": True, "payment_intent": intent}, status=status.HTTP_200_OK)
         elif intent.status == "requires_action":
             return Response({
                 "requires_action": True,
@@ -172,9 +185,10 @@ def process_payment(request):
             return Response({"error": "El pago no fue exitoso.", "status": intent.status}, status=status.HTTP_400_BAD_REQUEST)
 
     except stripe.error.CardError as e:
-        # Manejo de errores específicos de tarjeta
-        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        print("error de tarjeta")
+        return Response({"error": e.user_message or str(e)}, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
+        print("error general")
         return Response({"error": "Error procesando el pago: " + str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 

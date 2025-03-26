@@ -249,7 +249,7 @@ class PatientRegisterSerializer(serializers.ModelSerializer):
 
 
 class PhysioRegisterSerializer(serializers.ModelSerializer):
-    # Validación para campos únicos con `UniqueValidator`
+    # Validación para campos únicos con UniqueValidator
     username = serializers.CharField(
         required=True,
         validators=[UniqueValidator(queryset=AppUser.objects.all(), message="El nombre de usuario ya está en uso.")]
@@ -276,7 +276,7 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
     )
     schedule = serializers.JSONField(required=False)
     plan = serializers.SlugRelatedField(
-        slug_field='name',  # Asume que el modelo PricingPlan tiene un campo 'name' con valores "blue" y "gold"
+        slug_field='name',  # Asume que el modelo Pricing tiene un campo 'name' con valores "blue" y "gold"
         queryset=Pricing.objects.all(),
         required=True,
         error_messages={
@@ -285,6 +285,7 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
         }
     )
     
+    # Campos nuevos de Stripe (solo lectura)
     stripe_subscription_id = serializers.CharField(read_only=True)
     subscription_status = serializers.CharField(read_only=True)
 
@@ -293,7 +294,8 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
         fields = [
             'username', 'email', 'password', 'dni', 'gender', 'first_name', 'last_name',
             'birth_date', 'collegiate_number', 'autonomic_community', 'phone_number', 'postal_code',
-            'bio', 'photo', 'services', 'specializations', 'schedule', 'plan', 'stripe_subscription_id', 'subscription_status'
+            'bio', 'photo', 'services', 'specializations', 'schedule', 'plan',
+            'stripe_subscription_id', 'subscription_status'
         ]
 
     def validate_password(self, value):
@@ -303,49 +305,43 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
         return value
 
     def validate(self, data):
-        """Validaciones adicionales para DNI, teléfono y código postal."""
+        """Validaciones adicionales para DNI, teléfono, código postal y colegiación."""
         validation_errors = dict()
         if not validate_dni_structure(data['dni']):
             validation_errors["dni"] = "El DNI debe tener 8 números seguidos de una letra válida."
-
         if validate_dni_match_letter(data['dni']):
             validation_errors["dni"] = "La letra del DNI no coincide con el número."
-
         if telefono_no_mide_9(data['phone_number']):
             validation_errors["phone_number"] = "El número de teléfono debe tener 9 caracteres."
-
         if codigo_postal_no_mide_5(data['postal_code']):
             validation_errors["postal_code"] = "El código postal debe tener 5 caracteres."
 
-        if validation_errors or len(validation_errors) > 1:
+        # Validar colegiación (antes se hacía en create; ahora se valida aquí)
+        first_name = data.get("first_name", "")
+        last_name = data.get("last_name", "")
+        collegiate_number = data.get("collegiate_number", "")
+        autonomic_community = data.get("autonomic_community", "")
+        if not validar_colegiacion(first_name, last_name, collegiate_number, autonomic_community):
+            validation_errors["collegiate_number"] = "El número de colegiado o nombre no son válidos."
+
+        if validation_errors:
             raise serializers.ValidationError(validation_errors)
 
         return data
 
     def create(self, validated_data):
-        """Manejo de IntegrityError con transactions para asegurar rollback en caso de fallo."""
-
+        """Crea el fisioterapeuta; la validación de colegiación ya se realizó en validate."""
         specializations_data = validated_data.pop('specializations', [])
-
         try:
             with transaction.atomic():
                 first_name = validated_data.pop('first_name')
                 last_name = validated_data.pop('last_name')
-
                 gender = validated_data.pop('gender')
                 birth_date = validated_data.pop('birth_date')
                 collegiate_number = validated_data.pop('collegiate_number')
                 autonomic_community = validated_data.pop('autonomic_community')
                 plan = validated_data.pop('plan')
 
-                # Validar número de colegiado
-                valid_physio = validar_colegiacion(first_name, last_name, collegiate_number, autonomic_community)
-
-                if not valid_physio:
-                    raise serializers.ValidationError({"collegiate_number":
-                                                      "El número de colegiado o nombre no son válidos"})
-
-                # Crear el fisioterapeuta y asociarlo al usuario
                 app_user = AppUser.objects.create(
                     username=validated_data.pop('username'),
                     email=validated_data.pop('email'),
@@ -374,8 +370,7 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
                 return physio
 
         except IntegrityError as e:
-            raise serializers.ValidationError({"error":
-                                              "Error de integridad en la base de datos. Posible duplicado de datos."})
+            raise serializers.ValidationError({"error": "Error de integridad en la base de datos. Posible duplicado de datos."})
 
     def update(self, instance, validated_data):
         """Actualiza los datos de un fisioterapeuta y su usuario asociado."""
@@ -396,8 +391,8 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
                 return instance
 
         except IntegrityError:
-            raise serializers.ValidationError({"error":
-                                              "Error de integridad en la base de datos. Posible duplicado de datos."})
+            raise serializers.ValidationError({"error": "Error de integridad en la base de datos. Posible duplicado de datos."})
+
 
 
 class PhysioUpdateSerializer(serializers.ModelSerializer):
