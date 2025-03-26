@@ -220,6 +220,7 @@ export default function GestionarPacientes() {
           {pacientes &&
             pacientes.map((paciente, key) => (
               <div key={key} className="termino-list-view">
+                <p>Id: {paciente.id}</p>
                 <p>Nombre de usuario: {paciente.user.username}</p>
                 <p>Nombre: {paciente.user.first_name}</p>
                 <p>Apellidos: {paciente.user.last_name}</p>

@@ -31,7 +31,7 @@ export default function crearPaciente() {
             }
           })
           .catch((error) => {
-            console.error("Error fetching data:", error);
+            console.log("Error fetching data:", error);
             location.href = "..";
           });
       } else {
