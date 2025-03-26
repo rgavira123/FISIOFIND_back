@@ -96,11 +96,11 @@ const DynamicFormModal = ({
 
   return (
     <div
-      className="z-10 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+      className="z-[9999] fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       onClick={onClose}
     >
       <div
-        className="bg-gray-300 p-1 rounded-2xl shadow-2xl w-[400px] relative z-50"
+        className="bg-gray-300 p-1 rounded-2xl shadow-2xl w-[400px] relative z-[9999]"
         onClick={(event) => event.stopPropagation()}
       >
         <h2 className="text-white text-xl font-bold text-center py-5 rounded-t-xl bg-[#d88c02]">

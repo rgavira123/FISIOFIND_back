@@ -21,6 +21,7 @@ urlpatterns = [
     path('update/<int:appointment_id>/', views.update_appointment, name='update_appointment'),
     path('delete/<int:appointment_id>/', views.delete_appointment, name='delete_appointment'),
     path('update/<int:appointment_id>/confirm/', views.confirm_appointment, name='confirm_appointment'),
+    path('update/<int:appointment_id>/accept-alternative/', views.accept_alternative),
     
     path('admin/create/', views.create_appointment_admin, name="create_appointment_admin"),
     path('admin/list/', views.AdminAppointmenList.as_view(), name="list_appointments_admin"),

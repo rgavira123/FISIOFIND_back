@@ -443,22 +443,24 @@ def accept_alternative(request, appointment_id):
     # Verificar que el usuario autenticado sea el paciente correspondiente
     if user.patient != appointment.patient:
         return Response({"error": "No autorizado para aceptar una alternativa de esta cita"}, status=status.HTTP_403_FORBIDDEN)
-    
-    selected_start_time = data.get("start_time")
-    selected_end_time = data.get("end_time")
+    selected_start_date = data.get("start_time")
+    selected_end_date = data.get("end_time")
 
-    if not selected_start_time or not selected_end_time:
+    if not selected_start_date or not selected_end_date:
         return Response({"error": "Debes proporcionar un 'start_time' y un 'end_time' válidos"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # Extraer la fecha y la hora de las fechas
+    selected_date = selected_start_date.split('T')[0]  # Ejemplo: "2025-04-07"
+    selected_start_time = selected_start_date.split('T')[1][:5]  # Ejemplo: "10:00"
+    selected_end_time = selected_end_date.split('T')[1][:5]      # Ejemplo: "10:45"
 
     # Validar que la selección coincida con una alternativa exacta
     valid_selection = False
-    for slots in alternatives.values():
-        for slot in slots:
+    if selected_date in alternatives:
+        for slot in alternatives[selected_date]:
             if slot["start"] == selected_start_time and slot["end"] == selected_end_time:
                 valid_selection = True
                 break
-        if valid_selection:
-            break
 
     if not valid_selection:
         return Response({"error": "El rango horario seleccionado no coincide con las alternativas disponibles"}, status=status.HTTP_400_BAD_REQUEST)
