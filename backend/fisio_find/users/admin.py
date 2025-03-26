@@ -25,6 +25,9 @@ class AppUserAdmin(BaseUserAdmin):
             ),
         }),
     )
+    
+    search_fields = ('username', 'email', 'dni', 'account_status')
+    list_filter = ('account_status', 'is_staff', 'is_active', 'groups')
 
 admin.site.register(AppUser, AppUserAdmin)
 admin.site.register(Patient)
