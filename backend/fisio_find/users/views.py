@@ -4,12 +4,14 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from .serializers import PatientRegisterSerializer, PatientAdminViewSerializer, PhysioRegisterSerializer, PhysioSerializer, PatientSerializer, AppUserSerializer, AppUserAdminViewSerializer
+from .serializers import PatientRegisterSerializer, PatientAdminViewSerializer,PhysioUpdateSerializer, PhysioRegisterSerializer, PhysioSerializer, PatientSerializer, AppUserSerializer, AppUserAdminViewSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import Physiotherapist, Patient, AppUser, Admin
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics
 from .permissions import IsAdmin, IsPatient, IsPhysiotherapist
+from django.db.models import Q
+import json
 from .models import ACCOUNT_STATUS_CHOICES
 
 class PatientProfileView(generics.RetrieveAPIView):
@@ -283,7 +285,7 @@ class AdminPatientUpdate(generics.UpdateAPIView):
     queryset = Patient.objects.all()
     serializer_class = PatientRegisterSerializer
 
-"""
+
 class AdminAppUserDetail(generics.RetrieveAPIView):
     '''
     API endpoint que retorna un solo user por su id para admin.
@@ -352,7 +354,7 @@ def admin_update_account_status(request, user_id):
     user_to_update.save()
 
     return Response({"message": "Estado de cuenta actualizado correctamente.", "new_status": new_status}, status=status.HTTP_200_OK)
-
+"""
 '''
 class AdminPatientDelete(generics.DestroyAPIView):
     
@@ -362,3 +364,4 @@ class AdminPatientDelete(generics.DestroyAPIView):
     queryset = Patient.objects.all()
     serializer_class = PatientRegisterSerializer
 '''
+"""
