@@ -73,7 +73,7 @@ export default function Home() {
           .then(response => {
             const transformedEvents = response.data.results.map((event: any) => ({
               id: event.id,
-              title: event.service.type + "-" + event.patient || "Sin título",
+              title: event.service.type + "-" + event.patient_name || "Sin título",
               start: event.start_time,  // Cambio de start_time a start
               end: event.end_time,      // Cambio de end_time a end
               description: event.description,
@@ -101,7 +101,7 @@ export default function Home() {
           .then(response => {
             const transformedEvents = response.data.map((event: any) => ({
               id: event.id,
-              title: event.service.type + "-" + event.physiotherapist || "Sin título",
+              title: event.service.type + "-" + event.physiotherapist_name || "Sin título",
               start: event.start_time,  // Cambio de start_time a start
               end: event.end_time,      // Cambio de end_time a end
               description: event.description,
@@ -167,7 +167,17 @@ export default function Home() {
   return (
     <>
       <div className="flex flex-row justify-between">
-        <Calendar events={events} currentRole={currentRole} hoveredEventId={hoveredEventId} handleAlternativesSubmit={handleAlternativesSubmit} setEditionMode={setEditionMode} editionMode={editionMode} setSelectedEvent={setSelectedEvent} selectedEvent={selectedEvent} isClient={isClient} token={token}/>
+        <Calendar 
+          events={events}
+          handleAlternativesSubmit={handleAlternativesSubmit}
+          setEditionMode={setEditionMode}
+          editionMode={editionMode}
+          setSelectedEvent={setSelectedEvent}
+          selectedEvent={selectedEvent}
+          isClient={isClient}
+          token={token}
+          currentRole={currentRole}
+        />
       </div>
 
       {data && (

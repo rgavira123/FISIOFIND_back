@@ -1,8 +1,8 @@
 from django.test import TestCase
 
 from django.shortcuts import render
-from gestion_citas.models import Appointment
-from gestion_citas.serializers import AppointmentSerializer
+from appointment.models import Appointment
+from appointment.serializers import AppointmentSerializer
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 

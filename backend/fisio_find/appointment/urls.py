@@ -1,5 +1,5 @@
 from django.urls import path
-from gestion_citas import views
+from appointment import views
 from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
@@ -8,6 +8,7 @@ urlpatterns = [
     path('physio/schedule/add-unavailable/', views.add_unavailable_day),
     path('<int:appointmentId>/', views.get_appointment_by_id, name='get_appointment_by_id'),
     path('confirm/<str:token>/', views.confirm_appointment_using_token, name='confirm_appointment'),
+    path('confirm-alternative/<str:token>/', views.confirm_alternative_appointment, name='confirm_appointment_alternatives'),
 
     #Patients
     path('patient/', views.create_appointment_patient),
@@ -20,6 +21,7 @@ urlpatterns = [
     path('update/<int:appointment_id>/', views.update_appointment, name='update_appointment'),
     path('delete/<int:appointment_id>/', views.delete_appointment, name='delete_appointment'),
     path('update/<int:appointment_id>/confirm/', views.confirm_appointment, name='confirm_appointment'),
+    path('update/<int:appointment_id>/accept-alternative/', views.accept_alternative),
     
     path('admin/create/', views.create_appointment_admin, name="create_appointment_admin"),
     path('admin/list/', views.AdminAppointmenList.as_view(), name="list_appointments_admin"),
