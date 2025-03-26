@@ -16,6 +16,7 @@ urlpatterns = [
     #Physiotherapists
     path('physio/', views.create_appointment_physio),
     path('physio/list/', views.list_appointments_physio),
+    path('physio/list/finished/', views.list_finished_appointments_physio, name='list_finished_appointments_physio'),
 
     #Update and delete
     path('update/<int:appointment_id>/', views.update_appointment, name='update_appointment'),
