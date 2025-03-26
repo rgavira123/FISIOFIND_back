@@ -294,12 +294,12 @@ class SessionDetailView(APIView):
     """
     permission_classes = [IsPhysioOrPatient]
 
-    def get(self, request, pk):
+    def get(self, request, session_id):
         """
         Ver los detalles de una sesión.
         """
         try:
-            session = Session.objects.get(pk=pk)
+            session = Session.objects.get(pk=session_id)
             treatment = session.treatment
 
             # Verificar que el usuario sea el fisioterapeuta o el paciente asociado
@@ -319,12 +319,12 @@ class SessionDetailView(APIView):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-    def put(self, request, pk):
+    def put(self, request, session_id):
         """
         Editar una sesión (solo fisioterapeutas).
         """
         try:
-            session = Session.objects.get(pk=pk)
+            session = Session.objects.get(pk=session_id)
             treatment = session.treatment
 
             # Verificar que el usuario sea el fisioterapeuta
@@ -348,12 +348,12 @@ class SessionDetailView(APIView):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-    def delete(self, request, pk):
+    def delete(self, request, session_id):
         """
         Eliminar una sesión (solo fisioterapeutas).
         """
         try:
-            session = Session.objects.get(pk=pk)
+            session = Session.objects.get(pk=session_id)
             treatment = session.treatment
 
             # Verificar que el usuario sea el fisioterapeuta
