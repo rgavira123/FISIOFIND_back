@@ -5,6 +5,7 @@ from rest_framework.response import Response
 
 from users.permissions import IsPatient, IsPhysioOrPatient, IsPhysiotherapist
 from .models import Exercise, ExerciseLog, ExerciseSession, Series, Session, SessionTest, Treatment
+from appointment.models import Appointment
 from .serializers import ExerciseLogSerializer, ExerciseSerializer, ExerciseSessionSerializer, SeriesSerializer, SessionSerializer, SessionTestResponseSerializer, SessionTestSerializer, TreatmentSerializer, TreatmentDetailSerializer
 
 class TreatmentCreateView(APIView):

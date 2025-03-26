@@ -8,7 +8,7 @@ class AppointmentSerializer(serializers.Serializer):
     end_time = serializers.DateTimeField()
     is_online = serializers.BooleanField()
     service = serializers.JSONField()
-    patient = serializers.PrimaryKeyRelatedField(queryset=Patient.objects.all(), write_only=True)
+    patient = serializers.PrimaryKeyRelatedField(queryset=Patient.objects.all())  # Removed write_only=True
     physiotherapist = serializers.PrimaryKeyRelatedField(queryset=Physiotherapist.objects.all(), write_only=True)
     
     # En salida (GET): devuelves el nombre del paciente y del fisio

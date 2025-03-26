@@ -764,3 +764,28 @@ class AdminAppointmenDelete(generics.DestroyAPIView):
     queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializer
 """
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated, IsPhysiotherapist])
+def list_finished_appointments_physio(request):
+    """
+    Lista las citas finalizadas de un fisioterapeuta.
+    """
+    physiotherapist = request.user.physio
+    if physiotherapist is None:
+        return Response(
+            {'detail': 'Debe ser fisioterapeuta para ver las citas'}, 
+            status=status.HTTP_403_FORBIDDEN
+        )
+    
+    # Filtrar por estado finalizado
+    status_filter = request.query_params.get('status', 'finished')
+    
+    appointments = Appointment.objects.filter(
+        physiotherapist=physiotherapist,
+        status=status_filter
+    ).order_by('-end_time')
+    
+    serializer = AppointmentSerializer(appointments, many=True)
+    return Response(serializer.data)
