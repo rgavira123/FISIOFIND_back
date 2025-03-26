@@ -45,46 +45,52 @@ const WizardNavigation: React.FC<WizardNavigationProps> = ({
   }, [isClient, token]);
 
   // Función para crear la cita en el backend
-  // const createAppointment = () => {
-  //   if (!token) {
-  //     setShowAuthModal(true);
-  //     return;
-  //   }
+  const createAppointment = () => {
+    if (!token) {
+      setShowAuthModal(true);
+      return;
+    }
 
-  //   if (currentRole !== "patient") {
-  //     alert("Debes estar registrado como paciente para confirmar la cita.");
-  //     router.push("/register");
-  //     return;
-  //   }
+    if (currentRole !== "patient") {
+      alert("Debes estar registrado como paciente para confirmar la cita.");
+      router.push("/register");
+      return;
+    }
 
-  //   axios
-  //     .post(
-  //       `${getApiBaseUrl()}/api/appointment/patient/`,
-  //       {
-  //         start_time: appointmentData.start_time,
-  //         end_time: appointmentData.end_time,
-  //         is_online: appointmentData.is_online,
-  //         service: appointmentData.service,
-  //         physiotherapist: appointmentData.physiotherapist,
-  //         status: "booked",
-  //         alternatives: "",
-  //       },
-  //       {
-  //         headers: { Authorization: `Bearer ${token}` },
-  //       }
-  //     )
-  //     .then(() => {
-  //       alert("La cita se realizó correctamente.");
-  //       // Eliminamos el borrador unificado
-  //       localStorage.removeItem("appointmentDraft");
-  //       localStorage.removeItem("physioName");
-  //       dispatch({ type: "DESELECT_SERVICE" });
-  //       router.push("/my-appointments");
-  //     })
-  //     .catch((error) => {
-  //       alert("Error en la creación de la cita: " + error);
-  //     });
-  // };
+    axios
+      .post(
+        `${getApiBaseUrl()}/api/appointment/patient/`,
+        {
+          start_time: appointmentData.start_time,
+          end_time: appointmentData.end_time,
+          is_online: appointmentData.is_online,
+          service: {
+                  type: appointmentData?.service.type,
+                  price: appointmentData?.service.price,
+                  duration: appointmentData.service.duration,
+                  questionaryResponses: appointmentData?.questionaryResponses,
+                },
+          physiotherapist: appointmentData.physiotherapist,
+          status: "booked",
+          alternatives: "",
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then(() => {
+        alert("La cita se realizó correctamente.");
+        // Eliminamos el borrador unificado
+        sessionStorage.removeItem("appointmentDraft");
+        sessionStorage.removeItem("physioName");
+        dispatch({ type: "DESELECT_SERVICE" });
+        router.push("/my-appointments");
+      })
+      .catch((error) => {
+        alert("Error en la creación de la cita: " + error);
+      });
+    };
+
 
   // Función para guardar el borrador unificado y redirigir
   function handleDraftSaveAndRedirect(redirectPath: string) {
