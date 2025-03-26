@@ -11,6 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Configuración básica
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-temporary-key-for-deployment')
+PAYMENT_API_KEY = os.getenv("PAYMENT_API_KEY", 'key')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = [
@@ -59,11 +60,15 @@ INSTALLED_APPS += [
 
 # Apps propias
 INSTALLED_APPS += [
-    'gestion_usuarios',
-    'gestion_citas',
-    'gestion_terminos',
-    'sesion_invitado'
+    'users',
+    'appointment',
+    'terms',
+    'guest_session',
+    'treatments',
+    'gestion_survey',
+    'payment',
 ]
+
 
 # Otras apps
 INSTALLED_APPS += [
@@ -191,7 +196,7 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
 
-AUTH_USER_MODEL = 'gestion_usuarios.AppUser'
+AUTH_USER_MODEL = 'users.AppUser'
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -213,3 +218,26 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+#Stripe payment
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+
+
+
+
+DIGITALOCEAN_ACCESS_KEY_ID = "DO801T22Y6LWLUV2R4RE"
+DIGITALOCEAN_SECRET_ACCESS_KEY = "hHkSrRsu61YP+BqQP3GL+GtGeqDfzPVpn8sMaLDVkVY"
+DIGITALOCEAN_SPACE_NAME = "fisiofind-repo"
+DIGITALOCEAN_REGION = "fra1"  # Ejemplo: nyc3, ams3, sgp1
+DIGITALOCEAN_ENDPOINT_URL = f"https://{DIGITALOCEAN_SPACE_NAME}.{DIGITALOCEAN_REGION}.digitaloceanspaces.com"
+
+# Configuración de almacenamiento en DigitalOcean Spaces
+DEFAULT_FILE_STORAGE = "backend.custom_storages.DigitalOceanMediaStorage"
+MEDIA_URL = f"{DIGITALOCEAN_ENDPOINT_URL}/"
+
+
+# Aumentar límite de tamaño de archivos subidos
+DATA_UPLOAD_MAX_MEMORY_SIZE = 524288000  # 500MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 524288000  # 500MB
