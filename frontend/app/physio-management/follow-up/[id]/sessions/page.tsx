@@ -1,14 +1,15 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { getApiBaseUrl } from '@/utils/api';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { getApiBaseUrl } from "@/utils/api";
+import MultiSelectDropdown from "@/components/ui/MultiselectDropdown";
 
 interface Session {
   id: number;
   name: string;
   treatment: number;
-  day_of_week: string;
+  day_of_week: string[];
 }
 
 const SessionsPage = ({ params }: { params: { id: string } }) => {
@@ -19,7 +20,7 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
   const [error, setError] = useState<string | null>(null);
   const [newSession, setNewSession] = useState({
     name: "",
-    day_of_week: "Monday",
+    day_of_week: [] as string[],
   });
 
   const daysOfWeek = [
@@ -48,18 +49,21 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
   const loadSessions = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) {
-        setError('No se ha encontrado el token de autenticación');
+        setError("No se ha encontrado el token de autenticación");
         return;
       }
 
-      const response = await fetch(`${getApiBaseUrl()}/api/treatments/${treatmentId}/sessions/`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
+      const response = await fetch(
+        `${getApiBaseUrl()}/api/treatments/${treatmentId}/sessions/`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         }
-      });
+      );
 
       // Rest of the function remains the same
       if (!response.ok) {
@@ -81,30 +85,33 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
   const handleCreateSession = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) {
-        setError('No se ha encontrado el token de autenticación');
+        setError("No se ha encontrado el token de autenticación");
         return;
       }
 
-      const response = await fetch(`${getApiBaseUrl()}/api/treatments/${treatmentId}/sessions/create/`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          ...newSession,
-          treatment: treatmentId
-        })
-      });
+      const response = await fetch(
+        `${getApiBaseUrl()}/api/treatments/${treatmentId}/sessions/create/`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...newSession,
+            treatment: treatmentId,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Error al crear la sesión");
       }
 
       await loadSessions();
-      setNewSession({ name: "", day_of_week: "Monday" });
+      setNewSession({ name: "", day_of_week: ["Monday"] });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Error al crear la sesión");
     }
@@ -253,22 +260,14 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700 sr-only">
-                Día de la Semana
-              </label>
-              <select
-                value={newSession.day_of_week}
-                onChange={(e) =>
-                  setNewSession({ ...newSession, day_of_week: e.target.value })
+              <MultiSelectDropdown
+                options={daysOfWeek}
+                selected={newSession.day_of_week}
+                setSelected={(value) =>
+                  setNewSession({ ...newSession, day_of_week: value })
                 }
-                className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
-              >
-                {daysOfWeek.map((day) => (
-                  <option key={day.value} value={day.value}>
-                    {day.label}
-                  </option>
-                ))}
-              </select>
+                placeholder="Selecciona los días de la semana"
+              />
             </div>
           </div>
           <button
@@ -281,17 +280,44 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {sessions.map((session) => (
-            <div key={session.id} className="bg-white p-6 rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl hover:transform hover:scale-[1.02]">
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">{session.name || `Sesión ${session.id}`}</h3>
+            <div
+              key={session.id}
+              className="bg-white p-6 rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl hover:transform hover:scale-[1.02]"
+            >
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">
+                {session.name || `Sesión ${session.id}`}
+              </h3>
               <p className="text-gray-600 mb-4">
-                Día: {daysOfWeek.find(day => day.value === session.day_of_week)?.label}
+                Días:{" "}
+                {Array.isArray(session.day_of_week)
+                  ? session.day_of_week
+                      .map(
+                        (day) => daysOfWeek.find((d) => d.value === day)?.label
+                      )
+                      .join(", ")
+                  : ""}
               </p>
+
               <div className="flex flex-col space-y-2">
                 <button
-                  onClick={() => router.push(`/physio-management/follow-up/${treatmentId}/sessions/${session.id}/exercises/`)}
+                  onClick={() =>
+                    router.push(
+                      `/physio-management/follow-up/${treatmentId}/sessions/${session.id}/exercises/`
+                    )
+                  }
                   className="w-full px-6 py-3 bg-[#05668d] text-white font-medium rounded-xl hover:bg-[#045a7d] focus:outline-none focus:ring-2 focus:ring-[#05668d] focus:ring-offset-2 transition-all duration-200 flex items-center justify-center space-x-2"
                 >
                   <span>Gestionar Ejercicios</span>
+                </button>
+                <button
+                  onClick={() =>
+                    router.push(
+                      `/physio-management/follow-up/${treatmentId}/sessions/${session.id}/tests/physio/`
+                    )
+                  }
+                  className="w-full px-6 py-3 bg-[#05668d] text-white font-medium rounded-xl hover:bg-[#045a7d] focus:outline-none focus:ring-2 focus:ring-[#05668d] focus:ring-offset-2 transition-all duration-200 flex items-center justify-center space-x-2"
+                >
+                  <span>Gestionar Cuestionario</span>
                 </button>
                 <div className="flex space-x-2 mt-2">
                   <button
@@ -316,30 +342,40 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
         {editMode && sessionToEdit && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Editar Sesión</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                Editar Sesión
+              </h2>
               <form onSubmit={handleUpdateSession} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Nombre de la Sesión</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Nombre de la Sesión
+                  </label>
                   <input
                     type="text"
                     value={sessionToEdit.name}
-                    onChange={(e) => setSessionToEdit({ ...sessionToEdit, name: e.target.value })}
+                    onChange={(e) =>
+                      setSessionToEdit({
+                        ...sessionToEdit,
+                        name: e.target.value,
+                      })
+                    }
                     className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Nombre de la sesión"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Día de la Semana</label>
-                  <select
-                    value={sessionToEdit.day_of_week}
-                    onChange={(e) => setSessionToEdit({ ...sessionToEdit, day_of_week: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  >
-                    {daysOfWeek.map((day) => (
-                      <option key={day.value} value={day.value}>{day.label}</option>
-                    ))}
-                  </select>
+                  <MultiSelectDropdown
+                    options={daysOfWeek}
+                    selected={sessionToEdit?.day_of_week || []}
+                    setSelected={(value) =>
+                      setSessionToEdit((prev) =>
+                        prev ? { ...prev, day_of_week: value } : prev
+                      )
+                    }
+                    placeholder="Selecciona los días de la semana"
+                  />
                 </div>
+
                 <div className="flex justify-end space-x-3 mt-6">
                   <button
                     type="button"
@@ -364,9 +400,12 @@ const SessionsPage = ({ params }: { params: { id: string } }) => {
         {showDeleteConfirmation && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-6 rounded-xl shadow-2xl w-full max-w-md">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Confirmar eliminación</h2>
+              <h2 className="text-xl font-bold text-gray-900 mb-4">
+                Confirmar eliminación
+              </h2>
               <p className="text-gray-600 mb-6">
-                ¿Estás seguro de que deseas eliminar esta sesión? Esta acción no se puede deshacer.
+                ¿Estás seguro de que deseas eliminar esta sesión? Esta acción no
+                se puede deshacer.
               </p>
               <div className="flex justify-end space-x-3">
                 <button
