@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "./photo.scss";
+import "./photo.css";
 import ScheduleCalendar from "@/components/ui/ScheduleCalendar";
 import { getApiBaseUrl } from "@/utils/api";
 
@@ -103,14 +103,14 @@ const FisioProfile = () => {
 
     useEffect(() => {
         const handleClickOutside = (e) => {
-          if (dropdownOpen && !e.target.closest('.custom-dropdown')) {
-            setDropdownOpen(false);
-          }
+            if (dropdownOpen && !e.target.closest('.custom-dropdown')) {
+                setDropdownOpen(false);
+            }
         };
-      
+
         document.addEventListener('click', handleClickOutside);
         return () => document.removeEventListener('click', handleClickOutside);
-      }, [dropdownOpen]);
+    }, [dropdownOpen]);
 
     useEffect(() => {
         fetchFisioProfile();
@@ -216,7 +216,7 @@ const FisioProfile = () => {
                     const specs = Array.isArray(response.data.physio.specializations)
                         ? response.data.physio.specializations
                         : response.data.physio.specializations.split(',');
-                    
+
                     setSelectedSpecializations(specs);
                 }
             } catch {
@@ -426,7 +426,6 @@ const FisioProfile = () => {
             formData.append("bio", profile.bio || "");
             formData.append("rating_avg", profile.rating_avg || "");
             formData.append("specializations", JSON.stringify(selectedSpecializations));
-
             // Actualizar el schedule con los datos actuales del calendario
             const { initialized, ...scheduleWithoutInitialized } = schedule;
             formData.append("schedule", JSON.stringify(scheduleWithoutInitialized));
@@ -830,18 +829,18 @@ const FisioProfile = () => {
                     />
 
                     <div className="questionnaire-toggle">
-                    <label>
-                        Incluir cuestionario pre-intervención
-                        <input
-                        type="checkbox"
-                        checked={showQuestionnaireSection}
-                        onChange={() => setShowQuestionnaireSection(!showQuestionnaireSection)}
-                        />
-                        <span></span>
-                    </label>
-                    <p className="toggle-description">
-                        Agrega un formulario personalizado que el paciente rellenará antes de su cita
-                    </p>
+                        <label>
+                            Incluir cuestionario pre-intervención
+                            <input
+                                type="checkbox"
+                                checked={showQuestionnaireSection}
+                                onChange={() => setShowQuestionnaireSection(!showQuestionnaireSection)}
+                            />
+                            <span></span>
+                        </label>
+                        <p className="toggle-description">
+                            Agrega un formulario personalizado que el paciente rellenará antes de su cita
+                        </p>
                     </div>
 
                     {showQuestionnaireSection && (
@@ -1146,18 +1145,27 @@ const FisioProfile = () => {
 
                 {/* Modal para editar el horario */}
                 {scheduleModalOpen && (
-                    <div className="modal-overlay">
-                        <div className="modal-content">
-                            {/* Botón de cierre en la esquina superior derecha */}
-                            <button className="modal-close-button" onClick={() => setScheduleModalOpen(false)}>
-                                &times;
-                            </button>
-
-                            <h2>Editar horario</h2>
-                            <ScheduleCalendar
-                                initialSchedule={schedule}
-                                onScheduleChange={setSchedule}
-                            />
+                    <div className="schedule-modal-overlay">
+                        <div className="schedule-modal-content">
+                            <div className="schedule-modal-header">
+                                <h2 className="schedule-modal-title">Configuración de horario</h2>
+                                <button
+                                    className="schedule-modal-close"
+                                    onClick={() => setScheduleModalOpen(false)}
+                                    aria-label="Cerrar"
+                                >
+                                    &times;
+                                </button>
+                            </div>
+                            <div className="schedule-modal-body">
+                                <div className="schedule-calendar-container">
+                                    <ScheduleCalendar
+                                        initialSchedule={schedule}
+                                        onScheduleChange={setSchedule}
+                                        className="schedule-calendar"
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 )}
