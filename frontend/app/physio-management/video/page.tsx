@@ -145,14 +145,15 @@ const UploadVideo = () => {
       return;
     }
 
-    // Parse patient IDs
-    const patientIds = patients
-      .split(",")
-      .map((id) => parseInt(id.trim(), 10))
-      .filter((id) => !isNaN(id));
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (patientIds.length === 0) {
-      setMessage("❌ Debes ingresar al menos un ID de paciente válido.");
+    const patientEmails = patients
+      .split(",")
+      .map((email) => email.trim())
+      .filter((email) => emailRegex.test(email));
+    
+    if (patientEmails.length === 0) {
+      setMessage("Debes ingresar al menos un email de paciente válido.");
       setTimeout(() => setMessage(""), 5000);
       return;
     }
@@ -163,7 +164,7 @@ const UploadVideo = () => {
     formData.append("description", description);
     
     // Format patients as the backend expects - as a JSON string
-    formData.append("patients", JSON.stringify(patientIds));
+    formData.append("patients", JSON.stringify(patientEmails));
 
     // Debug what's being sent
     console.log("Sending data to server:");
@@ -208,19 +209,28 @@ const UploadVideo = () => {
       setMessage("✅ Video subido correctamente.");
       setTimeout(() => setMessage(""), 5000);
     } catch (error) {
-      console.error("Error details:", error.response?.data);
+      //console.log("Error details:", error.response?.data);
       
-      if (error.response?.status === 401) {
-        setMessage("❌ Sesión expirada. Por favor, inicia sesión nuevamente.");
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.errorManaged
+      ) {
+        alert(error.response.data.errorManaged);
       } else {
-        const errorMessage =
-          error.response?.data?.detail ||
-          error.response?.data ||
-          error.message ||
-          "Error desconocido al subir el video.";
-
-        setMessage(`❌ ${errorMessage}`);
+        if (error.response?.status === 401) {
+          setMessage("❌ Sesión expirada. Por favor, inicia sesión nuevamente.");
+        } else {
+          const errorMessage =
+            error.response?.data?.detail ||
+            error.response?.data ||
+            error.message ||
+            "Error desconocido al subir el video.";
+  
+          setMessage(`❌ ${errorMessage}`);
+        }
       }
+
       setTimeout(() => setMessage(""), 5000);
     } finally {
       setLoading(false);
@@ -293,7 +303,7 @@ const UploadVideo = () => {
     }
 
     // Parse patient IDs
-    const patientIds = editPatients
+    const patientEmails = editPatients
       .split(",")
       .map((id) => parseInt(id.trim(), 10))
       .filter((id) => !isNaN(id));
@@ -304,7 +314,7 @@ const UploadVideo = () => {
         {
           title: editTitle,
           description: editDescription,
-          patients: patientIds, // Send as array, backend will handle it
+          patients: patientEmails, // Send as array, backend will handle it
         },
         {
           headers: {
@@ -321,7 +331,7 @@ const UploadVideo = () => {
       setVideos((prevVideos) =>
         prevVideos.map((video) =>
           video.id === videoId
-            ? { ...video, title: editTitle, description: editDescription, patients: patientIds }
+            ? { ...video, title: editTitle, description: editDescription, patients: patientEmails }
             : video
         )
       );

@@ -387,37 +387,68 @@ class AdminPatientDelete(generics.DestroyAPIView):
     serializer_class = PatientRegisterSerializer
 """
 
-
 @api_view(['POST'])
 @permission_classes([IsPhysiotherapist])
 def create_file(request):
     print("🔍 Datos recibidos:", request.data)
 
-    # Convertir request.data en un diccionario mutable (necesario para modificar `QueryDict`)
+    # Convertir request.data en un diccionario mutable (para modificar el QueryDict)
     mutable_data = request.data.copy()
 
-    # Manejo de `patients`
+    # Manejo de `patients` usando emails en lugar de IDs
     patients_raw = mutable_data.get("patients")
     if patients_raw:
         if isinstance(patients_raw, str):
             try:
-                patients_list = json.loads(patients_raw)  # Convierte "[1, 3]" a [1, 3]
-                if isinstance(patients_list, list) and all(isinstance(i, int) for i in patients_list):
-                    mutable_data.setlist("patients", patients_list)  # Asegura que se guarde como lista
+                # Se espera una cadena JSON con una lista de emails, por ejemplo: '["email1@example.com", "email2@example.com"]'
+                patients_list = json.loads(patients_raw)
+                if isinstance(patients_list, list) and all(isinstance(i, str) for i in patients_list):
+                    # Buscar usuarios que coincidan con los emails proporcionados
+                    users = AppUser.objects.filter(email__in=patients_list)
+                    found_emails = set(users.values_list("email", flat=True))
+                    missing_emails = set(patients_list) - found_emails
+                    if missing_emails:
+                        return Response(
+                            {"errorManaged": f"Usuarios no encontrados para emails: {", ".join(list(missing_emails))}"},
+                            status=status.HTTP_400_BAD_REQUEST
+                        )
+                    
+                    # Obtener los pacientes asociados a esos usuarios
+                    patients = Patient.objects.filter(user__in=users)
+                    patients_found_emails = set(patients.values_list("user__email", flat=True))
+                    missing_patients = found_emails - patients_found_emails
+                    if missing_patients:
+                        return Response(
+                            {"errorManaged": f"Paciente no encontrado para usuarios con emails: {", ".join(list(missing_patients))}"},
+                            status=status.HTTP_400_BAD_REQUEST
+                        )
+                    
+                    # Convertir el queryset a una lista de IDs de Patient
+                    patient_ids = list(patients.values_list("id", flat=True))
+                    mutable_data.setlist("patients", patient_ids)
                 else:
-                    return Response({"error": "Formato de patients incorrecto, debe ser una lista de enteros"}, status=status.HTTP_400_BAD_REQUEST)
+                    return Response(
+                        {"errorManaged": "Formato de patients incorrecto, debe ser una lista de emails"},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
             except json.JSONDecodeError:
-                return Response({"error": "Formato de patients inválido"}, status=status.HTTP_400_BAD_REQUEST)
+                return Response(
+                    {"errorManaged": "Formato de patients inválido"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
 
-    print("📌 Datos después de procesar:", mutable_data)  # Depuración
+    print("📌 Datos después de procesar:", mutable_data)  # Para depuración
 
-    # Pasamos `mutable_data` en lugar de `request.data`
+    # Pasamos mutable_data en lugar de request.data al serializer
     serializer = VideoSerializer(data=mutable_data, context={"request": request})
 
     if serializer.is_valid():
         video = serializer.save()
         return Response(
-            {"message": "Archivo creado correctamente", "video": VideoSerializer(video).data},
+            {
+                "message": "Archivo creado correctamente",
+                "video": VideoSerializer(video).data
+            },
             status=status.HTTP_201_CREATED
         )
 
