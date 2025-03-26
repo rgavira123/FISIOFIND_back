@@ -14,7 +14,6 @@ from django.core.validators import RegexValidator
 from datetime import date, datetime
 import boto3, uuid
 from users.util import validate_dni_match_letter, codigo_postal_no_mide_5, telefono_no_mide_9, validate_dni_structure
-from users.validacionFisios import validar_colegiacion
 from .models import AppUser, Patient, Physiotherapist, PhysiotherapistSpecialization, Specialization, Video
 
 
