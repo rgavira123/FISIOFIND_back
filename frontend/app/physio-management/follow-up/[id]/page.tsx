@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Line } from "react-chartjs-2";
+import Alert from "@/components/ui/Alert";
 import {
   Chart,
   LineElement,
@@ -65,14 +66,53 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
   const [treatment, setTreatment] = useState<Treatment | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedTreatment, setEditedTreatment] = useState<Partial<Treatment>>(
     {}
   );
   const [isSaving, setIsSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
+  const [alertType, setAlertType] = useState<
+    "success" | "error" | "info" | "warning"
+  >("success");
 
+  const fetchTreatmentDetails = async () => {
+    try {
+      setLoading(true);
+      const token = localStorage.getItem("token") || "";
+  
+      const response = await fetch(
+        `${getApiBaseUrl()}/api/treatments/${id}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error("Error al obtener el tratamiento");
+      }
+  
+      const data = await response.json();
+      setTreatment(data);
+      setEditedTreatment({
+        start_time: data.start_time,
+        end_time: data.end_time,
+        homework: data.homework,
+        is_active: data.is_active,
+      });
+    } catch (err) {
+      console.error("Error general:", err);
+      setAlertType("error");
+      setAlertMessage("No se pudieron cargar los detalles del tratamiento. Por favor, inténtalo de nuevo.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   useEffect(() => {
     const fetchTreatmentDetails = async () => {
       try {
@@ -112,9 +152,8 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
         }
       } catch (err) {
         console.error("Error general:", err);
-        setError(
-          "No se pudieron cargar los detalles del tratamiento. Por favor, inténtalo de nuevo."
-        );
+        setAlertType("error");
+        setAlertMessage("No se pudieron cargar los detalles del tratamiento. Por favor, inténtalo de nuevo.");
       } finally {
         setLoading(false);
       }
@@ -175,37 +214,37 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
     try {
       // Intentar guardar en el backend
       // Comentado para permitir acceso sin login
-      // const token = localStorage.getItem('token') || '';
+      const token = localStorage.getItem("token") || "";
 
-      const response = await fetch(
-        `${getApiBaseUrl()}/api/treatments/${id}/`,
-        {
-          method: "PUT",
-          headers: {
-            // 'Authorization': `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(editedTreatment),
-        }
-      );
+      const response = await fetch(`${getApiBaseUrl()}/api/treatments/${id}/`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(editedTreatment),
+      });
+
 
       if (!response.ok) {
         throw new Error("Error al guardar los cambios");
       }
 
-      const updatedTreatment = await response.json();
+      await fetchTreatmentDetails();
+
+      // const updatedTreatment = await response.json();
 
       // Actualizar el estado con los datos del servidor
-      setTreatment(updatedTreatment);
+      // setTreatment(updatedTreatment);
       setIsEditing(false);
 
       // Mostrar mensaje de éxito (opcional)
-      alert("Tratamiento actualizado correctamente");
+      setAlertType("success");
+      setAlertMessage("Tratamiento actualizado correctamente");
     } catch (error) {
       console.error("Error al guardar los cambios:", error);
-      setSaveError(
-        "No se pudieron guardar los cambios. Por favor, inténtalo de nuevo."
-      );
+      setAlertType("error");
+      setAlertMessage("No se pudieron guardar los cambios. Por favor, inténtalo de nuevo.");
     } finally {
       setIsSaving(false);
     }
@@ -217,14 +256,14 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
     try {
       // Intentar actualizar el estado en el backend
       // Comentado para permitir acceso sin login
-      // const token = localStorage.getItem('token') || '';
+      const token = localStorage.getItem('token') || '';
 
       const response = await fetch(
-        `${getApiBaseUrl()}/api/treatments/${id}/status/`,
+        `${getApiBaseUrl()}/api/treatments/${id}/`,
         {
           method: "PUT",
           headers: {
-            // 'Authorization': `Bearer ${token}`,
+            'Authorization': `Bearer ${token}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ is_active: newStatus }),
@@ -250,14 +289,17 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
         is_active: newStatus,
       });
 
+      setAlertType("success");
       // Mostrar mensaje de éxito
-      alert(
+      setAlertMessage(
         `Tratamiento marcado como ${
           newStatus ? "activo" : "inactivo"
         } correctamente`
       );
     } catch (error) {
       console.error("Error al cambiar estado:", error);
+      setAlertType("error");
+      setAlertMessage("No se pudo cambiar el estado del tratamiento.");
     }
   };
 
@@ -304,7 +346,7 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
     );
   }
 
-  if (error || !treatment) {
+  if (!treatment) {
     return (
       <div className="container mx-auto px-4 py-8">
         <button
@@ -313,9 +355,12 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
         >
           ← Volver
         </button>
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-          {error || "No se encontró el tratamiento solicitado"}
-        </div>
+  
+        <Alert
+          type="error"
+          message="No se encontró el tratamiento solicitado"
+          onClose={() => setAlertMessage(null)}
+        />
       </div>
     );
   }
@@ -374,6 +419,15 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      {alertMessage && (
+        <div className="mb-6">
+          <Alert
+            type={alertType}
+            message={alertMessage}
+            onClose={() => setAlertMessage(null)}
+          />
+        </div>
+      )}
       <div className="flex justify-between items-center mb-6">
         <button
           onClick={handleGoBack}
@@ -385,9 +439,7 @@ const TreatmentDetailPage = ({ params }: { params: { id: string } }) => {
         <div className="flex space-x-2">
           <button
             onClick={() =>
-              router.push(
-                `/physio-management/follow-up/${id}/sessions`
-              )
+              router.push(`/physio-management/follow-up/${id}/sessions`)
             }
             className="bg-[#6bc9be] hover:bg-[#5ab8ad] text-white font-semibold py-2 px-4 rounded-xl inline-flex items-center"
           >
