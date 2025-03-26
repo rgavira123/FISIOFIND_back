@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "./photo.css";
+import { Camera, Plus, Trash2, Edit, Save } from 'lucide-react';
 import ScheduleCalendar from "@/components/ui/ScheduleCalendar";
 import { getApiBaseUrl } from "@/utils/api";
+import { GradientButton } from "@/components/ui/gradient-button";
 
 const getAuthToken = () => {
     return localStorage.getItem("token"); // Obtiene el token JWT
@@ -456,34 +457,33 @@ const FisioProfile = () => {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            // Crear URL para vista previa
+            // Create URL for preview
             const previewUrl = URL.createObjectURL(file);
 
-            // Actualizar el estado con el archivo y la URL de vista previa
+            // Update the state with the file and preview URL
             setProfile((prevProfile) => ({
                 ...prevProfile,
                 user: {
                     ...prevProfile.user,
-                    photo: previewUrl, // Para mostrar en la interfaz
-                    photoFile: file,    // Para enviar al backend
-                    preview: previewUrl
+                    photo: previewUrl, // For UI preview
+                    photoFile: file,   // For backend submission
                 },
             }));
         }
     };
 
     const getImageSrc = () => {
-        // Verifica si hay un previewUrl (es decir, si el usuario ha subido una imagen)
-        if (profile.user.preview) {
-            return profile.user.photo; // Si existe una foto en el estado, usarla
+        // Use the preview URL if a new image is uploaded
+        if (profile.user.photoFile) {
+            return profile.user.photo;
         }
 
-        // Si no existe un previewUrl, entonces usar la imagen del backend si está disponible
+        // Use the backend photo if available
         if (profile?.user?.photo) {
-            return `${getApiBaseUrl()}/api/app_user${profile.user.photo}`;
+            return `${getApiBaseUrl()}${profile.user.photo}`;
         }
 
-        // Si no hay foto, usar la imagen por defecto
+        // Default avatar if no photo is available
         return "/default_avatar.png";
     };
 
@@ -859,13 +859,13 @@ const FisioProfile = () => {
                                                 {element.type === "Number" ? "Numérico" : "Texto"}
                                             </span>
                                             {index >= 5 && (
-                                                <button
-                                                    type="button"
+                                                <GradientButton
+                                                    variant="danger"
                                                     className="remove-question"
                                                     onClick={() => removeQuestion(index)}
                                                 >
                                                     ×
-                                                </button>
+                                                </GradientButton>
                                             )}
                                         </li>
                                     ))
@@ -894,14 +894,14 @@ const FisioProfile = () => {
                                             onChange={(e) => setNewQuestion(e.target.value)}
                                             placeholder="Ej. ¿Tiene alguna lesión previa?"
                                         />
-                                        <button
-                                            type="button"
+                                        <GradientButton
+                                            variant="create"
                                             onClick={addQuestion}
                                             disabled={!newQuestion.trim()}
                                             className="add-question-button"
                                         >
                                             Añadir
-                                        </button>
+                                        </GradientButton>
                                     </div>
                                 </div>
                                 <p className="type-hint">
@@ -914,8 +914,8 @@ const FisioProfile = () => {
                     )}
 
                     <div className="modal-buttons">
-                        <button className="save-button" onClick={handleSave}>Guardar</button>
-                        <button className="cancel-button" onClick={onClose}>Cancelar</button>
+                        <GradientButton variant="edit" onClick={handleSave}>Guardar</GradientButton>
+                        <GradientButton variant="grey" onClick={onClose}>Cancelar</GradientButton>
                     </div>
                 </div>
             </div>
@@ -928,214 +928,205 @@ const FisioProfile = () => {
     if (error) return <p>Error: {error}</p>;
 
     return (
-        <div className="user-profile-container">
-            {/* Sección izquierda con la foto y datos principales */}
-            <div className="user-profile-left">
-                <div className="profile-pic">
-                    <label className="-label" htmlFor="file">
-                        <span className="glyphicon glyphicon-camera"></span>
-                        <span>Change Image</span>
-                    </label>
-                    <input id="file" type="file" accept="image/*" onChange={handleFileChange} />
-                    <img
-                        src={getImageSrc()}
-                        alt="Profile"
-                        width="200"
-                    />
+        <div 
+            className="min-h-screen flex items-center justify-center px-6" 
+            style={{ backgroundColor: "rgb(238, 251, 250)" }}
+        >
+            <div className="w-full max-w-5xl bg-white shadow-lg rounded-2xl overflow-hidden grid grid-cols-3">
+                {/* Barra lateral izquierda - Sección de perfil */}
+                <div className="col-span-1 bg-blue-600 text-white p-6 flex flex-col items-center">
+                    <div className="relative mb-4">
+                        <img 
+                            src={getImageSrc()} 
+                            alt="Perfil" 
+                            className="w-40 h-40 rounded-full object-cover border-4 border-white"
+                        />
+                        <label 
+                            htmlFor="file-upload" 
+                            className="absolute bottom-0 right-0 bg-white text-blue-600 p-2 rounded-full cursor-pointer"
+                        >
+                            <Camera className="w-5 h-5" />
+                            <input 
+                                id="file-upload" 
+                                type="file" 
+                                className="hidden" 
+                                onChange={handleFileChange} 
+                            />
+                        </label>
+                    </div>
+                    
+                    <h2 className="text-xl font-bold mb-2">{profile.user.username}</h2>
+                    <p className="text-blue-200 mb-4">Profesional</p>
+                    
+                    {/* Sección de horario */}
+                    <div className="w-full mt-4">
+                        <h3 className="text-lg font-semibold mb-2">Mi Horario</h3>
+                        <p className="text-blue-200">{getScheduleSummary()}</p>
+                        <br></br>
+                        <GradientButton 
+                            variant="edit"
+                            onClick={() => setScheduleModalOpen(true)}
+                        >
+                            Editar Horario
+                        </GradientButton>
+                    </div>
                 </div>
-                <div className="user-info">
-                    <p>{profile?.user?.username || "Nombre de usuario"}</p>
-                    <p>{profile?.user?.first_name + " " + profile?.user?.last_name || "Nombre"}</p>
-                    <p>DNI: {profile?.user?.dni || "No disponible"}</p>
-                    <p>Número de colegiado: {profile?.collegiate_number || "No disponible"}</p>
-                    <p>Colegio: {profile?.autonomic_community || "No disponible"}</p>
-                </div>
-                <div className="schedule-info">
-                    <h2>Mi horario</h2>
-                    <hr />
-                    <p className="schedule-summary">{getScheduleSummary()}</p>
-                    <button
-                        className="edit-schedule-button"
-                        onClick={() => setScheduleModalOpen(true)}
-                    >
-                        Editar horario
-                    </button>
-                </div>
-            </div>
 
-            {/* Sección derecha con el formulario */}
-            <div className="user-profile-right">
-                <form onSubmit={handleSubmit}>
-                    <label>Email:</label>
-                    <input type="email" name="email" value={profile.user.email} onChange={handleChange} />
-                    <span className="error-message">{formErrors["email"]}</span>
-
-                    <label>Teléfono:</label>
-                    <input type="text" name="phone_number" value={profile.user.phone_number} onChange={handleChange} />
-                    <span className="error-message">{formErrors["phone_number"]}</span>
-
-                    <label>Código Postal:</label>
-                    <input type="text" name="postal_code" value={profile.user.postal_code} onChange={handleChange} />
-                    <span className="error-message">{formErrors["postal_code"]}</span>
-
-                    <label>Especializaciones:</label>
-                    <div className="specializations-container">
-                        <div className="selected-tags">
-                            {selectedSpecializations.map((spec) => (
-                                <div key={spec} className="tag">
-                                    {spec}
-                                    <span
-                                        className="remove-tag"
-                                        onClick={() => setSelectedSpecializations(prev => prev.filter(s => s !== spec))}
-                                    >
-                                        ×
-                                    </span>
-                                </div>
-                            ))}
+                {/* Contenido derecho - Sección de formulario */}
+                <div className="col-span-2 p-8 space-y-6">
+                    {/* Formulario de actualización de perfil */}
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                                <label className="block text-sm font-medium text-gray-700">Correo Electrónico</label>
+                                <input 
+                                    type="email" 
+                                    name="email"
+                                    value={profile.user.email} 
+                                    onChange={handleChange}
+                                    className="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
+                                />
+                                {formErrors.email && <span className="text-red-500 text-sm">{formErrors.email}</span>}
+                            </div>
+                            <div className="space-y-2">
+                                <label className="block text-sm font-medium text-gray-700">Teléfono</label>
+                                <input 
+                                    type="text" 
+                                    name="phone_number"
+                                    value={profile.user.phone_number} 
+                                    onChange={handleChange}
+                                    className="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
+                                />
+                                {formErrors.phone_number && <span className="text-red-500 text-sm">{formErrors.phone_number}</span>}
+                            </div>
                         </div>
 
-                        <div className="custom-dropdown">
-                            <div
-                                className="dropdown-header"
-                                onClick={() => setDropdownOpen(!dropdownOpen)}
-                            >
-                                {selectedSpecializations.length > 0
-                                    ? `${selectedSpecializations.length} seleccionadas`
-                                    : "Selecciona especializaciones"}
-                                <span className={`arrow ${dropdownOpen ? "open" : ""}`}>↓</span>
+                        {/* Desplegable de especializaciones */}
+                        <div className="space-y-2">
+                            <label className="block text-sm font-medium text-gray-700">Especializaciones</label>
+                            <div className="relative">
+                                <div 
+                                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                                    className="border border-gray-300 rounded-md py-2 px-3 cursor-pointer"
+                                >
+                                    {selectedSpecializations.length > 0 
+                                        ? `${selectedSpecializations.length} seleccionadas` 
+                                        : "Seleccionar Especializaciones"}
+                                </div>
+                                {dropdownOpen && (
+                                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
+                                        <input 
+                                            type="text" 
+                                            placeholder="Buscar especializaciones..."
+                                            value={searchQuery}
+                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                            className="w-full p-2 border-b"
+                                        />
+                                        {availableSpecializations
+                                            .filter(spec => 
+                                                spec.toLowerCase().includes(searchQuery.toLowerCase())
+                                            )
+                                            .map(spec => (
+                                                <div 
+                                                    key={spec} 
+                                                    className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                                                    onClick={() => {
+                                                        setSelectedSpecializations(prev => 
+                                                            prev.includes(spec) 
+                                                                ? prev.filter(s => s !== spec)
+                                                                : [...prev, spec]
+                                                        );
+                                                    }}
+                                                >
+                                                    <input 
+                                                        type="checkbox" 
+                                                        checked={selectedSpecializations.includes(spec)}
+                                                        readOnly
+                                                        className="mr-2"
+                                                    />
+                                                    {spec}
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Biografía */}
+                        <div className="space-y-2">
+                            <label className="block text-sm font-medium text-gray-700">Biografía</label>
+                            <textarea 
+                                name="bio"
+                                value={profile.bio || ""} 
+                                onChange={handleChange}
+                                rows={4}
+                                className="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
+                            />
+                            {formErrors.bio && <span className="text-red-500 text-sm">{formErrors.bio}</span>}
+                        </div>
+
+                        {/* Sección de servicios */}
+                        <div className="space-y-4">
+                            <div className="flex justify-between items-center">
+                                <h3 className="text-lg font-semibold">Servicios</h3>
+                                <GradientButton 
+                                    variant="create"
+                                    onClick={() => {
+                                        setEditingServiceIndex(null);
+                                        setShowServiceModal(true);
+                                    }}
+                                >
+                                    <Plus className="mr-2 w-4 h-4" /> Añadir Servicio
+                                </GradientButton>
                             </div>
 
-                            {dropdownOpen && (
-                                <div className="dropdown-options">
-                                    <input
-                                        type="text"
-                                        placeholder="Buscar especialización..."
-                                        className="search-input"
-                                        value={searchQuery}
-                                        onChange={(e) => setSearchQuery(e.target.value)}
-                                    />
-
-                                    {availableSpecializations
-                                        .filter(spec =>
-                                            spec.toLowerCase().includes(searchQuery.toLowerCase())
-                                        )
-                                        .map((spec) => (
-                                            <label key={spec} className="option">
-                                                <input
-                                                    type="checkbox"
-                                                    checked={selectedSpecializations.includes(spec)}
-                                                    onChange={(e) => {
-                                                        if (e.target.checked) {
-                                                            setSelectedSpecializations(prev => [...prev, spec]);
-                                                        } else {
-                                                            setSelectedSpecializations(prev => prev.filter(s => s !== spec));
-                                                        }
-                                                    }}
-                                                />
-                                                <span className="checkmark"></span>
-                                                {spec}
-                                            </label>
-                                        ))}
+                            {services.length === 0 ? (
+                                <p className="text-gray-500 text-center">No hay servicios registrados</p>
+                            ) : (
+                                <div className="space-y-3">
+                                    {services.map((service, index) => (
+                                        <div 
+                                            key={index} 
+                                            className="border rounded-md p-3 flex justify-between items-center"
+                                        >
+                                            <div>
+                                                <h4 className="font-semibold">{service.titulo}</h4>
+                                                <p className="text-sm text-gray-600">{service.descripcion}</p>
+                                            </div>
+                                            <div className="flex space-x-2">
+                                                <GradientButton
+                                                    variant="edit"
+                                                    onClick={() => handleEditService(index)}
+                                                >
+                                                    <Edit className="w-4 h-4" />
+                                                </GradientButton>
+                                                <GradientButton 
+                                                    variant="danger"
+                                                    onClick={() => handleDeleteService(index)}
+                                                    className="text-red-500 hover:bg-red-100 p-2 rounded"
+                                                >
+                                                    <Trash2 className="w-4 h-4" />
+                                                </GradientButton>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             )}
                         </div>
-                    </div>
 
-                    <label>Biografía:</label>
-                    <textarea
-                        name="bio"
-                        value={profile.bio ? profile.bio : ""}
-                        onChange={handleChange}
-                        rows={4}
-                    />
-                    <span className="error-message">{formErrors["bio"]}</span>
-
-                    <button type="submit">Actualizar Perfil</button>
-                </form>
-
-                <div className="services-section">
-                    <h2>Servicios</h2>
-                    <hr />
-                    {loading && (
-                        <div className="loading-overlay">
-                            <div className="loading-spinner"></div>
-                            <p>Procesando...</p>
-                        </div>
-                    )}
-                    <button
-                        className="add-service-button"
-                        onClick={() => {
-                            setEditingServiceIndex(null);
-                            setShowServiceModal(true);
-                        }}
-                    >
-                        + Añadir servicio
-                    </button>
-
-                    {services.length === 0 ? (
-                        <p className="no-services">No hay servicios registrados</p>
-                    ) : (
-                        <div className="service-list">
-                            {services.map((service, index) => (
-                                <div key={index} className="service-item">
-                                    <div className="service-header">
-                                        <h3>{service.titulo}</h3>
-                                        <div className="service-type-badge">
-                                            {service.tipo === "PRIMERA_CONSULTA"
-                                                ? "Primera consulta"
-                                                : service.tipo === "CONTINUAR_TRATAMIENTO"
-                                                    ? "Continuación de tratamiento"
-                                                    : "Otro"
-                                            }
-                                        </div>
-                                    </div>
-
-                                    {service.descripcion && (
-                                        <p className="service-description">{service.descripcion}</p>
-                                    )}
-
-                                    <div className="service-details">
-                                        <div className="detail-item">
-                                            <span className="detail-icon">💰</span>
-                                            <span>{service.precio}</span>
-                                        </div>
-                                        <div className="detail-item">
-                                            <span className="detail-icon">⏱️</span>
-                                            <span>{service.duracion} </span>
-                                        </div>
-                                        {(service.custom_questionnaire &&
-                                            (service.custom_questionnaire.elements ||
-                                                service.custom_questionnaire["UI Schema"]?.elements)) && (
-                                                <div className="detail-item">
-                                                    <span className="detail-icon">📋</span>
-                                                    <span>Cuestionario preintervención incluido</span>
-                                                </div>
-                                            )}
-                                    </div>
-
-
-                                    <div className="service-actions">
-                                        <button
-                                            onClick={() => handleEditService(index)}
-                                            className="edit-button"
-                                        >
-                                            Editar
-                                        </button>
-                                        <button
-                                            onClick={() => handleDeleteService(index)}
-                                            className="delete-button"
-                                        >
-                                            Eliminar
-                                        </button>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    )}
+                        <GradientButton
+                            variant="edit"
+                            className="mt-8 w-full py-4 px-6 bg-gradient-to-r from-[#1E5ACD] to-[#3a6fd8] text-white font-semibold rounded-xl transition-all duration-200 transform hover:-translate-y-0.5 flex items-center justify-center"
+                        >
+                            <Save size={18} className="mr-2" />
+                            Actualizar Perfil
+                        </GradientButton>
+                    </form>
                 </div>
 
-                {/* Modal para añadir/editar servicios */}
-                {showServiceModal && (
+                  {/* Modal para añadir/editar servicios */}
+                  {showServiceModal && (
                     <ServiceModal
                         onClose={() => {
                             setShowServiceModal(false);
@@ -1152,13 +1143,13 @@ const FisioProfile = () => {
                         <div className="schedule-modal-content">
                             <div className="schedule-modal-header">
                                 <h2 className="schedule-modal-title">Configuración de horario</h2>
-                                <button
+                                <GradientButton
                                     className="schedule-modal-close"
                                     onClick={() => setScheduleModalOpen(false)}
                                     aria-label="Cerrar"
                                 >
                                     &times;
-                                </button>
+                                </GradientButton>
                             </div>
                             <div className="schedule-modal-body">
                                 <div className="schedule-calendar-container">
@@ -1174,7 +1165,6 @@ const FisioProfile = () => {
                 )}
             </div>
         </div>
-
     );
 };
 
