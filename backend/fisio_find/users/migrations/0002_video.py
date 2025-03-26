@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('gestion_usuarios', '0001_initial'),
+        ('users', '0001_initial'),
     ]
 
     operations = [
@@ -19,8 +19,8 @@ class Migration(migrations.Migration):
                 ('description', models.TextField(blank=True, null=True)),
                 ('uploaded_at', models.DateTimeField(auto_now_add=True)),
                 ('file_key', models.CharField(max_length=500, unique=True)),
-                ('patients', models.ManyToManyField(blank=True, related_name='videos', to='gestion_usuarios.patient')),
-                ('physiotherapist', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='videos', to='gestion_usuarios.physiotherapist')),
+                ('patients', models.ManyToManyField(blank=True, related_name='videos', to='users.patient')),
+                ('physiotherapist', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='videos', to='users.physiotherapist')),
             ],
         ),
     ]

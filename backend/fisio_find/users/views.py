@@ -1,37 +1,32 @@
 import logging
-from django.shortcuts import get_object_or_404
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.permissions import AllowAny, IsAuthenticated
-
-from .serializers import PatientRegisterSerializer, PhysioRegisterSerializer,PhysioSerializer, PatientSerializer, AppUserSerializer, VideoSerializer
-
-from .serializers import PatientRegisterSerializer, PhysioUpdateSerializer, PhysioRegisterSerializer, PhysioSerializer, PatientSerializer, AppUserSerializer
-
-from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import Physiotherapist, Patient, AppUser, Video
-from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework import generics
-from .permissions import IsPhysiotherapist
+import json
 import boto3
-from .permissions import IsPatient, IsPhysiotherapist, IsPhysioOrPatient
-from .models import Patient
-from .serializers import PatientRegisterSerializer, PhysioUpdateSerializer, PhysioRegisterSerializer
-from .serializers import PhysioSerializer, PatientSerializer, AppUserSerializer
-from .models import AppUser, Physiotherapist, Patient
-from rest_framework import generics
-from .permissions import IsPhysiotherapist
-from .permissions import IsPatient
-import json
-from .permissions import IsAdmin
-from django.db.models import Q
-from rest_framework_simplejwt.views import TokenObtainPairView
-
-from rest_framework.permissions import IsAuthenticated
-import json
+from django.shortcuts import get_object_or_404
 from django.conf import settings
 from django.http import HttpResponse, StreamingHttpResponse
+from django.db.models import Q
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
+from rest_framework import status, generics
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+from .serializers import (
+    PatientRegisterSerializer,
+    PhysioRegisterSerializer,
+    PhysioSerializer,
+    PatientSerializer,
+    AppUserSerializer,
+    VideoSerializer,
+    PhysioUpdateSerializer,
+)
+from .models import Physiotherapist, Patient, AppUser, Video
+from .permissions import (
+    IsPatient,
+    IsPhysiotherapist,
+    IsPhysioOrPatient,
+    IsAdmin,
+)
 
 
 

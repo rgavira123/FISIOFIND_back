@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { getApiBaseUrl } from "@/utils/api";
+import { Loader2 } from 'lucide-react';
+
 
 const getAuthToken = () => {
   return localStorage.getItem("token"); // Obtiene el token JWT
@@ -76,111 +78,93 @@ const PatientVideos = () => {
       setIsVideoLoading(false); // Ocultar el modal de "Cargando video" cuando el video esté listo
     }
   };
-
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-gray-100">Lista de Videos</h2>
-
-      {/* Mostrar "Cargando videos..." mientras se está cargando */}
-      {loading && <p className="text-center text-gray-600">🔄 Cargando videos...</p>}
-
-      {/* Mostrar mensaje de error si hay algún problema al cargar los videos */}
-      {message && <p className="text-center text-red-600">{message}</p>}
-
-      <div className="mt-6">
-        {/* Si no hay videos y no se está cargando, muestra el mensaje de "No tienes videos disponibles" */}
-        {videos.length === 0 && !loading && (
-          <p className="text-center text-gray-600">No tienes videos disponibles.</p>
-        )}
-
-        {/* Si hay videos, muéstralos */}
-        {videos.length > 0 && !loading && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {videos.map((video) => (
-              <div
-                key={video.id}
-                className="p-4 bg-white rounded-lg shadow-lg transition transform hover:scale-105 hover:shadow-2xl"
-              >
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100">{video.title}</h3>
-                <p className="text-gray-600 dark:text-gray-300 mt-2">{video.description}</p>
+    <div className="container mx-auto px-4 py-6 max-w-4xl">
+      <h2 className="text-2xl font-bold mb-6 text-gray-800">Lista de Videos</h2>
+      
+      {/* Loading State */}
+      {loading && (
+        <div className="flex items-center justify-center text-gray-500">
+          <Loader2 className="animate-spin mr-2" />
+          <span>Cargando videos...</span>
+        </div>
+      )}
+      
+      {/* Error Message */}
+      {message && (
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative flex items-center">
+          <AlertCircle className="mr-2 text-red-500" />
+          <span>{message}</span>
+        </div>
+      )}
+      
+      {/* No Videos Available */}
+      {videos.length === 0 && !loading && (
+        <div className="text-center text-gray-500 py-8">
+          <p>No tienes videos disponibles.</p>
+        </div>
+      )}
+      
+      {/* Video List */}
+      {videos.length > 0 && !loading && (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {videos.map((video) => (
+            <div 
+              key={video.id} 
+              className="bg-white shadow-md rounded-lg overflow-hidden transition-all hover:shadow-xl"
+            >
+              <div className="p-4">
+                <h3 className="font-semibold text-lg text-gray-800 mb-2 truncate">
+                  {video.title}
+                </h3>
+                <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                  {video.description}
+                </p>
                 <button
                   onClick={() => handleVideoClick(video.id)}
-                  className="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+                  className="w-full flex items-center justify-center bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
                 >
+                  <Play className="mr-2" size={20} />
                   Ver Video
                 </button>
               </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {isVideoLoading && (
-        <div className="modal">
-          <div className="modal-content">
-            <p>Estamos cargando tu video, espera un momentito...</p>
-            <img
-              width={1000}
-              height={700}
-              src="https://i.pinimg.com/originals/f0/ea/b2/f0eab24676401bdbcd892f2b5b7ede43.gif"
-              alt="Cargando"
-              className="loading-gif"
-            />
-          </div>
-        </div>
-      )}
-
-      {videoUrl && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-4 rounded-lg shadow-xl max-w-4xl w-full relative">
-            <button
-              onClick={() => setVideoUrl(null)}  // Cierra el video al hacer clic en la "X"
-              className="absolute top-0 right-0 p-2 text-black bg-transparent border-none hover:text-gray-600 transition"
-            >
-              ❌
-            </button>
-            <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4 text-center">Reproduciendo Video</h3>
-            <div className="relative" style={{ paddingBottom: '56.25%' }}>
-              <video
-                className="absolute top-0 left-0 w-full h-full object-cover"
-                controls
-              >
-                <source src={videoUrl} type="video/mp4" />
-                Tu navegador no soporta la etiqueta de video.
-              </video>
             </div>
+          ))}
+        </div>
+      )}
+      
+      {/* Video Loading Modal */}
+      {isVideoLoading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-xl text-center">
+            <Loader2 className="animate-spin mx-auto mb-4 text-blue-600" size={48} />
+            <p className="text-gray-700">
+              Estamos cargando tu video, espera un momentito...
+            </p>
           </div>
         </div>
       )}
-
-      <style jsx>{`
-        .modal {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: rgba(0, 0, 0, 0.5);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          z-index: 1000;
-        }
-
-        .modal-content {
-          background-color: white;
-          padding: 20px;
-          border-radius: 10px;
-          text-align: center;
-          color: black;
-        }
-
-        .loading-gif {
-          margin-top: 20px;
-          width: 1000px;
-          height: auto;
-        }
-      `}</style>
+      
+      {/* Video Player */}
+      {videoUrl && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+          <div className="relative max-w-4xl w-full">
+            <button 
+              onClick={() => setVideoUrl(null)}
+              className="absolute -top-10 right-0 text-white hover:text-gray-300 transition"
+            >
+              ❌ Cerrar
+            </button>
+            <video 
+              controls 
+              className="w-full rounded-lg"
+              src={videoUrl}
+            >
+              Tu navegador no soporta la etiqueta de video.
+            </video>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

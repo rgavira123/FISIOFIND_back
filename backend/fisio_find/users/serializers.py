@@ -4,20 +4,14 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.password_validation import validate_password
 from django.db.utils import IntegrityError
 from django.db import transaction
-from gestion_usuarios.validacionFisios import validar_colegiacion
-from .models import AppUser, Patient, Physiotherapist, PhysiotherapistSpecialization, Specialization, Video
-import re
 from django.conf import settings
-from datetime import *
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
-import boto3, uuid
-from users.validacionFisios import validar_colegiacion
-from .models import AppUser, Patient, Physiotherapist, PhysiotherapistSpecialization, Specialization
 from datetime import date, datetime
-from django.core.exceptions import ValidationError
-from django.core.validators import RegexValidator
+import boto3, uuid
 from users.util import validate_dni_match_letter, codigo_postal_no_mide_5, telefono_no_mide_9, validate_dni_structure
+from users.validacionFisios import validar_colegiacion
+from .models import AppUser, Patient, Physiotherapist, PhysiotherapistSpecialization, Specialization, Video
 
 
 class AppUserSerializer(serializers.ModelSerializer):
