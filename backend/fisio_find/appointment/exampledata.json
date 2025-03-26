@@ -65,68 +65,82 @@
             "autonomic_community": "EXTREMADURA",
             "rating_avg": 4.5,
             "schedule": {
-                "message": "Horario semanal actualizado con éxito",
-                "schedule": {
-                    "exceptions": {
-                        "2025-03-15": [
-                            {
-                                "end": "12:00",
-                                "start": "10:00"
-                            },
-                            {
-                                "end": "16:00",
-                                "start": "14:00"
-                            }
-                        ]
+                "exceptions": {
+                    "2025-04-14": [
+                        {
+                            "end": "12:00",
+                            "start": "10:00"
+                        },
+                        {
+                            "end": "16:00",
+                            "start": "14:00"
+                        }
+                    ]
+                },
+                "appointments": [
+                    {
+                        "start_time": "2025-04-28T16:30:00",
+                        "end_time": "2025-04-28T17:15:00",
+                        "status": "confirmed"
                     },
-                    "appointments": [
+                    {
+                        "start_time": "2025-04-15T10:00:00",
+                        "end_time": "2025-04-15T10:45:00",
+                        "status": "booked"
+                    },
+                    {
+                        "start_time": "2025-04-10T10:00:00",
+                        "end_time": "2025-04-10T10:45:00",
+                        "status": "booked"
+                    }
+                ],
+                "weekly_schedule": {
+                    "friday": [],
+                    "monday": [
                         {
-                            "start_time": "2025-03-28T16:30:00",
-                            "end_time": "2025-03-28T17:15:00",
-                            "status": "confirmed"
-                        },
-                        {
-                            "start_time": "2025-03-15T10:00:00",
-                            "end_time": "2025-03-15T10:45:00",
-                            "status": "booked"
-                        },
-                        {
-                            "start_time": "2025-03-10T10:00:00",
-                            "end_time": "2025-03-10T10:45:00",
-                            "status": "booked"
+                            "end": "14:00",
+                            "start": "10:00"
                         }
                     ],
-                    "weekly_schedule": {
-                        "friday": [],
-                        "monday": [
-                            {
-                                "end": "14:00",
-                                "start": "10:00"
-                            }
-                        ],
-                        "saturday": [],
-                        "sunday": [],
-                        "thursday": [],
-                        "tuesday": [
-                            {
-                                "end": "15:00",
-                                "start": "10:00"
-                            }
-                        ],
-                        "wednesday": []
-                    }
+                    "saturday": [],
+                    "sunday": [],
+                    "thursday": [],
+                    "tuesday": [
+                        {
+                            "end": "15:00",
+                            "start": "10:00"
+                        }
+                    ],
+                    "wednesday": []
                 }
             },
             "birth_date": "1980-01-01",
             "collegiate_number": "COL1",
             "services": {
-                "Rehabilitación": {
+                "Servicio 1": {
+                    "id": 1,
+                    "title": "Primera consulta",
                     "price": 30,
-                    "duration": 60
-                },
-                "Fisioterapia deportiva": {
-                    "price": 30,
-                    "duration": 60
+                    "description": "Evaluaremos tu estado físico, hablaremos sobre tus molestias y realizaremos pruebas para diseñar un plan de tratamiento personalizado que se adapte a tus necesidades y estilo de vida.",
+                    "duration": 45,
+                    "cuestionario Personalizado": {
+                        "UI Schema": {
+                            "type": "Group",
+                            "label": "Cuestionario Personalizado",
+                            "elements": [
+                                {
+                                    "type": "Control",
+                                    "label": "¿Qué te duele?",
+                                    "scope": "#/properties/q1"
+                                },
+                                {
+                                    "type": "Control",
+                                    "label": "¿Cómo describirías el dolor?",
+                                    "scope": "#/properties/q2"
+                                }
+                            ]
+                        }
+                    }
                 }
             },
             "gender": "M",
@@ -210,7 +224,7 @@
         "fields": {
             "username": "guille",
             "first_name": "Guillermo",
-            "last_name": "Arjona Fernandez",        
+            "last_name": "Arjona Fernandez",
             "email": "guille@sample.com",
             "password": "pbkdf2_sha256$870000$3QqCfXSf9kmYHVoGHNxxiP$nQrFTWfdh8L2ap9wOVTulFJoqDrw2UD7wheiXkgJMXw=",
             "dni": "12345674A",
@@ -243,7 +257,7 @@
         "fields": {
             "username": "lupita",
             "first_name": "Guadalupe",
-            "last_name": "Moto Pino",        
+            "last_name": "Moto Pino",
             "email": "lup@sample.com",
             "password": "pbkdf2_sha256$870000$3QqCfXSf9kmYHVoGHNxxiP$nQrFTWfdh8L2ap9wOVTulFJoqDrw2UD7wheiXkgJMXw=",
             "dni": "12345675A",
@@ -384,13 +398,16 @@
         }
     },
     {
-        "model": "gestion_citas.appointment",
+        "model": "appointment.appointment",
         "pk": 1,
         "fields": {
             "start_time": "2025-03-12T10:00:00Z",
             "end_time": "2025-03-12T11:00:00Z",
             "is_online": false,
-            "service": {"type": "Rehabilitación", "duration": 45},
+            "service": {
+                "type": "Rehabilitación",
+                "duration": 45
+            },
             "patient": 1,
             "physiotherapist": 1,
             "status": "booked",
@@ -398,13 +415,16 @@
         }
     },
     {
-        "model": "gestion_citas.appointment",
+        "model": "appointment.appointment",
         "pk": 2,
         "fields": {
             "start_time": "2025-03-13T10:00:00Z",
             "end_time": "2025-03-13T11:00:00Z",
             "is_online": false,
-            "service": {"type": "Rehabilitación", "duration": 45},
+            "service": {
+                "type": "Rehabilitación",
+                "duration": 45
+            },
             "patient": 2,
             "physiotherapist": 2,
             "status": "booked",
@@ -412,13 +432,16 @@
         }
     },
     {
-        "model": "gestion_citas.appointment",
+        "model": "appointment.appointment",
         "pk": 3,
         "fields": {
             "start_time": "2025-03-14T10:00:00Z",
             "end_time": "2025-03-14T11:00:00Z",
             "is_online": false,
-            "service": {"type": "Rehabilitación", "duration": 45},
+            "service": {
+                "type": "Rehabilitación",
+                "duration": 45
+            },
             "patient": 3,
             "physiotherapist": 3,
             "status": "booked",
@@ -426,13 +449,16 @@
         }
     },
     {
-        "model": "gestion_citas.appointment",
+        "model": "appointment.appointment",
         "pk": 4,
         "fields": {
             "start_time": "2025-03-15T10:00:00Z",
             "end_time": "2025-03-15T11:00:00Z",
             "is_online": false,
-            "service": {"type": "Rehabilitación", "duration": 45},
+            "service": {
+                "type": "Rehabilitación",
+                "duration": 45
+            },
             "patient": 4,
             "physiotherapist": 4,
             "status": "booked",
@@ -440,13 +466,16 @@
         }
     },
     {
-        "model": "gestion_citas.appointment",
+        "model": "appointment.appointment",
         "pk": 5,
         "fields": {
             "start_time": "2025-03-16T10:00:00Z",
             "end_time": "2025-03-16T11:00:00Z",
             "is_online": false,
-            "service": {"type": "Rehabilitación", "duration": 45},
+            "service": {
+                "type": "Rehabilitación",
+                "duration": 45
+            },
             "patient": 5,
             "physiotherapist": 5,
             "status": "booked",
@@ -454,13 +483,16 @@
         }
     },
     {
-        "model": "gestion_citas.appointment",
+        "model": "appointment.appointment",
         "pk": 6,
         "fields": {
             "start_time": "2025-03-17T10:00:00Z",
             "end_time": "2025-03-17T11:00:00Z",
             "is_online": false,
-            "service": {"type": "Rehabilitación", "duration": 45},
+            "service": {
+                "type": "Rehabilitación",
+                "duration": 45
+            },
             "patient": 1,
             "physiotherapist": 2,
             "status": "booked",
@@ -468,13 +500,16 @@
         }
     },
     {
-        "model": "gestion_citas.appointment",
+        "model": "appointment.appointment",
         "pk": 7,
         "fields": {
             "start_time": "2025-03-18T10:00:00Z",
             "end_time": "2025-03-18T11:00:00Z",
             "is_online": false,
-            "service": {"type": "Rehabilitación", "duration": 45},
+            "service": {
+                "type": "Rehabilitación",
+                "duration": 45
+            },
             "patient": 2,
             "physiotherapist": 3,
             "status": "booked",
@@ -482,13 +517,16 @@
         }
     },
     {
-        "model": "gestion_citas.appointment",
+        "model": "appointment.appointment",
         "pk": 8,
         "fields": {
             "start_time": "2025-03-19T10:00:00Z",
             "end_time": "2025-03-19T11:00:00Z",
             "is_online": false,
-            "service": {"type": "Rehabilitación", "duration": 45},
+            "service": {
+                "type": "Rehabilitación",
+                "duration": 45
+            },
             "patient": 3,
             "physiotherapist": 4,
             "status": "booked",
@@ -496,13 +534,16 @@
         }
     },
     {
-        "model": "gestion_citas.appointment",
+        "model": "appointment.appointment",
         "pk": 9,
         "fields": {
             "start_time": "2025-03-20T10:00:00Z",
             "end_time": "2025-03-20T11:00:00Z",
             "is_online": false,
-            "service": {"type": "Rehabilitación", "duration": 45},
+            "service": {
+                "type": "Rehabilitación",
+                "duration": 45
+            },
             "patient": 4,
             "physiotherapist": 5,
             "status": "booked",
@@ -510,13 +551,16 @@
         }
     },
     {
-        "model": "gestion_citas.appointment",
+        "model": "appointment.appointment",
         "pk": 10,
         "fields": {
             "start_time": "2025-03-21T10:00:00Z",
             "end_time": "2025-03-21T11:00:00Z",
             "is_online": false,
-            "service": {"type": "Rehabilitación", "duration": 45},
+            "service": {
+                "type": "Rehabilitación",
+                "duration": 45
+            },
             "patient": 5,
             "physiotherapist": 1,
             "status": "booked",

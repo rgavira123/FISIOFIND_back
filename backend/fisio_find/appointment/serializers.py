@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from gestion_citas.models import Appointment, StatusChoices
+from appointment.models import Appointment, StatusChoices
 from users.models import AppUser, Patient, Physiotherapist
 
 class AppointmentSerializer(serializers.Serializer):
@@ -8,8 +8,13 @@ class AppointmentSerializer(serializers.Serializer):
     end_time = serializers.DateTimeField()
     is_online = serializers.BooleanField()
     service = serializers.JSONField()
-    patient = serializers.PrimaryKeyRelatedField(queryset=Patient.objects.all())
-    physiotherapist = serializers.PrimaryKeyRelatedField(queryset=Physiotherapist.objects.all())
+    patient = serializers.PrimaryKeyRelatedField(queryset=Patient.objects.all(), write_only=True)
+    physiotherapist = serializers.PrimaryKeyRelatedField(queryset=Physiotherapist.objects.all(), write_only=True)
+    
+    # En salida (GET): devuelves el nombre del paciente y del fisio
+    patient_name = serializers.SerializerMethodField(read_only=True)
+    physiotherapist_name = serializers.SerializerMethodField(read_only=True)
+
     status = serializers.ChoiceField(
         choices = StatusChoices.choices,
         default='booked'
@@ -17,8 +22,18 @@ class AppointmentSerializer(serializers.Serializer):
     alternatives = serializers.JSONField()
     class Meta:
         model = Appointment
-        fields = ['id', 'start_time', 'end_time', 'is_online', 'service', 'patient', 'physiotherapist', 'status', 'alternatives']
+        fields = ['id', 'start_time', 'end_time', 'is_online', 'service', 'patient', 'patient_name', 'physiotherapist', 'physiotherapist_name', 'status', 'alternatives']
         
+    def get_patient_name(self, obj):
+        if obj.patient and obj.patient.user:
+            return f"{obj.patient.user.first_name} {obj.patient.user.last_name}".strip() or obj.patient.user.username
+        return None
+
+    def get_physiotherapist_name(self, obj):
+        if obj.physiotherapist and obj.physiotherapist.user:
+            return f"{obj.physiotherapist.user.first_name} {obj.physiotherapist.user.last_name}".strip() or obj.physiotherapist.user.username
+        return None
+    
     def validate(self, data):
         """
         Validate the data before creating or updating an `Appointment` instance.

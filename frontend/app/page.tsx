@@ -8,6 +8,8 @@ import Modal from "@/components/ui/Modal";
 import Link from "next/link";
 import axios from "axios";
 import { getApiBaseUrl } from "@/utils/api";
+import { useAppointment } from "@/context/appointmentContext";
+import DraftModal from "@/components/ui/draftAppointmentModal";
 import { DemoWindow } from "@/components/demo-window";
 import { WavyBackground } from "@/components/ui/wavy-background";
 import { GradientButton } from "@/components/ui/gradient-button";
@@ -34,6 +36,11 @@ const Home = () => {
   const [isClient, setIsClient] = useState(false);
   const [token, setToken] = useState<string | null>(null);
   const apiBaseurl = getApiBaseUrl();
+  const [showDraftModal, setShowDraftModal] = useState(false);
+  const [draftData, setDraftData] = useState<any>(null);
+  const [returnUrl, setReturnUrl] = useState<string | null>(null);
+  const { dispatch } = useAppointment();
+
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -62,12 +69,14 @@ const Home = () => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const floatingImages = document.querySelectorAll(".floating-image");
-      
+
       // Only apply floating effect if screen is large enough
       if (window.innerWidth > 1240) {
         floatingImages.forEach((image, index) => {
           const offset = (index + 1) * 50;
-          (image as HTMLElement).style.transform = `translateX(${scrollY / offset}px)`;
+          (image as HTMLElement).style.transform = `translateX(${
+            scrollY / offset
+          }px)`;
         });
       }
     };
@@ -75,6 +84,41 @@ const Home = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Efecto para cargar el borrador unificado
+  useEffect(() => {
+    const storedDraft = sessionStorage.getItem("appointmentDraft");
+    if (storedDraft) {
+      const parsedDraft = JSON.parse(storedDraft);
+      setDraftData(parsedDraft);
+      setShowDraftModal(true);
+    }
+  }, []);
+
+  // Retomar borrador
+  const handleResumeDraft = () => {
+    if (draftData) {
+      // Cargamos el appointmentData en el context
+      dispatch({ type: "LOAD_DRAFT", payload: draftData.appointmentData });
+      setShowDraftModal(false);
+
+      // Redirigimos a la URL guardada (por ejemplo, Wizard)
+      if (draftData.returnUrl) {
+        router.push(draftData.returnUrl);
+      }
+    }
+  };
+
+  // Descartar borrador
+  const handleDiscardDraft = () => {
+    sessionStorage.removeItem("appointmentDraft");
+    dispatch({ type: "DESELECT_SERVICE" });
+    setDraftModal(false);
+  };
+
+  const setDraftModal = (value: boolean) => {
+    setShowDraftModal(value);
+  };
 
   // Datos de ejemplo para los fisioterapeutas destacados
   // const topPhysiotherapists: Physiotherapist[] = [
@@ -191,6 +235,13 @@ const Home = () => {
 
     return (
       <div className="w-full flex items-center relative">
+        {showDraftModal && draftData && (
+          <DraftModal
+            draftData={draftData}
+            onResume={handleResumeDraft}
+            onDiscard={handleDiscardDraft}
+          />
+        )}
         <section className="w-full py-4 relative overflow-hidden">
           <h2 className="text-3xl text-[#253240] font-bold mb-2 text-center">
             Encuentra a tu fisioterapeuta ideal
@@ -262,15 +313,13 @@ const Home = () => {
               <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {searchResults.map((physio, index) => (
                   <CardContainer key={index}>
-                    <CardBody className="bg-gradient-to-bl from-white to-[#65C2C9]/50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-blue-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-full min-h-[400px] rounded-xl p-6 border flex flex-col">
-                      {/* Nombre */}
+                    <CardBody className="bg-gradient-to-bl from-white to-[#65C2C9]/50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-blue-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-full min-h-[350px] rounded-xl p-6 border flex flex-col justify-between">
                       <CardItem
                         translateZ="50"
                         className="text-xl font-bold text-neutral-600 dark:text-white"
                       >
                         {physio.name}
                       </CardItem>
-                      {/* Especialidades */}
                       <CardItem
                         as="p"
                         translateZ="40"
@@ -278,26 +327,24 @@ const Home = () => {
                       >
                         {physio.specializations}
                       </CardItem>
-                      {/* Imagen estática del fisioterapeuta */}
-                      <CardItem translateZ="60" className="w-full mt-4 z-20">
+                      <CardItem translateZ="60" className="w-full">
                         <Image
                           src="/static/fisioterapeuta_sample.webp"
-                          className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl"
+                          className="h-40 w-full object-cover rounded-xl group-hover/card:shadow-xl"
                           alt="Fisioterapeuta"
                           width={500}
                           height={500}
                         />
                       </CardItem>
-                      {/* Botón para ver el perfil del fisioterapeuta */}
-                      <GradientButton>
+                      <div className="flex justify-center mt-4">
                         <CardItem
                           translateZ="20"
-                          className="px-4 py-2 rounded-xl bg-[#1E5ACD] text-white text-sm font-bold hover:bg-[#1848A3] transition-colors"
+                          className="px-6 py-2 rounded-xl bg-[#1E5ACD] hover:bg-[#5ab3a8] text-white text-sm font-bold transition-colors cursor-pointer"
                           onClick={() => router.push(`/appointments/create/${physio.id}`)}
                         >
                           Reservar cita
                         </CardItem>
-                      </GradientButton>
+                      </div>
                     </CardBody>
                   </CardContainer>
                 ))}
@@ -408,24 +455,28 @@ const Home = () => {
               Inicia sesión
             </GradientButton>
           </div>
-            <section className="w-full bg-[#1E5ACD] py-4 text-center text-white rounded-lg mx-auto mt-8 max-w-4xl shadow-lg">
+          <section className="w-full bg-[#1E5ACD] py-4 text-center text-white rounded-lg mx-auto mt-8 max-w-4xl shadow-lg">
             <div className="px-4 flex flex-col sm:flex-row items-center justify-center">
               <p className="font-bold text-lg sm:text-xl mb-2 sm:mb-0">
-              ¿Eres fisioterapeuta?
+                ¿Eres fisioterapeuta?
               </p>
               <button
-              className="ml-0 sm:ml-3 px-4 py-2 bg-white text-[#1E5ACD] rounded-md font-semibold hover:bg-gray-100 transition-all"
-              onClick={() => window.open("https://fisiofind-landing-page.netlify.app/", "_blank")}
+                className="ml-0 sm:ml-3 px-4 py-2 bg-white text-[#1E5ACD] rounded-md font-semibold hover:bg-gray-100 transition-all"
+                onClick={() =>
+                  window.open(
+                    "https://fisiofind-landing-page.netlify.app/",
+                    "_blank"
+                  )
+                }
               >
-              Para más información, accede aquí
+                Para más información, accede aquí
               </button>
             </div>
-            </section>
+          </section>
           <br />
         </section>
       )}
       {/* Sección “¿Eres fisioterapeuta?” */}
-
 
       {/* Top Physiotherapists Section */}
       <section className="max-w-7xl mx-auto px-4 mb-12">
@@ -493,7 +544,11 @@ const Home = () => {
             <h3 className="text-lg font-bold mb-4">Enlaces Útiles</h3>
             <ul>
               <li>
-                <a href="https://fisiofind-landing-page.netlify.app/" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://fisiofind-landing-page.netlify.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Conoce Fisio Find
                 </a>
               </li>

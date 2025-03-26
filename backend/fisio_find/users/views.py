@@ -177,10 +177,15 @@ def physio_create_service(request):
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def physio_get_services_view(request, physio_id):
     physio = get_object_or_404(Physiotherapist, id=physio_id)
-    return Response(physio.services)
+    physio_name = physio.user.first_name + " " + physio.user.last_name
+    response_data = {
+        'physio_name': physio_name,
+        'services': physio.services
+    }
+    return Response(response_data)
 
 
 @api_view(['DELETE'])
