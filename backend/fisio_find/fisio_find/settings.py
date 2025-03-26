@@ -240,4 +240,21 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+DIGITALOCEAN_ACCESS_KEY_ID = "DO801T22Y6LWLUV2R4RE"
+DIGITALOCEAN_SECRET_ACCESS_KEY = "hHkSrRsu61YP+BqQP3GL+GtGeqDfzPVpn8sMaLDVkVY"
+DIGITALOCEAN_SPACE_NAME = "fisiofind-repo"
+DIGITALOCEAN_REGION = "fra1"  # Ejemplo: nyc3, ams3, sgp1
+DIGITALOCEAN_ENDPOINT_URL = f"https://{DIGITALOCEAN_SPACE_NAME}.{DIGITALOCEAN_REGION}.digitaloceanspaces.com"
+
+# Configuración de almacenamiento en DigitalOcean Spaces
+DEFAULT_FILE_STORAGE = "backend.custom_storages.DigitalOceanMediaStorage"
+MEDIA_URL = f"{DIGITALOCEAN_ENDPOINT_URL}/"
+
+
+# Aumentar límite de tamaño de archivos subidos
+DATA_UPLOAD_MAX_MEMORY_SIZE = 524288000  # 500MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 524288000  # 500MB

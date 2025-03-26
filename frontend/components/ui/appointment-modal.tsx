@@ -2,11 +2,11 @@ import axios from "axios";
 import { CalendarProps } from "@/lib/definitions";
 import AlternativeSelector from "./alternative-selector";
 import { getApiBaseUrl } from "@/utils/api";
-import { useState } from "react"; // Add useState import
 import { formatDateFromIso } from "@/lib/utils";
 //import { formatDateTime } from "@/utils/date"; // Import formatDateTime from the appropriate utility file
+import { useState, useEffect, useRef } from "react"; // Agregar useRef y useEffect
 
-// If formatDateTime is not available in a utility file, define it here:
+// Función para formatear fechas
 const formatDateTime = (dateString: string) => {
   const options: Intl.DateTimeFormatOptions = {
     weekday: "long",
@@ -36,9 +36,26 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
   isClient,
   token,
 }) => {
-  const [isClosing, setIsClosing] = useState(false); // Add isClosing state
+  const [isClosing, setIsClosing] = useState(false);
+  const [modalMaxHeight, setModalMaxHeight] = useState("85vh"); // Estado para la altura máxima
+  const modalContentRef = useRef<HTMLDivElement>(null); // Referencia para medir el contenido
+
+  // Efecto para ajustar la altura máxima del modal
+  useEffect(() => {
+    const handleResize = () => {
+      setModalMaxHeight(`${window.innerHeight * 0.85}px`);
+    };
+    
+    handleResize(); // Ejecutar al montar
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   const closeModal = () => {
-    setIsClosing(true); // Trigger closing animation
+    setIsClosing(true);
     setTimeout(() => {
       setSelectedEvent(null); // Close modal after animation
       setEditionMode(false); // Close edition mode after animation
@@ -107,14 +124,11 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
   };
 
   const handleSelection = (date: string, startTime: string) => {
-    const [startTimeSplit, endTimeSplit] = startTime.split(" - "); // Tomamos solo la hora de inicio
+    const [startTimeSplit, endTimeSplit] = startTime.split(" - ");
     const startDateTime = new Date(
       `${date}T${startTimeSplit}:00Z`
-    ).toISOString(); // Generamos la fecha completa en formato UTC
-    const endDateTime = new Date(`${date}T${endTimeSplit}:00Z`).toISOString(); // Generamos la fecha completa en formato UTC
-
-    console.log("Seleccion confirmada:", { startDateTime, endDateTime });
-    alert(`Seleccionaste: ${startDateTime} - ${endDateTime}`);
+    ).toISOString();
+    const endDateTime = new Date(`${date}T${endTimeSplit}:00Z`).toISOString();
 
     axios
       .put(
@@ -125,19 +139,17 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
         },
         {
           headers: {
-            Authorization: "Bearer " + token, // Envía el JWT en la cabecera de la petición
+            Authorization: "Bearer " + token,
           },
         }
       )
       .then((response) => {
-        // Si la respuesta fue exitosa
         alert("La cita se actualizó correctamente.");
         console.log("Cita actualizada correctamente", response);
         setSelectedEvent(null);
         window.location.reload();
       })
       .catch((error) => {
-        // Si hubo un error en la solicitud
         console.error("Error en la actualización de la cita:", error);
         alert("Hubo un problema con la conexión. Intenta nuevamente.");
       });
@@ -183,7 +195,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
 
   return (
     <div
-      className={`z-50 fixed inset-0 flex items-center justify-center ${isClosing ? 'opacity-0' : 'opacity-100'} transition-opacity duration-200`}
+      className={`z-50 fixed inset-0 flex items-center justify-center ${isClosing ? 'opacity-0' : 'opacity-100'} transition-opacity duration-200 overflow-hidden`}
       onClick={closeModal}
       aria-modal="true"
       role="dialog"
@@ -191,14 +203,15 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
     >
       {/* Backdrop */}
       <div className="absolute inset-0 bg-gray-900 bg-opacity-40 backdrop-blur-sm"></div>
-
-      {/* Modal Card */}
+      
+      {/* Modal Card - Con altura máxima y scroll */}
       <div
-        className={`bg-white rounded-xl shadow-xl w-full max-w-md mx-4 relative z-50 overflow-hidden ${isClosing ? 'scale-95' : 'scale-100'} transition-all duration-200`}
+        className={`bg-white rounded-2xl shadow-xl w-full max-w-md mx-4 relative z-50 flex flex-col ${isClosing ? 'scale-95' : 'scale-100'} transition-all duration-200`}
         onClick={(event) => event.stopPropagation()}
+        style={{ maxHeight: modalMaxHeight }}
       >
-        {/* Header */}
-        <div className="relative">
+        {/* Header - Fijo */}
+        <div className="relative flex-shrink-0">
           <div className="bg-gradient-to-r from-teal-500 to-teal-600 px-6 pt-12 pb-6">
             <div className="flex justify-between items-start">
               <h2
@@ -211,7 +224,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
             </div>
 
             <div className="flex items-center mt-4 text-teal-50">
-              <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="w-5 h-5 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                 <line x1="16" y1="2" x2="16" y2="6"></line>
                 <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -224,12 +237,12 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
 
             {selectedEvent.end && (
               <div className="flex items-center mt-2 text-teal-50">
-                <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg className="w-5 h-5 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="12" r="10"></circle>
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
                 <span className="text-sm">
-                  Duración: {Math.round((new Date(selectedEvent.end).getTime() - new Date(selectedEvent.start).getTime()) / (1000 * 60))} minutos
+                  Duración: {selectedEvent.end && selectedEvent.start ? Math.round((new Date(selectedEvent.end).getTime() - new Date(selectedEvent.start).getTime()) / (1000 * 60)) : 0} minutos
                 </span>
               </div>
             )}
@@ -247,9 +260,12 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
             </svg>
           </button>
         </div>
-
-        {/* Content */}
-        <div className="p-6">
+        
+        {/* Content - Con scroll */}
+        <div 
+          ref={modalContentRef}
+          className="p-6 overflow-y-auto flex-grow"
+        >
           {/* Description */}
           {selectedEvent.description && (
             <div className="mb-6">
@@ -273,7 +289,93 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
               )}
             </div>
           )}
-
+          
+          {/* Questionary responses - Solo visible para fisioterapeutas */}
+          {currentRole === "physiotherapist" && 
+           selectedEvent.service?.questionaryResponses && 
+           Object.keys(selectedEvent.service.questionaryResponses).length > 0 && (
+            <div className="mb-6 bg-gray-50 rounded-lg p-4 border border-gray-200">
+              <h3 className="text-sm font-medium text-teal-700 mb-3 pb-2 border-b border-gray-200">
+                Información del paciente
+              </h3>
+              
+              <div className="space-y-4">
+                {/* Sección de datos personales comunes */}
+                <div>
+                  <h4 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
+                    Datos básicos
+                  </h4>
+                  <div className="grid grid-cols-1 gap-2">
+                    {/* Mostrar peso con unidad */}
+                    {selectedEvent.service.questionaryResponses.peso && (
+                      <div className="flex justify-between py-1.5 border-b border-gray-100">
+                        <span className="text-sm font-medium text-gray-600">Peso:</span> 
+                        <span className="text-sm text-gray-800">{selectedEvent.service.questionaryResponses.peso} kg</span>
+                      </div>
+                    )}
+                    
+                    {/* Mostrar altura con unidad */}
+                    {selectedEvent.service.questionaryResponses.altura && (
+                      <div className="flex justify-between py-1.5 border-b border-gray-100">
+                        <span className="text-sm font-medium text-gray-600">Altura:</span> 
+                        <span className="text-sm text-gray-800">{selectedEvent.service.questionaryResponses.altura} cm</span>
+                      </div>
+                    )}
+                    
+                    {/* Mostrar edad con unidad */}
+                    {selectedEvent.service.questionaryResponses.edad && (
+                      <div className="flex justify-between py-1.5 border-b border-gray-100">
+                        <span className="text-sm font-medium text-gray-600">Edad:</span> 
+                        <span className="text-sm text-gray-800">{selectedEvent.service.questionaryResponses.edad} años</span>
+                      </div>
+                    )}
+                    
+                    {/* Nivel de actividad física */}
+                    {selectedEvent.service.questionaryResponses.actividad_fisica && (
+                      <div className="flex justify-between py-1.5 border-b border-gray-100">
+                        <span className="text-sm font-medium text-gray-600">Nivel de actividad:</span> 
+                        <span className="text-sm text-gray-800">{selectedEvent.service.questionaryResponses.actividad_fisica}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                
+                {/* Motivo de consulta - con más espacio ya que suele ser texto largo */}
+                {selectedEvent.service.questionaryResponses.motivo_consulta && (
+                  <div>
+                    <h4 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
+                      Motivo de consulta
+                    </h4>
+                    <div className="bg-white p-3 rounded border border-gray-100">
+                      <p className="text-sm text-gray-800">{selectedEvent.service.questionaryResponses.motivo_consulta}</p>
+                    </div>
+                  </div>
+                )}
+                
+                {/* Otras preguntas personalizadas */}
+                {Object.entries(selectedEvent.service.questionaryResponses)
+                  .filter(([key]) => !['peso', 'altura', 'edad', 'actividad_fisica', 'motivo_consulta'].includes(key))
+                  .length > 0 && (
+                    <div>
+                      <h4 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
+                        Información adicional
+                      </h4>
+                      <div className="grid grid-cols-1 gap-2">
+                        {Object.entries(selectedEvent.service.questionaryResponses)
+                          .filter(([key]) => !['peso', 'altura', 'edad', 'actividad_fisica', 'motivo_consulta'].includes(key))
+                          .map(([key, value], index) => (
+                            <div key={index} className="py-1.5 border-b border-gray-100 last:border-0">
+                              <div className="text-sm font-medium text-gray-600 mb-1">{key}:</div>
+                              <div className="text-sm text-gray-800 break-words">{String(value)}</div>
+                            </div>
+                          ))}
+                      </div>
+                    </div>
+                  )}
+              </div>
+            </div>
+          )}
+          
           {/* Alternatives selector */}
           {selectedEvent.alternatives && currentRole === "patient" && (
             <div className="mt-6 p-4 border border-gray-200 rounded-lg bg-gray-50">
@@ -286,8 +388,8 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
               </div>
             </div>
           )}
-
-          {/* Action buttons */}
+          
+          {/* Action buttons - Ahora van dentro del área con scroll */}
           {selectedEvent.status !== "finished" && (
             <div className="flex flex-wrap gap-3 mt-6 justify-end">
               {currentRole === "physiotherapist" && selectedEvent.status === "booked" && isFutureAndTwoDaysAhead() && (
