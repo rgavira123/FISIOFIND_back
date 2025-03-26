@@ -57,7 +57,8 @@ export function SidebarDemo() {
   }, [pathname, isClient, token]);
 
   // Update the icon sizes and colors in the links array
-  const links = [
+  // Update the links array to separate public and private links
+  const publicLinks = [
     {
       label: "Buscar",
       href: "/",
@@ -74,16 +75,9 @@ export function SidebarDemo() {
     },
     {
       label: "Tratamientos",
-      href: isAuthenticated? "/physio-management/follow-up" : "/login",
+      href: "/physio-management/follow-up",
       icon: (
         <IconStethoscope className="text-[#05918F] h-5 w-5 flex-shrink-0 mx-auto" />
-      ),
-    },
-    {
-      label: "Mi perfil",
-      href: urlPerfil ? urlPerfil : "/",
-      icon: (
-        <IconUser className="text-[#05AC9C] h-5 w-5 flex-shrink-0 mx-auto" />
       ),
     },
     {
@@ -95,6 +89,16 @@ export function SidebarDemo() {
     },
   ];
 
+  const privateLinks = [
+    {
+      label: "Mi perfil",
+      href: urlPerfil ? urlPerfil : "/",
+      icon: (
+        <IconUser className="text-[#05AC9C] h-5 w-5 flex-shrink-0 mx-auto" />
+      ),
+    }
+  ];
+
   return (
     <div className="h-screen">
       <Sidebar open={open} setOpen={setOpen}>
@@ -102,9 +106,14 @@ export function SidebarDemo() {
           <div className="flex flex-col flex-1 overflow-y-auto scrollbar-hide overflow-x-hidden">
             <div className="mb-8 hidden md:block">{open ? <Logo /> : <LogoIcon />}</div>
             <div className="flex flex-col gap-8">
-              {links.map((link, idx) => (
-                <SidebarLink key={idx} link={link} />
+              {publicLinks.map((link, idx) => (
+                <SidebarLink key={`public-${idx}`} link={link} />
               ))}
+              {isAuthenticated && urlPerfil && // Only show profile if authenticated and urlPerfil exists (not admin)
+                privateLinks.map((link, idx) => (
+                  <SidebarLink key={`private-${idx}`} link={link} />
+                ))
+              }
             </div>
           </div>
           {isAuthenticated && (

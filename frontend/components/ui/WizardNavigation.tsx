@@ -96,25 +96,26 @@ const WizardNavigation: React.FC<WizardNavigationProps> = ({
   };
 
   return (
-    <div className="flex space-x-4 mt-6">
-      <button
-        onClick={goToPrevious}
-        className="px-4 py-2 bg-gray-300 text-black rounded disabled:opacity-50 hover:bg-logo2"
-        disabled={currentStep === 1}
-      >
-        Atrás
-      </button>
+    <div className="flex justify-center space-x-4 mt-6">
+      {currentStep !== 1 && (
+        <button
+          onClick={goToPrevious}
+          className="px-6 py-2 rounded-xl bg-white border-2 border-[#65C2C9] text-[#65C2C9] hover:bg-[#65C2C9] hover:text-white transition-colors"
+        >
+          Atrás
+        </button>
+      )}
       {currentStep === totalSteps ? (
         <button
           onClick={createAppointment}
-          className="px-4 py-2 bg-logo3 text-white rounded hover:bg-logo4"
+          className="px-6 py-2 rounded-xl bg-[#05668D] text-white hover:bg-[#05918F] transition-colors"
         >
           Finalizar
         </button>
       ) : (
         <button
           onClick={goToNext}
-          className="px-4 py-2 bg-gray-300 text-black rounded disabled:opacity-50 hover:bg-logo3"
+          className="px-6 py-2 rounded-xl bg-[#05668D] text-white hover:bg-[#05918F] transition-colors disabled:opacity-50"
           disabled={currentStep === totalSteps}
         >
           Siguiente
