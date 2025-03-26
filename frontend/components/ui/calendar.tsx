@@ -8,6 +8,8 @@ import "@/app/my-appointments/my-appointments.css";
 import DynamicFormModal from "./dinamic-form-modal";
 import { AppointmentModal } from "./appointment-modal";
 import { CalendarProps } from "@/lib/definitions";
+import { getApiBaseUrl } from "@/utils/api";
+import axios from "axios";
 
 const CalendarPage = ({
   events,
@@ -199,6 +201,71 @@ const Calendar = ({
     }
     return "month"; // Default to "month" if not on the client side
   });
+  const [schedule, setSchedule] = useState<any>(null); // Datos del schedule desde la API
+  const [physioId, setPhysioId] = useState<number | null>(null); // ID del fisioterapeuta
+
+  // Traer el schedule desde la API usando la id del fisioterapeuta
+  useEffect(() => {
+    if (isClient) {
+      if (token) {
+        if (currentRole == "physiotherapist") {
+          const getCurrentUser = async () => {
+            try {
+              const response = await axios.get(
+                `${getApiBaseUrl()}/api/app_user/current-user/`,
+                {
+                  headers: {
+                    Authorization: "Bearer " + token,
+                  }
+                }
+              );
+              if (response.status === 200) {
+                setPhysioId(response.data.physio.id);
+              }
+            } catch (error) {
+              console.error("Error fetching schedule:", error);
+            }
+          };
+          getCurrentUser();
+        }
+      }
+    }
+  }, [currentRole, token, isClient]);
+
+
+  // Traer el schedule desde la API usando la id del fisioterapeuta
+  useEffect(() => {
+    if (physioId) {
+      const fetchSchedule = async () => {
+        try {
+          const response = await axios.get(
+            `${getApiBaseUrl()}/api/appointment/schedule/${physioId}/`
+          );
+          if (response.status === 200) {
+            const parsed_schedule = {
+              schedule: {
+                exceptions: response.data.schedule.exceptions,
+                appointments: response.data.schedule.appointments,
+                weekly_schedule: {
+                  monday: response.data.schedule.weekly_schedule.monday,
+                  tuesday: response.data.schedule.weekly_schedule.tuesday,
+                  wednesday: response.data.schedule.weekly_schedule.wednesday,
+                  thursday: response.data.schedule.weekly_schedule.thursday,
+                  friday: response.data.schedule.weekly_schedule.friday,
+                  saturday: response.data.schedule.weekly_schedule.saturday,
+                  sunday: response.data.schedule.weekly_schedule.sunday,
+                },
+              },
+            }
+            setSchedule(parsed_schedule);
+          }
+        } catch (error) {
+          console.error("Error fetching schedule:", error);
+        }
+      };
+      fetchSchedule();
+    }
+  }, [physioId]);
 
   useEffect(() => {
     const calendarApi = calendarRef.current?.getApi();
@@ -507,6 +574,7 @@ const Calendar = ({
           event={selectedEvent}
           onClose={() => setEditionMode(false)}
           onSubmit={handleAlternativesSubmit}
+          schedule={schedule}
         />
       )}
     </div>
