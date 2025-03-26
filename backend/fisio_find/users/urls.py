@@ -1,7 +1,5 @@
 from django.urls import path
-from .views import AdminPatientDetail, AdminPhysioDetail, create_file, delete_video, list_my_videos,  physio_create_service_view, physio_update_service_view, admin_search_patients_by_user, admin_search_physios_by_user, patient_register_view, physio_delete_service_view, physio_get_services_view, stream_video, update_video
-from .views import custom_token_obtain_view, logout_view, check_role_view, physio_register_view, return_user
-from .views import physio_update_view, PatientProfileView, validate_physio_registration, process_payment
+from .views import *
 from django.conf import settings
 from django.conf.urls.static import static
 

@@ -75,10 +75,9 @@ INSTALLED_APPS += [
     'terms',
     'guest_session',
     'treatments',
-    'gestion_pagos',
-    'gestion_survey'
+    'gestion_survey',
+    'payment',
 ]
-
 
 INSTALLED_APPS += ['corsheaders', 'django_extensions', 'django_filters']
 
@@ -245,11 +244,13 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
++
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #Stripe payment
 STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+
 
 
 
