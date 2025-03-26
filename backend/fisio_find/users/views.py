@@ -186,7 +186,8 @@ def physio_update_view(request):
                 updated_physio.refresh_from_db()
                 
             except Exception as e:
-                return Response({"error": f"Error al guardar especializaciones: {str(e)}"}, 
+                logging.error(f"Error al guardar especializaciones: {str(e)}")
+                return Response({"error": "Error al guardar especializaciones"},  
                               status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         # Usar serializers para convertir los datos a JSON
@@ -281,7 +282,8 @@ def physio_get_services_view(_, physio_id):
         services = physio.services
         return Response(services)
     except Exception as e:
-        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        logging.error("Error retrieving services for physiotherapist %s: %s", physio_id, str(e))
+        return Response({"error": "An internal error has occurred."}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['DELETE'])
