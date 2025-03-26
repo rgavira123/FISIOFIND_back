@@ -11,8 +11,11 @@ from users.permissions import IsPatient, IsPhysiotherapist
 from .utils.pdf_generator import generate_invoice_pdf
 from django.http import HttpResponse, JsonResponse
 from django.db.models import Sum
+import logging
+
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
+
 
 def _check_deadline(appointment):
     """Check if the payment deadline has passed and cancel the appointment if needed."""
@@ -23,25 +26,27 @@ def _check_deadline(appointment):
         return True
     return False
 
+
 @api_view(['POST'])
 @permission_classes([IsPatient])
 def create_payment(request):
     """Create a payment for an appointment."""
     appointment_id = request.data.get('appointment_id')
-    amount = request.data.get('amount', 1000)  # Amount in cents: 1000 centavos = 10 EUR
-    #payment_method = request.data.get('payment_method', 'card')
+    # Amount in cents: 1000 centavos = 10 EUR
+    amount = request.data.get('amount', 1000)
+    # payment_method = request.data.get('payment_method', 'card')
 
     try:
         appointment = Appointment.objects.get(id=appointment_id)
-        
+
         # Check if the user is the patient associated with the appointment
         if request.user.patient != appointment.patient:
-            return Response({'error': 'You can only pay for your own appointments'}, 
+            return Response({'error': 'You can only pay for your own appointments'},
                             status=status.HTTP_403_FORBIDDEN)
 
         # Check if deadline has passed
         if _check_deadline(appointment):
-            return Response({'error': 'Payment deadline has expired and the appointment was canceled'}, 
+            return Response({'error': 'Payment deadline has expired and the appointment was canceled'},
                             status=status.HTTP_400_BAD_REQUEST)
 
         # Create payment intent with Stripe
@@ -55,18 +60,22 @@ def create_payment(request):
         # Create or update payment record
         payment, created = Payment.objects.get_or_create(
             appointment=appointment,
-            defaults={'amount': amount / 100, 'stripe_payment_intent_id': payment_intent['id']}
+            defaults={'amount': amount / 100,
+                'stripe_payment_intent_id': payment_intent['id']}
         )
         serializer = PaymentSerializer(payment)
         return Response({
             'payment': serializer.data,
-            'client_secret': payment_intent['client_secret']  # For frontend to complete payment
+            # For frontend to complete payment
+            'client_secret': payment_intent['client_secret']
         }, status=status.HTTP_201_CREATED)
 
     except Appointment.DoesNotExist:
         return Response({'error': 'Appointment not found'}, status=status.HTTP_404_NOT_FOUND)
     except Exception as e:
-        return Response({'error': f'Error processing payment: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
+        logging.error(f'Error processing payment: {str(e)}')
+        return Response({'error': f'Error processing payment'}, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['POST'])
 @permission_classes([IsPatient])
@@ -77,23 +86,24 @@ def confirm_payment(request, payment_id):
 
         # Check if the user is the patient associated with the appointment
         if request.user.patient != payment.appointment.patient:
-            return Response({'error': 'You can only confirm payments for your own appointments'}, 
+            return Response({'error': 'You can only confirm payments for your own appointments'},
                             status=status.HTTP_403_FORBIDDEN)
 
         # Check if deadline has passed
         if _check_deadline(payment.appointment):
-            return Response({'error': 'Payment deadline has expired and the appointment was canceled'}, 
+            return Response({'error': 'Payment deadline has expired and the appointment was canceled'},
                             status=status.HTTP_400_BAD_REQUEST)
 
         if payment.status == 'Paid':
             return Response({'error': 'Payment is already confirmed'}, status=status.HTTP_400_BAD_REQUEST)
-        
+
         # Obtener el PaymentIntent desde Stripe usando el ID almacenado
-        payment_intent = stripe.PaymentIntent.retrieve(payment.stripe_payment_intent_id) 
-        
+        payment_intent = stripe.PaymentIntent.retrieve(
+            payment.stripe_payment_intent_id)
+
         if payment_intent['status'] == 'requires_payment_method':
             return Response({'error': 'Payment method is required'}, status=status.HTTP_400_BAD_REQUEST)
-        
+
         if payment_intent['status'] == 'canceled':
             return Response({'error': 'Payment was canceled'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -107,13 +117,15 @@ def confirm_payment(request, payment_id):
             payment.appointment.save()
 
         serializer = PaymentSerializer(payment)
-        return Response({'message': 'Payment confirmed', 'payment': serializer.data}, 
+        return Response({'message': 'Payment confirmed', 'payment': serializer.data},
                         status=status.HTTP_200_OK)
 
     except Payment.DoesNotExist:
         return Response({'error': 'Payment not found'}, status=status.HTTP_404_NOT_FOUND)
     except Exception as e:
-        return Response({'error': f'Error confirming payment: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
+        logging.error(f'Error confirming payment: {str(e)}')
+        return Response({'error': f'Error confirming payment'}, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['POST'])
 @permission_classes([IsPatient])
@@ -124,7 +136,7 @@ def cancel_payment_patient(request, payment_id):
 
         # Verificar que el usuario sea el paciente asociado
         if request.user.patient != payment.appointment.patient:
-            return Response({'error': 'You can only cancel your own appointments'}, 
+            return Response({'error': 'You can only cancel your own appointments'},
                             status=status.HTTP_403_FORBIDDEN)
 
         appointment = payment.appointment
@@ -132,7 +144,7 @@ def cancel_payment_patient(request, payment_id):
 
         # No se puede cancelar si la cita ya pasó
         if now > appointment.start_time:
-            return Response({'error': 'The appointment has already passed'}, 
+            return Response({'error': 'The appointment has already passed'},
                             status=status.HTTP_400_BAD_REQUEST)
 
         # Caso 1: Pago no realizado antes de las 48 horas antes de la cita
@@ -142,43 +154,47 @@ def cancel_payment_patient(request, payment_id):
             appointment.status = 'Canceled'
             appointment.save()
             payment.status = 'Canceled'
-            payment.payment_date = now 
+            payment.payment_date = now
             payment.save()
             return Response({'message': 'Appointment canceled without charge'}, status=status.HTTP_200_OK)
 
         # Caso 2: Pago realizado y antes de las 48 horas antes de la cita
         if payment.status == 'Paid' and now < payment.payment_deadline:
-            payment_intent = stripe.PaymentIntent.retrieve(payment.stripe_payment_intent_id)
+            payment_intent = stripe.PaymentIntent.retrieve(
+                payment.stripe_payment_intent_id)
             if payment_intent['status'] != 'succeeded':
-                return Response({'error': 'Payment cannot be refunded because it was not completed'}, 
+                return Response({'error': 'Payment cannot be refunded because it was not completed'},
                                 status=status.HTTP_400_BAD_REQUEST)
-            
-            refund = stripe.Refund.create(payment_intent=payment.stripe_payment_intent_id)
+
+            refund = stripe.Refund.create(
+                payment_intent=payment.stripe_payment_intent_id)
             if refund['status'] == 'succeeded':
                 payment.status = 'Refunded'
                 payment.payment_date = now
                 payment.save()
                 appointment.status = 'Canceled'
                 appointment.save()
-                return Response({'message': 'Payment refunded and appointment canceled'}, 
+                return Response({'message': 'Payment refunded and appointment canceled'},
                                 status=status.HTTP_200_OK)
 
         # Caso 3: Pago realizado pero dentro de las 48 horas antes de la cita
         if payment.status == 'Paid' and now > payment.payment_deadline:
-            return Response({'error': 'Payment cannot be refunded within 48 hours of the appointment'}, 
+            return Response({'error': 'Payment cannot be refunded within 48 hours of the appointment'},
                             status=status.HTTP_400_BAD_REQUEST)
-        
+
         # Caso 4: Pago ya cancelado o reembolsado
         if payment.status in ['Canceled', 'Refunded']:
-            return Response({'error': 'Payment has already been canceled or refunded'}, 
+            return Response({'error': 'Payment has already been canceled or refunded'},
                             status=status.HTTP_400_BAD_REQUEST)
 
     except Payment.DoesNotExist:
         return Response({'error': 'Payment not found'}, status=status.HTTP_404_NOT_FOUND)
     except stripe.error.StripeError as e:
-        return Response({'error': f'Stripe error: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
+        logging.error(f'Stripe error: {str(e)}')
+        return Response({'error': 'An error occurred while processing your payment. Please try again later.'}, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
-        return Response({'error': f'Error canceling payment: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
+        logging.error(f'Stripe error: {str(e)}')
+        return Response({'error': 'An internal error has occurred. Please try again later.'}, status=status.HTTP_400_BAD_REQUEST)
     
 
 @api_view(['POST'])
@@ -241,9 +257,10 @@ def cancel_payment_pyshio(request, payment_id):
     except Payment.DoesNotExist:
         return Response({'error': 'Payment not found'}, status=status.HTTP_404_NOT_FOUND)
     except stripe.error.StripeError as e:
-        return Response({'error': f'Stripe error: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
+        logging.error(f'Stripe error: {str(e)}')
+        return Response({'error': 'An error occurred while processing your payment. Please try again later.'}, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
-        return Response({'error': f'Error canceling payment: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': 'An internal error has occurred. Please try again later.'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET'])
@@ -319,9 +336,10 @@ def get_refund_status(request, payment_id):
     except Payment.DoesNotExist:
         return Response({'error': 'Payment not found'}, status=status.HTTP_404_NOT_FOUND)
     except stripe.error.StripeError as e:
-        return Response({'error': f'Stripe error: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
+        logging.error(f'Stripe error: {str(e)}')
+        return Response({'error': 'An error occurred while processing your payment.'}, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
-        return Response({'error': f'Error retrieving refund status: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': 'An internal error has occurred. Please try again later.'}, status=status.HTTP_400_BAD_REQUEST)
     
 
 #facturas
@@ -359,7 +377,7 @@ def invoice_pdf_view(request):
 
     except Exception as e:
         return Response(
-            {"error": str(e)},
+            {"error": 'An internal error has occurred. Please try again later.'},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
     
@@ -387,7 +405,7 @@ def total_money(request):
             total = 0
         return Response({'total': total}, status=status.HTTP_200_OK)
     except Exception as e:
-        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': 'An internal error has occurred. Please try again later.'}, status=status.HTTP_400_BAD_REQUEST)
 
 #generar un SetupIntent para almacenar el método de pago sin cobrarlo de inmediato
 
@@ -448,7 +466,8 @@ def create_payment_setup(request):
     except Appointment.DoesNotExist:
         return Response({'error': 'Cita no encontrada'}, status=status.HTTP_404_NOT_FOUND)
     except Exception as e:
-        return Response({'error': f'Error al procesar el pago: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
+        logging.error(f'Error al procesar el pago: {str(e)}')
+        return Response({'error': 'An error occurred while processing your payment. Please try again later.'}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 @permission_classes([IsPatient])
@@ -490,7 +509,8 @@ def update_payment_method(request, payment_id):
     except Payment.DoesNotExist:
         return Response({'error': 'Pago no encontrado'}, status=status.HTTP_404_NOT_FOUND)
     except Exception as e:
-        return Response({'error': f'Error al actualizar el método de pago: {str(e)}'}, 
+        logging.error(f'Error al actualizar el método de pago: {str(e)}')
+        return Response({'error': f'Error al actualizar el método de pago'}, 
                         status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -530,8 +550,8 @@ def charge_payment(payment_id):
     except Payment.DoesNotExist:
         return Response({'error': 'Pago no encontrado'}, status=status.HTTP_404_NOT_FOUND)
     except Exception as e:
-        print(e)
-        return Response({'error': f'Error al cobrar el pago: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
+        logging.error(f'Error al cobrar el pago: {str(e)}')
+        return Response({'error': 'Error al cobrar el pago'}, status=status.HTTP_400_BAD_REQUEST)
 
 def process_due_payments():
     """Busca y cobra pagos que han alcanzado el deadline."""
@@ -544,7 +564,7 @@ def process_due_payments():
     for payment in due_payments:
         try:
             response = charge_payment(payment.id)  # Llama a la función de cobro
-            print(f"Pago procesado correctamente: {payment.id} - {response}")
+            
         except Exception as e:
             print(f"Error al procesar el pago {payment.id}: {str(e)}")
 
@@ -630,7 +650,7 @@ def process_due_payments_api(request):
             else:
                 payment_intent = stripe.PaymentIntent.retrieve(payment.stripe_payment_intent_id)
 
-            print(f"PaymentIntent: {payment_intent}")
+            
             # Opcional: Si la cita ya finalizó, capturar el PaymentIntent manualmente.
             if now > appointment.end_time:
                 captured_intent = stripe.PaymentIntent.capture(payment.stripe_payment_intent_id)
@@ -644,5 +664,5 @@ def process_due_payments_api(request):
         return HttpResponse("Payment processing completed.")
         
     except Exception as e:
-        print(f"Error processing payments: {str(e)}")
-        return HttpResponse(f"Error processing payments: {str(e)}")
+        logging.error(f"Error processing payments: {str(e)}")
+        return HttpResponse(f"Error processing payments")
