@@ -17,6 +17,13 @@ urlpatterns = [
     path('physio/delete-service/<str:service_name>/', physio_delete_service_view, name='physio_delete_service'),
     path('profile/', PatientProfileView.as_view(), name='profile'),
     path('current-user/', return_user, name='current_user'),
+
+    path('videos/upload/', create_file, name='upload_video'),
+    path('videos/delete/<int:video_id>/', delete_video, name='delete_video'),
+    path('videos/list-my-videos/', list_my_videos, name='list_my_videos'),
+    path('videos/stream-video/<int:video_id>/', stream_video, name='stream_video'),
+    path('videos/update-video/<int:video_id>/', update_video, name='update_video'),
+
     path('services/<int:physio_id>/', physio_get_services_view, name='physio_get_xservices'),
     
 
