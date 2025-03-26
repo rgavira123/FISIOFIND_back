@@ -231,7 +231,7 @@ const PatientRegistrationForm = () => {
         if (loginResponse.status === 200) {
           if (isClient) {
             localStorage.setItem("token", loginResponse.data.access);
-            router.push("/patient-management/profile");
+            router.push("/");
           } else {
             console.error("Error al iniciar sesión", loginResponse.data);
           }
@@ -422,7 +422,7 @@ const PatientRegistrationForm = () => {
                 <button
                   type="button"
                   onClick={handlePrevStep}
-                  className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
+                  className="px-6 py-2 bg-[#05AC9C] text-white font-medium rounded-xl transition-colors hover:bg-[#048F83] flex items-center gap-2"
                 >
                   Anterior
                 </button>
@@ -432,7 +432,7 @@ const PatientRegistrationForm = () => {
                 <button
                   type="button"
                   onClick={handleNextStep}
-                  className="ml-auto px-6 py-2 bg-[#1E5ACD] hover:bg-[#1848A3] text-white font-medium rounded-md transition-colors"
+                  className="ml-auto px-6 py-2 bg-gradient-to-r from-[#05668D] to-[#0A7487] hover:from-[#0A7487] hover:to-[#05918F] text-white font-medium rounded-xl transition-colors"
                 >
                   Siguiente
                 </button>
@@ -440,7 +440,7 @@ const PatientRegistrationForm = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="ml-auto px-6 py-2 bg-[#1E5ACD] hover:bg-[#1848A3] text-white font-medium rounded-md transition-colors disabled:bg-blue-300"
+                  className="ml-auto px-6 py-2 bg-gradient-to-r from-[#05668D] to-[#0A7487] hover:from-[#0A7487] hover:to-[#05918F] text-white font-medium rounded-xl transition-colors disabled:from-blue-300 disabled:to-blue-400"
                 >
                   {isSubmitting ? "Registrando..." : "Completar Registro"}
                 </button>
