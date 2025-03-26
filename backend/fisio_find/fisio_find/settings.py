@@ -75,6 +75,7 @@ INSTALLED_APPS += [
     'terms',
     'guest_session',
     'treatments',
+    'gestion_survey',
     'payment',
 ]
 
@@ -243,12 +244,13 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
-
++
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #Stripe payment
 STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 
 
@@ -266,3 +268,4 @@ MEDIA_URL = f"{DIGITALOCEAN_ENDPOINT_URL}/"
 # Aumentar límite de tamaño de archivos subidos
 DATA_UPLOAD_MAX_MEMORY_SIZE = 524288000  # 500MB
 FILE_UPLOAD_MAX_MEMORY_SIZE = 524288000  # 500MB
+

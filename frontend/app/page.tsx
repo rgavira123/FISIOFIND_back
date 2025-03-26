@@ -362,7 +362,6 @@ const Home = () => {
       <CookieConsent />
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center text-center relative overflow-hidden mb-8">
-        <WavyBackground className="max-w-full mx-auto py-12">
           <div className="absolute top-0 left-0 w-full h-full">
             <div className="floating-image" style={{ right: "70%", top: "35%" }}>
               <Image
@@ -413,19 +412,12 @@ const Home = () => {
               con el profesional que mejor se ajusta a tus necesidades.
             </p>
           </div>
-        </WavyBackground>
-      </section>
-
-      {/* Demo Video */}
-      <section className="px-4 py-16 relative z-10">
-        <DemoWindow />
       </section>
 
 
       {/* Search Section */}
       {/* Unified Search Bar */}
       <SearchPhysiotherapists />
-
 
       {/* Focus Cards Section: solo se muestra si NO está autenticado */}
       {!isAuthenticated && (

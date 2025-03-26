@@ -32,12 +32,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         style={{ backgroundColor: "rgb(238, 251, 250)" }}
       >
         <AppointmentProvider>
-        <div className="flex min-h-screen">
-          <SidebarDemo />
-          <main className="flex-1 transition-all duration-300 h-screen overflow-auto">
-            {children}
-          </main>
-        </div>
+          <ClientWrapper>
+            <div className="flex min-h-screen">
+              <SidebarDemo />
+              <main className="flex-1 transition-all duration-300 h-screen overflow-auto">
+                {children}
+              </main>
+            </div>
+          </ClientWrapper>
         </AppointmentProvider>
       </body>
     </html>
