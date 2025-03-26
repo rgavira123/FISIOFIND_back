@@ -29,16 +29,16 @@ const Wizard: React.FC<WizardProps> = ({ steps, token, isClient }) => {
       try {
         const urlParts = window.location.pathname.split("/");
         const physio_id = urlParts[urlParts.length - 1];
-        if (physio_id && token) {
+        if (physio_id) {
           const response = await axios.get(`${getApiBaseUrl()}/api/app_user/services/${physio_id}/`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
           });
+
           // For nested JSON object with service categories
+          let physioName = ''
           const parsedServices: Service[] = [];
           if (response.data && typeof response.data === 'object') {
-            Object.entries(response.data).forEach(([_, service]: [string, any]) => {
+            physioName = response.data.physioName
+            Object.entries(response.data.services).forEach(([_, service]: [string, any]) => {
               if (service && typeof service === 'object' && 'id' in service) {
                 const questionnaire = service.custom_questionnaire && service.custom_questionnaire["UI Schema"]
                   ? service.custom_questionnaire["UI Schema"]
@@ -72,7 +72,7 @@ const Wizard: React.FC<WizardProps> = ({ steps, token, isClient }) => {
   // Navegación
   const goToNextStep = () => {
     // Si estamos en el paso del cuestionario (asumiendo que es el paso 4)
-    if (currentStep === 4) {
+    if (currentStep === 3) {
       // Validar el cuestionario antes de continuar
       const isValid = questionaryRef.current?.validateQuestionaryAndContinue();
       if (!isValid) {
@@ -98,7 +98,7 @@ const Wizard: React.FC<WizardProps> = ({ steps, token, isClient }) => {
 
           {/* Contenido */}
           <div className="mt-8 w-full bg-white rounded shadow p-6">
-            <WizardContent currentStep={currentStep} services={services} questionaryRef={questionaryRef} />
+            <WizardContent currentStep={currentStep} services={services} questionaryRef={questionaryRef} token={token}/>
           </div>
 
           <WizardNavigation

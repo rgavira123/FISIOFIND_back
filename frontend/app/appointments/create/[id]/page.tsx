@@ -8,9 +8,9 @@ import { Step } from "@/lib/definitions";
 const steps: Step[] = [
   { step: 1, label: "Selecciona el servicio" },
   { step: 2, label: "Agenda tu cita y hora" },
-  { step: 3, label: "Elige tu método de pago" },
-  { step: 4, label: "Preguntas rápidas" },
-  { step: 5, label: "Resumen final" },
+  { step: 3, label: "Preguntas rápidas" },
+  { step: 4, label: "Resumen final" },
+  { step: 5, label: "Elige tu método de pago" },
 ];
 
 

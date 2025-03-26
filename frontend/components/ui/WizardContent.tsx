@@ -6,6 +6,11 @@ import { useAppointment } from "@/context/appointmentContext";
 import AppointmentCalendar from "./AppointmentCalendar";
 import { formatAppointment } from "@/lib/utils"; // Se importa la función de formateo
 import { useParams } from "next/navigation";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import CheckoutForm from "@/components/CheckoutForm";
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string); //me pidio añadir el as string
 import ServiceQuestionary from "./ServiceQuestionary";
 import { ServiceQuestionaryRef } from "./ServiceQuestionary"; // Asegúrate de importar la referencia
 
@@ -13,6 +18,7 @@ import { ServiceQuestionaryRef } from "./ServiceQuestionary"; // Asegúrate de i
 interface WizardContentProps {
   currentStep: number;
   services: Service[];
+  token: string | null;
   questionaryRef: React.RefObject<ServiceQuestionaryRef | null>; // Permitir null
 
 }
@@ -27,12 +33,15 @@ const computeGCD = (arr: number[]): number => {
   return arr.reduce((prev, curr) => gcd(prev, curr));
 };
 
-const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services, questionaryRef }) => {
+const WizardContent: React.FC<WizardContentProps> = ({
+  currentStep,
+  services, questionaryRef,
+  token
+}) => {
   const { state, dispatch } = useAppointment();
   const appointmentData = state.appointmentData;
   const { id } = useParams();
   const physioId = parseInt(id as string);
-
 
 
   const handleSelectService = (service: Service) => {
@@ -119,7 +128,11 @@ const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services, qu
     );
   } else if (currentStep === 2) {
     if (!appointmentData.service.type) {
-      return <p className="text-gray-800">Por favor selecciona un servicio primero.</p>;
+      return (
+        <p className="text-gray-800">
+          Por favor selecciona un servicio primero.
+        </p>
+      );
     }
     // Calcula el GCD de las duraciones de todos los servicios para definir el slotInterval
     const serviceDurations = services.map((svc) => parseInt(svc.duration));
@@ -134,15 +147,8 @@ const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services, qu
       </div>
     );
   } else if (currentStep === 3) {
-    return (
-      <div>
-        <h3 className="text-lg font-bold mb-4">Elige tu método de pago</h3>
-        {/* Aquí se podría agregar el selector de pago */}
-      </div>
-    );
-  } else if (currentStep === 4) {
       return <ServiceQuestionary ref={questionaryRef} />;
-  } else if (currentStep === 5) {
+  } else if (currentStep === 4) {
     // Se formatean las fechas de inicio y fin de forma separada
     const inicio = appointmentData.start_time ? formatAppointment(appointmentData.start_time) : { date: "", time: "" };
     const fin = appointmentData.end_time ? formatAppointment(appointmentData.end_time) : { time: "" };
@@ -209,6 +215,15 @@ const WizardContent: React.FC<WizardContentProps> = ({ currentStep, services, qu
             </div>
           </div>
         )}
+      </div>
+    );
+  } else if (currentStep === 5) {
+    return (
+      <div>
+        {/* <h3 className="text-lg font-bold mb-4">Elige tu método de pago</h3> */}
+        <Elements stripe={stripePromise}>
+            <CheckoutForm request={appointmentData} token={token}/>
+        </Elements>
       </div>
     );
   }

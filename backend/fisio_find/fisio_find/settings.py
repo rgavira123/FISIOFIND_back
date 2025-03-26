@@ -16,6 +16,7 @@ import os
 from dotenv import load_dotenv
 import environ
 
+
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +28,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-temporary-key-for-deployment')
 
+PAYMENT_API_KEY = os.getenv("PAYMENT_API_KEY", 'key')
+                            
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'fisiofind-backend.azurewebsites.net', 'fisiofind.netlify.app']
@@ -72,8 +75,8 @@ INSTALLED_APPS += [
     'terms',
     'guest_session',
     'treatments',
+    'payment',
 ]
-
 
 INSTALLED_APPS += ['corsheaders', 'django_extensions', 'django_filters']
 
@@ -241,7 +244,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 
+
+#Stripe payment
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 
 DIGITALOCEAN_ACCESS_KEY_ID = "DO801T22Y6LWLUV2R4RE"

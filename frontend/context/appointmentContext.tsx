@@ -96,7 +96,7 @@ function appointmentReducer(state: State, action: Action): State {
           start_time: action.payload.start_time,
           end_time: action.payload.end_time,
           is_online: action.payload.is_online,
-          status: "pending",
+          status: "booked",
         },
       };
     case "UPDATE_QUESTIONARY_RESPONSES":
