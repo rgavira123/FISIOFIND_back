@@ -1,4 +1,6 @@
 import logging
+import stripe
+from django.conf import settings
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -111,12 +113,69 @@ def return_user(request):
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
+def validate_physio_registration(request):
+    """
+    Valida los datos de registro sin crear el usuario.
+    """
+    serializer = PhysioRegisterSerializer(data=request.data)
+    if serializer.is_valid():
+        return Response({"valid": True}, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
 def physio_register_view(request):
     serializer = PhysioRegisterSerializer(data=request.data)
     if serializer.is_valid():
+        
         serializer.save()
         return Response({"message": "Fisioteraputa registrado correctamente"}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def process_payment(request):
+    """
+    Endpoint para procesar el pago usando Stripe.
+    Se espera recibir:
+      - payment_method_id: El ID del método de pago generado por Stripe.
+      - amount: Monto en céntimos (por ejemplo, 1799 para 17,99€).
+      - currency: Moneda (por defecto "eur").
+    """
+    stripe.api_key = settings.STRIPE_SECRET_KEY  # Asegúrate de que STRIPE_SECRET_KEY esté en tus settings
+    payment_method_id = request.data.get("payment_method_id")
+    amount = request.data.get("amount")
+    currency = request.data.get("currency", "eur")
+
+    if not payment_method_id or not amount:
+        return Response({"error": "Faltan parámetros obligatorios."}, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        # Crea y confirma el PaymentIntent
+        intent = stripe.PaymentIntent.create(
+            payment_method=payment_method_id,
+            amount=amount,
+            currency=currency,
+            confirm=True,
+        )
+
+        # Si el pago se confirma correctamente
+        if intent.status == "succeeded":
+            return Response({"success": True}, status=status.HTTP_200_OK)
+        # Si se requiere alguna acción adicional (por ejemplo, autenticación 3D Secure)
+        elif intent.status == "requires_action":
+            return Response({
+                "requires_action": True,
+                "payment_intent_client_secret": intent.client_secret
+            }, status=status.HTTP_200_OK)
+        else:
+            return Response({"error": "El pago no fue exitoso.", "status": intent.status}, status=status.HTTP_400_BAD_REQUEST)
+
+    except stripe.error.CardError as e:
+        # Manejo de errores específicos de tarjeta
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return Response({"error": "Error procesando el pago: " + str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['PUT'])

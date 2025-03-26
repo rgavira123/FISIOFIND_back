@@ -284,13 +284,16 @@ class PhysioRegisterSerializer(serializers.ModelSerializer):
             'invalid': 'Valor de plan inválido'
         }
     )
+    
+    stripe_subscription_id = serializers.CharField(read_only=True)
+    subscription_status = serializers.CharField(read_only=True)
 
     class Meta:
         model = Physiotherapist
         fields = [
             'username', 'email', 'password', 'dni', 'gender', 'first_name', 'last_name',
             'birth_date', 'collegiate_number', 'autonomic_community', 'phone_number', 'postal_code',
-            'bio', 'photo', 'services', 'specializations', 'schedule', 'plan'
+            'bio', 'photo', 'services', 'specializations', 'schedule', 'plan', 'stripe_subscription_id', 'subscription_status'
         ]
 
     def validate_password(self, value):

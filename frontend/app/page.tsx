@@ -422,11 +422,6 @@ const Home = () => {
         </WavyBackground>
       </section>
 
-      {/* Demo Video */}
-      <section className="px-4 py-16 relative z-10">
-        <DemoWindow />
-      </section>
-
 
       {/* Search Section */}
       {/* Unified Search Bar */}
