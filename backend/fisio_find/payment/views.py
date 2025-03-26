@@ -199,13 +199,16 @@ def cancel_payment_patient(request, payment_id):
 
 @api_view(['POST'])
 @permission_classes([IsPhysiotherapist])
-def cancel_payment_pyshio(request, payment_id):
+def cancel_payment_pyshio(request, appointment_id):
     """Cancel an appointment and handle refund if applicable."""
     try:
-        payment = Payment.objects.get(id=payment_id)
 
+        payment = Payment.objects.get(appointment_id=appointment_id)
+        
+        appointment = payment.appointment
+        
         # Verificar que el pyshio sea el paciente asociado
-        if request.user.physiotherapist != appointment.physiotherapist:
+        if request.user.id != appointment.physiotherapist_id:
             return Response({'error': 'You can only cancel your own appointments'}, 
                             status=status.HTTP_403_FORBIDDEN)
 
@@ -220,13 +223,19 @@ def cancel_payment_pyshio(request, payment_id):
         # Caso 1: Pago no realizado
         if payment.status == 'Not Paid':
             if payment.stripe_payment_intent_id:
+                payment_intent = stripe.PaymentIntent.retrieve(payment.stripe_payment_intent_id)
+                if payment_intent['status'] not in ['requires_payment_method', 'requires_capture', 'requires_confirmation', 'requires_action', 'processing']:
+                    return Response({'error': 'PaymentIntent cannot be canceled because it is already in status: ' + payment_intent['status']}, 
+                                    status=status.HTTP_400_BAD_REQUEST)
+
                 stripe.PaymentIntent.cancel(payment.stripe_payment_intent_id)
-            appointment.status = 'Canceled'
+            
+            appointment.status = 'canceled'
             appointment.save()
             payment.status = 'Canceled'
             payment.save()
-            return Response({'message': 'Appointment canceled without charge'}, 
-                            status=status.HTTP_200_OK)
+            
+            return Response({'message': 'Appointment canceled without charge'}, status=status.HTTP_200_OK)
 
         # Caso 2: Pago realizado (reembolso completo siempre, antes de la cita)
         if payment.status == 'Paid':
@@ -240,7 +249,7 @@ def cancel_payment_pyshio(request, payment_id):
                 payment.status = 'Refunded'
                 payment.payment_date = now
                 payment.save()
-                appointment.status = 'Canceled'
+                appointment.status = 'canceled'
                 appointment.save()
                 return Response({'message': 'Payment refunded and appointment canceled by physiotherapist'}, 
                                 status=status.HTTP_200_OK)
@@ -248,11 +257,25 @@ def cancel_payment_pyshio(request, payment_id):
                 return Response({'error': f'Refund failed with status: {refund["status"]}'}, 
                                 status=status.HTTP_400_BAD_REQUEST)
 
-        
+        # Caso 3: Pago no realizado
+        if payment.status == 'Not Captured':
+            if payment.stripe_payment_intent_id:
+                stripe.PaymentIntent.cancel(payment.stripe_payment_intent_id)
+            appointment.status = 'Canceled'
+            appointment.save()
+            payment.status = 'Canceled'
+            payment.save()
+            return Response({'message': 'Appointment canceled without charge'}, 
+                            status=status.HTTP_200_OK)
+
         # Caso 4: Pago ya cancelado o reembolsado
         if payment.status in ['Canceled', 'Refunded']:
             return Response({'error': 'Payment has already been canceled or refunded'}, 
                             status=status.HTTP_400_BAD_REQUEST)
+            
+        # Agregar una respuesta por si `payment.status` tiene un valor inesperado
+        return Response({'error': 'Unexpected payment status'}, status=status.HTTP_400_BAD_REQUEST)
+
 
     except Payment.DoesNotExist:
         return Response({'error': 'Payment not found'}, status=status.HTTP_404_NOT_FOUND)
@@ -342,20 +365,24 @@ def get_refund_status(request, payment_id):
         return Response({'error': 'An internal error has occurred. Please try again later.'}, status=status.HTTP_400_BAD_REQUEST)
     
 
-#facturas
 @api_view(['GET'])
 @permission_classes([IsPatient])
 def invoice_pdf_view(request):
     try:
         payment_id = request.query_params.get('payment_id')
-        if not payment_id:
+        appointment_id = request.query_params.get('appointment_id')
+
+        if not payment_id and not appointment_id:
             return Response(
-                {"error": "Se requiere el ID del pago"},
+                {"error": "Se requiere el ID del pago o el ID de la cita"},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
         try:
-            payment = Payment.objects.get(id=payment_id)
+            if payment_id:
+                payment = Payment.objects.get(id=payment_id)
+            elif appointment_id:
+                payment = Payment.objects.get(appointment_id=appointment_id)
         except Payment.DoesNotExist:
             return Response(
                 {"error": "Pago no encontrado"},
@@ -369,10 +396,10 @@ def invoice_pdf_view(request):
             )
 
         pdf = generate_invoice_pdf(payment)
-        
+
         response = HttpResponse(pdf, content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename="invoice_{payment_id}.pdf"'
-        
+        response['Content-Disposition'] = f'attachment; filename="invoice_{payment.id}.pdf"'
+
         return response
 
     except Exception as e:
