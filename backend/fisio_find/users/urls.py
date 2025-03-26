@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import patient_register_view, physio_delete_service_view, physio_get_services_view, physio_create_service_view, custom_token_obtain_view, logout_view, check_role_view, physio_register_view, return_user, physio_update_view, PatientProfileView, admin_search_patients_by_user, admin_search_physios_by_user, AdminPatientDetail, AdminPhysioDetail #, AdminPatientList, AdminPatientCreate, AdminPatientnDetail, AdminPatientUpdate, AdminPatientDelete, AdminAppUserDetail
+from .views import patient_register_view, physio_delete_service_view, physio_get_services_view, physio_create_service_view, custom_token_obtain_view, logout_view, check_role_view, physio_register_view, return_user, physio_update_view, PatientProfileView, admin_search_patients_by_user, admin_search_physios_by_user, AdminPatientDetail, AdminPhysioDetail, AdminPatientCreate, AdminPhysioCreate, AdminPatientUpdate, AdminPhysioUpdate #, AdminPatientList, AdminPatientCreate, AdminPatientnDetail, AdminPatientUpdate, AdminPatientDelete, AdminAppUserDetail
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -19,7 +19,13 @@ urlpatterns = [
     path('admin/patient/list/search/<str:query>/', admin_search_patients_by_user, name='admin_patient_list'),
     path('admin/physio/list/search/<str:query>/',admin_search_physios_by_user, name="admin_physio_list"),
     path('admin/patient/list/<int:pk>/', AdminPatientDetail.as_view(), name='admin_patient_detail'),
-    path('admin/physio/list/<int:pk>/', AdminPhysioDetail.as_view(), name='admin_physio_detail'),    
+    path('admin/physio/list/<int:pk>/', AdminPhysioDetail.as_view(), name='admin_physio_detail'),  
+    
+    path('admin/patient/create/', AdminPatientCreate.as_view()),  
+    path('admin/patient/update/', AdminPatientUpdate.as_view()), 
+    
+    path('admin/physio/create/', AdminPhysioCreate.as_view()) , 
+    path('admin/physio/update/', AdminPatientUpdate.as_view())  
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

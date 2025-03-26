@@ -235,6 +235,32 @@ class AdminPhysioDetail(generics.RetrieveAPIView):
     queryset = Physiotherapist.objects.all()
     serializer_class = PhysioSerializer
 
+class AdminPatientCreate(generics.CreateAPIView):
+    '''
+    API endpoint para crear un término para admin.
+    '''
+    permission_classes = [IsAdmin]
+    queryset = Patient.objects.all()
+    serializer_class = PatientRegisterSerializer
+
+class AdminPhysioCreate(generics.CreateAPIView):
+    '''
+    API endpoint para crear un término para admin.
+    '''
+    permission_classes = [IsAdmin]
+    queryset = Physiotherapist.objects.all()
+    serializer_class = PhysioRegisterSerializer
+    
+class AdminPhysioUpdate(generics.UpdateAPIView):
+    permission_classes = [IsAdmin]
+    queryset = Physiotherapist.objects.all()
+    serializer_class = PhysioRegisterSerializer
+    
+class AdminPatientUpdate(generics.UpdateAPIView):
+    permission_classes = [IsAdmin]
+    queryset = Patient.objects.all()
+    serializer_class = PatientRegisterSerializer
+
 """
 class AdminAppUserDetail(generics.RetrieveAPIView):
     '''
