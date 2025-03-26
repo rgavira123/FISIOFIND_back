@@ -4,40 +4,75 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { getApiBaseUrl } from "@/utils/api";
 import { useRouter } from "next/navigation";
-import { UploadCloud } from "lucide-react";
-
+import { UploadCloud, Edit2, Trash2 } from "lucide-react";
 
 const getAuthToken = () => {
   return localStorage.getItem("token");
 };
 
-
-const UploadVideo = ({ token }) => {
-  const router = useRouter(); // Initialize router
+const UploadVideo = () => {
+  const router = useRouter();
   const [file, setFileKey] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [patients, setPatients] = useState(""); // IDs de pacientes en formato de texto
+  const [patients, setPatients] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [videos, setVideos] = useState([]);
   const [loadingVideos, setLoadingVideos] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [videoToDelete, setVideoToDelete] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthChecking, setIsAuthChecking] = useState(true);
 
+  // Check authentication and role
   useEffect(() => {
-    const checkAuthentication = () => {
+    const checkAuthAndRole = async () => {
+      setIsAuthChecking(true);
       const storedToken = getAuthToken();
+      
       if (!storedToken) {
-        setMessage("Error: No hay token de autenticación.");
-        router.push("/login"); // Redirect to login page
+        console.log("No token found, redirecting to login");
+        router.push("/login");
+        return;
+      }
+
+      try {
+        // Check user role
+        const response = await axios.get(`${getApiBaseUrl()}/api/app_user/check-role/`, {
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+          },
+        });
+
+        if (response.data && response.data.user_role === "physiotherapist") {
+          setIsAuthenticated(true);
+        } else {
+          console.log("User is not a physiotherapist, redirecting to not-found");
+          router.push("/not-found");
+        }
+      } catch (error) {
+        console.error("Error checking user role:", error);
+        if (error.response?.status === 401) {
+          // Token expired or invalid
+          localStorage.removeItem("token");
+          router.push("/login");
+        } else {
+          // Other errors, redirect to not-found
+          router.push("/not-found");
+        }
+      } finally {
+        setIsAuthChecking(false);
       }
     };
 
-    checkAuthentication();
+    checkAuthAndRole();
   }, [router]);
 
+  // Only fetch videos if user is authenticated and is a physio
   useEffect(() => {
+    if (!isAuthenticated || isAuthChecking) return;
+
     const fetchPhysioVideos = async () => {
       const storedToken = getAuthToken();
       if (!storedToken) {
@@ -63,6 +98,7 @@ const UploadVideo = ({ token }) => {
       } catch (error) {
         if (error.response?.status === 401) {
           setMessage("❌ Sesión expirada. Por favor, inicia sesión nuevamente.");
+          router.push("/login");
         } else {
           setMessage("❌ Error al obtener los videos.");
         }
@@ -73,7 +109,7 @@ const UploadVideo = ({ token }) => {
     };
 
     fetchPhysioVideos();
-  }, []);
+  }, [isAuthenticated, isAuthChecking, router]);
 
   const handleFileChange = (event) => {
     setFileKey(event.target.files[0]);
@@ -86,29 +122,30 @@ const UploadVideo = ({ token }) => {
   const handleUpload = async () => {
     if (!file) {
       setMessage("❌ Por favor selecciona un archivo.");
-      setTimeout(() => setMessage(""), 5000); // Mensaje volátil
+      setTimeout(() => setMessage(""), 5000);
       return;
     }
 
     if (!title.trim()) {
       setMessage("❌ El título no puede estar vacío.");
-      setTimeout(() => setMessage(""), 5000); // Mensaje volátil
+      setTimeout(() => setMessage(""), 5000);
       return;
     }
 
     if (!description.trim()) {
       setMessage("❌ La descripción no puede estar vacía.");
-      setTimeout(() => setMessage(""), 5000); // Mensaje volátil
+      setTimeout(() => setMessage(""), 5000);
       return;
     }
 
     const storedToken = getAuthToken();
     if (!storedToken) {
       setMessage("Error: No hay token de autenticación.");
-      setTimeout(() => setMessage(""), 5000); // Mensaje volátil
+      setTimeout(() => setMessage(""), 5000);
       return;
     }
 
+    // Parse patient IDs
     const patientIds = patients
       .split(",")
       .map((id) => parseInt(id.trim(), 10))
@@ -116,7 +153,7 @@ const UploadVideo = ({ token }) => {
 
     if (patientIds.length === 0) {
       setMessage("❌ Debes ingresar al menos un ID de paciente válido.");
-      setTimeout(() => setMessage(""), 5000); // Mensaje volátil
+      setTimeout(() => setMessage(""), 5000);
       return;
     }
 
@@ -124,9 +161,12 @@ const UploadVideo = ({ token }) => {
     formData.append("file", file);
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("patients", JSON.stringify(patientIds)); // Ensure JSON string
+    
+    // Format patients as the backend expects - as a JSON string
+    formData.append("patients", JSON.stringify(patientIds));
 
-    // Debugging: Log formData keys and values
+    // Debug what's being sent
+    console.log("Sending data to server:");
     for (let [key, value] of formData.entries()) {
       console.log(`${key}:`, value);
     }
@@ -145,38 +185,61 @@ const UploadVideo = ({ token }) => {
         }
       );
 
+      // Reset form fields after successful upload
+      setFileKey(null);
+      setTitle("");
+      setDescription("");
+      setPatients("");
+      
+      // Refresh the video list
+      const updatedVideosResponse = await axios.get(
+        `${getApiBaseUrl()}/api/app_user/videos/list-my-videos/`, 
+        {
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+          },
+        }
+      );
+      
+      if (updatedVideosResponse.data && Array.isArray(updatedVideosResponse.data)) {
+        setVideos(updatedVideosResponse.data);
+      }
+
       setMessage("✅ Video subido correctamente.");
-      setTimeout(() => setMessage(""), 5000); // Mensaje volátil
-      console.log("🎥 Respuesta del backend:", response.data);
+      setTimeout(() => setMessage(""), 5000);
     } catch (error) {
+      console.error("Error details:", error.response?.data);
+      
       if (error.response?.status === 401) {
         setMessage("❌ Sesión expirada. Por favor, inicia sesión nuevamente.");
       } else {
         const errorMessage =
-          error.response?.data?.detail || // Specific error message from the backend
-          error.response?.data || // General error data
-          error.message || // Error message from the error object
-          "Error desconocido al subir el video."; // Fallback message
+          error.response?.data?.detail ||
+          error.response?.data ||
+          error.message ||
+          "Error desconocido al subir el video.";
 
         setMessage(`❌ ${errorMessage}`);
       }
-      setTimeout(() => setMessage(""), 5000); // Mensaje volátil
-      console.error("⚠️ Error al subir el video:", error);
+      setTimeout(() => setMessage(""), 5000);
     } finally {
       setLoading(false);
     }
   };
 
+  // Other handlers remain the same
   const handleDelete = async (videoId) => {
-    setVideoToDelete(videoId); // Guardamos el video para eliminarlo más tarde
-    setShowModal(true); // Mostramos el modal
+    setVideoToDelete(videoId);
+    setShowModal(true);
   };
 
   const confirmDelete = async () => {
+    // Delete logic remains the same
+    // ...
     const storedToken = getAuthToken();
     if (!storedToken) {
       setMessage("Error: No hay token de autenticación.");
-      setTimeout(() => setMessage(""), 5000); // Mensaje volátil
+      setTimeout(() => setMessage(""), 5000);
       return;
     }
 
@@ -190,22 +253,23 @@ const UploadVideo = ({ token }) => {
       });
 
       setMessage("✅ Video eliminado correctamente.");
-      setTimeout(() => setMessage(""), 5000); // Mensaje volátil
+      setTimeout(() => setMessage(""), 5000);
       setVideos(videos.filter((video) => video.id !== videoToDelete));
-      setShowModal(false); // Cerramos el modal
+      setShowModal(false);
     } catch (error) {
+      // Error handling remains the same
+      // ...
       if (error.response?.status === 401) {
         setMessage("❌ Sesión expirada. Por favor, inicia sesión nuevamente.");
       } else {
         setMessage("❌ Error al eliminar el video.");
       }
-      setTimeout(() => setMessage(""), 5000); // Mensaje volátil
-      console.error("⚠️ Error al eliminar el video:", error);
+      setTimeout(() => setMessage(""), 5000);
     }
   };
 
   const handleCancelDelete = () => {
-    setShowModal(false); // Cerramos el modal sin eliminar el video
+    setShowModal(false);
   };
 
   const [editingVideo, setEditingVideo] = useState(null);
@@ -224,10 +288,11 @@ const UploadVideo = ({ token }) => {
     const storedToken = getAuthToken();
     if (!storedToken) {
       setMessage("Error: No hay token de autenticación.");
-      setTimeout(() => setMessage(""), 5000); // Mensaje volátil
+      setTimeout(() => setMessage(""), 5000);
       return;
     }
 
+    // Parse patient IDs
     const patientIds = editPatients
       .split(",")
       .map((id) => parseInt(id.trim(), 10))
@@ -239,7 +304,7 @@ const UploadVideo = ({ token }) => {
         {
           title: editTitle,
           description: editDescription,
-          patients: patientIds,
+          patients: patientIds, // Send as array, backend will handle it
         },
         {
           headers: {
@@ -250,7 +315,9 @@ const UploadVideo = ({ token }) => {
       );
 
       setMessage("✅ Video actualizado correctamente.");
-      setTimeout(() => setMessage(""), 5000); // Mensaje volátil
+      setTimeout(() => setMessage(""), 5000);
+      
+      // Update the videos list with the updated video
       setVideos((prevVideos) =>
         prevVideos.map((video) =>
           video.id === videoId
@@ -259,237 +326,282 @@ const UploadVideo = ({ token }) => {
         )
       );
       setEditingVideo(null);
+      
+      // Refresh the video list to ensure we have the latest data
+      const updatedVideosResponse = await axios.get(
+        `${getApiBaseUrl()}/api/app_user/videos/list-my-videos/`, 
+        {
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+          },
+        }
+      );
+      
+      if (updatedVideosResponse.data && Array.isArray(updatedVideosResponse.data)) {
+        setVideos(updatedVideosResponse.data);
+      }
     } catch (error) {
+      console.error("Error updating video:", error.response?.data || error);
       setMessage("❌ Error al actualizar el video.");
-      setTimeout(() => setMessage(""), 5000); // Mensaje volátil
-      console.error("⚠️ Error al actualizar el video:", error.response?.data || error);
+      setTimeout(() => setMessage(""), 5000);
     }
   };
 
-  return (
-    <div className="p-6 max-w-3xl mx-auto bg-white rounded-lg shadow-lg">
-      <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">
-        {editingVideo ? "Editar Video" : "Subir Video"}
-      </h2>
-      
-      <div className="flex flex-col gap-4">
-        {editingVideo ? (
-          <EditVideoForm 
-            editTitle={editTitle}
-            editDescription={editDescription}
-            editPatients={editPatients}
-            setEditTitle={setEditTitle}
-            setEditDescription={setEditDescription}
-            setEditPatients={setEditPatients}
-            handleUpdate={() => handleUpdate(editingVideo)}
-          />
-        ) : (
-          <UploadVideoForm 
-            title={title}
-            description={description}
-            patients={patients}
-            loading={loading}
-            setTitle={setTitle}
-            setDescription={setDescription}
-            handleFileChange={handleFileChange}
-            handlePatientsChange={handlePatientsChange}
-            handleUpload={handleUpload}
-          />
-        )}
-
-        {message && (
-          <div
-            className={`mt-4 p-2 text-center ${
-              message.includes("❌") ? "text-red-600" : "text-green-600"
-            }`}
-          >
-            {message}
-          </div>
-        )}
+  // Loading state
+  if (isAuthChecking) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+        <div className="animate-pulse flex flex-col items-center">
+          <div className="h-12 w-12 rounded-full bg-blue-200 mb-4"></div>
+          <div className="h-4 w-24 bg-blue-200 rounded"></div>
+        </div>
       </div>
+    );
+  }
 
-      <h3 className="text-2xl font-semibold text-gray-800 mt-8">Mis Videos</h3>
-      <div className="mt-4">
-        {loadingVideos ? (
-          <p className="text-center text-gray-500">Cargando videos...</p>
-        ) : (
-          videos.length > 0 ? (
+  // If not authenticated (this is a fallback, the redirect should happen in useEffect)
+  if (!isAuthenticated) {
+    return null;
+  }
+
+  // Updated UI with new background color
+  return (
+    <div className="min-h-screen flex items-center justify-center p-5" 
+         style={{ background: "rgb(238, 251, 250)" }}>
+      
+      <div className="bg-white w-full max-w-3xl rounded-3xl shadow-xl p-10 transition-all duration-300"
+           style={{ boxShadow: "0 20px 60px rgba(0, 0, 0, 0.08)" }}>
+        
+        <div className="text-center mb-9">
+          <h1 className="text-3xl font-bold mb-2"
+              style={{ 
+                background: "linear-gradient(90deg, #1E5ACD, #3a6fd8)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent"
+              }}>
+            {editingVideo ? "Editar Video" : "Gestión de Videos"}
+          </h1>
+          <p className="text-gray-600">
+            {editingVideo 
+              ? "Actualiza la información de tu video" 
+              : "Sube y administra videos para tus pacientes"}
+          </p>
+        </div>
+        
+        <div className="mb-8">
+          {editingVideo ? (
+            <div className="space-y-4">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Nuevo Título"
+                  value={editTitle}
+                  onChange={(e) => setEditTitle(e.target.value)}
+                  className="w-full py-[14px] px-5 text-base border-2 border-gray-200 rounded-xl transition-all duration-200 outline-none focus:border-[#1E5ACD] focus:shadow-[0_0_0_4px_rgba(30,90,205,0.1)]"
+                />
+              </div>
+              
+              <div className="relative">
+                <textarea
+                  placeholder="Nueva Descripción"
+                  value={editDescription}
+                  onChange={(e) => setEditDescription(e.target.value)}
+                  className="w-full py-[14px] px-5 text-base border-2 border-gray-200 rounded-xl transition-all duration-200 outline-none focus:border-[#1E5ACD] focus:shadow-[0_0_0_4px_rgba(30,90,205,0.1)]"
+                  rows={3}
+                />
+              </div>
+              
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="IDs de pacientes (separados por coma)"
+                  value={editPatients}
+                  onChange={(e) => setEditPatients(e.target.value)}
+                  className="w-full py-[14px] px-5 text-base border-2 border-gray-200 rounded-xl transition-all duration-200 outline-none focus:border-[#1E5ACD] focus:shadow-[0_0_0_4px_rgba(30,90,205,0.1)]"
+                />
+              </div>
+              
+              <button
+                onClick={() => handleUpdate(editingVideo)}
+                className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center"
+              >
+                <Edit2 className="mr-2" size={20} />
+                Actualizar Video
+              </button>
+              
+              <button
+                onClick={() => setEditingVideo(null)}
+                className="w-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-semibold py-3 px-6 rounded-xl transition-all duration-200"
+              >
+                Cancelar
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div className="relative">
+                <input
+                  type="file"
+                  accept="video/*"
+                  onChange={handleFileChange}
+                  className="w-full py-[14px] px-5 text-base border-2 border-gray-200 rounded-xl transition-all duration-200 outline-none focus:border-[#1E5ACD] focus:shadow-[0_0_0_4px_rgba(30,90,205,0.1)]"
+                  // Add a key to force re-render when file is reset
+                  key={file ? "has-file" : "no-file"}
+                />
+              </div>
+              
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Título del video"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  className="w-full py-[14px] px-5 text-base border-2 border-gray-200 rounded-xl transition-all duration-200 outline-none focus:border-[#1E5ACD] focus:shadow-[0_0_0_4px_rgba(30,90,205,0.1)]"
+                />
+              </div>
+              
+              <div className="relative">
+                <textarea
+                  placeholder="Descripción del video"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  className="w-full py-[14px] px-5 text-base border-2 border-gray-200 rounded-xl transition-all duration-200 outline-none focus:border-[#1E5ACD] focus:shadow-[0_0_0_4px_rgba(30,90,205,0.1)]"
+                  rows={3}
+                />
+              </div>
+              
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="IDs de pacientes (separados por coma)"
+                  value={patients}
+                  onChange={handlePatientsChange}
+                  className="w-full py-[14px] px-5 text-base border-2 border-gray-200 rounded-xl transition-all duration-200 outline-none focus:border-[#1E5ACD] focus:shadow-[0_0_0_4px_rgba(30,90,205,0.1)]"
+                />
+              </div>
+              
+              <button
+                onClick={handleUpload}
+                disabled={loading}
+                className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center"
+              >
+                <UploadCloud className="mr-2" size={20} />
+                {loading ? "Subiendo..." : "Subir Video"}
+              </button>
+            </div>
+          )}
+          
+          {message && (
+            <div
+              className={`mt-4 p-4 rounded-xl text-center ${
+                message.includes("❌") 
+                  ? "bg-red-50 text-red-600 border border-red-100" 
+                  : "bg-green-50 text-green-600 border border-green-100"
+              }`}
+            >
+              {message}
+            </div>
+          )}
+        </div>
+        
+        <div className="mt-10">
+          <h2 className="text-xl font-bold mb-4"
+              style={{ 
+                background: "linear-gradient(90deg, #05AC9C, #05918F)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent"
+              }}>
+            Mis Videos
+          </h2>
+          
+          {loadingVideos ? (
+            <div className="flex justify-center py-8">
+              <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[#1E5ACD]"></div>
+            </div>
+          ) : videos.length > 0 ? (
             <div className="space-y-4">
               {videos.map((video) => (
-                <VideoItem 
-                  key={video.id}
-                  video={video}
-                  onEdit={() => handleEdit(video)}
-                  onDelete={() => handleDelete(video.id)}
-                />
+                <div 
+                  key={video.id} 
+                  className="bg-gray-50 border-2 border-gray-200 rounded-2xl p-4 transition-all duration-200 hover:shadow-md"
+                >
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h4 className="font-semibold text-gray-800">{video.title}</h4>
+                      <p className="text-gray-600 text-sm mt-1">{video.description}</p>
+                      {video.patients && video.patients.length > 0 && (
+                        <div className="mt-2 flex flex-wrap gap-1">
+                          {video.patients.map((patientId) => (
+                            <span 
+                              key={patientId} 
+                              className="inline-block bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full"
+                            >
+                              Paciente #{patientId}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex space-x-2">
+                      <button
+                        onClick={() => handleEdit(video)}
+                        className="bg-[#05AC9C] text-white p-2 rounded-xl hover:bg-[#05918F] transition-all duration-200"
+                        title="Editar video"
+                      >
+                        <Edit2 size={18} />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(video.id)}
+                        className="bg-red-500 text-white p-2 rounded-xl hover:bg-red-600 transition-all duration-200"
+                        title="Eliminar video"
+                      >
+                        <Trash2 size={18} />
+                      </button>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
           ) : (
-            <p className="text-center text-gray-500">No tienes videos subidos aún.</p>
-          )
-        )}
+            <div className="text-center py-8 bg-gray-50 rounded-2xl border-2 border-gray-200">
+              <p className="text-gray-500">No tienes videos subidos aún.</p>
+            </div>
+          )}
+        </div>
       </div>
-
+      
+      {/* Delete Confirmation Modal */}
       {showModal && (
-        <DeleteConfirmationModal 
-          onCancel={handleCancelDelete}
-          onConfirm={confirmDelete}
-        />
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm">
+          <div className="bg-white p-8 rounded-3xl shadow-xl max-w-sm w-full transition-all duration-300"
+               style={{ boxShadow: "0 20px 60px rgba(0, 0, 0, 0.15)" }}>
+            <h3 className="text-xl font-bold mb-4"
+                style={{ 
+                  background: "linear-gradient(90deg, #1E5ACD, #3a6fd8)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent"
+                }}>
+              ¿Estás seguro?
+            </h3>
+            <p className="mb-6 text-gray-700">Esta acción eliminará permanentemente el video y no podrá ser recuperado.</p>
+            <div className="flex gap-4">
+              <button
+                onClick={handleCancelDelete}
+                className="flex-1 bg-gray-100 text-gray-700 hover:bg-gray-200 py-3 px-6 rounded-xl transition-all duration-200"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={confirmDelete}
+                className="flex-1 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white py-3 px-6 rounded-xl transition-all duration-200"
+              >
+                Eliminar
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
 };
-
-const EditVideoForm = ({
-  editTitle,
-  editDescription,
-  editPatients,
-  setEditTitle,
-  setEditDescription,
-  setEditPatients,
-  handleUpdate
-}) => (
-  <>
-    <InputField 
-      type="text"
-      placeholder="Nuevo Título"
-      value={editTitle}
-      onChange={(e) => setEditTitle(e.target.value)}
-    />
-    <TextareaField 
-      placeholder="Nueva Descripción"
-      value={editDescription}
-      onChange={(e) => setEditDescription(e.target.value)}
-    />
-    <InputField 
-      type="text"
-      placeholder="IDs de pacientes (separados por coma)"
-      value={editPatients}
-      onChange={(e) => setEditPatients(e.target.value)}
-    />
-    <button
-      onClick={handleUpdate}
-      className="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition flex items-center justify-center"
-    >
-      <Edit2 className="mr-2" size={20} />
-      Actualizar Video
-    </button>
-  </>
-);
-
-const UploadVideoForm = ({
-  title,
-  description,
-  patients,
-  loading,
-  setTitle,
-  setDescription,
-  handleFileChange,
-  handlePatientsChange,
-  handleUpload
-}) => (
-  <>
-    <InputField 
-      type="file"
-      accept="video/*"
-      onChange={handleFileChange}
-    />
-    <InputField 
-      type="text"
-      placeholder="Título del video"
-      value={title}
-      onChange={(e) => setTitle(e.target.value)}
-    />
-    <TextareaField 
-      placeholder="Descripción del video"
-      value={description}
-      onChange={(e) => setDescription(e.target.value)}
-    />
-    <InputField 
-      type="text"
-      placeholder="IDs de pacientes (separados por coma)"
-      value={patients}
-      onChange={handlePatientsChange}
-    />
-    <button
-      onClick={handleUpload}
-      disabled={loading}
-      className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition flex items-center justify-center"
-    >
-      <UploadCloud className="mr-2" size={20} />
-      {loading ? "Subiendo..." : "Subir Video"}
-    </button>
-  </>
-);
-
-const VideoItem = ({ video, onEdit, onDelete }) => (
-  <div className="bg-gray-100 p-4 rounded-md shadow-md flex justify-between items-center">
-    <div>
-      <h4 className="font-semibold text-gray-800">{video.title}</h4>
-      <p className="text-gray-600">{video.description}</p>
-    </div>
-    <div className="flex space-x-2">
-      <button
-        onClick={onEdit}
-        className="bg-yellow-500 text-white p-2 rounded-md hover:bg-yellow-600 transition"
-      >
-        <Edit2 size={20} />
-      </button>
-      <button
-        onClick={onDelete}
-        className="bg-red-600 text-white p-2 rounded-md hover:bg-red-700 transition"
-      >
-        <Trash2 size={20} />
-      </button>
-    </div>
-  </div>
-);
-
-const DeleteConfirmationModal = ({ onCancel, onConfirm }) => (
-  <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
-    <div className="bg-white p-6 rounded-md shadow-lg max-w-md w-full">
-      <h3 className="text-xl font-semibold text-gray-800 mb-4">¿Estás seguro?</h3>
-      <div className="flex justify-between gap-4">
-        <button
-          onClick={onCancel}
-          className="bg-gray-400 text-white py-2 px-4 rounded-md hover:bg-gray-500 flex-1"
-        >
-          Cancelar
-        </button>
-        <button
-          onClick={onConfirm}
-          className="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 flex-1"
-        >
-          Eliminar
-        </button>
-      </div>
-    </div>
-  </div>
-);
-
-const InputField = ({ type, accept, placeholder, value, onChange }) => (
-  <div>
-    <input
-      type={type}
-      accept={accept}
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-      className="p-2 bg-gray-100 rounded-md border border-gray-300 w-full focus:ring-2 focus:ring-blue-500 focus:outline-none"
-    />
-  </div>
-);
-
-const TextareaField = ({ placeholder, value, onChange }) => (
-  <div>
-    <textarea
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-      className="p-2 bg-gray-100 rounded-md border border-gray-300 w-full focus:ring-2 focus:ring-blue-500 focus:outline-none"
-      rows={3}
-    />
-  </div>
-);
 
 export default UploadVideo;
