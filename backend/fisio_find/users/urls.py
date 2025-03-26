@@ -3,6 +3,7 @@ from .views import AdminPatientDetail, AdminPhysioDetail, admin_search_patients_
 from .views import custom_token_obtain_view, logout_view, check_role_view, physio_register_view, return_user, admin_list_patient_profiles, admin_list_physioterapist_profiles
 from .views import admin_update_account_status, admin_remove_user   
 from .views import physio_update_view, PatientProfileView
+from .views import patient_register_view, physio_delete_service_view, physio_get_services_view, physio_create_service_view, custom_token_obtain_view, logout_view, check_role_view, physio_register_view, return_user, physio_update_view, PatientProfileView, admin_search_patients_by_user, admin_search_physios_by_user, AdminPatientDetail, AdminPhysioDetail, AdminPatientCreate, AdminPhysioCreate, AdminPatientUpdate, AdminPhysioUpdate #, AdminPatientList, AdminPatientCreate, AdminPatientnDetail, AdminPatientUpdate, AdminPatientDelete, AdminAppUserDetail
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -26,10 +27,18 @@ urlpatterns = [
     path('admin/physio/list/search/<str:query>/',admin_search_physios_by_user, name="admin_physio_list"),
     path('admin/patient/list/<int:pk>/', AdminPatientDetail.as_view(), name='admin_patient_detail'),
     path('admin/physio/list/<int:pk>/', AdminPhysioDetail.as_view(), name='admin_physio_detail'), 
+
     path('admin/patient/list/', admin_list_patient_profiles, name='admin_patient_list'),
     path('admin/physio/list/', admin_list_physioterapist_profiles, name='admin_physio_list'),
     path('admin/update-account-status/<int:user_id>/', admin_update_account_status, name='admin_update_account_status'),
-    path('admin/remove-user/<int:user_id>/', admin_remove_user, name='admin_remove_user')   
+    path('admin/remove-user/<int:user_id>/', admin_remove_user, name='admin_remove_user'),
+    path('admin/physio/list/<int:pk>/', AdminPhysioDetail.as_view(), name='admin_physio_detail'),  
+    
+    path('admin/patient/create/', AdminPatientCreate.as_view()),  
+    path('admin/patient/update/', AdminPatientUpdate.as_view()), 
+    
+    path('admin/physio/create/', AdminPhysioCreate.as_view()) , 
+    path('admin/physio/update/', AdminPatientUpdate.as_view())  
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
