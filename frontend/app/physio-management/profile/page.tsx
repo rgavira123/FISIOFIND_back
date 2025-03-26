@@ -289,7 +289,8 @@ const FisioProfile = () => {
                 else if (value.length > 10) error = "Máximo 10 caracteres.";
                 break;
             case "bio":
-                if (value.length > 500) error = "Máximo 500 caracteres.";
+                // Only validate max length if bio has content
+                if (value && value.length > 500) error = "Máximo 500 caracteres.";
                 break;
         }
 
@@ -410,7 +411,9 @@ const FisioProfile = () => {
             formData.append("birth_date", profile.birth_date || "");
             formData.append("autonomic_community", profile.autonomic_community || "");
             formData.append("collegiate_number", profile.collegiate_number || "");
-            formData.append("bio", profile.bio || "");
+            if (profile.bio && profile.bio.trim() !== "") {
+                formData.append("bio", profile.bio.trim());
+              }
             formData.append("rating_avg", profile.rating_avg || "");
     
             const { initialized, ...scheduleWithoutInitialized } = schedule;
