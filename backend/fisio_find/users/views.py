@@ -9,6 +9,15 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status, generics
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from .serializers import PatientRegisterSerializer, PhysioUpdateSerializer, PhysioRegisterSerializer
+from .serializers import PhysioSerializer, PatientSerializer, AppUserSerializer
+from .models import AppUser, Physiotherapist, Patient, Specialization
+from rest_framework import generics
+from .permissions import IsPhysiotherapist
+from .permissions import IsPatient
+import json
+from .permissions import IsAdmin
+from django.db.models import Q
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .serializers import (
@@ -130,14 +139,35 @@ def physio_register_view(request):
         return Response({"message": "Fisioteraputa registrado correctamente"}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
 @api_view(['PUT'])
 @permission_classes([IsPhysiotherapist])
 def physio_update_view(request):
     physio = get_object_or_404(Physiotherapist, user=request.user)
-
+    
+    # Extraer especializaciones primero para manejarlas por separado
+    specializations_data = None
+    
+    # Procesar el campo specializations
+    if "specializations" in request.data:
+        if isinstance(request.data["specializations"], str):
+            try:
+                # Intentar convertirlo desde un string JSON
+                specializations_data = json.loads(request.data["specializations"])
+            except json.JSONDecodeError:
+                # Si no es JSON, podría ser una cadena separada por comas
+                if "," in request.data["specializations"]:
+                    specializations_data = [s.strip() for s in request.data["specializations"].split(",")]
+                else:
+                    # Si es un solo valor, crear una lista con ese valor
+                    specializations_data = [request.data["specializations"]]
+        elif isinstance(request.data["specializations"], list):
+            specializations_data = request.data["specializations"]
+    
+    # Preparar datos para el serializador, excluyendo las especializaciones
     request_data = {}
     for key, value in request.data.items():
+        if key == "specializations":
+            continue  # Las procesamos después
         if key.startswith("user."):
             request_data[key[5:]] = value  # Remove "user." prefix
         else:
@@ -154,41 +184,116 @@ def physio_update_view(request):
     serializer = PhysioUpdateSerializer(physio, data=request_data, partial=True, context={'request': request})
 
     if serializer.is_valid():
-        serializer.update(physio, serializer.validated_data)
-        return Response({"message": "Fisioterapeuta actualizado correctamente"}, status=status.HTTP_200_OK)
+        # Guardar primero los datos principales
+        updated_physio = serializer.save()
+        
+        # Actualizar especializaciones
+        if specializations_data is not None:
+            try:
+                # Obtenemos los IDs de las especializaciones existentes o las creamos si no existen
+                specialization_ids = []
+                for spec_name in specializations_data:
+                    # Buscamos por nombre en el modelo de Specialization
+                    spec, created = Specialization.objects.get_or_create(name=spec_name)
+                    specialization_ids.append(spec.id)
+                
+                # Ahora asignamos los IDs al campo ManyToMany
+                updated_physio.specializations.set(specialization_ids)
+                
+                # Guardar explícitamente después de modificar las relaciones M2M
+                updated_physio.save()
+                
+                # Refrescar objeto para tener los datos actualizados
+                updated_physio.refresh_from_db()
+                
+            except Exception as e:
+                logging.error(f"Error al guardar especializaciones: {str(e)}")
+                return Response({"error": "Error al guardar especializaciones"},  
+                              status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        # Usar serializers para convertir los datos a JSON
+        physio_serializer = PhysioSerializer(updated_physio)
+        user_serializer = AppUserSerializer(updated_physio.user)
+        
+        response_data = {
+            "message": "Fisioterapeuta actualizado correctamente"
+        }
+        
+        return Response(response_data, status=status.HTTP_200_OK)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
 @permission_classes([IsPhysiotherapist])
-def physio_create_service(request):
-    """Crea un nuevo servicio para el fisioterapeuta autenticado o actualiza los existentes"""
+def physio_create_service_view(request):
+    
+    """Crea un nuevo servicio para el fisioterapeuta autenticado o actualiza el existente"""
+    
+    # Obtener el fisioterapeuta asociado al usuario autenticado
     physio = get_object_or_404(Physiotherapist, user=request.user)
-
-    # Ensure services are parsed as JSON if provided
-    new_services = request.data.get('services', {})
-    if isinstance(new_services, str):
-        try:
-            new_services = json.loads(new_services)
-        except json.JSONDecodeError:
-            return Response({"error": "Formato de servicios inválido."}, status=status.HTTP_400_BAD_REQUEST)
-
-    # Merge new services with existing ones
+    
+    # Obtener servicios existentes
     existing_services = physio.services or {}
-    for service_name, service_data in new_services.items():
-        if service_name in existing_services:
-            existing_services[service_name].update(service_data)
-        else:
-            existing_services[service_name] = service_data
+    
+    # Obtener nuevos servicios del request
+    new_service = request.data
+    
+    # Actualizar servicios existentes o añadir nuevos
+    service_title = new_service.get('id')
+    if service_title in existing_services:
+        # Si el servicio ya existe, actualizarlo
+        existing_services[str(service_title)].update(new_service)
+    else:
+        # Si el servicio no existe, asignar una nueva ID única y añadirlo completo
+        new_id = 1
+        while str(new_id) in existing_services:
+            new_id += 1
+        new_service['id'] = new_id
+        existing_services[str(new_id)] = new_service
+    
+    # Preparar los datos para el serializador
+    update_data = {'services': existing_services}
+    
+    # Usar el serializador para actualización
+    serializer = PhysioUpdateSerializer(physio, data=update_data, partial=True)
+    
+    if serializer.is_valid():
+        serializer.update(physio, serializer.validated_data)
+        return Response({"message": "Servicios actualizados correctamente", "services": existing_services}, status=status.HTTP_200_OK)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    # Update the physiotherapist's services
-    physio.services = existing_services
-    physio.save()
+@api_view(['PUT'])
+@permission_classes([IsPhysiotherapist])
+def physio_update_service_view(request, service_id):
+    
+    """Actualiza un nuevo servicio para el fisioterapeuta autenticado o actualiza el existente"""
+    
+    # Obtener el fisioterapeuta asociado al usuario autenticado
+    physio = get_object_or_404(Physiotherapist, user=request.user)
+    
+    # Obtener servicios existentes
+    existing_services = physio.services or {}
+    
+    # Obtener nuevos servicios del request
+    new_service = request.data
+    
+    if str(service_id) not in existing_services:
+        return Response({"error": "El servicio no existe"}, status=status.HTTP_404_NOT_FOUND)
+    existing_services[str(service_id)].update(new_service)
 
-    return Response({"message": "Servicios actualizados correctamente",
-                    "services": existing_services}, status=status.HTTP_200_OK)
-
+    # Preparar los datos para el serializador
+    update_data = {'services': existing_services}
+    
+    # Usar el serializador para actualización
+    serializer = PhysioUpdateSerializer(physio, data=update_data, partial=True)
+    
+    if serializer.is_valid():
+        serializer.update(physio, serializer.validated_data)
+        return Response({"message": "Servicios actualizados correctamente", "services": existing_services}, status=status.HTTP_200_OK)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
@@ -211,29 +316,28 @@ def physio_delete_service_view(request, service_name):
         
         # Get current services
         services = physio.services
-        if isinstance(services, str):
-            services = json.loads(services)
-        elif services is None:
-            services = {}
-        
-        # Check if the service exists
-        if service_name not in services:
-            return Response({"error": "Servicio no encontrado"}, status=status.HTTP_404_NOT_FOUND)
-        
-        # Remove the service
-        del services[service_name]
-        
-        # Update the physiotherapist's services
-        physio.services = services
-        physio.save()
-        
-        return Response({"message": "Servicio eliminado correctamente"}, status=status.HTTP_200_OK)
-    except Physiotherapist.DoesNotExist:
-        return Response({"error": "Fisioterapeuta no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+        return Response(services)
     except Exception as e:
-        logging.error("An error occurred while deleting a service: %s", str(e))
+        logging.error("Error retrieving services for physiotherapist %s: %s", physio_id, str(e))
         return Response({"error": "An internal error has occurred."}, status=status.HTTP_400_BAD_REQUEST)
-"""
+
+
+@api_view(['DELETE'])
+def physio_delete_service_view(request, service_id):
+    physio = get_object_or_404(Physiotherapist, user=request.user)
+    services = physio.services or {}
+    
+    # Comprobar si el service_id está en alguno de los campos 'id' de los servicios
+    if str(service_id) not in services:
+        return Response({"error": "El servicio no existe"}, status=status.HTTP_404_NOT_FOUND)
+    
+    # Eliminar el servicio
+    del services[str(service_id)]
+    physio.services = services
+    physio.save()
+    
+    return Response({"message": "Servicio eliminado correctamente", "services": services}, status=status.HTTP_200_OK)
+
 @api_view(['GET'])
 @permission_classes([IsAdmin])
 def admin_search_patients_by_user(request, query):
@@ -278,7 +382,14 @@ class AdminPhysioDetail(generics.RetrieveAPIView):
     permission_classes = [IsAdmin]
     queryset = Physiotherapist.objects.all()
     serializer_class = PhysioSerializer
-
+"""
+class AdminAppUserDetail(generics.RetrieveAPIView):
+    '''
+    API endpoint que retorna un solo user por su id para admin.
+    '''
+    permission_classes = [AllowAny]
+    queryset = AppUser.objects.all()
+    serializer_class = AppUserAdminViewSerializer
 
 class AdminPatientCreate(generics.CreateAPIView):
     '''

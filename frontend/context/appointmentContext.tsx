@@ -11,7 +11,8 @@ type Action =
   | {
       type: "SELECT_SERVICE";
       payload: {
-        service: {
+        service: { 
+          id: number;
           type: string;
           price: number;
           duration: number;
@@ -21,6 +22,7 @@ type Action =
       };
     }
   | { type: "DESELECT_SERVICE" }
+  | { type: "SET_QUESTIONARY_COMPLETE"; payload: boolean }
   | { type: "SELECT_PAYMENT_METHOD"; payload: string }
   | { type: "SELECT_SLOT"; payload: { start_time: string; end_time: string; is_online: boolean } }
   | { type: "UPDATE_QUESTIONARY_RESPONSES"; payload: QuestionaryResponse }
@@ -32,6 +34,7 @@ const initialState: State = {
     end_time: "",
     is_online: false,
     service: {
+      id: 0, 
       type: "",
       price: 0,
       duration: 0,
@@ -68,7 +71,13 @@ function appointmentReducer(state: State, action: Action): State {
       return {
         ...state,
         appointmentData: {
-          ...initialState.appointmentData,
+          start_time: "",
+          end_time: "",
+          is_online: false,
+          service: { id: 0, type: "", price: 0, duration: 0, questionary: { type: "", label: "", elements: [] } },
+          physiotherapist: 0,
+          status: "",
+          alternatives: "",
         },
       };
     case "SELECT_PAYMENT_METHOD":

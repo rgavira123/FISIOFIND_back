@@ -1,30 +1,27 @@
-import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
-import "./globals.css";
-import { SidebarDemo } from "@/components/sidebar-demo";
-import Script from "next/script";
+// app/layout.tsx (o el nombre que uses para tu RootLayout en Next.js 13+)
+import './globals.css';
+import { Poppins } from 'next/font/google';
+import { Metadata } from 'next';
+import Script from 'next/script';
+import {SidebarDemo} from '@/components/sidebar-demo';
+import {ClientWrapper} from '@/components/ClientWrapper';
 import { AppointmentProvider } from "@/context/appointmentContext";
 
 const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-poppins",
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-poppins',
 });
 
 export const metadata: Metadata = {
-  title: "FisioFind",
-  description: "Find your physiotherapist",
+  title: 'FisioFind',
+  description: 'Find your physiotherapist',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
-        {/* Use Next.js Script component for better performance */}
         <Script
           src="https://animatedicons.co/scripts/embed-animated-icons.js"
           strategy="afterInteractive"

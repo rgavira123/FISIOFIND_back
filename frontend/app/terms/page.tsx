@@ -645,7 +645,7 @@ export default function TermsPage(): React.ReactElement {
         // -------- Sí hay términos (vista normal) --------
         <>
           {/* Botón para añadir término si eres Admin y quedan tipos disponibles */}
-          {isAdmin && getAvailableTermTypes().length > 0 && (
+          {isAdmin && (
             <div className="mb-10 text-center">
               <button
                 onClick={() => setShowAddForm(true)}

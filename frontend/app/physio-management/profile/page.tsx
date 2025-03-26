@@ -2,19 +2,41 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "./photo.css";
+import { Camera, Plus, Trash2, Edit, Save } from 'lucide-react';
 import ScheduleCalendar from "@/components/ui/ScheduleCalendar";
 import { getApiBaseUrl } from "@/utils/api";
 import { GradientButton } from "@/components/ui/gradient-button";
-import { Mail, Phone, MapPin, FileText, Lock, Save } from "lucide-react";
-import ServiceEditModal from "@/components/service-edit-modal";
-import ServiceModal from "@/components/service-create-modal";
 
 const getAuthToken = () => {
     return localStorage.getItem("token"); // Obtiene el token JWT
 };
 
 const FisioProfile = () => {
+    interface QuestionElement {
+        type: string;
+        label: string;
+        scope: string;
+    }
+
+    interface Questionary {
+        type: string;
+        label: string;
+        "UI Schema"?: {
+            elements: QuestionElement[];
+        };
+    }
+
+    // Actualizar la interfaz Service
+    interface Service {
+        id?: number;
+        tipo: "PRIMERA_CONSULTA" | "CONTINUAR_TRATAMIENTO" | "OTRO";
+        titulo: string;
+        descripcion: string;
+        precio: string;
+        duracion: number; // En minutos
+        custom_questionnaire?: Questionary;
+    }
+
     const [profile, setProfile] = useState({
         user: {
             dni: "",
@@ -34,163 +56,62 @@ const FisioProfile = () => {
         gender: "",
         rating_avg: "",
         schedule: "",
-        services: ""
+        specializations: "",
+        services: [] as Service[],
     });
 
-    
+    const [editingServiceIndex, setEditingServiceIndex] = useState<number | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [formErrors, setFormErrors] = useState({});
     const [showServiceModal, setShowServiceModal] = useState(false);
-    const [services, setServices] = useState<Record<string, any>>({});
+    const [services, setServices] = useState<Service[]>([]);
+    const availableSpecializations = [
+        'Deportiva',
+        'Ortopédica y Traumatológica',
+        'Neurológica',
+        'Pediátrica',
+        'Obstetricia y Suelo pélvico',
+        'Geriátrica',
+        'Oncológica',
+        'Cardiovascular',
+        'Respiratoria'
+    ];
+    const [selectedSpecializations, setSelectedSpecializations] = useState<string[]>([]);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [scheduleModalOpen, setScheduleModalOpen] = useState(false);
     const [schedule, setSchedule] = useState({
         exceptions: {},
         appointments: [],
         weekly_schedule: {
-          monday: [],
-          tuesday: [],
-          wednesday: [],
-          thursday: [],
-          friday: [],
-          saturday: [],
-          sunday: [],
+            monday: [],
+            tuesday: [],
+            wednesday: [],
+            thursday: [],
+            friday: [],
+            saturday: [],
+            sunday: [],
         },
         initialized: false,
-      });
+    });
     const [isClient, setIsClient] = useState(false);
     const [token, setToken] = useState<string | null>(null);
-    interface PendingChanges {
-        dni?: string;
-        password?: string;
-    }
-
-    const [pendingChanges, setPendingChanges] = useState<PendingChanges>({});
-    const [showConfirmation, setShowConfirmation] = useState(false);
-    const [oldPassword, setOldPassword] = useState(""); // State for old password
-
-    const [showEditServiceModal, setShowEditServiceModal] = useState(false);
-    const [selectedService, setSelectedService] = useState(null);
-    const [selectedServiceName, setSelectedServiceName] = useState("");
 
     useEffect(() => {
         setIsClient(true);
     }, []);
 
-    interface Service {
-        titulo: string;
-        descripcion: string;
-        precio: string;
-        frecuencia: string;
-        duracion: string;
-    }
-
-    const handleAddService = async (newService: Service) => {
-        const updatedServices = { ...services, [newService.titulo]: newService };
-        setServices(updatedServices);
-
-        try {
-            const storedToken = getAuthToken();
-            if (!storedToken) {
-                alert("No hay token disponible.");
-                return;
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (dropdownOpen && !e.target.closest('.custom-dropdown')) {
+                setDropdownOpen(false);
             }
+        };
 
-            const response = await axios.post(
-                `${getApiBaseUrl()}/api/app_user/physio/create-service/`,
-                { services: updatedServices },
-                { headers: { Authorization: `Bearer ${storedToken}` } }
-            );
-
-            if (response.status === 200) {
-                console.log("Servicio añadido correctamente.");
-                setShowServiceModal(false); // Close the modal
-            }
-        } catch (error) {
-            console.error("Error añadiendo servicio:", error);
-            alert("Error añadiendo servicio.");
-        }
-    };
-
-    const handleServiceClick = (key, service) => {
-        setSelectedService(service);
-        setSelectedServiceName(key);
-        setShowEditServiceModal(true);
-    };
-
-    const handleDeleteService = async (serviceName) => {
-        try {
-            const storedToken = getAuthToken();
-            if (!storedToken) {
-                alert("No hay token disponible.");
-                return;
-            }
-    
-            console.log(`Deleting service: ${serviceName}`); // Add this for debugging
-            
-            // Call the delete endpoint directly
-            const response = await axios.delete(
-                `${getApiBaseUrl()}/api/app_user/physio/delete-service/${serviceName}/`,
-                { headers: { Authorization: `Bearer ${storedToken}` } }
-            );
-    
-            if (response.status === 200) {
-                console.log("Servicio eliminado correctamente.");
-                
-                // Update local state
-                const updatedServices = { ...services };
-                delete updatedServices[serviceName];
-                setServices(updatedServices);
-                
-                // Close the modal
-                setShowEditServiceModal(false);
-            }
-        } catch (error) {
-            console.error("Error eliminando servicio:", error);
-            alert(`Error eliminando servicio: ${error.response?.data?.error || error.message}`);
-        }
-    };
-
-    // Update the handleUpdateService function
-    const handleUpdateService = async (serviceName, updatedService) => {
-        try {
-            // Create a copy of the services object
-            const updatedServices = { ...services };
-            
-            // If the service name has changed, remove the old one
-            if (serviceName !== updatedService.titulo) {
-                delete updatedServices[serviceName];
-            }
-            
-            // Add/update the service with the new title as key
-            updatedServices[updatedService.titulo] = updatedService;
-            
-            // Update local state
-            setServices(updatedServices);
-            
-            // Close the modal
-            setShowEditServiceModal(false);
-            
-            // Send the updated services to the backend
-            const storedToken = getAuthToken();
-            if (!storedToken) {
-                alert("No hay token disponible.");
-                return;
-            }
-
-            const response = await axios.post(
-                `${getApiBaseUrl()}/api/app_user/physio/create-service/`,
-                { services: updatedServices },
-                { headers: { Authorization: `Bearer ${storedToken}` } }
-            );
-
-            if (response.status === 200) {
-                console.log("Servicio actualizado correctamente.");
-            }
-        } catch (error) {
-            console.error("Error actualizando servicio:", error);
-            alert("Error actualizando servicio.");
-        }
-    };
+        document.addEventListener('click', handleClickOutside);
+        return () => document.removeEventListener('click', handleClickOutside);
+    }, [dropdownOpen]);
 
     useEffect(() => {
         fetchFisioProfile();
@@ -205,7 +126,7 @@ const FisioProfile = () => {
         if (isClient) {
             try {
                 const storedToken = getAuthToken();
-                setToken(storedToken);
+                setToken(storedToken)
                 if (!storedToken) {
                     setError("No hay token disponible.");
                     setLoading(false);
@@ -235,28 +156,71 @@ const FisioProfile = () => {
                     gender: response.data.physio.gender,
                     rating_avg: response.data.physio.rating_avg,
                     schedule: response.data.physio.schedule,
-                    services: response.data.physio.services,
+                    specializations: response.data.physio.specializations,
+                    services: [],
                 });
+                try {
+                    let parsedServices = [];
+                    // Comprobar si los servicios son un string JSON o un array o un objeto
+                    if (typeof response.data.physio.services === 'string') {
+                        try {
+                            parsedServices = JSON.parse(response.data.physio.services);
+                        } catch (e) {
+                            console.error("Error al parsear los servicios:", e);
+                        }
+                    } else if (Array.isArray(response.data.physio.services)) {
+                        parsedServices = response.data.physio.services;
+                    } else if (typeof response.data.physio.services === 'object') {
+                        // Si es un objeto con claves (como en el ejemplo)
+                        parsedServices = response.data.physio.services;
+                    }
 
-                // Parse services if they are in string format
-                if (response.data.physio.services) {
-                    setServices(
-                        typeof response.data.physio.services === "string"
-                            ? JSON.parse(response.data.physio.services)
-                            : response.data.physio.services
-                    );
+                    // Procesar los servicios dependiendo de su formato
+                    let serviceList: Service[] = [];
+
+                    // Si es un objeto con claves (como {Fisioterapia: {...}, Servicio 2: {...}})
+                    if (parsedServices && typeof parsedServices === 'object' && !Array.isArray(parsedServices)) {
+                        Object.entries(parsedServices).forEach(([key, value]: [string, any]) => {
+                            serviceList.push({
+                                id: value.id || null,
+                                titulo: value.title || key,
+                                tipo: value.tipo || "PRIMERA_CONSULTA",
+                                descripcion: value.description || "",
+                                precio: value.price ? `${value.price}€` : "",
+                                duracion: typeof value.duration === 'string' ? value.duration : `${value.duration} minutos`,
+                                custom_questionnaire: value["custom_questionnaire"] || null
+                            });
+                        });
+                    } else if (Array.isArray(parsedServices)) {
+                        // Si ya es un array
+                        serviceList = parsedServices.map((service) => ({
+                            id: service.id || null,
+                            titulo: service.titulo || service.title || "",
+                            tipo: service.tipo || "PRIMERA_CONSULTA",
+                            descripcion: service.descripcion || service.description || "",
+                            precio: service.precio || (service.price ? `${service.price}€` : ""),
+                            duracion: service.duracion || (service.duration ? `${service.duration} minutos` : ""),
+                            custom_questionnaire: service["custom_questionnaire"] || service.custom_questionnaire || null
+                        }));
+                    }
+
+                    setServices(serviceList);
+                    setProfile((prevProfile) => ({ ...prevProfile, services: serviceList }));
+                } catch (e) {
+                    console.error("Error al procesar los servicios:", e);
+                    setServices([]);
                 }
-
-                // Parse schedule if it is in string format
                 if (response.data.physio.schedule) {
-                    setSchedule(
-                        typeof response.data.physio.schedule === "string"
-                            ? JSON.parse(response.data.physio.schedule)
-                            : response.data.physio.schedule
-                    );
+                    setSchedule(JSON.parse(response.data.physio.schedule));
                 }
-            } catch (error) {
-                console.error("Error fetching profile:", error);
+                if (response.data.physio.specializations) {
+                    const specs = Array.isArray(response.data.physio.specializations)
+                        ? response.data.physio.specializations
+                        : response.data.physio.specializations.split(',');
+
+                    setSelectedSpecializations(specs);
+                }
+            } catch {
                 setError("Error obteniendo el perfil.");
             } finally {
                 setLoading(false);
@@ -264,13 +228,129 @@ const FisioProfile = () => {
         }
     };
 
+
+    // Funciones para gestionar servicios con la API
+    const addServiceToAPI = async (serviceData: Service): Promise<number | null> => {
+        try {
+            console.log("serviceData", serviceData);
+            // Preparar el servicio en el formato que espera el backend
+            const serviceForBackend = {
+                title: serviceData.titulo,
+                description: serviceData.descripcion,
+                price: parseFloat(serviceData.precio.replace('€', '').trim()),
+                duration: serviceData.duracion,
+                tipo: serviceData.tipo,
+                custom_questionnaire: serviceData.custom_questionnaire ? {
+                    "UI Schema": serviceData.custom_questionnaire
+                } : null
+            };
+
+            const response = await axios.post(
+                `${getApiBaseUrl()}/api/app_user/physio/add-service/`,
+                serviceForBackend,
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            return response.data.services;
+        } catch (error: unknown) {
+            console.error("Error al añadir servicio:", error);
+            if (axios.isAxiosError(error) && error.response) {
+                alert(`Error: ${JSON.stringify(error.response.data)}`);
+            } else {
+                alert("Error al añadir el servicio.");
+            }
+            return null;
+        }
+    };
+
+    const updateServiceInAPI = async (serviceId, serviceData) => {
+        try {
+            // Preparar el servicio en el formato que espera el backend
+            const serviceForBackend = {
+                title: serviceData.titulo,
+                description: serviceData.descripcion,
+                price: parseFloat(serviceData.precio.replace('€', '').trim()),
+                duration: serviceData.duracion,
+                tipo: serviceData.tipo,
+                custom_questionnaire: serviceData.custom_questionnaire ? {
+                    "UI Schema": serviceData.custom_questionnaire
+                } : null
+            };
+
+            const response = await axios.put(
+                `${getApiBaseUrl()}/api/app_user/physio/update-service/${serviceId}/`,
+                serviceForBackend,
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            if (response.status === 200) {
+                return response.data.services;
+            }
+            else {
+                throw new Error("Error al actualizar el servicio");
+            }
+        } catch (error) {
+            console.error("Error al actualizar servicio:", error);
+            if (error.response) {
+                alert(`Error: ${JSON.stringify(error.response.data)}`);
+            } else {
+                alert("Error al actualizar el servicio.");
+            }
+            return false;
+        }
+    };
+
+    const deleteServiceFromAPI = async (serviceId) => {
+        try {
+            const response = await axios.delete(
+                `${getApiBaseUrl()}/api/app_user/physio/delete-service/${serviceId}/`,
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            return response.status === 204 || response.status === 200;
+        } catch (error) {
+            console.error("Error al eliminar servicio:", error);
+            if (error.response) {
+                alert(`Error: ${JSON.stringify(error.response.data)}`);
+            } else {
+                alert("Error al eliminar el servicio.");
+            }
+            return false;
+        }
+    };
+
+
+
+
+    const getScheduleSummary = () => {
+        const daysOfWeek = {
+            monday: "Lunes",
+            tuesday: "Martes",
+            wednesday: "Miércoles",
+            thursday: "Jueves",
+            friday: "Viernes",
+            saturday: "Sábado",
+            sunday: "Domingo",
+        };
+
+        return Object.entries(schedule.weekly_schedule)
+            .map(([day, ranges]) => {
+                if (ranges.length === 0) return null;
+
+                const timeRanges = ranges.map((interval) => `${interval[0].start} - ${interval[0].end}`).join(", ");
+                return `${daysOfWeek[day]}: ${timeRanges}`;
+            })
+            .filter(Boolean)
+            .join("\n") || "No se ha configurado horario";
+    };
+
     // Manejar actualizaciones del calendario
-    const handleScheduleChange = (newSchedule: typeof schedule) => {
+    const handleScheduleChange = (newSchedule) => {
         setSchedule(newSchedule);
     };
 
     // Validaciones de los campos editables
-    const validateField = (name: string, value: string) => {
+    const validateField = (name, value) => {
         let error = "";
 
         switch (name) {
@@ -301,7 +381,7 @@ const FisioProfile = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
 
-        validateField(name, value);
+        validateField(name, value); // Validar cada campo en tiempo real
 
         if (name === "bio") {
             setProfile((prevProfile) => ({ ...prevProfile, bio: value }));
@@ -313,100 +393,34 @@ const FisioProfile = () => {
         }
     };
 
-    const handleSensitiveChange = (e) => {
-        const { name, value } = e.target;
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-        setPendingChanges((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
-    
-    const confirmSensitiveChanges = async () => {
-        if (pendingChanges.password && !oldPassword) {
-            setFormErrors((prev) => ({ ...prev, password: "Debes ingresar tu contraseña actual para actualizar la contraseña." }));
-            return;
-        }
-    
-        // Update the profile state with pending changes
-        setProfile((prevProfile) => ({
-            ...prevProfile,
-            user: {
-                ...prevProfile.user,
-                ...pendingChanges,
-            },
-        }));
-        
-        // Add old password to form data if changing password
-        if (pendingChanges.password) {
-            setPendingChanges((prev) => ({
-                ...prev,
-                old_password: oldPassword
-            }));
-        }
-        
-        // Close the confirmation modal
-        setShowConfirmation(false);
-        
-        // Call the profile update function after confirming changes
-        await handleSubmit();
-    };
-    
-    const cancelSensitiveChanges = () => {
-        setPendingChanges({});
-        setShowConfirmation(false);
-    };
-
-    const handleSubmit = async (e?: React.FormEvent) => {
-        if (e) e.preventDefault(); // Prevent default only if event is provided
-    
-        // Check if sensitive fields have been changed
-        if ((pendingChanges.dni || pendingChanges.password) && !showConfirmation) {
-            setShowConfirmation(true);
-            return;
-        }
-    
-        // Validate all fields before submitting
+        // Validar todos los campos antes de enviar
         const isValid = ["email", "phone_number", "postal_code", "bio"].every((field) =>
             validateField(field, (field === "bio" ? profile.bio : profile.user[field]) || "")
         );
-    
+
         if (!isValid) {
             alert("Por favor, corrige los errores antes de enviar.");
             return;
         }
-    
+
         try {
             if (!token) {
                 setError("No hay token disponible.");
                 return;
             }
-    
+
             const formData = new FormData();
-            
-            // Add user data to formData
             Object.entries(profile.user).forEach(([key, value]) => {
-                if (key !== "photoFile" && key !== "preview" && value !== undefined && key !== "photo") {
-                    formData.append(`user.${key}`, value);
-                }
+                if (key !== "photo" && key !== "photoFile" && value) formData.append(`user.${key}`, value);
             });
-    
-            // Include the photo file if it exists
+
             if (profile.user.photoFile) {
-                formData.append("photo", profile.user.photoFile);
+                formData.append("user.photo", profile.user.photoFile);
             }
-    
-            // Handle DNI change properly - use the pending change if it exists
-            if (pendingChanges.dni) {
-                formData.append("user.dni", pendingChanges.dni);
-            }
-            
-            // Handle password change
-            if (pendingChanges.password) {
-                formData.append("user.password", pendingChanges.password);
-                formData.append("user.old_password", oldPassword);
-            }
-    
+
             formData.append("gender", profile.gender || "");
             formData.append("birth_date", profile.birth_date || "");
             formData.append("autonomic_community", profile.autonomic_community || "");
@@ -415,63 +429,24 @@ const FisioProfile = () => {
                 formData.append("bio", profile.bio.trim());
               }
             formData.append("rating_avg", profile.rating_avg || "");
-    
+            formData.append("specializations", JSON.stringify(selectedSpecializations));
+            // Actualizar el schedule con los datos actuales del calendario
             const { initialized, ...scheduleWithoutInitialized } = schedule;
             formData.append("schedule", JSON.stringify(scheduleWithoutInitialized));
-            formData.append("services", JSON.stringify(services));
-    
-            // Log the form data for debugging
-            console.log("FormData being sent:");
-            for (let [key, value] of formData.entries()) {
-                console.log(`${key}: ${typeof value === 'object' ? 'File object' : value}`);
-            }
-    
+
+            // formData.append("services", JSON.stringify(services));
+
             const response = await axios.put(`${getApiBaseUrl()}/api/app_user/physio/update/`, formData, {
-                headers: { 
-                    Authorization: "Bearer " + token, 
-                    "Content-Type": "multipart/form-data" 
-                },
+                headers: { Authorization: "Bearer " + token, "Content-Type": "multipart/form-data" },
             });
-    
+
             if (response.status === 200) {
-                console.log("Perfil actualizado correctamente");
-                // Clear the preview and photoFile after successful update
-                if (profile.user.preview) {
-                    URL.revokeObjectURL(profile.user.preview);
-                }
-                
-                // Update the profile state with the new DNI value
-                if (pendingChanges.dni) {
-                    setProfile(prev => ({
-                        ...prev,
-                        user: {
-                            ...prev.user,
-                            dni: pendingChanges.dni,
-                            photoFile: undefined,
-                            preview: undefined
-                        }
-                    }));
-                } else {
-                    setProfile(prev => ({
-                        ...prev,
-                        user: {
-                            ...prev.user,
-                            photoFile: undefined,
-                            preview: undefined
-                        }
-                    }));
-                }
-                
-                // Clear pending changes and old password
-                setPendingChanges({});
-                setOldPassword("");
-                
-                fetchFisioProfile(); // Refresh profile data
+                alert("Perfil actualizado correctamente");
+                fetchFisioProfile();
             }
         } catch (error) {
             console.error("Error updating profile:", error);
             if (error.response) {
-                console.error("Response data:", error.response.data);
                 alert(`Error: ${JSON.stringify(error.response.data)}`);
             } else {
                 alert("Error actualizando el perfil.");
@@ -482,11 +457,6 @@ const FisioProfile = () => {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            // Revoke previous preview URL if exists
-            if (profile.user.preview) {
-                URL.revokeObjectURL(profile.user.preview);
-            }
-            
             // Create URL for preview
             const previewUrl = URL.createObjectURL(file);
 
@@ -495,26 +465,21 @@ const FisioProfile = () => {
                 ...prevProfile,
                 user: {
                     ...prevProfile.user,
-                    photoFile: file,   // For sending to the backend
-                    preview: previewUrl // For displaying in the UI
+                    photo: previewUrl, // For UI preview
+                    photoFile: file,   // For backend submission
                 },
             }));
         }
     };
 
     const getImageSrc = () => {
-        // If there's a preview URL (user has uploaded a new image)
-        if (profile.user.preview) {
-            return profile.user.preview;
+        // Use the preview URL if a new image is uploaded
+        if (profile.user.photoFile) {
+            return profile.user.photo;
         }
 
-        // If there's a photo from the backend
+        // Use the backend photo if available
         if (profile?.user?.photo) {
-            // Check if the photo is already a full URL
-            if (profile.user.photo.startsWith('http')) {
-                return profile.user.photo;
-            }
-            // Otherwise, construct the URL
             return `${getApiBaseUrl()}${profile.user.photo}`;
         }
 
@@ -522,361 +487,684 @@ const FisioProfile = () => {
         return "/default_avatar.png";
     };
 
+    const handleAddService = async (newService) => {
+        try {
+            if (editingServiceIndex !== null) {
+                // Estamos editando un servicio existente
+                const serviceToEdit = services[editingServiceIndex];
 
-    if (loading) {
+                if (serviceToEdit.id) {
+                    // Actualizar en la API
+                    const services = await updateServiceInAPI(serviceToEdit.id, newService);
+
+                    if (services) {
+                        const serviceList: Service[] = [];
+                        // Actualizar el estado local solo si la API devuelve éxito
+                        Object.entries(services).forEach(([key, value]: [string, any]) => {
+                            serviceList.push({
+                                id: value.id || null,
+                                titulo: value.title || key,
+                                tipo: value.tipo || "PRIMERA_CONSULTA",
+                                descripcion: value.description || "",
+                                precio: value.price ? `${value.price}€` : "",
+                                duracion: typeof value.duration === 'string' ? value.duration : `${value.duration} minutos`,
+                                custom_questionnaire: value["custom_questionnaire"] || null
+                            });
+                        });
+                        setServices(serviceList);
+                        setProfile(prev => ({ ...prev, services: serviceList }));
+                        alert("Servicio actualizado correctamente");
+                    } else {
+                        alert("Error al actualizar el servicio");
+                    }
+                } else {
+                    // Si no tiene ID pero estamos editando, es raro pero tratarlo como un nuevo servicio
+                    const services = await addServiceToAPI(newService);
+
+                    if (services) {
+                        const serviceList: Service[] = [];
+                        // Actualizar el estado local solo si la API devuelve éxito
+                        Object.entries(services).forEach(([key, value]: [string, any]) => {
+                            serviceList.push({
+                                id: value.id || null,
+                                titulo: value.title || key,
+                                tipo: value.tipo || "PRIMERA_CONSULTA",
+                                descripcion: value.description || "",
+                                precio: value.price ? `${value.price}€` : "",
+                                duracion: typeof value.duration === 'string' ? value.duration : `${value.duration} minutos`,
+                                custom_questionnaire: value["custom_questionnaire"] || null
+                            });
+                        });
+                        setServices(serviceList);
+                        setProfile(prev => ({ ...prev, services: serviceList }));
+                        alert("Servicio actualizado correctamente");
+                    } else {
+                        alert("Error al añadir el servicio");
+                    }
+                }
+            } else {
+                // Estamos añadiendo un nuevo servicio
+                const services = await addServiceToAPI(newService);
+
+                if (services) {
+                    const serviceList: Service[] = [];
+                    // Actualizar el estado local solo si la API devuelve éxito
+                    Object.entries(services).forEach(([key, value]: [string, any]) => {
+                        serviceList.push({
+                            id: value.id || null,
+                            titulo: value.title || key,
+                            tipo: value.tipo || "PRIMERA_CONSULTA",
+                            descripcion: value.description || "",
+                            precio: value.price ? `${value.price}€` : "",
+                            duracion: typeof value.duration === 'string' ? value.duration : `${value.duration} minutos`,
+                            custom_questionnaire: value["custom_questionnaire"] || null
+                        });
+                    });
+                    setServices(serviceList);
+                    setProfile(prev => ({ ...prev, services: serviceList }));
+                    alert("Servicio añadido correctamente");
+                } else {
+                    alert("Error al añadir el servicio");
+                }
+            }
+        } catch (error) {
+            console.error("Error al gestionar el servicio:", error);
+            alert("Error al procesar la operación");
+        } finally {
+            setEditingServiceIndex(null);
+            setShowServiceModal(false);
+        }
+    };
+
+
+    const handleEditService = (index) => {
+        setEditingServiceIndex(index);
+        setShowServiceModal(true);
+    };
+
+    const handleDeleteService = async (index) => {
+        if (window.confirm("¿Estás seguro de que deseas eliminar este servicio?")) {
+            try {
+                const serviceToDelete = services[index];
+
+                if (serviceToDelete.id) {
+                    // Eliminar de la API
+                    const success = await deleteServiceFromAPI(serviceToDelete.id);
+
+                    if (success) {
+                        // Solo actualizar el estado local si la API devuelve éxito
+                        const updatedServices = [...services];
+                        updatedServices.splice(index, 1);
+                        setServices(updatedServices);
+                        setProfile(prev => ({ ...prev, services: updatedServices }));
+                        alert("Servicio eliminado correctamente");
+                    } else {
+                        alert("Error al eliminar el servicio");
+                    }
+                } else {
+                    // Si no tiene ID, es un servicio que nunca se guardó en la API
+                    alert("No se puede eliminar un servicio que no ha sido guardado");
+                }
+            } catch (error) {
+                console.error("Error al eliminar el servicio:", error);
+                alert("Error al eliminar el servicio");
+            }
+        }
+    };
+
+
+    const ServiceModal = ({ onClose, onSave, editingService = null }: { onClose: () => void; onSave: (service: Service) => void; editingService?: Service | null }) => {
+        // Inicializar con valores del servicio a editar o valores por defecto
+        const [tipo, setTipo] = useState(editingService?.tipo || "PRIMERA_CONSULTA");
+        const [titulo, setTitulo] = useState(editingService?.titulo || "");
+        const [descripcion, setDescripcion] = useState(editingService?.descripcion || "");
+        const [precio, setPrecio] = useState(editingService?.precio || "");
+        const [duracion, setDuracion] = useState(() => {
+            if (editingService) {
+                if (typeof editingService.duracion === 'number') {
+                    return String(editingService.duracion);
+                } else if (typeof editingService.duracion === 'string') {
+                    // Extraer solo los dígitos de la cadena
+                    const match = editingService.duracion.match(/\d+/);
+                    return match ? match[0] : "60";
+                }
+            }
+            return "60"; // Valor por defecto
+        });
+
+        // Estado para gestionar el cuestionario
+        const [showQuestionnaireSection, setShowQuestionnaireSection] = useState(() => {
+            // Verificar si el servicio que estamos editando tiene un cuestionario
+            if (editingService?.custom_questionnaire) {
+                if (editingService.custom_questionnaire.elements ||
+                    editingService.custom_questionnaire["UI Schema"]?.elements) {
+                    return true;
+                }
+            }
+            return false;
+        });
+        const [questionary, setQuestionary] = useState<Questionary>(() => {
+            const defaultQuestionary: Questionary = {
+                type: "Group",
+                label: "Cuestionario Personalizado",
+                elements: [
+                    {
+                        type: "Number",
+                        label: "Peso (kg)",
+                        scope: "#/properties/peso"
+                    },
+                    {
+                        type: "Number",
+                        label: "Altura (cm)",
+                        scope: "#/properties/altura"
+                    },
+                    {
+                        type: "Number",
+                        label: "Edad",
+                        scope: "#/properties/edad"
+                    },
+                    {
+                        type: "Control",
+                        label: "Nivel de actividad física",
+                        scope: "#/properties/actividad_fisica"
+                    },
+                    {
+                        type: "Control",
+                        label: "Motivo de la consulta",
+                        scope: "#/properties/motivo_consulta"
+                    }
+                ]
+            };
+
+            // Verificar todos los posibles formatos de cuestionario
+            if (editingService?.custom_questionnaire) {
+                // Si es un objeto directo con elementos
+                if (editingService.custom_questionnaire.elements) {
+                    return editingService.custom_questionnaire;
+                }
+                // Si tiene una estructura anidada con UI Schema
+                else if (editingService.custom_questionnaire["UI Schema"]) {
+                    return editingService.custom_questionnaire["UI Schema"];
+                }
+                // Si el propio objeto es el UI Schema
+                else if (editingService.custom_questionnaire.type && editingService.custom_questionnaire.type === "Group") {
+                    return editingService.custom_questionnaire;
+                }
+            }
+
+            return defaultQuestionary;
+        });
+
+        // Para gestionar nuevas preguntas
+        const [newQuestion, setNewQuestion] = useState("");
+        const [questionType, setQuestionType] = useState("Control");
+
+
+        // Generar ID único para scope basado en el texto de la pregunta
+        const generateScope = (question: string) => {
+            // Simplificar el texto para el scope, eliminar espacios, acentos, etc.
+            const simplifiedText = question
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/[^\w\s]/g, "")
+                .replace(/\s+/g, "_");
+
+            return `#/properties/${simplifiedText}`;
+        };
+
+        // Añadir una nueva pregunta al cuestionario
+        const addQuestion = () => {
+            if (!newQuestion.trim()) return;
+
+            const newElement = {
+                type: questionType, // Usar el tipo seleccionado en el desplegable
+                label: newQuestion,
+                scope: generateScope(newQuestion)
+            };
+
+            setQuestionary({
+                ...questionary,
+                elements: [...questionary.elements, newElement]
+            });
+
+            setNewQuestion("");
+            setQuestionType("Control"); // Restablecer al tipo predeterminado después de añadir
+        };
+
+        // Eliminar una pregunta del cuestionario
+        const removeQuestion = (index: number) => {
+            // No permitir eliminar las 5 primeras preguntas predeterminadas
+            if (index < 5) return;
+
+            const updatedElements = [...questionary.elements];
+            updatedElements.splice(index, 1);
+
+            setQuestionary({
+                ...questionary,
+                elements: updatedElements
+            });
+        };
+
+        // Handle custom title based on type
+        useEffect(() => {
+            if (tipo === "PRIMERA_CONSULTA" && !editingService) {
+                setTitulo("Primera consulta");
+            } else if (tipo === "CONTINUAR_TRATAMIENTO" && !editingService) {
+                setTitulo("Continuación de tratamiento");
+            }
+        }, [tipo]);
+
+        const handleSave = () => {
+            // Validación básica
+            if (!titulo.trim()) {
+                alert("El título es obligatorio");
+                return;
+            }
+
+            if (!precio.trim()) {
+                alert("El precio es obligatorio");
+                return;
+            }
+
+            if (!duracion || parseInt(duracion) <= 0) {
+                alert("La duración debe ser mayor a 0 minutos");
+                return;
+            }
+
+            const newService = {
+                tipo,
+                titulo,
+                descripcion,
+                precio,
+                duracion: parseInt(duracion),
+                ...(showQuestionnaireSection ? { custom_questionnaire: questionary } : {})
+            };
+
+            onSave(newService);
+        };
+
         return (
-          <div className="min-h-screen flex items-center justify-center p-5" 
-               style={{ backgroundColor: "rgb(238, 251, 250)" }}>
-            <div className="bg-white rounded-3xl shadow-xl p-8 w-full max-w-md text-center">
-              <div className="animate-pulse flex flex-col items-center">
-                <div className="rounded-full bg-gray-200 h-32 w-32 mb-4"></div>
-                <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-                <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-              </div>
+            <div className="modal-overlay">
+                <div className="modal-content">
+                    <h2>{editingService ? "Editar servicio" : "Añadir servicio"}</h2>
+
+                    <label>Tipo de servicio:</label>
+                    <select value={tipo} onChange={(e) => setTipo(e.target.value as string)}>
+                        <option value="PRIMERA_CONSULTA">Primera consulta</option>
+                        <option value="CONTINUAR_TRATAMIENTO">Continuar tratamiento</option>
+                        <option value="OTRO">Otro</option>
+                    </select>
+
+                    <label>Título: <span className="required">*</span></label>
+                    <input
+                        type="text"
+                        value={titulo}
+                        onChange={(e) => setTitulo(e.target.value)}
+                        disabled={tipo !== "OTRO"}
+                        className={!titulo.trim() ? "error-input" : ""}
+                    />
+
+                    <label>Descripción:</label>
+                    <textarea
+                        value={descripcion}
+                        onChange={(e) => setDescripcion(e.target.value)}
+                        placeholder="Describe brevemente en qué consiste este servicio"
+                    />
+
+                    <label>Precio por consulta: <span className="required">*</span></label>
+                    <input
+                        type="text"
+                        value={precio}
+                        onChange={(e) => setPrecio(e.target.value)}
+                        placeholder="€"
+                        className={!precio.trim() ? "error-input" : ""}
+                    />
+
+                    <label>Duración (minutos): <span className="required">*</span></label>
+                    <input
+                        type="number"
+                        value={duracion}
+                        onChange={(e) => setDuracion(e.target.value)}
+                        min="1"
+                        placeholder="60"
+                        className={!duracion || parseInt(duracion) <= 0 ? "error-input" : ""}
+                    />
+
+                    <div className="questionnaire-toggle">
+                        <label>
+                            Incluir cuestionario pre-intervención
+                            <input
+                                type="checkbox"
+                                checked={showQuestionnaireSection}
+                                onChange={() => setShowQuestionnaireSection(!showQuestionnaireSection)}
+                            />
+                            <span></span>
+                        </label>
+                        <p className="toggle-description">
+                            Agrega un formulario personalizado que el paciente rellenará antes de su cita
+                        </p>
+                    </div>
+
+                    {showQuestionnaireSection && (
+                        <div className="questionnaire-section">
+                            <p className="note">Las siguientes preguntas ya están incluidas por defecto:</p>
+
+                            <ul className="questions-list">
+                                {questionary && questionary.elements ? (
+                                    questionary.elements.map((element, index) => (
+                                        <li key={index} className={index < 5 ? "default-question" : ""}>
+                                            {element.label}
+                                            <span className="question-type-badge">
+                                                {element.type === "Number" ? "Numérico" : "Texto"}
+                                            </span>
+                                            {index >= 5 && (
+                                                <GradientButton
+                                                    variant="danger"
+                                                    className="remove-question"
+                                                    onClick={() => removeQuestion(index)}
+                                                >
+                                                    ×
+                                                </GradientButton>
+                                            )}
+                                        </li>
+                                    ))
+                                ) : (
+                                    <li>No hay preguntas definidas en este cuestionario.</li>
+                                )}
+                            </ul>
+
+                            <div className="add-question">
+                                <label>Añadir nueva pregunta:</label>
+                                <div className="question-input-group">
+                                    <div className="question-type-select">
+                                        <select
+                                            value={questionType}
+                                            onChange={(e) => setQuestionType(e.target.value)}
+                                            className="question-type-dropdown"
+                                        >
+                                            <option value="Control">Texto</option>
+                                            <option value="Number">Numérico</option>
+                                        </select>
+                                    </div>
+                                    <div className="question-input">
+                                        <input
+                                            type="text"
+                                            value={newQuestion}
+                                            onChange={(e) => setNewQuestion(e.target.value)}
+                                            placeholder="Ej. ¿Tiene alguna lesión previa?"
+                                        />
+                                        <GradientButton
+                                            variant="create"
+                                            onClick={addQuestion}
+                                            disabled={!newQuestion.trim()}
+                                            className="add-question-button"
+                                        >
+                                            Añadir
+                                        </GradientButton>
+                                    </div>
+                                </div>
+                                <p className="type-hint">
+                                    {questionType === "Control" ?
+                                        "El campo de texto permite cualquier respuesta textual." :
+                                        "El campo numérico solo permitirá introducir números."}
+                                </p>
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="modal-buttons">
+                        <GradientButton variant="edit" onClick={handleSave}>Guardar</GradientButton>
+                        <GradientButton variant="grey" onClick={onClose}>Cancelar</GradientButton>
+                    </div>
+                </div>
             </div>
-          </div>
         );
-      }
-      if (error) return <p>Error: {error}</p>;
+    };
+
+
+
+    if (loading) return <p>Cargando perfil...</p>;
+    if (error) return <p>Error: {error}</p>;
 
     return (
-        <div className="max-w-7xl mx-auto bg-gray-50 py-8 px-4 sm:px-6 lg:px-8"
-         style={{ backgroundColor: "rgb(238, 251, 250)" }}>
-            <div className="md:flex md:gap-8">
-                {/* Left Section */}
-                <div className="md:w-1/3">
-                    <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-                        {/* Profile Picture */}
-                        <div className="flex flex-col items-center mb-6">
-                            <div className="relative w-32 h-32 mb-4">
-                                <img
-                                    src={getImageSrc()}
-                                    alt="Profile"
-                                    className="w-full h-full object-cover rounded-full border-4 border-white shadow"
-                                />
-                                <label 
-                                    className="absolute bottom-0 right-0 bg-blue-500 text-white p-2 rounded-full cursor-pointer shadow-md hover:bg-blue-600 transition-colors"
-                                    htmlFor="file"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fillRule="evenodd" d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4h3a3 3 0 006 0h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm2.5 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm2.45 4a2.5 2.5 0 10-4.9 0h4.9zM12 9a1 1 0 100 2h3a1 1 0 100-2h-3zm-1 4a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clipRule="evenodd" />
-                                    </svg>
-                                </label>
-                                <input id="file" type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
-                            </div>
-                            
-                            <h2 className="text-2xl font-semibold text-gray-800">
-                                {profile?.user?.first_name + " " + profile?.user?.last_name || "Nombre"}
-                            </h2>
-                            <p className="text-gray-500">@{profile?.user?.username || "usuario"}</p>
-                        </div>
-                        
-                        {/* User Info Cards */}
-                        <div className="space-y-3 mb-6">
-                            <div className="flex items-center p-3 bg-gray-50 rounded-md">
-                                <div className="text-blue-500 mr-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fillRule="evenodd" d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4h3a3 3 0 006 0h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm2.5 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm2.45 4a2.5 2.5 0 10-4.9 0h4.9zM12 9a1 1 0 100 2h3a1 1 0 100-2h-3zm-1 4a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clipRule="evenodd" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p className="text-sm text-gray-500">DNI</p>
-                                    <p className="font-medium">{profile?.user?.dni || "No disponible"}</p>
-                                </div>
-                            </div>
-                            
-                            <div className="flex items-center p-3 bg-gray-50 rounded-md">
-                                <div className="text-blue-500 mr-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                        <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p className="text-sm text-gray-500">Número de colegiado</p>
-                                    <p className="font-medium">{profile?.collegiate_number || "No disponible"}</p>
-                                </div>
-                            </div>
-                            
-                            <div className="flex items-center p-3 bg-gray-50 rounded-md">
-                                <div className="text-blue-500 mr-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p className="text-sm text-gray-500">Colegio</p>
-                                    <p className="font-medium">{profile?.autonomic_community || "No disponible"}</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        {/* Services Section */}
-                        <div className="bg-white rounded-lg shadow-sm p-6">
-                            <div className="flex justify-between items-center mb-4">
-                                <h2 className="text-xl font-semibold text-gray-800">Servicios </h2>
-                                <GradientButton 
-                                    variant="create"
-                                    onClick={() => setShowServiceModal(!showServiceModal)}
-                                    className="px-1 flex items-center justify-center"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
-                                    </svg>
-                                    <span>Añadir servicio</span>
-                                </GradientButton>
-                            </div>
-                            
-                            <div className="border-t border-gray-200 pt-4">
-                                {Object.keys(services).length === 0 ? (
-                                    <p className="text-gray-500 text-center py-6">No hay servicios añadidos aún.</p>
-                                ) : (
-                                <div className="grid gap-4 md:grid-cols-1">
-                                    {Object.entries(services).map(([key, service]) => (
-                                        <div
-                                        key={key}
-                                        className="relative bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer border border-gray-100 overflow-hidden group w-full"
-                                        onClick={() => handleServiceClick(key, service)}
-                                       >
-                                         {/* Header section with title and optional tag */}
-                                         <div className="flex justify-between items-center p-4 pb-2 border-b border-gray-100">
-                                           <h3 className="font-bold text-xl text-gray-800 group-hover:text-blue-600 transition-colors">
-                                             {service.titulo}
-                                           </h3>
-                                           <span className="bg-blue-500 text-white text-xs px-2 py-1 rounded-full">
-                                             Servicio
-                                           </span>
-                                         </div>
-                                       
-                                         {/* Description */}
-                                         <p className="text-gray-600 text-sm px-4 py-3 leading-relaxed">
-                                           {service.descripcion}
-                                         </p>
-                                       
-                                         {/* Details section with icons */}
-                                         <div className="px-4 pb-4 space-y-2 text-sm">
-                                           <div className="flex items-center justify-between">
-                                             <div className="flex items-center text-gray-500">
-                                               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                               </svg>
-                                               <span>Precio:</span>
-                                             </div>
-                                             <span className="font-semibold text-gray-800">{service.precio}</span>
-                                           </div>
-                                           <div className="flex items-center justify-between">
-                                             <div className="flex items-center text-gray-500">
-                                               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                               </svg>
-                                               <span>Frecuencia:</span>
-                                             </div>
-                                             <span className="text-gray-700">{service.frecuencia}</span>
-                                           </div>
-                                           <div className="flex items-center justify-between">
-                                             <div className="flex items-center text-gray-500">
-                                               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                               </svg>
-                                               <span>Duración:</span>
-                                             </div>
-                                             <span className="text-gray-700">{service.duracion}</span>
-                                           </div>
-                                         </div>
-                                       </div>
-                                    ))}
-                                </div>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                {/* Right Section */}
-                <div className="md:w-2/3">
-                    {/* Profile Form */}
-                    <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-                        <h2 className="text-xl font-semibold text-gray-800 mb-4">Información Personal</h2>
-                        
-                        <form onSubmit={handleSubmit} className="space-y-5">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                                <div className="relative">
-                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                                    <Mail size={18} className="m-auto" />
-                                </div>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        value={profile.user.email}
-                                        onChange={handleChange}
-                                        className="w-full pl-10 pr-3 py-3 border-2 border-gray-200 rounded-xl transition-all duration-200 outline-none focus:border-blue-500 focus:shadow-[0_0_0_4px_rgba(59,130,246,0.1)]"
-                                    />
-                                </div>
-                                {formErrors.email && <p className="mt-1 text-sm text-red-600">{formErrors.email}</p>}
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
-                                <div className="relative">
-                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                                        <Phone size={18} />
-                                    </div>
-                                    <input
-                                        type="text"
-                                        name="phone_number"
-                                        value={profile.user.phone_number}
-                                        onChange={handleChange}
-                                        className="w-full pl-10 pr-3 py-3 border-2 border-gray-200 rounded-xl transition-all duration-200 outline-none focus:border-blue-500 focus:shadow-[0_0_0_4px_rgba(59,130,246,0.1)]"
-                                    />
-                                </div>
-                                {formErrors.phone_number && <p className="mt-1 text-sm text-red-600">{formErrors.phone_number}</p>}
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">DNI</label>
-                                    <div className="relative">
-                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                                            <FileText size={18} />
-                                        </div>
-                                        <input
-                                            type="text"
-                                            name="dni"
-                                            value={pendingChanges.dni || profile.user.dni}
-                                            onChange={handleSensitiveChange}
-                                            className="w-full pl-10 pr-3 py-3 border-2 border-gray-200 rounded-xl transition-all duration-200 outline-none focus:border-blue-500 focus:shadow-[0_0_0_4px_rgba(59,130,246,0.1)]"
-                                        />
-                                    </div>
-                                    {formErrors.dni && <p className="mt-1 text-sm text-red-600">{formErrors.dni}</p>}
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Código Postal</label>
-                                    <div className="relative">
-                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                                            <MapPin size={18} />
-                                        </div>
-                                        <input
-                                            type="text"
-                                            name="postal_code"
-                                            value={profile.user.postal_code}
-                                            onChange={handleChange}
-                                            className="w-full pl-10 pr-3 py-3 border-2 border-gray-200 rounded-xl transition-all duration-200 outline-none focus:border-blue-500 focus:shadow-[0_0_0_4px_rgba(59,130,246,0.1)]"
-                                        />
-                                    </div>
-                                    {formErrors.postal_code && <p className="mt-1 text-sm text-red-600">{formErrors.postal_code}</p>}
-                                </div>
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
-                                <div className="relative">
-                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                                        <Lock size={18} />
-                                    </div>
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        value={pendingChanges.password || "******"}
-                                        onChange={handleSensitiveChange}
-                                        className="w-full pl-10 pr-3 py-3 border-2 border-gray-200 rounded-xl transition-all duration-200 outline-none focus:border-blue-500 focus:shadow-[0_0_0_4px_rgba(59,130,246,0.1)]"
-                                    />
-                                </div>
-                                {formErrors.password && <p className="mt-1 text-sm text-red-600">{formErrors.password}</p>}
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Biografía:</label>
-                                <textarea
-                                    name="bio"
-                                    value={profile.bio ? profile.bio : ""}
-                                    onChange={handleChange}
-                                    rows={4}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                />
-                                {formErrors["bio"] && (
-                                    <p className="mt-1 text-sm text-red-600">{formErrors["bio"]}</p>
-                                )}
-                            </div>
-
-                            {/* Confirmation Modal */}
-                            {showConfirmation && (
-                                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                                    <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm">
-                                        <h2 className="text-lg font-bold mb-4">Confirmar Cambios</h2>
-                                        <p className="text-sm text-gray-600 mb-6">
-                                            Estás a punto de cambiar información sensible (DNI o contraseña). Si estás cambiando tu contraseña, ingresa tu contraseña actual.
-                                        </p>
-                                        {pendingChanges.password && (
-                                            <div className="mb-4">
-                                                <label className="block text-sm font-medium text-gray-700 mb-1">Contraseña Actual</label>
-                                                <input
-                                                    type="password"
-                                                    value={oldPassword}
-                                                    onChange={(e) => setOldPassword(e.target.value)}
-                                                    className="w-full px-3 py-2 border-2 border-gray-200 rounded-xl outline-none focus:border-blue-500 focus:shadow-[0_0_0_4px_rgba(59,130,246,0.1)]"
-                                                />
-                                                {formErrors.old_password && <p className="mt-1 text-sm text-red-600">{formErrors.old_password}</p>}
-                                            </div>
-                                        )}
-                                        <div className="flex justify-end space-x-4">
-                                            <GradientButton variant="grey" onClick={cancelSensitiveChanges}>
-                                                Cancelar
-                                            </GradientButton>
-                                            <GradientButton variant="danger" onClick={confirmSensitiveChanges}>
-                                                Confirmar
-                                            </GradientButton>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-
-                            <GradientButton variant="edit" className="mt-8 w-full py-4 px-6 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-xl transition-all duration-200 transform hover:-translate-y-0.5 flex items-center justify-center">
-                                <Save size={18} className="mr-2" />
-                                Actualizar Perfil
-                            </GradientButton>
-                        </form>
+        <div 
+            className="min-h-screen flex items-center justify-center px-6" 
+            style={{ backgroundColor: "rgb(238, 251, 250)" }}
+        >
+            <div className="w-full max-w-5xl bg-white shadow-lg rounded-2xl overflow-hidden grid grid-cols-3">
+                {/* Barra lateral izquierda - Sección de perfil */}
+                <div className="col-span-1 bg-blue-600 text-white p-6 flex flex-col items-center">
+                    <div className="relative mb-4">
+                        <img 
+                            src={getImageSrc()} 
+                            alt="Perfil" 
+                            className="w-40 h-40 rounded-full object-cover border-4 border-white"
+                        />
+                        <label 
+                            htmlFor="file-upload" 
+                            className="absolute bottom-0 right-0 bg-white text-blue-600 p-2 rounded-full cursor-pointer"
+                        >
+                            <Camera className="w-5 h-5" />
+                            <input 
+                                id="file-upload" 
+                                type="file" 
+                                className="hidden" 
+                                onChange={handleFileChange} 
+                            />
+                        </label>
                     </div>
                     
-                    {/* Calendar Schedule */}
-                    <div className="bg-white rounded-lg shadow-sm p-6">
-                        <h3 className="text-lg font-semibold text-gray-800 mb-3">Calendario de disponibilidad</h3>
-                        <div className="bg-gray-50 p-3 rounded-md">
-                            <ScheduleCalendar 
-                                initialSchedule={schedule} 
-                                onScheduleChange={handleScheduleChange}
-                            />
-                        </div>
+                    <h2 className="text-xl font-bold mb-2">{profile.user.username}</h2>
+                    <p className="text-blue-200 mb-4">Profesional</p>
+                    
+                    {/* Sección de horario */}
+                    <div className="w-full mt-4">
+                        <h3 className="text-lg font-semibold mb-2">Mi Horario</h3>
+                        <p className="text-blue-200">{getScheduleSummary()}</p>
+                        <br></br>
+                        <GradientButton 
+                            variant="edit"
+                            onClick={() => setScheduleModalOpen(true)}
+                        >
+                            Editar Horario
+                        </GradientButton>
                     </div>
                 </div>
-            </div>
-            
-            {/* Modal for adding services */}
-            {showServiceModal && (
-                <ServiceModal
-                    onClose={() => setShowServiceModal(false)}
-                    onSave={handleAddService}
-                />
-            )}
 
-            {/* Modals */}
-            {showServiceModal && (
-                <ServiceModal
-                    onClose={() => setShowServiceModal(false)}
-                    onSave={handleAddService}
-                />
-            )}
-            
-            {/* Add the ServiceEditModal here */}
-            {showEditServiceModal && selectedService && (
-                <ServiceEditModal
-                    service={selectedService}
-                    serviceName={selectedServiceName}
-                    onClose={() => setShowEditServiceModal(false)}
-                    onSave={handleUpdateService}
-                    onDelete={handleDeleteService}
-                />
-            )}
+                {/* Contenido derecho - Sección de formulario */}
+                <div className="col-span-2 p-8 space-y-6">
+                    {/* Formulario de actualización de perfil */}
+                    <form onSubmit={handleSubmit} className="space- y-4">
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                                <label className="block text-sm font-medium text-gray-700">Correo Electrónico</label>
+                                <input 
+                                    type="email" 
+                                    name="email"
+                                    value={profile.user.email} 
+                                    onChange={handleChange}
+                                    className="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
+                                />
+                                {formErrors.email && <span className="text-red-500 text-sm">{formErrors.email}</span>}
+                            </div>
+                            <div className="space-y-2">
+                                <label className="block text-sm font-medium text-gray-700">Teléfono</label>
+                                <input 
+                                    type="text" 
+                                    name="phone_number"
+                                    value={profile.user.phone_number} 
+                                    onChange={handleChange}
+                                    className="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
+                                />
+                                {formErrors.phone_number && <span className="text-red-500 text-sm">{formErrors.phone_number}</span>}
+                            </div>
+                        </div>
+
+                        {/* Desplegable de especializaciones */}
+                        <div className="space-y-2">
+                            <label className="block text-sm font-medium text-gray-700">Especializaciones</label>
+                            <div className="relative">
+                                <div 
+                                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                                    className="border border-gray-300 rounded-md py-2 px-3 cursor-pointer"
+                                >
+                                    {selectedSpecializations.length > 0 
+                                        ? `${selectedSpecializations.length} seleccionadas` 
+                                        : "Seleccionar Especializaciones"}
+                                </div>
+                                {dropdownOpen && (
+                                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
+                                        <input 
+                                            type="text" 
+                                            placeholder="Buscar especializaciones..."
+                                            value={searchQuery}
+                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                            className="w-full p-2 border-b"
+                                        />
+                                        {availableSpecializations
+                                            .filter(spec => 
+                                                spec.toLowerCase().includes(searchQuery.toLowerCase())
+                                            )
+                                            .map(spec => (
+                                                <div 
+                                                    key={spec} 
+                                                    className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                                                    onClick={() => {
+                                                        setSelectedSpecializations(prev => 
+                                                            prev.includes(spec) 
+                                                                ? prev.filter(s => s !== spec)
+                                                                : [...prev, spec]
+                                                        );
+                                                    }}
+                                                >
+                                                    <input 
+                                                        type="checkbox" 
+                                                        checked={selectedSpecializations.includes(spec)}
+                                                        readOnly
+                                                        className="mr-2"
+                                                    />
+                                                    {spec}
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Biografía */}
+                        <div className="space-y-2">
+                            <label className="block text-sm font-medium text-gray-700">Biografía</label>
+                            <textarea 
+                                name="bio"
+                                value={profile.bio || ""} 
+                                onChange={handleChange}
+                                rows={4}
+                                className="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
+                            />
+                            {formErrors.bio && <span className="text-red-500 text-sm">{formErrors.bio}</span>}
+                        </div>
+
+                        {/* Sección de servicios */}
+                        <div className="space-y-4">
+                            <div className="flex justify-between items-center">
+                                <h3 className="text-lg font-semibold">Servicios</h3>
+                                <GradientButton 
+                                    variant="create"
+                                    onClick={(e) => {
+                                        e.preventDefault(); // Esto evita que se envíe el formulario
+                                        setEditingServiceIndex(null);
+                                        setShowServiceModal(true);
+                                    }}
+                                >
+                                    <Plus className="mr-2 w-4 h-4" /> Añadir Servicio
+                                </GradientButton>
+                            </div>
+
+                            {services.length === 0 ? (
+                                <p className="text-gray-500 text-center">No hay servicios registrados</p>
+                            ) : (
+                                <div className="space-y-3">
+                                    {services.map((service, index) => (
+                                        <div 
+                                            key={index} 
+                                            className="border rounded-md p-3 flex justify-between items-center"
+                                        >
+                                            <div>
+                                                <h4 className="font-semibold">{service.titulo}</h4>
+                                                <p className="text-sm text-gray-600">{service.descripcion}</p>
+                                            </div>
+                                            <div className="flex space-x-2">
+                                                <GradientButton
+                                                    variant="edit"
+                                                    onClick={() => handleEditService(index)}
+                                                >
+                                                    <Edit className="w-4 h-4" />
+                                                </GradientButton>
+                                                <GradientButton 
+                                                    variant="danger"
+                                                    onClick={() => handleDeleteService(index)}
+                                                    className="text-red-500 hover:bg-red-100 p-2 rounded"
+                                                >
+                                                    <Trash2 className="w-4 h-4" />
+                                                </GradientButton>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
+                        <GradientButton
+                            variant="edit"
+                            className="mt-8 w-full py-4 px-6 bg-gradient-to-r from-[#1E5ACD] to-[#3a6fd8] text-white font-semibold rounded-xl transition-all duration-200 transform hover:-translate-y-0.5 flex items-center justify-center"
+                        >
+                            <Save size={18} className="mr-2" />
+                            Actualizar Perfil
+                        </GradientButton>
+                    </form>
+                </div>
+
+                  {/* Modal para añadir/editar servicios */}
+                  {showServiceModal && (
+                    <ServiceModal
+                        onClose={() => {
+                            setShowServiceModal(false);
+                            setEditingServiceIndex(null);
+                        }}
+                        onSave={handleAddService}
+                        editingService={editingServiceIndex !== null ? services[editingServiceIndex] : undefined}
+                    />
+                )}
+
+                {/* Modal para editar el horario */}
+                {scheduleModalOpen && (
+                    <div className="schedule-modal-overlay">
+                        <div className="schedule-modal-content">
+                            <div className="schedule-modal-header">
+                                <h2 className="schedule-modal-title">Configuración de horario</h2>
+                                <GradientButton
+                                    className="schedule-modal-close"
+                                    onClick={() => setScheduleModalOpen(false)}
+                                    aria-label="Cerrar"
+                                >
+                                    &times;
+                                </GradientButton>
+                            </div>
+                            <div className="schedule-modal-body">
+                                <div className="schedule-calendar-container">
+                                    <ScheduleCalendar
+                                        initialSchedule={schedule}
+                                        onScheduleChange={setSchedule}
+                                        className="schedule-calendar"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };
