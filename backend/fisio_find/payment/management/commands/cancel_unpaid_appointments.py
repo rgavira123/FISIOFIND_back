@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.utils import timezone
-from gestion_pagos.models import Payment
+from payment.models import Payment
 
 #SIRVE PARA CANCELAR CITAS NO PAGADAS CUYA FECHA DE PAGO HA EXPIRADO AUTOMATICAMENTE
 class Command(BaseCommand):

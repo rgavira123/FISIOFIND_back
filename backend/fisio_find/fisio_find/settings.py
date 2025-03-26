@@ -75,7 +75,7 @@ INSTALLED_APPS += [
     'terms',
     'guest_session',
     'treatments',
-    'gestion_pagos',
+    'payment',
 ]
 
 INSTALLED_APPS += ['corsheaders', 'django_extensions', 'django_filters']

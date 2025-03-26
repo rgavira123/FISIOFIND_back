@@ -5,9 +5,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Payment
 from .serializers import PaymentSerializer
-from gestion_citas.models import Appointment
+from appointment.models import Appointment
 from django.utils import timezone
-from gestion_usuarios.permissions import IsPatient, IsPhysiotherapist
+from users.permissions import IsPatient, IsPhysiotherapist
 from .utils.pdf_generator import generate_invoice_pdf
 from django.http import HttpResponse, JsonResponse
 from django.db.models import Sum

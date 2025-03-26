@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from datetime import timedelta
-from gestion_citas.models import Appointment
+from appointment.models import Appointment
 
 
 #HAY QUE PEDIR CAMBIO EN EL UML YA QUE SI QUIEREN LAS FACTURAS SE DEBERIAN DE GUARDAR EN UNA TABLA APARTE
