@@ -15,7 +15,6 @@ from .permissions import IsAdmin
 from django.db.models import Q
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-
 class PatientProfileView(generics.RetrieveAPIView):
     permission_classes = [IsPatient]
 
@@ -48,7 +47,6 @@ class PatientProfileView(generics.RetrieveAPIView):
 
         except Patient.DoesNotExist:
             return Response({"error": "Perfil de paciente no encontrado"}, status=status.HTTP_404_NOT_FOUND)
-
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -275,10 +273,25 @@ def physio_update_service_view(request, service_id):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def physio_get_services_view(_, physio_id):
+@permission_classes([AllowAny])
+def physio_get_services_view(request, physio_id):
     physio = get_object_or_404(Physiotherapist, id=physio_id)
+    physio_name = physio.user.first_name + " " + physio.user.last_name
+    response_data = {
+        'physio_name': physio_name,
+        'services': physio.services
+    }
+    return Response(response_data)
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated, IsPhysiotherapist])
+def physio_delete_service_view(request, service_name):
     try:
+        # Get the physiotherapist profile
+        physio = Physiotherapist.objects.get(user=request.user)
+        
+        # Get current services
         services = physio.services
         return Response(services)
     except Exception as e:
@@ -315,6 +328,7 @@ def admin_search_patients_by_user(request, query):
     patients = Patient.objects.filter(user__in=matched_users)
     serializer = PatientSerializer(patients, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 @api_view(['GET'])
 @permission_classes([IsAdmin])
@@ -358,40 +372,106 @@ class AdminPatientCreate(generics.CreateAPIView):
     '''
     API endpoint para crear un término para admin.
     '''
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdmin]
+    queryset = Patient.objects.all()
+    serializer_class = PatientRegisterSerializer
+
+class AdminPhysioCreate(generics.CreateAPIView):
+    '''
+    API endpoint para crear un término para admin.
+    '''
+    permission_classes = [IsAdmin]
+    queryset = Physiotherapist.objects.all()
+    serializer_class = PhysioRegisterSerializer
+    
+class AdminPhysioUpdate(generics.UpdateAPIView):
+    permission_classes = [IsAdmin]
+    queryset = Physiotherapist.objects.all()
+    serializer_class = PhysioRegisterSerializer
+    
+class AdminPatientUpdate(generics.UpdateAPIView):
+    permission_classes = [IsAdmin]
     queryset = Patient.objects.all()
     serializer_class = PatientRegisterSerializer
 
 
-class AdminPatientList(generics.ListAPIView):
+class AdminAppUserDetail(generics.RetrieveAPIView):
     '''
-    API endpoint para listar los pacientes para admin.
-    '''
-    permission_classes = [AllowAny]
-    queryset = Patient.objects.all()
-    serializer_class = PatientAdminViewSerializer
-
-class AdminPatientnDetail(generics.RetrieveAPIView):
-    '''
-    API endpoint que retorna un solo paciente por su id para admin.
+    API endpoint que retorna un solo user por su id para admin.
     '''
     permission_classes = [AllowAny]
-    queryset = Patient.objects.all()
-    serializer_class = PatientAdminViewSerializer
+    queryset = AppUser.objects.all()
+    serializer_class = AppUserAdminViewSerializer
+    
 
-class AdminPatientUpdate(generics.RetrieveUpdateAPIView):
-    '''
-    API endpoint para que admin actualice un término.
-    '''
-    permission_classes = [AllowAny]
-    queryset = Patient.objects.all()
-    serializer_class = PatientRegisterSerializer
+@api_view(['GET'])
+@permission_classes([IsAdmin])
+def admin_list_patient_profiles(request):
+    user = request.user
+    if hasattr(user, 'admin'):
+        patients = Patient.objects.all()   
+        patient_data = [{
+            "patient": PatientSerializer(patient).data,
+            "user_data": AppUserSerializer(patient.user).data
+        } for patient in patients]
+        return Response({"patients": patient_data}, status=status.HTTP_200_OK)
+    return Response({"error": "No tienes permisos para ver esta información."}, status=status.HTTP_403_FORBIDDEN)
 
+
+@api_view(['GET'])
+@permission_classes([IsAdmin])
+def admin_list_physioterapist_profiles(request):
+    user = request.user
+    if hasattr(user, 'admin'):
+        physioterapists = Physiotherapist.objects.all()   
+        physioterapist_data = [{
+            "physioterapist": PhysioSerializer(physioterapist).data,
+            "user_data": AppUserSerializer(physioterapist.user).data
+        } for physioterapist in physioterapists]
+        return Response({"physioterapists": physioterapist_data}, status=status.HTTP_200_OK)
+
+    return Response({"error": "No tienes permisos para ver esta información."}, status=status.HTTP_403_FORBIDDEN)
+
+@api_view(['PATCH'])
+@permission_classes([IsAdmin])
+def admin_remove_user(request, user_id):
+    user_to_update = get_object_or_404(AppUser, id=user_id)
+
+    if hasattr(user_to_update, 'admin'):
+        return Response({"error": "No puedes eliminar a otro administrador."}, status=status.HTTP_403_FORBIDDEN)
+    
+    user_to_update.account_status = "REMOVED"
+    user_to_update.save()
+
+    return Response({"message": "Usuario marcado como REMOVED correctamente. Para eliminarlo, debe hacerlo directamente desde la base de datos."}, status=status.HTTP_200_OK)
+
+
+@api_view(['PATCH'])
+@permission_classes([IsAdmin])
+def admin_update_account_status(request, user_id):
+    user_to_update = get_object_or_404(AppUser, id=user_id)
+
+    new_status = request.data.get('account_status')
+    if not new_status:
+        return Response({"error": "Debes proporcionar un nuevo estado de cuenta."}, status=status.HTTP_400_BAD_REQUEST)
+
+    valid_statuses = [choice[0] for choice in ACCOUNT_STATUS_CHOICES]
+    if new_status not in valid_statuses:
+        return Response({"error": "Estado de cuenta inválido."}, status=status.HTTP_400_BAD_REQUEST)
+
+    user_to_update.account_status = new_status
+    user_to_update.save()
+
+    return Response({"message": "Estado de cuenta actualizado correctamente.", "new_status": new_status}, status=status.HTTP_200_OK)
+"""
+"""
+'''
 class AdminPatientDelete(generics.DestroyAPIView):
-    '''
-    API endpoint para que admin elimine un término.
-    '''
+    
+    #API endpoint para que admin elimine un término.
+
     permission_classes = [AllowAny]
     queryset = Patient.objects.all()
     serializer_class = PatientRegisterSerializer
+'''
 """

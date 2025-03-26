@@ -68,7 +68,7 @@ INSTALLED_APPS += [
 
 INSTALLED_APPS += [
     'users',
-    'gestion_citas',
+    'appointment',
     'terms',
     'guest_session',
     'treatments',
@@ -192,7 +192,7 @@ DATABASES = {
         'NAME': os.getenv('DATABASE_NAME', env('DATABASE_NAME', default='postgres')),
         'USER': os.getenv('DATABASE_USER', env('DATABASE_USER', default='postgres')),
         'PASSWORD': os.getenv('DATABASE_PASSWORD', env('DATABASE_PASSWORD', default='')),
-        'HOST': os.getenv('DATABASE_HOST', env('DATABASE_HOST', default='localhosts')),
+        'HOST': os.getenv('DATABASE_HOST', env('DATABASE_HOST', default='localhost')),
         'PORT': os.getenv('DATABASE_PORT', env('DATABASE_PORT', default='5432')),
         'OPTIONS': {
             'sslmode': 'require' if IS_PRODUCTION else 'prefer',

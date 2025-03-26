@@ -1,8 +1,9 @@
 import axios from "axios";
 import { CalendarProps } from "@/lib/definitions";
-import Image from "next/image";
 import AlternativeSelector from "./alternative-selector";
 import { getApiBaseUrl } from "@/utils/api";
+import { formatDateFromIso } from "@/lib/utils";
+//import { formatDateTime } from "@/utils/date"; // Import formatDateTime from the appropriate utility file
 import { useState, useEffect, useRef } from "react"; // Agregar useRef y useEffect
 
 // Función para formatear fechas
@@ -56,8 +57,9 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
   const closeModal = () => {
     setIsClosing(true);
     setTimeout(() => {
-      setSelectedEvent(null);
-    }, 200);
+      setSelectedEvent(null); // Close modal after animation
+      setEditionMode(false); // Close edition mode after animation
+    }, 200); // Match the duration of the transition
   };
 
   const getStatusBadge = () => {
@@ -77,8 +79,8 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
       canceled: "Cancelada",
     };
 
-    const statusClass = statusClasses[selectedEvent.status] || "bg-gray-300 text-gray-700";
-    const statusLabel = statusText[selectedEvent.status] || "Desconocido";
+    const statusClass = selectedEvent.status && statusClasses[selectedEvent.status as keyof typeof statusClasses] || "bg-gray-300 text-gray-700";
+    const statusLabel = selectedEvent.status && statusText[selectedEvent.status as keyof typeof statusText] || "Desconocido";
 
     return (
       <span
@@ -130,12 +132,10 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
 
     axios
       .put(
-        `${getApiBaseUrl()}/api/appointment/update/${selectedEvent?.id}/`,
+        `${getApiBaseUrl()}/api/appointment/update/${selectedEvent?.id}/accept-alternative/`,
         {
           start_time: startDateTime,
           end_time: endDateTime,
-          status: "confirmed",
-          alternatives: selectedEvent?.alternatives,
         },
         {
           headers: {
@@ -160,8 +160,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
 
     axios
       .put(
-        `${getApiBaseUrl()}/api/appointment/update/${
-          selectedEvent.id
+        `${getApiBaseUrl()}/api/appointment/update/${selectedEvent.id
         }/confirm/`,
         {
           status: "confirmed",
@@ -215,7 +214,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
         <div className="relative flex-shrink-0">
           <div className="bg-gradient-to-r from-teal-500 to-teal-600 px-6 pt-12 pb-6">
             <div className="flex justify-between items-start">
-              <h2 
+              <h2
                 id="modal-title"
                 className="text-white text-xl font-medium truncate max-w-xs"
               >
@@ -223,7 +222,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
               </h2>
               {getStatusBadge()}
             </div>
-            
+
             <div className="flex items-center mt-4 text-teal-50">
               <svg className="w-5 h-5 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
@@ -232,10 +231,10 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
                 <line x1="3" y1="10" x2="21" y2="10"></line>
               </svg>
               <span className="text-sm capitalize">
-                {formatDateTime(selectedEvent.start)}
+                {formatDateFromIso(selectedEvent.start)}
               </span>
             </div>
-            
+
             {selectedEvent.end && (
               <div className="flex items-center mt-2 text-teal-50">
                 <svg className="w-5 h-5 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -248,7 +247,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
               </div>
             )}
           </div>
-          
+
           {/* Close button */}
           <button
             className="absolute top-3 right-3 bg-teal-400 bg-opacity-20 hover:bg-opacity-30 text-white p-1.5 rounded-full transition-colors duration-150"
@@ -274,7 +273,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
               <p className="text-gray-700">{selectedEvent.description}</p>
             </div>
           )}
-          
+
           {/* Service info if available */}
           {selectedEvent.service && selectedEvent.service.type && (
             <div className="mb-6 bg-gray-50 rounded-lg p-3">
@@ -381,10 +380,12 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
           {selectedEvent.alternatives && currentRole === "patient" && (
             <div className="mt-6 p-4 border border-gray-200 rounded-lg bg-gray-50">
               <h3 className="text-sm font-medium text-gray-700 mb-3">Opciones alternativas</h3>
-              <AlternativeSelector
-                alternatives={selectedEvent.alternatives}
-                onConfirmSelection={handleSelection}
-              />
+              <div className="w-full flex justify-center">
+                <AlternativeSelector
+                  alternatives={selectedEvent.alternatives}
+                  onConfirmSelection={handleSelection}
+                />
+              </div>
             </div>
           )}
           
@@ -402,8 +403,8 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
                   Confirmar cita
                 </button>
               )}
-              
-              {currentRole === "physiotherapist" && (
+
+              {currentRole === "physiotherapist" && isFutureAndTwoDaysAhead() && (
                 <button
                   className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-150 flex items-center"
                   onClick={() => setEditionMode(true)}
@@ -415,7 +416,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
                   Modificar cita
                 </button>
               )}
-              
+
               {selectedEvent && new Date(selectedEvent.start) > new Date() && (
                 <button
                   className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-150 flex items-center"

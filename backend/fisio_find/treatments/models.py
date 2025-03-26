@@ -1,3 +1,4 @@
+from multiselectfield import MultiSelectField
 from django.db import models
 from django.core.exceptions import ValidationError
 from users.models import Patient, Physiotherapist
@@ -34,10 +35,11 @@ class Session(models.Model):
 
     name = models.CharField(max_length=255, blank=True, null=True)
     treatment = models.ForeignKey(Treatment, on_delete=models.CASCADE, related_name='sessions')
-    day_of_week = models.CharField(max_length=10, choices=DAYS_OF_WEEK_CHOICES)
+    day_of_week = MultiSelectField(choices=DAYS_OF_WEEK_CHOICES, max_length=100)
 
     def __str__(self):
-        return f"Sesión para {self.treatment.patient.user.username} el {self.get_day_of_week_display()}"
+        dias = ", ".join(dict(self.DAYS_OF_WEEK_CHOICES).get(day, day) for day in self.day_of_week)
+        return f"Sesión para {self.treatment.patient.user.username} los días {dias}"
 
 class SessionTest(models.Model):
     TEXT = 'text'

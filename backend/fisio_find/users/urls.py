@@ -21,21 +21,20 @@ urlpatterns = [
     path('current-user/', return_user, name='current_user'),
     path('services/<int:physio_id>/', physio_get_services_view, name='physio_get_xservices'),
     
-    path('admin/patient/list/search/<str:query>/', admin_search_patients_by_user, name='admin_patient_list'),
-    path('admin/physio/list/search/<str:query>/',admin_search_physios_by_user, name="admin_physio_list"),
-    path('admin/patient/list/<int:pk>/', AdminPatientDetail.as_view(), name='admin_patient_detail'),
-    path('admin/physio/list/<int:pk>/', AdminPhysioDetail.as_view(), name='admin_physio_detail'),    
+
+
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 """
-    path('admin/patient/list/', AdminPatientList.as_view(), name='admin_patient_list'),
-    path('admin/patient/list/<int:pk>/', AdminPatientnDetail.as_view(), name='admin_patient_detail'),
-    path('admin/patient/create/', AdminPatientCreate.as_view(), name='admin_patient_create'),
-    path('admin/patient/edit/<int:pk>/', AdminPatientUpdate.as_view(), name='admin_patient_update'),
-    path('admin/patient/delete/<int:pk>/', AdminPatientDelete.as_view(), name='admin_patient_delete'),
-    path('admin/user/list/<int:pk>/', AdminAppUserDetail.as_view(), name='admin_app_user_detail'),
+    path('admin/patient/list/search/<str:query>/', admin_search_patients_by_user, name='admin_patient_list'),
+    path('admin/physio/list/search/<str:query>/',admin_search_physios_by_user, name="admin_physio_list"),
+    path('admin/patient/list/<int:pk>/', AdminPatientDetail.as_view(), name='admin_patient_detail'),
+    path('admin/physio/list/<int:pk>/', AdminPhysioDetail.as_view(), name='admin_physio_detail'), 
 
-]
+    path('admin/patient/list/', admin_list_patient_profiles, name='admin_patient_list'),
+    path('admin/physio/list/', admin_list_physioterapist_profiles, name='admin_physio_list'),
+    path('admin/update-account-status/<int:user_id>/', admin_update_account_status, name='admin_update_account_status'),
+    path('admin/remove-user/<int:user_id>/', admin_remove_user, name='admin_remove_user'),
+    path('admin/physio/list/<int:pk>/', AdminPhysioDetail.as_view(), name='admin_physio_detail'),  
 """
-
