@@ -3,6 +3,7 @@ import { CalendarProps } from "@/lib/definitions";
 import AlternativeSelector from "./alternative-selector";
 import { getApiBaseUrl } from "@/utils/api";
 import { useState } from "react"; // Add useState import
+import { formatDateFromIso } from "@/lib/utils";
 //import { formatDateTime } from "@/utils/date"; // Import formatDateTime from the appropriate utility file
 
 // If formatDateTime is not available in a utility file, define it here:
@@ -217,7 +218,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
                 <line x1="3" y1="10" x2="21" y2="10"></line>
               </svg>
               <span className="text-sm capitalize">
-                {formatDateTime(selectedEvent.start)}
+                {formatDateFromIso(selectedEvent.start)}
               </span>
             </div>
 

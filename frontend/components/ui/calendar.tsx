@@ -10,6 +10,7 @@ import { AppointmentModal } from "./appointment-modal";
 import { CalendarProps } from "@/lib/definitions";
 import { getApiBaseUrl } from "@/utils/api";
 import axios from "axios";
+import { formatDateFromIso } from "@/lib/utils";
 
 const CalendarPage = ({
   events,
@@ -38,36 +39,35 @@ const CalendarPage = ({
     <div className="min-h-screen bg-gray-50 p-2 md:p-4">
       <div className="flex flex-col lg:flex-row gap-4">
         {/* Collapsible Sidebar Toggle (visible only on mobile) */}
-        <button 
+        <button
           className="lg:hidden flex items-center justify-center bg-white rounded-lg shadow-sm p-2 mb-2"
           onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         >
           <span className="mr-2">
             {isSidebarCollapsed ? "Mostrar eventos" : "Ocultar eventos"}
           </span>
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            width="16" 
-            height="16" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            strokeWidth="2" 
-            strokeLinecap="round" 
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
             strokeLinejoin="round"
           >
-            {isSidebarCollapsed ? 
-              <path d="M9 18l6-6-6-6" /> : 
+            {isSidebarCollapsed ?
+              <path d="M9 18l6-6-6-6" /> :
               <path d="M15 18l-6-6 6-6" />
             }
           </svg>
         </button>
 
         {/* Sidebar for Event Cards */}
-        <div 
-          className={`${
-            isSidebarCollapsed ? "hidden" : "block"
-          } lg:block lg:w-1/3 xl:w-1/4 bg-white rounded-lg shadow-sm p-4 mb-4 lg:mb-0 transition-all duration-300 ease-in-out`}
+        <div
+          className={`${isSidebarCollapsed ? "hidden" : "block"
+            } lg:block lg:w-1/3 xl:w-1/4 bg-white rounded-lg shadow-sm p-4 mb-4 lg:mb-0 transition-all duration-300 ease-in-out`}
         >
           <div className="flex justify-between items-center mb-4">
             <h2 className="font-medium text-lg text-gray-700">Eventos</h2>
@@ -96,36 +96,37 @@ const CalendarPage = ({
                   className="p-3 border border-gray-100 rounded-lg hover:shadow-md transition-all duration-200 cursor-pointer bg-white hover:bg-gray-50"
                   onMouseEnter={() => setHoveredEventId(event.title)}
                   onMouseLeave={() => setHoveredEventId(null)}
-                  onClick={() => setSelectedEvent({
-                    id: event.id?.toString() || "",
-                    title: event.title?.toString() || "Sin título",
-                    start: event.start?.toString() || "",
-                    end: event.end?.toString() || "",
-                    description: event.extendedProps?.description || "Sin descripción",
-                    status: event.extendedProps?.status || "Sin estado",
-                    service: {
-                      type: event.extendedProps?.service?.type || "Sin servicio",
-                      duration: event.extendedProps?.service?.duration || 0,
-                    },
-                    alternatives: event.extendedProps?.alternatives || null,
-                  })}
+                  onClick={() =>
+                    setSelectedEvent({
+                      id: event.id?.toString() || "",
+                      title: event.title?.toString() || "Sin título",
+                      start: event.start?.toString() || "",
+                      end: event.end?.toString() || "",
+                      description: event.description || "Sin descripción",
+                      status: event.status || "Sin estado",
+                      service: {
+                        type: event.service?.type || "Sin servicio",
+                        duration: event.service?.duration || 0,
+                      },
+                      alternatives: event.extendedProps?.alternatives || null,
+                    })
+                  }
                 >
                   <div className="flex justify-between items-start">
                     <h3 className="font-medium text-gray-800 line-clamp-1">{event.title}</h3>
                     <span
-                      className={`text-xs px-2 py-1 rounded-full ${
-                        event.extendedProps?.status === "confirmed"
+                      className={`text-xs px-2 py-1 rounded-full ${event.extendedProps?.status === "confirmed"
                           ? "bg-green-50 text-green-700"
                           : event.extendedProps?.status === "pending"
-                          ? "bg-yellow-50 text-yellow-700"
-                          : "bg-blue-50 text-blue-700"
-                      }`}
+                            ? "bg-yellow-50 text-yellow-700"
+                            : "bg-blue-50 text-blue-700"
+                        }`}
                     >
                       {event.extendedProps?.status === "confirmed"
                         ? "Confirmado"
                         : event.extendedProps?.status === "pending"
-                        ? "Pendiente"
-                        : "Reservado"}
+                          ? "Pendiente"
+                          : "Reservado"}
                     </span>
                   </div>
                   <p className="text-sm text-gray-500 mt-1 flex items-center">
@@ -133,12 +134,13 @@ const CalendarPage = ({
                       <circle cx="12" cy="12" r="10"></circle>
                       <polyline points="12 6 12 12 16 14"></polyline>
                     </svg>
-                    {new Date(event.start).toLocaleString("es", {
+                    {/* {new Date(event.start).toLocaleString("es", {
                       month: "short",
                       day: "numeric",
                       hour: "2-digit",
                       minute: "2-digit",
-                    })}
+                    })} */}
+                    {formatDateFromIso(event.start)}
                   </p>
                 </div>
               ))
@@ -274,10 +276,10 @@ const Calendar = ({
         view === "month"
           ? "dayGridMonth"
           : view === "week"
-          ? "timeGridWeek"
-          : view === "day"
-          ? "timeGridDay"
-          : "listWeek"
+            ? "timeGridWeek"
+            : view === "day"
+              ? "timeGridDay"
+              : "listWeek"
       );
     }
   }, [view]);
@@ -291,10 +293,10 @@ const Calendar = ({
         newView === "month"
           ? "dayGridMonth"
           : newView === "week"
-          ? "timeGridWeek"
-          : newView === "day"
-          ? "timeGridDay"
-          : "listWeek"
+            ? "timeGridWeek"
+            : newView === "day"
+              ? "timeGridDay"
+              : "listWeek"
       );
     }
   };
@@ -380,31 +382,28 @@ const Calendar = ({
             <div className="flex bg-blue-50 rounded-lg"> {/* Updated background color */}
               <button
                 onClick={() => handleViewChange("month")}
-                className={`px-3 py-1 text-sm font-medium rounded-l-lg transition-colors ${
-                  view === "month"
+                className={`px-3 py-1 text-sm font-medium rounded-l-lg transition-colors ${view === "month"
                     ? "bg-blue-500 text-white"
                     : "text-blue-700 hover:bg-blue-200"
-                }`}
+                  }`}
               >
                 Mes
               </button>
               <button
                 onClick={() => handleViewChange("week")}
-                className={`px-3 py-1 text-sm font-medium transition-colors ${
-                  view === "week"
+                className={`px-3 py-1 text-sm font-medium transition-colors ${view === "week"
                     ? "bg-blue-500 text-white"
                     : "text-blue-700 hover:bg-blue-200"
-                }`}
+                  }`}
               >
                 Semana
               </button>
               <button
                 onClick={() => handleViewChange("day")}
-                className={`px-3 py-1 text-sm font-medium rounded-r-lg transition-colors ${
-                  view === "day"
+                className={`px-3 py-1 text-sm font-medium rounded-r-lg transition-colors ${view === "day"
                     ? "bg-blue-500 text-white"
                     : "text-blue-700 hover:bg-blue-200"
-                }`}
+                  }`}
               >
                 Día
               </button>
@@ -478,11 +477,10 @@ const Calendar = ({
 
             return (
               <div
-                className={`w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center mx-auto ${
-                  isToday
+                className={`w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center mx-auto ${isToday
                     ? "bg-[#05AC9C] text-white font-medium"
                     : "text-[#05668D]"
-                }`}
+                  }`}
               >
                 {dayNumberText}
               </div>
