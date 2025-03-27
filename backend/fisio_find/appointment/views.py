@@ -16,7 +16,7 @@ from django.core.exceptions import ValidationError
 from rest_framework.views import APIView
 from django.utils.timezone import make_aware, is_aware
 from datetime import datetime, timezone, timedelta
-from appointment.emailUtils import send_appointment_email
+# from appointment.emailUtils import send_appointment_email
 from django.core import signing
 from django.core.signing import BadSignature, SignatureExpired
 from rest_framework.permissions import AllowAny
@@ -74,7 +74,7 @@ def create_appointment_patient(request):
     serializer = AppointmentSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
-        send_appointment_email(serializer.data['id'], 'booked')
+        # send_appointment_email(serializer.data['id'], 'booked')
         update_schedule(data)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -419,10 +419,10 @@ def update_appointment(request, appointment_id):
 
     if serializer.is_valid():
         serializer.save()
-        if serializer.data['alternatives']:
-            send_appointment_email(appointment.id, 'modified')
-        elif serializer.data['status'] == "confirmed":
-            send_appointment_email(appointment.id, 'modified-accepted')
+        # if serializer.data['alternatives']:
+        #     send_appointment_email(appointment.id, 'modified')
+        # elif serializer.data['status'] == "confirmed":
+        #     send_appointment_email(appointment.id, 'modified-accepted')
         update_schedule(data)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -504,7 +504,7 @@ def confirm_appointment(request, appointment_id):
     # Cambiar el estado a "confirmed"
     appointment.status = "confirmed"
     appointment.save()
-    send_appointment_email(appointment.id, 'confirmed')
+    # send_appointment_email(appointment.id, 'confirmed')
 
     # Serializar la cita actualizada
     serializer = AppointmentSerializer(appointment)
@@ -580,7 +580,7 @@ def confirm_alternative_appointment(request, token):
     appointment.save()
 
     # Enviar un correo de confirmación al paciente
-    send_appointment_email(appointment.id, 'modified-accepted')
+    # send_appointment_email(appointment.id, 'modified-accepted')
     return Response({"message": "¡Cita aceptada con éxito!"}, status=status.HTTP_200_OK)
 
 
@@ -614,7 +614,7 @@ def delete_appointment(request, appointment_id):
         return Response({"error": "No puedes borrar una cita con menos de 48 horas de antelación"}, status=status.HTTP_403_FORBIDDEN)
     
     # Enviar el correo con el rol del usuario
-    send_appointment_email(appointment.id, 'canceled', role)
+    # send_appointment_email(appointment.id, 'canceled', role)
 
     # Eliminar la cita
     appointment.delete()
@@ -674,7 +674,7 @@ def confirm_appointment_using_token(request, token):
     # Marca la cita como aceptada y guarda
     appointment.status = "confirmed"
     appointment.save()
-    send_appointment_email(appointment.id, 'confirmed')
+    # send_appointment_email(appointment.id, 'confirmed')
 
 
     return Response({"message": "¡Cita aceptada con éxito!"}, status=status.HTTP_200_OK)
