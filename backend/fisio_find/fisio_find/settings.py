@@ -22,7 +22,9 @@ ALLOWED_HOSTS = [
     '138.68.80.34',
     '167.99.246.186',
     's2.fisiofind.com',
-    's2-api.fisiofind.com'
+    's2-api.fisiofind.com',
+    's3.fisiofind.com',
+    's3-api.fisiofind.com'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -31,7 +33,11 @@ CSRF_TRUSTED_ORIGINS = [
     "http://167.99.246.186",
     "https://s2.fisiofind.com",
     "https://s2-api.fisiofind.com",
-    "wss://s2-api.fisiofind.com"
+    "wss://s2-api.fisiofind.com",
+    "wss://s3-api.fisiofind.com",
+    "https://s3.fisiofind.com",
+    "https://s3-api.fisiofind.com"
+    
 ]
 SECURE_PROXY_SSL_HEADER = ("X-Forwarded-Proto", "https")
 SESSION_COOKIE_SECURE = True
@@ -138,7 +144,11 @@ CORS_ALLOWED_ORIGINS = [
     "http://167.99.246.186",
     "https://s2-api.fisiofind.com",
     "https://s2.fisiofind.com",
-    "wss://s2-api.fisiofind.com"
+    "wss://s2-api.fisiofind.com",
+    "https://s3-api.fisiofind.com",
+    "https://s3.fisiofind.com",
+    "wss://s3-api.fisiofind.com"
+    
 ]
 
 ROOT_URLCONF = 'fisio_find.urls'
